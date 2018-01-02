@@ -12,8 +12,9 @@
     3. [언어(lang) 속성](#html-lang)
     4. [인코딩 설정](#html-charset)
     5. [IE 호환모드 설정](#html-ie-compatible)
-    6. [CSS, JavaScript 삽입](#html-type-attr)
-    7. [완벽함보다는 실용성을 추구](#html-pragmatism)
+    6. [주석](#html-comment)
+    7. [CSS, JavaScript 삽입](#html-type-attr)
+    8. [완벽함보다는 실용성을 추구](#html-pragmatism)
 4. [CSS](#css)
     1. [CSS 문법](#css-syntax)
     2. [미디어 쿼리 위치](#css-media-query)
@@ -21,7 +22,8 @@
     4. [클래스 작명](#css-naming)
     5. [선택자](#css-selector)
     6. [컴포넌트](#css-component)
-5. [License](#license)
+5. [배포](#release)    
+6. [License](#license)
 
 - - -
 
@@ -56,7 +58,6 @@
 ### 언어(lang) 속성
 문서 루트인 html 요소에 lang="ko" 속성을 추가합니다.
 
-    <!DOCTYPE html>
     <html lang="ko">
         ...
     </html>
@@ -72,6 +73,39 @@
 인터넷 익스플로러 및 크롬 브라우저가 항상 최신 버전의 레이아웃 엔진을 사용하여 문서를 렌더링하도록 지정합니다.
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    
+### 주석
+주석은 간결하게 작성합니다.
+
+    <!-- header -->
+    <header class="awa-header">
+        <!-- 로고 -->
+        <h1 class="hd-logo">
+            <a href="" class="hd-logo__link">ALLWIN AIR</a>
+        </h1>
+        <!-- //로고 -->
+
+        <!-- 메뉴 -->
+        <nav class="hd-nav">
+            <ul>
+                <li class="hd-nav__item">
+                    <a href="" class="hd-nav__link hd-nav__link--active js_hd-nav__link"></a>
+                </li>
+            </ul>
+        </nav>
+        <!-- //메뉴 -->
+
+        <!-- 유틸 -->
+        <section class="hd-util">
+            <ul>
+                <li class="hd-util__item">
+                    <a href="" class="hd-util__link"></a>
+                </li>
+            </ul>
+        </section>
+        <!-- //유틸 -->
+    </header>
+    <!-- //header -->    
 
 ### CSS, JavaScript 삽입
 CSS와 JavaScript를 불러올 때 `type` 속성을 생략합니다.
@@ -79,14 +113,14 @@ CSS와 JavaScript를 불러올 때 `type` 속성을 생략합니다.
     <!-- External CSS -->
     <link rel="stylesheet" href="awa.ui.min.css">
 
-    <!-- In-document CSS -->
+    <!-- Inline CSS -->
     <style>...</style>
 
     <!-- JavaScript -->
-    <script src="code-guide.js"></script>
+    <script src="awa.ui.min.js"></script>
 
 ### 완벽함보다는 실용성을 추구
-HTML 표준을 준수하고 시맨틱한 문서를 작성하기 위해 노력하기는 하지만 추가적인 노력이 필요하지 않은 범위내에서만 합니다. 최대한 간결한 코드를 사용하도록 합니다.
+HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되, 최대한 쉽과 간결한 코드를 작성하도록 합니다.
 
 
 - - -
@@ -112,14 +146,14 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성하기 위해 노력하
 ### 미디어 쿼리 위치
 미디어쿼리는 관련 규칙이 있는 자리에 모아 놓습니다.
 
-    .element { ... }
-    .element-avatar { ... }
-    .element-selected { ... }
+    .awa-header { ... }
+    .hd-logo { ... }
+    .hd-logo__link { ... }
 
     @media (min-width: 480px) {
-        .element { ... }
-        .element-avatar { ... }
-        .element-selected { ... }
+        .awa-header { ... }
+        .hd-logo { ... }
+        .hd-logo__link { ... }
     }
 
 ### 주석
@@ -166,7 +200,6 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성하기 위해 노력하
 * 선택자 우선순위(specificity)를 높이는 조합과 중첩을 사용하지 않습니다. 조합과 중첩은 3회를 초과하지 않습니다.
 * 여러 클래스를 묶을 때 쉼표 후 개행합니다.
 
-` `
 
     /* Bad example */
     section.tweet > header { ... }
@@ -183,18 +216,26 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성하기 위해 노력하
 * 계층 구조의 순서에 따라 작성합니다.
 * 코드 블럭을 분리할 때 공백(줄 바꿈)을 일관성 있게 사용합니다.
 
-` `
 
-    /* Modal: modal.scss */
+    /* Modal */
     .modal { ... }
     .modal__header { ... }
     .modal__body { ... }
     .modal__footer { ... }
     .modal__footer--disabled { ... }
 
+- - -
+
+### 배포
+css 및 js 파일은 용량처리를 위해 min파일로 압축 후 배포합니다.(압축툴은 IntelliJ IDEA에서 세팅하면 min파일 자동 생성)
+
+    /* CSS */
+    awa.ui.css --> awa.ui.min.css
+    
+    /* JS */
+    awa.ui.js --> awa.ui.min.js 
 
 - - -
 
 ### License
-
 Released under MIT by, and copyright 2018, @ALLWIN AIR
