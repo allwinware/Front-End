@@ -172,15 +172,8 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 주석은 간결하게 작성합니다. 
 
 ~~~
-    /* Bad example */
-    /* Modal - Wrapping element for .modal-header, .modal-body, modal-footer  */
-    .modal {
-        ...
-    }
-
-    /* Good example */
-    /* Modal */
-    .modal {
+    /* 로고 */
+    .hd-logo {
         ...
     }
 ~~~
@@ -199,28 +192,18 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 
 ~~~
     /* header안에 nav(header를 hd로 축약) */
-    .hd-nav { ... }                    // Block 
+    .hd-nav { ... }                   // Block 
     .hd-nav__item { ... }             // Block__Element
-    .hd-nav__link { ... }               // Block__Element
+    .hd-nav__link { ... }             // Block__Element
     .hd-nav__link--active { ... }     // Block__Element--Modifier
 ~~~
 
 ### 선택자 <a id="css-selector" href="#css-selector">#</a>
-* 클래스 선택자를 사용하지만, 상황에 따라서 타입 선택자를 사용합니다.
+* 클래스 선택자를 사용합니다.
+* 상황에 따라서 타입 선택자를 사용할수 있지만, 최대한 자제합니다.
 * 선택자 우선순위(specificity)를 높이는 조합과 중첩을 사용하지 않습니다. 조합과 중첩은 3회를 초과하지 않습니다.
 * 여러 클래스를 묶을 때 쉼표 후 개행합니다.
 
-~~~
-    /* Bad example */
-    section.tweet > header { ... }
-    section.tweet > header.tweet__header { ... }
-    .tweet > .tweet__header, .tweet > .tweet__username { ... }
-
-    /* Good example */
-    .tweet { ... }
-    .tweet__header,
-    .tweet__username { ... }
-~~~
 
 ### 컴포넌트 <a id="css-component" href="#css-component">#</a>
 * 컴포넌트 별로 코드를 모아서 작성합니다.
@@ -228,12 +211,12 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 * 코드 블럭을 분리할 때 공백(줄 바꿈)을 일관성 있게 사용합니다.
 
 ~~~
-    /* Modal */
-    .modal { ... }
-    .modal__header { ... }
-    .modal__body { ... }
-    .modal__footer { ... }
-    .modal__footer--disabled { ... }
+    /* button */
+    .awa-bt { ... }
+    .awa-bt__ok { ... }
+    .awa-bt__ok--active{ ... }
+    .awa-bt__yes { ... }
+    .awa-bt__yes--disbled { ... }
 ~~~
 
 ### 배포 <a id="release" href="#release">#</a>
