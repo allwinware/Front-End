@@ -225,6 +225,9 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 수정이 필요없는 resource는 cdn으로 관리합니다.
 
 ~~~
+    /* IMAGE */
+    <link rel="shortcut icon" href="https://cdn.allwin.bid/static/img/favicon_32_32.ico" type="image/x-icon">
+    
     /* CSS */
     <link rel="stylesheet" href="https://cdn.allwin.bid/static/css/awa.ui.min.css">
     
