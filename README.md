@@ -14,7 +14,6 @@
     5. [IE 호환모드 설정](#html-ie-compatible)
     6. [주석](#html-comment)
     7. [CSS, JavaScript 삽입](#html-type-attr)
-    8. [완벽함보다는 실용성을 추구](#html-pragmatism)
 4. [CSS](#css)
     1. [CSS 문법](#css-syntax)
     2. [미디어 쿼리 위치](#css-media-query)
@@ -30,7 +29,7 @@
 
 ## 기본 규칙 <a id="basic" href="#basic">#</a>
 
-올윈에어 마크업 가이드라인을 지켜 코드를 작성합니다. 규칙은 팀원들과 논의하여 항시 업데이트 가능 합니다.
+html표준을 준수하고 시멘틱한 문서 작성을 원칙으로 하되, 최대한 쉽고 간결한 코드를 작성하도록 합니다. 
 
 
 - - -
@@ -132,9 +131,6 @@ CSS와 JavaScript를 불러올 때 type 속성을 생략합니다.
     <!-- JavaScript -->
     <script src="awa.ui.min.js"></script>
 ~~~
-
-### 완벽함보다는 실용성을 추구 <a id="html-pragmatism" href="#html-pragmatism">#</a>
-HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되, 최대한 쉽과 간결한 코드를 작성하도록 합니다.
 
 
 - - -
