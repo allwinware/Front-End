@@ -181,7 +181,7 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 
 ### 클래스 작명 <a id="css-naming" href="#css-naming">#</a>
 * 클래스 명 규칙은 [BEM(Block Element Modifier)](http://getbem.com/naming/)스타일을 따릅니다.
-* 블럭을 감싸는 클래스명은 'awa-' prefix를 사용합니다.(예: awa-wrap, awa-header, awa-container, awa-footer)
+* Block을 감싸는 클래스명은 'awa-' prefix를 사용합니다.(예: awa-wrap, awa-header, awa-container, awa-footer)
 * 카멜 케이스와 파스칼 케이스는 사용하지 않습니다.
 * ID는 사용할 수 없고, 오직 class명만 사용할 수 있다.(개발처리를 위한 id는 가능)
 * 클래스 명이 길어지면 축약해서 사용 가능합니다. 
