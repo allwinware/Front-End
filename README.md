@@ -52,42 +52,42 @@
 ### HTML5 doctype <a id="html-doctype" href="#html-doctype">#</a>
 모든 HTML 페이지 시작 지점에 공백 없이 HTML5 문서 타입을 선언합니다.
 
-
+~~~
     <!DOCTYPE html>
     <html lang="ko">
     ...
     </html>    
-    
+~~~ 
     
 ### 언어(lang) 속성 <a id="html-lang" href="#html-lang">#</a>
 문서 루트인 html 요소에 lang="ko" 속성을 추가합니다.
 
-
+~~~
     <html lang="ko">
         ...
     </html>
-
+~~~
 
 ### 인코딩 설정 <a id="html-charset" href="#html-charset">#</a>
 문자열 인코딩을 명시적으로 선언합니다.
 
-
+~~~
     <head>
         <meta charset="UTF-8">
     </head>
-
+~~~
 
 ### IE 호환모드 설정 <a id="html-ie-compatible" href="#html-ie-compatible">#</a>
 인터넷 익스플로러 및 크롬 브라우저가 항상 최신 버전의 레이아웃 엔진을 사용하여 문서를 렌더링하도록 지정합니다.
 
-
+~~~
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    
+~~~ 
     
 ### 주석 <a id="html-comment" href="#html-comment">#</a>
 주석은 간결하게 작성합니다.
 
-
+~~~
     <!-- header -->
     <header class="awa-header">
         <!-- 로고 -->
@@ -117,12 +117,12 @@
         <!-- //유틸 -->
     </header>
     <!-- //header -->    
-
+~~~
 
 ### CSS, JavaScript 작성 <a id="html-type-attr" href="#html-type-attr">#</a>
 CSS와 JavaScript를 불러올 때 `type` 속성을 생략합니다.
 
-
+~~~
     <!-- External CSS -->
     <link rel="stylesheet" href="awa.ui.min.css">
 
@@ -131,7 +131,7 @@ CSS와 JavaScript를 불러올 때 `type` 속성을 생략합니다.
 
     <!-- JavaScript -->
     <script src="awa.ui.min.js"></script>
-
+~~~
 
 ### 완벽함보다는 실용성을 추구 <a id="html-pragmatism" href="#html-pragmatism">#</a>
 HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되, 최대한 쉽과 간결한 코드를 작성하도록 합니다.
@@ -161,7 +161,7 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 ### 미디어 쿼리 위치 <a id="css-syntax" href="#css-syntax">#</a>
 미디어쿼리는 관련 규칙이 있는 자리에 모아 놓습니다.
 
-
+~~~
     .awa-header { ... }
     .hd-logo { ... }
     .hd-logo__link { ... }
@@ -171,12 +171,12 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
         .hd-logo { ... }
         .hd-logo__link { ... }
     }
-
+~~~
 
 ### 주석 <a id="css-comment" href="#css-comment">#</a>
 주석은 간결하게 작성합니다. 
 
-
+~~~
     /* Bad example */
     /* Modal - Wrapping element for .modal-header, .modal-body, modal-footer  */
     .modal {
@@ -188,7 +188,7 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
     .modal {
         ...
     }
-
+~~~
 
 ### 클래스 작명 <a id="css-naming" href="#css-naming">#</a>
 * 클래스 명 규칙은 [BEM(Block Element Modifier)](http://getbem.com/naming/)스타일을 따릅니다.
@@ -198,8 +198,7 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 * 시각적 표현 대신 의미, 구조, 목적을 담아 작명합니다.
 * 변화 또는 상태를 나타내는 추가 클래스는 블록 또는 요소 이름에 더블 대시(`--`)를 붙여 작명합니다.
 
-` `
-
+~~~
     /* Bad example */
     .sform { ... }
     .themeLezhin { ... }
@@ -213,15 +212,14 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
     .search-form__input { ... }             // Block__Element
     .search-form__btn { ... }               // Block__Element
     .search-form__btn--disabled { ... }     // Block__Element--Modifier
-
+~~~
 
 ### 선택자 <a id="css-selector" href="#css-selector">#</a>
 * 클래스 선택자를 사용하지만, 상황에 따라서 타입 선택자를 사용합니다.
 * 선택자 우선순위(specificity)를 높이는 조합과 중첩을 사용하지 않습니다. 조합과 중첩은 3회를 초과하지 않습니다.
 * 여러 클래스를 묶을 때 쉼표 후 개행합니다.
 
-` `
-
+~~~
     /* Bad example */
     section.tweet > header { ... }
     section.tweet > header.tweet__header { ... }
@@ -231,33 +229,32 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
     .tweet { ... }
     .tweet__header,
     .tweet__username { ... }
-
+~~~
 
 ### 컴포넌트 <a id="css-component" href="#css-component">#</a>
 * 컴포넌트 별로 코드를 모아서 작성합니다.
 * 계층 구조의 순서에 따라 작성합니다.
 * 코드 블럭을 분리할 때 공백(줄 바꿈)을 일관성 있게 사용합니다.
 
-` `
-
+~~~
     /* Modal */
     .modal { ... }
     .modal__header { ... }
     .modal__body { ... }
     .modal__footer { ... }
     .modal__footer--disabled { ... }
-
+~~~
 
 ### 배포 <a id="release" href="#release">#</a>
 css 및 js 파일은 용량처리를 위해 min파일로 압축 후 배포합니다.(압축툴은 IntelliJ IDEA에서 세팅하면 min파일 자동 생성)
 
-
+~~~
     /* CSS */
     awa.ui.css --> awa.ui.min.css
     
     /* JS */
     awa.ui.js --> awa.ui.min.js 
-
+~~~
 
 ### License
 Released under MIT by, and copyright 2018, @ALLWIN AIR
