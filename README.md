@@ -38,7 +38,6 @@
 
 규칙을 준수하기 위해 [IntelliJ IDEA](https://www.jetbrains.com/idea/)를 사용합니다. 개발영역과 동일한 설정으로 코딩합니다.
 
-
 - - -
 
 ## HTML <a id="html" href="#html">#</a>
