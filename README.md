@@ -22,8 +22,9 @@
     4. [클래스 작명](#css-naming)
     5. [선택자](#css-selector)
     6. [컴포넌트](#css-component)
-5. [배포](#release)    
-6. [License](#license)
+5. [리소스](#resource)    
+6. [배포](#release)    
+7. [License](#license)
 
 - - -
 
@@ -218,6 +219,19 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
     .awa-bt__yes { ... }
     .awa-bt__yes--disbled { ... }
 ~~~
+
+
+### 리소스 <a id="resource" href="#resource">#</a>
+수정이 필요없는 resource는 cdn으로 관리합니다.
+
+~~~
+    /* CSS */
+    <link rel="stylesheet" href="https://cdn.allwin.bid/static/css/awa.ui.min.css">
+    
+    /* JS */
+    <script src="https://cdn.allwin.bid/static/js/jquery-2.2.4.min.js"></script>
+~~~
+
 
 ### 배포 <a id="release" href="#release">#</a>
 css 및 js 파일은 용량처리를 위해 min파일로 압축 후 배포합니다.(압축툴은 IntelliJ IDEA에서 세팅하면 min파일 자동 생성)
