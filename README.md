@@ -225,7 +225,7 @@ CSS와 JavaScript를 불러올 때 type 속성을 생략합니다.
     <link rel="shortcut icon" href="https://cdn.allwin.bid/static/img/favicon_32_32.ico" type="image/x-icon">
     
     /* CSS */
-    <link rel="stylesheet" href="https://cdn.allwin.bid/static/css/awa.ui.min.css">
+    <link rel="stylesheet" href="https://cdn.allwin.bid/static/css/awa.font.min.css">
     
     /* JS */
     <script src="https://cdn.allwin.bid/static/js/jquery-2.2.4.min.js"></script>
