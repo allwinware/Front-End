@@ -36,7 +36,7 @@
 
 ## 에디터 설정 <a id="editor" href="#editor">#</a>
 
-규칙을 준수하기 위해 <a href="https://www.jetbrains.com/idea/" target="_blank">IntelliJ IDEA</>를 사용합니다. 개발영역과 동일한 설정으로 코딩합니다.
+규칙을 준수하기 위해 [IntelliJ IDEA](https://www.jetbrains.com/idea/)를 사용합니다. 개발영역과 동일한 설정으로 코딩합니다.
 
 
 - - -
@@ -47,7 +47,7 @@
 
 * 들여쓰기는 공백문자 4 개를 사용합니다.
 * 속성(attr)값에는 항상 큰 따옴표를 사용합니다.
-* 단일 태그에는 슬래시(`/`)를 사용하지 않습니다. (예: `<br />` or `<img />`)
+* 단일 태그에는 슬래시(/)를 사용하지 않습니다. (예: <br /> or <img />)
 
 ### HTML5 doctype <a id="html-doctype" href="#html-doctype">#</a>
 모든 HTML 페이지 시작 지점에 공백 없이 HTML5 문서 타입을 선언합니다.
@@ -120,7 +120,7 @@
 ~~~
 
 ### CSS, JavaScript 작성 <a id="html-type-attr" href="#html-type-attr">#</a>
-CSS와 JavaScript를 불러올 때 `type` 속성을 생략합니다.
+CSS와 JavaScript를 불러올 때 type 속성을 생략합니다.
 
 ~~~
     <!-- External CSS -->
@@ -145,17 +145,13 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 기본 문법은 IntelliJ IDEA에서 제공하는 reformat code체크 후 적용합니다.(commit시 체크)
  
 * 들여쓰기는 공백문자 4 개를 사용합니다.
-* 여는 중괄호(`{`) 앞에 공백을 한칸 놓습니다.
-* 닫는 중괄호(`}`)는 새로운 줄에 놓습니다.
-* 속성 선언 시 콜론(`:`) 뒤에는 공백문자 하나를 포함시킵니다.
+* 속성 선언 시 콜론(:) 뒤에는 공백문자 하나를 포함시킵니다.
 * 한 줄에 하나의 속성만 작성합니다.
-* 모든 속성 선언은 마지막에 세미콜론(`;`)으로 끝냅니다.
-* 다중 속성값들은 콤마 뒤에 공백문자를 포함합니다.(예: `box-shadow`).
-* `rgb()`, `rgba()` 값의 괄호 안에서는 콤마 뒤 공백문자를 넣지 않습니다.
-* 속성값에 소숫점을 사용할 때 `0.`을 사용하지 않습니다.(예: `0.5`대신 `.5`를, `-0.5px`대신 `-.5px`)
-* 축약 가능한 16진수 값은 축약합니다. (예: `#ffffff` 대신 `#fff`)
-* 속성값들에는 홑따옴표를 사용합니다. (예: `[type='text']`)
-* 값이 `0`일 때는 단위를 생략합니다. (예: `margin: 0px;` 대신 `margin: 0;` 사용)
+* 모든 속성 선언은 마지막에 세미콜론(;)으로 끝냅니다.
+* 속성값에 소숫점을 사용할 때 '0.'을 사용하지 않습니다.(예: 0.5대신 .5를, -0.5px대신 -.5px)
+* 축약 가능한 16진수 값은 축약합니다. (예: #ffffff 대신 #fff)
+* 속성값들에는 홑따옴표를 사용합니다. (예: [type='text'])
+* 값이 `0`일 때는 단위를 생략합니다. (예: margin: 0px; 대신 margin: 0; 사용)
 
 
 ### 미디어 쿼리 위치 <a id="css-syntax" href="#css-syntax">#</a>
@@ -192,26 +188,22 @@ HTML 표준을 준수하고 시맨틱한 문서를 작성을 원칙으로 하되
 
 ### 클래스 작명 <a id="css-naming" href="#css-naming">#</a>
 * 클래스 명 규칙은 [BEM(Block Element Modifier)](http://getbem.com/naming/)스타일을 따릅니다.
-* 블럭을 감싸는 클래스명은 `awa-` prefix를 사용합니다.
-* 클래스 명은 소문자, 숫자, 대시(`-`), 언더스코어(`_`)를 사용합니다. 카멜 케이스와 파스칼 케이스는 사용하지 않습니다.
+* 블럭을 감싸는 클래스명은 'awa-' prefix를 사용합니다.(예: awa-wrap, awa-header, awa-container, awa-footer)
+* 카멜 케이스와 파스칼 케이스는 사용하지 않습니다.
+* ID는 사용할 수 없고, 오직 class명만 사용할 수 있다.(개발처리를 위한 id는 가능)
 * 클래스 명이 길어지면 축약해서 사용 가능합니다. 
 * 시각적 표현 대신 의미, 구조, 목적을 담아 작명합니다.
-* 변화 또는 상태를 나타내는 추가 클래스는 블록 또는 요소 이름에 더블 대시(`--`)를 붙여 작명합니다.
+* Block명이나 Element명이 길 경우 하이픈(–)으로 연결한다.
+* Element는 더블 하이푼(__)표시로 연결하여 block 다음에 작성하며, Modifier는 더블 대시(--)표시로 연결하여 Element 다음에 작성합니다.
+* Element는 상황에 따라 Block이나 Element다음에 바로 작성할수 있습니다.
+* js처리를 위한 클래스는 'js_' prefix를 추가해서 구분 (예 : js_hd-nav__link)
 
 ~~~
-    /* Bad example */
-    .sform { ... }
-    .themeLezhin { ... }
-    .sf-input { ... }
-    .sf-btn { ... }
-    .SearchformButtonDisabled { ... }
-
-    /* Good example */
-    .search-form { ... }                    // Block
-    .search-form--theme-lezhin { ... }      // Block--Modifier
-    .search-form__input { ... }             // Block__Element
-    .search-form__btn { ... }               // Block__Element
-    .search-form__btn--disabled { ... }     // Block__Element--Modifier
+    /* header안에 nav(header를 hd로 축약) */
+    .hd-nav { ... }                    // Block 
+    .hd-nav__item { ... }             // Block__Element
+    .hd-nav__link { ... }               // Block__Element
+    .hd-nav__link--active { ... }     // Block__Element--Modifier
 ~~~
 
 ### 선택자 <a id="css-selector" href="#css-selector">#</a>
