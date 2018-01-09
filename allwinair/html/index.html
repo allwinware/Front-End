@@ -380,8 +380,10 @@
                                 관심을 보이고 있어요.
                             </div>
                             <div class="ing-mc__bts">
-                                <a href="" class="ing-mc__bt-apply">나도 요청</a>
-                                <a href="" class="ing-mc__bt-sell">판매하기</a>
+                                <a href="" class="awa-tooltip ing-mc__bt-apply" data-tooltip-pos="right"
+                                   data-tooltip-txt="같은 도시, 새로운 일정으로 요청합니다.">나도 요청</a>
+                                <a href="" class="awa-tooltip ing-mc__bt-sell" data-tooltip-pos="right"
+                                   data-tooltip-txt="[항공사 전용] 같은 도시,새로운 일정으로 판매합니다.">판매하기</a>
                             </div>
                         </li>
                         <li class="ing-mc__item">
@@ -514,7 +516,9 @@
 
             <!-- 패밀리 옥션 -->
             <section class="awa-family-auction">
-                <strong class="fa__tit">패밀리옥션 <a href="" class="fa__question123">?</a></strong>
+                <strong class="fa__tit">패밀리옥션 <a href="javascript:;" class="awa-tooltip fa__question"
+                                                 data-tooltip-pos="top"
+                                                 data-tooltip-txt="내가 정한 가격보다 같거나 낮은 가격으로 낙찰되는 올윈에어만의 공동낙찰 경매방식입니다.">?</a></strong>
                 <div class="fa__recommend"
                      style="background:url(../resource/img/img_ticker-banner.png) center center no-repeat;">
                     <div class="fa__rc-info">
@@ -2005,7 +2009,16 @@
 <script src="../resource/js/awa.ui.min.js"></script>
 <script>
     $(function () {
-
+        $(document).tooltip({
+            show: null,
+            position: {
+                my: "left top",
+                at: "left bottom"
+            },
+            open: function (event, ui) {
+                ui.tooltip.animate({top: ui.tooltip.position().top + 10}, "fast");
+            }
+        });
     });
 </script>
 </body>
