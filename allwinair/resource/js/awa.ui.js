@@ -27,17 +27,18 @@ AWAUI = (function () {
          */
         main: {
             init: function () {
-                AWAUI.main.topBanner();
-                AWAUI.main.matchingSrch();
-                AWAUI.main.matchingSuccess();
+                AWAUI.main.banner();
+                AWAUI.main.matching();
+                AWAUI.main.success();
+                AWAUI.main.tooltips();
+                AWAUI.main.partners();
             },
-            //상단 배너
-            topBanner: function () {
+            banner: function () {
                 $('#js-top-banner__close').on('click', function () {
                     $(this).parent().slideUp('fast');
                 });
             },
-            matchingSrch: function () {
+            matching: function () {
                 //도착도시
                 $('.ag__link').on('click', function () {
                     $('.ag__link').removeClass('ag__link--active');
@@ -48,7 +49,7 @@ AWAUI = (function () {
                     return false;
                 });
             },
-            matchingSuccess: function () {
+            success: function () {
                 var successList = $('.js-matching-success > ul').awaSlide({mode: 'vertical', auto: true});
                 $('.js-matching-success').on('mouseenter', function () {
                     $(this).addClass('hover');
@@ -62,6 +63,64 @@ AWAUI = (function () {
                 $('.mc-suc__item').on('click', function () {
                     $('.mc-suc__bts').hide();
                     $(this).find('.mc-suc__bts').fadeIn('fast');
+                });
+            },
+            tooltips: function () {
+                //좌
+                $('.js-tooltip-type1').tooltip({
+                    show: null,
+                    tooltipClass: "awa-tooltip1",
+                    items: "[data-tooltip-txt]",
+                    position: {
+                        my: 'left center', at: 'right center'
+                    },
+                    content: function () {
+                        return $(this).data("tooltip-txt");
+                    }
+                    ,
+                    open: function (event, ui) {
+                        ui.tooltip.animate({left: ui.tooltip.position().left + 10}, "fast");
+                    }
+                });
+
+                //위
+                $('.js-tooltip-type2').tooltip({
+                    show: null,
+                    tooltipClass: "awa-tooltip2",
+                    items: "[data-tooltip-txt]",
+                    position: {
+                        my: 'center bottom', at: 'center+5 top'
+                    },
+                    content: function () {
+                        return $(this).data("tooltip-txt");
+                    },
+                    open: function (event, ui) {
+                        ui.tooltip.animate({top: ui.tooltip.position().top - 10}, "fast");
+                    }
+                });
+            },
+            partners: function () {
+                $('.pnrs-tab__link').on('click', function () {
+                    $('.pnrs-tab__link').removeClass('pnrs-tab__link--active');
+                    $(this).addClass('pnrs-tab__link--active');
+                    $('.pnrs-tabs__conts > div').hide();
+                    var activeTab = $(this).attr('href');
+                    $(activeTab).fadeIn();
+                    return false;
+                });
+
+                //필터
+                $('.pnrs-lists').awaSlide();
+
+                var $pnrLists = $('.pnrs-lists').isotope({
+                    itemSelector: '.pnr-lists__item',
+                    layoutMode: 'fitRows'
+                });
+                $('.filter-button-group').on('click', 'button', function () {
+                    var filterValue = $(this).attr('data-filter');
+                    $('.filter-button-group').find('button').removeClass('pnrs-sort__link--active');
+                    $(this).addClass('pnrs-sort__link--active');
+                    $pnrLists.isotope({filter: filterValue});
                 });
             }
         },
