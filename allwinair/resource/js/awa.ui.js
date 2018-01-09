@@ -49,14 +49,19 @@ AWAUI = (function () {
                 });
             },
             matchingSuccess: function () {
-                var successList = $('#js-matching-success > ul').awaSlide({mode: 'vertical', auto: true});
-                $('#js-matching-success').on('mouseenter', function () {
-                    $('#js-matching-success').addClass('hover');
+                var successList = $('.js-matching-success > ul').awaSlide({mode: 'vertical', auto: true});
+                $('.js-matching-success').on('mouseenter', function () {
+                    $(this).addClass('hover');
                     successList.destroySlider();
                 });
-                $('#js-matching-success').on('mouseleave', function () {
-                    $('#js-matching-success').removeClass('hover');
+                $('.js-matching-success').on('mouseleave', function () {
+                    $('.mc-suc__bts').hide();
+                    $(this).removeClass('hover');
                     successList.reloadSlider();
+                });
+                $('.mc-suc__item').on('click', function () {
+                    $('.mc-suc__bts').hide();
+                    $(this).find('.mc-suc__bts').fadeIn('fast');
                 });
             }
         },
