@@ -548,7 +548,8 @@
                 <div class="fa__list">
                     <ul>
                         <li class="fa__list-item">
-                            <a href="" class="fa__item-link">
+                            <a href="javascript:;" class="fa__item-link"
+                               onclick="tenderLayer.open('prd_type1');return false;">
                                 <span class="airline-code a_SU">아에로플로트항공</span>
                                 <div class="fa__list-course">
                                     <span class="fa__list-course--start">인천</span><span class="fa__list-course--end">파리(샤를드골)</span>
@@ -1365,7 +1366,7 @@
     .prd_type2 : 기간상품
     .prd_type3 : 묶음상품
 -->
-<div class="ly_tender prd_type1" style="display:none;" id="prd_type1">
+<div class="ly_tender prd_type1" id="prd_type1">
     <div class="ly_ins">
         <!-- 정보 -->
         <div class="tender_info" style="">
@@ -1475,13 +1476,15 @@
                 <span class="user_price"></span>
             </div>
             <div class="bidding_outer">
-                <div class="bidding_vertical solo">
+                <div class="awa-bidding solo"></div>
+
+                <!--div class="bidding_vertical solo">
                     <div class="max_min max">MAX<span>370,000</span></div>
                     <div class="ui-slider-handle">
                         <span class="ui-handle-in">좌석 1개당 입찰가 선택</span>
                     </div>
                     <div class="max_min min">MIN<span>320,000</span></div>
-                </div>
+                </div-->
             </div>
             <div class="total">
                 <ul class="left">
@@ -2473,7 +2476,61 @@
 <script src="../resource/js/awa.ui.min.js"></script>
 <script>
     $(function () {
+
+        var bidH = $(window).height() - 520, bidH2 = $(window).height() - 600;
+        $('.bidding_outer').css('height', bidH);
+        $('.group_prd_range .bidding_outer').css('height', bidH2);
+        $(window).resize(function () {
+            var bidH = $(window).height() - 520, bidH2 = $(window).height() - 600;
+            $('.bidding_outer').css('height', bidH);
+            $('.group_prd_range .bidding_outer').css('height', bidH2);
+        });
+
+        //단일 상품
+        var min = 320000, max = 350000, value = (min + max) / 2;
+        $('.bidding_vertical.solo').bidding({
+            min: min, //최소 가격
+            max: max, //최대 가격
+            value: value, //
+            slide: function (event, ui) {
+                console.log("slide");
+                //깃발 움직일때 값 세팅
+                $(this).closest('.tender_range').addClass('active').find('.ui-handle-in, .user_price').text(Intl.NumberFormat().format(ui.value));
+            },
+            change: function (event, ui) {
+                console.log("change");
+            },
+            create: function (event, ui) {
+                console.log("create");
+            }
+        });
+        $('.bt_success').on('click', function () {
+            $(this).closest('.ly_ins').find('.tender_info, .tender_range').hide();
+            $(this).closest('.ly_ins').find('.tender_info_success, .tender_range_success').show();
+        });
+
     });
+
+    var tenderLayer = {
+        open: function (tenderID) {
+            console.log("open");
+            var layer = "#" + tenderID;
+            var h = $(window).height() - 80;
+            $('body').addClass('kill');
+            $(layer).addClass('show');
+            $(layer).find('.ly_ins').height(h);
+
+            $(window).resize(function () {
+                var h = $(window).height() - 80;
+                $(layer).find('.ly_ins').height(h);
+            });
+        },
+        close: function (tenderID) {
+            console.log("close");
+            $('body').removeClass('kill');
+            $('#' + tenderID).removeClass('show');
+        }
+    }
 </script>
 </body>
 </html>
