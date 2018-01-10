@@ -50,14 +50,14 @@ AWAUI = (function () {
                 });
             },
             success: function () {
-                var successList = $('.js-matching-success > ul').awaSlide({mode: 'vertical', auto: true});
-                $('.js-matching-success').on('mouseenter', function () {
-                    $(this).addClass('hover');
+                var successList = $('.mc-suc__list > ul').awaSlide({mode: 'vertical', auto: true});
+                $('.mc-suc__list').on('mouseenter', function () {
+                    $(this).addClass('mc-suc__list--hover');
                     successList.destroySlider();
                 });
-                $('.js-matching-success').on('mouseleave', function () {
+                $('.mc-suc__list').on('mouseleave', function () {
                     $('.mc-suc__bts').hide();
-                    $(this).removeClass('hover');
+                    $(this).removeClass('mc-suc__list--hover');
                     successList.reloadSlider();
                 });
                 $('.mc-suc__item').on('click', function () {
