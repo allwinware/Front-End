@@ -100,28 +100,58 @@ AWAUI = (function () {
                 });
             },
             partners: function () {
+                var airline = $('#pnrs__airlines .pnrs-lists > ul').awaSlide({infiniteLoop: false});
+                var travelAgencys = $('#pnrs__travel-agencys .pnrs-lists > ul').awaSlide({infiniteLoop: false});
+
                 $('.pnrs-tab__link').on('click', function () {
+                    var activeTab = $(this).attr('href');
                     $('.pnrs-tab__link').removeClass('pnrs-tab__link--active');
                     $(this).addClass('pnrs-tab__link--active');
                     $('.pnrs-tabs__conts > div').hide();
-                    var activeTab = $(this).attr('href');
-                    $(activeTab).fadeIn();
+                    $(activeTab).show();
+                    $(activeTab).find('.filter-button-group li:first-child button').click();
                     return false;
                 });
 
-                //필터
-                $('.pnrs-lists').awaSlide();
-
-                var $pnrLists = $('.pnrs-lists').isotope({
-                    itemSelector: '.pnr-lists__item',
-                    layoutMode: 'fitRows'
-                });
-                $('.filter-button-group').on('click', 'button', function () {
+                //필터 항공사
+                $('#pnrs__airlines .filter-button-group').on('click', 'button', function () {
                     var filterValue = $(this).attr('data-filter');
-                    $('.filter-button-group').find('button').removeClass('pnrs-sort__link--active');
+
+                    if (filterValue == "*") {
+                        $('#pnrs__airlines .pnrs-lists > ul').isotope('destroy');
+                        airline.reloadSlider();
+                    } else {
+                        airline.destroySlider();
+                        var $pnrLists = $('#pnrs__airlines .pnrs-lists > ul').isotope({
+                            transitionDuration: 0,
+                            itemSelector: '#pnrs__airlines .pnr-lists__item',
+                            layoutMode: 'fitRows'
+                        });
+                        $pnrLists.isotope({filter: filterValue});
+                    }
+                    $('#pnrs__airlines .filter-button-group').find('button').removeClass('pnrs-sort__link--active');
                     $(this).addClass('pnrs-sort__link--active');
-                    $pnrLists.isotope({filter: filterValue});
                 });
+
+                //필터 여행사
+                $('#pnrs__travel-agencys .filter-button-group').on('click', 'button', function () {
+                    var filterValue = $(this).attr('data-filter');
+                    if (filterValue == "*") {
+                        $('#pnrs__travel-agencys .pnrs-lists > ul').isotope('destroy');
+                        travelAgencys.reloadSlider();
+                    } else {
+                        travelAgencys.destroySlider();
+                        var $pnrLists = $('#pnrs__travel-agencys .pnrs-lists > ul').isotope({
+                            transitionDuration: 0,
+                            itemSelector: '#pnrs__travel-agencys .pnr-lists__item',
+                            layoutMode: 'fitRows'
+                        });
+                        $pnrLists.isotope({filter: filterValue});
+                    }
+                    $('#pnrs__travel-agencys .filter-button-group').find('button').removeClass('pnrs-sort__link--active');
+                    $(this).addClass('pnrs-sort__link--active');
+                });
+
             }
         },
         /**
