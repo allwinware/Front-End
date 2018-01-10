@@ -4107,6 +4107,4564 @@ $.widget("ui.autocomplete", {
     });
 }));
 
+//! moment.js
+//! version : 2.16.0
+//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
+//! license : MIT
+//! momentjs.com
+
+;(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+        typeof define === 'function' && define.amd ? define(factory) :
+            global.moment = factory()
+}(this, (function () {
+    'use strict';
+
+    var hookCallback;
+
+    function hooks() {
+        return hookCallback.apply(null, arguments);
+    }
+
+// This is done to register the method called with moment()
+// without creating circular dependencies.
+    function setHookCallback(callback) {
+        hookCallback = callback;
+    }
+
+    function isArray(input) {
+        return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
+    }
+
+    function isObject(input) {
+        // IE8 will treat undefined and null as object if it wasn't for
+        // input != null
+        return input != null && Object.prototype.toString.call(input) === '[object Object]';
+    }
+
+    function isObjectEmpty(obj) {
+        var k;
+        for (k in obj) {
+            // even if its not own property I'd still call it non-empty
+            return false;
+        }
+        return true;
+    }
+
+    function isNumber(input) {
+        return typeof value === 'number' || Object.prototype.toString.call(input) === '[object Number]';
+    }
+
+    function isDate(input) {
+        return input instanceof Date || Object.prototype.toString.call(input) === '[object Date]';
+    }
+
+    function map(arr, fn) {
+        var res = [], i;
+        for (i = 0; i < arr.length; ++i) {
+            res.push(fn(arr[i], i));
+        }
+        return res;
+    }
+
+    function hasOwnProp(a, b) {
+        return Object.prototype.hasOwnProperty.call(a, b);
+    }
+
+    function extend(a, b) {
+        for (var i in b) {
+            if (hasOwnProp(b, i)) {
+                a[i] = b[i];
+            }
+        }
+
+        if (hasOwnProp(b, 'toString')) {
+            a.toString = b.toString;
+        }
+
+        if (hasOwnProp(b, 'valueOf')) {
+            a.valueOf = b.valueOf;
+        }
+
+        return a;
+    }
+
+    function createUTC(input, format, locale, strict) {
+        return createLocalOrUTC(input, format, locale, strict, true).utc();
+    }
+
+    function defaultParsingFlags() {
+        // We need to deep clone this object.
+        return {
+            empty: false,
+            unusedTokens: [],
+            unusedInput: [],
+            overflow: -2,
+            charsLeftOver: 0,
+            nullInput: false,
+            invalidMonth: null,
+            invalidFormat: false,
+            userInvalidated: false,
+            iso: false,
+            parsedDateParts: [],
+            meridiem: null
+        };
+    }
+
+    function getParsingFlags(m) {
+        if (m._pf == null) {
+            m._pf = defaultParsingFlags();
+        }
+        return m._pf;
+    }
+
+    var some;
+    if (Array.prototype.some) {
+        some = Array.prototype.some;
+    } else {
+        some = function (fun) {
+            var t = Object(this);
+            var len = t.length >>> 0;
+
+            for (var i = 0; i < len; i++) {
+                if (i in t && fun.call(this, t[i], i, t)) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+    }
+
+    var some$1 = some;
+
+    function isValid(m) {
+        if (m._isValid == null) {
+            var flags = getParsingFlags(m);
+            var parsedParts = some$1.call(flags.parsedDateParts, function (i) {
+                return i != null;
+            });
+            var isNowValid = !isNaN(m._d.getTime()) &&
+                flags.overflow < 0 &&
+                !flags.empty &&
+                !flags.invalidMonth &&
+                !flags.invalidWeekday &&
+                !flags.nullInput &&
+                !flags.invalidFormat &&
+                !flags.userInvalidated &&
+                (!flags.meridiem || (flags.meridiem && parsedParts));
+
+            if (m._strict) {
+                isNowValid = isNowValid &&
+                    flags.charsLeftOver === 0 &&
+                    flags.unusedTokens.length === 0 &&
+                    flags.bigHour === undefined;
+            }
+
+            if (Object.isFrozen == null || !Object.isFrozen(m)) {
+                m._isValid = isNowValid;
+            }
+            else {
+                return isNowValid;
+            }
+        }
+        return m._isValid;
+    }
+
+    function createInvalid(flags) {
+        var m = createUTC(NaN);
+        if (flags != null) {
+            extend(getParsingFlags(m), flags);
+        }
+        else {
+            getParsingFlags(m).userInvalidated = true;
+        }
+
+        return m;
+    }
+
+    function isUndefined(input) {
+        return input === void 0;
+    }
+
+// Plugins that add properties should also add the key here (null value),
+// so we can properly clone ourselves.
+    var momentProperties = hooks.momentProperties = [];
+
+    function copyConfig(to, from) {
+        var i, prop, val;
+
+        if (!isUndefined(from._isAMomentObject)) {
+            to._isAMomentObject = from._isAMomentObject;
+        }
+        if (!isUndefined(from._i)) {
+            to._i = from._i;
+        }
+        if (!isUndefined(from._f)) {
+            to._f = from._f;
+        }
+        if (!isUndefined(from._l)) {
+            to._l = from._l;
+        }
+        if (!isUndefined(from._strict)) {
+            to._strict = from._strict;
+        }
+        if (!isUndefined(from._tzm)) {
+            to._tzm = from._tzm;
+        }
+        if (!isUndefined(from._isUTC)) {
+            to._isUTC = from._isUTC;
+        }
+        if (!isUndefined(from._offset)) {
+            to._offset = from._offset;
+        }
+        if (!isUndefined(from._pf)) {
+            to._pf = getParsingFlags(from);
+        }
+        if (!isUndefined(from._locale)) {
+            to._locale = from._locale;
+        }
+
+        if (momentProperties.length > 0) {
+            for (i in momentProperties) {
+                prop = momentProperties[i];
+                val = from[prop];
+                if (!isUndefined(val)) {
+                    to[prop] = val;
+                }
+            }
+        }
+
+        return to;
+    }
+
+    var updateInProgress = false;
+
+// Moment prototype object
+    function Moment(config) {
+        copyConfig(this, config);
+        this._d = new Date(config._d != null ? config._d.getTime() : NaN);
+        // Prevent infinite loop in case updateOffset creates new moment
+        // objects.
+        if (updateInProgress === false) {
+            updateInProgress = true;
+            hooks.updateOffset(this);
+            updateInProgress = false;
+        }
+    }
+
+    function isMoment(obj) {
+        return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
+    }
+
+    function absFloor(number) {
+        if (number < 0) {
+            // -0 -> 0
+            return Math.ceil(number) || 0;
+        } else {
+            return Math.floor(number);
+        }
+    }
+
+    function toInt(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion,
+            value = 0;
+
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+            value = absFloor(coercedNumber);
+        }
+
+        return value;
+    }
+
+// compare two arrays, return the number of differences
+    function compareArrays(array1, array2, dontConvert) {
+        var len = Math.min(array1.length, array2.length),
+            lengthDiff = Math.abs(array1.length - array2.length),
+            diffs = 0,
+            i;
+        for (i = 0; i < len; i++) {
+            if ((dontConvert && array1[i] !== array2[i]) ||
+                (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
+                diffs++;
+            }
+        }
+        return diffs + lengthDiff;
+    }
+
+    function warn(msg) {
+        if (hooks.suppressDeprecationWarnings === false &&
+            (typeof console !== 'undefined') && console.warn) {
+            console.warn('Deprecation warning: ' + msg);
+        }
+    }
+
+    function deprecate(msg, fn) {
+        var firstTime = true;
+
+        return extend(function () {
+            if (hooks.deprecationHandler != null) {
+                hooks.deprecationHandler(null, msg);
+            }
+            if (firstTime) {
+                var args = [];
+                var arg;
+                for (var i = 0; i < arguments.length; i++) {
+                    arg = '';
+                    if (typeof arguments[i] === 'object') {
+                        arg += '\n[' + i + '] ';
+                        for (var key in arguments[0]) {
+                            arg += key + ': ' + arguments[0][key] + ', ';
+                        }
+                        arg = arg.slice(0, -2); // Remove trailing comma and space
+                    } else {
+                        arg = arguments[i];
+                    }
+                    args.push(arg);
+                }
+                warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
+                firstTime = false;
+            }
+            return fn.apply(this, arguments);
+        }, fn);
+    }
+
+    var deprecations = {};
+
+    function deprecateSimple(name, msg) {
+        if (hooks.deprecationHandler != null) {
+            hooks.deprecationHandler(name, msg);
+        }
+        if (!deprecations[name]) {
+            warn(msg);
+            deprecations[name] = true;
+        }
+    }
+
+    hooks.suppressDeprecationWarnings = false;
+    hooks.deprecationHandler = null;
+
+    function isFunction(input) {
+        return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
+    }
+
+    function set(config) {
+        var prop, i;
+        for (i in config) {
+            prop = config[i];
+            if (isFunction(prop)) {
+                this[i] = prop;
+            } else {
+                this['_' + i] = prop;
+            }
+        }
+        this._config = config;
+        // Lenient ordinal parsing accepts just a number in addition to
+        // number + (possibly) stuff coming from _ordinalParseLenient.
+        this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + (/\d{1,2}/).source);
+    }
+
+    function mergeConfigs(parentConfig, childConfig) {
+        var res = extend({}, parentConfig), prop;
+        for (prop in childConfig) {
+            if (hasOwnProp(childConfig, prop)) {
+                if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
+                    res[prop] = {};
+                    extend(res[prop], parentConfig[prop]);
+                    extend(res[prop], childConfig[prop]);
+                } else if (childConfig[prop] != null) {
+                    res[prop] = childConfig[prop];
+                } else {
+                    delete res[prop];
+                }
+            }
+        }
+        for (prop in parentConfig) {
+            if (hasOwnProp(parentConfig, prop) &&
+                !hasOwnProp(childConfig, prop) &&
+                isObject(parentConfig[prop])) {
+                // make sure changes to properties don't modify parent config
+                res[prop] = extend({}, res[prop]);
+            }
+        }
+        return res;
+    }
+
+    function Locale(config) {
+        if (config != null) {
+            this.set(config);
+        }
+    }
+
+    var keys;
+
+    if (Object.keys) {
+        keys = Object.keys;
+    } else {
+        keys = function (obj) {
+            var i, res = [];
+            for (i in obj) {
+                if (hasOwnProp(obj, i)) {
+                    res.push(i);
+                }
+            }
+            return res;
+        };
+    }
+
+    var keys$1 = keys;
+
+    var defaultCalendar = {
+        sameDay: '[Today at] LT',
+        nextDay: '[Tomorrow at] LT',
+        nextWeek: 'dddd [at] LT',
+        lastDay: '[Yesterday at] LT',
+        lastWeek: '[Last] dddd [at] LT',
+        sameElse: 'L'
+    };
+
+    function calendar(key, mom, now) {
+        var output = this._calendar[key] || this._calendar['sameElse'];
+        return isFunction(output) ? output.call(mom, now) : output;
+    }
+
+    var defaultLongDateFormat = {
+        LTS: 'h:mm:ss A',
+        LT: 'h:mm A',
+        L: 'MM/DD/YYYY',
+        LL: 'MMMM D, YYYY',
+        LLL: 'MMMM D, YYYY h:mm A',
+        LLLL: 'dddd, MMMM D, YYYY h:mm A'
+    };
+
+    function longDateFormat(key) {
+        var format = this._longDateFormat[key],
+            formatUpper = this._longDateFormat[key.toUpperCase()];
+
+        if (format || !formatUpper) {
+            return format;
+        }
+
+        this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
+            return val.slice(1);
+        });
+
+        return this._longDateFormat[key];
+    }
+
+    var defaultInvalidDate = 'Invalid date';
+
+    function invalidDate() {
+        return this._invalidDate;
+    }
+
+    var defaultOrdinal = '%d';
+    var defaultOrdinalParse = /\d{1,2}/;
+
+    function ordinal(number) {
+        return this._ordinal.replace('%d', number);
+    }
+
+    var defaultRelativeTime = {
+        future: 'in %s',
+        past: '%s ago',
+        s: 'a few seconds',
+        m: 'a minute',
+        mm: '%d minutes',
+        h: 'an hour',
+        hh: '%d hours',
+        d: 'a day',
+        dd: '%d days',
+        M: 'a month',
+        MM: '%d months',
+        y: 'a year',
+        yy: '%d years'
+    };
+
+    function relativeTime(number, withoutSuffix, string, isFuture) {
+        var output = this._relativeTime[string];
+        return (isFunction(output)) ?
+            output(number, withoutSuffix, string, isFuture) :
+            output.replace(/%d/i, number);
+    }
+
+    function pastFuture(diff, output) {
+        var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
+        return isFunction(format) ? format(output) : format.replace(/%s/i, output);
+    }
+
+    var aliases = {};
+
+    function addUnitAlias(unit, shorthand) {
+        var lowerCase = unit.toLowerCase();
+        aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
+    }
+
+    function normalizeUnits(units) {
+        return typeof units === 'string' ? aliases[units] || aliases[units.toLowerCase()] : undefined;
+    }
+
+    function normalizeObjectUnits(inputObject) {
+        var normalizedInput = {},
+            normalizedProp,
+            prop;
+
+        for (prop in inputObject) {
+            if (hasOwnProp(inputObject, prop)) {
+                normalizedProp = normalizeUnits(prop);
+                if (normalizedProp) {
+                    normalizedInput[normalizedProp] = inputObject[prop];
+                }
+            }
+        }
+
+        return normalizedInput;
+    }
+
+    var priorities = {};
+
+    function addUnitPriority(unit, priority) {
+        priorities[unit] = priority;
+    }
+
+    function getPrioritizedUnits(unitsObj) {
+        var units = [];
+        for (var u in unitsObj) {
+            units.push({unit: u, priority: priorities[u]});
+        }
+        units.sort(function (a, b) {
+            return a.priority - b.priority;
+        });
+        return units;
+    }
+
+    function makeGetSet(unit, keepTime) {
+        return function (value) {
+            if (value != null) {
+                set$1(this, unit, value);
+                hooks.updateOffset(this, keepTime);
+                return this;
+            } else {
+                return get(this, unit);
+            }
+        };
+    }
+
+    function get(mom, unit) {
+        return mom.isValid() ?
+            mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
+    }
+
+    function set$1(mom, unit, value) {
+        if (mom.isValid()) {
+            mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+        }
+    }
+
+// MOMENTS
+
+    function stringGet(units) {
+        units = normalizeUnits(units);
+        if (isFunction(this[units])) {
+            return this[units]();
+        }
+        return this;
+    }
+
+
+    function stringSet(units, value) {
+        if (typeof units === 'object') {
+            units = normalizeObjectUnits(units);
+            var prioritized = getPrioritizedUnits(units);
+            for (var i = 0; i < prioritized.length; i++) {
+                this[prioritized[i].unit](units[prioritized[i].unit]);
+            }
+        } else {
+            units = normalizeUnits(units);
+            if (isFunction(this[units])) {
+                return this[units](value);
+            }
+        }
+        return this;
+    }
+
+    function zeroFill(number, targetLength, forceSign) {
+        var absNumber = '' + Math.abs(number),
+            zerosToFill = targetLength - absNumber.length,
+            sign = number >= 0;
+        return (sign ? (forceSign ? '+' : '') : '-') +
+            Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
+    }
+
+    var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
+
+    var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
+
+    var formatFunctions = {};
+
+    var formatTokenFunctions = {};
+
+// token:    'M'
+// padded:   ['MM', 2]
+// ordinal:  'Mo'
+// callback: function () { this.month() + 1 }
+    function addFormatToken(token, padded, ordinal, callback) {
+        var func = callback;
+        if (typeof callback === 'string') {
+            func = function () {
+                return this[callback]();
+            };
+        }
+        if (token) {
+            formatTokenFunctions[token] = func;
+        }
+        if (padded) {
+            formatTokenFunctions[padded[0]] = function () {
+                return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
+            };
+        }
+        if (ordinal) {
+            formatTokenFunctions[ordinal] = function () {
+                return this.localeData().ordinal(func.apply(this, arguments), token);
+            };
+        }
+    }
+
+    function removeFormattingTokens(input) {
+        if (input.match(/\[[\s\S]/)) {
+            return input.replace(/^\[|\]$/g, '');
+        }
+        return input.replace(/\\/g, '');
+    }
+
+    function makeFormatFunction(format) {
+        var array = format.match(formattingTokens), i, length;
+
+        for (i = 0, length = array.length; i < length; i++) {
+            if (formatTokenFunctions[array[i]]) {
+                array[i] = formatTokenFunctions[array[i]];
+            } else {
+                array[i] = removeFormattingTokens(array[i]);
+            }
+        }
+
+        return function (mom) {
+            var output = '', i;
+            for (i = 0; i < length; i++) {
+                output += array[i] instanceof Function ? array[i].call(mom, format) : array[i];
+            }
+            return output;
+        };
+    }
+
+// format date using native date object
+    function formatMoment(m, format) {
+        if (!m.isValid()) {
+            return m.localeData().invalidDate();
+        }
+
+        format = expandFormat(format, m.localeData());
+        formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
+
+        return formatFunctions[format](m);
+    }
+
+    function expandFormat(format, locale) {
+        var i = 5;
+
+        function replaceLongDateFormatTokens(input) {
+            return locale.longDateFormat(input) || input;
+        }
+
+        localFormattingTokens.lastIndex = 0;
+        while (i >= 0 && localFormattingTokens.test(format)) {
+            format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
+            localFormattingTokens.lastIndex = 0;
+            i -= 1;
+        }
+
+        return format;
+    }
+
+    var match1 = /\d/;            //       0 - 9
+    var match2 = /\d\d/;          //      00 - 99
+    var match3 = /\d{3}/;         //     000 - 999
+    var match4 = /\d{4}/;         //    0000 - 9999
+    var match6 = /[+-]?\d{6}/;    // -999999 - 999999
+    var match1to2 = /\d\d?/;         //       0 - 99
+    var match3to4 = /\d\d\d\d?/;     //     999 - 9999
+    var match5to6 = /\d\d\d\d\d\d?/; //   99999 - 999999
+    var match1to3 = /\d{1,3}/;       //       0 - 999
+    var match1to4 = /\d{1,4}/;       //       0 - 9999
+    var match1to6 = /[+-]?\d{1,6}/;  // -999999 - 999999
+
+    var matchUnsigned = /\d+/;           //       0 - inf
+    var matchSigned = /[+-]?\d+/;      //    -inf - inf
+
+    var matchOffset = /Z|[+-]\d\d:?\d\d/gi; // +00:00 -00:00 +0000 -0000 or Z
+    var matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi; // +00 -00 +00:00 -00:00 +0000 -0000 or Z
+
+    var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
+
+// any word (or two) characters or numbers including two/three word month in arabic.
+// includes scottish gaelic two word and hyphenated months
+    var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
+
+
+    var regexes = {};
+
+    function addRegexToken(token, regex, strictRegex) {
+        regexes[token] = isFunction(regex) ? regex : function (isStrict, localeData) {
+            return (isStrict && strictRegex) ? strictRegex : regex;
+        };
+    }
+
+    function getParseRegexForToken(token, config) {
+        if (!hasOwnProp(regexes, token)) {
+            return new RegExp(unescapeFormat(token));
+        }
+
+        return regexes[token](config._strict, config._locale);
+    }
+
+// Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    function unescapeFormat(s) {
+        return regexEscape(s.replace('\\', '').replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
+            return p1 || p2 || p3 || p4;
+        }));
+    }
+
+    function regexEscape(s) {
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    }
+
+    var tokens = {};
+
+    function addParseToken(token, callback) {
+        var i, func = callback;
+        if (typeof token === 'string') {
+            token = [token];
+        }
+        if (isNumber(callback)) {
+            func = function (input, array) {
+                array[callback] = toInt(input);
+            };
+        }
+        for (i = 0; i < token.length; i++) {
+            tokens[token[i]] = func;
+        }
+    }
+
+    function addWeekParseToken(token, callback) {
+        addParseToken(token, function (input, array, config, token) {
+            config._w = config._w || {};
+            callback(input, config._w, config, token);
+        });
+    }
+
+    function addTimeToArrayFromToken(token, input, config) {
+        if (input != null && hasOwnProp(tokens, token)) {
+            tokens[token](input, config._a, config, token);
+        }
+    }
+
+    var YEAR = 0;
+    var MONTH = 1;
+    var DATE = 2;
+    var HOUR = 3;
+    var MINUTE = 4;
+    var SECOND = 5;
+    var MILLISECOND = 6;
+    var WEEK = 7;
+    var WEEKDAY = 8;
+
+    var indexOf;
+
+    if (Array.prototype.indexOf) {
+        indexOf = Array.prototype.indexOf;
+    } else {
+        indexOf = function (o) {
+            // I know
+            var i;
+            for (i = 0; i < this.length; ++i) {
+                if (this[i] === o) {
+                    return i;
+                }
+            }
+            return -1;
+        };
+    }
+
+    var indexOf$1 = indexOf;
+
+    function daysInMonth(year, month) {
+        return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+    }
+
+// FORMATTING
+
+    addFormatToken('M', ['MM', 2], 'Mo', function () {
+        return this.month() + 1;
+    });
+
+    addFormatToken('MMM', 0, 0, function (format) {
+        return this.localeData().monthsShort(this, format);
+    });
+
+    addFormatToken('MMMM', 0, 0, function (format) {
+        return this.localeData().months(this, format);
+    });
+
+// ALIASES
+
+    addUnitAlias('month', 'M');
+
+// PRIORITY
+
+    addUnitPriority('month', 8);
+
+// PARSING
+
+    addRegexToken('M', match1to2);
+    addRegexToken('MM', match1to2, match2);
+    addRegexToken('MMM', function (isStrict, locale) {
+        return locale.monthsShortRegex(isStrict);
+    });
+    addRegexToken('MMMM', function (isStrict, locale) {
+        return locale.monthsRegex(isStrict);
+    });
+
+    addParseToken(['M', 'MM'], function (input, array) {
+        array[MONTH] = toInt(input) - 1;
+    });
+
+    addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
+        var month = config._locale.monthsParse(input, token, config._strict);
+        // if we didn't find a month name, mark the date as invalid.
+        if (month != null) {
+            array[MONTH] = month;
+        } else {
+            getParsingFlags(config).invalidMonth = input;
+        }
+    });
+
+// LOCALES
+
+    var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
+    var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
+
+    function localeMonths(m, format) {
+        if (!m) {
+            return this._months;
+        }
+        return isArray(this._months) ? this._months[m.month()] :
+            this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
+    }
+
+    var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
+
+    function localeMonthsShort(m, format) {
+        if (!m) {
+            return this._monthsShort;
+        }
+        return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
+            this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
+    }
+
+    function handleStrictParse(monthName, format, strict) {
+        var i, ii, mom, llc = monthName.toLocaleLowerCase();
+        if (!this._monthsParse) {
+            // this is not used
+            this._monthsParse = [];
+            this._longMonthsParse = [];
+            this._shortMonthsParse = [];
+            for (i = 0; i < 12; ++i) {
+                mom = createUTC([2000, i]);
+                this._shortMonthsParse[i] = this.monthsShort(mom, '').toLocaleLowerCase();
+                this._longMonthsParse[i] = this.months(mom, '').toLocaleLowerCase();
+            }
+        }
+
+        if (strict) {
+            if (format === 'MMM') {
+                ii = indexOf$1.call(this._shortMonthsParse, llc);
+                return ii !== -1 ? ii : null;
+            } else {
+                ii = indexOf$1.call(this._longMonthsParse, llc);
+                return ii !== -1 ? ii : null;
+            }
+        } else {
+            if (format === 'MMM') {
+                ii = indexOf$1.call(this._shortMonthsParse, llc);
+                if (ii !== -1) {
+                    return ii;
+                }
+                ii = indexOf$1.call(this._longMonthsParse, llc);
+                return ii !== -1 ? ii : null;
+            } else {
+                ii = indexOf$1.call(this._longMonthsParse, llc);
+                if (ii !== -1) {
+                    return ii;
+                }
+                ii = indexOf$1.call(this._shortMonthsParse, llc);
+                return ii !== -1 ? ii : null;
+            }
+        }
+    }
+
+    function localeMonthsParse(monthName, format, strict) {
+        var i, mom, regex;
+
+        if (this._monthsParseExact) {
+            return handleStrictParse.call(this, monthName, format, strict);
+        }
+
+        if (!this._monthsParse) {
+            this._monthsParse = [];
+            this._longMonthsParse = [];
+            this._shortMonthsParse = [];
+        }
+
+        // TODO: add sorting
+        // Sorting makes sure if one month (or abbr) is a prefix of another
+        // see sorting in computeMonthsParse
+        for (i = 0; i < 12; i++) {
+            // make the regex if we don't have it already
+            mom = createUTC([2000, i]);
+            if (strict && !this._longMonthsParse[i]) {
+                this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
+                this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+            }
+            if (!strict && !this._monthsParse[i]) {
+                regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
+                this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
+            }
+            // test the regex
+            if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
+                return i;
+            } else if (strict && format === 'MMM' && this._shortMonthsParse[i].test(monthName)) {
+                return i;
+            } else if (!strict && this._monthsParse[i].test(monthName)) {
+                return i;
+            }
+        }
+    }
+
+// MOMENTS
+
+    function setMonth(mom, value) {
+        var dayOfMonth;
+
+        if (!mom.isValid()) {
+            // No op
+            return mom;
+        }
+
+        if (typeof value === 'string') {
+            if (/^\d+$/.test(value)) {
+                value = toInt(value);
+            } else {
+                value = mom.localeData().monthsParse(value);
+                // TODO: Another silent failure?
+                if (!isNumber(value)) {
+                    return mom;
+                }
+            }
+        }
+
+        dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
+        mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
+        return mom;
+    }
+
+    function getSetMonth(value) {
+        if (value != null) {
+            setMonth(this, value);
+            hooks.updateOffset(this, true);
+            return this;
+        } else {
+            return get(this, 'Month');
+        }
+    }
+
+    function getDaysInMonth() {
+        return daysInMonth(this.year(), this.month());
+    }
+
+    var defaultMonthsShortRegex = matchWord;
+
+    function monthsShortRegex(isStrict) {
+        if (this._monthsParseExact) {
+            if (!hasOwnProp(this, '_monthsRegex')) {
+                computeMonthsParse.call(this);
+            }
+            if (isStrict) {
+                return this._monthsShortStrictRegex;
+            } else {
+                return this._monthsShortRegex;
+            }
+        } else {
+            if (!hasOwnProp(this, '_monthsShortRegex')) {
+                this._monthsShortRegex = defaultMonthsShortRegex;
+            }
+            return this._monthsShortStrictRegex && isStrict ?
+                this._monthsShortStrictRegex : this._monthsShortRegex;
+        }
+    }
+
+    var defaultMonthsRegex = matchWord;
+
+    function monthsRegex(isStrict) {
+        if (this._monthsParseExact) {
+            if (!hasOwnProp(this, '_monthsRegex')) {
+                computeMonthsParse.call(this);
+            }
+            if (isStrict) {
+                return this._monthsStrictRegex;
+            } else {
+                return this._monthsRegex;
+            }
+        } else {
+            if (!hasOwnProp(this, '_monthsRegex')) {
+                this._monthsRegex = defaultMonthsRegex;
+            }
+            return this._monthsStrictRegex && isStrict ?
+                this._monthsStrictRegex : this._monthsRegex;
+        }
+    }
+
+    function computeMonthsParse() {
+        function cmpLenRev(a, b) {
+            return b.length - a.length;
+        }
+
+        var shortPieces = [], longPieces = [], mixedPieces = [],
+            i, mom;
+        for (i = 0; i < 12; i++) {
+            // make the regex if we don't have it already
+            mom = createUTC([2000, i]);
+            shortPieces.push(this.monthsShort(mom, ''));
+            longPieces.push(this.months(mom, ''));
+            mixedPieces.push(this.months(mom, ''));
+            mixedPieces.push(this.monthsShort(mom, ''));
+        }
+        // Sorting makes sure if one month (or abbr) is a prefix of another it
+        // will match the longer piece.
+        shortPieces.sort(cmpLenRev);
+        longPieces.sort(cmpLenRev);
+        mixedPieces.sort(cmpLenRev);
+        for (i = 0; i < 12; i++) {
+            shortPieces[i] = regexEscape(shortPieces[i]);
+            longPieces[i] = regexEscape(longPieces[i]);
+        }
+        for (i = 0; i < 24; i++) {
+            mixedPieces[i] = regexEscape(mixedPieces[i]);
+        }
+
+        this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+        this._monthsShortRegex = this._monthsRegex;
+        this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
+        this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
+    }
+
+// FORMATTING
+
+    addFormatToken('Y', 0, 0, function () {
+        var y = this.year();
+        return y <= 9999 ? '' + y : '+' + y;
+    });
+
+    addFormatToken(0, ['YY', 2], 0, function () {
+        return this.year() % 100;
+    });
+
+    addFormatToken(0, ['YYYY', 4], 0, 'year');
+    addFormatToken(0, ['YYYYY', 5], 0, 'year');
+    addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
+
+// ALIASES
+
+    addUnitAlias('year', 'y');
+
+// PRIORITIES
+
+    addUnitPriority('year', 1);
+
+// PARSING
+
+    addRegexToken('Y', matchSigned);
+    addRegexToken('YY', match1to2, match2);
+    addRegexToken('YYYY', match1to4, match4);
+    addRegexToken('YYYYY', match1to6, match6);
+    addRegexToken('YYYYYY', match1to6, match6);
+
+    addParseToken(['YYYYY', 'YYYYYY'], YEAR);
+    addParseToken('YYYY', function (input, array) {
+        array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
+    });
+    addParseToken('YY', function (input, array) {
+        array[YEAR] = hooks.parseTwoDigitYear(input);
+    });
+    addParseToken('Y', function (input, array) {
+        array[YEAR] = parseInt(input, 10);
+    });
+
+// HELPERS
+
+    function daysInYear(year) {
+        return isLeapYear(year) ? 366 : 365;
+    }
+
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+
+// HOOKS
+
+    hooks.parseTwoDigitYear = function (input) {
+        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+    };
+
+// MOMENTS
+
+    var getSetYear = makeGetSet('FullYear', true);
+
+    function getIsLeapYear() {
+        return isLeapYear(this.year());
+    }
+
+    function createDate(y, m, d, h, M, s, ms) {
+        //can't just apply() to create a date:
+        //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+        var date = new Date(y, m, d, h, M, s, ms);
+
+        //the date constructor remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
+            date.setFullYear(y);
+        }
+        return date;
+    }
+
+    function createUTCDate(y) {
+        var date = new Date(Date.UTC.apply(null, arguments));
+
+        //the Date.UTC function remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
+            date.setUTCFullYear(y);
+        }
+        return date;
+    }
+
+// start-of-first-week - start-of-year
+    function firstWeekOffset(year, dow, doy) {
+        var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+            fwd = 7 + dow - doy,
+            // first-week day local weekday -- which local weekday is fwd
+            fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
+
+        return -fwdlw + fwd - 1;
+    }
+
+//http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+    function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
+        var localWeekday = (7 + weekday - dow) % 7,
+            weekOffset = firstWeekOffset(year, dow, doy),
+            dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
+            resYear, resDayOfYear;
+
+        if (dayOfYear <= 0) {
+            resYear = year - 1;
+            resDayOfYear = daysInYear(resYear) + dayOfYear;
+        } else if (dayOfYear > daysInYear(year)) {
+            resYear = year + 1;
+            resDayOfYear = dayOfYear - daysInYear(year);
+        } else {
+            resYear = year;
+            resDayOfYear = dayOfYear;
+        }
+
+        return {
+            year: resYear,
+            dayOfYear: resDayOfYear
+        };
+    }
+
+    function weekOfYear(mom, dow, doy) {
+        var weekOffset = firstWeekOffset(mom.year(), dow, doy),
+            week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
+            resWeek, resYear;
+
+        if (week < 1) {
+            resYear = mom.year() - 1;
+            resWeek = week + weeksInYear(resYear, dow, doy);
+        } else if (week > weeksInYear(mom.year(), dow, doy)) {
+            resWeek = week - weeksInYear(mom.year(), dow, doy);
+            resYear = mom.year() + 1;
+        } else {
+            resYear = mom.year();
+            resWeek = week;
+        }
+
+        return {
+            week: resWeek,
+            year: resYear
+        };
+    }
+
+    function weeksInYear(year, dow, doy) {
+        var weekOffset = firstWeekOffset(year, dow, doy),
+            weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
+        return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
+    }
+
+// FORMATTING
+
+    addFormatToken('w', ['ww', 2], 'wo', 'week');
+    addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
+
+// ALIASES
+
+    addUnitAlias('week', 'w');
+    addUnitAlias('isoWeek', 'W');
+
+// PRIORITIES
+
+    addUnitPriority('week', 5);
+    addUnitPriority('isoWeek', 5);
+
+// PARSING
+
+    addRegexToken('w', match1to2);
+    addRegexToken('ww', match1to2, match2);
+    addRegexToken('W', match1to2);
+    addRegexToken('WW', match1to2, match2);
+
+    addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
+        week[token.substr(0, 1)] = toInt(input);
+    });
+
+// HELPERS
+
+// LOCALES
+
+    function localeWeek(mom) {
+        return weekOfYear(mom, this._week.dow, this._week.doy).week;
+    }
+
+    var defaultLocaleWeek = {
+        dow: 0, // Sunday is the first day of the week.
+        doy: 6  // The week that contains Jan 1st is the first week of the year.
+    };
+
+    function localeFirstDayOfWeek() {
+        return this._week.dow;
+    }
+
+    function localeFirstDayOfYear() {
+        return this._week.doy;
+    }
+
+// MOMENTS
+
+    function getSetWeek(input) {
+        var week = this.localeData().week(this);
+        return input == null ? week : this.add((input - week) * 7, 'd');
+    }
+
+    function getSetISOWeek(input) {
+        var week = weekOfYear(this, 1, 4).week;
+        return input == null ? week : this.add((input - week) * 7, 'd');
+    }
+
+// FORMATTING
+
+    addFormatToken('d', 0, 'do', 'day');
+
+    addFormatToken('dd', 0, 0, function (format) {
+        return this.localeData().weekdaysMin(this, format);
+    });
+
+    addFormatToken('ddd', 0, 0, function (format) {
+        return this.localeData().weekdaysShort(this, format);
+    });
+
+    addFormatToken('dddd', 0, 0, function (format) {
+        return this.localeData().weekdays(this, format);
+    });
+
+    addFormatToken('e', 0, 0, 'weekday');
+    addFormatToken('E', 0, 0, 'isoWeekday');
+
+// ALIASES
+
+    addUnitAlias('day', 'd');
+    addUnitAlias('weekday', 'e');
+    addUnitAlias('isoWeekday', 'E');
+
+// PRIORITY
+    addUnitPriority('day', 11);
+    addUnitPriority('weekday', 11);
+    addUnitPriority('isoWeekday', 11);
+
+// PARSING
+
+    addRegexToken('d', match1to2);
+    addRegexToken('e', match1to2);
+    addRegexToken('E', match1to2);
+    addRegexToken('dd', function (isStrict, locale) {
+        return locale.weekdaysMinRegex(isStrict);
+    });
+    addRegexToken('ddd', function (isStrict, locale) {
+        return locale.weekdaysShortRegex(isStrict);
+    });
+    addRegexToken('dddd', function (isStrict, locale) {
+        return locale.weekdaysRegex(isStrict);
+    });
+
+    addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
+        var weekday = config._locale.weekdaysParse(input, token, config._strict);
+        // if we didn't get a weekday name, mark the date as invalid
+        if (weekday != null) {
+            week.d = weekday;
+        } else {
+            getParsingFlags(config).invalidWeekday = input;
+        }
+    });
+
+    addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {
+        week[token] = toInt(input);
+    });
+
+// HELPERS
+
+    function parseWeekday(input, locale) {
+        if (typeof input !== 'string') {
+            return input;
+        }
+
+        if (!isNaN(input)) {
+            return parseInt(input, 10);
+        }
+
+        input = locale.weekdaysParse(input);
+        if (typeof input === 'number') {
+            return input;
+        }
+
+        return null;
+    }
+
+    function parseIsoWeekday(input, locale) {
+        if (typeof input === 'string') {
+            return locale.weekdaysParse(input) % 7 || 7;
+        }
+        return isNaN(input) ? null : input;
+    }
+
+// LOCALES
+
+    var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
+
+    function localeWeekdays(m, format) {
+        if (!m) {
+            return this._weekdays;
+        }
+        return isArray(this._weekdays) ? this._weekdays[m.day()] :
+            this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
+    }
+
+    var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
+
+    function localeWeekdaysShort(m) {
+        return (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
+    }
+
+    var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
+
+    function localeWeekdaysMin(m) {
+        return (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
+    }
+
+    function handleStrictParse$1(weekdayName, format, strict) {
+        var i, ii, mom, llc = weekdayName.toLocaleLowerCase();
+        if (!this._weekdaysParse) {
+            this._weekdaysParse = [];
+            this._shortWeekdaysParse = [];
+            this._minWeekdaysParse = [];
+
+            for (i = 0; i < 7; ++i) {
+                mom = createUTC([2000, 1]).day(i);
+                this._minWeekdaysParse[i] = this.weekdaysMin(mom, '').toLocaleLowerCase();
+                this._shortWeekdaysParse[i] = this.weekdaysShort(mom, '').toLocaleLowerCase();
+                this._weekdaysParse[i] = this.weekdays(mom, '').toLocaleLowerCase();
+            }
+        }
+
+        if (strict) {
+            if (format === 'dddd') {
+                ii = indexOf$1.call(this._weekdaysParse, llc);
+                return ii !== -1 ? ii : null;
+            } else if (format === 'ddd') {
+                ii = indexOf$1.call(this._shortWeekdaysParse, llc);
+                return ii !== -1 ? ii : null;
+            } else {
+                ii = indexOf$1.call(this._minWeekdaysParse, llc);
+                return ii !== -1 ? ii : null;
+            }
+        } else {
+            if (format === 'dddd') {
+                ii = indexOf$1.call(this._weekdaysParse, llc);
+                if (ii !== -1) {
+                    return ii;
+                }
+                ii = indexOf$1.call(this._shortWeekdaysParse, llc);
+                if (ii !== -1) {
+                    return ii;
+                }
+                ii = indexOf$1.call(this._minWeekdaysParse, llc);
+                return ii !== -1 ? ii : null;
+            } else if (format === 'ddd') {
+                ii = indexOf$1.call(this._shortWeekdaysParse, llc);
+                if (ii !== -1) {
+                    return ii;
+                }
+                ii = indexOf$1.call(this._weekdaysParse, llc);
+                if (ii !== -1) {
+                    return ii;
+                }
+                ii = indexOf$1.call(this._minWeekdaysParse, llc);
+                return ii !== -1 ? ii : null;
+            } else {
+                ii = indexOf$1.call(this._minWeekdaysParse, llc);
+                if (ii !== -1) {
+                    return ii;
+                }
+                ii = indexOf$1.call(this._weekdaysParse, llc);
+                if (ii !== -1) {
+                    return ii;
+                }
+                ii = indexOf$1.call(this._shortWeekdaysParse, llc);
+                return ii !== -1 ? ii : null;
+            }
+        }
+    }
+
+    function localeWeekdaysParse(weekdayName, format, strict) {
+        var i, mom, regex;
+
+        if (this._weekdaysParseExact) {
+            return handleStrictParse$1.call(this, weekdayName, format, strict);
+        }
+
+        if (!this._weekdaysParse) {
+            this._weekdaysParse = [];
+            this._minWeekdaysParse = [];
+            this._shortWeekdaysParse = [];
+            this._fullWeekdaysParse = [];
+        }
+
+        for (i = 0; i < 7; i++) {
+            // make the regex if we don't have it already
+
+            mom = createUTC([2000, 1]).day(i);
+            if (strict && !this._fullWeekdaysParse[i]) {
+                this._fullWeekdaysParse[i] = new RegExp('^' + this.weekdays(mom, '').replace('.', '\.?') + '$', 'i');
+                this._shortWeekdaysParse[i] = new RegExp('^' + this.weekdaysShort(mom, '').replace('.', '\.?') + '$', 'i');
+                this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\.?') + '$', 'i');
+            }
+            if (!this._weekdaysParse[i]) {
+                regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
+                this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
+            }
+            // test the regex
+            if (strict && format === 'dddd' && this._fullWeekdaysParse[i].test(weekdayName)) {
+                return i;
+            } else if (strict && format === 'ddd' && this._shortWeekdaysParse[i].test(weekdayName)) {
+                return i;
+            } else if (strict && format === 'dd' && this._minWeekdaysParse[i].test(weekdayName)) {
+                return i;
+            } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
+                return i;
+            }
+        }
+    }
+
+// MOMENTS
+
+    function getSetDayOfWeek(input) {
+        if (!this.isValid()) {
+            return input != null ? this : NaN;
+        }
+        var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+        if (input != null) {
+            input = parseWeekday(input, this.localeData());
+            return this.add(input - day, 'd');
+        } else {
+            return day;
+        }
+    }
+
+    function getSetLocaleDayOfWeek(input) {
+        if (!this.isValid()) {
+            return input != null ? this : NaN;
+        }
+        var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
+        return input == null ? weekday : this.add(input - weekday, 'd');
+    }
+
+    function getSetISODayOfWeek(input) {
+        if (!this.isValid()) {
+            return input != null ? this : NaN;
+        }
+
+        // behaves the same as moment#day except
+        // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
+        // as a setter, sunday should belong to the previous week.
+
+        if (input != null) {
+            var weekday = parseIsoWeekday(input, this.localeData());
+            return this.day(this.day() % 7 ? weekday : weekday - 7);
+        } else {
+            return this.day() || 7;
+        }
+    }
+
+    var defaultWeekdaysRegex = matchWord;
+
+    function weekdaysRegex(isStrict) {
+        if (this._weekdaysParseExact) {
+            if (!hasOwnProp(this, '_weekdaysRegex')) {
+                computeWeekdaysParse.call(this);
+            }
+            if (isStrict) {
+                return this._weekdaysStrictRegex;
+            } else {
+                return this._weekdaysRegex;
+            }
+        } else {
+            if (!hasOwnProp(this, '_weekdaysRegex')) {
+                this._weekdaysRegex = defaultWeekdaysRegex;
+            }
+            return this._weekdaysStrictRegex && isStrict ?
+                this._weekdaysStrictRegex : this._weekdaysRegex;
+        }
+    }
+
+    var defaultWeekdaysShortRegex = matchWord;
+
+    function weekdaysShortRegex(isStrict) {
+        if (this._weekdaysParseExact) {
+            if (!hasOwnProp(this, '_weekdaysRegex')) {
+                computeWeekdaysParse.call(this);
+            }
+            if (isStrict) {
+                return this._weekdaysShortStrictRegex;
+            } else {
+                return this._weekdaysShortRegex;
+            }
+        } else {
+            if (!hasOwnProp(this, '_weekdaysShortRegex')) {
+                this._weekdaysShortRegex = defaultWeekdaysShortRegex;
+            }
+            return this._weekdaysShortStrictRegex && isStrict ?
+                this._weekdaysShortStrictRegex : this._weekdaysShortRegex;
+        }
+    }
+
+    var defaultWeekdaysMinRegex = matchWord;
+
+    function weekdaysMinRegex(isStrict) {
+        if (this._weekdaysParseExact) {
+            if (!hasOwnProp(this, '_weekdaysRegex')) {
+                computeWeekdaysParse.call(this);
+            }
+            if (isStrict) {
+                return this._weekdaysMinStrictRegex;
+            } else {
+                return this._weekdaysMinRegex;
+            }
+        } else {
+            if (!hasOwnProp(this, '_weekdaysMinRegex')) {
+                this._weekdaysMinRegex = defaultWeekdaysMinRegex;
+            }
+            return this._weekdaysMinStrictRegex && isStrict ?
+                this._weekdaysMinStrictRegex : this._weekdaysMinRegex;
+        }
+    }
+
+
+    function computeWeekdaysParse() {
+        function cmpLenRev(a, b) {
+            return b.length - a.length;
+        }
+
+        var minPieces = [], shortPieces = [], longPieces = [], mixedPieces = [],
+            i, mom, minp, shortp, longp;
+        for (i = 0; i < 7; i++) {
+            // make the regex if we don't have it already
+            mom = createUTC([2000, 1]).day(i);
+            minp = this.weekdaysMin(mom, '');
+            shortp = this.weekdaysShort(mom, '');
+            longp = this.weekdays(mom, '');
+            minPieces.push(minp);
+            shortPieces.push(shortp);
+            longPieces.push(longp);
+            mixedPieces.push(minp);
+            mixedPieces.push(shortp);
+            mixedPieces.push(longp);
+        }
+        // Sorting makes sure if one weekday (or abbr) is a prefix of another it
+        // will match the longer piece.
+        minPieces.sort(cmpLenRev);
+        shortPieces.sort(cmpLenRev);
+        longPieces.sort(cmpLenRev);
+        mixedPieces.sort(cmpLenRev);
+        for (i = 0; i < 7; i++) {
+            shortPieces[i] = regexEscape(shortPieces[i]);
+            longPieces[i] = regexEscape(longPieces[i]);
+            mixedPieces[i] = regexEscape(mixedPieces[i]);
+        }
+
+        this._weekdaysRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+        this._weekdaysShortRegex = this._weekdaysRegex;
+        this._weekdaysMinRegex = this._weekdaysRegex;
+
+        this._weekdaysStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
+        this._weekdaysShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
+        this._weekdaysMinStrictRegex = new RegExp('^(' + minPieces.join('|') + ')', 'i');
+    }
+
+// FORMATTING
+
+    function hFormat() {
+        return this.hours() % 12 || 12;
+    }
+
+    function kFormat() {
+        return this.hours() || 24;
+    }
+
+    addFormatToken('H', ['HH', 2], 0, 'hour');
+    addFormatToken('h', ['hh', 2], 0, hFormat);
+    addFormatToken('k', ['kk', 2], 0, kFormat);
+
+    addFormatToken('hmm', 0, 0, function () {
+        return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
+    });
+
+    addFormatToken('hmmss', 0, 0, function () {
+        return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2) +
+            zeroFill(this.seconds(), 2);
+    });
+
+    addFormatToken('Hmm', 0, 0, function () {
+        return '' + this.hours() + zeroFill(this.minutes(), 2);
+    });
+
+    addFormatToken('Hmmss', 0, 0, function () {
+        return '' + this.hours() + zeroFill(this.minutes(), 2) +
+            zeroFill(this.seconds(), 2);
+    });
+
+    function meridiem(token, lowercase) {
+        addFormatToken(token, 0, 0, function () {
+            return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
+        });
+    }
+
+    meridiem('a', true);
+    meridiem('A', false);
+
+// ALIASES
+
+    addUnitAlias('hour', 'h');
+
+// PRIORITY
+    addUnitPriority('hour', 13);
+
+// PARSING
+
+    function matchMeridiem(isStrict, locale) {
+        return locale._meridiemParse;
+    }
+
+    addRegexToken('a', matchMeridiem);
+    addRegexToken('A', matchMeridiem);
+    addRegexToken('H', match1to2);
+    addRegexToken('h', match1to2);
+    addRegexToken('HH', match1to2, match2);
+    addRegexToken('hh', match1to2, match2);
+
+    addRegexToken('hmm', match3to4);
+    addRegexToken('hmmss', match5to6);
+    addRegexToken('Hmm', match3to4);
+    addRegexToken('Hmmss', match5to6);
+
+    addParseToken(['H', 'HH'], HOUR);
+    addParseToken(['a', 'A'], function (input, array, config) {
+        config._isPm = config._locale.isPM(input);
+        config._meridiem = input;
+    });
+    addParseToken(['h', 'hh'], function (input, array, config) {
+        array[HOUR] = toInt(input);
+        getParsingFlags(config).bigHour = true;
+    });
+    addParseToken('hmm', function (input, array, config) {
+        var pos = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos));
+        array[MINUTE] = toInt(input.substr(pos));
+        getParsingFlags(config).bigHour = true;
+    });
+    addParseToken('hmmss', function (input, array, config) {
+        var pos1 = input.length - 4;
+        var pos2 = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos1));
+        array[MINUTE] = toInt(input.substr(pos1, 2));
+        array[SECOND] = toInt(input.substr(pos2));
+        getParsingFlags(config).bigHour = true;
+    });
+    addParseToken('Hmm', function (input, array, config) {
+        var pos = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos));
+        array[MINUTE] = toInt(input.substr(pos));
+    });
+    addParseToken('Hmmss', function (input, array, config) {
+        var pos1 = input.length - 4;
+        var pos2 = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos1));
+        array[MINUTE] = toInt(input.substr(pos1, 2));
+        array[SECOND] = toInt(input.substr(pos2));
+    });
+
+// LOCALES
+
+    function localeIsPM(input) {
+        // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
+        // Using charAt should be more compatible.
+        return ((input + '').toLowerCase().charAt(0) === 'p');
+    }
+
+    var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
+
+    function localeMeridiem(hours, minutes, isLower) {
+        if (hours > 11) {
+            return isLower ? 'pm' : 'PM';
+        } else {
+            return isLower ? 'am' : 'AM';
+        }
+    }
+
+
+// MOMENTS
+
+// Setting the hour should keep the time, because the user explicitly
+// specified which hour he wants. So trying to maintain the same hour (in
+// a new timezone) makes sense. Adding/subtracting hours does not follow
+// this rule.
+    var getSetHour = makeGetSet('Hours', true);
+
+// months
+// week
+// weekdays
+// meridiem
+    var baseConfig = {
+        calendar: defaultCalendar,
+        longDateFormat: defaultLongDateFormat,
+        invalidDate: defaultInvalidDate,
+        ordinal: defaultOrdinal,
+        ordinalParse: defaultOrdinalParse,
+        relativeTime: defaultRelativeTime,
+
+        months: defaultLocaleMonths,
+        monthsShort: defaultLocaleMonthsShort,
+
+        week: defaultLocaleWeek,
+
+        weekdays: defaultLocaleWeekdays,
+        weekdaysMin: defaultLocaleWeekdaysMin,
+        weekdaysShort: defaultLocaleWeekdaysShort,
+
+        meridiemParse: defaultLocaleMeridiemParse
+    };
+
+// internal storage for locale config files
+    var locales = {};
+    var localeFamilies = {};
+    var globalLocale;
+
+    function normalizeLocale(key) {
+        return key ? key.toLowerCase().replace('_', '-') : key;
+    }
+
+// pick the locale from the array
+// try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+// substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
+    function chooseLocale(names) {
+        var i = 0, j, next, locale, split;
+
+        while (i < names.length) {
+            split = normalizeLocale(names[i]).split('-');
+            j = split.length;
+            next = normalizeLocale(names[i + 1]);
+            next = next ? next.split('-') : null;
+            while (j > 0) {
+                locale = loadLocale(split.slice(0, j).join('-'));
+                if (locale) {
+                    return locale;
+                }
+                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+                    //the next array item is better than a shallower substring of this one
+                    break;
+                }
+                j--;
+            }
+            i++;
+        }
+        return null;
+    }
+
+    function loadLocale(name) {
+        var oldLocale = null;
+        // TODO: Find a better way to register and load all the locales in Node
+        if (!locales[name] && (typeof module !== 'undefined') &&
+            module && module.exports) {
+            try {
+                oldLocale = globalLocale._abbr;
+                require('./locale/' + name);
+                // because defineLocale currently also sets the global locale, we
+                // want to undo that for lazy loaded locales
+                getSetGlobalLocale(oldLocale);
+            } catch (e) {
+            }
+        }
+        return locales[name];
+    }
+
+// This function will load locale and then set the global locale.  If
+// no arguments are passed in, it will simply return the current global
+// locale key.
+    function getSetGlobalLocale(key, values) {
+        var data;
+        if (key) {
+            if (isUndefined(values)) {
+                data = getLocale(key);
+            }
+            else {
+                data = defineLocale(key, values);
+            }
+
+            if (data) {
+                // moment.duration._locale = moment._locale = data;
+                globalLocale = data;
+            }
+        }
+
+        return globalLocale._abbr;
+    }
+
+    function defineLocale(name, config) {
+        if (config !== null) {
+            var parentConfig = baseConfig;
+            config.abbr = name;
+            if (locales[name] != null) {
+                deprecateSimple('defineLocaleOverride',
+                    'use moment.updateLocale(localeName, config) to change ' +
+                    'an existing locale. moment.defineLocale(localeName, ' +
+                    'config) should only be used for creating a new locale ' +
+                    'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
+                parentConfig = locales[name]._config;
+            } else if (config.parentLocale != null) {
+                if (locales[config.parentLocale] != null) {
+                    parentConfig = locales[config.parentLocale]._config;
+                } else {
+                    if (!localeFamilies[config.parentLocale]) {
+                        localeFamilies[config.parentLocale] = [];
+                    }
+                    localeFamilies[config.parentLocale].push({
+                        name: name,
+                        config: config
+                    });
+                    return null;
+                }
+            }
+            locales[name] = new Locale(mergeConfigs(parentConfig, config));
+
+            if (localeFamilies[name]) {
+                localeFamilies[name].forEach(function (x) {
+                    defineLocale(x.name, x.config);
+                });
+            }
+
+            // backwards compat for now: also set the locale
+            // make sure we set the locale AFTER all child locales have been
+            // created, so we won't end up with the child locale set.
+            getSetGlobalLocale(name);
+
+
+            return locales[name];
+        } else {
+            // useful for testing
+            delete locales[name];
+            return null;
+        }
+    }
+
+    function updateLocale(name, config) {
+        if (config != null) {
+            var locale, parentConfig = baseConfig;
+            // MERGE
+            if (locales[name] != null) {
+                parentConfig = locales[name]._config;
+            }
+            config = mergeConfigs(parentConfig, config);
+            locale = new Locale(config);
+            locale.parentLocale = locales[name];
+            locales[name] = locale;
+
+            // backwards compat for now: also set the locale
+            getSetGlobalLocale(name);
+        } else {
+            // pass null for config to unupdate, useful for tests
+            if (locales[name] != null) {
+                if (locales[name].parentLocale != null) {
+                    locales[name] = locales[name].parentLocale;
+                } else if (locales[name] != null) {
+                    delete locales[name];
+                }
+            }
+        }
+        return locales[name];
+    }
+
+// returns locale data
+    function getLocale(key) {
+        var locale;
+
+        if (key && key._locale && key._locale._abbr) {
+            key = key._locale._abbr;
+        }
+
+        if (!key) {
+            return globalLocale;
+        }
+
+        if (!isArray(key)) {
+            //short-circuit everything else
+            locale = loadLocale(key);
+            if (locale) {
+                return locale;
+            }
+            key = [key];
+        }
+
+        return chooseLocale(key);
+    }
+
+    function listLocales() {
+        return keys$1(locales);
+    }
+
+    function checkOverflow(m) {
+        var overflow;
+        var a = m._a;
+
+        if (a && getParsingFlags(m).overflow === -2) {
+            overflow =
+                a[MONTH] < 0 || a[MONTH] > 11 ? MONTH :
+                    a[DATE] < 1 || a[DATE] > daysInMonth(a[YEAR], a[MONTH]) ? DATE :
+                        a[HOUR] < 0 || a[HOUR] > 24 || (a[HOUR] === 24 && (a[MINUTE] !== 0 || a[SECOND] !== 0 || a[MILLISECOND] !== 0)) ? HOUR :
+                            a[MINUTE] < 0 || a[MINUTE] > 59 ? MINUTE :
+                                a[SECOND] < 0 || a[SECOND] > 59 ? SECOND :
+                                    a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND :
+                                        -1;
+
+            if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+                overflow = DATE;
+            }
+            if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
+                overflow = WEEK;
+            }
+            if (getParsingFlags(m)._overflowWeekday && overflow === -1) {
+                overflow = WEEKDAY;
+            }
+
+            getParsingFlags(m).overflow = overflow;
+        }
+
+        return m;
+    }
+
+// iso 8601 regex
+// 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
+    var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+    var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+
+    var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
+
+    var isoDates = [
+        ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
+        ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
+        ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
+        ['GGGG-[W]WW', /\d{4}-W\d\d/, false],
+        ['YYYY-DDD', /\d{4}-\d{3}/],
+        ['YYYY-MM', /\d{4}-\d\d/, false],
+        ['YYYYYYMMDD', /[+-]\d{10}/],
+        ['YYYYMMDD', /\d{8}/],
+        // YYYYMM is NOT allowed by the standard
+        ['GGGG[W]WWE', /\d{4}W\d{3}/],
+        ['GGGG[W]WW', /\d{4}W\d{2}/, false],
+        ['YYYYDDD', /\d{7}/]
+    ];
+
+// iso time formats and regexes
+    var isoTimes = [
+        ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
+        ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
+        ['HH:mm:ss', /\d\d:\d\d:\d\d/],
+        ['HH:mm', /\d\d:\d\d/],
+        ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
+        ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
+        ['HHmmss', /\d\d\d\d\d\d/],
+        ['HHmm', /\d\d\d\d/],
+        ['HH', /\d\d/]
+    ];
+
+    var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
+
+// date from iso format
+    function configFromISO(config) {
+        var i, l,
+            string = config._i,
+            match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
+            allowTime, dateFormat, timeFormat, tzFormat;
+
+        if (match) {
+            getParsingFlags(config).iso = true;
+
+            for (i = 0, l = isoDates.length; i < l; i++) {
+                if (isoDates[i][1].exec(match[1])) {
+                    dateFormat = isoDates[i][0];
+                    allowTime = isoDates[i][2] !== false;
+                    break;
+                }
+            }
+            if (dateFormat == null) {
+                config._isValid = false;
+                return;
+            }
+            if (match[3]) {
+                for (i = 0, l = isoTimes.length; i < l; i++) {
+                    if (isoTimes[i][1].exec(match[3])) {
+                        // match[2] should be 'T' or space
+                        timeFormat = (match[2] || ' ') + isoTimes[i][0];
+                        break;
+                    }
+                }
+                if (timeFormat == null) {
+                    config._isValid = false;
+                    return;
+                }
+            }
+            if (!allowTime && timeFormat != null) {
+                config._isValid = false;
+                return;
+            }
+            if (match[4]) {
+                if (tzRegex.exec(match[4])) {
+                    tzFormat = 'Z';
+                } else {
+                    config._isValid = false;
+                    return;
+                }
+            }
+            config._f = dateFormat + (timeFormat || '') + (tzFormat || '');
+            configFromStringAndFormat(config);
+        } else {
+            config._isValid = false;
+        }
+    }
+
+// date from iso format or fallback
+    function configFromString(config) {
+        var matched = aspNetJsonRegex.exec(config._i);
+
+        if (matched !== null) {
+            config._d = new Date(+matched[1]);
+            return;
+        }
+
+        configFromISO(config);
+        if (config._isValid === false) {
+            delete config._isValid;
+            hooks.createFromInputFallback(config);
+        }
+    }
+
+    hooks.createFromInputFallback = deprecate(
+        'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
+        'which is not reliable across all browsers and versions. Non ISO date formats are ' +
+        'discouraged and will be removed in an upcoming major release. Please refer to ' +
+        'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+        function (config) {
+            config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
+        }
+    );
+
+// Pick the first defined of two or three arguments.
+    function defaults(a, b, c) {
+        if (a != null) {
+            return a;
+        }
+        if (b != null) {
+            return b;
+        }
+        return c;
+    }
+
+    function currentDateArray(config) {
+        // hooks is actually the exported moment object
+        var nowValue = new Date(hooks.now());
+        if (config._useUTC) {
+            return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
+        }
+        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+    }
+
+// convert an array to a date.
+// the array should mirror the parameters below
+// note: all values past the year are optional and will default to the lowest possible value.
+// [year, month, day , hour, minute, second, millisecond]
+    function configFromArray(config) {
+        var i, date, input = [], currentDate, yearToUse;
+
+        if (config._d) {
+            return;
+        }
+
+        currentDate = currentDateArray(config);
+
+        //compute day of the year from weeks and weekdays
+        if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
+            dayOfYearFromWeekInfo(config);
+        }
+
+        //if the day of the year is set, figure out what it is
+        if (config._dayOfYear) {
+            yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
+
+            if (config._dayOfYear > daysInYear(yearToUse)) {
+                getParsingFlags(config)._overflowDayOfYear = true;
+            }
+
+            date = createUTCDate(yearToUse, 0, config._dayOfYear);
+            config._a[MONTH] = date.getUTCMonth();
+            config._a[DATE] = date.getUTCDate();
+        }
+
+        // Default to current date.
+        // * if no year, month, day of month are given, default to today
+        // * if day of month is given, default month and year
+        // * if month is given, default only year
+        // * if year is given, don't default anything
+        for (i = 0; i < 3 && config._a[i] == null; ++i) {
+            config._a[i] = input[i] = currentDate[i];
+        }
+
+        // Zero out whatever was not defaulted, including time
+        for (; i < 7; i++) {
+            config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
+        }
+
+        // Check for 24:00:00.000
+        if (config._a[HOUR] === 24 &&
+            config._a[MINUTE] === 0 &&
+            config._a[SECOND] === 0 &&
+            config._a[MILLISECOND] === 0) {
+            config._nextDay = true;
+            config._a[HOUR] = 0;
+        }
+
+        config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
+        // Apply timezone offset from input. The actual utcOffset can be changed
+        // with parseZone.
+        if (config._tzm != null) {
+            config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+        }
+
+        if (config._nextDay) {
+            config._a[HOUR] = 24;
+        }
+    }
+
+    function dayOfYearFromWeekInfo(config) {
+        var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
+
+        w = config._w;
+        if (w.GG != null || w.W != null || w.E != null) {
+            dow = 1;
+            doy = 4;
+
+            // TODO: We need to take the current isoWeekYear, but that depends on
+            // how we interpret now (local, utc, fixed offset). So create
+            // a now version of current config (take local/utc/offset flags, and
+            // create now).
+            weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
+            week = defaults(w.W, 1);
+            weekday = defaults(w.E, 1);
+            if (weekday < 1 || weekday > 7) {
+                weekdayOverflow = true;
+            }
+        } else {
+            dow = config._locale._week.dow;
+            doy = config._locale._week.doy;
+
+            var curWeek = weekOfYear(createLocal(), dow, doy);
+
+            weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
+
+            // Default to current week.
+            week = defaults(w.w, curWeek.week);
+
+            if (w.d != null) {
+                // weekday -- low day numbers are considered next week
+                weekday = w.d;
+                if (weekday < 0 || weekday > 6) {
+                    weekdayOverflow = true;
+                }
+            } else if (w.e != null) {
+                // local weekday -- counting starts from begining of week
+                weekday = w.e + dow;
+                if (w.e < 0 || w.e > 6) {
+                    weekdayOverflow = true;
+                }
+            } else {
+                // default to begining of week
+                weekday = dow;
+            }
+        }
+        if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
+            getParsingFlags(config)._overflowWeeks = true;
+        } else if (weekdayOverflow != null) {
+            getParsingFlags(config)._overflowWeekday = true;
+        } else {
+            temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
+            config._a[YEAR] = temp.year;
+            config._dayOfYear = temp.dayOfYear;
+        }
+    }
+
+// constant that refers to the ISO standard
+    hooks.ISO_8601 = function () {
+    };
+
+// date from string and format string
+    function configFromStringAndFormat(config) {
+        // TODO: Move this to another part of the creation flow to prevent circular deps
+        if (config._f === hooks.ISO_8601) {
+            configFromISO(config);
+            return;
+        }
+
+        config._a = [];
+        getParsingFlags(config).empty = true;
+
+        // This array is used to make a Date, either with `new Date` or `Date.UTC`
+        var string = '' + config._i,
+            i, parsedInput, tokens, token, skipped,
+            stringLength = string.length,
+            totalParsedInputLength = 0;
+
+        tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
+
+        for (i = 0; i < tokens.length; i++) {
+            token = tokens[i];
+            parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
+            // console.log('token', token, 'parsedInput', parsedInput,
+            //         'regex', getParseRegexForToken(token, config));
+            if (parsedInput) {
+                skipped = string.substr(0, string.indexOf(parsedInput));
+                if (skipped.length > 0) {
+                    getParsingFlags(config).unusedInput.push(skipped);
+                }
+                string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+                totalParsedInputLength += parsedInput.length;
+            }
+            // don't parse if it's not a known token
+            if (formatTokenFunctions[token]) {
+                if (parsedInput) {
+                    getParsingFlags(config).empty = false;
+                }
+                else {
+                    getParsingFlags(config).unusedTokens.push(token);
+                }
+                addTimeToArrayFromToken(token, parsedInput, config);
+            }
+            else if (config._strict && !parsedInput) {
+                getParsingFlags(config).unusedTokens.push(token);
+            }
+        }
+
+        // add remaining unparsed input length to the string
+        getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
+        if (string.length > 0) {
+            getParsingFlags(config).unusedInput.push(string);
+        }
+
+        // clear _12h flag if hour is <= 12
+        if (config._a[HOUR] <= 12 &&
+            getParsingFlags(config).bigHour === true &&
+            config._a[HOUR] > 0) {
+            getParsingFlags(config).bigHour = undefined;
+        }
+
+        getParsingFlags(config).parsedDateParts = config._a.slice(0);
+        getParsingFlags(config).meridiem = config._meridiem;
+        // handle meridiem
+        config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
+
+        configFromArray(config);
+        checkOverflow(config);
+    }
+
+
+    function meridiemFixWrap(locale, hour, meridiem) {
+        var isPm;
+
+        if (meridiem == null) {
+            // nothing to do
+            return hour;
+        }
+        if (locale.meridiemHour != null) {
+            return locale.meridiemHour(hour, meridiem);
+        } else if (locale.isPM != null) {
+            // Fallback
+            isPm = locale.isPM(meridiem);
+            if (isPm && hour < 12) {
+                hour += 12;
+            }
+            if (!isPm && hour === 12) {
+                hour = 0;
+            }
+            return hour;
+        } else {
+            // this is not supposed to happen
+            return hour;
+        }
+    }
+
+// date from string and array of format strings
+    function configFromStringAndArray(config) {
+        var tempConfig,
+            bestMoment,
+
+            scoreToBeat,
+            i,
+            currentScore;
+
+        if (config._f.length === 0) {
+            getParsingFlags(config).invalidFormat = true;
+            config._d = new Date(NaN);
+            return;
+        }
+
+        for (i = 0; i < config._f.length; i++) {
+            currentScore = 0;
+            tempConfig = copyConfig({}, config);
+            if (config._useUTC != null) {
+                tempConfig._useUTC = config._useUTC;
+            }
+            tempConfig._f = config._f[i];
+            configFromStringAndFormat(tempConfig);
+
+            if (!isValid(tempConfig)) {
+                continue;
+            }
+
+            // if there is any input that was not parsed add a penalty for that format
+            currentScore += getParsingFlags(tempConfig).charsLeftOver;
+
+            //or tokens
+            currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
+
+            getParsingFlags(tempConfig).score = currentScore;
+
+            if (scoreToBeat == null || currentScore < scoreToBeat) {
+                scoreToBeat = currentScore;
+                bestMoment = tempConfig;
+            }
+        }
+
+        extend(config, bestMoment || tempConfig);
+    }
+
+    function configFromObject(config) {
+        if (config._d) {
+            return;
+        }
+
+        var i = normalizeObjectUnits(config._i);
+        config._a = map([i.year, i.month, i.day || i.date, i.hour, i.minute, i.second, i.millisecond], function (obj) {
+            return obj && parseInt(obj, 10);
+        });
+
+        configFromArray(config);
+    }
+
+    function createFromConfig(config) {
+        var res = new Moment(checkOverflow(prepareConfig(config)));
+        if (res._nextDay) {
+            // Adding is smart enough around DST
+            res.add(1, 'd');
+            res._nextDay = undefined;
+        }
+
+        return res;
+    }
+
+    function prepareConfig(config) {
+        var input = config._i,
+            format = config._f;
+
+        config._locale = config._locale || getLocale(config._l);
+
+        if (input === null || (format === undefined && input === '')) {
+            return createInvalid({nullInput: true});
+        }
+
+        if (typeof input === 'string') {
+            config._i = input = config._locale.preparse(input);
+        }
+
+        if (isMoment(input)) {
+            return new Moment(checkOverflow(input));
+        } else if (isDate(input)) {
+            config._d = input;
+        } else if (isArray(format)) {
+            configFromStringAndArray(config);
+        } else if (format) {
+            configFromStringAndFormat(config);
+        } else {
+            configFromInput(config);
+        }
+
+        if (!isValid(config)) {
+            config._d = null;
+        }
+
+        return config;
+    }
+
+    function configFromInput(config) {
+        var input = config._i;
+        if (input === undefined) {
+            config._d = new Date(hooks.now());
+        } else if (isDate(input)) {
+            config._d = new Date(input.valueOf());
+        } else if (typeof input === 'string') {
+            configFromString(config);
+        } else if (isArray(input)) {
+            config._a = map(input.slice(0), function (obj) {
+                return parseInt(obj, 10);
+            });
+            configFromArray(config);
+        } else if (typeof(input) === 'object') {
+            configFromObject(config);
+        } else if (isNumber(input)) {
+            // from milliseconds
+            config._d = new Date(input);
+        } else {
+            hooks.createFromInputFallback(config);
+        }
+    }
+
+    function createLocalOrUTC(input, format, locale, strict, isUTC) {
+        var c = {};
+
+        if (locale === true || locale === false) {
+            strict = locale;
+            locale = undefined;
+        }
+
+        if ((isObject(input) && isObjectEmpty(input)) ||
+            (isArray(input) && input.length === 0)) {
+            input = undefined;
+        }
+        // object construction must be done this way.
+        // https://github.com/moment/moment/issues/1423
+        c._isAMomentObject = true;
+        c._useUTC = c._isUTC = isUTC;
+        c._l = locale;
+        c._i = input;
+        c._f = format;
+        c._strict = strict;
+
+        return createFromConfig(c);
+    }
+
+    function createLocal(input, format, locale, strict) {
+        return createLocalOrUTC(input, format, locale, strict, false);
+    }
+
+    var prototypeMin = deprecate(
+        'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
+        function () {
+            var other = createLocal.apply(null, arguments);
+            if (this.isValid() && other.isValid()) {
+                return other < this ? this : other;
+            } else {
+                return createInvalid();
+            }
+        }
+    );
+
+    var prototypeMax = deprecate(
+        'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
+        function () {
+            var other = createLocal.apply(null, arguments);
+            if (this.isValid() && other.isValid()) {
+                return other > this ? this : other;
+            } else {
+                return createInvalid();
+            }
+        }
+    );
+
+// Pick a moment m from moments so that m[fn](other) is true for all
+// other. This relies on the function fn to be transitive.
+//
+// moments should either be an array of moment objects or an array, whose
+// first element is an array of moment objects.
+    function pickBy(fn, moments) {
+        var res, i;
+        if (moments.length === 1 && isArray(moments[0])) {
+            moments = moments[0];
+        }
+        if (!moments.length) {
+            return createLocal();
+        }
+        res = moments[0];
+        for (i = 1; i < moments.length; ++i) {
+            if (!moments[i].isValid() || moments[i][fn](res)) {
+                res = moments[i];
+            }
+        }
+        return res;
+    }
+
+// TODO: Use [].sort instead?
+    function min() {
+        var args = [].slice.call(arguments, 0);
+
+        return pickBy('isBefore', args);
+    }
+
+    function max() {
+        var args = [].slice.call(arguments, 0);
+
+        return pickBy('isAfter', args);
+    }
+
+    var now = function () {
+        return Date.now ? Date.now() : +(new Date());
+    };
+
+    function Duration(duration) {
+        var normalizedInput = normalizeObjectUnits(duration),
+            years = normalizedInput.year || 0,
+            quarters = normalizedInput.quarter || 0,
+            months = normalizedInput.month || 0,
+            weeks = normalizedInput.week || 0,
+            days = normalizedInput.day || 0,
+            hours = normalizedInput.hour || 0,
+            minutes = normalizedInput.minute || 0,
+            seconds = normalizedInput.second || 0,
+            milliseconds = normalizedInput.millisecond || 0;
+
+        // representation for dateAddRemove
+        this._milliseconds = +milliseconds +
+            seconds * 1e3 + // 1000
+            minutes * 6e4 + // 1000 * 60
+            hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
+        // Because of dateAddRemove treats 24 hours as different from a
+        // day when working around DST, we need to store them separately
+        this._days = +days +
+            weeks * 7;
+        // It is impossible translate months into days without knowing
+        // which months you are are talking about, so we have to store
+        // it separately.
+        this._months = +months +
+            quarters * 3 +
+            years * 12;
+
+        this._data = {};
+
+        this._locale = getLocale();
+
+        this._bubble();
+    }
+
+    function isDuration(obj) {
+        return obj instanceof Duration;
+    }
+
+    function absRound(number) {
+        if (number < 0) {
+            return Math.round(-1 * number) * -1;
+        } else {
+            return Math.round(number);
+        }
+    }
+
+// FORMATTING
+
+    function offset(token, separator) {
+        addFormatToken(token, 0, 0, function () {
+            var offset = this.utcOffset();
+            var sign = '+';
+            if (offset < 0) {
+                offset = -offset;
+                sign = '-';
+            }
+            return sign + zeroFill(~~(offset / 60), 2) + separator + zeroFill(~~(offset) % 60, 2);
+        });
+    }
+
+    offset('Z', ':');
+    offset('ZZ', '');
+
+// PARSING
+
+    addRegexToken('Z', matchShortOffset);
+    addRegexToken('ZZ', matchShortOffset);
+    addParseToken(['Z', 'ZZ'], function (input, array, config) {
+        config._useUTC = true;
+        config._tzm = offsetFromString(matchShortOffset, input);
+    });
+
+// HELPERS
+
+// timezone chunker
+// '+10:00' > ['10',  '00']
+// '-1530'  > ['-15', '30']
+    var chunkOffset = /([\+\-]|\d\d)/gi;
+
+    function offsetFromString(matcher, string) {
+        var matches = (string || '').match(matcher);
+
+        if (matches === null) {
+            return null;
+        }
+
+        var chunk = matches[matches.length - 1] || [];
+        var parts = (chunk + '').match(chunkOffset) || ['-', 0, 0];
+        var minutes = +(parts[1] * 60) + toInt(parts[2]);
+
+        return minutes === 0 ?
+            0 :
+            parts[0] === '+' ? minutes : -minutes;
+    }
+
+// Return a moment from input, that is local/utc/zone equivalent to model.
+    function cloneWithOffset(input, model) {
+        var res, diff;
+        if (model._isUTC) {
+            res = model.clone();
+            diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
+            // Use low-level api, because this fn is low-level api.
+            res._d.setTime(res._d.valueOf() + diff);
+            hooks.updateOffset(res, false);
+            return res;
+        } else {
+            return createLocal(input).local();
+        }
+    }
+
+    function getDateOffset(m) {
+        // On Firefox.24 Date#getTimezoneOffset returns a floating point.
+        // https://github.com/moment/moment/pull/1871
+        return -Math.round(m._d.getTimezoneOffset() / 15) * 15;
+    }
+
+// HOOKS
+
+// This function will be called whenever a moment is mutated.
+// It is intended to keep the offset in sync with the timezone.
+    hooks.updateOffset = function () {
+    };
+
+// MOMENTS
+
+// keepLocalTime = true means only change the timezone, without
+// affecting the local hour. So 5:31:26 +0300 --[utcOffset(2, true)]-->
+// 5:31:26 +0200 It is possible that 5:31:26 doesn't exist with offset
+// +0200, so we adjust the time as needed, to be valid.
+//
+// Keeping the time actually adds/subtracts (one hour)
+// from the actual represented time. That is why we call updateOffset
+// a second time. In case it wants us to change the offset again
+// _changeInProgress == true case, then we have to adjust, because
+// there is no such time in the given timezone.
+    function getSetOffset(input, keepLocalTime) {
+        var offset = this._offset || 0,
+            localAdjust;
+        if (!this.isValid()) {
+            return input != null ? this : NaN;
+        }
+        if (input != null) {
+            if (typeof input === 'string') {
+                input = offsetFromString(matchShortOffset, input);
+                if (input === null) {
+                    return this;
+                }
+            } else if (Math.abs(input) < 16) {
+                input = input * 60;
+            }
+            if (!this._isUTC && keepLocalTime) {
+                localAdjust = getDateOffset(this);
+            }
+            this._offset = input;
+            this._isUTC = true;
+            if (localAdjust != null) {
+                this.add(localAdjust, 'm');
+            }
+            if (offset !== input) {
+                if (!keepLocalTime || this._changeInProgress) {
+                    addSubtract(this, createDuration(input - offset, 'm'), 1, false);
+                } else if (!this._changeInProgress) {
+                    this._changeInProgress = true;
+                    hooks.updateOffset(this, true);
+                    this._changeInProgress = null;
+                }
+            }
+            return this;
+        } else {
+            return this._isUTC ? offset : getDateOffset(this);
+        }
+    }
+
+    function getSetZone(input, keepLocalTime) {
+        if (input != null) {
+            if (typeof input !== 'string') {
+                input = -input;
+            }
+
+            this.utcOffset(input, keepLocalTime);
+
+            return this;
+        } else {
+            return -this.utcOffset();
+        }
+    }
+
+    function setOffsetToUTC(keepLocalTime) {
+        return this.utcOffset(0, keepLocalTime);
+    }
+
+    function setOffsetToLocal(keepLocalTime) {
+        if (this._isUTC) {
+            this.utcOffset(0, keepLocalTime);
+            this._isUTC = false;
+
+            if (keepLocalTime) {
+                this.subtract(getDateOffset(this), 'm');
+            }
+        }
+        return this;
+    }
+
+    function setOffsetToParsedOffset() {
+        if (this._tzm != null) {
+            this.utcOffset(this._tzm);
+        } else if (typeof this._i === 'string') {
+            var tZone = offsetFromString(matchOffset, this._i);
+            if (tZone != null) {
+                this.utcOffset(tZone);
+            }
+            else {
+                this.utcOffset(0, true);
+            }
+        }
+        return this;
+    }
+
+    function hasAlignedHourOffset(input) {
+        if (!this.isValid()) {
+            return false;
+        }
+        input = input ? createLocal(input).utcOffset() : 0;
+
+        return (this.utcOffset() - input) % 60 === 0;
+    }
+
+    function isDaylightSavingTime() {
+        return (
+            this.utcOffset() > this.clone().month(0).utcOffset() ||
+            this.utcOffset() > this.clone().month(5).utcOffset()
+        );
+    }
+
+    function isDaylightSavingTimeShifted() {
+        if (!isUndefined(this._isDSTShifted)) {
+            return this._isDSTShifted;
+        }
+
+        var c = {};
+
+        copyConfig(c, this);
+        c = prepareConfig(c);
+
+        if (c._a) {
+            var other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
+            this._isDSTShifted = this.isValid() &&
+                compareArrays(c._a, other.toArray()) > 0;
+        } else {
+            this._isDSTShifted = false;
+        }
+
+        return this._isDSTShifted;
+    }
+
+    function isLocal() {
+        return this.isValid() ? !this._isUTC : false;
+    }
+
+    function isUtcOffset() {
+        return this.isValid() ? this._isUTC : false;
+    }
+
+    function isUtc() {
+        return this.isValid() ? this._isUTC && this._offset === 0 : false;
+    }
+
+// ASP.NET json date format regex
+    var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
+
+// from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+// somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
+// and further modified to allow for strings containing both week and day
+    var isoRegex = /^(-)?P(?:(-?[0-9,.]*)Y)?(?:(-?[0-9,.]*)M)?(?:(-?[0-9,.]*)W)?(?:(-?[0-9,.]*)D)?(?:T(?:(-?[0-9,.]*)H)?(?:(-?[0-9,.]*)M)?(?:(-?[0-9,.]*)S)?)?$/;
+
+    function createDuration(input, key) {
+        var duration = input,
+            // matching against regexp is expensive, do it on demand
+            match = null,
+            sign,
+            ret,
+            diffRes;
+
+        if (isDuration(input)) {
+            duration = {
+                ms: input._milliseconds,
+                d: input._days,
+                M: input._months
+            };
+        } else if (isNumber(input)) {
+            duration = {};
+            if (key) {
+                duration[key] = input;
+            } else {
+                duration.milliseconds = input;
+            }
+        } else if (!!(match = aspNetRegex.exec(input))) {
+            sign = (match[1] === '-') ? -1 : 1;
+            duration = {
+                y: 0,
+                d: toInt(match[DATE]) * sign,
+                h: toInt(match[HOUR]) * sign,
+                m: toInt(match[MINUTE]) * sign,
+                s: toInt(match[SECOND]) * sign,
+                ms: toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
+            };
+        } else if (!!(match = isoRegex.exec(input))) {
+            sign = (match[1] === '-') ? -1 : 1;
+            duration = {
+                y: parseIso(match[2], sign),
+                M: parseIso(match[3], sign),
+                w: parseIso(match[4], sign),
+                d: parseIso(match[5], sign),
+                h: parseIso(match[6], sign),
+                m: parseIso(match[7], sign),
+                s: parseIso(match[8], sign)
+            };
+        } else if (duration == null) {// checks for null or undefined
+            duration = {};
+        } else if (typeof duration === 'object' && ('from' in duration || 'to' in duration)) {
+            diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
+
+            duration = {};
+            duration.ms = diffRes.milliseconds;
+            duration.M = diffRes.months;
+        }
+
+        ret = new Duration(duration);
+
+        if (isDuration(input) && hasOwnProp(input, '_locale')) {
+            ret._locale = input._locale;
+        }
+
+        return ret;
+    }
+
+    createDuration.fn = Duration.prototype;
+
+    function parseIso(inp, sign) {
+        // We'd normally use ~~inp for this, but unfortunately it also
+        // converts floats to ints.
+        // inp may be undefined, so careful calling replace on it.
+        var res = inp && parseFloat(inp.replace(',', '.'));
+        // apply sign while we're at it
+        return (isNaN(res) ? 0 : res) * sign;
+    }
+
+    function positiveMomentsDifference(base, other) {
+        var res = {milliseconds: 0, months: 0};
+
+        res.months = other.month() - base.month() +
+            (other.year() - base.year()) * 12;
+        if (base.clone().add(res.months, 'M').isAfter(other)) {
+            --res.months;
+        }
+
+        res.milliseconds = +other - +(base.clone().add(res.months, 'M'));
+
+        return res;
+    }
+
+    function momentsDifference(base, other) {
+        var res;
+        if (!(base.isValid() && other.isValid())) {
+            return {milliseconds: 0, months: 0};
+        }
+
+        other = cloneWithOffset(other, base);
+        if (base.isBefore(other)) {
+            res = positiveMomentsDifference(base, other);
+        } else {
+            res = positiveMomentsDifference(other, base);
+            res.milliseconds = -res.milliseconds;
+            res.months = -res.months;
+        }
+
+        return res;
+    }
+
+// TODO: remove 'name' arg after deprecation is removed
+    function createAdder(direction, name) {
+        return function (val, period) {
+            var dur, tmp;
+            //invert the arguments, but complain about it
+            if (period !== null && !isNaN(+period)) {
+                deprecateSimple(name, 'moment().' + name + '(period, number) is deprecated. Please use moment().' + name + '(number, period). ' +
+                    'See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.');
+                tmp = val;
+                val = period;
+                period = tmp;
+            }
+
+            val = typeof val === 'string' ? +val : val;
+            dur = createDuration(val, period);
+            addSubtract(this, dur, direction);
+            return this;
+        };
+    }
+
+    function addSubtract(mom, duration, isAdding, updateOffset) {
+        var milliseconds = duration._milliseconds,
+            days = absRound(duration._days),
+            months = absRound(duration._months);
+
+        if (!mom.isValid()) {
+            // No op
+            return;
+        }
+
+        updateOffset = updateOffset == null ? true : updateOffset;
+
+        if (milliseconds) {
+            mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
+        }
+        if (days) {
+            set$1(mom, 'Date', get(mom, 'Date') + days * isAdding);
+        }
+        if (months) {
+            setMonth(mom, get(mom, 'Month') + months * isAdding);
+        }
+        if (updateOffset) {
+            hooks.updateOffset(mom, days || months);
+        }
+    }
+
+    var add = createAdder(1, 'add');
+    var subtract = createAdder(-1, 'subtract');
+
+    function getCalendarFormat(myMoment, now) {
+        var diff = myMoment.diff(now, 'days', true);
+        return diff < -6 ? 'sameElse' :
+            diff < -1 ? 'lastWeek' :
+                diff < 0 ? 'lastDay' :
+                    diff < 1 ? 'sameDay' :
+                        diff < 2 ? 'nextDay' :
+                            diff < 7 ? 'nextWeek' : 'sameElse';
+    }
+
+    function calendar$1(time, formats) {
+        // We want to compare the start of today, vs this.
+        // Getting start-of-today depends on whether we're local/utc/offset or not.
+        var now = time || createLocal(),
+            sod = cloneWithOffset(now, this).startOf('day'),
+            format = hooks.calendarFormat(this, sod) || 'sameElse';
+
+        var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
+
+        return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
+    }
+
+    function clone() {
+        return new Moment(this);
+    }
+
+    function isAfter(input, units) {
+        var localInput = isMoment(input) ? input : createLocal(input);
+        if (!(this.isValid() && localInput.isValid())) {
+            return false;
+        }
+        units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
+        if (units === 'millisecond') {
+            return this.valueOf() > localInput.valueOf();
+        } else {
+            return localInput.valueOf() < this.clone().startOf(units).valueOf();
+        }
+    }
+
+    function isBefore(input, units) {
+        var localInput = isMoment(input) ? input : createLocal(input);
+        if (!(this.isValid() && localInput.isValid())) {
+            return false;
+        }
+        units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
+        if (units === 'millisecond') {
+            return this.valueOf() < localInput.valueOf();
+        } else {
+            return this.clone().endOf(units).valueOf() < localInput.valueOf();
+        }
+    }
+
+    function isBetween(from, to, units, inclusivity) {
+        inclusivity = inclusivity || '()';
+        return (inclusivity[0] === '(' ? this.isAfter(from, units) : !this.isBefore(from, units)) &&
+            (inclusivity[1] === ')' ? this.isBefore(to, units) : !this.isAfter(to, units));
+    }
+
+    function isSame(input, units) {
+        var localInput = isMoment(input) ? input : createLocal(input),
+            inputMs;
+        if (!(this.isValid() && localInput.isValid())) {
+            return false;
+        }
+        units = normalizeUnits(units || 'millisecond');
+        if (units === 'millisecond') {
+            return this.valueOf() === localInput.valueOf();
+        } else {
+            inputMs = localInput.valueOf();
+            return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
+        }
+    }
+
+    function isSameOrAfter(input, units) {
+        return this.isSame(input, units) || this.isAfter(input, units);
+    }
+
+    function isSameOrBefore(input, units) {
+        return this.isSame(input, units) || this.isBefore(input, units);
+    }
+
+    function diff(input, units, asFloat) {
+        var that,
+            zoneDelta,
+            delta, output;
+
+        if (!this.isValid()) {
+            return NaN;
+        }
+
+        that = cloneWithOffset(input, this);
+
+        if (!that.isValid()) {
+            return NaN;
+        }
+
+        zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
+
+        units = normalizeUnits(units);
+
+        if (units === 'year' || units === 'month' || units === 'quarter') {
+            output = monthDiff(this, that);
+            if (units === 'quarter') {
+                output = output / 3;
+            } else if (units === 'year') {
+                output = output / 12;
+            }
+        } else {
+            delta = this - that;
+            output = units === 'second' ? delta / 1e3 : // 1000
+                units === 'minute' ? delta / 6e4 : // 1000 * 60
+                    units === 'hour' ? delta / 36e5 : // 1000 * 60 * 60
+                        units === 'day' ? (delta - zoneDelta) / 864e5 : // 1000 * 60 * 60 * 24, negate dst
+                            units === 'week' ? (delta - zoneDelta) / 6048e5 : // 1000 * 60 * 60 * 24 * 7, negate dst
+                                delta;
+        }
+        return asFloat ? output : absFloor(output);
+    }
+
+    function monthDiff(a, b) {
+        // difference in months
+        var wholeMonthDiff = ((b.year() - a.year()) * 12) + (b.month() - a.month()),
+            // b is in (anchor - 1 month, anchor + 1 month)
+            anchor = a.clone().add(wholeMonthDiff, 'months'),
+            anchor2, adjust;
+
+        if (b - anchor < 0) {
+            anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
+            // linear across the month
+            adjust = (b - anchor) / (anchor - anchor2);
+        } else {
+            anchor2 = a.clone().add(wholeMonthDiff + 1, 'months');
+            // linear across the month
+            adjust = (b - anchor) / (anchor2 - anchor);
+        }
+
+        //check for negative zero, return zero if negative zero
+        return -(wholeMonthDiff + adjust) || 0;
+    }
+
+    hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+    hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
+
+    function toString() {
+        return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+    }
+
+    function toISOString() {
+        var m = this.clone().utc();
+        if (0 < m.year() && m.year() <= 9999) {
+            if (isFunction(Date.prototype.toISOString)) {
+                // native implementation is ~50x faster, use it when we can
+                return this.toDate().toISOString();
+            } else {
+                return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+            }
+        } else {
+            return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+        }
+    }
+
+    /**
+     * Return a human readable representation of a moment that can
+     * also be evaluated to get a new moment which is the same
+     *
+     * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
+     */
+    function inspect() {
+        if (!this.isValid()) {
+            return 'moment.invalid(/* ' + this._i + ' */)';
+        }
+        var func = 'moment';
+        var zone = '';
+        if (!this.isLocal()) {
+            func = this.utcOffset() === 0 ? 'moment.utc' : 'moment.parseZone';
+            zone = 'Z';
+        }
+        var prefix = '[' + func + '("]';
+        var year = (0 < this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
+        var datetime = '-MM-DD[T]HH:mm:ss.SSS';
+        var suffix = zone + '[")]';
+
+        return this.format(prefix + year + datetime + suffix);
+    }
+
+    function format(inputString) {
+        if (!inputString) {
+            inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
+        }
+        var output = formatMoment(this, inputString);
+        return this.localeData().postformat(output);
+    }
+
+    function from(time, withoutSuffix) {
+        if (this.isValid() &&
+            ((isMoment(time) && time.isValid()) ||
+                createLocal(time).isValid())) {
+            return createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
+        } else {
+            return this.localeData().invalidDate();
+        }
+    }
+
+    function fromNow(withoutSuffix) {
+        return this.from(createLocal(), withoutSuffix);
+    }
+
+    function to(time, withoutSuffix) {
+        if (this.isValid() &&
+            ((isMoment(time) && time.isValid()) ||
+                createLocal(time).isValid())) {
+            return createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
+        } else {
+            return this.localeData().invalidDate();
+        }
+    }
+
+    function toNow(withoutSuffix) {
+        return this.to(createLocal(), withoutSuffix);
+    }
+
+// If passed a locale key, it will set the locale for this
+// instance.  Otherwise, it will return the locale configuration
+// variables for this instance.
+    function locale(key) {
+        var newLocaleData;
+
+        if (key === undefined) {
+            return this._locale._abbr;
+        } else {
+            newLocaleData = getLocale(key);
+            if (newLocaleData != null) {
+                this._locale = newLocaleData;
+            }
+            return this;
+        }
+    }
+
+    var lang = deprecate(
+        'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
+        function (key) {
+            if (key === undefined) {
+                return this.localeData();
+            } else {
+                return this.locale(key);
+            }
+        }
+    );
+
+    function localeData() {
+        return this._locale;
+    }
+
+    function startOf(units) {
+        units = normalizeUnits(units);
+        // the following switch intentionally omits break keywords
+        // to utilize falling through the cases.
+        switch (units) {
+            case 'year':
+                this.month(0);
+            /* falls through */
+            case 'quarter':
+            case 'month':
+                this.date(1);
+            /* falls through */
+            case 'week':
+            case 'isoWeek':
+            case 'day':
+            case 'date':
+                this.hours(0);
+            /* falls through */
+            case 'hour':
+                this.minutes(0);
+            /* falls through */
+            case 'minute':
+                this.seconds(0);
+            /* falls through */
+            case 'second':
+                this.milliseconds(0);
+        }
+
+        // weeks are a special case
+        if (units === 'week') {
+            this.weekday(0);
+        }
+        if (units === 'isoWeek') {
+            this.isoWeekday(1);
+        }
+
+        // quarters are also special
+        if (units === 'quarter') {
+            this.month(Math.floor(this.month() / 3) * 3);
+        }
+
+        return this;
+    }
+
+    function endOf(units) {
+        units = normalizeUnits(units);
+        if (units === undefined || units === 'millisecond') {
+            return this;
+        }
+
+        // 'date' is an alias for 'day', so it should be considered as such.
+        if (units === 'date') {
+            units = 'day';
+        }
+
+        return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
+    }
+
+    function valueOf() {
+        return this._d.valueOf() - ((this._offset || 0) * 60000);
+    }
+
+    function unix() {
+        return Math.floor(this.valueOf() / 1000);
+    }
+
+    function toDate() {
+        return new Date(this.valueOf());
+    }
+
+    function toArray() {
+        var m = this;
+        return [m.year(), m.month(), m.date(), m.hour(), m.minute(), m.second(), m.millisecond()];
+    }
+
+    function toObject() {
+        var m = this;
+        return {
+            years: m.year(),
+            months: m.month(),
+            date: m.date(),
+            hours: m.hours(),
+            minutes: m.minutes(),
+            seconds: m.seconds(),
+            milliseconds: m.milliseconds()
+        };
+    }
+
+    function toJSON() {
+        // new Date(NaN).toJSON() === null
+        return this.isValid() ? this.toISOString() : null;
+    }
+
+    function isValid$1() {
+        return isValid(this);
+    }
+
+    function parsingFlags() {
+        return extend({}, getParsingFlags(this));
+    }
+
+    function invalidAt() {
+        return getParsingFlags(this).overflow;
+    }
+
+    function creationData() {
+        return {
+            input: this._i,
+            format: this._f,
+            locale: this._locale,
+            isUTC: this._isUTC,
+            strict: this._strict
+        };
+    }
+
+// FORMATTING
+
+    addFormatToken(0, ['gg', 2], 0, function () {
+        return this.weekYear() % 100;
+    });
+
+    addFormatToken(0, ['GG', 2], 0, function () {
+        return this.isoWeekYear() % 100;
+    });
+
+    function addWeekYearFormatToken(token, getter) {
+        addFormatToken(0, [token, token.length], 0, getter);
+    }
+
+    addWeekYearFormatToken('gggg', 'weekYear');
+    addWeekYearFormatToken('ggggg', 'weekYear');
+    addWeekYearFormatToken('GGGG', 'isoWeekYear');
+    addWeekYearFormatToken('GGGGG', 'isoWeekYear');
+
+// ALIASES
+
+    addUnitAlias('weekYear', 'gg');
+    addUnitAlias('isoWeekYear', 'GG');
+
+// PRIORITY
+
+    addUnitPriority('weekYear', 1);
+    addUnitPriority('isoWeekYear', 1);
+
+
+// PARSING
+
+    addRegexToken('G', matchSigned);
+    addRegexToken('g', matchSigned);
+    addRegexToken('GG', match1to2, match2);
+    addRegexToken('gg', match1to2, match2);
+    addRegexToken('GGGG', match1to4, match4);
+    addRegexToken('gggg', match1to4, match4);
+    addRegexToken('GGGGG', match1to6, match6);
+    addRegexToken('ggggg', match1to6, match6);
+
+    addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (input, week, config, token) {
+        week[token.substr(0, 2)] = toInt(input);
+    });
+
+    addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
+        week[token] = hooks.parseTwoDigitYear(input);
+    });
+
+// MOMENTS
+
+    function getSetWeekYear(input) {
+        return getSetWeekYearHelper.call(this,
+            input,
+            this.week(),
+            this.weekday(),
+            this.localeData()._week.dow,
+            this.localeData()._week.doy);
+    }
+
+    function getSetISOWeekYear(input) {
+        return getSetWeekYearHelper.call(this,
+            input, this.isoWeek(), this.isoWeekday(), 1, 4);
+    }
+
+    function getISOWeeksInYear() {
+        return weeksInYear(this.year(), 1, 4);
+    }
+
+    function getWeeksInYear() {
+        var weekInfo = this.localeData()._week;
+        return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
+    }
+
+    function getSetWeekYearHelper(input, week, weekday, dow, doy) {
+        var weeksTarget;
+        if (input == null) {
+            return weekOfYear(this, dow, doy).year;
+        } else {
+            weeksTarget = weeksInYear(input, dow, doy);
+            if (week > weeksTarget) {
+                week = weeksTarget;
+            }
+            return setWeekAll.call(this, input, week, weekday, dow, doy);
+        }
+    }
+
+    function setWeekAll(weekYear, week, weekday, dow, doy) {
+        var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
+            date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
+
+        this.year(date.getUTCFullYear());
+        this.month(date.getUTCMonth());
+        this.date(date.getUTCDate());
+        return this;
+    }
+
+// FORMATTING
+
+    addFormatToken('Q', 0, 'Qo', 'quarter');
+
+// ALIASES
+
+    addUnitAlias('quarter', 'Q');
+
+// PRIORITY
+
+    addUnitPriority('quarter', 7);
+
+// PARSING
+
+    addRegexToken('Q', match1);
+    addParseToken('Q', function (input, array) {
+        array[MONTH] = (toInt(input) - 1) * 3;
+    });
+
+// MOMENTS
+
+    function getSetQuarter(input) {
+        return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
+    }
+
+// FORMATTING
+
+    addFormatToken('D', ['DD', 2], 'Do', 'date');
+
+// ALIASES
+
+    addUnitAlias('date', 'D');
+
+// PRIOROITY
+    addUnitPriority('date', 9);
+
+// PARSING
+
+    addRegexToken('D', match1to2);
+    addRegexToken('DD', match1to2, match2);
+    addRegexToken('Do', function (isStrict, locale) {
+        return isStrict ? locale._ordinalParse : locale._ordinalParseLenient;
+    });
+
+    addParseToken(['D', 'DD'], DATE);
+    addParseToken('Do', function (input, array) {
+        array[DATE] = toInt(input.match(match1to2)[0], 10);
+    });
+
+// MOMENTS
+
+    var getSetDayOfMonth = makeGetSet('Date', true);
+
+// FORMATTING
+
+    addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
+
+// ALIASES
+
+    addUnitAlias('dayOfYear', 'DDD');
+
+// PRIORITY
+    addUnitPriority('dayOfYear', 4);
+
+// PARSING
+
+    addRegexToken('DDD', match1to3);
+    addRegexToken('DDDD', match3);
+    addParseToken(['DDD', 'DDDD'], function (input, array, config) {
+        config._dayOfYear = toInt(input);
+    });
+
+// HELPERS
+
+// MOMENTS
+
+    function getSetDayOfYear(input) {
+        var dayOfYear = Math.round((this.clone().startOf('day') - this.clone().startOf('year')) / 864e5) + 1;
+        return input == null ? dayOfYear : this.add((input - dayOfYear), 'd');
+    }
+
+// FORMATTING
+
+    addFormatToken('m', ['mm', 2], 0, 'minute');
+
+// ALIASES
+
+    addUnitAlias('minute', 'm');
+
+// PRIORITY
+
+    addUnitPriority('minute', 14);
+
+// PARSING
+
+    addRegexToken('m', match1to2);
+    addRegexToken('mm', match1to2, match2);
+    addParseToken(['m', 'mm'], MINUTE);
+
+// MOMENTS
+
+    var getSetMinute = makeGetSet('Minutes', false);
+
+// FORMATTING
+
+    addFormatToken('s', ['ss', 2], 0, 'second');
+
+// ALIASES
+
+    addUnitAlias('second', 's');
+
+// PRIORITY
+
+    addUnitPriority('second', 15);
+
+// PARSING
+
+    addRegexToken('s', match1to2);
+    addRegexToken('ss', match1to2, match2);
+    addParseToken(['s', 'ss'], SECOND);
+
+// MOMENTS
+
+    var getSetSecond = makeGetSet('Seconds', false);
+
+// FORMATTING
+
+    addFormatToken('S', 0, 0, function () {
+        return ~~(this.millisecond() / 100);
+    });
+
+    addFormatToken(0, ['SS', 2], 0, function () {
+        return ~~(this.millisecond() / 10);
+    });
+
+    addFormatToken(0, ['SSS', 3], 0, 'millisecond');
+    addFormatToken(0, ['SSSS', 4], 0, function () {
+        return this.millisecond() * 10;
+    });
+    addFormatToken(0, ['SSSSS', 5], 0, function () {
+        return this.millisecond() * 100;
+    });
+    addFormatToken(0, ['SSSSSS', 6], 0, function () {
+        return this.millisecond() * 1000;
+    });
+    addFormatToken(0, ['SSSSSSS', 7], 0, function () {
+        return this.millisecond() * 10000;
+    });
+    addFormatToken(0, ['SSSSSSSS', 8], 0, function () {
+        return this.millisecond() * 100000;
+    });
+    addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
+        return this.millisecond() * 1000000;
+    });
+
+
+// ALIASES
+
+    addUnitAlias('millisecond', 'ms');
+
+// PRIORITY
+
+    addUnitPriority('millisecond', 16);
+
+// PARSING
+
+    addRegexToken('S', match1to3, match1);
+    addRegexToken('SS', match1to3, match2);
+    addRegexToken('SSS', match1to3, match3);
+
+    var token;
+    for (token = 'SSSS'; token.length <= 9; token += 'S') {
+        addRegexToken(token, matchUnsigned);
+    }
+
+    function parseMs(input, array) {
+        array[MILLISECOND] = toInt(('0.' + input) * 1000);
+    }
+
+    for (token = 'S'; token.length <= 9; token += 'S') {
+        addParseToken(token, parseMs);
+    }
+// MOMENTS
+
+    var getSetMillisecond = makeGetSet('Milliseconds', false);
+
+// FORMATTING
+
+    addFormatToken('z', 0, 0, 'zoneAbbr');
+    addFormatToken('zz', 0, 0, 'zoneName');
+
+// MOMENTS
+
+    function getZoneAbbr() {
+        return this._isUTC ? 'UTC' : '';
+    }
+
+    function getZoneName() {
+        return this._isUTC ? 'Coordinated Universal Time' : '';
+    }
+
+    var proto = Moment.prototype;
+
+    proto.add = add;
+    proto.calendar = calendar$1;
+    proto.clone = clone;
+    proto.diff = diff;
+    proto.endOf = endOf;
+    proto.format = format;
+    proto.from = from;
+    proto.fromNow = fromNow;
+    proto.to = to;
+    proto.toNow = toNow;
+    proto.get = stringGet;
+    proto.invalidAt = invalidAt;
+    proto.isAfter = isAfter;
+    proto.isBefore = isBefore;
+    proto.isBetween = isBetween;
+    proto.isSame = isSame;
+    proto.isSameOrAfter = isSameOrAfter;
+    proto.isSameOrBefore = isSameOrBefore;
+    proto.isValid = isValid$1;
+    proto.lang = lang;
+    proto.locale = locale;
+    proto.localeData = localeData;
+    proto.max = prototypeMax;
+    proto.min = prototypeMin;
+    proto.parsingFlags = parsingFlags;
+    proto.set = stringSet;
+    proto.startOf = startOf;
+    proto.subtract = subtract;
+    proto.toArray = toArray;
+    proto.toObject = toObject;
+    proto.toDate = toDate;
+    proto.toISOString = toISOString;
+    proto.inspect = inspect;
+    proto.toJSON = toJSON;
+    proto.toString = toString;
+    proto.unix = unix;
+    proto.valueOf = valueOf;
+    proto.creationData = creationData;
+
+// Year
+    proto.year = getSetYear;
+    proto.isLeapYear = getIsLeapYear;
+
+// Week Year
+    proto.weekYear = getSetWeekYear;
+    proto.isoWeekYear = getSetISOWeekYear;
+
+// Quarter
+    proto.quarter = proto.quarters = getSetQuarter;
+
+// Month
+    proto.month = getSetMonth;
+    proto.daysInMonth = getDaysInMonth;
+
+// Week
+    proto.week = proto.weeks = getSetWeek;
+    proto.isoWeek = proto.isoWeeks = getSetISOWeek;
+    proto.weeksInYear = getWeeksInYear;
+    proto.isoWeeksInYear = getISOWeeksInYear;
+
+// Day
+    proto.date = getSetDayOfMonth;
+    proto.day = proto.days = getSetDayOfWeek;
+    proto.weekday = getSetLocaleDayOfWeek;
+    proto.isoWeekday = getSetISODayOfWeek;
+    proto.dayOfYear = getSetDayOfYear;
+
+// Hour
+    proto.hour = proto.hours = getSetHour;
+
+// Minute
+    proto.minute = proto.minutes = getSetMinute;
+
+// Second
+    proto.second = proto.seconds = getSetSecond;
+
+// Millisecond
+    proto.millisecond = proto.milliseconds = getSetMillisecond;
+
+// Offset
+    proto.utcOffset = getSetOffset;
+    proto.utc = setOffsetToUTC;
+    proto.local = setOffsetToLocal;
+    proto.parseZone = setOffsetToParsedOffset;
+    proto.hasAlignedHourOffset = hasAlignedHourOffset;
+    proto.isDST = isDaylightSavingTime;
+    proto.isLocal = isLocal;
+    proto.isUtcOffset = isUtcOffset;
+    proto.isUtc = isUtc;
+    proto.isUTC = isUtc;
+
+// Timezone
+    proto.zoneAbbr = getZoneAbbr;
+    proto.zoneName = getZoneName;
+
+// Deprecations
+    proto.dates = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
+    proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
+    proto.years = deprecate('years accessor is deprecated. Use year instead', getSetYear);
+    proto.zone = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
+    proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
+
+    function createUnix(input) {
+        return createLocal(input * 1000);
+    }
+
+    function createInZone() {
+        return createLocal.apply(null, arguments).parseZone();
+    }
+
+    function preParsePostFormat(string) {
+        return string;
+    }
+
+    var proto$1 = Locale.prototype;
+
+    proto$1.calendar = calendar;
+    proto$1.longDateFormat = longDateFormat;
+    proto$1.invalidDate = invalidDate;
+    proto$1.ordinal = ordinal;
+    proto$1.preparse = preParsePostFormat;
+    proto$1.postformat = preParsePostFormat;
+    proto$1.relativeTime = relativeTime;
+    proto$1.pastFuture = pastFuture;
+    proto$1.set = set;
+
+// Month
+    proto$1.months = localeMonths;
+    proto$1.monthsShort = localeMonthsShort;
+    proto$1.monthsParse = localeMonthsParse;
+    proto$1.monthsRegex = monthsRegex;
+    proto$1.monthsShortRegex = monthsShortRegex;
+
+// Week
+    proto$1.week = localeWeek;
+    proto$1.firstDayOfYear = localeFirstDayOfYear;
+    proto$1.firstDayOfWeek = localeFirstDayOfWeek;
+
+// Day of Week
+    proto$1.weekdays = localeWeekdays;
+    proto$1.weekdaysMin = localeWeekdaysMin;
+    proto$1.weekdaysShort = localeWeekdaysShort;
+    proto$1.weekdaysParse = localeWeekdaysParse;
+
+    proto$1.weekdaysRegex = weekdaysRegex;
+    proto$1.weekdaysShortRegex = weekdaysShortRegex;
+    proto$1.weekdaysMinRegex = weekdaysMinRegex;
+
+// Hours
+    proto$1.isPM = localeIsPM;
+    proto$1.meridiem = localeMeridiem;
+
+    function get$1(format, index, field, setter) {
+        var locale = getLocale();
+        var utc = createUTC().set(setter, index);
+        return locale[field](utc, format);
+    }
+
+    function listMonthsImpl(format, index, field) {
+        if (isNumber(format)) {
+            index = format;
+            format = undefined;
+        }
+
+        format = format || '';
+
+        if (index != null) {
+            return get$1(format, index, field, 'month');
+        }
+
+        var i;
+        var out = [];
+        for (i = 0; i < 12; i++) {
+            out[i] = get$1(format, i, field, 'month');
+        }
+        return out;
+    }
+
+// ()
+// (5)
+// (fmt, 5)
+// (fmt)
+// (true)
+// (true, 5)
+// (true, fmt, 5)
+// (true, fmt)
+    function listWeekdaysImpl(localeSorted, format, index, field) {
+        if (typeof localeSorted === 'boolean') {
+            if (isNumber(format)) {
+                index = format;
+                format = undefined;
+            }
+
+            format = format || '';
+        } else {
+            format = localeSorted;
+            index = format;
+            localeSorted = false;
+
+            if (isNumber(format)) {
+                index = format;
+                format = undefined;
+            }
+
+            format = format || '';
+        }
+
+        var locale = getLocale(),
+            shift = localeSorted ? locale._week.dow : 0;
+
+        if (index != null) {
+            return get$1(format, (index + shift) % 7, field, 'day');
+        }
+
+        var i;
+        var out = [];
+        for (i = 0; i < 7; i++) {
+            out[i] = get$1(format, (i + shift) % 7, field, 'day');
+        }
+        return out;
+    }
+
+    function listMonths(format, index) {
+        return listMonthsImpl(format, index, 'months');
+    }
+
+    function listMonthsShort(format, index) {
+        return listMonthsImpl(format, index, 'monthsShort');
+    }
+
+    function listWeekdays(localeSorted, format, index) {
+        return listWeekdaysImpl(localeSorted, format, index, 'weekdays');
+    }
+
+    function listWeekdaysShort(localeSorted, format, index) {
+        return listWeekdaysImpl(localeSorted, format, index, 'weekdaysShort');
+    }
+
+    function listWeekdaysMin(localeSorted, format, index) {
+        return listWeekdaysImpl(localeSorted, format, index, 'weekdaysMin');
+    }
+
+    getSetGlobalLocale('en', {
+        ordinalParse: /\d{1,2}(th|st|nd|rd)/,
+        ordinal: function (number) {
+            var b = number % 10,
+                output = (toInt(number % 100 / 10) === 1) ? 'th' :
+                    (b === 1) ? 'st' :
+                        (b === 2) ? 'nd' :
+                            (b === 3) ? 'rd' : 'th';
+            return number + output;
+        }
+    });
+
+// Side effect imports
+    hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
+    hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
+
+    var mathAbs = Math.abs;
+
+    function abs() {
+        var data = this._data;
+
+        this._milliseconds = mathAbs(this._milliseconds);
+        this._days = mathAbs(this._days);
+        this._months = mathAbs(this._months);
+
+        data.milliseconds = mathAbs(data.milliseconds);
+        data.seconds = mathAbs(data.seconds);
+        data.minutes = mathAbs(data.minutes);
+        data.hours = mathAbs(data.hours);
+        data.months = mathAbs(data.months);
+        data.years = mathAbs(data.years);
+
+        return this;
+    }
+
+    function addSubtract$1(duration, input, value, direction) {
+        var other = createDuration(input, value);
+
+        duration._milliseconds += direction * other._milliseconds;
+        duration._days += direction * other._days;
+        duration._months += direction * other._months;
+
+        return duration._bubble();
+    }
+
+// supports only 2.0-style add(1, 's') or add(duration)
+    function add$1(input, value) {
+        return addSubtract$1(this, input, value, 1);
+    }
+
+// supports only 2.0-style subtract(1, 's') or subtract(duration)
+    function subtract$1(input, value) {
+        return addSubtract$1(this, input, value, -1);
+    }
+
+    function absCeil(number) {
+        if (number < 0) {
+            return Math.floor(number);
+        } else {
+            return Math.ceil(number);
+        }
+    }
+
+    function bubble() {
+        var milliseconds = this._milliseconds;
+        var days = this._days;
+        var months = this._months;
+        var data = this._data;
+        var seconds, minutes, hours, years, monthsFromDays;
+
+        // if we have a mix of positive and negative values, bubble down first
+        // check: https://github.com/moment/moment/issues/2166
+        if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
+                (milliseconds <= 0 && days <= 0 && months <= 0))) {
+            milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
+            days = 0;
+            months = 0;
+        }
+
+        // The following code bubbles up values, see the tests for
+        // examples of what that means.
+        data.milliseconds = milliseconds % 1000;
+
+        seconds = absFloor(milliseconds / 1000);
+        data.seconds = seconds % 60;
+
+        minutes = absFloor(seconds / 60);
+        data.minutes = minutes % 60;
+
+        hours = absFloor(minutes / 60);
+        data.hours = hours % 24;
+
+        days += absFloor(hours / 24);
+
+        // convert days to months
+        monthsFromDays = absFloor(daysToMonths(days));
+        months += monthsFromDays;
+        days -= absCeil(monthsToDays(monthsFromDays));
+
+        // 12 months -> 1 year
+        years = absFloor(months / 12);
+        months %= 12;
+
+        data.days = days;
+        data.months = months;
+        data.years = years;
+
+        return this;
+    }
+
+    function daysToMonths(days) {
+        // 400 years have 146097 days (taking into account leap year rules)
+        // 400 years have 12 months === 4800
+        return days * 4800 / 146097;
+    }
+
+    function monthsToDays(months) {
+        // the reverse of daysToMonths
+        return months * 146097 / 4800;
+    }
+
+    function as(units) {
+        var days;
+        var months;
+        var milliseconds = this._milliseconds;
+
+        units = normalizeUnits(units);
+
+        if (units === 'month' || units === 'year') {
+            days = this._days + milliseconds / 864e5;
+            months = this._months + daysToMonths(days);
+            return units === 'month' ? months : months / 12;
+        } else {
+            // handle milliseconds separately because of floating point math errors (issue #1867)
+            days = this._days + Math.round(monthsToDays(this._months));
+            switch (units) {
+                case 'week'   :
+                    return days / 7 + milliseconds / 6048e5;
+                case 'day'    :
+                    return days + milliseconds / 864e5;
+                case 'hour'   :
+                    return days * 24 + milliseconds / 36e5;
+                case 'minute' :
+                    return days * 1440 + milliseconds / 6e4;
+                case 'second' :
+                    return days * 86400 + milliseconds / 1000;
+                // Math.floor prevents floating point math errors here
+                case 'millisecond':
+                    return Math.floor(days * 864e5) + milliseconds;
+                default:
+                    throw new Error('Unknown unit ' + units);
+            }
+        }
+    }
+
+// TODO: Use this.as('ms')?
+    function valueOf$1() {
+        return (
+            this._milliseconds +
+            this._days * 864e5 +
+            (this._months % 12) * 2592e6 +
+            toInt(this._months / 12) * 31536e6
+        );
+    }
+
+    function makeAs(alias) {
+        return function () {
+            return this.as(alias);
+        };
+    }
+
+    var asMilliseconds = makeAs('ms');
+    var asSeconds = makeAs('s');
+    var asMinutes = makeAs('m');
+    var asHours = makeAs('h');
+    var asDays = makeAs('d');
+    var asWeeks = makeAs('w');
+    var asMonths = makeAs('M');
+    var asYears = makeAs('y');
+
+    function get$2(units) {
+        units = normalizeUnits(units);
+        return this[units + 's']();
+    }
+
+    function makeGetter(name) {
+        return function () {
+            return this._data[name];
+        };
+    }
+
+    var milliseconds = makeGetter('milliseconds');
+    var seconds = makeGetter('seconds');
+    var minutes = makeGetter('minutes');
+    var hours = makeGetter('hours');
+    var days = makeGetter('days');
+    var months = makeGetter('months');
+    var years = makeGetter('years');
+
+    function weeks() {
+        return absFloor(this.days() / 7);
+    }
+
+    var round = Math.round;
+    var thresholds = {
+        s: 45,  // seconds to minute
+        m: 45,  // minutes to hour
+        h: 22,  // hours to day
+        d: 26,  // days to month
+        M: 11   // months to year
+    };
+
+// helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
+    function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
+        return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+    }
+
+    function relativeTime$1(posNegDuration, withoutSuffix, locale) {
+        var duration = createDuration(posNegDuration).abs();
+        var seconds = round(duration.as('s'));
+        var minutes = round(duration.as('m'));
+        var hours = round(duration.as('h'));
+        var days = round(duration.as('d'));
+        var months = round(duration.as('M'));
+        var years = round(duration.as('y'));
+
+        var a = seconds < thresholds.s && ['s', seconds] ||
+            minutes <= 1 && ['m'] ||
+            minutes < thresholds.m && ['mm', minutes] ||
+            hours <= 1 && ['h'] ||
+            hours < thresholds.h && ['hh', hours] ||
+            days <= 1 && ['d'] ||
+            days < thresholds.d && ['dd', days] ||
+            months <= 1 && ['M'] ||
+            months < thresholds.M && ['MM', months] ||
+            years <= 1 && ['y'] || ['yy', years];
+
+        a[2] = withoutSuffix;
+        a[3] = +posNegDuration > 0;
+        a[4] = locale;
+        return substituteTimeAgo.apply(null, a);
+    }
+
+// This function allows you to set the rounding function for relative time strings
+    function getSetRelativeTimeRounding(roundingFunction) {
+        if (roundingFunction === undefined) {
+            return round;
+        }
+        if (typeof(roundingFunction) === 'function') {
+            round = roundingFunction;
+            return true;
+        }
+        return false;
+    }
+
+// This function allows you to set a threshold for relative time strings
+    function getSetRelativeTimeThreshold(threshold, limit) {
+        if (thresholds[threshold] === undefined) {
+            return false;
+        }
+        if (limit === undefined) {
+            return thresholds[threshold];
+        }
+        thresholds[threshold] = limit;
+        return true;
+    }
+
+    function humanize(withSuffix) {
+        var locale = this.localeData();
+        var output = relativeTime$1(this, !withSuffix, locale);
+
+        if (withSuffix) {
+            output = locale.pastFuture(+this, output);
+        }
+
+        return locale.postformat(output);
+    }
+
+    var abs$1 = Math.abs;
+
+    function toISOString$1() {
+        // for ISO strings we do not use the normal bubbling rules:
+        //  * milliseconds bubble up until they become hours
+        //  * days do not bubble at all
+        //  * months bubble up until they become years
+        // This is because there is no context-free conversion between hours and days
+        // (think of clock changes)
+        // and also not between days and months (28-31 days per month)
+        var seconds = abs$1(this._milliseconds) / 1000;
+        var days = abs$1(this._days);
+        var months = abs$1(this._months);
+        var minutes, hours, years;
+
+        // 3600 seconds -> 60 minutes -> 1 hour
+        minutes = absFloor(seconds / 60);
+        hours = absFloor(minutes / 60);
+        seconds %= 60;
+        minutes %= 60;
+
+        // 12 months -> 1 year
+        years = absFloor(months / 12);
+        months %= 12;
+
+
+        // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+        var Y = years;
+        var M = months;
+        var D = days;
+        var h = hours;
+        var m = minutes;
+        var s = seconds;
+        var total = this.asSeconds();
+
+        if (!total) {
+            // this is the same as C#'s (Noda) and python (isodate)...
+            // but not other JS (goog.date)
+            return 'P0D';
+        }
+
+        return (total < 0 ? '-' : '') +
+            'P' +
+            (Y ? Y + 'Y' : '') +
+            (M ? M + 'M' : '') +
+            (D ? D + 'D' : '') +
+            ((h || m || s) ? 'T' : '') +
+            (h ? h + 'H' : '') +
+            (m ? m + 'M' : '') +
+            (s ? s + 'S' : '');
+    }
+
+    var proto$2 = Duration.prototype;
+
+    proto$2.abs = abs;
+    proto$2.add = add$1;
+    proto$2.subtract = subtract$1;
+    proto$2.as = as;
+    proto$2.asMilliseconds = asMilliseconds;
+    proto$2.asSeconds = asSeconds;
+    proto$2.asMinutes = asMinutes;
+    proto$2.asHours = asHours;
+    proto$2.asDays = asDays;
+    proto$2.asWeeks = asWeeks;
+    proto$2.asMonths = asMonths;
+    proto$2.asYears = asYears;
+    proto$2.valueOf = valueOf$1;
+    proto$2._bubble = bubble;
+    proto$2.get = get$2;
+    proto$2.milliseconds = milliseconds;
+    proto$2.seconds = seconds;
+    proto$2.minutes = minutes;
+    proto$2.hours = hours;
+    proto$2.days = days;
+    proto$2.weeks = weeks;
+    proto$2.months = months;
+    proto$2.years = years;
+    proto$2.humanize = humanize;
+    proto$2.toISOString = toISOString$1;
+    proto$2.toString = toISOString$1;
+    proto$2.toJSON = toISOString$1;
+    proto$2.locale = locale;
+    proto$2.localeData = localeData;
+
+// Deprecations
+    proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
+    proto$2.lang = lang;
+
+// Side effect imports
+
+// FORMATTING
+
+    addFormatToken('X', 0, 0, 'unix');
+    addFormatToken('x', 0, 0, 'valueOf');
+
+// PARSING
+
+    addRegexToken('x', matchSigned);
+    addRegexToken('X', matchTimestamp);
+    addParseToken('X', function (input, array, config) {
+        config._d = new Date(parseFloat(input, 10) * 1000);
+    });
+    addParseToken('x', function (input, array, config) {
+        config._d = new Date(toInt(input));
+    });
+
+// Side effect imports
+
+
+    hooks.version = '2.16.0';
+
+    setHookCallback(createLocal);
+
+    hooks.fn = proto;
+    hooks.min = min;
+    hooks.max = max;
+    hooks.now = now;
+    hooks.utc = createUTC;
+    hooks.unix = createUnix;
+    hooks.months = listMonths;
+    hooks.isDate = isDate;
+    hooks.locale = getSetGlobalLocale;
+    hooks.invalid = createInvalid;
+    hooks.duration = createDuration;
+    hooks.isMoment = isMoment;
+    hooks.weekdays = listWeekdays;
+    hooks.parseZone = createInZone;
+    hooks.localeData = getLocale;
+    hooks.isDuration = isDuration;
+    hooks.monthsShort = listMonthsShort;
+    hooks.weekdaysMin = listWeekdaysMin;
+    hooks.defineLocale = defineLocale;
+    hooks.updateLocale = updateLocale;
+    hooks.locales = listLocales;
+    hooks.weekdaysShort = listWeekdaysShort;
+    hooks.normalizeUnits = normalizeUnits;
+    hooks.relativeTimeRounding = getSetRelativeTimeRounding;
+    hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
+    hooks.calendarFormat = getCalendarFormat;
+    hooks.prototype = proto;
+
+    return hooks;
+
+})));
+
+/*!
+ * jQuery Mousewheel 3.1.13
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license
+ * http://jquery.org/license
+ */
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS style for Browserify
+        module.exports = factory;
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
+
+    var toFix = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
+        toBind = ('onwheel' in document || document.documentMode >= 9) ?
+            ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],
+        slice = Array.prototype.slice,
+        nullLowestDeltaTimeout, lowestDelta;
+
+    if ($.event.fixHooks) {
+        for (var i = toFix.length; i;) {
+            $.event.fixHooks[toFix[--i]] = $.event.mouseHooks;
+        }
+    }
+
+    var special = $.event.special.mousewheel = {
+        version: '3.1.12',
+
+        setup: function () {
+            if (this.addEventListener) {
+                for (var i = toBind.length; i;) {
+                    this.addEventListener(toBind[--i], handler, false);
+                }
+            } else {
+                this.onmousewheel = handler;
+            }
+            // Store the line height and page height for this particular element
+            $.data(this, 'mousewheel-line-height', special.getLineHeight(this));
+            $.data(this, 'mousewheel-page-height', special.getPageHeight(this));
+        },
+
+        teardown: function () {
+            if (this.removeEventListener) {
+                for (var i = toBind.length; i;) {
+                    this.removeEventListener(toBind[--i], handler, false);
+                }
+            } else {
+                this.onmousewheel = null;
+            }
+            // Clean up the data we added to the element
+            $.removeData(this, 'mousewheel-line-height');
+            $.removeData(this, 'mousewheel-page-height');
+        },
+
+        getLineHeight: function (elem) {
+            var $elem = $(elem),
+                $parent = $elem['offsetParent' in $.fn ? 'offsetParent' : 'parent']();
+            if (!$parent.length) {
+                $parent = $('body');
+            }
+            return parseInt($parent.css('fontSize'), 10) || parseInt($elem.css('fontSize'), 10) || 16;
+        },
+
+        getPageHeight: function (elem) {
+            return $(elem).height();
+        },
+
+        settings: {
+            adjustOldDeltas: true, // see shouldAdjustOldDeltas() below
+            normalizeOffset: true  // calls getBoundingClientRect for each event
+        }
+    };
+
+    $.fn.extend({
+        mousewheel: function (fn) {
+            return fn ? this.bind('mousewheel', fn) : this.trigger('mousewheel');
+        },
+
+        unmousewheel: function (fn) {
+            return this.unbind('mousewheel', fn);
+        }
+    });
+
+
+    function handler(event) {
+        var orgEvent = event || window.event,
+            args = slice.call(arguments, 1),
+            delta = 0,
+            deltaX = 0,
+            deltaY = 0,
+            absDelta = 0,
+            offsetX = 0,
+            offsetY = 0;
+        event = $.event.fix(orgEvent);
+        event.type = 'mousewheel';
+
+        // Old school scrollwheel delta
+        if ('detail' in orgEvent) {
+            deltaY = orgEvent.detail * -1;
+        }
+        if ('wheelDelta' in orgEvent) {
+            deltaY = orgEvent.wheelDelta;
+        }
+        if ('wheelDeltaY' in orgEvent) {
+            deltaY = orgEvent.wheelDeltaY;
+        }
+        if ('wheelDeltaX' in orgEvent) {
+            deltaX = orgEvent.wheelDeltaX * -1;
+        }
+
+        // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
+        if ('axis' in orgEvent && orgEvent.axis === orgEvent.HORIZONTAL_AXIS) {
+            deltaX = deltaY * -1;
+            deltaY = 0;
+        }
+
+        // Set delta to be deltaY or deltaX if deltaY is 0 for backwards compatabilitiy
+        delta = deltaY === 0 ? deltaX : deltaY;
+
+        // New school wheel delta (wheel event)
+        if ('deltaY' in orgEvent) {
+            deltaY = orgEvent.deltaY * -1;
+            delta = deltaY;
+        }
+        if ('deltaX' in orgEvent) {
+            deltaX = orgEvent.deltaX;
+            if (deltaY === 0) {
+                delta = deltaX * -1;
+            }
+        }
+
+        // No change actually happened, no reason to go any further
+        if (deltaY === 0 && deltaX === 0) {
+            return;
+        }
+
+        // Need to convert lines and pages to pixels if we aren't already in pixels
+        // There are three delta modes:
+        //   * deltaMode 0 is by pixels, nothing to do
+        //   * deltaMode 1 is by lines
+        //   * deltaMode 2 is by pages
+        if (orgEvent.deltaMode === 1) {
+            var lineHeight = $.data(this, 'mousewheel-line-height');
+            delta *= lineHeight;
+            deltaY *= lineHeight;
+            deltaX *= lineHeight;
+        } else if (orgEvent.deltaMode === 2) {
+            var pageHeight = $.data(this, 'mousewheel-page-height');
+            delta *= pageHeight;
+            deltaY *= pageHeight;
+            deltaX *= pageHeight;
+        }
+
+        // Store lowest absolute delta to normalize the delta values
+        absDelta = Math.max(Math.abs(deltaY), Math.abs(deltaX));
+
+        if (!lowestDelta || absDelta < lowestDelta) {
+            lowestDelta = absDelta;
+
+            // Adjust older deltas if necessary
+            if (shouldAdjustOldDeltas(orgEvent, absDelta)) {
+                lowestDelta /= 40;
+            }
+        }
+
+        // Adjust older deltas if necessary
+        if (shouldAdjustOldDeltas(orgEvent, absDelta)) {
+            // Divide all the things by 40!
+            delta /= 40;
+            deltaX /= 40;
+            deltaY /= 40;
+        }
+
+        // Get a whole, normalized value for the deltas
+        delta = Math[delta >= 1 ? 'floor' : 'ceil'](delta / lowestDelta);
+        deltaX = Math[deltaX >= 1 ? 'floor' : 'ceil'](deltaX / lowestDelta);
+        deltaY = Math[deltaY >= 1 ? 'floor' : 'ceil'](deltaY / lowestDelta);
+
+        // Normalise offsetX and offsetY properties
+        if (special.settings.normalizeOffset && this.getBoundingClientRect) {
+            var boundingRect = this.getBoundingClientRect();
+            offsetX = event.clientX - boundingRect.left;
+            offsetY = event.clientY - boundingRect.top;
+        }
+
+        // Add information to the event object
+        event.deltaX = deltaX;
+        event.deltaY = deltaY;
+        event.deltaFactor = lowestDelta;
+        event.offsetX = offsetX;
+        event.offsetY = offsetY;
+        // Go ahead and set deltaMode to 0 since we converted to pixels
+        // Although this is a little odd since we overwrite the deltaX/Y
+        // properties with normalized deltas.
+        event.deltaMode = 0;
+
+        // Add event and delta to the front of the arguments
+        args.unshift(event, delta, deltaX, deltaY);
+
+        // Clearout lowestDelta after sometime to better
+        // handle multiple device types that give different
+        // a different lowestDelta
+        // Ex: trackpad = 3 and mouse wheel = 120
+        if (nullLowestDeltaTimeout) {
+            clearTimeout(nullLowestDeltaTimeout);
+        }
+        nullLowestDeltaTimeout = setTimeout(nullLowestDelta, 200);
+
+        return ($.event.dispatch || $.event.handle).apply(this, args);
+    }
+
+    function nullLowestDelta() {
+        lowestDelta = null;
+    }
+
+    function shouldAdjustOldDeltas(orgEvent, absDelta) {
+        // If this is an older event and the delta is divisable by 120,
+        // then we are assuming that the browser is treating this as an
+        // older mouse wheel event and that we should divide the deltas
+        // by 40 to try and get a more usable deltaFactor.
+        // Side note, this actually impacts the reported scroll distance
+        // in older browsers and can cause scrolling to be slower than native.
+        // Turn this off by setting $.event.special.mousewheel.settings.adjustOldDeltas to false.
+        return special.settings.adjustOldDeltas && orgEvent.type === 'mousewheel' && absDelta % 120 === 0;
+    }
+
+}));
 
 /**
  * awaSlide v1.0
@@ -17696,3 +22254,4677 @@ if (_gsScope._gsDefine) {
 
 }));
 
+/*
+== malihu jquery custom scrollbar plugin ==
+Version: 3.1.5
+Plugin URI: http://manos.malihu.gr/jquery-custom-content-scroller
+Author: malihu
+Author URI: http://manos.malihu.gr
+License: MIT License (MIT)
+*/
+
+/*
+Copyright Manos Malihutsakis (email: manos@malihu.gr)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*
+The code below is fairly long, fully commented and should be normally used in development.
+For production, use either the minified jquery.mCustomScrollbar.min.js script or
+the production-ready jquery.mCustomScrollbar.concat.min.js which contains the plugin
+and dependencies (minified).
+*/
+
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define(["jquery"], factory);
+    } else if (typeof module !== "undefined" && module.exports) {
+        module.exports = factory;
+    } else {
+        factory(jQuery, window, document);
+    }
+}(function ($) {
+    (function (init) {
+        var _rjs = typeof define === "function" && define.amd, /* RequireJS */
+            _njs = typeof module !== "undefined" && module.exports, /* NodeJS */
+            _dlp = ("https:" == document.location.protocol) ? "https:" : "http:", /* location protocol */
+            _url = "cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js";
+        if (!_rjs) {
+            if (_njs) {
+                require("jquery-mousewheel")($);
+            } else {
+                /* load jquery-mousewheel plugin (via CDN) if it's not present or not loaded via RequireJS
+                (works when mCustomScrollbar fn is called on window load) */
+                $.event.special.mousewheel || $("head").append(decodeURI("%3Cscript src=" + _dlp + "//" + _url + "%3E%3C/script%3E"));
+            }
+        }
+        init();
+    }(function () {
+
+        /*
+        ----------------------------------------
+        PLUGIN NAMESPACE, PREFIX, DEFAULT SELECTOR(S)
+        ----------------------------------------
+        */
+
+        var pluginNS = "mCustomScrollbar",
+            pluginPfx = "mCS",
+            defaultSelector = ".mCustomScrollbar",
+
+
+            /*
+            ----------------------------------------
+            DEFAULT OPTIONS
+            ----------------------------------------
+            */
+
+            defaults = {
+                /*
+                set element/content width/height programmatically
+                values: boolean, pixels, percentage
+                    option						default
+                    -------------------------------------
+                    setWidth					false
+                    setHeight					false
+                */
+                /*
+                set the initial css top property of content
+                values: string (e.g. "-100px", "10%" etc.)
+                */
+                setTop: 0,
+                /*
+                set the initial css left property of content
+                values: string (e.g. "-100px", "10%" etc.)
+                */
+                setLeft: 0,
+                /*
+                scrollbar axis (vertical and/or horizontal scrollbars)
+                values (string): "y", "x", "yx"
+                */
+                axis: "y",
+                /*
+                position of scrollbar relative to content
+                values (string): "inside", "outside" ("outside" requires elements with position:relative)
+                */
+                scrollbarPosition: "inside",
+                /*
+                scrolling inertia
+                values: integer (milliseconds)
+                */
+                scrollInertia: 950,
+                /*
+                auto-adjust scrollbar dragger length
+                values: boolean
+                */
+                autoDraggerLength: true,
+                /*
+                auto-hide scrollbar when idle
+                values: boolean
+                    option						default
+                    -------------------------------------
+                    autoHideScrollbar			false
+                */
+                /*
+                auto-expands scrollbar on mouse-over and dragging
+                values: boolean
+                    option						default
+                    -------------------------------------
+                    autoExpandScrollbar			false
+                */
+                /*
+                always show scrollbar, even when there's nothing to scroll
+                values: integer (0=disable, 1=always show dragger rail and buttons, 2=always show dragger rail, dragger and buttons), boolean
+                */
+                alwaysShowScrollbar: 0,
+                /*
+                scrolling always snaps to a multiple of this number in pixels
+                values: integer, array ([y,x])
+                    option						default
+                    -------------------------------------
+                    snapAmount					null
+                */
+                /*
+                when snapping, snap with this number in pixels as an offset
+                values: integer
+                */
+                snapOffset: 0,
+                /*
+                mouse-wheel scrolling
+                */
+                mouseWheel: {
+                    /*
+                    enable mouse-wheel scrolling
+                    values: boolean
+                    */
+                    enable: true,
+                    /*
+                    scrolling amount in pixels
+                    values: "auto", integer
+                    */
+                    scrollAmount: "auto",
+                    /*
+                    mouse-wheel scrolling axis
+                    the default scrolling direction when both vertical and horizontal scrollbars are present
+                    values (string): "y", "x"
+                    */
+                    axis: "y",
+                    /*
+                    prevent the default behaviour which automatically scrolls the parent element(s) when end of scrolling is reached
+                    values: boolean
+                        option						default
+                        -------------------------------------
+                        preventDefault				null
+                    */
+                    /*
+                    the reported mouse-wheel delta value. The number of lines (translated to pixels) one wheel notch scrolls.
+                    values: "auto", integer
+                    "auto" uses the default OS/browser value
+                    */
+                    deltaFactor: "auto",
+                    /*
+                    normalize mouse-wheel delta to -1 or 1 (disables mouse-wheel acceleration)
+                    values: boolean
+                        option						default
+                        -------------------------------------
+                        normalizeDelta				null
+                    */
+                    /*
+                    invert mouse-wheel scrolling direction
+                    values: boolean
+                        option						default
+                        -------------------------------------
+                        invert						null
+                    */
+                    /*
+                    the tags that disable mouse-wheel when cursor is over them
+                    */
+                    disableOver: ["select", "option", "keygen", "datalist", "textarea"]
+                },
+                /*
+                scrollbar buttons
+                */
+                scrollButtons: {
+                    /*
+                    enable scrollbar buttons
+                    values: boolean
+                        option						default
+                        -------------------------------------
+                        enable						null
+                    */
+                    /*
+                    scrollbar buttons scrolling type
+                    values (string): "stepless", "stepped"
+                    */
+                    scrollType: "stepless",
+                    /*
+                    scrolling amount in pixels
+                    values: "auto", integer
+                    */
+                    scrollAmount: "auto"
+                    /*
+                    tabindex of the scrollbar buttons
+                    values: false, integer
+                        option						default
+                        -------------------------------------
+                        tabindex					null
+                    */
+                },
+                /*
+                keyboard scrolling
+                */
+                keyboard: {
+                    /*
+                    enable scrolling via keyboard
+                    values: boolean
+                    */
+                    enable: true,
+                    /*
+                    keyboard scrolling type
+                    values (string): "stepless", "stepped"
+                    */
+                    scrollType: "stepless",
+                    /*
+                    scrolling amount in pixels
+                    values: "auto", integer
+                    */
+                    scrollAmount: "auto"
+                },
+                /*
+                enable content touch-swipe scrolling
+                values: boolean, integer, string (number)
+                integer values define the axis-specific minimum amount required for scrolling momentum
+                */
+                contentTouchScroll: 25,
+                /*
+                enable/disable document (default) touch-swipe scrolling
+                */
+                documentTouchScroll: true,
+                /*
+                advanced option parameters
+                */
+                advanced: {
+                    /*
+                    auto-expand content horizontally (for "x" or "yx" axis)
+                    values: boolean, integer (the value 2 forces the non scrollHeight/scrollWidth method, the value 3 forces the scrollHeight/scrollWidth method)
+                        option						default
+                        -------------------------------------
+                        autoExpandHorizontalScroll	null
+                    */
+                    /*
+                    auto-scroll to elements with focus
+                    */
+                    autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
+                    /*
+                    auto-update scrollbars on content, element or viewport resize
+                    should be true for fluid layouts/elements, adding/removing content dynamically, hiding/showing elements, content with images etc.
+                    values: boolean
+                    */
+                    updateOnContentResize: true,
+                    /*
+                    auto-update scrollbars each time each image inside the element is fully loaded
+                    values: "auto", boolean
+                    */
+                    updateOnImageLoad: "auto",
+                    /*
+                    auto-update scrollbars based on the amount and size changes of specific selectors
+                    useful when you need to update the scrollbar(s) automatically, each time a type of element is added, removed or changes its size
+                    values: boolean, string (e.g. "ul li" will auto-update scrollbars each time list-items inside the element are changed)
+                    a value of true (boolean) will auto-update scrollbars each time any element is changed
+                        option						default
+                        -------------------------------------
+                        updateOnSelectorChange		null
+                    */
+                    /*
+                    extra selectors that'll allow scrollbar dragging upon mousemove/up, pointermove/up, touchend etc. (e.g. "selector-1, selector-2")
+                        option						default
+                        -------------------------------------
+                        extraDraggableSelectors		null
+                    */
+                    /*
+                    extra selectors that'll release scrollbar dragging upon mouseup, pointerup, touchend etc. (e.g. "selector-1, selector-2")
+                        option						default
+                        -------------------------------------
+                        releaseDraggableSelectors	null
+                    */
+                    /*
+                    auto-update timeout
+                    values: integer (milliseconds)
+                    */
+                    autoUpdateTimeout: 60
+                },
+                /*
+                scrollbar theme
+                values: string (see CSS/plugin URI for a list of ready-to-use themes)
+                */
+                theme: "light",
+                /*
+                user defined callback functions
+                */
+                callbacks: {
+                    /*
+                    Available callbacks:
+                        callback					default
+                        -------------------------------------
+                        onCreate					null
+                        onInit						null
+                        onScrollStart				null
+                        onScroll					null
+                        onTotalScroll				null
+                        onTotalScrollBack			null
+                        whileScrolling				null
+                        onOverflowY					null
+                        onOverflowX					null
+                        onOverflowYNone				null
+                        onOverflowXNone				null
+                        onImageLoad					null
+                        onSelectorChange			null
+                        onBeforeUpdate				null
+                        onUpdate					null
+                    */
+                    onTotalScrollOffset: 0,
+                    onTotalScrollBackOffset: 0,
+                    alwaysTriggerOffsets: true
+                }
+                /*
+                add scrollbar(s) on all elements matching the current selector, now and in the future
+                values: boolean, string
+                string values: "on" (enable), "once" (disable after first invocation), "off" (disable)
+                liveSelector values: string (selector)
+                    option						default
+                    -------------------------------------
+                    live						false
+                    liveSelector				null
+                */
+            },
+
+
+            /*
+            ----------------------------------------
+            VARS, CONSTANTS
+            ----------------------------------------
+            */
+
+            totalInstances = 0, /* plugin instances amount */
+            liveTimers = {}, /* live option timers */
+            oldIE = (window.attachEvent && !window.addEventListener) ? 1 : 0, /* detect IE < 9 */
+            touchActive = false, touchable, /* global touch vars (for touch and pointer events) */
+            /* general plugin classes */
+            classes = [
+                "mCSB_dragger_onDrag", "mCSB_scrollTools_onDrag", "mCS_img_loaded", "mCS_disabled", "mCS_destroyed", "mCS_no_scrollbar",
+                "mCS-autoHide", "mCS-dir-rtl", "mCS_no_scrollbar_y", "mCS_no_scrollbar_x", "mCS_y_hidden", "mCS_x_hidden", "mCSB_draggerContainer",
+                "mCSB_buttonUp", "mCSB_buttonDown", "mCSB_buttonLeft", "mCSB_buttonRight"
+            ],
+
+
+            /*
+            ----------------------------------------
+            METHODS
+            ----------------------------------------
+            */
+
+            methods = {
+
+                /*
+                plugin initialization method
+                creates the scrollbar(s), plugin data object and options
+                ----------------------------------------
+                */
+
+                init: function (options) {
+
+                    var options = $.extend(true, {}, defaults, options),
+                        selector = _selector.call(this);
+                    /* validate selector */
+
+                    /*
+                    if live option is enabled, monitor for elements matching the current selector and
+                    apply scrollbar(s) when found (now and in the future)
+                    */
+                    if (options.live) {
+                        var liveSelector = options.liveSelector || this.selector || defaultSelector, /* live selector(s) */
+                            $liveSelector = $(liveSelector);
+                        /* live selector(s) as jquery object */
+                        if (options.live === "off") {
+                            /*
+                            disable live if requested
+                            usage: $(selector).mCustomScrollbar({live:"off"});
+                            */
+                            removeLiveTimers(liveSelector);
+                            return;
+                        }
+                        liveTimers[liveSelector] = setTimeout(function () {
+                            /* call mCustomScrollbar fn on live selector(s) every half-second */
+                            $liveSelector.mCustomScrollbar(options);
+                            if (options.live === "once" && $liveSelector.length) {
+                                /* disable live after first invocation */
+                                removeLiveTimers(liveSelector);
+                            }
+                        }, 500);
+                    } else {
+                        removeLiveTimers(liveSelector);
+                    }
+
+                    /* options backward compatibility (for versions < 3.0.0) and normalization */
+                    options.setWidth = (options.set_width) ? options.set_width : options.setWidth;
+                    options.setHeight = (options.set_height) ? options.set_height : options.setHeight;
+                    options.axis = (options.horizontalScroll) ? "x" : _findAxis(options.axis);
+                    options.scrollInertia = options.scrollInertia > 0 && options.scrollInertia < 17 ? 17 : options.scrollInertia;
+                    if (typeof options.mouseWheel !== "object" && options.mouseWheel == true) { /* old school mouseWheel option (non-object) */
+                        options.mouseWheel = {
+                            enable: true,
+                            scrollAmount: "auto",
+                            axis: "y",
+                            preventDefault: false,
+                            deltaFactor: "auto",
+                            normalizeDelta: false,
+                            invert: false
+                        }
+                    }
+                    options.mouseWheel.scrollAmount = !options.mouseWheelPixels ? options.mouseWheel.scrollAmount : options.mouseWheelPixels;
+                    options.mouseWheel.normalizeDelta = !options.advanced.normalizeMouseWheelDelta ? options.mouseWheel.normalizeDelta : options.advanced.normalizeMouseWheelDelta;
+                    options.scrollButtons.scrollType = _findScrollButtonsType(options.scrollButtons.scrollType);
+
+                    _theme(options);
+                    /* theme-specific options */
+
+                    /* plugin constructor */
+                    return $(selector).each(function () {
+
+                        var $this = $(this);
+
+                        if (!$this.data(pluginPfx)) { /* prevent multiple instantiations */
+
+                            /* store options and create objects in jquery data */
+                            $this.data(pluginPfx, {
+                                idx: ++totalInstances, /* instance index */
+                                opt: options, /* options */
+                                scrollRatio: {y: null, x: null}, /* scrollbar to content ratio */
+                                overflowed: null, /* overflowed axis */
+                                contentReset: {y: null, x: null}, /* object to check when content resets */
+                                bindEvents: false, /* object to check if events are bound */
+                                tweenRunning: false, /* object to check if tween is running */
+                                sequential: {}, /* sequential scrolling object */
+                                langDir: $this.css("direction"), /* detect/store direction (ltr or rtl) */
+                                cbOffsets: null, /* object to check whether callback offsets always trigger */
+                                /*
+                                object to check how scrolling events where last triggered
+                                "internal" (default - triggered by this script), "external" (triggered by other scripts, e.g. via scrollTo method)
+                                usage: object.data("mCS").trigger
+                                */
+                                trigger: null,
+                                /*
+                                object to check for changes in elements in order to call the update method automatically
+                                */
+                                poll: {size: {o: 0, n: 0}, img: {o: 0, n: 0}, change: {o: 0, n: 0}}
+                            });
+
+                            var d = $this.data(pluginPfx), o = d.opt,
+                                /* HTML data attributes */
+                                htmlDataAxis = $this.data("mcs-axis"),
+                                htmlDataSbPos = $this.data("mcs-scrollbar-position"),
+                                htmlDataTheme = $this.data("mcs-theme");
+
+                            if (htmlDataAxis) {
+                                o.axis = htmlDataAxis;
+                            }
+                            /* usage example: data-mcs-axis="y" */
+                            if (htmlDataSbPos) {
+                                o.scrollbarPosition = htmlDataSbPos;
+                            }
+                            /* usage example: data-mcs-scrollbar-position="outside" */
+                            if (htmlDataTheme) { /* usage example: data-mcs-theme="minimal" */
+                                o.theme = htmlDataTheme;
+                                _theme(o);
+                                /* theme-specific options */
+                            }
+
+                            _pluginMarkup.call(this);
+                            /* add plugin markup */
+
+                            if (d && o.callbacks.onCreate && typeof o.callbacks.onCreate === "function") {
+                                o.callbacks.onCreate.call(this);
+                            }
+                            /* callbacks: onCreate */
+
+                            $("#mCSB_" + d.idx + "_container img:not(." + classes[2] + ")").addClass(classes[2]);
+                            /* flag loaded images */
+
+                            methods.update.call(null, $this);
+                            /* call the update method */
+
+                        }
+
+                    });
+
+                },
+                /* ---------------------------------------- */
+
+
+
+                /*
+                plugin update method
+                updates content and scrollbar(s) values, events and status
+                ----------------------------------------
+                usage: $(selector).mCustomScrollbar("update");
+                */
+
+                update: function (el, cb) {
+
+                    var selector = el || _selector.call(this);
+                    /* validate selector */
+
+                    return $(selector).each(function () {
+
+                        var $this = $(this);
+
+                        if ($this.data(pluginPfx)) { /* check if plugin has initialized */
+
+                            var d = $this.data(pluginPfx), o = d.opt,
+                                mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                                mCustomScrollBox = $("#mCSB_" + d.idx),
+                                mCSB_dragger = [$("#mCSB_" + d.idx + "_dragger_vertical"), $("#mCSB_" + d.idx + "_dragger_horizontal")];
+
+                            if (!mCSB_container.length) {
+                                return;
+                            }
+
+                            if (d.tweenRunning) {
+                                _stop($this);
+                            }
+                            /* stop any running tweens while updating */
+
+                            if (cb && d && o.callbacks.onBeforeUpdate && typeof o.callbacks.onBeforeUpdate === "function") {
+                                o.callbacks.onBeforeUpdate.call(this);
+                            }
+                            /* callbacks: onBeforeUpdate */
+
+                            /* if element was disabled or destroyed, remove class(es) */
+                            if ($this.hasClass(classes[3])) {
+                                $this.removeClass(classes[3]);
+                            }
+                            if ($this.hasClass(classes[4])) {
+                                $this.removeClass(classes[4]);
+                            }
+
+                            /* css flexbox fix, detect/set max-height */
+                            mCustomScrollBox.css("max-height", "none");
+                            if (mCustomScrollBox.height() !== $this.height()) {
+                                mCustomScrollBox.css("max-height", $this.height());
+                            }
+
+                            _expandContentHorizontally.call(this);
+                            /* expand content horizontally */
+
+                            if (o.axis !== "y" && !o.advanced.autoExpandHorizontalScroll) {
+                                mCSB_container.css("width", _contentWidth(mCSB_container));
+                            }
+
+                            d.overflowed = _overflowed.call(this);
+                            /* determine if scrolling is required */
+
+                            _scrollbarVisibility.call(this);
+                            /* show/hide scrollbar(s) */
+
+                            /* auto-adjust scrollbar dragger length analogous to content */
+                            if (o.autoDraggerLength) {
+                                _setDraggerLength.call(this);
+                            }
+
+                            _scrollRatio.call(this);
+                            /* calculate and store scrollbar to content ratio */
+
+                            _bindEvents.call(this);
+                            /* bind scrollbar events */
+
+                            /* reset scrolling position and/or events */
+                            var to = [Math.abs(mCSB_container[0].offsetTop), Math.abs(mCSB_container[0].offsetLeft)];
+                            if (o.axis !== "x") { /* y/yx axis */
+                                if (!d.overflowed[0]) { /* y scrolling is not required */
+                                    _resetContentPosition.call(this);
+                                    /* reset content position */
+                                    if (o.axis === "y") {
+                                        _unbindEvents.call(this);
+                                    } else if (o.axis === "yx" && d.overflowed[1]) {
+                                        _scrollTo($this, to[1].toString(), {dir: "x", dur: 0, overwrite: "none"});
+                                    }
+                                } else if (mCSB_dragger[0].height() > mCSB_dragger[0].parent().height()) {
+                                    _resetContentPosition.call(this);
+                                    /* reset content position */
+                                } else { /* y scrolling is required */
+                                    _scrollTo($this, to[0].toString(), {dir: "y", dur: 0, overwrite: "none"});
+                                    d.contentReset.y = null;
+                                }
+                            }
+                            if (o.axis !== "y") { /* x/yx axis */
+                                if (!d.overflowed[1]) { /* x scrolling is not required */
+                                    _resetContentPosition.call(this);
+                                    /* reset content position */
+                                    if (o.axis === "x") {
+                                        _unbindEvents.call(this);
+                                    } else if (o.axis === "yx" && d.overflowed[0]) {
+                                        _scrollTo($this, to[0].toString(), {dir: "y", dur: 0, overwrite: "none"});
+                                    }
+                                } else if (mCSB_dragger[1].width() > mCSB_dragger[1].parent().width()) {
+                                    _resetContentPosition.call(this);
+                                    /* reset content position */
+                                } else { /* x scrolling is required */
+                                    _scrollTo($this, to[1].toString(), {dir: "x", dur: 0, overwrite: "none"});
+                                    d.contentReset.x = null;
+                                }
+                            }
+
+                            /* callbacks: onImageLoad, onSelectorChange, onUpdate */
+                            if (cb && d) {
+                                if (cb === 2 && o.callbacks.onImageLoad && typeof o.callbacks.onImageLoad === "function") {
+                                    o.callbacks.onImageLoad.call(this);
+                                } else if (cb === 3 && o.callbacks.onSelectorChange && typeof o.callbacks.onSelectorChange === "function") {
+                                    o.callbacks.onSelectorChange.call(this);
+                                } else if (o.callbacks.onUpdate && typeof o.callbacks.onUpdate === "function") {
+                                    o.callbacks.onUpdate.call(this);
+                                }
+                            }
+
+                            _autoUpdate.call(this);
+                            /* initialize automatic updating (for dynamic content, fluid layouts etc.) */
+
+                        }
+
+                    });
+
+                },
+                /* ---------------------------------------- */
+
+
+
+                /*
+                plugin scrollTo method
+                triggers a scrolling event to a specific value
+                ----------------------------------------
+                usage: $(selector).mCustomScrollbar("scrollTo",value,options);
+                */
+
+                scrollTo: function (val, options) {
+
+                    /* prevent silly things like $(selector).mCustomScrollbar("scrollTo",undefined); */
+                    if (typeof val == "undefined" || val == null) {
+                        return;
+                    }
+
+                    var selector = _selector.call(this);
+                    /* validate selector */
+
+                    return $(selector).each(function () {
+
+                        var $this = $(this);
+
+                        if ($this.data(pluginPfx)) { /* check if plugin has initialized */
+
+                            var d = $this.data(pluginPfx), o = d.opt,
+                                /* method default options */
+                                methodDefaults = {
+                                    trigger: "external", /* method is by default triggered externally (e.g. from other scripts) */
+                                    scrollInertia: o.scrollInertia, /* scrolling inertia (animation duration) */
+                                    scrollEasing: "mcsEaseInOut", /* animation easing */
+                                    moveDragger: false, /* move dragger instead of content */
+                                    timeout: 60, /* scroll-to delay */
+                                    callbacks: true, /* enable/disable callbacks */
+                                    onStart: true,
+                                    onUpdate: true,
+                                    onComplete: true
+                                },
+                                methodOptions = $.extend(true, {}, methodDefaults, options),
+                                to = _arr.call(this, val),
+                                dur = methodOptions.scrollInertia > 0 && methodOptions.scrollInertia < 17 ? 17 : methodOptions.scrollInertia;
+
+                            /* translate yx values to actual scroll-to positions */
+                            to[0] = _to.call(this, to[0], "y");
+                            to[1] = _to.call(this, to[1], "x");
+
+                            /*
+                            check if scroll-to value moves the dragger instead of content.
+                            Only pixel values apply on dragger (e.g. 100, "100px", "-=100" etc.)
+                            */
+                            if (methodOptions.moveDragger) {
+                                to[0] *= d.scrollRatio.y;
+                                to[1] *= d.scrollRatio.x;
+                            }
+
+                            methodOptions.dur = _isTabHidden() ? 0 : dur; //skip animations if browser tab is hidden
+
+                            setTimeout(function () {
+                                /* do the scrolling */
+                                if (to[0] !== null && typeof to[0] !== "undefined" && o.axis !== "x" && d.overflowed[0]) { /* scroll y */
+                                    methodOptions.dir = "y";
+                                    methodOptions.overwrite = "all";
+                                    _scrollTo($this, to[0].toString(), methodOptions);
+                                }
+                                if (to[1] !== null && typeof to[1] !== "undefined" && o.axis !== "y" && d.overflowed[1]) { /* scroll x */
+                                    methodOptions.dir = "x";
+                                    methodOptions.overwrite = "none";
+                                    _scrollTo($this, to[1].toString(), methodOptions);
+                                }
+                            }, methodOptions.timeout);
+
+                        }
+
+                    });
+
+                },
+                /* ---------------------------------------- */
+
+
+
+                /*
+                plugin stop method
+                stops scrolling animation
+                ----------------------------------------
+                usage: $(selector).mCustomScrollbar("stop");
+                */
+                stop: function () {
+
+                    var selector = _selector.call(this);
+                    /* validate selector */
+
+                    return $(selector).each(function () {
+
+                        var $this = $(this);
+
+                        if ($this.data(pluginPfx)) { /* check if plugin has initialized */
+
+                            _stop($this);
+
+                        }
+
+                    });
+
+                },
+                /* ---------------------------------------- */
+
+
+
+                /*
+                plugin disable method
+                temporarily disables the scrollbar(s)
+                ----------------------------------------
+                usage: $(selector).mCustomScrollbar("disable",reset);
+                reset (boolean): resets content position to 0
+                */
+                disable: function (r) {
+
+                    var selector = _selector.call(this);
+                    /* validate selector */
+
+                    return $(selector).each(function () {
+
+                        var $this = $(this);
+
+                        if ($this.data(pluginPfx)) { /* check if plugin has initialized */
+
+                            var d = $this.data(pluginPfx);
+
+                            _autoUpdate.call(this, "remove");
+                            /* remove automatic updating */
+
+                            _unbindEvents.call(this);
+                            /* unbind events */
+
+                            if (r) {
+                                _resetContentPosition.call(this);
+                            }
+                            /* reset content position */
+
+                            _scrollbarVisibility.call(this, true);
+                            /* show/hide scrollbar(s) */
+
+                            $this.addClass(classes[3]);
+                            /* add disable class */
+
+                        }
+
+                    });
+
+                },
+                /* ---------------------------------------- */
+
+
+
+                /*
+                plugin destroy method
+                completely removes the scrollbar(s) and returns the element to its original state
+                ----------------------------------------
+                usage: $(selector).mCustomScrollbar("destroy");
+                */
+                destroy: function () {
+
+                    var selector = _selector.call(this);
+                    /* validate selector */
+
+                    return $(selector).each(function () {
+
+                        var $this = $(this);
+
+                        if ($this.data(pluginPfx)) { /* check if plugin has initialized */
+
+                            var d = $this.data(pluginPfx), o = d.opt,
+                                mCustomScrollBox = $("#mCSB_" + d.idx),
+                                mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                                scrollbar = $(".mCSB_" + d.idx + "_scrollbar");
+
+                            if (o.live) {
+                                removeLiveTimers(o.liveSelector || $(selector).selector);
+                            }
+                            /* remove live timers */
+
+                            _autoUpdate.call(this, "remove");
+                            /* remove automatic updating */
+
+                            _unbindEvents.call(this);
+                            /* unbind events */
+
+                            _resetContentPosition.call(this);
+                            /* reset content position */
+
+                            $this.removeData(pluginPfx);
+                            /* remove plugin data object */
+
+                            _delete(this, "mcs");
+                            /* delete callbacks object */
+
+                            /* remove plugin markup */
+                            scrollbar.remove();
+                            /* remove scrollbar(s) first (those can be either inside or outside plugin's inner wrapper) */
+                            mCSB_container.find("img." + classes[2]).removeClass(classes[2]);
+                            /* remove loaded images flag */
+                            mCustomScrollBox.replaceWith(mCSB_container.contents());
+                            /* replace plugin's inner wrapper with the original content */
+                            /* remove plugin classes from the element and add destroy class */
+                            $this.removeClass(pluginNS + " _" + pluginPfx + "_" + d.idx + " " + classes[6] + " " + classes[7] + " " + classes[5] + " " + classes[3]).addClass(classes[4]);
+
+                        }
+
+                    });
+
+                }
+                /* ---------------------------------------- */
+
+            },
+
+
+            /*
+            ----------------------------------------
+            FUNCTIONS
+            ----------------------------------------
+            */
+
+            /* validates selector (if selector is invalid or undefined uses the default one) */
+            _selector = function () {
+                return (typeof $(this) !== "object" || $(this).length < 1) ? defaultSelector : this;
+            },
+            /* -------------------- */
+
+
+            /* changes options according to theme */
+            _theme = function (obj) {
+                var fixedSizeScrollbarThemes = ["rounded", "rounded-dark", "rounded-dots", "rounded-dots-dark"],
+                    nonExpandedScrollbarThemes = ["rounded-dots", "rounded-dots-dark", "3d", "3d-dark", "3d-thick", "3d-thick-dark", "inset", "inset-dark", "inset-2", "inset-2-dark", "inset-3", "inset-3-dark"],
+                    disabledScrollButtonsThemes = ["minimal", "minimal-dark"],
+                    enabledAutoHideScrollbarThemes = ["minimal", "minimal-dark"],
+                    scrollbarPositionOutsideThemes = ["minimal", "minimal-dark"];
+                obj.autoDraggerLength = $.inArray(obj.theme, fixedSizeScrollbarThemes) > -1 ? false : obj.autoDraggerLength;
+                obj.autoExpandScrollbar = $.inArray(obj.theme, nonExpandedScrollbarThemes) > -1 ? false : obj.autoExpandScrollbar;
+                obj.scrollButtons.enable = $.inArray(obj.theme, disabledScrollButtonsThemes) > -1 ? false : obj.scrollButtons.enable;
+                obj.autoHideScrollbar = $.inArray(obj.theme, enabledAutoHideScrollbarThemes) > -1 ? true : obj.autoHideScrollbar;
+                obj.scrollbarPosition = $.inArray(obj.theme, scrollbarPositionOutsideThemes) > -1 ? "outside" : obj.scrollbarPosition;
+            },
+            /* -------------------- */
+
+
+            /* live option timers removal */
+            removeLiveTimers = function (selector) {
+                if (liveTimers[selector]) {
+                    clearTimeout(liveTimers[selector]);
+                    _delete(liveTimers, selector);
+                }
+            },
+            /* -------------------- */
+
+
+            /* normalizes axis option to valid values: "y", "x", "yx" */
+            _findAxis = function (val) {
+                return (val === "yx" || val === "xy" || val === "auto") ? "yx" : (val === "x" || val === "horizontal") ? "x" : "y";
+            },
+            /* -------------------- */
+
+
+            /* normalizes scrollButtons.scrollType option to valid values: "stepless", "stepped" */
+            _findScrollButtonsType = function (val) {
+                return (val === "stepped" || val === "pixels" || val === "step" || val === "click") ? "stepped" : "stepless";
+            },
+            /* -------------------- */
+
+
+            /* generates plugin markup */
+            _pluginMarkup = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    expandClass = o.autoExpandScrollbar ? " " + classes[1] + "_expand" : "",
+                    scrollbar = ["<div id='mCSB_" + d.idx + "_scrollbar_vertical' class='mCSB_scrollTools mCSB_" + d.idx + "_scrollbar mCS-" + o.theme + " mCSB_scrollTools_vertical" + expandClass + "'><div class='" + classes[12] + "'><div id='mCSB_" + d.idx + "_dragger_vertical' class='mCSB_dragger' style='position:absolute;'><div class='mCSB_dragger_bar' /></div><div class='mCSB_draggerRail' /></div></div>", "<div id='mCSB_" + d.idx + "_scrollbar_horizontal' class='mCSB_scrollTools mCSB_" + d.idx + "_scrollbar mCS-" + o.theme + " mCSB_scrollTools_horizontal" + expandClass + "'><div class='" + classes[12] + "'><div id='mCSB_" + d.idx + "_dragger_horizontal' class='mCSB_dragger' style='position:absolute;'><div class='mCSB_dragger_bar' /></div><div class='mCSB_draggerRail' /></div></div>"],
+                    wrapperClass = o.axis === "yx" ? "mCSB_vertical_horizontal" : o.axis === "x" ? "mCSB_horizontal" : "mCSB_vertical",
+                    scrollbars = o.axis === "yx" ? scrollbar[0] + scrollbar[1] : o.axis === "x" ? scrollbar[1] : scrollbar[0],
+                    contentWrapper = o.axis === "yx" ? "<div id='mCSB_" + d.idx + "_container_wrapper' class='mCSB_container_wrapper' />" : "",
+                    autoHideClass = o.autoHideScrollbar ? " " + classes[6] : "",
+                    scrollbarDirClass = (o.axis !== "x" && d.langDir === "rtl") ? " " + classes[7] : "";
+                if (o.setWidth) {
+                    $this.css("width", o.setWidth);
+                }
+                /* set element width */
+                if (o.setHeight) {
+                    $this.css("height", o.setHeight);
+                }
+                /* set element height */
+                o.setLeft = (o.axis !== "y" && d.langDir === "rtl") ? "989999px" : o.setLeft;
+                /* adjust left position for rtl direction */
+                $this.addClass(pluginNS + " _" + pluginPfx + "_" + d.idx + autoHideClass + scrollbarDirClass).wrapInner("<div id='mCSB_" + d.idx + "' class='mCustomScrollBox mCS-" + o.theme + " " + wrapperClass + "'><div id='mCSB_" + d.idx + "_container' class='mCSB_container' style='position:relative; top:" + o.setTop + "; left:" + o.setLeft + ";' dir='" + d.langDir + "' /></div>");
+                var mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container");
+                if (o.axis !== "y" && !o.advanced.autoExpandHorizontalScroll) {
+                    mCSB_container.css("width", _contentWidth(mCSB_container));
+                }
+                if (o.scrollbarPosition === "outside") {
+                    if ($this.css("position") === "static") { /* requires elements with non-static position */
+                        $this.css("position", "relative");
+                    }
+                    $this.css("overflow", "visible");
+                    mCustomScrollBox.addClass("mCSB_outside").after(scrollbars);
+                } else {
+                    mCustomScrollBox.addClass("mCSB_inside").append(scrollbars);
+                    mCSB_container.wrap(contentWrapper);
+                }
+                _scrollButtons.call(this);
+                /* add scrollbar buttons */
+                /* minimum dragger length */
+                var mCSB_dragger = [$("#mCSB_" + d.idx + "_dragger_vertical"), $("#mCSB_" + d.idx + "_dragger_horizontal")];
+                mCSB_dragger[0].css("min-height", mCSB_dragger[0].height());
+                mCSB_dragger[1].css("min-width", mCSB_dragger[1].width());
+            },
+            /* -------------------- */
+
+
+            /* calculates content width */
+            _contentWidth = function (el) {
+                var val = [el[0].scrollWidth, Math.max.apply(Math, el.children().map(function () {
+                    return $(this).outerWidth(true);
+                }).get())], w = el.parent().width();
+                return val[0] > w ? val[0] : val[1] > w ? val[1] : "100%";
+            },
+            /* -------------------- */
+
+
+            /* expands content horizontally */
+            _expandContentHorizontally = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    mCSB_container = $("#mCSB_" + d.idx + "_container");
+                if (o.advanced.autoExpandHorizontalScroll && o.axis !== "y") {
+                    /* calculate scrollWidth */
+                    mCSB_container.css({"width": "auto", "min-width": 0, "overflow-x": "scroll"});
+                    var w = Math.ceil(mCSB_container[0].scrollWidth);
+                    if (o.advanced.autoExpandHorizontalScroll === 3 || (o.advanced.autoExpandHorizontalScroll !== 2 && w > mCSB_container.parent().width())) {
+                        mCSB_container.css({"width": w, "min-width": "100%", "overflow-x": "inherit"});
+                    } else {
+                        /*
+                        wrap content with an infinite width div and set its position to absolute and width to auto.
+                        Setting width to auto before calculating the actual width is important!
+                        We must let the browser set the width as browser zoom values are impossible to calculate.
+                        */
+                        mCSB_container.css({"overflow-x": "inherit", "position": "absolute"})
+                            .wrap("<div class='mCSB_h_wrapper' style='position:relative; left:0; width:999999px;' />")
+                            .css({
+                                /* set actual width, original position and un-wrap */
+                                /*
+                                get the exact width (with decimals) and then round-up.
+                                Using jquery outerWidth() will round the width value which will mess up with inner elements that have non-integer width
+                                */
+                                "width": (Math.ceil(mCSB_container[0].getBoundingClientRect().right + 0.4) - Math.floor(mCSB_container[0].getBoundingClientRect().left)),
+                                "min-width": "100%",
+                                "position": "relative"
+                            }).unwrap();
+                    }
+                }
+            },
+            /* -------------------- */
+
+
+            /* adds scrollbar buttons */
+            _scrollButtons = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    mCSB_scrollTools = $(".mCSB_" + d.idx + "_scrollbar:first"),
+                    tabindex = !_isNumeric(o.scrollButtons.tabindex) ? "" : "tabindex='" + o.scrollButtons.tabindex + "'",
+                    btnHTML = [
+                        "<a href='#' class='" + classes[13] + "' " + tabindex + " />",
+                        "<a href='#' class='" + classes[14] + "' " + tabindex + " />",
+                        "<a href='#' class='" + classes[15] + "' " + tabindex + " />",
+                        "<a href='#' class='" + classes[16] + "' " + tabindex + " />"
+                    ],
+                    btn = [(o.axis === "x" ? btnHTML[2] : btnHTML[0]), (o.axis === "x" ? btnHTML[3] : btnHTML[1]), btnHTML[2], btnHTML[3]];
+                if (o.scrollButtons.enable) {
+                    mCSB_scrollTools.prepend(btn[0]).append(btn[1]).next(".mCSB_scrollTools").prepend(btn[2]).append(btn[3]);
+                }
+            },
+            /* -------------------- */
+
+
+            /* auto-adjusts scrollbar dragger length */
+            _setDraggerLength = function () {
+                var $this = $(this), d = $this.data(pluginPfx),
+                    mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    mCSB_dragger = [$("#mCSB_" + d.idx + "_dragger_vertical"), $("#mCSB_" + d.idx + "_dragger_horizontal")],
+                    ratio = [mCustomScrollBox.height() / mCSB_container.outerHeight(false), mCustomScrollBox.width() / mCSB_container.outerWidth(false)],
+                    l = [
+                        parseInt(mCSB_dragger[0].css("min-height")), Math.round(ratio[0] * mCSB_dragger[0].parent().height()),
+                        parseInt(mCSB_dragger[1].css("min-width")), Math.round(ratio[1] * mCSB_dragger[1].parent().width())
+                    ],
+                    h = oldIE && (l[1] < l[0]) ? l[0] : l[1], w = oldIE && (l[3] < l[2]) ? l[2] : l[3];
+                mCSB_dragger[0].css({
+                    "height": h, "max-height": (mCSB_dragger[0].parent().height() - 10)
+                }).find(".mCSB_dragger_bar").css({"line-height": l[0] + "px"});
+                mCSB_dragger[1].css({
+                    "width": w, "max-width": (mCSB_dragger[1].parent().width() - 10)
+                });
+            },
+            /* -------------------- */
+
+
+            /* calculates scrollbar to content ratio */
+            _scrollRatio = function () {
+                var $this = $(this), d = $this.data(pluginPfx),
+                    mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    mCSB_dragger = [$("#mCSB_" + d.idx + "_dragger_vertical"), $("#mCSB_" + d.idx + "_dragger_horizontal")],
+                    scrollAmount = [mCSB_container.outerHeight(false) - mCustomScrollBox.height(), mCSB_container.outerWidth(false) - mCustomScrollBox.width()],
+                    ratio = [
+                        scrollAmount[0] / (mCSB_dragger[0].parent().height() - mCSB_dragger[0].height()),
+                        scrollAmount[1] / (mCSB_dragger[1].parent().width() - mCSB_dragger[1].width())
+                    ];
+                d.scrollRatio = {y: ratio[0], x: ratio[1]};
+            },
+            /* -------------------- */
+
+
+            /* toggles scrolling classes */
+            _onDragClasses = function (el, action, xpnd) {
+                var expandClass = xpnd ? classes[0] + "_expanded" : "",
+                    scrollbar = el.closest(".mCSB_scrollTools");
+                if (action === "active") {
+                    el.toggleClass(classes[0] + " " + expandClass);
+                    scrollbar.toggleClass(classes[1]);
+                    el[0]._draggable = el[0]._draggable ? 0 : 1;
+                } else {
+                    if (!el[0]._draggable) {
+                        if (action === "hide") {
+                            el.removeClass(classes[0]);
+                            scrollbar.removeClass(classes[1]);
+                        } else {
+                            el.addClass(classes[0]);
+                            scrollbar.addClass(classes[1]);
+                        }
+                    }
+                }
+            },
+            /* -------------------- */
+
+
+            /* checks if content overflows its container to determine if scrolling is required */
+            _overflowed = function () {
+                var $this = $(this), d = $this.data(pluginPfx),
+                    mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    contentHeight = d.overflowed == null ? mCSB_container.height() : mCSB_container.outerHeight(false),
+                    contentWidth = d.overflowed == null ? mCSB_container.width() : mCSB_container.outerWidth(false),
+                    h = mCSB_container[0].scrollHeight, w = mCSB_container[0].scrollWidth;
+                if (h > contentHeight) {
+                    contentHeight = h;
+                }
+                if (w > contentWidth) {
+                    contentWidth = w;
+                }
+                return [contentHeight > mCustomScrollBox.height(), contentWidth > mCustomScrollBox.width()];
+            },
+            /* -------------------- */
+
+
+            /* resets content position to 0 */
+            _resetContentPosition = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    mCSB_dragger = [$("#mCSB_" + d.idx + "_dragger_vertical"), $("#mCSB_" + d.idx + "_dragger_horizontal")];
+                _stop($this);
+                /* stop any current scrolling before resetting */
+                if ((o.axis !== "x" && !d.overflowed[0]) || (o.axis === "y" && d.overflowed[0])) { /* reset y */
+                    mCSB_dragger[0].add(mCSB_container).css("top", 0);
+                    _scrollTo($this, "_resetY");
+                }
+                if ((o.axis !== "y" && !d.overflowed[1]) || (o.axis === "x" && d.overflowed[1])) { /* reset x */
+                    var cx = dx = 0;
+                    if (d.langDir === "rtl") { /* adjust left position for rtl direction */
+                        cx = mCustomScrollBox.width() - mCSB_container.outerWidth(false);
+                        dx = Math.abs(cx / d.scrollRatio.x);
+                    }
+                    mCSB_container.css("left", cx);
+                    mCSB_dragger[1].css("left", dx);
+                    _scrollTo($this, "_resetX");
+                }
+            },
+            /* -------------------- */
+
+
+            /* binds scrollbar events */
+            _bindEvents = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt;
+                if (!d.bindEvents) { /* check if events are already bound */
+                    _draggable.call(this);
+                    if (o.contentTouchScroll) {
+                        _contentDraggable.call(this);
+                    }
+                    _selectable.call(this);
+                    if (o.mouseWheel.enable) { /* bind mousewheel fn when plugin is available */
+                        function _mwt() {
+                            mousewheelTimeout = setTimeout(function () {
+                                if (!$.event.special.mousewheel) {
+                                    _mwt();
+                                } else {
+                                    clearTimeout(mousewheelTimeout);
+                                    _mousewheel.call($this[0]);
+                                }
+                            }, 100);
+                        }
+
+                        var mousewheelTimeout;
+                        _mwt();
+                    }
+                    _draggerRail.call(this);
+                    _wrapperScroll.call(this);
+                    if (o.advanced.autoScrollOnFocus) {
+                        _focus.call(this);
+                    }
+                    if (o.scrollButtons.enable) {
+                        _buttons.call(this);
+                    }
+                    if (o.keyboard.enable) {
+                        _keyboard.call(this);
+                    }
+                    d.bindEvents = true;
+                }
+            },
+            /* -------------------- */
+
+
+            /* unbinds scrollbar events */
+            _unbindEvents = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    namespace = pluginPfx + "_" + d.idx,
+                    sb = ".mCSB_" + d.idx + "_scrollbar",
+                    sel = $("#mCSB_" + d.idx + ",#mCSB_" + d.idx + "_container,#mCSB_" + d.idx + "_container_wrapper," + sb + " ." + classes[12] + ",#mCSB_" + d.idx + "_dragger_vertical,#mCSB_" + d.idx + "_dragger_horizontal," + sb + ">a"),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container");
+                if (o.advanced.releaseDraggableSelectors) {
+                    sel.add($(o.advanced.releaseDraggableSelectors));
+                }
+                if (o.advanced.extraDraggableSelectors) {
+                    sel.add($(o.advanced.extraDraggableSelectors));
+                }
+                if (d.bindEvents) { /* check if events are bound */
+                    /* unbind namespaced events from document/selectors */
+                    $(document).add($(!_canAccessIFrame() || top.document)).unbind("." + namespace);
+                    sel.each(function () {
+                        $(this).unbind("." + namespace);
+                    });
+                    /* clear and delete timeouts/objects */
+                    clearTimeout($this[0]._focusTimeout);
+                    _delete($this[0], "_focusTimeout");
+                    clearTimeout(d.sequential.step);
+                    _delete(d.sequential, "step");
+                    clearTimeout(mCSB_container[0].onCompleteTimeout);
+                    _delete(mCSB_container[0], "onCompleteTimeout");
+                    d.bindEvents = false;
+                }
+            },
+            /* -------------------- */
+
+
+            /* toggles scrollbar visibility */
+            _scrollbarVisibility = function (disabled) {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    contentWrapper = $("#mCSB_" + d.idx + "_container_wrapper"),
+                    content = contentWrapper.length ? contentWrapper : $("#mCSB_" + d.idx + "_container"),
+                    scrollbar = [$("#mCSB_" + d.idx + "_scrollbar_vertical"), $("#mCSB_" + d.idx + "_scrollbar_horizontal")],
+                    mCSB_dragger = [scrollbar[0].find(".mCSB_dragger"), scrollbar[1].find(".mCSB_dragger")];
+                if (o.axis !== "x") {
+                    if (d.overflowed[0] && !disabled) {
+                        scrollbar[0].add(mCSB_dragger[0]).add(scrollbar[0].children("a")).css("display", "block");
+                        content.removeClass(classes[8] + " " + classes[10]);
+                    } else {
+                        if (o.alwaysShowScrollbar) {
+                            if (o.alwaysShowScrollbar !== 2) {
+                                mCSB_dragger[0].css("display", "none");
+                            }
+                            content.removeClass(classes[10]);
+                        } else {
+                            scrollbar[0].css("display", "none");
+                            content.addClass(classes[10]);
+                        }
+                        content.addClass(classes[8]);
+                    }
+                }
+                if (o.axis !== "y") {
+                    if (d.overflowed[1] && !disabled) {
+                        scrollbar[1].add(mCSB_dragger[1]).add(scrollbar[1].children("a")).css("display", "block");
+                        content.removeClass(classes[9] + " " + classes[11]);
+                    } else {
+                        if (o.alwaysShowScrollbar) {
+                            if (o.alwaysShowScrollbar !== 2) {
+                                mCSB_dragger[1].css("display", "none");
+                            }
+                            content.removeClass(classes[11]);
+                        } else {
+                            scrollbar[1].css("display", "none");
+                            content.addClass(classes[11]);
+                        }
+                        content.addClass(classes[9]);
+                    }
+                }
+                if (!d.overflowed[0] && !d.overflowed[1]) {
+                    $this.addClass(classes[5]);
+                } else {
+                    $this.removeClass(classes[5]);
+                }
+            },
+            /* -------------------- */
+
+
+            /* returns input coordinates of pointer, touch and mouse events (relative to document) */
+            _coordinates = function (e) {
+                var t = e.type,
+                    o = e.target.ownerDocument !== document && frameElement !== null ? [$(frameElement).offset().top, $(frameElement).offset().left] : null,
+                    io = _canAccessIFrame() && e.target.ownerDocument !== top.document && frameElement !== null ? [$(e.view.frameElement).offset().top, $(e.view.frameElement).offset().left] : [0, 0];
+                switch (t) {
+                    case "pointerdown":
+                    case "MSPointerDown":
+                    case "pointermove":
+                    case "MSPointerMove":
+                    case "pointerup":
+                    case "MSPointerUp":
+                        return o ? [e.originalEvent.pageY - o[0] + io[0], e.originalEvent.pageX - o[1] + io[1], false] : [e.originalEvent.pageY, e.originalEvent.pageX, false];
+                        break;
+                    case "touchstart":
+                    case "touchmove":
+                    case "touchend":
+                        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0],
+                            touches = e.originalEvent.touches.length || e.originalEvent.changedTouches.length;
+                        return e.target.ownerDocument !== document ? [touch.screenY, touch.screenX, touches > 1] : [touch.pageY, touch.pageX, touches > 1];
+                        break;
+                    default:
+                        return o ? [e.pageY - o[0] + io[0], e.pageX - o[1] + io[1], false] : [e.pageY, e.pageX, false];
+                }
+            },
+            /* -------------------- */
+
+
+            /*
+            SCROLLBAR DRAG EVENTS
+            scrolls content via scrollbar dragging
+            */
+            _draggable = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    namespace = pluginPfx + "_" + d.idx,
+                    draggerId = ["mCSB_" + d.idx + "_dragger_vertical", "mCSB_" + d.idx + "_dragger_horizontal"],
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    mCSB_dragger = $("#" + draggerId[0] + ",#" + draggerId[1]),
+                    draggable, dragY, dragX,
+                    rds = o.advanced.releaseDraggableSelectors ? mCSB_dragger.add($(o.advanced.releaseDraggableSelectors)) : mCSB_dragger,
+                    eds = o.advanced.extraDraggableSelectors ? $(!_canAccessIFrame() || top.document).add($(o.advanced.extraDraggableSelectors)) : $(!_canAccessIFrame() || top.document);
+                mCSB_dragger.bind("contextmenu." + namespace, function (e) {
+                    e.preventDefault(); //prevent right click
+                }).bind("mousedown." + namespace + " touchstart." + namespace + " pointerdown." + namespace + " MSPointerDown." + namespace, function (e) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    if (!_mouseBtnLeft(e)) {
+                        return;
+                    }
+                    /* left mouse button only */
+                    touchActive = true;
+                    if (oldIE) {
+                        document.onselectstart = function () {
+                            return false;
+                        }
+                    }
+                    /* disable text selection for IE < 9 */
+                    _iframe.call(mCSB_container, false);
+                    /* enable scrollbar dragging over iframes by disabling their events */
+                    _stop($this);
+                    draggable = $(this);
+                    var offset = draggable.offset(), y = _coordinates(e)[0] - offset.top,
+                        x = _coordinates(e)[1] - offset.left,
+                        h = draggable.height() + offset.top, w = draggable.width() + offset.left;
+                    if (y < h && y > 0 && x < w && x > 0) {
+                        dragY = y;
+                        dragX = x;
+                    }
+                    _onDragClasses(draggable, "active", o.autoExpandScrollbar);
+                }).bind("touchmove." + namespace, function (e) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    var offset = draggable.offset(), y = _coordinates(e)[0] - offset.top,
+                        x = _coordinates(e)[1] - offset.left;
+                    _drag(dragY, dragX, y, x);
+                });
+                $(document).add(eds).bind("mousemove." + namespace + " pointermove." + namespace + " MSPointerMove." + namespace, function (e) {
+                    if (draggable) {
+                        var offset = draggable.offset(), y = _coordinates(e)[0] - offset.top,
+                            x = _coordinates(e)[1] - offset.left;
+                        if (dragY === y && dragX === x) {
+                            return;
+                        }
+                        /* has it really moved? */
+                        _drag(dragY, dragX, y, x);
+                    }
+                }).add(rds).bind("mouseup." + namespace + " touchend." + namespace + " pointerup." + namespace + " MSPointerUp." + namespace, function (e) {
+                    if (draggable) {
+                        _onDragClasses(draggable, "active", o.autoExpandScrollbar);
+                        draggable = null;
+                    }
+                    touchActive = false;
+                    if (oldIE) {
+                        document.onselectstart = null;
+                    }
+                    /* enable text selection for IE < 9 */
+                    _iframe.call(mCSB_container, true);
+                    /* enable iframes events */
+                });
+
+                function _drag(dragY, dragX, y, x) {
+                    mCSB_container[0].idleTimer = o.scrollInertia < 233 ? 250 : 0;
+                    if (draggable.attr("id") === draggerId[1]) {
+                        var dir = "x", to = ((draggable[0].offsetLeft - dragX) + x) * d.scrollRatio.x;
+                    } else {
+                        var dir = "y", to = ((draggable[0].offsetTop - dragY) + y) * d.scrollRatio.y;
+                    }
+                    _scrollTo($this, to.toString(), {dir: dir, drag: true});
+                }
+            },
+            /* -------------------- */
+
+
+            /*
+            TOUCH SWIPE EVENTS
+            scrolls content via touch swipe
+            Emulates the native touch-swipe scrolling with momentum found in iOS, Android and WP devices
+            */
+            _contentDraggable = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    namespace = pluginPfx + "_" + d.idx,
+                    mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    mCSB_dragger = [$("#mCSB_" + d.idx + "_dragger_vertical"), $("#mCSB_" + d.idx + "_dragger_horizontal")],
+                    draggable, dragY, dragX, touchStartY, touchStartX, touchMoveY = [], touchMoveX = [], startTime,
+                    runningTime, endTime, distance, speed, amount,
+                    durA = 0, durB, overwrite = o.axis === "yx" ? "none" : "all", touchIntent = [], touchDrag, docDrag,
+                    iframe = mCSB_container.find("iframe"),
+                    events = [
+                        "touchstart." + namespace + " pointerdown." + namespace + " MSPointerDown." + namespace, //start
+                        "touchmove." + namespace + " pointermove." + namespace + " MSPointerMove." + namespace, //move
+                        "touchend." + namespace + " pointerup." + namespace + " MSPointerUp." + namespace //end
+                    ],
+                    touchAction = document.body.style.touchAction !== undefined && document.body.style.touchAction !== "";
+                mCSB_container.bind(events[0], function (e) {
+                    _onTouchstart(e);
+                }).bind(events[1], function (e) {
+                    _onTouchmove(e);
+                });
+                mCustomScrollBox.bind(events[0], function (e) {
+                    _onTouchstart2(e);
+                }).bind(events[2], function (e) {
+                    _onTouchend(e);
+                });
+                if (iframe.length) {
+                    iframe.each(function () {
+                        $(this).bind("load", function () {
+                            /* bind events on accessible iframes */
+                            if (_canAccessIFrame(this)) {
+                                $(this.contentDocument || this.contentWindow.document).bind(events[0], function (e) {
+                                    _onTouchstart(e);
+                                    _onTouchstart2(e);
+                                }).bind(events[1], function (e) {
+                                    _onTouchmove(e);
+                                }).bind(events[2], function (e) {
+                                    _onTouchend(e);
+                                });
+                            }
+                        });
+                    });
+                }
+
+                function _onTouchstart(e) {
+                    if (!_pointerTouch(e) || touchActive || _coordinates(e)[2]) {
+                        touchable = 0;
+                        return;
+                    }
+                    touchable = 1;
+                    touchDrag = 0;
+                    docDrag = 0;
+                    draggable = 1;
+                    $this.removeClass("mCS_touch_action");
+                    var offset = mCSB_container.offset();
+                    dragY = _coordinates(e)[0] - offset.top;
+                    dragX = _coordinates(e)[1] - offset.left;
+                    touchIntent = [_coordinates(e)[0], _coordinates(e)[1]];
+                }
+
+                function _onTouchmove(e) {
+                    if (!_pointerTouch(e) || touchActive || _coordinates(e)[2]) {
+                        return;
+                    }
+                    if (!o.documentTouchScroll) {
+                        e.preventDefault();
+                    }
+                    e.stopImmediatePropagation();
+                    if (docDrag && !touchDrag) {
+                        return;
+                    }
+                    if (draggable) {
+                        runningTime = _getTime();
+                        var offset = mCustomScrollBox.offset(), y = _coordinates(e)[0] - offset.top,
+                            x = _coordinates(e)[1] - offset.left,
+                            easing = "mcsLinearOut";
+                        touchMoveY.push(y);
+                        touchMoveX.push(x);
+                        touchIntent[2] = Math.abs(_coordinates(e)[0] - touchIntent[0]);
+                        touchIntent[3] = Math.abs(_coordinates(e)[1] - touchIntent[1]);
+                        if (d.overflowed[0]) {
+                            var limit = mCSB_dragger[0].parent().height() - mCSB_dragger[0].height(),
+                                prevent = ((dragY - y) > 0 && (y - dragY) > -(limit * d.scrollRatio.y) && (touchIntent[3] * 2 < touchIntent[2] || o.axis === "yx"));
+                        }
+                        if (d.overflowed[1]) {
+                            var limitX = mCSB_dragger[1].parent().width() - mCSB_dragger[1].width(),
+                                preventX = ((dragX - x) > 0 && (x - dragX) > -(limitX * d.scrollRatio.x) && (touchIntent[2] * 2 < touchIntent[3] || o.axis === "yx"));
+                        }
+                        if (prevent || preventX) { /* prevent native document scrolling */
+                            if (!touchAction) {
+                                e.preventDefault();
+                            }
+                            touchDrag = 1;
+                        } else {
+                            docDrag = 1;
+                            $this.addClass("mCS_touch_action");
+                        }
+                        if (touchAction) {
+                            e.preventDefault();
+                        }
+                        amount = o.axis === "yx" ? [(dragY - y), (dragX - x)] : o.axis === "x" ? [null, (dragX - x)] : [(dragY - y), null];
+                        mCSB_container[0].idleTimer = 250;
+                        if (d.overflowed[0]) {
+                            _drag(amount[0], durA, easing, "y", "all", true);
+                        }
+                        if (d.overflowed[1]) {
+                            _drag(amount[1], durA, easing, "x", overwrite, true);
+                        }
+                    }
+                }
+
+                function _onTouchstart2(e) {
+                    if (!_pointerTouch(e) || touchActive || _coordinates(e)[2]) {
+                        touchable = 0;
+                        return;
+                    }
+                    touchable = 1;
+                    e.stopImmediatePropagation();
+                    _stop($this);
+                    startTime = _getTime();
+                    var offset = mCustomScrollBox.offset();
+                    touchStartY = _coordinates(e)[0] - offset.top;
+                    touchStartX = _coordinates(e)[1] - offset.left;
+                    touchMoveY = [];
+                    touchMoveX = [];
+                }
+
+                function _onTouchend(e) {
+                    if (!_pointerTouch(e) || touchActive || _coordinates(e)[2]) {
+                        return;
+                    }
+                    draggable = 0;
+                    e.stopImmediatePropagation();
+                    touchDrag = 0;
+                    docDrag = 0;
+                    endTime = _getTime();
+                    var offset = mCustomScrollBox.offset(), y = _coordinates(e)[0] - offset.top,
+                        x = _coordinates(e)[1] - offset.left;
+                    if ((endTime - runningTime) > 30) {
+                        return;
+                    }
+                    speed = 1000 / (endTime - startTime);
+                    var easing = "mcsEaseOut", slow = speed < 2.5,
+                        diff = slow ? [touchMoveY[touchMoveY.length - 2], touchMoveX[touchMoveX.length - 2]] : [0, 0];
+                    distance = slow ? [(y - diff[0]), (x - diff[1])] : [y - touchStartY, x - touchStartX];
+                    var absDistance = [Math.abs(distance[0]), Math.abs(distance[1])];
+                    speed = slow ? [Math.abs(distance[0] / 4), Math.abs(distance[1] / 4)] : [speed, speed];
+                    var a = [
+                        Math.abs(mCSB_container[0].offsetTop) - (distance[0] * _m((absDistance[0] / speed[0]), speed[0])),
+                        Math.abs(mCSB_container[0].offsetLeft) - (distance[1] * _m((absDistance[1] / speed[1]), speed[1]))
+                    ];
+                    amount = o.axis === "yx" ? [a[0], a[1]] : o.axis === "x" ? [null, a[1]] : [a[0], null];
+                    durB = [(absDistance[0] * 4) + o.scrollInertia, (absDistance[1] * 4) + o.scrollInertia];
+                    var md = parseInt(o.contentTouchScroll) || 0;
+                    /* absolute minimum distance required */
+                    amount[0] = absDistance[0] > md ? amount[0] : 0;
+                    amount[1] = absDistance[1] > md ? amount[1] : 0;
+                    if (d.overflowed[0]) {
+                        _drag(amount[0], durB[0], easing, "y", overwrite, false);
+                    }
+                    if (d.overflowed[1]) {
+                        _drag(amount[1], durB[1], easing, "x", overwrite, false);
+                    }
+                }
+
+                function _m(ds, s) {
+                    var r = [s * 1.5, s * 2, s / 1.5, s / 2];
+                    if (ds > 90) {
+                        return s > 4 ? r[0] : r[3];
+                    } else if (ds > 60) {
+                        return s > 3 ? r[3] : r[2];
+                    } else if (ds > 30) {
+                        return s > 8 ? r[1] : s > 6 ? r[0] : s > 4 ? s : r[2];
+                    } else {
+                        return s > 8 ? s : r[3];
+                    }
+                }
+
+                function _drag(amount, dur, easing, dir, overwrite, drag) {
+                    if (!amount) {
+                        return;
+                    }
+                    _scrollTo($this, amount.toString(), {
+                        dur: dur,
+                        scrollEasing: easing,
+                        dir: dir,
+                        overwrite: overwrite,
+                        drag: drag
+                    });
+                }
+            },
+            /* -------------------- */
+
+
+            /*
+            SELECT TEXT EVENTS
+            scrolls content when text is selected
+            */
+            _selectable = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt, seq = d.sequential,
+                    namespace = pluginPfx + "_" + d.idx,
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    wrapper = mCSB_container.parent(),
+                    action;
+                mCSB_container.bind("mousedown." + namespace, function (e) {
+                    if (touchable) {
+                        return;
+                    }
+                    if (!action) {
+                        action = 1;
+                        touchActive = true;
+                    }
+                }).add(document).bind("mousemove." + namespace, function (e) {
+                    if (!touchable && action && _sel()) {
+                        var offset = mCSB_container.offset(),
+                            y = _coordinates(e)[0] - offset.top + mCSB_container[0].offsetTop,
+                            x = _coordinates(e)[1] - offset.left + mCSB_container[0].offsetLeft;
+                        if (y > 0 && y < wrapper.height() && x > 0 && x < wrapper.width()) {
+                            if (seq.step) {
+                                _seq("off", null, "stepped");
+                            }
+                        } else {
+                            if (o.axis !== "x" && d.overflowed[0]) {
+                                if (y < 0) {
+                                    _seq("on", 38);
+                                } else if (y > wrapper.height()) {
+                                    _seq("on", 40);
+                                }
+                            }
+                            if (o.axis !== "y" && d.overflowed[1]) {
+                                if (x < 0) {
+                                    _seq("on", 37);
+                                } else if (x > wrapper.width()) {
+                                    _seq("on", 39);
+                                }
+                            }
+                        }
+                    }
+                }).bind("mouseup." + namespace + " dragend." + namespace, function (e) {
+                    if (touchable) {
+                        return;
+                    }
+                    if (action) {
+                        action = 0;
+                        _seq("off", null);
+                    }
+                    touchActive = false;
+                });
+
+                function _sel() {
+                    return window.getSelection ? window.getSelection().toString() :
+                        document.selection && document.selection.type != "Control" ? document.selection.createRange().text : 0;
+                }
+
+                function _seq(a, c, s) {
+                    seq.type = s && action ? "stepped" : "stepless";
+                    seq.scrollAmount = 10;
+                    _sequentialScroll($this, a, c, "mcsLinearOut", s ? 60 : null);
+                }
+            },
+            /* -------------------- */
+
+
+            /*
+            MOUSE WHEEL EVENT
+            scrolls content via mouse-wheel
+            via mouse-wheel plugin (https://github.com/brandonaaron/jquery-mousewheel)
+            */
+            _mousewheel = function () {
+                if (!$(this).data(pluginPfx)) {
+                    return;
+                }
+                /* Check if the scrollbar is ready to use mousewheel events (issue: #185) */
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    namespace = pluginPfx + "_" + d.idx,
+                    mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_dragger = [$("#mCSB_" + d.idx + "_dragger_vertical"), $("#mCSB_" + d.idx + "_dragger_horizontal")],
+                    iframe = $("#mCSB_" + d.idx + "_container").find("iframe");
+                if (iframe.length) {
+                    iframe.each(function () {
+                        $(this).bind("load", function () {
+                            /* bind events on accessible iframes */
+                            if (_canAccessIFrame(this)) {
+                                $(this.contentDocument || this.contentWindow.document).bind("mousewheel." + namespace, function (e, delta) {
+                                    _onMousewheel(e, delta);
+                                });
+                            }
+                        });
+                    });
+                }
+                mCustomScrollBox.bind("mousewheel." + namespace, function (e, delta) {
+                    _onMousewheel(e, delta);
+                });
+
+                function _onMousewheel(e, delta) {
+                    _stop($this);
+                    if (_disableMousewheel($this, e.target)) {
+                        return;
+                    }
+                    /* disables mouse-wheel when hovering specific elements */
+                    var deltaFactor = o.mouseWheel.deltaFactor !== "auto" ? parseInt(o.mouseWheel.deltaFactor) : (oldIE && e.deltaFactor < 100) ? 100 : e.deltaFactor || 100,
+                        dur = o.scrollInertia;
+                    if (o.axis === "x" || o.mouseWheel.axis === "x") {
+                        var dir = "x",
+                            px = [Math.round(deltaFactor * d.scrollRatio.x), parseInt(o.mouseWheel.scrollAmount)],
+                            amount = o.mouseWheel.scrollAmount !== "auto" ? px[1] : px[0] >= mCustomScrollBox.width() ? mCustomScrollBox.width() * 0.9 : px[0],
+                            contentPos = Math.abs($("#mCSB_" + d.idx + "_container")[0].offsetLeft),
+                            draggerPos = mCSB_dragger[1][0].offsetLeft,
+                            limit = mCSB_dragger[1].parent().width() - mCSB_dragger[1].width(),
+                            dlt = o.mouseWheel.axis === "y" ? (e.deltaY || delta) : e.deltaX;
+                    } else {
+                        var dir = "y",
+                            px = [Math.round(deltaFactor * d.scrollRatio.y), parseInt(o.mouseWheel.scrollAmount)],
+                            amount = o.mouseWheel.scrollAmount !== "auto" ? px[1] : px[0] >= mCustomScrollBox.height() ? mCustomScrollBox.height() * 0.9 : px[0],
+                            contentPos = Math.abs($("#mCSB_" + d.idx + "_container")[0].offsetTop),
+                            draggerPos = mCSB_dragger[0][0].offsetTop,
+                            limit = mCSB_dragger[0].parent().height() - mCSB_dragger[0].height(),
+                            dlt = e.deltaY || delta;
+                    }
+                    if ((dir === "y" && !d.overflowed[0]) || (dir === "x" && !d.overflowed[1])) {
+                        return;
+                    }
+                    if (o.mouseWheel.invert || e.webkitDirectionInvertedFromDevice) {
+                        dlt = -dlt;
+                    }
+                    if (o.mouseWheel.normalizeDelta) {
+                        dlt = dlt < 0 ? -1 : 1;
+                    }
+                    if ((dlt > 0 && draggerPos !== 0) || (dlt < 0 && draggerPos !== limit) || o.mouseWheel.preventDefault) {
+                        e.stopImmediatePropagation();
+                        e.preventDefault();
+                    }
+                    if (e.deltaFactor < 5 && !o.mouseWheel.normalizeDelta) {
+                        //very low deltaFactor values mean some kind of delta acceleration (e.g. osx trackpad), so adjusting scrolling accordingly
+                        amount = e.deltaFactor;
+                        dur = 17;
+                    }
+                    _scrollTo($this, (contentPos - (dlt * amount)).toString(), {dir: dir, dur: dur});
+                }
+            },
+            /* -------------------- */
+
+
+            /* checks if iframe can be accessed */
+            _canAccessIFrameCache = new Object(),
+            _canAccessIFrame = function (iframe) {
+                var result = false, cacheKey = false, html = null;
+                if (iframe === undefined) {
+                    cacheKey = "#empty";
+                } else if ($(iframe).attr("id") !== undefined) {
+                    cacheKey = $(iframe).attr("id");
+                }
+                if (cacheKey !== false && _canAccessIFrameCache[cacheKey] !== undefined) {
+                    return _canAccessIFrameCache[cacheKey];
+                }
+                if (!iframe) {
+                    try {
+                        var doc = top.document;
+                        html = doc.body.innerHTML;
+                    } catch (err) {/* do nothing */
+                    }
+                    result = (html !== null);
+                } else {
+                    try {
+                        var doc = iframe.contentDocument || iframe.contentWindow.document;
+                        html = doc.body.innerHTML;
+                    } catch (err) {/* do nothing */
+                    }
+                    result = (html !== null);
+                }
+                if (cacheKey !== false) {
+                    _canAccessIFrameCache[cacheKey] = result;
+                }
+                return result;
+            },
+            /* -------------------- */
+
+
+            /* switches iframe's pointer-events property (drag, mousewheel etc. over cross-domain iframes) */
+            _iframe = function (evt) {
+                var el = this.find("iframe");
+                if (!el.length) {
+                    return;
+                }
+                /* check if content contains iframes */
+                var val = !evt ? "none" : "auto";
+                el.css("pointer-events", val);
+                /* for IE11, iframe's display property should not be "block" */
+            },
+            /* -------------------- */
+
+
+            /* disables mouse-wheel when hovering specific elements like select, datalist etc. */
+            _disableMousewheel = function (el, target) {
+                var tag = target.nodeName.toLowerCase(),
+                    tags = el.data(pluginPfx).opt.mouseWheel.disableOver,
+                    /* elements that require focus */
+                    focusTags = ["select", "textarea"];
+                return $.inArray(tag, tags) > -1 && !($.inArray(tag, focusTags) > -1 && !$(target).is(":focus"));
+            },
+            /* -------------------- */
+
+
+            /*
+            DRAGGER RAIL CLICK EVENT
+            scrolls content via dragger rail
+            */
+            _draggerRail = function () {
+                var $this = $(this), d = $this.data(pluginPfx),
+                    namespace = pluginPfx + "_" + d.idx,
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    wrapper = mCSB_container.parent(),
+                    mCSB_draggerContainer = $(".mCSB_" + d.idx + "_scrollbar ." + classes[12]),
+                    clickable;
+                mCSB_draggerContainer.bind("mousedown." + namespace + " touchstart." + namespace + " pointerdown." + namespace + " MSPointerDown." + namespace, function (e) {
+                    touchActive = true;
+                    if (!$(e.target).hasClass("mCSB_dragger")) {
+                        clickable = 1;
+                    }
+                }).bind("touchend." + namespace + " pointerup." + namespace + " MSPointerUp." + namespace, function (e) {
+                    touchActive = false;
+                }).bind("click." + namespace, function (e) {
+                    if (!clickable) {
+                        return;
+                    }
+                    clickable = 0;
+                    if ($(e.target).hasClass(classes[12]) || $(e.target).hasClass("mCSB_draggerRail")) {
+                        _stop($this);
+                        var el = $(this), mCSB_dragger = el.find(".mCSB_dragger");
+                        if (el.parent(".mCSB_scrollTools_horizontal").length > 0) {
+                            if (!d.overflowed[1]) {
+                                return;
+                            }
+                            var dir = "x",
+                                clickDir = e.pageX > mCSB_dragger.offset().left ? -1 : 1,
+                                to = Math.abs(mCSB_container[0].offsetLeft) - (clickDir * (wrapper.width() * 0.9));
+                        } else {
+                            if (!d.overflowed[0]) {
+                                return;
+                            }
+                            var dir = "y",
+                                clickDir = e.pageY > mCSB_dragger.offset().top ? -1 : 1,
+                                to = Math.abs(mCSB_container[0].offsetTop) - (clickDir * (wrapper.height() * 0.9));
+                        }
+                        _scrollTo($this, to.toString(), {dir: dir, scrollEasing: "mcsEaseInOut"});
+                    }
+                });
+            },
+            /* -------------------- */
+
+
+            /*
+            FOCUS EVENT
+            scrolls content via element focus (e.g. clicking an input, pressing TAB key etc.)
+            */
+            _focus = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    namespace = pluginPfx + "_" + d.idx,
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    wrapper = mCSB_container.parent();
+                mCSB_container.bind("focusin." + namespace, function (e) {
+                    var el = $(document.activeElement),
+                        nested = mCSB_container.find(".mCustomScrollBox").length,
+                        dur = 0;
+                    if (!el.is(o.advanced.autoScrollOnFocus)) {
+                        return;
+                    }
+                    _stop($this);
+                    clearTimeout($this[0]._focusTimeout);
+                    $this[0]._focusTimer = nested ? (dur + 17) * nested : 0;
+                    $this[0]._focusTimeout = setTimeout(function () {
+                        var to = [_childPos(el)[0], _childPos(el)[1]],
+                            contentPos = [mCSB_container[0].offsetTop, mCSB_container[0].offsetLeft],
+                            isVisible = [
+                                (contentPos[0] + to[0] >= 0 && contentPos[0] + to[0] < wrapper.height() - el.outerHeight(false)),
+                                (contentPos[1] + to[1] >= 0 && contentPos[0] + to[1] < wrapper.width() - el.outerWidth(false))
+                            ],
+                            overwrite = (o.axis === "yx" && !isVisible[0] && !isVisible[1]) ? "none" : "all";
+                        if (o.axis !== "x" && !isVisible[0]) {
+                            _scrollTo($this, to[0].toString(), {
+                                dir: "y",
+                                scrollEasing: "mcsEaseInOut",
+                                overwrite: overwrite,
+                                dur: dur
+                            });
+                        }
+                        if (o.axis !== "y" && !isVisible[1]) {
+                            _scrollTo($this, to[1].toString(), {
+                                dir: "x",
+                                scrollEasing: "mcsEaseInOut",
+                                overwrite: overwrite,
+                                dur: dur
+                            });
+                        }
+                    }, $this[0]._focusTimer);
+                });
+            },
+            /* -------------------- */
+
+
+            /* sets content wrapper scrollTop/scrollLeft always to 0 */
+            _wrapperScroll = function () {
+                var $this = $(this), d = $this.data(pluginPfx),
+                    namespace = pluginPfx + "_" + d.idx,
+                    wrapper = $("#mCSB_" + d.idx + "_container").parent();
+                wrapper.bind("scroll." + namespace, function (e) {
+                    if (wrapper.scrollTop() !== 0 || wrapper.scrollLeft() !== 0) {
+                        $(".mCSB_" + d.idx + "_scrollbar").css("visibility", "hidden");
+                        /* hide scrollbar(s) */
+                    }
+                });
+            },
+            /* -------------------- */
+
+
+            /*
+            BUTTONS EVENTS
+            scrolls content via up, down, left and right buttons
+            */
+            _buttons = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt, seq = d.sequential,
+                    namespace = pluginPfx + "_" + d.idx,
+                    sel = ".mCSB_" + d.idx + "_scrollbar",
+                    btn = $(sel + ">a");
+                btn.bind("contextmenu." + namespace, function (e) {
+                    e.preventDefault(); //prevent right click
+                }).bind("mousedown." + namespace + " touchstart." + namespace + " pointerdown." + namespace + " MSPointerDown." + namespace + " mouseup." + namespace + " touchend." + namespace + " pointerup." + namespace + " MSPointerUp." + namespace + " mouseout." + namespace + " pointerout." + namespace + " MSPointerOut." + namespace + " click." + namespace, function (e) {
+                    e.preventDefault();
+                    if (!_mouseBtnLeft(e)) {
+                        return;
+                    }
+                    /* left mouse button only */
+                    var btnClass = $(this).attr("class");
+                    seq.type = o.scrollButtons.scrollType;
+                    switch (e.type) {
+                        case "mousedown":
+                        case "touchstart":
+                        case "pointerdown":
+                        case "MSPointerDown":
+                            if (seq.type === "stepped") {
+                                return;
+                            }
+                            touchActive = true;
+                            d.tweenRunning = false;
+                            _seq("on", btnClass);
+                            break;
+                        case "mouseup":
+                        case "touchend":
+                        case "pointerup":
+                        case "MSPointerUp":
+                        case "mouseout":
+                        case "pointerout":
+                        case "MSPointerOut":
+                            if (seq.type === "stepped") {
+                                return;
+                            }
+                            touchActive = false;
+                            if (seq.dir) {
+                                _seq("off", btnClass);
+                            }
+                            break;
+                        case "click":
+                            if (seq.type !== "stepped" || d.tweenRunning) {
+                                return;
+                            }
+                            _seq("on", btnClass);
+                            break;
+                    }
+
+                    function _seq(a, c) {
+                        seq.scrollAmount = o.scrollButtons.scrollAmount;
+                        _sequentialScroll($this, a, c);
+                    }
+                });
+            },
+            /* -------------------- */
+
+
+            /*
+            KEYBOARD EVENTS
+            scrolls content via keyboard
+            Keys: up arrow, down arrow, left arrow, right arrow, PgUp, PgDn, Home, End
+            */
+            _keyboard = function () {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt, seq = d.sequential,
+                    namespace = pluginPfx + "_" + d.idx,
+                    mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    wrapper = mCSB_container.parent(),
+                    editables = "input,textarea,select,datalist,keygen,[contenteditable='true']",
+                    iframe = mCSB_container.find("iframe"),
+                    events = ["blur." + namespace + " keydown." + namespace + " keyup." + namespace];
+                if (iframe.length) {
+                    iframe.each(function () {
+                        $(this).bind("load", function () {
+                            /* bind events on accessible iframes */
+                            if (_canAccessIFrame(this)) {
+                                $(this.contentDocument || this.contentWindow.document).bind(events[0], function (e) {
+                                    _onKeyboard(e);
+                                });
+                            }
+                        });
+                    });
+                }
+                mCustomScrollBox.attr("tabindex", "0").bind(events[0], function (e) {
+                    _onKeyboard(e);
+                });
+
+                function _onKeyboard(e) {
+                    switch (e.type) {
+                        case "blur":
+                            if (d.tweenRunning && seq.dir) {
+                                _seq("off", null);
+                            }
+                            break;
+                        case "keydown":
+                        case "keyup":
+                            var code = e.keyCode ? e.keyCode : e.which, action = "on";
+                            if ((o.axis !== "x" && (code === 38 || code === 40)) || (o.axis !== "y" && (code === 37 || code === 39))) {
+                                /* up (38), down (40), left (37), right (39) arrows */
+                                if (((code === 38 || code === 40) && !d.overflowed[0]) || ((code === 37 || code === 39) && !d.overflowed[1])) {
+                                    return;
+                                }
+                                if (e.type === "keyup") {
+                                    action = "off";
+                                }
+                                if (!$(document.activeElement).is(editables)) {
+                                    e.preventDefault();
+                                    e.stopImmediatePropagation();
+                                    _seq(action, code);
+                                }
+                            } else if (code === 33 || code === 34) {
+                                /* PgUp (33), PgDn (34) */
+                                if (d.overflowed[0] || d.overflowed[1]) {
+                                    e.preventDefault();
+                                    e.stopImmediatePropagation();
+                                }
+                                if (e.type === "keyup") {
+                                    _stop($this);
+                                    var keyboardDir = code === 34 ? -1 : 1;
+                                    if (o.axis === "x" || (o.axis === "yx" && d.overflowed[1] && !d.overflowed[0])) {
+                                        var dir = "x",
+                                            to = Math.abs(mCSB_container[0].offsetLeft) - (keyboardDir * (wrapper.width() * 0.9));
+                                    } else {
+                                        var dir = "y",
+                                            to = Math.abs(mCSB_container[0].offsetTop) - (keyboardDir * (wrapper.height() * 0.9));
+                                    }
+                                    _scrollTo($this, to.toString(), {dir: dir, scrollEasing: "mcsEaseInOut"});
+                                }
+                            } else if (code === 35 || code === 36) {
+                                /* End (35), Home (36) */
+                                if (!$(document.activeElement).is(editables)) {
+                                    if (d.overflowed[0] || d.overflowed[1]) {
+                                        e.preventDefault();
+                                        e.stopImmediatePropagation();
+                                    }
+                                    if (e.type === "keyup") {
+                                        if (o.axis === "x" || (o.axis === "yx" && d.overflowed[1] && !d.overflowed[0])) {
+                                            var dir = "x",
+                                                to = code === 35 ? Math.abs(wrapper.width() - mCSB_container.outerWidth(false)) : 0;
+                                        } else {
+                                            var dir = "y",
+                                                to = code === 35 ? Math.abs(wrapper.height() - mCSB_container.outerHeight(false)) : 0;
+                                        }
+                                        _scrollTo($this, to.toString(), {dir: dir, scrollEasing: "mcsEaseInOut"});
+                                    }
+                                }
+                            }
+                            break;
+                    }
+
+                    function _seq(a, c) {
+                        seq.type = o.keyboard.scrollType;
+                        seq.scrollAmount = o.keyboard.scrollAmount;
+                        if (seq.type === "stepped" && d.tweenRunning) {
+                            return;
+                        }
+                        _sequentialScroll($this, a, c);
+                    }
+                }
+            },
+            /* -------------------- */
+
+
+            /* scrolls content sequentially (used when scrolling via buttons, keyboard arrows etc.) */
+            _sequentialScroll = function (el, action, trigger, e, s) {
+                var d = el.data(pluginPfx), o = d.opt, seq = d.sequential,
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    once = seq.type === "stepped" ? true : false,
+                    steplessSpeed = o.scrollInertia < 26 ? 26 : o.scrollInertia, /* 26/1.5=17 */
+                    steppedSpeed = o.scrollInertia < 1 ? 17 : o.scrollInertia;
+                switch (action) {
+                    case "on":
+                        seq.dir = [
+                            (trigger === classes[16] || trigger === classes[15] || trigger === 39 || trigger === 37 ? "x" : "y"),
+                            (trigger === classes[13] || trigger === classes[15] || trigger === 38 || trigger === 37 ? -1 : 1)
+                        ];
+                        _stop(el);
+                        if (_isNumeric(trigger) && seq.type === "stepped") {
+                            return;
+                        }
+                        _on(once);
+                        break;
+                    case "off":
+                        _off();
+                        if (once || (d.tweenRunning && seq.dir)) {
+                            _on(true);
+                        }
+                        break;
+                }
+
+                /* starts sequence */
+                function _on(once) {
+                    if (o.snapAmount) {
+                        seq.scrollAmount = !(o.snapAmount instanceof Array) ? o.snapAmount : seq.dir[0] === "x" ? o.snapAmount[1] : o.snapAmount[0];
+                    }
+                    /* scrolling snapping */
+                    var c = seq.type !== "stepped", /* continuous scrolling */
+                        t = s ? s : !once ? 1000 / 60 : c ? steplessSpeed / 1.5 : steppedSpeed, /* timer */
+                        m = !once ? 2.5 : c ? 7.5 : 40, /* multiplier */
+                        contentPos = [Math.abs(mCSB_container[0].offsetTop), Math.abs(mCSB_container[0].offsetLeft)],
+                        ratio = [d.scrollRatio.y > 10 ? 10 : d.scrollRatio.y, d.scrollRatio.x > 10 ? 10 : d.scrollRatio.x],
+                        amount = seq.dir[0] === "x" ? contentPos[1] + (seq.dir[1] * (ratio[1] * m)) : contentPos[0] + (seq.dir[1] * (ratio[0] * m)),
+                        px = seq.dir[0] === "x" ? contentPos[1] + (seq.dir[1] * parseInt(seq.scrollAmount)) : contentPos[0] + (seq.dir[1] * parseInt(seq.scrollAmount)),
+                        to = seq.scrollAmount !== "auto" ? px : amount,
+                        easing = e ? e : !once ? "mcsLinear" : c ? "mcsLinearOut" : "mcsEaseInOut",
+                        onComplete = !once ? false : true;
+                    if (once && t < 17) {
+                        to = seq.dir[0] === "x" ? contentPos[1] : contentPos[0];
+                    }
+                    _scrollTo(el, to.toString(), {
+                        dir: seq.dir[0],
+                        scrollEasing: easing,
+                        dur: t,
+                        onComplete: onComplete
+                    });
+                    if (once) {
+                        seq.dir = false;
+                        return;
+                    }
+                    clearTimeout(seq.step);
+                    seq.step = setTimeout(function () {
+                        _on();
+                    }, t);
+                }
+
+                /* stops sequence */
+                function _off() {
+                    clearTimeout(seq.step);
+                    _delete(seq, "step");
+                    _stop(el);
+                }
+            },
+            /* -------------------- */
+
+
+            /* returns a yx array from value */
+            _arr = function (val) {
+                var o = $(this).data(pluginPfx).opt, vals = [];
+                if (typeof val === "function") {
+                    val = val();
+                }
+                /* check if the value is a single anonymous function */
+                /* check if value is object or array, its length and create an array with yx values */
+                if (!(val instanceof Array)) { /* object value (e.g. {y:"100",x:"100"}, 100 etc.) */
+                    vals[0] = val.y ? val.y : val.x || o.axis === "x" ? null : val;
+                    vals[1] = val.x ? val.x : val.y || o.axis === "y" ? null : val;
+                } else { /* array value (e.g. [100,100]) */
+                    vals = val.length > 1 ? [val[0], val[1]] : o.axis === "x" ? [null, val[0]] : [val[0], null];
+                }
+                /* check if array values are anonymous functions */
+                if (typeof vals[0] === "function") {
+                    vals[0] = vals[0]();
+                }
+                if (typeof vals[1] === "function") {
+                    vals[1] = vals[1]();
+                }
+                return vals;
+            },
+            /* -------------------- */
+
+
+            /* translates values (e.g. "top", 100, "100px", "#id") to actual scroll-to positions */
+            _to = function (val, dir) {
+                if (val == null || typeof val == "undefined") {
+                    return;
+                }
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    wrapper = mCSB_container.parent(),
+                    t = typeof val;
+                if (!dir) {
+                    dir = o.axis === "x" ? "x" : "y";
+                }
+                var contentLength = dir === "x" ? mCSB_container.outerWidth(false) - wrapper.width() : mCSB_container.outerHeight(false) - wrapper.height(),
+                    contentPos = dir === "x" ? mCSB_container[0].offsetLeft : mCSB_container[0].offsetTop,
+                    cssProp = dir === "x" ? "left" : "top";
+                switch (t) {
+                    case "function": /* this currently is not used. Consider removing it */
+                        return val();
+                        break;
+                    case "object": /* js/jquery object */
+                        var obj = val.jquery ? val : $(val);
+                        if (!obj.length) {
+                            return;
+                        }
+                        return dir === "x" ? _childPos(obj)[1] : _childPos(obj)[0];
+                        break;
+                    case "string":
+                    case "number":
+                        if (_isNumeric(val)) { /* numeric value */
+                            return Math.abs(val);
+                        } else if (val.indexOf("%") !== -1) { /* percentage value */
+                            return Math.abs(contentLength * parseInt(val) / 100);
+                        } else if (val.indexOf("-=") !== -1) { /* decrease value */
+                            return Math.abs(contentPos - parseInt(val.split("-=")[1]));
+                        } else if (val.indexOf("+=") !== -1) { /* inrease value */
+                            var p = (contentPos + parseInt(val.split("+=")[1]));
+                            return p >= 0 ? 0 : Math.abs(p);
+                        } else if (val.indexOf("px") !== -1 && _isNumeric(val.split("px")[0])) { /* pixels string value (e.g. "100px") */
+                            return Math.abs(val.split("px")[0]);
+                        } else {
+                            if (val === "top" || val === "left") { /* special strings */
+                                return 0;
+                            } else if (val === "bottom") {
+                                return Math.abs(wrapper.height() - mCSB_container.outerHeight(false));
+                            } else if (val === "right") {
+                                return Math.abs(wrapper.width() - mCSB_container.outerWidth(false));
+                            } else if (val === "first" || val === "last") {
+                                var obj = mCSB_container.find(":" + val);
+                                return dir === "x" ? _childPos(obj)[1] : _childPos(obj)[0];
+                            } else {
+                                if ($(val).length) { /* jquery selector */
+                                    return dir === "x" ? _childPos($(val))[1] : _childPos($(val))[0];
+                                } else { /* other values (e.g. "100em") */
+                                    mCSB_container.css(cssProp, val);
+                                    methods.update.call(null, $this[0]);
+                                    return;
+                                }
+                            }
+                        }
+                        break;
+                }
+            },
+            /* -------------------- */
+
+
+            /* calls the update method automatically */
+            _autoUpdate = function (rem) {
+                var $this = $(this), d = $this.data(pluginPfx), o = d.opt,
+                    mCSB_container = $("#mCSB_" + d.idx + "_container");
+                if (rem) {
+                    /*
+                    removes autoUpdate timer
+                    usage: _autoUpdate.call(this,"remove");
+                    */
+                    clearTimeout(mCSB_container[0].autoUpdate);
+                    _delete(mCSB_container[0], "autoUpdate");
+                    return;
+                }
+                upd();
+
+                function upd() {
+                    clearTimeout(mCSB_container[0].autoUpdate);
+                    if ($this.parents("html").length === 0) {
+                        /* check element in dom tree */
+                        $this = null;
+                        return;
+                    }
+                    mCSB_container[0].autoUpdate = setTimeout(function () {
+                        /* update on specific selector(s) length and size change */
+                        if (o.advanced.updateOnSelectorChange) {
+                            d.poll.change.n = sizesSum();
+                            if (d.poll.change.n !== d.poll.change.o) {
+                                d.poll.change.o = d.poll.change.n;
+                                doUpd(3);
+                                return;
+                            }
+                        }
+                        /* update on main element and scrollbar size changes */
+                        if (o.advanced.updateOnContentResize) {
+                            d.poll.size.n = $this[0].scrollHeight + $this[0].scrollWidth + mCSB_container[0].offsetHeight + $this[0].offsetHeight + $this[0].offsetWidth;
+                            if (d.poll.size.n !== d.poll.size.o) {
+                                d.poll.size.o = d.poll.size.n;
+                                doUpd(1);
+                                return;
+                            }
+                        }
+                        /* update on image load */
+                        if (o.advanced.updateOnImageLoad) {
+                            if (!(o.advanced.updateOnImageLoad === "auto" && o.axis === "y")) { //by default, it doesn't run on vertical content
+                                d.poll.img.n = mCSB_container.find("img").length;
+                                if (d.poll.img.n !== d.poll.img.o) {
+                                    d.poll.img.o = d.poll.img.n;
+                                    mCSB_container.find("img").each(function () {
+                                        imgLoader(this);
+                                    });
+                                    return;
+                                }
+                            }
+                        }
+                        if (o.advanced.updateOnSelectorChange || o.advanced.updateOnContentResize || o.advanced.updateOnImageLoad) {
+                            upd();
+                        }
+                    }, o.advanced.autoUpdateTimeout);
+                }
+
+                /* a tiny image loader */
+                function imgLoader(el) {
+                    if ($(el).hasClass(classes[2])) {
+                        doUpd();
+                        return;
+                    }
+                    var img = new Image();
+
+                    function createDelegate(contextObject, delegateMethod) {
+                        return function () {
+                            return delegateMethod.apply(contextObject, arguments);
+                        }
+                    }
+
+                    function imgOnLoad() {
+                        this.onload = null;
+                        $(el).addClass(classes[2]);
+                        doUpd(2);
+                    }
+
+                    img.onload = createDelegate(img, imgOnLoad);
+                    img.src = el.src;
+                }
+
+                /* returns the total height and width sum of all elements matching the selector */
+                function sizesSum() {
+                    if (o.advanced.updateOnSelectorChange === true) {
+                        o.advanced.updateOnSelectorChange = "*";
+                    }
+                    var total = 0, sel = mCSB_container.find(o.advanced.updateOnSelectorChange);
+                    if (o.advanced.updateOnSelectorChange && sel.length > 0) {
+                        sel.each(function () {
+                            total += this.offsetHeight + this.offsetWidth;
+                        });
+                    }
+                    return total;
+                }
+
+                /* calls the update method */
+                function doUpd(cb) {
+                    clearTimeout(mCSB_container[0].autoUpdate);
+                    methods.update.call(null, $this[0], cb);
+                }
+            },
+            /* -------------------- */
+
+
+            /* snaps scrolling to a multiple of a pixels number */
+            _snapAmount = function (to, amount, offset) {
+                return (Math.round(to / amount) * amount - offset);
+            },
+            /* -------------------- */
+
+
+            /* stops content and scrollbar animations */
+            _stop = function (el) {
+                var d = el.data(pluginPfx),
+                    sel = $("#mCSB_" + d.idx + "_container,#mCSB_" + d.idx + "_container_wrapper,#mCSB_" + d.idx + "_dragger_vertical,#mCSB_" + d.idx + "_dragger_horizontal");
+                sel.each(function () {
+                    _stopTween.call(this);
+                });
+            },
+            /* -------------------- */
+
+
+            /*
+            ANIMATES CONTENT
+            This is where the actual scrolling happens
+            */
+            _scrollTo = function (el, to, options) {
+                var d = el.data(pluginPfx), o = d.opt,
+                    defaults = {
+                        trigger: "internal",
+                        dir: "y",
+                        scrollEasing: "mcsEaseOut",
+                        drag: false,
+                        dur: o.scrollInertia,
+                        overwrite: "all",
+                        callbacks: true,
+                        onStart: true,
+                        onUpdate: true,
+                        onComplete: true
+                    },
+                    options = $.extend(defaults, options),
+                    dur = [options.dur, (options.drag ? 0 : options.dur)],
+                    mCustomScrollBox = $("#mCSB_" + d.idx),
+                    mCSB_container = $("#mCSB_" + d.idx + "_container"),
+                    wrapper = mCSB_container.parent(),
+                    totalScrollOffsets = o.callbacks.onTotalScrollOffset ? _arr.call(el, o.callbacks.onTotalScrollOffset) : [0, 0],
+                    totalScrollBackOffsets = o.callbacks.onTotalScrollBackOffset ? _arr.call(el, o.callbacks.onTotalScrollBackOffset) : [0, 0];
+                d.trigger = options.trigger;
+                if (wrapper.scrollTop() !== 0 || wrapper.scrollLeft() !== 0) { /* always reset scrollTop/Left */
+                    $(".mCSB_" + d.idx + "_scrollbar").css("visibility", "visible");
+                    wrapper.scrollTop(0).scrollLeft(0);
+                }
+                if (to === "_resetY" && !d.contentReset.y) {
+                    /* callbacks: onOverflowYNone */
+                    if (_cb("onOverflowYNone")) {
+                        o.callbacks.onOverflowYNone.call(el[0]);
+                    }
+                    d.contentReset.y = 1;
+                }
+                if (to === "_resetX" && !d.contentReset.x) {
+                    /* callbacks: onOverflowXNone */
+                    if (_cb("onOverflowXNone")) {
+                        o.callbacks.onOverflowXNone.call(el[0]);
+                    }
+                    d.contentReset.x = 1;
+                }
+                if (to === "_resetY" || to === "_resetX") {
+                    return;
+                }
+                if ((d.contentReset.y || !el[0].mcs) && d.overflowed[0]) {
+                    /* callbacks: onOverflowY */
+                    if (_cb("onOverflowY")) {
+                        o.callbacks.onOverflowY.call(el[0]);
+                    }
+                    d.contentReset.x = null;
+                }
+                if ((d.contentReset.x || !el[0].mcs) && d.overflowed[1]) {
+                    /* callbacks: onOverflowX */
+                    if (_cb("onOverflowX")) {
+                        o.callbacks.onOverflowX.call(el[0]);
+                    }
+                    d.contentReset.x = null;
+                }
+                if (o.snapAmount) { /* scrolling snapping */
+                    var snapAmount = !(o.snapAmount instanceof Array) ? o.snapAmount : options.dir === "x" ? o.snapAmount[1] : o.snapAmount[0];
+                    to = _snapAmount(to, snapAmount, o.snapOffset);
+                }
+                switch (options.dir) {
+                    case "x":
+                        var mCSB_dragger = $("#mCSB_" + d.idx + "_dragger_horizontal"),
+                            property = "left",
+                            contentPos = mCSB_container[0].offsetLeft,
+                            limit = [
+                                mCustomScrollBox.width() - mCSB_container.outerWidth(false),
+                                mCSB_dragger.parent().width() - mCSB_dragger.width()
+                            ],
+                            scrollTo = [to, to === 0 ? 0 : (to / d.scrollRatio.x)],
+                            tso = totalScrollOffsets[1],
+                            tsbo = totalScrollBackOffsets[1],
+                            totalScrollOffset = tso > 0 ? tso / d.scrollRatio.x : 0,
+                            totalScrollBackOffset = tsbo > 0 ? tsbo / d.scrollRatio.x : 0;
+                        break;
+                    case "y":
+                        var mCSB_dragger = $("#mCSB_" + d.idx + "_dragger_vertical"),
+                            property = "top",
+                            contentPos = mCSB_container[0].offsetTop,
+                            limit = [
+                                mCustomScrollBox.height() - mCSB_container.outerHeight(false),
+                                mCSB_dragger.parent().height() - mCSB_dragger.height()
+                            ],
+                            scrollTo = [to, to === 0 ? 0 : (to / d.scrollRatio.y)],
+                            tso = totalScrollOffsets[0],
+                            tsbo = totalScrollBackOffsets[0],
+                            totalScrollOffset = tso > 0 ? tso / d.scrollRatio.y : 0,
+                            totalScrollBackOffset = tsbo > 0 ? tsbo / d.scrollRatio.y : 0;
+                        break;
+                }
+                if (scrollTo[1] < 0 || (scrollTo[0] === 0 && scrollTo[1] === 0)) {
+                    scrollTo = [0, 0];
+                } else if (scrollTo[1] >= limit[1]) {
+                    scrollTo = [limit[0], limit[1]];
+                } else {
+                    scrollTo[0] = -scrollTo[0];
+                }
+                if (!el[0].mcs) {
+                    _mcs();
+                    /* init mcs object (once) to make it available before callbacks */
+                    if (_cb("onInit")) {
+                        o.callbacks.onInit.call(el[0]);
+                    }
+                    /* callbacks: onInit */
+                }
+                clearTimeout(mCSB_container[0].onCompleteTimeout);
+                _tweenTo(mCSB_dragger[0], property, Math.round(scrollTo[1]), dur[1], options.scrollEasing);
+                if (!d.tweenRunning && ((contentPos === 0 && scrollTo[0] >= 0) || (contentPos === limit[0] && scrollTo[0] <= limit[0]))) {
+                    return;
+                }
+                _tweenTo(mCSB_container[0], property, Math.round(scrollTo[0]), dur[0], options.scrollEasing, options.overwrite, {
+                    onStart: function () {
+                        if (options.callbacks && options.onStart && !d.tweenRunning) {
+                            /* callbacks: onScrollStart */
+                            if (_cb("onScrollStart")) {
+                                _mcs();
+                                o.callbacks.onScrollStart.call(el[0]);
+                            }
+                            d.tweenRunning = true;
+                            _onDragClasses(mCSB_dragger);
+                            d.cbOffsets = _cbOffsets();
+                        }
+                    }, onUpdate: function () {
+                        if (options.callbacks && options.onUpdate) {
+                            /* callbacks: whileScrolling */
+                            if (_cb("whileScrolling")) {
+                                _mcs();
+                                o.callbacks.whileScrolling.call(el[0]);
+                            }
+                        }
+                    }, onComplete: function () {
+                        if (options.callbacks && options.onComplete) {
+                            if (o.axis === "yx") {
+                                clearTimeout(mCSB_container[0].onCompleteTimeout);
+                            }
+                            var t = mCSB_container[0].idleTimer || 0;
+                            mCSB_container[0].onCompleteTimeout = setTimeout(function () {
+                                /* callbacks: onScroll, onTotalScroll, onTotalScrollBack */
+                                if (_cb("onScroll")) {
+                                    _mcs();
+                                    o.callbacks.onScroll.call(el[0]);
+                                }
+                                if (_cb("onTotalScroll") && scrollTo[1] >= limit[1] - totalScrollOffset && d.cbOffsets[0]) {
+                                    _mcs();
+                                    o.callbacks.onTotalScroll.call(el[0]);
+                                }
+                                if (_cb("onTotalScrollBack") && scrollTo[1] <= totalScrollBackOffset && d.cbOffsets[1]) {
+                                    _mcs();
+                                    o.callbacks.onTotalScrollBack.call(el[0]);
+                                }
+                                d.tweenRunning = false;
+                                mCSB_container[0].idleTimer = 0;
+                                _onDragClasses(mCSB_dragger, "hide");
+                            }, t);
+                        }
+                    }
+                });
+
+                /* checks if callback function exists */
+                function _cb(cb) {
+                    return d && o.callbacks[cb] && typeof o.callbacks[cb] === "function";
+                }
+
+                /* checks whether callback offsets always trigger */
+                function _cbOffsets() {
+                    return [o.callbacks.alwaysTriggerOffsets || contentPos >= limit[0] + tso, o.callbacks.alwaysTriggerOffsets || contentPos <= -tsbo];
+                }
+
+                /*
+                populates object with useful values for the user
+                values:
+                    content: this.mcs.content
+                    content top position: this.mcs.top
+                    content left position: this.mcs.left
+                    dragger top position: this.mcs.draggerTop
+                    dragger left position: this.mcs.draggerLeft
+                    scrolling y percentage: this.mcs.topPct
+                    scrolling x percentage: this.mcs.leftPct
+                    scrolling direction: this.mcs.direction
+                */
+                function _mcs() {
+                    var cp = [mCSB_container[0].offsetTop, mCSB_container[0].offsetLeft], /* content position */
+                        dp = [mCSB_dragger[0].offsetTop, mCSB_dragger[0].offsetLeft], /* dragger position */
+                        cl = [mCSB_container.outerHeight(false), mCSB_container.outerWidth(false)], /* content length */
+                        pl = [mCustomScrollBox.height(), mCustomScrollBox.width()];
+                    /* content parent length */
+                    el[0].mcs = {
+                        content: mCSB_container, /* original content wrapper as jquery object */
+                        top: cp[0],
+                        left: cp[1],
+                        draggerTop: dp[0],
+                        draggerLeft: dp[1],
+                        topPct: Math.round((100 * Math.abs(cp[0])) / (Math.abs(cl[0]) - pl[0])),
+                        leftPct: Math.round((100 * Math.abs(cp[1])) / (Math.abs(cl[1]) - pl[1])),
+                        direction: options.dir
+                    };
+                    /*
+                    this refers to the original element containing the scrollbar(s)
+                    usage: this.mcs.top, this.mcs.leftPct etc.
+                    */
+                }
+            },
+            /* -------------------- */
+
+
+            /*
+            CUSTOM JAVASCRIPT ANIMATION TWEEN
+            Lighter and faster than jquery animate() and css transitions
+            Animates top/left properties and includes easings
+            */
+            _tweenTo = function (el, prop, to, duration, easing, overwrite, callbacks) {
+                if (!el._mTween) {
+                    el._mTween = {top: {}, left: {}};
+                }
+                var callbacks = callbacks || {},
+                    onStart = callbacks.onStart || function () {
+                    }, onUpdate = callbacks.onUpdate || function () {
+                    }, onComplete = callbacks.onComplete || function () {
+                    },
+                    startTime = _getTime(), _delay, progress = 0, from = el.offsetTop, elStyle = el.style, _request,
+                    tobj = el._mTween[prop];
+                if (prop === "left") {
+                    from = el.offsetLeft;
+                }
+                var diff = to - from;
+                tobj.stop = 0;
+                if (overwrite !== "none") {
+                    _cancelTween();
+                }
+                _startTween();
+
+                function _step() {
+                    if (tobj.stop) {
+                        return;
+                    }
+                    if (!progress) {
+                        onStart.call();
+                    }
+                    progress = _getTime() - startTime;
+                    _tween();
+                    if (progress >= tobj.time) {
+                        tobj.time = (progress > tobj.time) ? progress + _delay - (progress - tobj.time) : progress + _delay - 1;
+                        if (tobj.time < progress + 1) {
+                            tobj.time = progress + 1;
+                        }
+                    }
+                    if (tobj.time < duration) {
+                        tobj.id = _request(_step);
+                    } else {
+                        onComplete.call();
+                    }
+                }
+
+                function _tween() {
+                    if (duration > 0) {
+                        tobj.currVal = _ease(tobj.time, from, diff, duration, easing);
+                        elStyle[prop] = Math.round(tobj.currVal) + "px";
+                    } else {
+                        elStyle[prop] = to + "px";
+                    }
+                    onUpdate.call();
+                }
+
+                function _startTween() {
+                    _delay = 1000 / 60;
+                    tobj.time = progress + _delay;
+                    _request = (!window.requestAnimationFrame) ? function (f) {
+                        _tween();
+                        return setTimeout(f, 0.01);
+                    } : window.requestAnimationFrame;
+                    tobj.id = _request(_step);
+                }
+
+                function _cancelTween() {
+                    if (tobj.id == null) {
+                        return;
+                    }
+                    if (!window.requestAnimationFrame) {
+                        clearTimeout(tobj.id);
+                    } else {
+                        window.cancelAnimationFrame(tobj.id);
+                    }
+                    tobj.id = null;
+                }
+
+                function _ease(t, b, c, d, type) {
+                    switch (type) {
+                        case "linear":
+                        case "mcsLinear":
+                            return c * t / d + b;
+                            break;
+                        case "mcsLinearOut":
+                            t /= d;
+                            t--;
+                            return c * Math.sqrt(1 - t * t) + b;
+                            break;
+                        case "easeInOutSmooth":
+                            t /= d / 2;
+                            if (t < 1) return c / 2 * t * t + b;
+                            t--;
+                            return -c / 2 * (t * (t - 2) - 1) + b;
+                            break;
+                        case "easeInOutStrong":
+                            t /= d / 2;
+                            if (t < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+                            t--;
+                            return c / 2 * (-Math.pow(2, -10 * t) + 2) + b;
+                            break;
+                        case "easeInOut":
+                        case "mcsEaseInOut":
+                            t /= d / 2;
+                            if (t < 1) return c / 2 * t * t * t + b;
+                            t -= 2;
+                            return c / 2 * (t * t * t + 2) + b;
+                            break;
+                        case "easeOutSmooth":
+                            t /= d;
+                            t--;
+                            return -c * (t * t * t * t - 1) + b;
+                            break;
+                        case "easeOutStrong":
+                            return c * (-Math.pow(2, -10 * t / d) + 1) + b;
+                            break;
+                        case "easeOut":
+                        case "mcsEaseOut":
+                        default:
+                            var ts = (t /= d) * t, tc = ts * t;
+                            return b + c * (0.499999999999997 * tc * ts + -2.5 * ts * ts + 5.5 * tc + -6.5 * ts + 4 * t);
+                    }
+                }
+            },
+            /* -------------------- */
+
+
+            /* returns current time */
+            _getTime = function () {
+                if (window.performance && window.performance.now) {
+                    return window.performance.now();
+                } else {
+                    if (window.performance && window.performance.webkitNow) {
+                        return window.performance.webkitNow();
+                    } else {
+                        if (Date.now) {
+                            return Date.now();
+                        } else {
+                            return new Date().getTime();
+                        }
+                    }
+                }
+            },
+            /* -------------------- */
+
+
+            /* stops a tween */
+            _stopTween = function () {
+                var el = this;
+                if (!el._mTween) {
+                    el._mTween = {top: {}, left: {}};
+                }
+                var props = ["top", "left"];
+                for (var i = 0; i < props.length; i++) {
+                    var prop = props[i];
+                    if (el._mTween[prop].id) {
+                        if (!window.requestAnimationFrame) {
+                            clearTimeout(el._mTween[prop].id);
+                        } else {
+                            window.cancelAnimationFrame(el._mTween[prop].id);
+                        }
+                        el._mTween[prop].id = null;
+                        el._mTween[prop].stop = 1;
+                    }
+                }
+            },
+            /* -------------------- */
+
+
+            /* deletes a property (avoiding the exception thrown by IE) */
+            _delete = function (c, m) {
+                try {
+                    delete c[m];
+                } catch (e) {
+                    c[m] = null;
+                }
+            },
+            /* -------------------- */
+
+
+            /* detects left mouse button */
+            _mouseBtnLeft = function (e) {
+                return !(e.which && e.which !== 1);
+            },
+            /* -------------------- */
+
+
+            /* detects if pointer type event is touch */
+            _pointerTouch = function (e) {
+                var t = e.originalEvent.pointerType;
+                return !(t && t !== "touch" && t !== 2);
+            },
+            /* -------------------- */
+
+
+            /* checks if value is numeric */
+            _isNumeric = function (val) {
+                return !isNaN(parseFloat(val)) && isFinite(val);
+            },
+            /* -------------------- */
+
+
+            /* returns element position according to content */
+            _childPos = function (el) {
+                var p = el.parents(".mCSB_container");
+                return [el.offset().top - p.offset().top, el.offset().left - p.offset().left];
+            },
+            /* -------------------- */
+
+
+            /* checks if browser tab is hidden/inactive via Page Visibility API */
+            _isTabHidden = function () {
+                var prop = _getHiddenProp();
+                if (!prop) return false;
+                return document[prop];
+
+                function _getHiddenProp() {
+                    var pfx = ["webkit", "moz", "ms", "o"];
+                    if ("hidden" in document) return "hidden"; //natively supported
+                    for (var i = 0; i < pfx.length; i++) { //prefixed
+                        if ((pfx[i] + "Hidden") in document)
+                            return pfx[i] + "Hidden";
+                    }
+                    return null; //not supported
+                }
+            };
+        /* -------------------- */
+
+
+        /*
+        ----------------------------------------
+        PLUGIN SETUP
+        ----------------------------------------
+        */
+
+        /* plugin constructor functions */
+        $.fn[pluginNS] = function (method) { /* usage: $(selector).mCustomScrollbar(); */
+            if (methods[method]) {
+                return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            } else if (typeof method === "object" || !method) {
+                return methods.init.apply(this, arguments);
+            } else {
+                $.error("Method " + method + " does not exist");
+            }
+        };
+        $[pluginNS] = function (method) { /* usage: $.mCustomScrollbar(); */
+            if (methods[method]) {
+                return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            } else if (typeof method === "object" || !method) {
+                return methods.init.apply(this, arguments);
+            } else {
+                $.error("Method " + method + " does not exist");
+            }
+        };
+
+        /*
+        allow setting plugin default options.
+        usage: $.mCustomScrollbar.defaults.scrollInertia=500;
+        to apply any changed default options on default selectors (below), use inside document ready fn
+        e.g.: $(document).ready(function(){ $.mCustomScrollbar.defaults.scrollInertia=500; });
+        */
+        $[pluginNS].defaults = defaults;
+
+        /*
+        add window object (window.mCustomScrollbar)
+        usage: if(window.mCustomScrollbar){console.log("custom scrollbar plugin loaded");}
+        */
+        window[pluginNS] = true;
+
+        $(window).bind("load", function () {
+
+            $(defaultSelector)[pluginNS]();
+            /* add scrollbars automatically on default selector */
+
+            /* extend jQuery expressions */
+            $.extend($.expr[":"], {
+                /* checks if element is within scrollable viewport */
+                mcsInView: $.expr[":"].mcsInView || function (el) {
+                    var $el = $(el), content = $el.parents(".mCSB_container"), wrapper, cPos;
+                    if (!content.length) {
+                        return;
+                    }
+                    wrapper = content.parent();
+                    cPos = [content[0].offsetTop, content[0].offsetLeft];
+                    return cPos[0] + _childPos($el)[0] >= 0 && cPos[0] + _childPos($el)[0] < wrapper.height() - $el.outerHeight(false) &&
+                        cPos[1] + _childPos($el)[1] >= 0 && cPos[1] + _childPos($el)[1] < wrapper.width() - $el.outerWidth(false);
+                },
+                /* checks if element or part of element is in view of scrollable viewport */
+                mcsInSight: $.expr[":"].mcsInSight || function (el, i, m) {
+                    var $el = $(el), elD, content = $el.parents(".mCSB_container"), wrapperView, pos, wrapperViewPct,
+                        pctVals = m[3] === "exact" ? [[1, 0], [1, 0]] : [[0.9, 0.1], [0.6, 0.4]];
+                    if (!content.length) {
+                        return;
+                    }
+                    elD = [$el.outerHeight(false), $el.outerWidth(false)];
+                    pos = [content[0].offsetTop + _childPos($el)[0], content[0].offsetLeft + _childPos($el)[1]];
+                    wrapperView = [content.parent()[0].offsetHeight, content.parent()[0].offsetWidth];
+                    wrapperViewPct = [elD[0] < wrapperView[0] ? pctVals[0] : pctVals[1], elD[1] < wrapperView[1] ? pctVals[0] : pctVals[1]];
+                    return pos[0] - (wrapperView[0] * wrapperViewPct[0][0]) < 0 && pos[0] + elD[0] - (wrapperView[0] * wrapperViewPct[0][1]) >= 0 &&
+                        pos[1] - (wrapperView[1] * wrapperViewPct[1][0]) < 0 && pos[1] + elD[1] - (wrapperView[1] * wrapperViewPct[1][1]) >= 0;
+                },
+                /* checks if element is overflowed having visible scrollbar(s) */
+                mcsOverflow: $.expr[":"].mcsOverflow || function (el) {
+                    var d = $(el).data(pluginPfx);
+                    if (!d) {
+                        return;
+                    }
+                    return d.overflowed[0] || d.overflowed[1];
+                }
+            });
+
+        });
+
+    }))
+}));
+
+
+// jquery.daterangepicker.js
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery', 'moment'], factory);
+    } else if (typeof exports === 'object' && typeof module !== 'undefined') {
+        // CommonJS. Register as a module
+        module.exports = factory(require('jquery'), require('moment'));
+    } else {
+        // Browser globals
+        factory(jQuery, moment);
+    }
+}(function ($, moment) {
+    'use strict';
+    $.allwinDatepickerLanguages = {
+        "default":
+            {
+                "selected": "기간:",
+                "day": "일",
+                "days": "일간",
+                "apply": "닫기",
+                "week-1": "월",
+                "week-2": "화",
+                "week-3": "수",
+                "week-4": "목",
+                "week-5": "금",
+                "week-6": "토",
+                "week-7": "일",
+                "week-number": "주",
+                "month-name": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+                "shortcuts": "단축키들",
+                "past": "지난(오늘기준)",
+                "following": "이후(오늘기준)",
+                "previous": "이전",
+                "prev-week": "1주",
+                "prev-month": "1달",
+                "prev-year": "1년",
+                "next": "다음",
+                "next-week": "1주",
+                "next-month": "1달",
+                "next-year": "1년",
+                "less-than": "날짜 범위는 %d 일보다 많을 수 없습니다",
+                "more-than": "날짜 범위는 %d 일보다 작을 수 없습니다",
+                "default-more": "날짜 범위를 %d 일보다 길게 선택해 주세요",
+                "default-single": "날짜를 선택해 주세요",
+                "default-less": "%d 일보다 작은 날짜를 선택해 주세요",
+                "default-range": "%d와 %d 일 사이의 날짜 범위를 선택해 주세요",
+                "default-default": "날짜 범위를 선택해 주세요",
+                "time": "시각",
+                "hour": "시",
+                "minute": "분"
+            }
+    };
+
+    $.fn.allwinDatepicker = function (opt) {
+        if (!opt) opt = {};
+        opt = $.extend(true, {
+            autoClose: false,
+            format: 'YYYY-MM-DD',
+            separator: ' to ',
+            language: 'auto',
+            startOfWeek: 'sunday', // or monday
+            getValue: function () {
+                return $(this).val();
+            },
+            setValue: function (s) {
+                if (!$(this).attr('readonly') && !$(this).is(':disabled') && s != $(this).val()) {
+                    $(this).val(s);
+                }
+            },
+            startDate: false,
+            endDate: false,
+            time: {
+                enabled: false
+            },
+            minDays: 0,
+            maxDays: 0,
+            showShortcuts: false,
+            shortcuts: {
+                //'prev-days': [1,3,5,7],
+                // 'next-days': [3,5,7],
+                //'prev' : ['week','month','year'],
+                // 'next' : ['week','month','year']
+            },
+            customShortcuts: [],
+            inline: false,
+            container: 'body',
+            alwaysOpen: false,
+            singleDate: false,
+            lookBehind: false,
+            batchMode: false,
+            duration: 200,
+            stickyMonths: false,
+            dayDivAttrs: [],
+            dayTdAttrs: [],
+            selectForward: false,
+            selectBackward: false,
+            applyBtnClass: '',
+            singleMonth: 'auto',
+            hoveringTooltip: function (days, startTime, hoveringTime) {
+                return days > 1 ? days + ' ' + translate('days') : '';
+            },
+            showTopbar: true,
+            swapTime: false,
+            showWeekNumbers: false,
+            getWeekNumber: function (date) //date will be the first day of a week
+            {
+                return moment(date).format('w');
+            },
+            customOpenAnimation: null,
+            customCloseAnimation: null,
+            customArrowPrevSymbol: null,
+            customArrowNextSymbol: null,
+            monthSelect: true,
+            yearSelect: true
+        }, opt);
+
+        opt.start = false;
+        opt.end = false;
+
+        opt.startWeek = false;
+
+        //detect a touch device
+        opt.isTouchDevice = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+        //if it is a touch device, hide hovering tooltip
+        if (opt.isTouchDevice) opt.hoveringTooltip = false;
+
+        //show one month on mobile devices
+        if (opt.singleMonth == 'auto') opt.singleMonth = $(window).width() < 480;
+        if (opt.singleMonth) opt.stickyMonths = false;
+
+        if (!opt.showTopbar) opt.autoClose = true;
+
+        if (opt.startDate && typeof opt.startDate == 'string') opt.startDate = moment(opt.startDate, opt.format).toDate();
+        if (opt.endDate && typeof opt.endDate == 'string') opt.endDate = moment(opt.endDate, opt.format).toDate();
+
+        if (opt.yearSelect && typeof opt.yearSelect === 'boolean') {
+            opt.yearSelect = function (current) {
+                return [current - 5, current + 5];
+            }
+        }
+
+        var languages = getLanguages();
+        var box;
+        var initiated = false;
+        var self = this;
+        var selfDom = $(self).get(0);
+        var domChangeTimer;
+
+        $(this).unbind('.datepicker').bind('click.datepicker', function (evt) {
+            var isOpen = box.is(':visible');
+            if (!isOpen) open(opt.duration);
+        }).bind('change.datepicker', function (evt) {
+            checkAndSetDefaultValue();
+        }).bind('keyup.datepicker', function () {
+            try {
+                clearTimeout(domChangeTimer);
+            } catch (e) {
+            }
+            domChangeTimer = setTimeout(function () {
+                checkAndSetDefaultValue();
+            }, 2000);
+        });
+
+        init_datepicker.call(this);
+
+        if (opt.alwaysOpen) {
+            open(0);
+        }
+
+        // expose some api
+        $(this).data('allwinDatepicker', {
+            setStart: function (d1) {
+                if (typeof d1 == 'string') {
+                    d1 = moment(d1, opt.format).toDate();
+                }
+
+                opt.end = false;
+                setSingleDate(d1);
+
+                return this;
+            },
+            setEnd: function (d2, silent) {
+                var start = new Date();
+                start.setTime(opt.start);
+                if (typeof d2 == 'string') {
+                    d2 = moment(d2, opt.format).toDate();
+                }
+                setDateRange(start, d2, silent);
+                return this;
+            },
+            setDateRange: function (d1, d2, silent) {
+                if (typeof d1 == 'string' && typeof d2 == 'string') {
+                    d1 = moment(d1, opt.format).toDate();
+                    d2 = moment(d2, opt.format).toDate();
+                }
+                setDateRange(d1, d2, silent);
+            },
+            clear: clearSelection,
+            close: closeDatePicker,
+            open: open,
+            redraw: redrawDatePicker,
+            getDatePicker: getDatePicker,
+            resetMonthsView: resetMonthsView,
+            destroy: function () {
+                $(self).unbind('.datepicker');
+                $(self).data('allwinDatepicker', '');
+                $(self).data('date-picker-opened', null);
+                box.remove();
+                $(window).unbind('resize.datepicker', calcPosition);
+                $(document).unbind('click.datepicker', closeDatePicker);
+            }
+        });
+
+        $(window).bind('resize.datepicker', calcPosition);
+
+        return this;
+
+        function IsOwnDatePickerClicked(evt, selfObj) {
+            return (selfObj.contains(evt.target) || evt.target == selfObj || (selfObj.childNodes != undefined && $.inArray(evt.target, selfObj.childNodes) >= 0));
+        }
+
+        function init_datepicker() {
+            var self = this;
+
+            if ($(this).data('date-picker-opened')) {
+                closeDatePicker();
+                return;
+            }
+            $(this).data('date-picker-opened', true);
+
+
+            box = createDom().hide();
+            box.append('<div class="date-range-length-tip"></div>');
+
+            $(opt.container).append(box);
+
+            if (!opt.inline) {
+                calcPosition();
+            } else {
+                box.addClass('awa-datepicker');
+            }
+
+            if (opt.alwaysOpen) {
+                box.find('.apply-btn').hide();
+            }
+
+            var defaultTime = getDefaultTime();
+            resetMonthsView(defaultTime);
+
+            if (opt.time.enabled) {
+                if ((opt.startDate && opt.endDate) || (opt.start && opt.end)) {
+                    showTime(moment(opt.start || opt.startDate).toDate(), 'time1');
+                    showTime(moment(opt.end || opt.endDate).toDate(), 'time2');
+                } else {
+                    var defaultEndTime = opt.defaultEndTime ? opt.defaultEndTime : defaultTime;
+                    showTime(defaultTime, 'time1');
+                    showTime(defaultEndTime, 'time2');
+                }
+            }
+
+            //showSelectedInfo();
+
+
+            var defaultTopText = '';
+            if (opt.singleDate)
+                defaultTopText = translate('default-single');
+            else if (opt.minDays && opt.maxDays)
+                defaultTopText = translate('default-range');
+            else if (opt.minDays)
+                defaultTopText = translate('default-more');
+            else if (opt.maxDays)
+                defaultTopText = translate('default-less');
+            else
+                defaultTopText = translate('default-default');
+
+            box.find('.default-top').html(defaultTopText.replace(/\%d/, opt.minDays).replace(/\%d/, opt.maxDays));
+            if (opt.singleMonth) {
+                box.addClass('single-month');
+            } else {
+                box.addClass('two-months');
+            }
+
+
+            setTimeout(function () {
+                updateCalendarWidth();
+                initiated = true;
+            }, 0);
+
+            box.click(function (evt) {
+                evt.stopPropagation();
+            });
+
+            //if user click other place of the webpage, close date range picker window
+            $(document).bind('click.datepicker', function (evt) {
+                if (!IsOwnDatePickerClicked(evt, self[0])) {
+                    if (box.is(':visible')) closeDatePicker();
+                }
+            });
+
+            box.find('.next').click(function () {
+                if (!opt.stickyMonths)
+                    gotoNextMonth(this);
+                else
+                    gotoNextMonth_stickily(this);
+            });
+
+            function gotoNextMonth(self) {
+                var isMonth2 = $(self).parents('table').hasClass('month2');
+                var month = isMonth2 ? opt.month2 : opt.month1;
+                month = nextMonth(month);
+                if (!opt.singleMonth && !opt.singleDate && !isMonth2 && compare_month(month, opt.month2) >= 0 || isMonthOutOfBounds(month)) return;
+                showMonth(month, isMonth2 ? 'month2' : 'month1');
+                showGap();
+            }
+
+            function gotoNextMonth_stickily(self) {
+                var nextMonth1 = nextMonth(opt.month1);
+                var nextMonth2 = nextMonth(opt.month2);
+                if (isMonthOutOfBounds(nextMonth2)) return;
+                if (!opt.singleDate && compare_month(nextMonth1, nextMonth2) >= 0) return;
+                showMonth(nextMonth1, 'month1');
+                showMonth(nextMonth2, 'month2');
+                showSelectedDays();
+            }
+
+
+            box.find('.prev').click(function () {
+                if (!opt.stickyMonths)
+                    gotoPrevMonth(this);
+                else
+                    gotoPrevMonth_stickily(this);
+            });
+
+            function gotoPrevMonth(self) {
+                var isMonth2 = $(self).parents('table').hasClass('month2');
+                var month = isMonth2 ? opt.month2 : opt.month1;
+                month = prevMonth(month);
+                if (isMonth2 && compare_month(month, opt.month1) <= 0 || isMonthOutOfBounds(month)) return;
+                showMonth(month, isMonth2 ? 'month2' : 'month1');
+                showGap();
+            }
+
+            function gotoPrevMonth_stickily(self) {
+                var prevMonth1 = prevMonth(opt.month1);
+                var prevMonth2 = prevMonth(opt.month2);
+                if (isMonthOutOfBounds(prevMonth1)) return;
+                if (!opt.singleDate && compare_month(prevMonth2, prevMonth1) <= 0) return;
+                showMonth(prevMonth2, 'month2');
+                showMonth(prevMonth1, 'month1');
+                showSelectedDays();
+            }
+
+            box.attr('unselectable', 'on')
+                .css('user-select', 'none')
+                .bind('selectstart', function (e) {
+                    e.preventDefault();
+                    return false;
+                });
+
+            box.find('.apply-btn').click(function () {
+                closeDatePicker();
+                var dateRange = getDateString(new Date(opt.start)) + opt.separator + getDateString(new Date(opt.end));
+                $(self).trigger('datepicker-apply', {
+                    'value': dateRange,
+                    'date1': new Date(opt.start),
+                    'date2': new Date(opt.end)
+                });
+            });
+
+            box.find('[custom]').click(function () {
+                var valueName = $(this).attr('custom');
+                opt.start = false;
+                opt.end = false;
+                box.find('.day.checked').removeClass('checked');
+                opt.setValue.call(selfDom, valueName);
+                checkSelectionValid();
+                showSelectedInfo(true);
+                showSelectedDays();
+                if (opt.autoClose) closeDatePicker();
+            });
+
+            box.find('[shortcut]').click(function () {
+                var shortcut = $(this).attr('shortcut');
+                var end = new Date(),
+                    start = false;
+                var dir;
+                if (shortcut.indexOf('day') != -1) {
+                    var day = parseInt(shortcut.split(',', 2)[1], 10);
+                    start = new Date(new Date().getTime() + 86400000 * day);
+                    end = new Date(end.getTime() + 86400000 * (day > 0 ? 1 : -1));
+                } else if (shortcut.indexOf('week') != -1) {
+                    dir = shortcut.indexOf('prev,') != -1 ? -1 : 1;
+                    var stopDay;
+                    if (dir == 1)
+                        stopDay = opt.startOfWeek == 'monday' ? 1 : 0;
+                    else
+                        stopDay = opt.startOfWeek == 'monday' ? 0 : 6;
+
+                    end = new Date(end.getTime() - 86400000);
+                    while (end.getDay() != stopDay) end = new Date(end.getTime() + dir * 86400000);
+                    start = new Date(end.getTime() + dir * 86400000 * 6);
+                } else if (shortcut.indexOf('month') != -1) {
+                    dir = shortcut.indexOf('prev,') != -1 ? -1 : 1;
+                    if (dir == 1)
+                        start = nextMonth(end);
+                    else
+                        start = prevMonth(end);
+                    start.setDate(1);
+                    end = nextMonth(start);
+                    end.setDate(1);
+                    end = new Date(end.getTime() - 86400000);
+                } else if (shortcut.indexOf('year') != -1) {
+                    dir = shortcut.indexOf('prev,') != -1 ? -1 : 1;
+                    start = new Date();
+                    start.setFullYear(end.getFullYear() + dir);
+                    start.setMonth(0);
+                    start.setDate(1);
+                    end.setFullYear(end.getFullYear() + dir);
+                    end.setMonth(11);
+                    end.setDate(31);
+                } else if (shortcut == 'custom') {
+                    var name = $(this).html();
+                    if (opt.customShortcuts && opt.customShortcuts.length > 0) {
+                        for (var i = 0; i < opt.customShortcuts.length; i++) {
+                            var sh = opt.customShortcuts[i];
+                            if (sh.name == name) {
+                                var data = [];
+                                // try
+                                // {
+                                data = sh['dates'].call();
+                                //}catch(e){}
+                                if (data && data.length == 2) {
+                                    start = data[0];
+                                    end = data[1];
+                                }
+
+                                // if only one date is specified then just move calendars there
+                                // move calendars to show this date's month and next months
+                                if (data && data.length == 1) {
+                                    var movetodate = data[0];
+                                    showMonth(movetodate, 'month1');
+                                    showMonth(nextMonth(movetodate), 'month2');
+                                    showGap();
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (start && end) {
+                    setDateRange(start, end);
+                    checkSelectionValid();
+                }
+            });
+
+            box.find('.time1 input[type=range]').bind('change touchmove', function (e) {
+                var target = e.target,
+                    hour = target.name == 'hour' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined,
+                    min = target.name == 'minute' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined;
+                setTime('time1', hour, min);
+            });
+
+            box.find('.time2 input[type=range]').bind('change touchmove', function (e) {
+                var target = e.target,
+                    hour = target.name == 'hour' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined,
+                    min = target.name == 'minute' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined;
+                setTime('time2', hour, min);
+            });
+
+        }
+
+
+        function calcPosition() {
+            if (!opt.inline) {
+                var offset = $(self).offset();
+                if ($(opt.container).css('position') == 'relative') {
+                    var containerOffset = $(opt.container).offset();
+                    var leftIndent = Math.max(0, offset.left + box.outerWidth() - $('body').width() + 16);
+                    box.css({
+                        top: offset.top - containerOffset.top + $(self).outerHeight() + 4,
+                        left: offset.left - containerOffset.left - leftIndent
+                    });
+                } else {
+                    if (offset.left < 460) //left to right
+                    {
+                        box.css({
+                            top: offset.top + $(self).outerHeight() + parseInt($('body').css('border-top') || 0, 10),
+                            left: offset.left
+                        });
+                    } else {
+                        box.css({
+                            top: offset.top + $(self).outerHeight() + parseInt($('body').css('border-top') || 0, 10),
+                            left: offset.left + $(self).width() - box.width() - 16
+                        });
+                    }
+                }
+            }
+        }
+
+        // Return the date picker wrapper element
+        function getDatePicker() {
+            return box;
+        }
+
+        function open(animationTime) {
+            redrawDatePicker();
+            checkAndSetDefaultValue();
+            if (opt.customOpenAnimation) {
+                opt.customOpenAnimation.call(box.get(0), function () {
+                    $(self).trigger('datepicker-opened', {
+                        relatedTarget: box
+                    });
+                });
+            } else {
+                box.slideDown(animationTime, function () {
+                    $(self).trigger('datepicker-opened', {
+                        relatedTarget: box
+                    });
+                });
+            }
+            $(self).trigger('datepicker-open', {
+                relatedTarget: box
+            });
+            showGap();
+            updateCalendarWidth();
+            calcPosition();
+        }
+
+        function checkAndSetDefaultValue() {
+            var __default_string = opt.getValue.call(selfDom);
+            var defaults = __default_string ? __default_string.split(opt.separator) : '';
+
+            if (defaults && ((defaults.length == 1 && opt.singleDate) || defaults.length >= 2)) {
+                var ___format = opt.format;
+                if (___format.match(/Do/)) {
+
+                    ___format = ___format.replace(/Do/, 'D');
+                    defaults[0] = defaults[0].replace(/(\d+)(th|nd|st)/, '$1');
+                    if (defaults.length >= 2) {
+                        defaults[1] = defaults[1].replace(/(\d+)(th|nd|st)/, '$1');
+                    }
+                }
+                // set initiated  to avoid triggerring datepicker-change event
+                initiated = false;
+                if (defaults.length >= 2) {
+                    setDateRange(getValidValue(defaults[0], ___format, moment.locale(opt.language)), getValidValue(defaults[1], ___format, moment.locale(opt.language)));
+                } else if (defaults.length == 1 && opt.singleDate) {
+                    setSingleDate(getValidValue(defaults[0], ___format, moment.locale(opt.language)));
+                }
+
+                initiated = true;
+            }
+        }
+
+        function getValidValue(date, format, locale) {
+            if (moment(date, format, locale).isValid()) {
+                return moment(date, format, locale).toDate();
+            } else {
+                return moment().toDate();
+            }
+        }
+
+        function updateCalendarWidth() {
+            var gapMargin = box.find('.gap').css('margin-left');
+            if (gapMargin) gapMargin = parseInt(gapMargin);
+            var w1 = box.find('.month1').width();
+            var w2 = box.find('.gap').width() + (gapMargin ? gapMargin * 2 : 0);
+            var w3 = box.find('.month2').width();
+            //box.find('.month-wrapper').width(w1 + w2 + w3);
+        }
+
+        function renderTime(name, date) {
+            box.find('.' + name + ' input[type=range].hour-range').val(moment(date).hours());
+            box.find('.' + name + ' input[type=range].minute-range').val(moment(date).minutes());
+            setTime(name, moment(date).format('HH'), moment(date).format('mm'));
+        }
+
+        function changeTime(name, date) {
+            opt[name] = parseInt(
+                moment(parseInt(date))
+                    .startOf('day')
+                    .add(moment(opt[name + 'Time']).format('HH'), 'h')
+                    .add(moment(opt[name + 'Time']).format('mm'), 'm').valueOf()
+            );
+        }
+
+        function swapTime() {
+            renderTime('time1', opt.start);
+            renderTime('time2', opt.end);
+        }
+
+        function setTime(name, hour, minute) {
+            hour && (box.find('.' + name + ' .hour-val').text(hour));
+            minute && (box.find('.' + name + ' .minute-val').text(minute));
+            switch (name) {
+                case 'time1':
+                    if (opt.start) {
+                        setRange('start', moment(opt.start));
+                    }
+                    setRange('startTime', moment(opt.startTime || moment().valueOf()));
+                    break;
+                case 'time2':
+                    if (opt.end) {
+                        setRange('end', moment(opt.end));
+                    }
+                    setRange('endTime', moment(opt.endTime || moment().valueOf()));
+                    break;
+            }
+
+            function setRange(name, timePoint) {
+                var h = timePoint.format('HH'),
+                    m = timePoint.format('mm');
+                opt[name] = timePoint
+                    .startOf('day')
+                    .add(hour || h, 'h')
+                    .add(minute || m, 'm')
+                    .valueOf();
+            }
+
+            checkSelectionValid();
+            showSelectedInfo();
+            showSelectedDays();
+        }
+
+        function clearSelection() {
+            opt.start = false;
+            opt.end = false;
+            box.find('.day.checked').removeClass('checked');
+            box.find('.day.last-date-selected').removeClass('last-date-selected');
+            box.find('.day.first-date-selected').removeClass('first-date-selected');
+            opt.setValue.call(selfDom, '');
+            checkSelectionValid();
+            showSelectedInfo();
+            showSelectedDays();
+        }
+
+        function handleStart(time) {
+            var r = time;
+            if (opt.batchMode === 'week-range') {
+                if (opt.startOfWeek === 'monday') {
+                    r = moment(parseInt(time)).startOf('isoweek').valueOf();
+                } else {
+                    r = moment(parseInt(time)).startOf('week').valueOf();
+                }
+            } else if (opt.batchMode === 'month-range') {
+                r = moment(parseInt(time)).startOf('month').valueOf();
+            }
+            return r;
+        }
+
+        function handleEnd(time) {
+            var r = time;
+            if (opt.batchMode === 'week-range') {
+                if (opt.startOfWeek === 'monday') {
+                    r = moment(parseInt(time)).endOf('isoweek').valueOf();
+                } else {
+                    r = moment(parseInt(time)).endOf('week').valueOf();
+                }
+            } else if (opt.batchMode === 'month-range') {
+                r = moment(parseInt(time)).endOf('month').valueOf();
+            }
+            return r;
+        }
+
+
+        function dayClicked(day) {
+            if (day.hasClass('invalid')) return;
+            var time = day.attr('time');
+            day.addClass('checked');
+            if (opt.singleDate) {
+                opt.start = time;
+                opt.end = false;
+            } else if (opt.batchMode === 'week') {
+                if (opt.startOfWeek === 'monday') {
+                    opt.start = moment(parseInt(time)).startOf('isoweek').valueOf();
+                    opt.end = moment(parseInt(time)).endOf('isoweek').valueOf();
+                } else {
+                    opt.end = moment(parseInt(time)).endOf('week').valueOf();
+                    opt.start = moment(parseInt(time)).startOf('week').valueOf();
+                }
+            } else if (opt.batchMode === 'workweek') {
+                opt.start = moment(parseInt(time)).day(1).valueOf();
+                opt.end = moment(parseInt(time)).day(5).valueOf();
+            } else if (opt.batchMode === 'weekend') {
+                opt.start = moment(parseInt(time)).day(6).valueOf();
+                opt.end = moment(parseInt(time)).day(7).valueOf();
+            } else if (opt.batchMode === 'month') {
+                opt.start = moment(parseInt(time)).startOf('month').valueOf();
+                opt.end = moment(parseInt(time)).endOf('month').valueOf();
+            } else if ((opt.start && opt.end) || (!opt.start && !opt.end)) {
+                opt.start = handleStart(time);
+                opt.end = false;
+            } else if (opt.start) {
+                opt.end = handleEnd(time);
+                if (opt.time.enabled) {
+                    changeTime('end', opt.end);
+                }
+            }
+
+            //Update time in case it is enabled and timestamps are available
+            if (opt.time.enabled) {
+                if (opt.start) {
+                    changeTime('start', opt.start);
+                }
+                if (opt.end) {
+                    changeTime('end', opt.end);
+                }
+            }
+
+            //In case the start is after the end, swap the timestamps
+            if (!opt.singleDate && opt.start && opt.end && opt.start > opt.end) {
+                var tmp = opt.end;
+                opt.end = handleEnd(opt.start);
+                opt.start = handleStart(tmp);
+                if (opt.time.enabled && opt.swapTime) {
+                    swapTime();
+                }
+            }
+
+            opt.start = parseInt(opt.start);
+            opt.end = parseInt(opt.end);
+
+            clearHovering();
+            if (opt.start && !opt.end) {
+                $(self).trigger('datepicker-first-date-selected', {
+                    'date1': new Date(opt.start)
+                });
+                dayHovering(day);
+            }
+            updateSelectableRange(time);
+
+            checkSelectionValid();
+            showSelectedInfo();
+            showSelectedDays();
+            autoclose();
+        }
+
+
+        function weekNumberClicked(weekNumberDom) {
+            var thisTime = parseInt(weekNumberDom.attr('data-start-time'), 10);
+            var date1, date2;
+            if (!opt.startWeek) {
+                opt.startWeek = thisTime;
+                weekNumberDom.addClass('week-number-selected');
+                date1 = new Date(thisTime);
+                opt.start = moment(date1).day(opt.startOfWeek == 'monday' ? 1 : 0).valueOf();
+                opt.end = moment(date1).day(opt.startOfWeek == 'monday' ? 7 : 6).valueOf();
+            } else {
+                box.find('.week-number-selected').removeClass('week-number-selected');
+                date1 = new Date(thisTime < opt.startWeek ? thisTime : opt.startWeek);
+                date2 = new Date(thisTime < opt.startWeek ? opt.startWeek : thisTime);
+                opt.startWeek = false;
+                opt.start = moment(date1).day(opt.startOfWeek == 'monday' ? 1 : 0).valueOf();
+                opt.end = moment(date2).day(opt.startOfWeek == 'monday' ? 7 : 6).valueOf();
+            }
+            updateSelectableRange();
+            checkSelectionValid();
+            showSelectedInfo();
+            showSelectedDays();
+            autoclose();
+        }
+
+        function isValidTime(time) {
+            time = parseInt(time, 10);
+            if (opt.startDate && compare_day(time, opt.startDate) < 0) return false;
+            if (opt.endDate && compare_day(time, opt.endDate) > 0) return false;
+
+            if (opt.start && !opt.end && !opt.singleDate) {
+                //check maxDays and minDays setting
+                if (opt.maxDays > 0 && countDays(time, opt.start) > opt.maxDays) return false;
+                if (opt.minDays > 0 && countDays(time, opt.start) < opt.minDays) return false;
+
+                //check selectForward and selectBackward
+                if (opt.selectForward && time < opt.start) return false;
+                if (opt.selectBackward && time > opt.start) return false;
+
+                //check disabled days
+                if (opt.beforeShowDay && typeof opt.beforeShowDay == 'function') {
+                    var valid = true;
+                    var timeTmp = time;
+                    while (countDays(timeTmp, opt.start) > 1) {
+                        var arr = opt.beforeShowDay(new Date(timeTmp));
+                        if (!arr[0]) {
+                            valid = false;
+                            break;
+                        }
+                        if (Math.abs(timeTmp - opt.start) < 86400000) break;
+                        if (timeTmp > opt.start) timeTmp -= 86400000;
+                        if (timeTmp < opt.start) timeTmp += 86400000;
+                    }
+                    if (!valid) return false;
+                }
+            }
+            return true;
+        }
+
+
+        function updateSelectableRange() {
+            box.find('.day.invalid.tmp').removeClass('tmp invalid').addClass('valid');
+            if (opt.start && !opt.end) {
+                box.find('.day.toMonth.valid').each(function () {
+                    var time = parseInt($(this).attr('time'), 10);
+                    if (!isValidTime(time))
+                        $(this).addClass('invalid tmp').removeClass('valid');
+                    else
+                        $(this).addClass('valid tmp').removeClass('invalid');
+                });
+            }
+
+            return true;
+        }
+
+
+        function dayHovering(day) {
+            var hoverTime = parseInt(day.attr('time'));
+            var tooltip = '';
+
+            if (day.hasClass('has-tooltip') && day.attr('data-tooltip')) {
+                tooltip = '<span class="tooltip-content">' + day.attr('data-tooltip') + '</span>';
+            } else if (!day.hasClass('invalid')) {
+                if (opt.singleDate) {
+                    box.find('.day.hovering').removeClass('hovering');
+                    day.addClass('hovering');
+                } else {
+                    box.find('.day').each(function () {
+                        var time = parseInt($(this).attr('time')),
+                            start = opt.start,
+                            end = opt.end;
+
+                        if (time == hoverTime) {
+                            $(this).addClass('hovering');
+                        } else {
+                            $(this).removeClass('hovering');
+                        }
+
+                        if (
+                            (opt.start && !opt.end) &&
+                            (
+                                (opt.start < time && hoverTime >= time) ||
+                                (opt.start > time && hoverTime <= time)
+                            )
+                        ) {
+                            $(this).addClass('hovering');
+                        } else {
+                            $(this).removeClass('hovering');
+                        }
+                    });
+
+                    if (opt.start && !opt.end) {
+                        var days = countDays(hoverTime, opt.start);
+                        if (opt.hoveringTooltip) {
+                            if (typeof opt.hoveringTooltip == 'function') {
+                                tooltip = opt.hoveringTooltip(days, opt.start, hoverTime);
+                            } else if (opt.hoveringTooltip === true && days > 1) {
+                                tooltip = days + ' ' + translate('days');
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (tooltip) {
+                var posDay = day.offset();
+                var posBox = box.offset();
+
+                var _left = posDay.left - posBox.left;
+                var _top = posDay.top - posBox.top;
+                _left += day.width() / 2;
+
+
+                var $tip = box.find('.date-range-length-tip');
+                var w = $tip.css({
+                    'visibility': 'hidden',
+                    'display': 'none'
+                }).html(tooltip).width();
+                var h = $tip.height();
+                _left -= w / 2;
+                _top -= h;
+                setTimeout(function () {
+                    $tip.css({
+                        left: _left,
+                        top: _top,
+                        display: 'block',
+                        'visibility': 'visible'
+                    });
+                }, 10);
+            } else {
+                box.find('.date-range-length-tip').hide();
+            }
+        }
+
+        function clearHovering() {
+            box.find('.day.hovering').removeClass('hovering');
+            box.find('.date-range-length-tip').hide();
+        }
+
+        function dateChanged(date) {
+            var value = date.val();
+            var name = date.attr('name');
+            var type = date.parents('table').hasClass('month1') ? 'month1' : 'month2';
+            var oppositeType = type === 'month1' ? 'month2' : 'month1';
+            var startDate = opt.startDate ? moment(opt.startDate) : false;
+            var endDate = opt.endDate ? moment(opt.endDate) : false;
+            var newDate = moment(opt[type])[name](value);
+
+
+            if (startDate && newDate.isSameOrBefore(startDate)) {
+                newDate = startDate.add(type === 'month2' ? 1 : 0, 'month');
+            }
+
+            if (endDate && newDate.isSameOrAfter(endDate)) {
+                newDate = endDate.add(!opt.singleMonth && type === 'month1' ? -1 : 0, 'month');
+            }
+
+            showMonth(newDate, type);
+
+            if (type === 'month1') {
+                if (opt.stickyMonths || moment(newDate).isSameOrAfter(opt[oppositeType], 'month')) {
+                    showMonth(moment(newDate).add(1, 'month'), oppositeType);
+                }
+            } else {
+                if (opt.stickyMonths || moment(newDate).isSameOrBefore(opt[oppositeType], 'month')) {
+                    showMonth(moment(newDate).add(-1, 'month'), oppositeType);
+                }
+            }
+
+            showGap();
+        }
+
+        function autoclose() {
+            if (opt.singleDate === true) {
+                if (initiated && opt.start) {
+                    if (opt.autoClose) closeDatePicker();
+                }
+            } else {
+                if (initiated && opt.start && opt.end) {
+                    if (opt.autoClose) closeDatePicker();
+                }
+            }
+        }
+
+        function checkSelectionValid() {
+            var days = Math.ceil((opt.end - opt.start) / 86400000) + 1;
+            if (opt.singleDate) { // Validate if only start is there
+                if (opt.start && !opt.end)
+                    box.find('.drp_top-bar').removeClass('error').addClass('normal');
+                else
+                    box.find('.drp_top-bar').removeClass('error').removeClass('normal');
+            } else if (opt.maxDays && days > opt.maxDays) {
+                opt.start = false;
+                opt.end = false;
+                box.find('.day').removeClass('checked');
+                box.find('.drp_top-bar').removeClass('normal').addClass('error').find('.error-top').html(translate('less-than').replace('%d', opt.maxDays));
+            } else if (opt.minDays && days < opt.minDays) {
+                opt.start = false;
+                opt.end = false;
+                box.find('.day').removeClass('checked');
+                box.find('.drp_top-bar').removeClass('normal').addClass('error').find('.error-top').html(translate('more-than').replace('%d', opt.minDays));
+            } else {
+                if (opt.start || opt.end)
+                    box.find('.drp_top-bar').removeClass('error').addClass('normal');
+                else
+                    box.find('.drp_top-bar').removeClass('error').removeClass('normal');
+            }
+
+            if ((opt.singleDate && opt.start && !opt.end) || (!opt.singleDate && opt.start && opt.end)) {
+                box.find('.apply-btn').removeClass('disabled');
+            } else {
+                box.find('.apply-btn').addClass('disabled');
+            }
+
+            if (opt.batchMode) {
+                if (
+                    (opt.start && opt.startDate && compare_day(opt.start, opt.startDate) < 0) ||
+                    (opt.end && opt.endDate && compare_day(opt.end, opt.endDate) > 0)
+                ) {
+                    opt.start = false;
+                    opt.end = false;
+                    box.find('.day').removeClass('checked');
+                }
+            }
+        }
+
+        function showSelectedInfo(forceValid, silent) {
+            box.find('.start-day').html('...');
+            box.find('.end-day').html('...');
+            box.find('.selected-days').hide();
+            if (opt.start) {
+                box.find('.start-day').html(getDateString(new Date(parseInt(opt.start))));
+            }
+            if (opt.end) {
+                box.find('.end-day').html(getDateString(new Date(parseInt(opt.end))));
+            }
+            var dateRange;
+            if (opt.start && opt.singleDate) {
+                box.find('.apply-btn').removeClass('disabled');
+                dateRange = getDateString(new Date(opt.start));
+                opt.setValue.call(selfDom, dateRange, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
+
+                if (initiated && !silent) {
+                    $(self).trigger('datepicker-change', {
+                        'value': dateRange,
+                        'date1': new Date(opt.start)
+                    });
+                }
+            } else if (opt.start && opt.end) {
+                box.find('.selected-days').show().find('.selected-days-num').html(countDays(opt.end, opt.start));
+                box.find('.apply-btn').removeClass('disabled');
+                dateRange = getDateString(new Date(opt.start)) + opt.separator + getDateString(new Date(opt.end));
+                opt.setValue.call(selfDom, dateRange, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
+                if (initiated && !silent) {
+                    $(self).trigger('datepicker-change', {
+                        'value': dateRange,
+                        'date1': new Date(opt.start),
+                        'date2': new Date(opt.end)
+                    });
+                }
+            } else if (forceValid) {
+                box.find('.apply-btn').removeClass('disabled');
+            } else {
+                box.find('.apply-btn').addClass('disabled');
+            }
+        }
+
+        function countDays(start, end) {
+            return Math.abs(daysFrom1970(start) - daysFrom1970(end)) + 1;
+        }
+
+        function setDateRange(date1, date2, silent) {
+            if (date1.getTime() > date2.getTime()) {
+                var tmp = date2;
+                date2 = date1;
+                date1 = tmp;
+                tmp = null;
+            }
+            var valid = true;
+            if (opt.startDate && compare_day(date1, opt.startDate) < 0) valid = false;
+            if (opt.endDate && compare_day(date2, opt.endDate) > 0) valid = false;
+            if (!valid) {
+                showMonth(opt.startDate, 'month1');
+                showMonth(nextMonth(opt.startDate), 'month2');
+                showGap();
+                return;
+            }
+
+            opt.start = date1.getTime();
+            opt.end = date2.getTime();
+
+            if (opt.time.enabled) {
+                renderTime('time1', date1);
+                renderTime('time2', date2);
+            }
+
+            if (opt.stickyMonths || (compare_day(date1, date2) > 0 && compare_month(date1, date2) === 0)) {
+                if (opt.lookBehind) {
+                    date1 = prevMonth(date2);
+                } else {
+                    date2 = nextMonth(date1);
+                }
+            }
+
+            if (opt.stickyMonths && opt.endDate !== false && compare_month(date2, opt.endDate) > 0) {
+                date1 = prevMonth(date1);
+                date2 = prevMonth(date2);
+            }
+
+            if (!opt.stickyMonths) {
+                if (compare_month(date1, date2) === 0) {
+                    if (opt.lookBehind) {
+                        date1 = prevMonth(date2);
+                    } else {
+                        date2 = nextMonth(date1);
+                    }
+                }
+            }
+
+            showMonth(date1, 'month1');
+            showMonth(date2, 'month2');
+            showGap();
+            checkSelectionValid();
+            showSelectedInfo(false, silent);
+            autoclose();
+        }
+
+        function setSingleDate(date1) {
+
+            var valid = true;
+            if (opt.startDate && compare_day(date1, opt.startDate) < 0) valid = false;
+            if (opt.endDate && compare_day(date1, opt.endDate) > 0) valid = false;
+            if (!valid) {
+                showMonth(opt.startDate, 'month1');
+                return;
+            }
+
+            opt.start = date1.getTime();
+
+
+            if (opt.time.enabled) {
+                renderTime('time1', date1);
+
+            }
+            showMonth(date1, 'month1');
+            if (opt.singleMonth !== true) {
+                var date2 = nextMonth(date1);
+                showMonth(date2, 'month2');
+            }
+            showGap();
+            showSelectedInfo();
+            autoclose();
+        }
+
+        function showSelectedDays() {
+            if (!opt.start && !opt.end) return;
+            box.find('.day').each(function () {
+                var time = parseInt($(this).attr('time')),
+                    start = opt.start,
+                    end = opt.end;
+                if (opt.time.enabled) {
+                    time = moment(time).startOf('day').valueOf();
+                    start = moment(start || moment().valueOf()).startOf('day').valueOf();
+                    end = moment(end || moment().valueOf()).startOf('day').valueOf();
+                }
+                if (
+                    (opt.start && opt.end && end >= time && start <= time) ||
+                    (opt.start && !opt.end && moment(start).format('YYYY-MM-DD') == moment(time).format('YYYY-MM-DD'))
+                ) {
+                    $(this).addClass('checked');
+                } else {
+                    $(this).removeClass('checked');
+                }
+
+                //add first-date-selected class name to the first date selected
+                if (opt.start && moment(start).format('YYYY-MM-DD') == moment(time).format('YYYY-MM-DD')) {
+                    $(this).addClass('first-date-selected');
+                } else {
+                    $(this).removeClass('first-date-selected');
+                }
+                //add last-date-selected
+                if (opt.end && moment(end).format('YYYY-MM-DD') == moment(time).format('YYYY-MM-DD')) {
+                    $(this).addClass('last-date-selected');
+                } else {
+                    $(this).removeClass('last-date-selected');
+                }
+            });
+
+            box.find('.week-number').each(function () {
+                if ($(this).attr('data-start-time') == opt.startWeek) {
+                    $(this).addClass('week-number-selected');
+                }
+            });
+        }
+
+        function showMonth(date, month) {
+            date = moment(date).toDate();
+            var monthElement = generateMonthElement(date, month);
+            var yearElement = generateYearElement(date, month);
+
+            box.find('.' + month + ' .month-name').html(yearElement + '<span class="dot"></span>' + monthElement);
+            box.find('.' + month + ' tbody').html(createMonthHTML(date));
+            opt[month] = date;
+            updateSelectableRange();
+            bindEvents();
+        }
+
+        function generateMonthElement(date, month) {
+            var range;
+            var startDate = opt.startDate ? moment(opt.startDate).add(!opt.singleMonth && month === 'month2' ? 1 : 0, 'month') : false;
+            var endDate = opt.endDate ? moment(opt.endDate).add(!opt.singleMonth && month === 'month1' ? -1 : 0, 'month') : false;
+            date = moment(date);
+
+            if (!opt.monthSelect ||
+                startDate && endDate && startDate.isSame(endDate, 'month')) {
+                return '<div class="month-element">' + nameMonth(date.get('month')) + '</div>';
+            }
+
+            range = [
+                startDate && date.isSame(startDate, 'year') ? startDate.get('month') : 0,
+                endDate && date.isSame(endDate, 'year') ? endDate.get('month') : 11
+            ];
+
+            if (range[0] === range[1]) {
+                return '<div class="month-element">' + nameMonth(date.get('month')) + '</div>';
+            }
+
+            return generateSelect(
+                'month',
+                generateSelectData(
+                    range,
+                    date.get('month'),
+                    function (value) {
+                        return nameMonth(value);
+                    }
+                )
+            );
+        }
+
+        function generateYearElement(date, month) {
+            date = moment(date);
+            var startDate = opt.startDate ? moment(opt.startDate).add(!opt.singleMonth && month === 'month2' ? 1 : 0, 'month') : false;
+            var endDate = opt.endDate ? moment(opt.endDate).add(!opt.singleMonth && month === 'month1' ? -1 : 0, 'month') : false;
+            var fullYear = date.get('year');
+            var isYearFunction = opt.yearSelect && typeof opt.yearSelect === 'function';
+            var range;
+
+            if (!opt.yearSelect ||
+                startDate && endDate && startDate.isSame(moment(endDate), 'year')) {
+                return '<div class="month-element">' + fullYear + '</div>';
+            }
+
+            range = isYearFunction ? opt.yearSelect(fullYear) : opt.yearSelect.slice();
+
+            range = [
+                startDate ? Math.max(range[0], startDate.get('year')) : Math.min(range[0], fullYear),
+                endDate ? Math.min(range[1], endDate.get('year')) : Math.max(range[1], fullYear)
+            ];
+
+            return generateSelect('year', generateSelectData(range, fullYear));
+        }
+
+
+        function generateSelectData(range, current, valueBeautifier) {
+            var data = [];
+            valueBeautifier = valueBeautifier || function (value) {
+                return value;
+            };
+
+            for (var i = range[0]; i <= range[1]; i++) {
+                data.push({
+                    value: i,
+                    text: valueBeautifier(i),
+                    isCurrent: i === current
+                });
+            }
+
+            return data;
+        }
+
+        function generateSelect(name, data) {
+            var select = '<div class="select-wrapper"><select class="' + name + '" name="' + name + '">';
+            var current;
+
+            for (var i = 0, l = data.length; i < l; i++) {
+                select += '<option value="' + data[i].value + '"' + (data[i].isCurrent ? ' selected' : '') + '>';
+                select += data[i].text;
+                select += '</option>';
+
+                if (data[i].isCurrent) {
+                    current = data[i].text;
+                }
+            }
+
+            select += '</select>' + current + '</div>';
+
+            return select;
+        }
+
+        function bindEvents() {
+            box.find('.day').unbind("click").click(function (evt) {
+                dayClicked($(this));
+            });
+
+            box.find('.day').unbind("mouseenter").mouseenter(function (evt) {
+                dayHovering($(this));
+            });
+
+            box.find('.day').unbind("mouseleave").mouseleave(function (evt) {
+                box.find('.date-range-length-tip').hide();
+                if (opt.singleDate) {
+                    clearHovering();
+                }
+            });
+
+            box.find('.week-number').unbind("click").click(function (evt) {
+                weekNumberClicked($(this));
+            });
+
+            box.find('.month').unbind("change").change(function (evt) {
+                dateChanged($(this));
+            });
+
+            box.find('.year').unbind("change").change(function (evt) {
+                dateChanged($(this));
+            });
+        }
+
+        function showTime(date, name) {
+            box.find('.' + name).append(getTimeHTML());
+            renderTime(name, date);
+        }
+
+        function nameMonth(m) {
+            return translate('month-name')[m];
+        }
+
+        function getDateString(d) {
+            return moment(d).format(opt.format);
+        }
+
+        function showGap() {
+            showSelectedDays();
+            var m1 = parseInt(moment(opt.month1).format('YYYYMM'));
+            var m2 = parseInt(moment(opt.month2).format('YYYYMM'));
+            var p = Math.abs(m1 - m2);
+            var shouldShow = (p > 1 && p != 89);
+            if (shouldShow) {
+                box.addClass('has-gap').removeClass('no-gap').find('.gap').css('visibility', 'visible');
+            } else {
+                box.removeClass('has-gap').addClass('no-gap').find('.gap').css('visibility', 'hidden');
+            }
+            var h1 = box.find('table.month1').height();
+            var h2 = box.find('table.month2').height();
+            box.find('.gap').height(Math.max(h1, h2) + 10);
+        }
+
+        function closeDatePicker() {
+            if (opt.alwaysOpen) return;
+
+            var afterAnim = function () {
+                $(self).data('date-picker-opened', false);
+                $(self).trigger('datepicker-closed', {
+                    relatedTarget: box
+                });
+            };
+            if (opt.customCloseAnimation) {
+                opt.customCloseAnimation.call(box.get(0), afterAnim);
+            } else {
+                $(box).slideUp(opt.duration, afterAnim);
+            }
+            $(self).trigger('datepicker-close', {
+                relatedTarget: box
+            });
+        }
+
+        function redrawDatePicker() {
+            showMonth(opt.month1, 'month1');
+            showMonth(opt.month2, 'month2');
+        }
+
+        function compare_month(m1, m2) {
+            var p = parseInt(moment(m1).format('YYYYMM')) - parseInt(moment(m2).format('YYYYMM'));
+            if (p > 0) return 1;
+            if (p === 0) return 0;
+            return -1;
+        }
+
+        function compare_day(m1, m2) {
+            var p = parseInt(moment(m1).format('YYYYMMDD')) - parseInt(moment(m2).format('YYYYMMDD'));
+            if (p > 0) return 1;
+            if (p === 0) return 0;
+            return -1;
+        }
+
+        function nextMonth(month) {
+            return moment(month).add(1, 'months').toDate();
+        }
+
+        function prevMonth(month) {
+            return moment(month).add(-1, 'months').toDate();
+        }
+
+        function getTimeHTML() {
+            return '<div>' +
+                '<span>' + translate('Time') + ': <span class="hour-val">00</span>:<span class="minute-val">00</span></span>' +
+                '</div>' +
+                '<div class="hour">' +
+                '<label>' + translate('Hour') + ': <input type="range" class="hour-range" name="hour" min="0" max="23"></label>' +
+                '</div>' +
+                '<div class="minute">' +
+                '<label>' + translate('Minute') + ': <input type="range" class="minute-range" name="minute" min="0" max="59"></label>' +
+                '</div>';
+        }
+
+        function createDom() {
+            var html = '<div class="awa-datepicker';
+            if (opt.extraClass) html += ' ' + opt.extraClass + ' ';
+            if (opt.singleDate) html += ' single-date ';
+            if (!opt.showShortcuts) html += ' no-shortcuts ';
+            if (!opt.showTopbar) html += ' no-topbar ';
+            if (opt.customHtml) html += ' custom-topbar ';
+            html += '">';
+
+
+            var _colspan = opt.showWeekNumbers ? 6 : 5;
+
+            var arrowPrev = '&lt;';
+            if (opt.customArrowPrevSymbol) arrowPrev = opt.customArrowPrevSymbol;
+
+            var arrowNext = '&gt;';
+            if (opt.customArrowNextSymbol) arrowNext = opt.customArrowNextSymbol;
+
+            html += '<div class="month-wrapper">' +
+                '<div class="month-item first">' +
+                '   <table class="month1" cellspacing="0" border="0" cellpadding="0">' +
+                '       <thead>' +
+                '           <tr class="caption">' +
+                '               <th class="">' +
+                '                   <span class="prev">' +
+                arrowPrev +
+                '                   </span>' +
+                '               </th>' +
+                '               <th colspan="' + _colspan + '" class="month-name">' +
+                '               </th>' +
+                '               <th class=>' +
+                (opt.singleDate || !opt.stickyMonths ? '<span class="next">' + arrowNext + '</span>' : '') +
+                '               </th>' +
+                '           </tr>' +
+                '           <tr class="week-name">' + getWeekHead() +
+                '       </thead>' +
+                '       <tbody></tbody>' +
+                '   </table>' +
+                '</div>';
+
+            if (hasMonth2()) {
+                html += '<div class="month-item second">' +
+                    '<table class="month2" cellspacing="0" border="0" cellpadding="0">' +
+                    '   <thead>' +
+                    '   <tr class="caption">' +
+                    '       <th>' +
+                    (!opt.stickyMonths ? '<span class="prev">' + arrowPrev + '</span>' : '') +
+                    '       </th>' +
+                    '       <th colspan="' + _colspan + '" class="month-name">' +
+                    '       </th>' +
+                    '       <th>' +
+                    '           <span class="next">' + arrowNext + '</span>' +
+                    '       </th>' +
+                    '   </tr>' +
+                    '   <tr class="week-name">' + getWeekHead() +
+                    '   </thead>' +
+                    '   <tbody></tbody>' +
+                    '   </table>' +
+                    '</div>';
+
+            }
+            //+'</div>'
+            html += '<div class="dp-clearfix"></div>' +
+                '<div class="time">' +
+                '<div class="time1"></div>';
+            if (!opt.singleDate) {
+                html += '<div class="time2"></div>';
+            }
+            html += '</div>' +
+                '<div class="dp-clearfix"></div>' +
+                '</div>';
+
+            if (opt.showTopbar) {
+                html += '<div class="drp_top-bar">';
+
+                if (opt.customHtml) {
+                    if (typeof opt.customHtml == 'function') opt.customHtml = opt.customHtml();
+                    html += '<div class="custom-top">' + opt.customHtml + '</div>';
+                } else {
+                    html += '<div class="normal-top">' +
+                        '<span class="selection-top">' + translate('selected') + ' </span> <b class="start-day">...</b>';
+                    if (!opt.singleDate) {
+                        html += ' <span class="separator-day">' + opt.separator + '</span> <b class="end-day">...</b> <i class="selected-days">(<span class="selected-days-num">3</span> ' + translate('days') + ')</i>';
+                    }
+                    html += '</div>';
+                    html += '<div class="error-top">error</div>' +
+                        '<div class="default-top">default</div>';
+                }
+
+                html += '<input type="button" class="apply-btn disabled' + getApplyBtnClass() + '" value="' + translate('apply') + '" />';
+                html += '</div>';
+            }
+
+            html += '<div class="footer">';
+            if (opt.showShortcuts) {
+                html += '<div class="shortcuts"><b>' + translate('shortcuts') + '</b>';
+
+                var data = opt.shortcuts;
+                if (data) {
+                    var name;
+                    if (data['prev-days'] && data['prev-days'].length > 0) {
+                        html += '&nbsp;<span class="prev-days">' + translate('past');
+                        for (var i = 0; i < data['prev-days'].length; i++) {
+                            name = data['prev-days'][i];
+                            name += (data['prev-days'][i] > 1) ? translate('days') : translate('day');
+                            html += ' <a href="javascript:;" shortcut="day,-' + data['prev-days'][i] + '">' + name + '</a>';
+                        }
+                        html += '</span>';
+                    }
+
+                    if (data['next-days'] && data['next-days'].length > 0) {
+                        html += '&nbsp;<span class="next-days">' + translate('following');
+                        for (var i = 0; i < data['next-days'].length; i++) {
+                            name = data['next-days'][i];
+                            name += (data['next-days'][i] > 1) ? translate('days') : translate('day');
+                            html += ' <a href="javascript:;" shortcut="day,' + data['next-days'][i] + '">' + name + '</a>';
+                        }
+                        html += '</span>';
+                    }
+
+                    if (data.prev && data.prev.length > 0) {
+                        html += '&nbsp;<span class="prev-buttons">' + translate('previous');
+                        for (var i = 0; i < data.prev.length; i++) {
+                            name = translate('prev-' + data.prev[i]);
+                            html += ' <a href="javascript:;" shortcut="prev,' + data.prev[i] + '">' + name + '</a>';
+                        }
+                        html += '</span>';
+                    }
+
+                    if (data.next && data.next.length > 0) {
+                        html += '&nbsp;<span class="next-buttons">' + translate('next');
+                        for (var i = 0; i < data.next.length; i++) {
+                            name = translate('next-' + data.next[i]);
+                            html += ' <a href="javascript:;" shortcut="next,' + data.next[i] + '">' + name + '</a>';
+                        }
+                        html += '</span>';
+                    }
+                }
+
+                if (opt.customShortcuts) {
+                    for (var i = 0; i < opt.customShortcuts.length; i++) {
+                        var sh = opt.customShortcuts[i];
+                        html += '&nbsp;<span class="custom-shortcut"><a href="javascript:;" shortcut="custom">' + sh.name + '</a></span>';
+                    }
+                }
+                html += '</div>';
+            }
+
+            // Add Custom Values Dom
+            if (opt.showCustomValues) {
+                html += '<div class="customValues"><b>' + (opt.customValueLabel || translate('custom-values')) + '</b>';
+
+                if (opt.customValues) {
+                    for (var i = 0; i < opt.customValues.length; i++) {
+                        var val = opt.customValues[i];
+                        html += '&nbsp;<span class="custom-value"><a href="javascript:;" custom="' + val.value + '">' + val.name + '</a></span>';
+                    }
+                }
+            }
+
+            html += '</div></div>';
+
+
+            return $(html);
+        }
+
+        function getApplyBtnClass() {
+            var klass = '';
+            if (opt.autoClose === true) {
+                klass += ' hide';
+            }
+            if (opt.applyBtnClass !== '') {
+                klass += ' ' + opt.applyBtnClass;
+            }
+            return klass;
+        }
+
+        function getWeekHead() {
+            var prepend = opt.showWeekNumbers ? '<th>' + translate('week-number') + '</th>' : '';
+            if (opt.startOfWeek == 'monday') {
+                return prepend + '<th>' + translate('week-1') + '</th>' +
+                    '<th>' + translate('week-2') + '</th>' +
+                    '<th>' + translate('week-3') + '</th>' +
+                    '<th>' + translate('week-4') + '</th>' +
+                    '<th>' + translate('week-5') + '</th>' +
+                    '<th>' + translate('week-6') + '</th>' +
+                    '<th>' + translate('week-7') + '</th>';
+            } else {
+                return prepend + '<th>' + translate('week-7') + '</th>' +
+                    '<th>' + translate('week-1') + '</th>' +
+                    '<th>' + translate('week-2') + '</th>' +
+                    '<th>' + translate('week-3') + '</th>' +
+                    '<th>' + translate('week-4') + '</th>' +
+                    '<th>' + translate('week-5') + '</th>' +
+                    '<th>' + translate('week-6') + '</th>';
+            }
+        }
+
+        function isMonthOutOfBounds(month) {
+            month = moment(month);
+            if (opt.startDate && month.endOf('month').isBefore(opt.startDate)) {
+                return true;
+            }
+            if (opt.endDate && month.startOf('month').isAfter(opt.endDate)) {
+                return true;
+            }
+            return false;
+        }
+
+        function getGapHTML() {
+            var html = ['<div class="gap-top-mask"></div><div class="gap-bottom-mask"></div><div class="gap-lines">'];
+            for (var i = 0; i < 20; i++) {
+                html.push('<div class="gap-line">' +
+                    '<div class="gap-1"></div>' +
+                    '<div class="gap-2"></div>' +
+                    '<div class="gap-3"></div>' +
+                    '</div>');
+            }
+            html.push('</div>');
+            return html.join('');
+        }
+
+        function hasMonth2() {
+            return (!opt.singleMonth);
+        }
+
+        function attributesCallbacks(initialObject, callbacksArray, today) {
+            var resultObject = $.extend(true, {}, initialObject);
+
+            $.each(callbacksArray, function (cbAttrIndex, cbAttr) {
+                var addAttributes = cbAttr(today);
+                for (var attr in addAttributes) {
+                    if (resultObject.hasOwnProperty(attr)) {
+                        resultObject[attr] += addAttributes[attr];
+                    } else {
+                        resultObject[attr] = addAttributes[attr];
+                    }
+                }
+            });
+
+            var attrString = '';
+
+            for (var attr in resultObject) {
+                if (resultObject.hasOwnProperty(attr)) {
+                    attrString += attr + '="' + resultObject[attr] + '" ';
+                }
+            }
+
+            return attrString;
+        }
+
+        function daysFrom1970(t) {
+            return Math.floor(toLocalTimestamp(t) / 86400000);
+        }
+
+        function toLocalTimestamp(t) {
+            if (moment.isMoment(t)) t = t.toDate().getTime();
+            if (typeof t == 'object' && t.getTime) t = t.getTime();
+            if (typeof t == 'string' && !t.match(/\d{13}/)) t = moment(t, opt.format).toDate().getTime();
+            t = parseInt(t, 10) - new Date().getTimezoneOffset() * 60 * 1000;
+            return t;
+        }
+
+        function createMonthHTML(d) {
+            var days = [];
+            d.setDate(1);
+            var lastMonth = new Date(d.getTime() - 86400000);
+            var now = new Date();
+
+            var dayOfWeek = d.getDay();
+            if ((dayOfWeek === 0) && (opt.startOfWeek === 'monday')) {
+                // add one week
+                dayOfWeek = 7;
+            }
+            var today, valid;
+
+            if (dayOfWeek > 0) {
+                for (var i = dayOfWeek; i > 0; i--) {
+                    var day = new Date(d.getTime() - 86400000 * i);
+                    valid = isValidTime(day.getTime());
+                    if (opt.startDate && compare_day(day, opt.startDate) < 0) valid = false;
+                    if (opt.endDate && compare_day(day, opt.endDate) > 0) valid = false;
+                    days.push({
+                        date: day,
+                        type: 'lastMonth',
+                        day: day.getDate(),
+                        time: day.getTime(),
+                        valid: valid
+                    });
+                }
+            }
+            var toMonth = d.getMonth();
+            for (var i = 0; i < 40; i++) {
+                today = moment(d).add(i, 'days').toDate();
+                valid = isValidTime(today.getTime());
+                if (opt.startDate && compare_day(today, opt.startDate) < 0) valid = false;
+                if (opt.endDate && compare_day(today, opt.endDate) > 0) valid = false;
+                days.push({
+                    date: today,
+                    type: today.getMonth() == toMonth ? 'toMonth' : 'nextMonth',
+                    day: today.getDate(),
+                    time: today.getTime(),
+                    valid: valid
+                });
+            }
+            var html = [];
+            for (var week = 0; week < 6; week++) {
+                if (days[week * 7].type == 'nextMonth') break;
+                html.push('<tr>');
+
+                for (var day = 0; day < 7; day++) {
+                    var _day = (opt.startOfWeek == 'monday') ? day + 1 : day;
+                    today = days[week * 7 + _day];
+                    var highlightToday = moment(today.time).format('L') == moment(now).format('L');
+                    today.extraClass = '';
+                    today.tooltip = '';
+                    if (today.valid && opt.beforeShowDay && typeof opt.beforeShowDay == 'function') {
+                        var _r = opt.beforeShowDay(moment(today.time).toDate());
+                        today.valid = _r[0];
+                        today.extraClass = _r[1] || '';
+                        today.tooltip = _r[2] || '';
+                        if (today.tooltip !== '') today.extraClass += ' has-tooltip ';
+                    }
+
+                    var todayDivAttr = {
+                        time: today.time,
+                        'data-tooltip': today.tooltip,
+                        'class': 'day ' + today.type + ' ' + today.extraClass + ' ' + (today.valid ? 'valid' : 'invalid') + ' ' + (highlightToday ? 'real-today' : '')
+                    };
+
+                    if (day === 0 && opt.showWeekNumbers) {
+                        html.push('<td><div class="week-number" data-start-time="' + today.time + '">' + opt.getWeekNumber(today.date) + '</div></td>');
+                    }
+
+                    html.push('<td ' + attributesCallbacks({}, opt.dayTdAttrs, today) + '><div ' + attributesCallbacks(todayDivAttr, opt.dayDivAttrs, today) + '>' + showDayHTML(today.time, today.day) + '</div></td>');
+                }
+                html.push('</tr>');
+            }
+            return html.join('');
+        }
+
+        function showDayHTML(time, date) {
+            if (opt.showDateFilter && typeof opt.showDateFilter == 'function') return opt.showDateFilter(time, date);
+            return date;
+        }
+
+        function getLanguages() {
+            if (opt.language == 'auto') {
+                var language = navigator.language ? navigator.language : navigator.browserLanguage;
+                if (!language) {
+                    return $.allwinDatepickerLanguages['default'];
+                }
+                language = language.toLowerCase();
+                if (language in $.allwinDatepickerLanguages) {
+                    return $.allwinDatepickerLanguages[language];
+                }
+
+                return $.allwinDatepickerLanguages['default'];
+            } else if (opt.language && opt.language in $.allwinDatepickerLanguages) {
+                return $.allwinDatepickerLanguages[opt.language];
+            } else {
+                return $.allwinDatepickerLanguages['default'];
+            }
+        }
+
+        /**
+         * Translate language string, try both the provided translation key, as the lower case version
+         */
+        function translate(translationKey) {
+            var translationKeyLowerCase = translationKey.toLowerCase();
+            var result = (translationKey in languages) ? languages[translationKey] : (translationKeyLowerCase in languages) ? languages[translationKeyLowerCase] : null;
+            var defaultLanguage = $.allwinDatepickerLanguages['default'];
+            if (result == null) result = (translationKey in defaultLanguage) ? defaultLanguage[translationKey] : (translationKeyLowerCase in defaultLanguage) ? defaultLanguage[translationKeyLowerCase] : '';
+
+            return result;
+        }
+
+        function getDefaultTime() {
+            var defaultTime = opt.defaultTime ? opt.defaultTime : new Date();
+
+            if (opt.lookBehind) {
+                if (opt.startDate && compare_month(defaultTime, opt.startDate) < 0) defaultTime = nextMonth(moment(opt.startDate).toDate());
+                if (opt.endDate && compare_month(defaultTime, opt.endDate) > 0) defaultTime = moment(opt.endDate).toDate();
+            } else {
+                if (opt.startDate && compare_month(defaultTime, opt.startDate) < 0) defaultTime = moment(opt.startDate).toDate();
+                if (opt.endDate && compare_month(nextMonth(defaultTime), opt.endDate) > 0) defaultTime = prevMonth(moment(opt.endDate).toDate());
+            }
+
+            if (opt.singleDate) {
+                if (opt.startDate && compare_month(defaultTime, opt.startDate) < 0) defaultTime = moment(opt.startDate).toDate();
+                if (opt.endDate && compare_month(defaultTime, opt.endDate) > 0) defaultTime = moment(opt.endDate).toDate();
+            }
+
+            return defaultTime;
+        }
+
+        function resetMonthsView(time) {
+            if (!time) {
+                time = getDefaultTime();
+            }
+
+            if (opt.lookBehind) {
+                showMonth(prevMonth(time), 'month1');
+                showMonth(time, 'month2');
+            } else {
+                showMonth(time, 'month1');
+                showMonth(nextMonth(time), 'month2');
+            }
+
+            if (opt.singleDate) {
+                showMonth(time, 'month1');
+            }
+
+            showSelectedDays();
+            showGap();
+        }
+
+    };
+}));
