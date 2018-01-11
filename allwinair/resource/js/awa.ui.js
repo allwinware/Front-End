@@ -8,7 +8,8 @@ AWAUI = (function () {
         common: {
             init: function () {
                 AWAUI.common.headerFixed();
-                AWAUI.common.layerSelect();
+                AWAUI.common.select();
+                AWAUI.common.datepicker();
             },
             headerFixed: function () {
                 //헤더 고정
@@ -22,9 +23,13 @@ AWAUI = (function () {
                     else sticky.removeClass('fixed');
                 });
             },
-            layerSelect: function () {
-                var selectTaget = $('.awa-select--target'), selectLayer = $('.awa-select--inner'),
-                    selectItem = $('.awa-select--inner a');
+            select: function () {
+                $('.awa-select__default select').select2({minimumResultsForSearch: -1});
+
+                $('.awa-select__srch select').select2();
+
+                var selectTaget = $('.awa-select__layer--target'), selectLayer = $('.awa-select__layer--inner'),
+                    selectItem = $('.awa-select__layer--inner a');
                 $(selectTaget).on('click', function () {
                     $(selectLayer).hide();
                     $(this).next().slideDown('fast');
@@ -32,13 +37,24 @@ AWAUI = (function () {
                 });
                 $(selectItem).on('click', function () {
                     var text = $(this).text();
-                    $(this).closest('.awa-select').find(selectTaget).text(text);
+                    $(this).closest('.awa-select__layer').find(selectTaget).text(text);
                     $(selectLayer).hide();
                     return false;
                 });
                 $(selectLayer).mouseleave(function () {
                     $(this).hide();
                 });
+            },
+            datepicker: function () {
+                if ($('.js-datepicker-single').length > 0) {
+                    $('.js-datepicker-single').allwinDatepicker({
+                        container: '.awa-input2.cal',
+                        autoClose: true,
+                        singleDate: true,
+                        showShortcuts: false,
+                        singleMonth: true
+                    });
+                }
             }
         },
         /**
@@ -59,13 +75,16 @@ AWAUI = (function () {
             },
             matching: function () {
                 //출/귀국일 선택
-                $('#matching-datapicker__input').allwinDatepicker({
-                    inline: true,
-                    container: '.matching--datapicker__view',
-                    alwaysOpen: true,
-                    hoveringTooltip: false,
-                    customHtml: '<div class="awa-datepicker__add-info"></div>'
-                });
+                if ($('#matching-datapicker__input').length > 0) {
+                    $('#matching-datapicker__input').allwinDatepicker({
+                        inline: true,
+                        container: '.matching--datapicker__view',
+                        alwaysOpen: true,
+                        hoveringTooltip: false,
+                        customHtml: '<div class="awa-datepicker__add-info"></div>'
+                    });
+                }
+
 
                 var html = '';
                 html += '<storng class="add-info__txt1">선호하는 편명 혹은 출국, 귀국 시간이 있으신가요?</storng>' +
@@ -79,9 +98,9 @@ AWAUI = (function () {
                     '   </span>' +
                     '</div>' +
                     '<div class="add-info__selects" id="add-info__selects">' +
-                    '   <div class="awa-select">' +
-                    '      <button type="button" class="awa-select--target">출국 시간</button>' +
-                    '      <div class="awa-select--inner">' +
+                    '   <div class="awa-select__layer">' +
+                    '      <button type="button" class="awa-select__layer--target">출국 시간</button>' +
+                    '      <div class="awa-select__layer--inner">' +
                     '           <ul>' +
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
@@ -91,12 +110,12 @@ AWAUI = (function () {
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '           </li>' +
+                    '           </ul>' +
                     '      </div>' +
                     '   </div>' +
-                    '   <div class="awa-select">' +
-                    '      <button type="button" class="awa-select--target">귀국 시간</button>' +
-                    '      <div class="awa-select--inner">' +
+                    '   <div class="awa-select__layer">' +
+                    '      <button type="button" class="awa-select__layer--target">귀국 시간</button>' +
+                    '      <div class="awa-select__layer--inner">' +
                     '           <ul>' +
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
@@ -106,7 +125,7 @@ AWAUI = (function () {
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
                     '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '           </li>' +
+                    '           </ul>' +
                     '      </div>' +
                     '   </div>' +
                     '</div>' +
@@ -132,7 +151,7 @@ AWAUI = (function () {
                     }
                 });
 
-                AWAUI.common.layerSelect();
+                AWAUI.common.select();
 
                 //도착도시
                 $('.ag__link').on('click', function () {

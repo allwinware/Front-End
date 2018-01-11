@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="../resource/css/awa.ui.min.css">
     <!--[if lt IE 9]>
     <link rel="stylesheet" href="../resource/css/awa.old.min.css">
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="../resource/js/html5shiv.min.js"></script>
     <![endif]-->
     <style>
         .guide-header {
@@ -60,6 +60,7 @@
             padding-left: 5px;
             border-left-color: #ebaa2c;
             font-size: 20px;
+            margin-bottom: 10px;
         }
 
         .ui-guide__inner {
@@ -70,6 +71,7 @@
             position: relative;
             padding-left: 8px;
             font-size: 18px;
+            margin-bottom: 5px;
         }
 
         .ui-guide__h3:before {
@@ -82,6 +84,18 @@
             position: absolute;
             top: 50%;
             left: 0;
+        }
+
+        .ui-guide__inner-item {
+            margin-top: 20px;
+        }
+
+        .ui-guide__inner-item:first-child {
+            margin-top: 0;
+        }
+
+        .awa-paging {
+            text-align: left;
         }
     </style>
 </head>
@@ -96,8 +110,19 @@
             <h2 class="ui-guide__h2">BUTTON</h2>
 
             <div class="ui-guide__inner">
-                <a href="" class="awa-btn-160 yellow">나도 요청</a>
-                <a href="" class="awa-btn-160 navy">판매하기</a>
+                <button type="button" class="awa-btn-100 navy">조회하기</button>
+
+                <br>
+
+                <a href="" class="awa-btn-160 yellow">버튼명</a>
+
+                <br>
+
+                <a href="" class="awa-btn-160 navy">버튼명</a>
+
+                <br>
+
+                <button type="button" class="awa-btn-300 yellow">버튼명</button>
             </div>
         </section>
 
@@ -105,16 +130,35 @@
             <h2 class="ui-guide__h2">INPUT</h2>
 
             <div class="ui-guide__inner">
-                <section class="ui-guide__input-text">
+                <section class="ui-guide__inner-item ui-guide__input-text">
                     <h3 class="ui-guide__h3">TEXT</h3>
+
+                    <span class="awa-input"><input type="text" placeholder="내용"></span>
+
+                    <br>
+
+                    <span class="awa-input2"><input type="text" placeholder="내용"></span>
+
+                    <br>
+
+                    <span class="awa-input2 cal"><input type="text" class="js-datepicker-single"
+                                                        placeholder="날짜 선택"></span>
                 </section>
 
-                <section class="ui-guide__input-check">
+                <section class="ui-guide__inner-item ui-guide__input-check">
                     <h3 class="ui-guide__h3">CHECKBOX</h3>
                 </section>
 
-                <section class="ui-guide__input-radio">
+                <section class="ui-guide__inner-item ui-guide__input-radio">
                     <h3 class="ui-guide__h3">RADIO</h3>
+
+                    <span class="awa-radio">
+                        <input type="radio" id="r1" name="r"><label for="r1">내용1</label>
+                    </span>
+
+                    <span class="awa-radio">
+                        <input type="radio" id="r2" name="r"><label for="r2">내용2</label>
+                    </span>
                 </section>
             </div>
         </section>
@@ -123,6 +167,39 @@
             <h2 class="ui-guide__h2">SELECT</h2>
 
             <div class="ui-guide__inner">
+                <div class="awa-select__layer">
+                    <button type="button" class="awa-select__layer--target">출국 시간</button>
+                    <div class="awa-select__layer--inner">
+                        <ul>
+                            <li><a href="">오전 00:00 ~ 11:59</a></li>
+                            <li><a href="">오전 00:00 ~ 11:59</a></li>
+                            <li><a href="">오전 00:00 ~ 11:59</a></li>
+                            <li><a href="">오전 00:00 ~ 11:59</a></li>
+                            <li><a href="">오전 00:00 ~ 11:59</a></li>
+                            <li><a href="">오전 00:00 ~ 11:59</a></li>
+                            <li><a href="">오전 00:00 ~ 11:59</a></li>
+                            <li><a href="">오전 00:00 ~ 11:59</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="awa-select__default">
+                    <select name="" style="width:100%;">
+                        <option value="">전체</option>
+                        <option value="0">매칭중</option>
+                        <option value="1">매칭종료</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <div class="awa-select__srch">
+                    <select name="" style="width:100%;">
+                        <option value="">전체</option>
+                    </select>
+                </div>
             </div>
         </section>
 
@@ -144,6 +221,8 @@
             <h2 class="ui-guide__h2">LABEL</h2>
 
             <div class="ui-guide__inner">
+                <span class="course-label course-label__type1">직항</span>
+                <span class="course-label course-label__type2">경유</span>
             </div>
         </section>
 
@@ -151,6 +230,9 @@
             <h2 class="ui-guide__h2">BIDDING</h2>
 
             <div class="ui-guide__inner">
+                <div style="background:#000;padding:100px 0;">
+                    <div class="awa-bidding solo" style="height:500px;"></div>
+                </div>
             </div>
         </section>
 
@@ -174,15 +256,87 @@
             <div class="ui-guide__inner">
             </div>
         </section>
+
+        <section class="ui-guide__item ui-guide__paging">
+            <h2 class="ui-guide__h2">PAGING</h2>
+
+            <div class="ui-guide__inner">
+                <div class="awa-paging">
+                    <a href="" class="awa-paging--prev"><</a>
+                    <a href="" class="awa-paging--active">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                    <a href="" class="awa-paging--next">></a>
+                </div>
+            </div>
+        </section>
     </section>
 </div>
 
 <script src="../resource/js/jquery-2.2.4.min.js"></script>
 <script src="../resource/js/jquery-migrate-1.4.1.min.js"></script>
 <script src="../resource/js/awa.plugin.min.js"></script>
-<script src="../resource/js/awa.ui.min.js"></script>
 <script>
     $(function () {
+        $('.awa-select__default select').select2({minimumResultsForSearch: -1});
+
+        $('.awa-select__srch select').select2();
+
+        var selectTaget = $('.awa-select__layer--target'), selectLayer = $('.awa-select__layer--inner'),
+            selectItem = $('.awa-select__layer--inner a');
+        $(selectTaget).on('click', function () {
+            $(selectLayer).hide();
+            $(this).next().slideDown('fast');
+            $(selectLayer).mCustomScrollbar();
+        });
+        $(selectItem).on('click', function () {
+            var text = $(this).text();
+            $(this).closest('.awa-select__layer').find(selectTaget).text(text);
+            $(selectLayer).hide();
+            return false;
+        });
+        $(selectLayer).mouseleave(function () {
+            $(this).hide();
+        });
+
+        var bidH = $(window).height() - 520, bidH2 = $(window).height() - 600;
+        $('.bidding_outer').css('height', bidH);
+        $('.group_prd_range .bidding_outer').css('height', bidH2);
+        $(window).resize(function () {
+            var bidH = $(window).height() - 520, bidH2 = $(window).height() - 600;
+            $('.bidding_outer').css('height', bidH);
+            $('.group_prd_range .bidding_outer').css('height', bidH2);
+        });
+
+        var min = 320000, max = 350000, value = (min + max) / 2;
+        $('.awa-bidding.solo').bidding({
+            min: min,
+            max: max,
+            value: value,
+            slide: function (event, ui) {
+                console.log("slide");
+                //깃발 움직일때 값 세팅
+                $('.bid__handle-ment, .user_price').text(Intl.NumberFormat().format(ui.value));
+            },
+            change: function (event, ui) {
+                console.log("change");
+            },
+            create: function (event, ui) {
+                console.log("create");
+            }
+        });
+
+        if ($('.js-datepicker-single').length > 0) {
+            $('.js-datepicker-single').allwinDatepicker({
+                container: '.awa-input2.cal',
+                autoClose: true,
+                singleDate: true,
+                showShortcuts: false,
+                singleMonth: true
+            });
+        }
     });
 </script>
 </body>

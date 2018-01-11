@@ -286,6 +286,7 @@ time, mark, audio, video, textarea {
 
 body, html {
     min-width: 1280px;
+    letter-spacing: -1px;
 }
 
 main, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -777,7 +778,117 @@ legend, .blind {
     -ms-filter: "alpha(opacity=90)"
 }
 
+.select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+}
 
+.select2-container .select2-selection--single {
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+    border: 1px solid #b3b3b3;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    display: inline-block;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 9px;
+    height: 6px;
+    background: url('../../resource/img/img_select-arrow.png') center center no-repeat;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 10px;
+}
+
+.select2-search--hide {
+    display: none !important;
+}
+
+.select2-dropdown {
+    border: 1px solid #b3b3b3;
+    background: #fff;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    left: -100000px;
+    width: 100%;
+    z-index: 500;
+}
+
+.select2-container--open .select2-dropdown {
+    left: 0;
+}
+
+.select2-search--dropdown {
+    display: block;
+    padding: 5px;
+}
+
+.select2-search--dropdown .select2-search__field {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 30px;
+}
+
+.select2-container--default .select2-results__option {
+    cursor: pointer;
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.select2-container--default .select2-results__message {
+    cursor: default;
+}
+
+.select2-hidden-accessible {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+}
+
+.awa-tbs {
+}
+
+.awa-tbs table {
+    width: 100%;
+}
+
+.awa-tb__th {
+    height: 70px;
+    font-weight: normal;
+    font-size: 14px;
+    color: #000;
+    border-top: 1px solid #292a4d;
+    border-bottom: 1px solid #292a4d;
+}
+
+.awa-tb__td {
+    border-bottom: 1px solid #d9d9d9;
+    text-align: center;
+}
+
+.awa-tb__td--left {
+    text-align: left;
+}
 
 .awa-tooltip {
     position: absolute;
@@ -809,12 +920,12 @@ legend, .blind {
     vertical-align: middle;
 }
 
-.awa-select {
+.awa-select__layer {
     position: relative;
     display: block;
 }
 
-.awa-select--target {
+.awa-select__layer--target {
     position: relative;
     background: url('../../resource/img/img_arrow_11x7.png') right center no-repeat;
     width: 100%;
@@ -826,7 +937,7 @@ legend, .blind {
     color: #000;
 }
 
-.awa-select--inner {
+.awa-select__layer--inner {
     overflow: hidden;
     display: none;
     text-align: left;
@@ -834,14 +945,15 @@ legend, .blind {
     position: absolute;
     top: 0;
     left: 0;
-    width: 220px;
+    z-index: 50;
+    width: 100%;
     height: 237px;
-    padding: 10 px0;
+    padding: 10px 0;
     border: 1px solid #000;
     box-sizing: border-box;
 }
 
-.awa-select--inner a {
+.awa-select__layer--inner a {
     display: block;
     font-size: 18px;
     color: #000;
@@ -850,7 +962,7 @@ legend, .blind {
     line-height: 40px;
 }
 
-.awa-select--inner a:hover {
+.awa-select__layer--inner a:hover {
     background: #ebaa2c;
     color: #fff;
 }
@@ -1004,6 +1116,72 @@ legend, .blind {
     color: #000 !important;
 }
 
+.awa-datepicker.single-date {
+    width: 100%;
+    padding: 0;
+}
+
+.awa-datepicker.single-date .month-wrapper {
+    width: auto;
+}
+
+.awa-datepicker.single-date .month-wrapper table {
+    width: 100%;
+}
+
+.awa-datepicker.single-date .month-wrapper .month-item {
+    float: none;
+    clear: both;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #b3b3b3;
+}
+
+.awa-datepicker.single-date thead th {
+    min-width: 30px;
+    height: 30px;
+}
+
+.awa-datepicker.single-date thead select {
+    height: 30px;
+    font-size: 18px;
+}
+
+.awa-datepicker.single-date thead .prev {
+    min-width: 30px;
+    height: 30px;
+    background-size: 10px 17px
+}
+
+.awa-datepicker.single-date thead .next {
+    min-width: 30px;
+    height: 30px;
+    background-size: 10px 17px
+}
+
+.awa-datepicker.single-date thead .dot {
+    top: 4px;
+    width: 3px;
+    height: 3px;
+}
+
+.awa-datepicker.single-date thead .week-name th {
+    font-size: 12px;
+    height: 30px;
+}
+
+.awa-datepicker.single-date tbody td {
+    height: 30px;
+
+}
+
+.awa-datepicker.single-date tbody td .day {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 13px;
+}
+
 .awa-datepicker__add-info {
     margin-top: 50px;
 }
@@ -1037,7 +1215,7 @@ legend, .blind {
     margin-bottom: 50px;
 }
 
-.add-info__selects .awa-select {
+.add-info__selects .awa-select__layer {
     margin: 0 15px;
     display: inline-block;
     width: 220px;
@@ -2539,6 +2717,7 @@ legend, .blind {
     color: #fff;
     text-align: center;
     letter-spacing: 1px;
+    margin-right: 5px;
 }
 
 .course-label__type1 {
@@ -2550,7 +2729,6 @@ legend, .blind {
 }
 
 .awa-paging {
-    width: 1220px;
     margin: 0 auto;
     text-align: center;
     font-size: 0;
@@ -2574,6 +2752,23 @@ legend, .blind {
     color: #292a4d !important;
 }
 
+.awa-btn-100 {
+    display: block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+}
+
+.awa-btn-100.yellow {
+    background: #ebaa2c;
+}
+
+.awa-btn-100.navy {
+    background: #292a4d;
+}
 .awa-btn-160 {
     display: block;
     width: 160px;
@@ -2596,11 +2791,11 @@ legend, .blind {
     display: block;
     width: 300px;
     height: 60px;
-    line-height: 50px;
+    line-height: 60px;
     text-align: center;
     font-size: 18px;
     color: #fff;
-    font-family: 'NS-Bold';
+    font-family: 'NS-Medium';
 }
 
 .awa-btn-300.yellow {
@@ -2609,6 +2804,168 @@ legend, .blind {
 
 .awa-btn-300.navy {
     background: #292a4d;
+}
+
+.awa-btn-280 {
+    display: block;
+    width: 280px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    font-family: 'NS-Medium';
+}
+
+.awa-btn-280.yellow {
+    background: #ebaa2c;
+}
+
+.awa-btn-280.navy {
+    background: #292a4d;
+}
+
+.awa-input {
+    position: relative;
+    display: block;
+    border: 1px solid #dde3eb;
+    box-sizing: border-box;
+    height: 44px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.awa-input input {
+    color: #000;
+    text-indent: 20px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 100%;
+    font-size: 16px;
+    font-family: 'NS-Regular';
+}
+
+.awa-input2 {
+    position: relative;
+    display: block;
+    border: 1px solid #b3b3b3;
+    box-sizing: border-box;
+    height: 30px;
+
+}
+
+.awa-input2.cal:after {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    width: 13px;
+    height: 16px;
+    background: url('../../resource/img/img_input-cal.png') center center no-repeat;
+}
+
+.awa-input2 input {
+    color: #000;
+    text-indent: 10px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    font-family: 'NS-Regular';
+    background: transparent;
+}
+
+.awa-radio {
+    position: relative;
+    display: inline-block;
+    height: 24px;
+    margin: 10px 0 0 20px;
+}
+
+.awa-radio:first-child {
+    margin-left: 0;
+}
+
+.awa-radio input {
+    opacity: 0;
+    position: absolute;
+}
+
+.awa-radio input[type=radio] + label {
+    display: block;
+    letter-spacing: -1px;
+    height: 24px;
+    line-height: 25px;
+    font-size: 16px;
+    color: #aaa;
+    cursor: pointer;
+    padding-left: 30px;
+}
+
+.awa-radio input[type=radio] + label:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 24px;
+    border: 1px solid #e7e7e7;
+}
+
+.awa-radio input[type=radio]:checked + label {
+    color: #1a1a1a;
+}
+
+.awa-radio input[type=radio]:checked + label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 16px;
+    background: #ebaa2c;
+}
+
+.awa-list-utils {
+    font-size: 0;
+    margin-bottom: 40px;
+}
+
+.awa-list-utils .awa-btn-100 {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.awa-list-utils .list-util__item {
+    display: inline-block;
+    font-size: 0;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.awa-list-utils .list-util__item dt {
+    display: block;
+    font-family: 'NS-Medium';
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.awa-list-utils .list-util__item dd {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.awa-list-utils .list-util__item dd.back {
+    margin-left: 5px;
 }
 
 .bid {
@@ -2817,8 +3174,6 @@ legend, .blind {
 .bidding_outer2 .bid--vertical .ui-slider-range-max {
     top: 0;
 }
-
-
 
 .ly_tender {
     position: fixed;
@@ -3465,6 +3820,15 @@ legend, .blind {
     font-family: 'NS-Regular';
 }
 
+.tender_info .countdown {
+    margin-top: 20px;
+    font-weight: normal;
+    display: block;
+    font-size: 22px;
+    font-family: 'GT-SemiBold';
+    color: #000;
+}
+
 .group_prd_range {
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -3616,6 +3980,14 @@ legend, .blind {
     font-size: 14px;
     color: #fff;
     margin-bottom: 5px;
+}
+
+.tender_range .total .tax a {
+    margin-left: 5px;
+    display: inline-block;
+    font-size: 14px;
+    color: #fff;
+    border-bottom: 1px solid #fff
 }
 
 .tender_range .total .seat_ea {
@@ -4680,40 +5052,6 @@ legend, .blind {
     margin: 50px 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* 상단 배너 */
 .awa-top-banner {
     position: relative;
@@ -4875,6 +5213,9 @@ legend, .blind {
     min-height: 768px;
 }
 
+.awa-contents {
+}
+
 /* footer */
 .awa-footer {
     border-top: 1px solid #d6d6d6;
@@ -4993,7 +5334,7 @@ legend, .blind {
     top: 0;
     left: 0;
     background: #ebaa2c;
-    z-index: 200;
+    z-index: 2000;
     overflow: hidden;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -6392,4 +6733,172 @@ legend, .blind {
 
 .awa-partners .awa-slide_pager-link--active {
     background: #ebaa2c;
+}
+
+/* 파트너센터 */
+.awa-partner-center {
+    width: 1280px;
+    margin: 0 auto;
+}
+
+.pnr-ct__tops {
+    position: relative;
+    border-bottom: 1px solid #000;
+    padding-bottom: 10px;
+}
+
+.pnr-ct__top-tit {
+    font-size: 30px;
+    color: #000;
+    line-height: 100%;
+}
+
+.pnr-ct__top-profit {
+    position: absolute;
+    bottom: 8px;
+    right: 0;
+}
+
+.pnr-ct__top-profit span {
+    font-size: 14px;
+    color: #000;
+    display: block;
+}
+
+.pnr-ct__top-profit strong {
+    position: relative;
+    padding-right: 25px;
+    font-weight: normal;
+    font-size: 24px;
+    font-family: 'GT-SemiBold';
+    color: #ebaa2c;
+    line-height: 100%;
+}
+
+.pnr-ct__top-profit strong:after {
+    content: '원';
+    font-family: 'NS-Bold';
+    position: absolute;
+    bottom: 4px;
+    right: 0;
+    font-size: 24px;
+    color: #ebaa2c;
+}
+
+.pnr-ct__menus {
+    margin-top: 20px;
+}
+
+.pnr-ct__menu-items {
+    font-size: 0;
+}
+
+.pnr-ct__menu-item {
+    display: inline-block;
+    margin-right: 40px;
+}
+
+.pnr-ct__menu-link {
+    font-size: 14px;
+    color: #000;
+}
+
+.pnr-ct__menu-link--active {
+    color: #ebaa2c;
+    border-bottom: 1px solid #ebaa2c;
+}
+
+.pnr-ct__state {
+    text-align: center;
+    margin: 70px 0 100px 0;
+}
+
+.pnr-ct__state .awa-btn-280 {
+    margin: 0 auto;
+}
+
+.pnr-ct__state-txt1 {
+    font-size: 30px;
+    color: #000;
+    font-family: 'NS-Bold';
+    line-height: 100%;
+}
+
+.pnr-ct__state-txt2 {
+    font-size: 14px;
+    color: #000;
+    margin-top: 10px;
+}
+
+.pnr-ct__state-txt2 span {
+    color: #ebaa2c;
+}
+
+.pnr-ct__state-box {
+    position: relative;
+    overflow: hidden;
+    margin: 30px 0;
+    width: 1280px;
+    height: 158px;
+    background: url('../../resource/img/img_ticker-small.png') center center no-repeat
+}
+
+.pnr-ct__state-box .state-box__tits {
+    position: absolute;
+    top: 40px;
+    left: 55px;
+    font-size: 18px;
+    font-family: 'NS-Bold';
+    color: #000;
+    text-align: left;
+}
+
+.pnr-ct__state-box .state-box__tits p {
+    font-size: 36px;
+    font-family: 'GT-Bold';
+}
+
+.pnr-ct__state-box .state-box__tits span {
+    font-size: 18px;
+    font-family: 'NS-Bold';
+    color: #ebaa2c;
+}
+
+.pnr-ct__state-box .state-box__items {
+    margin: 42px 0 0 380px;
+    font-size: 0;
+    text-align: center;
+}
+
+.pnr-ct__state-box .state-box__item {
+    padding: 0 50px;
+    height: 76px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.pnr-ct__state-box .state-box__item dl {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.pnr-ct__state-box .state-box__item dt {
+    color: #000;
+    font-size: 14px;
+}
+
+.pnr-ct__state-box .state-box__item dd {
+    font-size: 48px;
+    color: #ebaa2c;
+    font-family: 'GT-SemiBold';
+}
+
+.pnr-ct__state-box .state-box__item--mid {
+    padding: 0 60px;
+    border-left: 2px solid #e5e5e5;
+    border-right: 2px solid #e5e5e5;
+}
+
+.pnr-ct__state-box .state-box__item--fail dd {
+    color: #999;
 }
