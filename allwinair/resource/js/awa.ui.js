@@ -10,6 +10,7 @@ AWAUI = (function () {
                 AWAUI.common.headerFixed();
                 AWAUI.common.select();
                 AWAUI.common.datepicker();
+                AWAUI.common.scramble();
             },
             headerFixed: function () {
                 //헤더 고정
@@ -44,9 +45,9 @@ AWAUI = (function () {
                 });
             },
             datepicker: function () {
-                if ($('.js-datepicker-single').length > 0) {
+                $('.js-datepicker-single').each(function () {
                     $('.js-datepicker-single').allwinDatepicker({
-                        container: '.awa-input2.cal',
+                        container: $(this).parent(),
                         autoClose: true,
                         singleDate: true,
                         showShortcuts: false,
@@ -57,6 +58,13 @@ AWAUI = (function () {
                         customCloseAnimation: function (cb) {
                             $(this).fadeOut(0, cb);
                         }
+                    });
+                });
+            },
+            scramble: function () {
+                if ($('.state-number').length > 0) {
+                    $(".state-number").each(function () {
+                        $(this).scramble(2500, 70, "numbers", true);
                     });
                 }
             }
