@@ -8835,12 +8835,15 @@ $.widget("ui.autocomplete", {
 
             slider.loader = $('<div class="awa-slide__loading" />');
             slider.viewport.prepend(slider.loader);
+            el.css({
+                width: slider.settings.mode === 'horizontal' ? (slider.children.length * 1000 + 215) + '%' : 'auto',
+                position: 'relative'
+            });
             if (slider.usingCSS && slider.settings.easing) {
                 el.css('-' + slider.cssPrefix + '-transition-timing-function', slider.settings.easing);
             } else if (!slider.settings.easing) {
                 slider.settings.easing = 'swing';
             }
-
             slider.viewport.css({
                 width: '100%',
                 overflow: 'hidden',
@@ -9138,24 +9141,70 @@ $.widget("ui.autocomplete", {
          */
         var setPositionProperty = function (value, type, duration, params) {
             var animateObj, propValue;
-
-            propValue = slider.settings.mode === 'vertical' ? 'translate3d(0, ' + value + 'px, 0)' : 'translate3d(' + value + 'px, 0, 0)';
-            el.css('-' + slider.cssPrefix + '-transition-duration', duration / 1000 + 's');
-            if (type === 'slide') {
-                el.css(slider.animProp, propValue);
-                if (duration !== 0) {
-                    el.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (e) {
-                        if (!$(e.target).is(el)) {
-                            return;
-                        }
-                        el.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+            // use CSS transform
+            if (slider.usingCSS) {
+                // determine the translate3d value
+                propValue = slider.settings.mode === 'vertical' ? 'translate3d(0, ' + value + 'px, 0)' : 'translate3d(' + value + 'px, 0, 0)';
+                // add the CSS transition-duration
+                el.css('-' + slider.cssPrefix + '-transition-duration', duration / 1000 + 's');
+                if (type === 'slide') {
+                    // set the property value
+                    el.css(slider.animProp, propValue);
+                    if (duration !== 0) {
+                        // bind a callback method - executes when CSS transition completes
+                        el.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (e) {
+                            //make sure it's the correct one
+                            if (!$(e.target).is(el)) {
+                                return;
+                            }
+                            // unbind the callback
+                            el.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                            updateAfterSlideTransition();
+                        });
+                    } else { //duration = 0
+                        updateAfterSlideTransition();
+                    }
+                } else if (type === 'reset') {
+                    el.css(slider.animProp, propValue);
+                } else if (type === 'ticker') {
+                    // make the transition use 'linear'
+                    el.css('-' + slider.cssPrefix + '-transition-timing-function', 'linear');
+                    el.css(slider.animProp, propValue);
+                    if (duration !== 0) {
+                        el.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (e) {
+                            //make sure it's the correct one
+                            if (!$(e.target).is(el)) {
+                                return;
+                            }
+                            // unbind the callback
+                            el.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                            // reset the position
+                            setPositionProperty(params.resetValue, 'reset', 0);
+                            // start the loop again
+                            tickerLoop();
+                        });
+                    } else { //duration = 0
+                        setPositionProperty(params.resetValue, 'reset', 0);
+                        tickerLoop();
+                    }
+                }
+                // use JS animate
+            } else {
+                animateObj = {};
+                animateObj[slider.animProp] = value;
+                if (type === 'slide') {
+                    el.animate(animateObj, duration, slider.settings.easing, function () {
                         updateAfterSlideTransition();
                     });
-                } else {
-                    updateAfterSlideTransition();
+                } else if (type === 'reset') {
+                    el.css(slider.animProp, value);
+                } else if (type === 'ticker') {
+                    el.animate(animateObj, duration, 'linear', function () {
+                        setPositionProperty(params.resetValue, 'reset', 0);
+                        // run the recursive loop after animation
+                        tickerLoop();
+                    });
                 }
-            } else if (type === 'reset') {
-                el.css(slider.animProp, propValue);
             }
         };
 
