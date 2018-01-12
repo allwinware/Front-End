@@ -8835,10 +8835,11 @@ $.widget("ui.autocomplete", {
 
             slider.loader = $('<div class="awa-slide__loading" />');
             slider.viewport.prepend(slider.loader);
-            el.css({
-                width: slider.settings.mode === 'horizontal' ? (slider.children.length * 1000 + 215) + '%' : 'auto',
-                position: 'relative'
-            });
+            if (slider.usingCSS && slider.settings.easing) {
+                el.css('-' + slider.cssPrefix + '-transition-timing-function', slider.settings.easing);
+            } else if (!slider.settings.easing) {
+                slider.settings.easing = 'swing';
+            }
 
             slider.viewport.css({
                 width: '100%',
