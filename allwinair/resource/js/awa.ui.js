@@ -52,7 +52,13 @@ AWAUI = (function () {
                         autoClose: true,
                         singleDate: true,
                         showShortcuts: false,
-                        singleMonth: true
+                        singleMonth: true,
+                        customOpenAnimation: function (cb) {
+                            $(this).fadeIn(0, cb);
+                        },
+                        customCloseAnimation: function (cb) {
+                            $(this).fadeOut(0, cb);
+                        }
                     });
                 }
             }
@@ -164,7 +170,53 @@ AWAUI = (function () {
                 });
             },
             success: function () {
-                var successList = $('.mc-suc__list > ul').awaSlide({mode: 'vertical', auto: true});
+                for (var i = 30 - 1; i >= 0; i--) {
+                    $('.flower-papers').prepend('<div class="flower-paper flower-paper' + i + '"></div>');
+                }
+
+                function flowerPapers() {
+                    $('.flower-paper').each(function () {
+                        var distX = getRandomArbitrary(-130, 130),
+                            distY = getRandomArbitrary(-130, 130),
+                            rotY = getRandomArbitrary(-720, 720),
+                            rotX = getRandomArbitrary(-720, 720),
+                            z = getRandomArbitrary(-500, 500);
+
+                        TweenLite.to($(this), 1.5, {
+                            x: distX,
+                            y: distY,
+                            rotationX: rotX,
+                            rotationY: rotY,
+                            opacity: 0,
+                            z: z,
+                            onComplete: complete
+                        });
+
+                    });
+                }
+
+                function getRandomArbitrary(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                var complete = function () {
+                    $('.flower-paper').remove();
+                };
+
+                var successList = $('.mc-suc__list > ul').awaSlide({
+                    mode: 'vertical',
+                    pause: 5000,
+                    auto: true,
+                    onSliderLoad: function () {
+                        flowerPapers();
+                    },
+                    onSlideAfter: function () {
+                        for (var i = 30 - 1; i >= 0; i--) {
+                            $('.flower-papers').prepend('<div class="flower-paper flower-paper' + i + '"></div>');
+                        }
+                        flowerPapers();
+                    }
+                });
                 $('.mc-suc__list').on('mouseenter', function () {
                     $(this).addClass('mc-suc__list--hover');
                     successList.destroySlider();
@@ -286,5 +338,4 @@ AWAUI = (function () {
 
 $(function () {
     AWAUI.common.init();
-    AWAUI.main.init();
 });
