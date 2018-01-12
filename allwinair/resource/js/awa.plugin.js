@@ -3482,8 +3482,10 @@ $.widget("ui.autocomplete", {
                 if (!this.range || !this.range.length) {
                     this.range = $("<div>")
                         .appendTo(this.element);
-                    this.range.before("<span class='bid__value bid__value-max'>MAX<em>" + Intl.NumberFormat().format(options.max) + "</em></span>");
-                    this.range.after("<span class='bid__value bid__value-min'>MIN<em>" + Intl.NumberFormat().format(options.min) + "</em></span>");
+                    this.range.before("<span class='bid__value bid__value-max'>MAX<em>" + options.max + "</em></span>");
+                    this.range.after("<span class='bid__value bid__value-min'>MIN<em>" + options.min + "</em></span>");
+                    //this.range.before("<span class='bid__value bid__value-max'>MAX<em>" + Intl.NumberFormat().format(options.max) + "</em></span>");
+                    //this.range.after("<span class='bid__value bid__value-min'>MIN<em>" + Intl.NumberFormat().format(options.min) + "</em></span>");
                     this._addClass(this.range, "bid__range");
                 } else {
                     this._removeClass(this.range, "bid__range--min bid__range--max");
