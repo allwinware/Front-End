@@ -26,8 +26,8 @@
     <title>올윈에어 - ALLWIN AIR</title>
     <link rel="stylesheet" href="../resource/css/awa.ui.min.css">
     <!--[if lt IE 9]>
-    <link rel="stylesheet" href="../resource/css/awa.old.min.css">
     <script src="../resource/js/html5shiv.min.js"></script>
+    <link rel="stylesheet" href="../resource/css/awa.old.min.css">
     <![endif]-->
 </head>
 <body>
@@ -3132,7 +3132,14 @@
     </div>
 </div>
 <!-- //여정 입력 레이어 -->
+
+
+<!--[if lt IE 9]>
+<script src="../resource/js/jquery-1.11.0.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
 <script src="../resource/js/jquery-2.2.4.min.js"></script>
+<!--<![endif]-->
 <script src="../resource/js/jquery-migrate-1.4.1.min.js"></script>
 <script src="../resource/js/awa.plugin.min.js"></script>
 <script src="../resource/js/awa.ui.min.js"></script>
@@ -3156,15 +3163,15 @@
             max: max,
             value: value,
             slide: function (event, ui) {
-                console.log("slide");
+                //console.log("slide");
                 //깃발 움직일때 값 세팅
-                $(this).closest('.tender_range').addClass('active').find('.bid__handle-ment, .user_price').text(Intl.NumberFormat().format(ui.value));
+                $(this).closest('.tender_range').addClass('active').find('.bid__handle-ment, .user_price').text(ui.value);
             },
             change: function (event, ui) {
-                console.log("change");
+                //console.log("change");
             },
             create: function (event, ui) {
-                console.log("create");
+                //console.log("create");
             }
         });
         $('.bt_success').on('click', function () {
@@ -3179,15 +3186,15 @@
             max: max,
             value: value,
             slide: function (event, ui) {
-                console.log("slide");
+                //console.log("slide");
                 //깃발 움직일때 값 세팅
-                $(this).closest('.tender_range').addClass('active').find('.bid__handle-ment, .user_price').text(Intl.NumberFormat().format(ui.value));
+                $(this).closest('.tender_range').addClass('active').find('.bid__handle-ment, .user_price').text(ui.value);
             },
             change: function (event, ui) {
-                console.log("change");
+                //console.log("change");
             },
             create: function (event, ui) {
-                console.log("create");
+                //console.log("create");
             }
         });
 
@@ -3198,21 +3205,21 @@
             max: max,
             value: value,
             slide: function (event, ui) {
-                console.log("slide");
+                //console.log("slide");
                 $('.prd_name_box').removeClass('active').eq(0).addClass('active');
 
 
                 //깃발 움직일때 값 세팅
-                $(this).closest('.tender_range').find('#prd_name_box1 strong').text(Intl.NumberFormat().format(ui.value));
-                $(this).closest('.group_prd_range').addClass('active').find('.bid__handle-ment, .user_price').text(Intl.NumberFormat().format(ui.value));
+                $(this).closest('.tender_range').find('#prd_name_box1 strong').text(ui.value);
+                $(this).closest('.group_prd_range').addClass('active').find('.bid__handle-ment, .user_price').text(ui.value);
             },
             change: function (event, ui) {
-                console.log("change");
+                //console.log("change");
                 //버튼 활성화
                 $(this).closest('.group_prd_range').find('.bt_next').prop("disabled", false);
             },
             create: function (event, ui) {
-                console.log("create");
+                //console.log("create");
             }
         });
 
@@ -3232,18 +3239,18 @@
             max: 370000, //최대 가격
             value: 345000, //
             slide: function (event, ui) {
-                console.log("slide");
+                //console.log("slide");
                 //깃발 움직일때 값 세팅
-                $(this).closest('.tender_range').find('#prd_name_box2 strong').text(Intl.NumberFormat().format(ui.value));
-                $(this).closest('.group_prd_range').addClass('active').find('.bid__handle-ment, .user_price').text(Intl.NumberFormat().format(ui.value));
+                $(this).closest('.tender_range').find('#prd_name_box2 strong').text(ui.value);
+                $(this).closest('.group_prd_range').addClass('active').find('.bid__handle-ment, .user_price').text(ui.value);
             },
             change: function (event, ui) {
-                console.log("change");
+                //console.log("change");
                 //버튼 활성화
                 $(this).closest('.group_prd_range').find('.bt_next').text('수량 선택하기').prop("disabled", false);
             },
             create: function (event, ui) {
-                console.log("create");
+                //console.log("create");
             }
         });
 
@@ -3256,7 +3263,7 @@
 
     var tenderLayer = {
         open: function (tenderID) {
-            console.log("open");
+            //console.log("open");
             var layer = "#" + tenderID;
             var h = $(window).height() - 80;
             $('body').addClass('kill');
@@ -3269,7 +3276,7 @@
             });
         },
         close: function (tenderID) {
-            console.log("close");
+            //console.log("close");
             $('body').removeClass('kill');
             $('#' + tenderID).removeClass('show');
         }
