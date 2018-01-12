@@ -13,13 +13,11 @@ AWAUI = (function () {
             },
             headerFixed: function () {
                 //헤더 고정
-                var stickyOffset = $('.awa-header').offset().top;
-
                 $(window).scroll(function () {
                     var sticky = $('.awa-header'),
                         scroll = $(window).scrollTop();
 
-                    if (scroll >= stickyOffset) sticky.addClass('fixed');
+                    if (scroll >= 80) sticky.addClass('fixed');
                     else sticky.removeClass('fixed');
                 });
             },
