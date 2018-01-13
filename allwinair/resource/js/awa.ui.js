@@ -10,7 +10,7 @@ AWAUI = (function () {
                 AWAUI.common.headerFixed();
                 AWAUI.common.select();
                 AWAUI.common.datepicker();
-                //AWAUI.common.scramble();
+                AWAUI.common.scramble();
             },
             headerFixed: function () {
                 //헤더 고정
