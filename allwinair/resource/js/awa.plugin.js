@@ -32730,7 +32730,7 @@ and dependencies (minified).
     }), {define: e.define, require: e.require}
 })();
 
-/*!
+/*
  * The MIT License
  *
  * Copyright (c) 2012 James Allardice
