@@ -64,7 +64,7 @@ AWAUI = (function () {
             scramble: function () {
                 if ($('.state-number').length > 0) {
                     $(".state-number").each(function () {
-                        $(this).scramble(2500, 70, "numbers", true);
+                        $(this).scramble(1000, 50, "numbers", true);
                     });
                 }
             }
