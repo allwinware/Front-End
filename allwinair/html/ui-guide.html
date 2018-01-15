@@ -139,16 +139,7 @@
                 <section class="ui-guide__inner-item ui-guide__input-text">
                     <h3 class="ui-guide__h3">TEXT</h3>
 
-                    <span class="awa-input"><input type="text" placeholder="내용"></span>
-
-                    <br>
-
                     <span class="awa-input2"><input type="text" placeholder="내용"></span>
-
-                    <br>
-
-                    <span class="awa-input2 cal"><input type="text" class="js-datepicker-single"
-                                                        placeholder="날짜 선택"></span>
                 </section>
 
                 <section class="ui-guide__inner-item ui-guide__input-check">
@@ -158,11 +149,11 @@
                 <section class="ui-guide__inner-item ui-guide__input-radio">
                     <h3 class="ui-guide__h3">RADIO</h3>
 
-                    <span class="awa-radio">
+                    <span class="awa-radio2">
                         <input type="radio" id="r1" name="r" checked="checked"><label for="r1">내용1</label>
                     </span>
 
-                    <span class="awa-radio">
+                    <span class="awa-radio2">
                         <input type="radio" id="r2" name="r"><label for="r2">내용2</label>
                     </span>
                 </section>
@@ -173,24 +164,6 @@
             <h2 class="ui-guide__h2">SELECT</h2>
 
             <div class="ui-guide__inner">
-                <div class="awa-select__layer">
-                    <button type="button" class="awa-select__layer--target">출국 시간</button>
-                    <div class="awa-select__layer--inner">
-                        <ul>
-                            <li><a href="">오전 00:00 ~ 11:59</a></li>
-                            <li><a href="">오전 00:00 ~ 11:59</a></li>
-                            <li><a href="">오전 00:00 ~ 11:59</a></li>
-                            <li><a href="">오전 00:00 ~ 11:59</a></li>
-                            <li><a href="">오전 00:00 ~ 11:59</a></li>
-                            <li><a href="">오전 00:00 ~ 11:59</a></li>
-                            <li><a href="">오전 00:00 ~ 11:59</a></li>
-                            <li><a href="">오전 00:00 ~ 11:59</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <br>
-
                 <div class="awa-select__default">
                     <select name="" style="width:100%;">
                         <option value="">전체</option>
@@ -397,6 +370,29 @@
                 </div>
             </div>
         </section>
+
+        <section class="ui-guide__item ui-guide__layer">
+            <h2 class="ui-guide__h2">MODAL</h2>
+
+            <div class="ui-guide__inner">
+                <a href="javascript:;" onclick="AWAUI.layer.open('js-layer__default');return false;">기본 레이어</a><br>
+                <div class="awa-layer" id="js-layer__default">
+                    <div class="layer__inner">
+                        <p class="layer__msg">
+                            해당 요청에 대해 판매를<br>
+                            진행하시겠습니까?
+                        </p>
+                        <div class="layer_bts">
+                            <button type="button" class="awa-btn-200 inline gray">취소</button>
+                            <button type="button" class="awa-btn-200 inline yellow">확인</button>
+                        </div>
+                    </div>
+                    <button type="button" class="layer__close"
+                            onclick="AWAUI.layer.close('js-layer__default');return false;">close
+                    </button>
+                </div>
+            </div>
+        </section>
     </section>
 </div>
 
@@ -408,6 +404,7 @@
 <!--<![endif]-->
 <script src="../resource/js/jquery-migrate-1.4.1.min.js"></script>
 <script src="../resource/js/awa.plugin.min.js"></script>
+<script src="../resource/js/awa.ui.min.js"></script>
 <script>
     $(function () {
         $('.awa-select__default select').select2({minimumResultsForSearch: -1});
@@ -458,21 +455,7 @@
             }
         });
 
-        $('.js-datepicker-single').each(function () {
-            $(this).allwinDatepicker({
-                container: $(this).parent(),
-                autoClose: true,
-                singleDate: true,
-                showShortcuts: false,
-                singleMonth: true,
-                customOpenAnimation: function (cb) {
-                    $(this).fadeIn(0, cb);
-                },
-                customCloseAnimation: function (cb) {
-                    $(this).fadeOut(0, cb);
-                }
-            });
-        });
+
     });
 </script>
 </body>

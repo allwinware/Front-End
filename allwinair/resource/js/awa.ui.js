@@ -68,6 +68,11 @@ AWAUI = (function () {
                     });
                 }
             }
+            ,
+            customScroll: function () {
+                var customScoll = $('.custom-scroll');
+                $(customScoll).mCustomScrollbar();
+            }
         },
         /**
          * 메인 UI
@@ -329,12 +334,39 @@ AWAUI = (function () {
         /**
          * 모달 UI
          */
-        layers: {
-            open: function (modalID) {
+        layer: {
+            open: function (layerID) {
+                var targetLayer = "#" + layerID;
+                var dims = $('<div class="dims"></div>');
 
+                if ($('.custom-scroll').length > 0) {
+                    AWAUI.common.customScroll();
+                }
+                $(targetLayer).css({
+                    'top': Math.max(0, (($(window).height() - $(targetLayer).height()) / 2) + $(window).scrollTop()) + "px",
+                    'left': Math.max(0, (($(window).width() - $(targetLayer).width()) / 2) + $(window).scrollLeft()) + "px"
+                }).fadeIn('fast');
+                $(dims).appendTo('body').css({
+                    'width': '100%',
+                    'height': '100%',
+                    'display': 'none',
+                    'background-color': '#000',
+                    'filter': 'alpha(opacity=50)',
+                    'position': 'fixed',
+                    'top': 0,
+                    'left': 0,
+                    'z-index': 3000
+                }).fadeTo('fast', 0.5);
+                $(window).resize(function () {
+                    $(targetLayer).css({
+                        'top': Math.max(0, (($(window).height() - $(targetLayer).height()) / 2) + $(window).scrollTop()) + "px",
+                        'left': Math.max(0, (($(window).width() - $(targetLayer).width()) / 2) + $(window).scrollLeft()) + "px"
+                    }).fadeIn('fast');
+                });
             },
-            close: function (modalID) {
-
+            close: function (layerID) {
+                $("#" + layerID).fadeOut('fast');
+                $('.dims').remove();
             }
         }
     };
