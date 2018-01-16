@@ -60,6 +60,18 @@ AWAUI = (function () {
                         }
                     });
                 });
+                $('.js-datepicker-range').each(function () {
+                    $('.js-datepicker-range').allwinDatepicker({
+                        container: $(this).parent(),
+                        autoClose: true,
+                        customOpenAnimation: function (cb) {
+                            $(this).fadeIn(0, cb);
+                        },
+                        customCloseAnimation: function (cb) {
+                            $(this).fadeOut(0, cb);
+                        }
+                    });
+                });
             },
             scramble: function () {
                 if ($('.state-number').length > 0) {

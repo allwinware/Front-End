@@ -25249,7 +25249,7 @@ and dependencies (minified).
         opt = $.extend(true, {
             autoClose: false,
             format: 'YYYY-MM-DD',
-            separator: ' to ',
+            separator: ' ~ ',
             language: 'auto',
             startOfWeek: 'sunday', // or monday
             getValue: function () {
@@ -25424,7 +25424,7 @@ and dependencies (minified).
 
 
             box = createDom().hide();
-            box.append('<div class="date-range-length-tip"></div>');
+            //box.append('<div class="date-range-length-tip"></div>');
 
             $(opt.container).append(box);
 
@@ -26063,7 +26063,7 @@ and dependencies (minified).
                 _left += day.width() / 2;
 
 
-                var $tip = box.find('.date-range-length-tip');
+                //var $tip = box.find('.date-range-length-tip');
                 var w = $tip.css({
                     'visibility': 'hidden',
                     'display': 'none'
@@ -26079,14 +26079,11 @@ and dependencies (minified).
                         'visibility': 'visible'
                     });
                 }, 10);
-            } else {
-                box.find('.date-range-length-tip').hide();
             }
         }
 
         function clearHovering() {
             box.find('.day.hovering').removeClass('hovering');
-            box.find('.date-range-length-tip').hide();
         }
 
         function dateChanged(date) {
@@ -26459,7 +26456,6 @@ and dependencies (minified).
             });
 
             box.find('.day').unbind("mouseleave").mouseleave(function (evt) {
-                box.find('.date-range-length-tip').hide();
                 if (opt.singleDate) {
                     clearHovering();
                 }
