@@ -25389,6 +25389,12 @@ and dependencies (minified).
                 }
                 setDateRange(d1, d2, silent);
             },
+            getStartDateRange: function () {
+                return getDateString(new Date(parseInt(opt.start)));
+            },
+            getEndDateRange: function () {
+                return getDateString(new Date(parseInt(opt.end)));
+            },
             clear: clearSelection,
             close: closeDatePicker,
             open: open,
