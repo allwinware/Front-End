@@ -3459,9 +3459,8 @@ $.widget("ui.autocomplete", {
             this.handle = this.handles.eq(0);
 
             this.handles.each(function (i) {
-                $(this)
-                    .data("bid__handle-index", i)
-                    .attr("tabIndex", 0);
+                $(this).addClass("bid__handle--index" + (i + 1));
+                $(this).data("bid__handle-index", i).attr("tabIndex", 0);
             });
         },
 
