@@ -111,7 +111,7 @@ AWAUI = (function () {
                     '</div>' +
                     '<div class="add-info__selects" id="add-info__selects">' +
                     '   <div class="awa-select__layer">' +
-                    '      <button type="button" class="awa-select__layer--target" data-value="">출국 시간</button>' +
+                    '      <button type="button" class="awa-select__layer--target">출국 시간</button>' +
                     '      <div class="awa-select__layer--inner">' +
                     '           <ul>' +
                     '              <li><a href="">오전 00:00 ~ 11:51</a></li>' +
@@ -126,7 +126,7 @@ AWAUI = (function () {
                     '      </div>' +
                     '   </div>' +
                     '   <div class="awa-select__layer">' +
-                    '      <button type="button" class="awa-select__layer--target" data-value="">귀국 시간</button>' +
+                    '      <button type="button" class="awa-select__layer--target">귀국 시간</button>' +
                     '      <div class="awa-select__layer--inner">' +
                     '           <ul>' +
                     '              <li><a href="">오전 00:00 ~ 10:51</a></li>' +
