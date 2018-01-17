@@ -789,6 +789,14 @@ legend, .blind {
     -ms-filter: "alpha(opacity=90)"
 }
 
+
+
+
+
+
+
+
+
 .select2-container {
     box-sizing: border-box;
     display: inline-block;
@@ -854,6 +862,11 @@ legend, .blind {
     height: 30px;
 }
 
+.select2-container--default .select2-results__options{
+    max-height:200px;
+    overflow-y:auto;
+}
+
 .select2-container--default .select2-results__option {
     cursor: pointer;
     padding-left: 10px;
@@ -863,6 +876,27 @@ legend, .blind {
 
 .select2-container--default .select2-results__message {
     cursor: default;
+    height:auto;
+    padding:10px;
+    line-height: normal;
+}
+
+.select2-close-mask {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-height: 100%;
+    min-width: 100%;
+    height: auto;
+    width: auto;
+    opacity: 0;
+    z-index: 99;
+    background-color: #fff;
+    filter: alpha(opacity=0);
 }
 
 .select2-hidden-accessible {
@@ -875,6 +909,12 @@ legend, .blind {
     position: absolute !important;
     width: 1px !important;
 }
+
+.select2-container--default .select2-results__option[aria-selected=true]{background-color: #ddd;}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected]{background-color: #ebaa2c;
+    color: white;}
+
 
 .awa-tbs {
     margin-bottom: 40px;
@@ -901,6 +941,15 @@ legend, .blind {
     text-align: center;
     font-size: 14px;
     color: #000;
+}
+
+.awa-tb__empty{
+    font-size: 24px;
+    color: #000;
+    font-family: 'NS-Bold';
+    text-align:center;
+    border-bottom: 1px solid #d9d9d9;
+    padding:50px 0;
 }
 
 .awa-tb__td--left {
@@ -1317,12 +1366,6 @@ legend, .blind {
     width: 25px;
     height: 24px;
     background: url('../../resource/img/img_close-gray_25x24.png') center center no-repeat;
-}
-
-.mr__schedule {
-}
-
-.mr__schedule-name {
 }
 
 .mr__schedule-name strong {
@@ -3432,7 +3475,6 @@ legend, .blind {
 }
 
 .awa-contents {
-    overflow: hidden;
 }
 
 /* footer */
@@ -5875,12 +5917,12 @@ legend, .blind {
     display: inline-block;
 }
 
-.pnr-ct__air-tabs {
+.pnr-ct__tabs {
     position: relative;
     min-height: 44px;
 }
 
-.pnr-ct__air-tabs .awa-btn-200 {
+.pnr-ct__tabs .awa-btn-200 {
     border: 0;
     height: 44px;
     line-height: 44px;
@@ -5889,13 +5931,13 @@ legend, .blind {
     right: 0;
 }
 
-.pnr-ct__at-item {
+.pnr-ct__tab-item {
     position: relative;
     display: inline-block;
     padding: 0 15px;
 }
 
-.pnr-ct__at-item:before {
+.pnr-ct__tab-item:before {
     content: '';
     width: 1px;
     height: 22px;
@@ -5906,51 +5948,51 @@ legend, .blind {
     margin-top: -11px;
 }
 
-.pnr-ct__at-item:first-child {
+.pnr-ct__tab-item:first-child {
     padding-left: 0;
 }
 
-.pnr-ct__at-item:first-child:before {
+.pnr-ct__tab-item:first-child:before {
     display: none;
 }
 
-.pnr-ct__at-link {
+.pnr-ct__tab-link {
     font-size: 26px;
     color: #c9c9c9;
     display: block;
 }
 
-.pnr-ct__at-link--active {
+.pnr-ct__tab-link--active {
     font-family: 'NS-Medium';
     color: #292a4d;
     border-bottom: 1px solid #292a4d;
 }
 
-.pnr-ct__at-num {
+.pnr-ct__tab-num {
     position: absolute;
     top: -10px;
     right: -10px;
     display: inline-block;
 }
 
-.pnr-ct__at-num:before, .pnr-ct__at-num:after {
+.pnr-ct__tab-num:before, .pnr-ct__tab-num:after {
     content: '';
     display: inline-block;
 }
 
-.pnr-ct__at-num:before {
+.pnr-ct__tab-num:before {
     width: 4px;
     height: 23px;
     background: url('../../resource/img/img_flog-left2.png') center center no-repeat;
 }
 
-.pnr-ct__at-num:after {
+.pnr-ct__tab-num:after {
     width: 5px;
     height: 23px;
     background: url('../../resource/img/img_flog-right2.png') center center no-repeat;
 }
 
-.pnr-ct__at-num em {
+.pnr-ct__tab-num em {
     vertical-align: top;
     text-align: center;
     min-width: 16px;
@@ -5961,19 +6003,19 @@ legend, .blind {
     font-family: 'GT-SemiBold';
 }
 
-.pnr-ct__at-link--active .pnr-ct__at-num:before {
+.pnr-ct__tab-link--active .pnr-ct__tab-num:before {
     width: 4px;
     height: 23px;
     background: url('../../resource/img/img_flog-left.png') center center no-repeat;
 }
 
-.pnr-ct__at-link--active .pnr-ct__at-num:after {
+.pnr-ct__tab-link--active .pnr-ct__tab-num:after {
     width: 5px;
     height: 23px;
     background: url('../../resource/img/img_flog-right.png') center center no-repeat;
 }
 
-.pnr-ct__at-link--active .pnr-ct__at-num em {
+.pnr-ct__tab-link--active .pnr-ct__tab-num em {
     vertical-align: top;
     text-align: center;
     min-width: 16px;
