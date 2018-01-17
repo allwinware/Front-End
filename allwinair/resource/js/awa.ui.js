@@ -26,23 +26,6 @@ AWAUI = (function () {
                 $('.awa-select__default select').select2({minimumResultsForSearch: -1});
 
                 $('.awa-select__srch select').select2();
-
-                var selectTaget = $('.awa-select__layer--target'), selectLayer = $('.awa-select__layer--inner'),
-                    selectItem = $('.awa-select__layer--inner a');
-                $(selectTaget).on('click', function () {
-                    $(selectLayer).hide();
-                    $(this).next().slideDown('fast');
-                    $(selectLayer).mCustomScrollbar();
-                });
-                $(selectItem).on('click', function () {
-                    var text = $(this).text();
-                    $(this).closest('.awa-select__layer').find(selectTaget).text(text);
-                    $(selectLayer).hide();
-                    return false;
-                });
-                $(selectLayer).mouseleave(function () {
-                    $(this).hide();
-                });
             },
             datepicker: function () {
                 $('.js-datepicker-single').each(function () {
@@ -128,32 +111,32 @@ AWAUI = (function () {
                     '</div>' +
                     '<div class="add-info__selects" id="add-info__selects">' +
                     '   <div class="awa-select__layer">' +
-                    '      <button type="button" class="awa-select__layer--target">출국 시간</button>' +
+                    '      <button type="button" class="awa-select__layer--target" data-value="">출국 시간</button>' +
                     '      <div class="awa-select__layer--inner">' +
                     '           <ul>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 11:51</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 11:52</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 11:53</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 11:54</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 11:55</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 11:56</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 11:57</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 11:58</a></li>' +
                     '           </ul>' +
                     '      </div>' +
                     '   </div>' +
                     '   <div class="awa-select__layer">' +
-                    '      <button type="button" class="awa-select__layer--target">귀국 시간</button>' +
+                    '      <button type="button" class="awa-select__layer--target" data-value="">귀국 시간</button>' +
                     '      <div class="awa-select__layer--inner">' +
                     '           <ul>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
-                    '              <li><a href="">오전 00:00 ~ 11:59</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 10:51</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 10:52</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 10:53</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 10:54</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 10:55</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 10:56</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 10:57</a></li>' +
+                    '              <li><a href="">오전 00:00 ~ 10:58</a></li>' +
                     '           </ul>' +
                     '      </div>' +
                     '   </div>' +
@@ -180,7 +163,22 @@ AWAUI = (function () {
                     }
                 });
 
-                AWAUI.common.select();
+                var selectTaget = $('.awa-select__layer--target'), selectLayer = $('.awa-select__layer--inner'),
+                    selectItem = $('.awa-select__layer--inner a');
+                $(selectTaget).on('click', function () {
+                    $(selectLayer).hide();
+                    $(this).next().slideDown('fast');
+                    $(selectLayer).mCustomScrollbar();
+                });
+                $(selectItem).on('click', function () {
+                    var text = $(this).text();
+                    $(this).closest('.awa-select__layer').find(selectTaget).attr('value', text).text(text);
+                    $(selectLayer).hide();
+                    return false;
+                });
+                $(selectLayer).mouseleave(function () {
+                    $(this).hide();
+                });
 
                 //도착도시
                 $('.ag__link').on('click', function () {
