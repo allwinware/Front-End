@@ -25430,7 +25430,7 @@ and dependencies (minified).
 
 
             box = createDom().hide();
-            //box.append('<div class="date-range-length-tip"></div>');
+            box.append('<div class="date-range-length-tip"></div>');
 
             $(opt.container).append(box);
 
