@@ -172,7 +172,7 @@ AWAUI = (function () {
                 });
                 $(selectItem).on('click', function () {
                     var text = $(this).text();
-                    $(this).closest('.awa-select__layer').find(selectTaget).attr('value', text).text(text);
+                    $(this).closest('.awa-select__layer').find(selectTaget).attr('date-value', text).text(text);
                     $(selectLayer).hide();
                     return false;
                 });
