@@ -26068,8 +26068,7 @@ and dependencies (minified).
                 var _top = posDay.top - posBox.top;
                 _left += day.width() / 2;
 
-
-                //var $tip = box.find('.date-range-length-tip');
+                var $tip = box.find('.date-range-length-tip');
                 var w = $tip.css({
                     'visibility': 'hidden',
                     'display': 'none'
@@ -26087,6 +26086,7 @@ and dependencies (minified).
                 }, 10);
             }
         }
+
 
         function clearHovering() {
             box.find('.day.hovering').removeClass('hovering');
