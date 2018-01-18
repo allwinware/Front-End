@@ -29,7 +29,7 @@ AWAUI = (function () {
             },
             datepicker: function () {
                 $('.js-datepicker-single').each(function () {
-                    $('.js-datepicker-single').allwinDatepicker({
+                    $(this).allwinDatepicker({
                         container: $(this).parent(),
                         autoClose: true,
                         singleDate: true,
@@ -44,7 +44,7 @@ AWAUI = (function () {
                     });
                 });
                 $('.js-datepicker-range').each(function () {
-                    $('.js-datepicker-range').allwinDatepicker({
+                    $(this).allwinDatepicker({
                         container: $(this).parent(),
                         autoClose: true,
                         customOpenAnimation: function (cb) {
