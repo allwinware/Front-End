@@ -1849,7 +1849,7 @@
 //>>demos: http://jqueryui.com/menu/
 
 
-var widgetsMenu = $.widget("ui.menu", {
+    var widgetsMenu = $.widget("ui.menu", {
         version: "1.12.1",
         defaultElement: "<ul>",
         delay: 300,
@@ -2500,7 +2500,7 @@ var widgetsMenu = $.widget("ui.menu", {
 //>>demos: http://jqueryui.com/autocomplete/
 
 
-$.widget("ui.autocomplete", {
+    $.widget("ui.autocomplete", {
         version: "1.12.1",
         defaultElement: "<input>",
         options: {
