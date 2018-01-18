@@ -3459,7 +3459,11 @@ $.widget("ui.autocomplete", {
             this.handle = this.handles.eq(0);
 
             this.handles.each(function (i) {
-                $(this).addClass("bid__handle--index" + (i + 1));
+                if( i == 0) {
+                    $(this).find('.bid__handle-ment').addClass("default");
+                }else if(i == 1){
+                    $(this).find('.bid__handle-ment').addClass("my");
+                }
                 $(this).data("bid__handle-index", i).attr("tabIndex", 0);
             });
         },
