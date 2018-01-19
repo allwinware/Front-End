@@ -10,7 +10,7 @@ AWAUI = (function () {
                 AWAUI.common.headerFixed();
                 AWAUI.common.select();
                 AWAUI.common.datepicker();
-                //AWAUI.common.scramble();
+                AWAUI.common.scramble();
             },
             headerFixed: function () {
                 //헤더 고정
@@ -43,6 +43,7 @@ AWAUI = (function () {
                         }
                     });
                 });
+
                 $('.js-datepicker-range').each(function () {
                     $(this).allwinDatepicker({
                         container: $(this).parent(),
@@ -57,9 +58,13 @@ AWAUI = (function () {
                 });
             },
             scramble: function () {
+                if ($('.pnr-ct__top-profit').length > 0) {
+                    $('.pnr-ct__top-profit strong').scramble(1000, 30, "numbers", true);
+                }
+
                 if ($('.state-number').length > 0) {
                     $(".state-number").each(function () {
-                        $(this).scramble(1000, 50, "numbers", true);
+                        $(this).scramble(1000, 30, "numbers", true);
                     });
                 }
             }
@@ -259,7 +264,7 @@ AWAUI = (function () {
                     tooltipClass: "awa-tooltip1",
                     items: "[data-tooltip-txt]",
                     position: {
-                        my: 'left center', at: 'right center'
+                        my: 'left center', at: 'right center', collision:'none'
                     },
                     content: function () {
                         return $(this).data("tooltip-txt");
@@ -269,7 +274,6 @@ AWAUI = (function () {
                         ui.tooltip.animate({left: ui.tooltip.position().left + 10}, "fast");
                     }
                 });
-
                 //위
                 $('.js-tooltip-type2').tooltip({
                     show: null,
