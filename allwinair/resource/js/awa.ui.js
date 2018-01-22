@@ -67,11 +67,42 @@ AWAUI = (function () {
                         $(this).scramble(1000, 30, "numbers", true);
                     });
                 }
-            }
-            ,
+            },
             customScroll: function () {
                 var customScoll = $('.custom-scroll');
                 $(customScoll).mCustomScrollbar();
+            },
+            flowerPapersFun: function () {
+                for (var i = 30 - 1; i >= 0; i--) {
+                    $('.flower-papers').prepend('<div class="flower-paper flower-paper' + i + '"></div>');
+                }
+
+                $('.flower-paper').each(function () {
+                    var distX = getRandomArbitrary(-130, 130),
+                        distY = getRandomArbitrary(-130, 130),
+                        rotY = getRandomArbitrary(-720, 720),
+                        rotX = getRandomArbitrary(-720, 720),
+                        z = getRandomArbitrary(-500, 500);
+
+                    TweenLite.to($(this), 1.5, {
+                        x: distX,
+                        y: distY,
+                        rotationX: rotX,
+                        rotationY: rotY,
+                        opacity: 0,
+                        z: z,
+                        onComplete: complete
+                    });
+
+                });
+
+                function getRandomArbitrary(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                var complete = function () {
+                    $('.flower-papers').remove();
+                };
             }
         },
         /**
