@@ -279,7 +279,7 @@ AWAUI = (function () {
                     tooltipClass: "awa-tooltip2",
                     items: "[data-tooltip-txt]",
                     position: {
-                        my: 'center bottom', at: 'center+5 top'
+                        my: 'center bottom', at: 'center+5 top', collision:'none'
                     },
                     content: function () {
                         return $(this).data("tooltip-txt");
