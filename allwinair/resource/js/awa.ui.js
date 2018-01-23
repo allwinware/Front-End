@@ -227,7 +227,6 @@ AWAUI = (function () {
                 var complete = function () {
                     $('.flower-paper').remove();
                 };
-
                 var successList = $('.mc-suc__list > ul').awaSlide({
                     mode: 'vertical',
                     pause: 5000,
@@ -242,14 +241,34 @@ AWAUI = (function () {
                         flowerPapers();
                     }
                 });
+                var timeoutId, eT = 0;
                 $('.mc-suc__list').on('mouseenter', function () {
-                    $(this).addClass('mc-suc__list--hover');
-                    successList.destroySlider();
+                    if (!timeoutId) {
+                        timeoutId = window.setTimeout(function() {
+                            timeoutId = null;
+                            $('.mc-suc__list').addClass('mc-suc__list--hover');
+                            successList.destroySlider();
+
+                            $('.mc-suc__list--hover .mc-suc__item').each(function (i) {
+                                $(this).delay(eT).animate({ opacity: 1 }, 500);
+                                eT += 100;
+                            });
+                        }, 1000);
+                    }
                 });
                 $('.mc-suc__list').on('mouseleave', function () {
-                    $('.mc-suc__bts').hide();
-                    $(this).removeClass('mc-suc__list--hover');
-                    successList.reloadSlider();
+                    if (timeoutId) {
+                        window.clearTimeout(timeoutId);
+                        timeoutId = null;
+
+                    }
+                    else {
+                        eT = 0;
+                        $('.mc-suc__bts').hide();
+                        $(this).removeClass('mc-suc__list--hover');
+                        $('.mc-suc__item').css('opacity', '');
+                        successList.reloadSlider();
+                    }
                 });
                 $('.mc-suc__item').on('click', function () {
                     $('.mc-suc__bts').hide();
