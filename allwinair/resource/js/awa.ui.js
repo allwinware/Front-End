@@ -185,7 +185,7 @@ AWAUI = (function () {
                 });
 
                 //도착도시
-                $('.ag__link').on('click', function () {
+                $(document).on('click', '.ag__link', function() {
                     $('.ag__link').removeClass('ag__link--active');
                     $(this).addClass('ag__link--active');
                     $('.agc__items').hide();
@@ -305,6 +305,7 @@ AWAUI = (function () {
 
                 //필터 항공사
                 $('#pnrs__airlines .filter-button-group').on('click', 'button', function () {
+                    if($(this).hasClass("pnrs-sort__link--not")) return false;
                     var filterValue = $(this).attr('data-filter');
 
                     if (filterValue == "*") {
@@ -325,7 +326,9 @@ AWAUI = (function () {
 
                 //필터 여행사
                 $('#pnrs__travel-agencys .filter-button-group').on('click', 'button', function () {
+                    if($(this).hasClass("pnrs-sort__link--not")) return false;
                     var filterValue = $(this).attr('data-filter');
+
                     if (filterValue == "*") {
                         $('#pnrs__travel-agencys .pnrs-lists > ul').isotope('destroy');
                         travelAgencys.reloadSlider();
