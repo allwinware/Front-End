@@ -12805,7 +12805,6 @@ and dependencies (minified).
             function gotoNextMonth(self) {
                 var isMonth2 = $(self).parents('table').hasClass('month2');
                 var month = isMonth2 ? opt.month2 : opt.month1;
-                console.log("next");
                 month = nextMonth(month);
                 //if (!opt.singleMonth && !opt.singleDate && !isMonth2 && compare_month(month, opt.month2) >= 0 || isMonthOutOfBounds(month)) return;
                 showMonth(month, isMonth2 ? 'month2' : 'month1');
