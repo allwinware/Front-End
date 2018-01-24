@@ -277,20 +277,23 @@ AWAUI = (function () {
             },
             tooltips: function () {
                 //좌
-                $('.js-tooltip-type1').tooltip({
+                var tool = $('.js-tooltip-type1').tooltip({
                     show: null,
                     tooltipClass: "awa-tooltip1",
                     items: "[data-tooltip-txt]",
                     position: {
-                        my: 'left center', at: 'right center', collision:'none'
+                        my: 'left center', at: 'right center',
+                        using: function( position, feedback ) {
+                            $( this ).addClass( feedback.horizontal ).css( position);
+                        }
                     },
                     content: function () {
                         return $(this).data("tooltip-txt");
-                    }
-                    ,
+                    },
                     open: function (event, ui) {
                         ui.tooltip.animate({left: ui.tooltip.position().left + 10}, "fast");
                     }
+
                 });
                 //위
                 $('.js-tooltip-type2').tooltip({
