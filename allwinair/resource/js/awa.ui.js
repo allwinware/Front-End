@@ -11,6 +11,7 @@ AWAUI = (function () {
                 AWAUI.common.select();
                 AWAUI.common.datepicker();
                 AWAUI.common.scramble();
+                AWAUI.common.tooltips();
             },
             headerFixed: function () {
                 //헤더 고정
@@ -71,6 +72,64 @@ AWAUI = (function () {
             customScroll: function () {
                 var customScoll = $('.custom-scroll');
                 $(customScoll).mCustomScrollbar();
+            },
+            tooltips: function () {
+                $('.js-tooltips').each(function(){
+                    var position, direction = $(this).data('tooltip-direction');
+                    switch (direction) {
+                        case 'top':
+                            position = {
+                                my: 'center bottom', at: 'center top', collision:'none',
+                                using: function( position, feedback ) {
+                                    $( this ).addClass( feedback.vertical ).css( position);
+                                }
+                            };
+                            break;
+                        case 'bottom':
+                            position = {
+                                my: 'center top', at: 'center bottom', collision:'none',
+                                using: function( position, feedback ) {
+                                    $( this ).addClass( feedback.vertical ).css( position);
+                                }
+                            };
+                            break;
+                        case 'left':
+                            position = {
+                                my: 'right center', at: 'left center',
+                                using: function( position, feedback ) {
+                                    $( this ).addClass( feedback.horizontal ).css( position);
+                                }
+                            };
+                            break;
+                        case 'right':
+                            position = {
+                                my: 'left center', at: 'right center',
+                                using: function( position, feedback ) {
+                                    $( this ).addClass( feedback.horizontal ).css( position);
+                                }
+                            };
+                            break;
+                    }
+
+                    $(this).tooltip({
+                        show: null,
+                        items: "[data-tooltip-txt]",
+                        position: position,
+                        content: function () {
+                            return $(this).data("tooltip-txt");
+                        },
+                        open: function (event, ui) {
+                            if(direction == "right" || direction == "left" ){
+                                ui.tooltip.animate({left: ui.tooltip.position().left + 5}, "fast");
+                            }else if(direction == "top"){
+                                ui.tooltip.animate({top: ui.tooltip.position().top - 5}, "fast");
+                            }else if(direction == "bottom" ){
+                                ui.tooltip.animate({top: ui.tooltip.position().top + 5}, "fast");
+                            }
+                        }
+
+                    });
+                });
             }
         },
         /**
@@ -81,7 +140,6 @@ AWAUI = (function () {
                 AWAUI.main.banner();
                 AWAUI.main.matching();
                 AWAUI.main.success();
-                AWAUI.main.tooltips();
                 AWAUI.main.partners();
             },
             banner: function () {
@@ -273,42 +331,6 @@ AWAUI = (function () {
                 $('.mc-suc__item').on('click', function () {
                     $('.mc-suc__bts').hide();
                     $(this).find('.mc-suc__bts').fadeIn('fast');
-                });
-            },
-            tooltips: function () {
-                //좌
-                var tool = $('.js-tooltip-type1').tooltip({
-                    show: null,
-                    tooltipClass: "awa-tooltip1",
-                    items: "[data-tooltip-txt]",
-                    position: {
-                        my: 'left center', at: 'right center',
-                        using: function( position, feedback ) {
-                            $( this ).addClass( feedback.horizontal ).css( position);
-                        }
-                    },
-                    content: function () {
-                        return $(this).data("tooltip-txt");
-                    },
-                    open: function (event, ui) {
-                        ui.tooltip.animate({left: ui.tooltip.position().left + 10}, "fast");
-                    }
-
-                });
-                //위
-                $('.js-tooltip-type2').tooltip({
-                    show: null,
-                    tooltipClass: "awa-tooltip2",
-                    items: "[data-tooltip-txt]",
-                    position: {
-                        my: 'center bottom', at: 'center+5 top', collision:'none'
-                    },
-                    content: function () {
-                        return $(this).data("tooltip-txt");
-                    },
-                    open: function (event, ui) {
-                        ui.tooltip.animate({top: ui.tooltip.position().top - 10}, "fast");
-                    }
                 });
             },
             partners: function () {
