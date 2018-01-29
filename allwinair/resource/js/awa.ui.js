@@ -136,20 +136,19 @@ AWAUI = (function () {
             init: function () {
                 var $elGSAP = $('.loading_ele'),
                     tl = new TimelineMax({repeat:-1});
-                tl.to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading1.png)'})
-                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading2.png)'})
-                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading3.png)'})
-                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading4.png)'})
-                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading5.png)'})
-                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading6.png)'})
-                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading7.png)'})
-                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading1.png)'})
-                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading2.png)'})
-                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading3.png)'})
-                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading4.png)'})
-                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading5.png)'})
-                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading6.png)'})
-                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading7.png)'});
+                tl.to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading1.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading2.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading3.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading4.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading5.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading6.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading7.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading1.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading2.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading3.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading4.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading5.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(https://allwinware.github.io/Front-End/allwinair/resource/img/loading6.png)'});
             }
         },
         /**
