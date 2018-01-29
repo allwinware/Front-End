@@ -134,7 +134,6 @@ AWAUI = (function () {
         },
         loading: {
             init: function () {
-                console.log("aaa");
                 var $elGSAP = $('.loading_ele'),
                     tl = new TimelineMax({repeat:-1});
                 tl.to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading1.png)'})
