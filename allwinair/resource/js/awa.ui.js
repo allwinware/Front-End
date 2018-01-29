@@ -142,7 +142,14 @@ AWAUI = (function () {
                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading4.png)'})
                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading5.png)'})
                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading6.png)'})
-                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading7.png)'});
+                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading7.png)'})
+                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading1.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading2.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading3.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading4.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading5.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading6.png)'})
+                    .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading7.png)'});
             }
         },
         /**
