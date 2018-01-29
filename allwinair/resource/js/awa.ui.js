@@ -132,6 +132,20 @@ AWAUI = (function () {
                 });
             }
         },
+        loading: {
+            init: function () {
+                console.log("aaa");
+                var $elGSAP = $('.loading_ele'),
+                    tl = new TimelineMax({repeat:-1});
+                tl.to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading1.png)'})
+                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading2.png)'})
+                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading3.png)'})
+                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading4.png)'})
+                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading5.png)'})
+                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading6.png)'})
+                   .to($elGSAP, 0.3, {backgroundImage:'url(../resource/img/loading7.png)'});
+            }
+        },
         /**
          * 메인 UI
          */
