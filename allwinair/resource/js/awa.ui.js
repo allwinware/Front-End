@@ -267,7 +267,7 @@ AWAUI = (function () {
                     $(this).addClass('ag__link--active');
                     $('.agc__items').hide();
                     var activeTab = $(this).attr('href');
-                    $(activeTab).fadeIn();
+                    $(activeTab).show();
                     return false;
                 });
             },
