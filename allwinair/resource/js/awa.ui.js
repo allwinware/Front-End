@@ -59,9 +59,20 @@ AWAUI = (function () {
                 });
             },
             scramble: function () {
+
                 if ($('.pnr-ct__top-profit').length > 0) {
-                    $('.pnr-ct__top-profit strong').scramble(1000, 30, "numbers", true);
+                    $('.pnr-ct__top-profit strong').each(function () {
+                        $(this).prop('Counter', 0).animate({
+                            Counter: $(this).text()
+                        }, {
+                            duration: 5000,
+                            step: function (now) {
+                                $(this).text(numberWithCommas(Math.ceil(now)));
+                            }
+                        });
+                    });
                 }
+
 
                 if ($('.state-number').length > 0) {
                     $(".state-number").each(function () {
