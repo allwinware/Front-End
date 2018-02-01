@@ -65,10 +65,10 @@ AWAUI = (function () {
                         $(this).prop('Counter', 0).animate({
                             Counter: $(this).text()
                         }, {
-                            duration: 5000,
+                            duration: 1000,
                             step: function (now) {
-                                //$(this).text(Math.ceil(now));
-                                $(this).text(numberWithCommas(Math.ceil(now)));
+                                $(this).text(Math.ceil(now));
+                                //$(this).text(numberWithCommas(Math.ceil(now)));
                             }
                         });
                     });
