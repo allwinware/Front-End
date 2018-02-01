@@ -65,7 +65,7 @@ AWAUI = (function () {
                         $(this).prop('Counter', 0).animate({
                             Counter: $(this).text()
                         }, {
-                            duration: 1000,
+                            duration: 5000,
                             step: function (now) {
                                 $(this).text(Math.ceil(now));
                                 //$(this).text(numberWithCommas(Math.ceil(now)));
@@ -143,7 +143,6 @@ AWAUI = (function () {
                     });
                 });
             }
-            }
         },
         loading: {
             init: function () {
@@ -183,6 +182,7 @@ AWAUI = (function () {
                 //출/귀국일 선택
                 if ($('#matching-datapicker__input').length > 0) {
                     $('#matching-datapicker__input').allwinDatepicker({
+                        stickyMonths: true,
                         inline: true,
                         container: '.matching--datapicker__view',
                         alwaysOpen: true,
