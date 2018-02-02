@@ -93,8 +93,8 @@ AWAUI = (function () {
                         }, {
                             duration: 5000,
                             step: function (now) {
-                                $(this).text(Math.ceil(now));
-                                //$(this).text(numberWithCommas(Math.ceil(now)));
+                                //$(this).text(Math.ceil(now));
+                                $(this).text(numberWithCommas(Math.ceil(now)));
                             }
                         });
                     });

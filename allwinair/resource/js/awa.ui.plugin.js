@@ -13861,7 +13861,7 @@ and dependencies (minified).
                 '<label>' + translate('Hour') + ': <input type="range" class="hour-range" name="hour" min="0" max="23"></label>' +
                 '</div>' +
                 '<div class="minute">' +
-                '<label>' + translate('Minute') + ': <input type="range" class="minute-range" name="minute" min="0" max="59"></label>' +
+                '<label>' + translate('Minute') + ': <input type="range" class="minute-range" name="minute" min="0" max="30" step="30" ></label>' +
                 '</div>';
         }
 
@@ -13934,8 +13934,8 @@ and dependencies (minified).
                 if (!opt.singleDate) {
                     html += '<div class="time2"></div>';
                 }
-                html += '</div>' +
             }
+             html += '</div>' +
                     '<div class="dp-clearfix"></div>' +
                     '</div>';
 
