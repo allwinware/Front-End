@@ -3279,6 +3279,10 @@
             //console.log("open");
             var layer = "#" + tenderID;
             var h = $(window).height() - 80;
+
+            if($('.awa-top-banner').is(':visible') == false ) $('.awa-top-banner').removeClass('fixed');
+            else $('.awa-top-banner').addClass('fixed');
+
             $('body').addClass('kill');
             $(layer).addClass('show');
             $(layer).find('.ly_ins').height(h);
@@ -3291,6 +3295,7 @@
         close: function (tenderID) {
             //console.log("close");
             $('body').removeClass('kill');
+            $('.awa-top-banner').removeClass('fixed');
             $('#' + tenderID).removeClass('show');
         }
     }
