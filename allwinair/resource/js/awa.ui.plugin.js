@@ -12536,7 +12536,7 @@ and dependencies (minified).
                 "default-less": "%d 일보다 작은 날짜를 선택해 주세요",
                 "default-range": "%d와 %d 일 사이의 날짜 범위를 선택해 주세요",
                 "default-default": "날짜 범위를 선택해 주세요",
-                "time": "시각",
+                "time": "",
                 "hour": "시",
                 "minute": "분"
             }
@@ -13855,7 +13855,7 @@ and dependencies (minified).
 
         function getTimeHTML() {
             return '<div>' +
-                '<span>' + translate('Time') + ': <span class="hour-val">00</span>:<span class="minute-val">00</span></span>' +
+                '<span class="total-time">' + translate('Time') + '<span class="hour-val">00</span>시 <span class="minute-val">00</span>분</span>' +
                 '</div>' +
                 '<div class="hour">' +
                 '<label>' + translate('Hour') + ': <input type="range" class="hour-range" name="hour" min="0" max="23"></label>' +
@@ -13927,15 +13927,17 @@ and dependencies (minified).
 
             }
             //+'</div>'
-            html += '<div class="dp-clearfix"></div>' +
-                '<div class="time">' +
-                '<div class="time1"></div>';
-            if (!opt.singleDate) {
-                html += '<div class="time2"></div>';
+            if(opt.time.enabled == true) {
+                html += '<div class="dp-clearfix"></div>' +
+                    '<div class="time">' +
+                    '<div class="time1"></div>';
+                if (!opt.singleDate) {
+                    html += '<div class="time2"></div>';
+                }
+                html += '</div>' +
             }
-            html += '</div>' +
-                '<div class="dp-clearfix"></div>' +
-                '</div>';
+                    '<div class="dp-clearfix"></div>' +
+                    '</div>';
 
             if (opt.showTopbar) {
                 html += '<div class="drp_top-bar">';
