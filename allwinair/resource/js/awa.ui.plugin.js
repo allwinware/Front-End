@@ -13069,9 +13069,11 @@ and dependencies (minified).
         }
 
         function renderTime(name, date) {
+            /*
             box.find('.' + name + ' input[type=range].hour-range').val(moment(date).hours());
             box.find('.' + name + ' input[type=range].minute-range').val(moment(date).minutes());
             setTime(name, moment(date).format('HH'), moment(date).format('mm'));
+            */
         }
 
         function changeTime(name, date) {
@@ -13861,7 +13863,7 @@ and dependencies (minified).
                 '<label>' + translate('Hour') + ': <input type="range" class="hour-range" name="hour" min="0" max="23"></label>' +
                 '</div>' +
                 '<div class="minute">' +
-                '<label>' + translate('Minute') + ': <input type="range" class="minute-range" name="minute" min="0" max="30" step="30" ></label>' +
+                '<label>' + translate('Minute') + ': <input type="range" class="minute-range" name="minute" min="0" max="59"></label>' +
                 '</div>';
         }
 
