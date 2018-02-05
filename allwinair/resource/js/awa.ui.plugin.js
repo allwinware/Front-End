@@ -13928,18 +13928,31 @@ and dependencies (minified).
                     '</div>';
 
             }
+
             //+'</div>'
-            if(opt.time.enabled == true) {
-                html += '<div class="dp-clearfix"></div>' +
-                    '<div class="time">' +
-                    '<div class="time1"></div>';
+            html += '<div class="dp-clearfix"></div>';
+            if(opt.time.enabled) {
+                html += '<div class="time">';
+                html += '<div class="time1"></div>';
                 if (!opt.singleDate) {
                     html += '<div class="time2"></div>';
                 }
+                html += '</div>';
+                html += '<div class="dp-clearfix"></div>';
             }
-             html += '</div>' +
-                    '<div class="dp-clearfix"></div>' +
-                    '</div>';
+            html += '</div>';
+            /*
+            //+'</div>'
+            html += '<div class="dp-clearfix"></div>' +
+                '<div class="time">' +
+                '<div class="time1"></div>';
+            if (!opt.singleDate) {
+                html += '<div class="time2"></div>';
+            }
+            html += '</div>' +
+                '<div class="dp-clearfix"></div>' +
+                '</div>';
+                */
 
             if (opt.showTopbar) {
                 html += '<div class="drp_top-bar">';
