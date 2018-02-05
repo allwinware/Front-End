@@ -50,7 +50,7 @@ AWAUI = (function () {
 
                 $('.js-datepicker-time').each(function () {
                     $(this).allwinDatepicker({
-                        format: 'YYYY-MM-DD HH:mm',
+                        format: 'YYYY-DD-MM HH:mm',
                         container: $(this).parent(),
                         autoClose: true,
                         singleDate: true,
