@@ -12487,11 +12487,6 @@ and dependencies (minified).
 }));
 
 
-
-
-
-
-
 // jquery.daterangepicker.js
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -13073,11 +13068,9 @@ and dependencies (minified).
         }
 
         function renderTime(name, date) {
-            /*
             box.find('.' + name + ' input[type=range].hour-range').val(moment(date).hours());
             box.find('.' + name + ' input[type=range].minute-range').val(moment(date).minutes());
             setTime(name, moment(date).format('HH'), moment(date).format('mm'));
-            */
         }
 
         function changeTime(name, date) {
@@ -13169,12 +13162,15 @@ and dependencies (minified).
 
 
         function dayClicked(day) {
+            console.log("dayClick");
+
             if (day.hasClass('invalid')) return;
             var time = day.attr('time');
             day.addClass('checked');
             if (opt.singleDate) {
                 opt.start = time;
                 opt.end = false;
+                console.log("1");
             } else if (opt.batchMode === 'week') {
                 if (opt.startOfWeek === 'monday') {
                     opt.start = moment(parseInt(time)).startOf('isoweek').valueOf();
@@ -13183,23 +13179,29 @@ and dependencies (minified).
                     opt.end = moment(parseInt(time)).endOf('week').valueOf();
                     opt.start = moment(parseInt(time)).startOf('week').valueOf();
                 }
+                console.log("2");
             } else if (opt.batchMode === 'workweek') {
                 opt.start = moment(parseInt(time)).day(1).valueOf();
                 opt.end = moment(parseInt(time)).day(5).valueOf();
+                console.log("3");
             } else if (opt.batchMode === 'weekend') {
                 opt.start = moment(parseInt(time)).day(6).valueOf();
                 opt.end = moment(parseInt(time)).day(7).valueOf();
+                console.log("4");
             } else if (opt.batchMode === 'month') {
                 opt.start = moment(parseInt(time)).startOf('month').valueOf();
                 opt.end = moment(parseInt(time)).endOf('month').valueOf();
+                console.log("5");
             } else if ((opt.start && opt.end) || (!opt.start && !opt.end)) {
                 opt.start = handleStart(time);
                 opt.end = false;
+                console.log("6");
             } else if (opt.start) {
                 opt.end = handleEnd(time);
                 if (opt.time.enabled) {
                     changeTime('end', opt.end);
                 }
+                console.log("7");
             }
 
             //Update time in case it is enabled and timestamps are available
@@ -13210,6 +13212,7 @@ and dependencies (minified).
                 if (opt.end) {
                     changeTime('end', opt.end);
                 }
+                console.log("8");
             }
 
             //In case the start is after the end, swap the timestamps
@@ -13220,6 +13223,7 @@ and dependencies (minified).
                 if (opt.time.enabled && opt.swapTime) {
                     swapTime();
                 }
+                console.log("9");
             }
 
             opt.start = parseInt(opt.start);
@@ -13231,6 +13235,7 @@ and dependencies (minified).
                     'date1': new Date(opt.start)
                 });
                 dayHovering(day);
+                console.log("10");
             }
             updateSelectableRange(time);
 
@@ -13238,6 +13243,7 @@ and dependencies (minified).
             showSelectedInfo();
             showSelectedDays();
             autoclose();
+
         }
 
 
@@ -13496,7 +13502,9 @@ and dependencies (minified).
             var dateRange;
             if (opt.start && opt.singleDate) {
                 box.find('.apply-btn').removeClass('disabled');
-                dateRange = getDateString(new Date(opt.start));
+
+                //dateRange = getDateString(new Date(opt.start));
+                dateRange = moment(new Date(opt.start)).format("YYYY-MM-DD ") + box.find('.time1 .hour select').val().replace(/^(\d{1})$/, '0$1') +  ":" + box.find('.time1 .minute select').val().replace(/^(\d{1})$/, '0$1');
                 opt.setValue.call(selfDom, dateRange, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
 
                 if (initiated && !silent) {
