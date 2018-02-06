@@ -12487,14 +12487,6 @@ and dependencies (minified).
 }));
 
 
-
-
-
-
-
-
-
-
 // jquery.daterangepicker.js
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -13045,11 +13037,14 @@ and dependencies (minified).
                         defaults[1] = defaults[1].replace(/(\d+)(th|nd|st)/, '$1');
                     }
                 }
+
                 // set initiated  to avoid triggerring datepicker-change event
                 initiated = false;
                 if (defaults.length >= 2) {
                     setDateRange(getValidValue(defaults[0], ___format, moment.locale(opt.language)), getValidValue(defaults[1], ___format, moment.locale(opt.language)));
                 } else if (defaults.length == 1 && opt.singleDate) {
+                    box.find('.time1 .hour select').val(moment(defaults[0]).format('HH'));
+                    box.find('.time1 .minute select').val(moment(defaults[0]).format('mm'));
                     setSingleDate(getValidValue(defaults[0], ___format, moment.locale(opt.language)));
                 }
 
