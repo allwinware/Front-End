@@ -12488,6 +12488,10 @@ and dependencies (minified).
 
 
 
+
+
+
+
 // jquery.daterangepicker.js
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -12952,14 +12956,14 @@ and dependencies (minified).
                 }
             });
 
-            box.find('.time1 input[type=range]').bind('change touchmove', function (e) {
+            box.find('.time1 select').bind('change touchmove', function (e) {
                 var target = e.target,
                     hour = target.name == 'hour' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined,
                     min = target.name == 'minute' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined;
                 setTime('time1', hour, min);
             });
 
-            box.find('.time2 input[type=range]').bind('change touchmove', function (e) {
+            box.find('.time2 select').bind('change touchmove', function (e) {
                 var target = e.target,
                     hour = target.name == 'hour' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined,
                     min = target.name == 'minute' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined;
@@ -13856,14 +13860,32 @@ and dependencies (minified).
         }
 
         function getTimeHTML() {
+            /*
+            return '<div>' +
+            '<span class="total-time">' + translate('Time') + '<span class="hour-val">00</span>시 <span class="minute-val">00</span>분</span>' +
+            '</div>' +
+            '<div class="hour">' +
+            '<label>' + translate('Hour') + ': <input type="range" class="hour-range" name="hour" min="0" max="23"></label>' +
+            '</div>' +
+            '<div class="minute">' +
+            '<label>' + translate('Minute') + ': <input type="range" class="minute-range" name="minute" min="0" max="59"></label>' +
+            '</div>';
+            */
             return '<div>' +
                 '<span class="total-time">' + translate('Time') + '<span class="hour-val">00</span>시 <span class="minute-val">00</span>분</span>' +
                 '</div>' +
-                '<div class="hour">' +
-                '<label>' + translate('Hour') + ': <input type="range" class="hour-range" name="hour" min="0" max="23"></label>' +
-                '</div>' +
-                '<div class="minute">' +
-                '<label>' + translate('Minute') + ': <input type="range" class="minute-range" name="minute" min="0" max="59"></label>' +
+                '<div class="time-choices">' +
+                '<span class="hour" >' +
+                '<select name="hour">' +
+                '<option >01</option><option >02</option><option >03</option><option >04</option><option >05</option><option >06</option><option >07</option><option >08</option><option >09</option><option >10</option><option >11</option><option >12</option><option >13</option><option >14</option><option >15</option><option >16</option><option >17</option><option >18</option><option >19</option><option >20</option><option >21</option><option >22</option><option >23</option><option >24</option>'+
+                '</select>' +
+                '</span>' +
+                '<span class="minute" >' +
+                '<select name="minute">' +
+                '<option >00</option>'+
+                '<option >30</option>'+
+                '</select>' +
+                '</span>' +
                 '</div>';
         }
 
@@ -14301,7 +14323,6 @@ and dependencies (minified).
 
     };
 }));
-
 
 
 /* scramble */
