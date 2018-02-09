@@ -13493,7 +13493,7 @@ and dependencies (minified).
             if (opt.start && opt.singleDate) {
                 box.find('.apply-btn').removeClass('disabled');
                 if (opt.time.enabled) {
-                    dateRange = moment(new Date(opt.start)).format("YYYY-MM-DD ") + box.find('.time1 .hour select').val().replace(/^(\d{1})$/, '0$1') +  ":" + box.find('.time1 .minute select').val().replace(/^(\d{1})$/, '0$1');
+                    dateRange = moment(new Date(opt.start)).format("YYYY.MM.DD ") + box.find('.time1 .hour select').val().replace(/^(\d{1})$/, '0$1') +  ":" + box.find('.time1 .minute select').val().replace(/^(\d{1})$/, '0$1');
                 }else{
                     dateRange = getDateString(new Date(opt.start));
                 }
@@ -13625,7 +13625,7 @@ and dependencies (minified).
                 }
                 if (
                     (opt.start && opt.end && end >= time && start <= time) ||
-                    (opt.start && !opt.end && moment(start).format('YYYY-MM-DD') == moment(time).format('YYYY-MM-DD'))
+                    (opt.start && !opt.end && moment(start).format('YYYY.MM.DD') == moment(time).format('YYYY.MM.DD'))
                 ) {
                     $(this).addClass('checked');
                 } else {
@@ -13633,13 +13633,13 @@ and dependencies (minified).
                 }
 
                 //add first-date-selected class name to the first date selected
-                if (opt.start && moment(start).format('YYYY-MM-DD') == moment(time).format('YYYY-MM-DD')) {
+                if (opt.start && moment(start).format('YYYY.MM.DD') == moment(time).format('YYYY.MM.DD')) {
                     $(this).addClass('first-date-selected');
                 } else {
                     $(this).removeClass('first-date-selected');
                 }
                 //add last-date-selected
-                if (opt.end && moment(end).format('YYYY-MM-DD') == moment(time).format('YYYY-MM-DD')) {
+                if (opt.end && moment(end).format('YYYY.MM.DD') == moment(time).format('YYYY.MM.DD')) {
                     $(this).addClass('last-date-selected');
                 } else {
                     $(this).removeClass('last-date-selected');
