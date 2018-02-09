@@ -12545,7 +12545,7 @@ and dependencies (minified).
         if (!opt) opt = {};
         opt = $.extend(true, {
             autoClose: false,
-            format: 'YYYY-MM-DD',
+            format: 'YYYY.MM.DD',
             separator: ' ~ ',
             language: 'auto',
             startOfWeek: 'sunday', // or monday
