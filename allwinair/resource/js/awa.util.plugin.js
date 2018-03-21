@@ -4791,7 +4791,7 @@ Parsley.setLocale('ko');
                 $(data.fake_input).blur();
 
                 //Removes the not_valid class when user changes the value of the fake input
-                if (data.unique) {
+                if (data.unique) {``
                     $(data.fake_input).keydown(function(event) {
                         if (event.keyCode == 8 || String.fromCharCode(event.which).match(/\w+|[áéíóúÁÉÍÓÚñÑ,/]+/)) {
                             $(this).removeClass('not_valid');
