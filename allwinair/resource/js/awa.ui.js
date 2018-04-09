@@ -16,7 +16,7 @@ AWAUI = (function () {
             headerFixed: function () {
                 //헤더 고정
                 $(window).scroll(function () {
-                    var sticky = $('.awa-header, .evt__state-bar'),
+                    var sticky = $('.awa-header, .evt__floating'),
                         scroll = $(window).scrollTop();
 
                     if (scroll >= 80) sticky.addClass('fixed');
