@@ -4502,6 +4502,7 @@
                         $(this).val(s);
                     }
                 },
+                numberOfMonths:0,
                 startDate: false,
                 endDate: false,
                 time: {
@@ -4546,7 +4547,8 @@
                 customArrowPrevSymbol: null,
                 customArrowNextSymbol: null,
                 monthSelect: true,
-                yearSelect: true
+                yearSelect: true,
+
             }, opt);
 
             opt.start = false;
@@ -4575,7 +4577,7 @@
                 }
             }
 
-            var languages = getLanguages();
+            //var languages = getLanguages();
             var box;
             var initiated = false;
             var self = this;
@@ -6195,7 +6197,7 @@
                 if (opt.showDateFilter && typeof opt.showDateFilter == 'function') return opt.showDateFilter(time, date);
                 return date;
             }
-
+/*
             function getLanguages() {
                 if (opt.language == 'auto') {
                     var language = navigator.language ? navigator.language : navigator.browserLanguage;
@@ -6214,7 +6216,7 @@
                     return $.allwinDatepickerLanguages['default'];
                 }
             }
-
+*/
             /**
              * Translate language string, try both the provided translation key, as the lower case version
              */
@@ -6279,6 +6281,8 @@
             singleDate: true,
             showShortcuts: false,
             singleMonth: true,
+            inline:true,
+
             time: {
                 enabled: false
             },
@@ -6315,6 +6319,7 @@
         $(this).allwinDatepicker({
             container: $(this).parent(),
             autoClose: true,
+            inline:true,
             time: {
                 enabled: false
             },
