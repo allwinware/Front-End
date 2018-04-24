@@ -148,6 +148,137 @@ legend, .blind {
     display: none;
 }
 
+.swiper-container {
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    /* Fix of Webkit flickering */
+    z-index: 1;
+}
+.swiper-container-no-flexbox .swiper-slide {
+    float: left;
+}
+.swiper-container-vertical > .swiper-wrapper {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    -o-transition-property: transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.swiper-container-android .swiper-slide,
+.swiper-wrapper {
+    -webkit-transform: translate3d(0px, 0, 0);
+    transform: translate3d(0px, 0, 0);
+}
+.swiper-container-multirow > .swiper-wrapper {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.swiper-container-free-mode > .swiper-wrapper {
+    -webkit-transition-timing-function: ease-out;
+    -o-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    margin: 0 auto;
+}
+.swiper-slide {
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    -o-transition-property: transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+}
+.swiper-invisible-blank-slide {
+    visibility: hidden;
+}
+/* Progress */
+.swiper-pagination-progressbar {
+    background: rgba(0, 0, 0, 0);
+    position: absolute;
+    bottom:0;
+    z-index:10;
+}
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+    background: #ebaa2c;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: left top;
+    -ms-transform-origin: left top;
+    transform-origin: left top;
+}
+.swiper-container-rtl .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+    -webkit-transform-origin: right top;
+    -ms-transform-origin: right top;
+    transform-origin: right top;
+}
+.swiper-container-horizontal > .swiper-pagination-progressbar,
+.swiper-container-vertical > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite {
+    width: 100%;
+    height: 4px;
+    left: 0;
+
+}
+.swiper-container-vertical > .swiper-pagination-progressbar,
+.swiper-container-horizontal > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite {
+    width: 4px;
+    height: 100%;
+    left: 0;
+
+}
+.swiper-pagination-white .swiper-pagination-bullet-active {
+    background: #ffffff;
+}
+.swiper-pagination-progressbar.swiper-pagination-white {
+    background: rgba(255, 255, 255, 0.25);
+}
+.swiper-pagination-progressbar.swiper-pagination-white .swiper-pagination-progressbar-fill {
+    background: #ffffff;
+}
+.swiper-pagination-black .swiper-pagination-bullet-active {
+    background: #000000;
+}
+.swiper-pagination-progressbar.swiper-pagination-black {
+    background: rgba(0, 0, 0, 0.25);
+}
+.swiper-pagination-progressbar.swiper-pagination-black .swiper-pagination-progressbar-fill {
+    background: #000000;
+}
+.swiper-pagination-lock {
+    display: none;
+}
+
+
 .awa-container{padding-bottom:100px;}
 
 .course-label{display:inline-block;vertical-align:top;text-align:center;width:25px;height:14px;line-height:14px;color:#fff;font-weight:bold;font-size:10px;}
@@ -162,8 +293,9 @@ legend, .blind {
 /* header */
 .awa-header{height:74px;}
 
-.visual{text-align:center;margin:0 25px 20px 25px;}
+.visual{text-align:center;margin-bottom:20px;padding:0 25px;overflow:hidden;}
 .visual img{max-width:100%;}
+.visual .swiper-container{overflow:visible;}
 
 .visual-txt{margin:0 25px;}
 .visual-txt strong{font-weight: 300;font-size:26px;display:block;line-height:32px;letter-spacing:-1.5px;}
