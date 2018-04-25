@@ -309,7 +309,7 @@
             </ul>
         </div>
     </div>
-    <button type="button" class="bt-back">back</button>
+    <button type="button" class="bt-back" id="js-layer-hide">back</button>
 </div>
 <!-- //매칭완료 리스트 레이어 -->
 
@@ -342,12 +342,14 @@
 
         $(document).on('click', '.matching-success', function() {
             $(document).scrollTop(0);
-            $('body').append('<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:299;"></div>');
             $('.matching-success--layer').addClass('open');
+            //$('body').append('<div class="success-dim" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:299;"></div>');
         });
 
-        $('.matching-success').click();
-
+        $(document).on('click', '#js-layer-hide', function() {
+            //$('.success-dim').remove();
+            $('.matching-success--layer').removeClass('open');
+        });
     });
 </script>
 </body>
