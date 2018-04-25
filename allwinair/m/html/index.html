@@ -324,7 +324,7 @@
             spaceBetween: 15,
             centeredSlides: true,
             loop: true,
-            speed: 1000,
+            speed: 500,
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,
@@ -347,13 +347,13 @@
 
         $(document).on('click', '.matching-success', function() {
             $(document).scrollTop(0);
+            $('body').addClass('kill');
             $('.matching-success--layer').addClass('open');
-            $('body').append('<div class="success-dim" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:299;"></div>');
+            $('.matching-success--layer .inner').height($(window).height()-85);
         });
 
         $(document).on('click', '#js-layer-hide', function() {
-            $('.success-dim').remove();
-            $('.matching-success--layer').removeClass('open');
+            $('body, .matching-success--layer').removeClass('kill open');
         });
     });
 </script>
