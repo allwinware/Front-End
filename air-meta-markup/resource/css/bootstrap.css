@@ -2704,7 +2704,8 @@ table th[class*="col-"] {
   background-color: #ebcccc;
 }
 .table-responsive {
-  overflow-x: auto;
+    /*
+      overflow-x: auto; */
   min-height: 0.01%;
 }
 .table-responsive.scroll{min-height:300px;max-height:300px;overflow:auto;overflow-y:auto;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;}
@@ -2987,6 +2988,50 @@ fieldset[disabled] .checkbox label {
 .radio input[type="radio"]:checked ~ .mark:before, .radio-inline input[type="radio"]:checked ~ .mark:before{	box-sizing: border-box;
 	background:#ebaa2c;
 }
+
+/* checkbox */
+.checkbox input, .checkbox-inline input {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkbox label, .checkbox-inline label {
+    height: 34px;
+    line-height: 34px;
+    padding-left: 25px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.checkbox .mark, .checkbox-inline .mark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    margin-top: -10px;
+    background-color: #eee;
+
+}
+
+.checkbox .mark:before, .checkbox-inline .mark:before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background-color: #eee;
+    width: 12px;
+    height: 12px;
+    transition: 0.5s;
+    -ms-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.checkbox input[type="checkbox"]:checked ~ .mark:before, .checkbox-inline input[type="checkbox"]:checked ~ .mark:before {
+    box-sizing: border-box;
+    background: #ebaa2c;
+}
+
 .form-control-static {
   padding-top: 7px;
   padding-bottom: 7px;
@@ -7011,4 +7056,343 @@ border-top: 1px solid rgba(0,0,0,.125);
 
 
 .footer{    border-top: 1px solid rgba(0,0,0,.125);margin-top:100px;height:50px;line-height:50px;text-align:center;}
+
+.choice-items {
+}
+
+.choice-item {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ccc;
+    min-width: 80px;
+    max-width: 90px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    padding-left: 10px;
+    font-weight: bold;
+    margin: 3px;
+}
+
+.choice-item button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: 0;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    margin: 0;
+    line-height: 100%;
+    vertical-align: top;
+}
+
+.choice-item button i {
+    vertical-align: top;
+}
+
+.area-filter button {
+    background: none;
+    border: 0;
+    border: 1px solid #ccc;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    line-height: 100%;
+    vertical-align: top;
+    margin: 3px;
+}
+
+.area-filter button.active {
+    background: #ccc;
+}
+
+.awa-datepicker {
+    min-width: 230px;
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+    padding: 0;
+}
+
+.awa-datepicker .month-wrapper {
+    width: 473px;
+    position: relative;
+    overflow: hidden;
+    font-size: 0;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #b3b3b3;
+}
+
+.awa-datepicker .month-wrapper .month-item {
+    position: relative;
+    width: 216px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.awa-datepicker .month-wrapper .month-item.first {
+    float: left;
+}
+
+.awa-datepicker .month-wrapper .month-item.second {
+    float: right;
+}
+
+.awa-datepicker .month-wrapper table {
+    width: 216px;
+    margin: 0 auto;
+}
+
+.awa-datepicker thead .select-wrapper {
+    font-size: 0;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle
+}
+
+.awa-datepicker thead select {
+    height: 30px;
+    font-size: 12px;
+    color: #000;
+    font-family: 'Geogrotesque-SemiBold';
+    background: none;
+}
+
+.awa-datepicker thead option {
+    font-size: 18px;
+}
+
+.awa-datepicker thead th {
+    height: 30px;
+    border: 0 !important;
+    background: none !important;
+}
+
+.awa-datepicker thead .month-name {
+    text-align: center !important;
+    width: 284px;
+}
+
+.awa-datepicker thead .prev {
+    font-size: 0;
+    vertical-align: top;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 30px;
+    height: 30px;
+    background: url('../../resource/img/img_prev_10x19@2x.png') center center no-repeat;
+    background-size: 10px 19px;
+}
+
+.awa-datepicker thead .next {
+    font-size: 0;
+    vertical-align: top;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 30px;
+    height: 30px;
+    background: url('../../resource/img/img_next_10x19@2x.png') center center no-repeat;
+    background-size: 10px 19px;
+}
+
+.awa-datepicker thead .dot {
+    position: relative;
+    top: 4px;
+    margin: 0 5px;
+    display: inline-block;
+    background: #000;
+    width: 3px;
+    height: 3px;
+}
+
+.awa-datepicker thead .week-name th {
+    font-weight: normal;
+    font-size: 12px;
+    color: #999;
+    height: 30px;
+    text-align: center;
+}
+
+.awa-datepicker tbody {
+    border-bottom: 1px solid #e6e6e6;
+    border-left: 1px solid #e6e6e6;
+}
+
+.awa-datepicker tbody td {
+    padding: 0 !important;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+    border-top: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;
+}
+
+.awa-datepicker tbody td .day {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 13px;
+    color: #000;
+    font-family: 'Geogrotesque-Regular'
+}
+
+.awa-datepicker tbody td .lastMonth {
+    color: #999;
+}
+
+.awa-datepicker tbody td .nextMonth {
+    color: #999;
+}
+
+.awa-datepicker tbody td .first-date-selected {
+    background: #ebaa2c !important;
+    color: #fff;
+}
+
+.awa-datepicker tbody td .last-date-selected {
+    background: #ebaa2c !important;
+    color: #fff;
+}
+
+.awa-datepicker tbody td .checked {
+    background: #f9ecd3;
+}
+
+.awa-datepicker tbody td .lastMonth.checked, .awa-datepicker tbody td .nextMonth.checked {
+    background: none !important;
+    color: #999 !important;
+}
+
+.awa-datepicker tbody td .hovering {
+    background: #f9ecd3 !important;
+    color: #000 !important;
+}
+
+.awa-datepicker.single-date {
+    width: 100%;
+    padding: 0;
+}
+
+.awa-datepicker.single-date .month-wrapper {
+    width: auto;
+    border: 0;
+    padding: 0;
+}
+
+.awa-datepicker.single-date .month-wrapper table {
+    width: 100%;
+}
+
+.awa-datepicker.single-date .month-wrapper .month-item {
+    float: none;
+    clear: both;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #b3b3b3;
+}
+
+.awa-datepicker.single-date thead th {
+    height: 30px;
+}
+
+.awa-datepicker.single-date thead select {
+    height: 30px;
+    font-size: 12px;
+}
+
+.awa-datepicker.single-date thead .prev {
+    height: 30px;
+    background-size: 10px 17px
+}
+
+.awa-datepicker.single-date thead .next {
+    height: 30px;
+    background-size: 10px 17px
+}
+
+.awa-datepicker.single-date thead .dot {
+    top: 4px;
+    width: 3px;
+    height: 3px;
+}
+
+.awa-datepicker.single-date thead .week-name th {
+    font-size: 12px;
+    height: 30px;
+}
+
+.awa-datepicker.single-date tbody td {
+    height: 30px;
+
+}
+
+.awa-datepicker.single-date tbody td .day {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.awa-datepicker .footer {
+    display: none;
+}
+
+.awa-datepicker .time-choices {
+    border: 1px solid #b3b3b3;
+    border-top: 0;
+    font-size: 0;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.awa-datepicker .time-choices span {
+    position: relative;
+    display: inline-block;
+    width: 105px;
+}
+
+.awa-datepicker .time-choices span:after {
+    content: '';
+    font-size: 14px;
+    display: inline-block;
+    line-height: 30px;
+    margin-left: 6px;
+}
+
+.awa-datepicker .time-choices select {
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #e6e6e6;
+    vertical-align: top;
+    display: inline-block;
+    font-size: 14px;
+    padding-left: 10px;
+    width: 80px;
+    height: 30px;
+    background: url(../../resource/img/img_arrow_11x7.png) 60px center no-repeat;
+}
+
+.awa-datepicker .time-choices .hour {
+    float: left;
+}
+
+.awa-datepicker .time-choices .hour:after {
+    content: '시';
+}
+
+.awa-datepicker .time-choices .minute {
+    float: right;
+}
+
+.awa-datepicker .time-choices .minute:after {
+    content: '분';
+}
+
+
 
