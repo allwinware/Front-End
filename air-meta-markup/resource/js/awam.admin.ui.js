@@ -7,7 +7,54 @@ AWAMUI = (function () {
          */
         common: {
             init: function () {
+
                 AWAMUI.common.datepicker();
+                AWAMUI.common.fixedHeader();
+                AWAMUI.common.nav();
+            },
+            fixedHeader: function () {
+                var $obj = $('.header, .container'),
+                    $depth2 = $('.depth2-items');
+
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 60) {
+                        $obj.addClass('fixed');
+                    } else {
+                        $obj.removeClass('fixed');
+                        $depth2.show();
+                    }
+                });
+            },
+            nav: function () {
+                var $depth1 = $('.header .navs li a'),
+                    $depth2 = $('.header .depth2-items'),
+                    $depth2Item = $('.header .depth2-item'),
+                    $depthItems = $('.header .navs li a, .header .depth2-item');
+
+                $(document).on('mouseenter', '.header .navs li a', function () {
+                    var index = $depth1.index($(this));
+                    $depthItems.removeClass('active');
+                    $(this).addClass('active');
+                    if ($(this).closest('.header').hasClass('fixed')) {
+                        $depth2.slideDown('fast');
+                    }
+                    $depth2Item.eq(index).addClass('active');
+                });
+
+                $(document).on('mouseenter', '.header .depth2-item', function () {
+                    var index = $depth2Item.index($(this));
+                    $depthItems.removeClass('active');
+                    $(this).addClass('active');
+                    $depth1.eq(index).addClass('active');
+                });
+
+                $(document).on('mouseleave', '.header', function () {
+                    $depthItems.removeClass('active');
+                    if ($(this).hasClass('fixed')) {
+                        $depth2.hide();
+                    }
+                });
+
             },
             datepicker: function () {
                 $('.js-datepicker-single').each(function () {
