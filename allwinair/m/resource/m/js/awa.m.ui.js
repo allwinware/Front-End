@@ -46,13 +46,12 @@ AWAUI = (function () {
                 $doc.on('click', '#js-matching-success', function () {
                     $doc.scrollTop(0);
                     $body.addClass('kill');
-                    $matchingSucLayer.addClass('open');
-
+                    $matchingSucLayer.addClass('open').find('.inner').css('height', $(window).height() - 85);
                 });
 
                 $doc.on('click', '#js-layer--hide', function () {
                     $body.removeClass('kill');
-                    $matchingSucLayer.removeClass('open');
+                    $matchingSucLayer.removeClass('open').find('.inner').css('height', 'auto');
                 });
             }
         },
