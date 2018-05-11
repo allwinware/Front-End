@@ -12601,7 +12601,8 @@ and dependencies (minified).
             customArrowPrevSymbol: null,
             customArrowNextSymbol: null,
             monthSelect: true,
-            yearSelect: true
+            yearSelect: true,
+            onlyMonth: false
         }, opt);
 
         opt.start = false;
@@ -12963,6 +12964,16 @@ and dependencies (minified).
                     min = target.name == 'minute' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined;
                 setTime('time2', hour, min);
             });
+
+            if (opt.onlyMonth) {
+                $('.week-name, .month-wrapper tbody').hide();
+
+                box.find('.bt-month-apply').click(function () {
+                    closeDatePicker();
+                    var start = moment(opt.month1).format("YYYY.MM");
+                    opt.setValue.call(selfDom, start, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
+                });
+            }
 
         }
 
@@ -13928,6 +13939,7 @@ and dependencies (minified).
                 '       </thead>' +
                 '       <tbody></tbody>' +
                 '   </table>' +
+                (opt.onlyMonth ? '<div class="month-apply"><button type="button" class="bt-month-apply">확인</button></div>' : '') +
                 '</div>';
 
             if (hasMonth2()) {
@@ -13949,7 +13961,6 @@ and dependencies (minified).
                     '   <tbody></tbody>' +
                     '   </table>' +
                     '</div>';
-
             }
 
             //+'</div>'
