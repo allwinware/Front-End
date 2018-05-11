@@ -131,6 +131,23 @@ AWAMUI = (function () {
                         }
                     });
                 });
+
+                $('.js-datepicker-range-month').each(function () {
+                    $(this).allwinDatepicker({
+                        container: $(this).parent(),
+                        autoClose: false,
+                        onlyMonth: true,
+                        time: {
+                            enabled: false
+                        },
+                        customOpenAnimation: function (cb) {
+                            $(this).fadeIn(0, cb);
+                        },
+                        customCloseAnimation: function (cb) {
+                            $(this).fadeOut(0, cb);
+                        }
+                    });
+                });
             }
         }
     };

@@ -90,6 +90,7 @@
             lookBehind: false,
             batchMode: false,
             duration: 200,
+            onlyMonth: false,
             stickyMonths: false,
             dayDivAttrs: [],
             dayTdAttrs: [],
@@ -112,8 +113,7 @@
             customArrowPrevSymbol: null,
             customArrowNextSymbol: null,
             monthSelect: true,
-            yearSelect: true,
-            onlyMonth: false
+            yearSelect: true
         }, opt);
 
         opt.start = false;
@@ -288,6 +288,23 @@
                 box.addClass('two-months');
             }
 
+
+            var monthDate = opt.singleDate ? moment(opt.month1).format("YYYY.MM") : moment(opt.month1).format("YYYY.MM") + " ~ " + moment(opt.month2).format("YYYY.MM");
+
+            if (opt.onlyMonth) {
+                box.find('.week-name, .month-wrapper tbody').hide();
+                box.find('.bt-month-apply').click(function () {
+                    var monthDate;
+                    closeDatePicker();
+                    if (opt.singleDate) {
+                        monthDate = moment(opt.month1).format("YYYY.MM");
+                    } else {
+                        monthDate = moment(opt.month1).format("YYYY.MM") + " ~ " + moment(opt.month2).format("YYYY.MM");
+                    }
+
+                    opt.setValue.call(selfDom, monthDate, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
+                });
+            }
 
             setTimeout(function () {
                 updateCalendarWidth();
@@ -475,17 +492,6 @@
                     min = target.name == 'minute' ? $(target).val().replace(/^(\d{1})$/, '0$1') : undefined;
                 setTime('time2', hour, min);
             });
-
-            if (opt.onlyMonth) {
-                $('.week-name, .month-wrapper tbody').hide();
-
-                box.find('.bt-month-apply').click(function () {
-                    closeDatePicker();
-                    var start = moment(opt.month1).format("YYYY.MM");
-                    opt.setValue.call(selfDom, start, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
-                });
-            }
-
         }
 
 
@@ -551,6 +557,10 @@
 
             if (defaults && ((defaults.length == 1 && opt.singleDate) || defaults.length >= 2)) {
                 var ___format = opt.format;
+
+                if (opt.onlyMonth) {
+                    opt.format = 'YYYY.MM';
+                }
                 if (___format.match(/Do/)) {
 
                     ___format = ___format.replace(/Do/, 'D');
@@ -569,9 +579,10 @@
                     box.find('.time1 .minute select').val(moment(defaults[0]).format('mm'));
                     setSingleDate(getValidValue(defaults[0], ___format, moment.locale(opt.language)));
                 }
-
                 initiated = true;
             }
+
+
         }
 
         function getValidValue(date, format, locale) {
@@ -1450,7 +1461,6 @@
                 '       </thead>' +
                 '       <tbody></tbody>' +
                 '   </table>' +
-                (opt.onlyMonth ? '<div class="month-apply"><button type="button" class="bt-month-apply">확인</button></div>' : '') +
                 '</div>';
 
             if (hasMonth2()) {
@@ -1473,7 +1483,6 @@
                     '   </table>' +
                     '</div>';
             }
-
             //+'</div>'
             html += '<div class="dp-clearfix"></div>';
             if (opt.time.enabled) {
@@ -1498,7 +1507,9 @@
                 '<div class="dp-clearfix"></div>' +
                 '</div>';
                 */
-
+            if (opt.onlyMonth) {
+                html += '<div class="month-apply"><button type="button" class="bt-month-apply">확인</button></div>';
+            }
             if (opt.showTopbar) {
                 html += '<div class="drp_top-bar">';
 
@@ -1588,7 +1599,6 @@
             }
 
             html += '</div></div>';
-
 
             return $(html);
         }

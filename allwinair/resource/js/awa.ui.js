@@ -32,7 +32,7 @@ AWAUI = (function () {
                 $('.js-datepicker-month').each(function () {
                     $(this).allwinDatepicker({
                         container: $(this).parent(),
-                        autoClose: true,
+                        autoClose: false,
                         singleDate: true,
                         showShortcuts: false,
                         singleMonth: true,
@@ -92,6 +92,23 @@ AWAUI = (function () {
                     $(this).allwinDatepicker({
                         container: $(this).parent(),
                         autoClose: true,
+                        time: {
+                            enabled: false
+                        },
+                        customOpenAnimation: function (cb) {
+                            $(this).fadeIn(0, cb);
+                        },
+                        customCloseAnimation: function (cb) {
+                            $(this).fadeOut(0, cb);
+                        }
+                    });
+                });
+
+                $('.js-datepicker-range-month').each(function () {
+                    $(this).allwinDatepicker({
+                        container: $(this).parent(),
+                        autoClose: false,
+                        onlyMonth: true,
                         time: {
                             enabled: false
                         },
