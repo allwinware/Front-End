@@ -107,6 +107,7 @@ AWAUI = (function () {
                 $('.js-datepicker-range-month').each(function () {
                     $(this).allwinDatepicker({
                         container: $(this).parent(),
+                        stickyMonths: true,
                         autoClose: false,
                         onlyMonth: true,
                         time: {
