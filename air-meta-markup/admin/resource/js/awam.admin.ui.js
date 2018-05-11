@@ -57,6 +57,26 @@ AWAMUI = (function () {
 
             },
             datepicker: function () {
+                $('.js-datepicker-month').each(function () {
+                    $(this).allwinDatepicker({
+                        container: $(this).parent(),
+                        autoClose: true,
+                        singleDate: true,
+                        showShortcuts: false,
+                        singleMonth: true,
+                        onlyMonth: true,
+                        time: {
+                            enabled: false
+                        },
+                        customOpenAnimation: function (cb) {
+                            $(this).fadeIn(0, cb);
+                        },
+                        customCloseAnimation: function (cb) {
+                            $(this).fadeOut(0, cb);
+                        }
+                    });
+                });
+
                 $('.js-datepicker-single').each(function () {
                     $(this).allwinDatepicker({
                         container: $(this).parent(),
