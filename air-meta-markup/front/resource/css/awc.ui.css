@@ -220,6 +220,7 @@ legend, .blind {
 .custom-input.pos:after{width:18px;height:26px;background:url('../img/ico_pos.svg') center center no-repeat;background-size:18px 26px;}
 .custom-input.cal:after{width:20px;height:20px;background:url('../img/ico_cal.svg') center center no-repeat;background-size:20px 20px;}
 .custom-input.arrow:after{width:15px;height:9px;background:url('../img/ico_arrow-down.svg') center center no-repeat;background-size:15px 9px;}
+.custom-input input:disabled{background:#f0f0f0;}
 .addr-inputs{position:relative;margin-bottom:8px;}
 .addr-inputs .bar{position:relative;display:inline-block;vertical-align:top;width:20px;height:56px;}
 .addr-inputs .bar:before{content:'';width:12px;height:1px;background:#161820;position:absolute;top:29px;left:4px;}
@@ -232,6 +233,7 @@ legend, .blind {
 /* 인풋 라벨 */
 .label{position:relative;display:block;font-weight:500;font-size:16px;margin-bottom:5px;}
 .label.required:after{content:'*';font-size:14px;color:#fc5625;font-weight:500;margin-left:3px;}
+.label.required em{position:absolute;top:0;right:0;color:#b2b2b2;font-size:14px;}
 
 /* 인풋 팁 */
 .input-tip{font-size:14px;margin-top:5px;}
@@ -274,9 +276,6 @@ legend, .blind {
     height: 18px;
     line-height: 18px;
     border:1px solid #c7c7cd;
-    transition: 0.5s;
-    -ms-transition: 0.5s;
-    -webkit-transition: 0.5s;
 }
 
 .custom-check input[type=checkbox]:checked + label {
@@ -284,7 +283,8 @@ legend, .blind {
 }
 
 .custom-check input[type=checkbox]:checked + label:before {
-
+    border:1px solid #fe4d0a;
+    background:#fe4d0a url('../img/ico_check.svg') center center no-repeat;background-size:8px 7px;
 }
 
 /* 셀렉트박스 */
@@ -365,7 +365,7 @@ legend, .blind {
 .list-type1 .rsv__trip-city{font-size:0;}
 .list-type1 .rsv__trip-city strong{font-weight:700;font-size:20px;display:inline-block;vertical-align:top;}
 .list-type1 .rsv__trip-city em{font-family: 'Geogrotesque-SemiBold'}
-.list-type1 .rsv__trip-city .bar{font-size:20px;display:inline-block;vertical-align:top;margin:0 5px;}
+.list-type1 .rsv__trip-city b{font-size:20px;display:inline-block;vertical-align:top;margin:0 5px;}
 .list-type1 .rsv__at span{font-size:14px;display:inline-block;vertical-align:top;}
 .list-type1 .rsv__at em{font-family: 'Geogrotesque-Medium';}
 .list-type1 .rsv__at b{font-size:14px;display:inline-block;margin:0 5px;}
@@ -546,8 +546,8 @@ legend, .blind {
 
 .compare_layer{z-index:100;background:#fff;position:fixed;top:0;right:0;width:230px;height:100%;border-left:1px solid #e6e6e6;box-sizing: border-box}
 .compare_layer__toggle{position:absolute;top:50%;left:-40px;margin-top:-40px;width:39px;height:80px;background:#fff;border:1px solid #e6e6e6;border-right:0;}
-.compare_layer__toggle:after{content:'';position:absolute;top:28px;left:11px;width:13px;height:23px;border:1px solid red;}
-.compare_layer__toggle--active:after{}
+.compare_layer__toggle:after{content:'';position:absolute;top:28px;left:11px;width:13px;height:23px;background:url('../img/ico_arrow-left.svg') center center no-repeat;}
+.compare_layer__toggle--active:after{background:url('../img/ico_arrow-right.svg') center center no-repeat;}
 .compare_layer__inner{position:absolute;top:50%;left:40px;-ms-transform: translate(0, -50%);-webkit-transform: translate(0, -50%);transform: translate(0, -50%);}
 .compare_layer__tit{margin-bottom:50px;}
 .compare_layer__tit strong{display:block;font-weight:700;font-size:18px;}
@@ -575,14 +575,13 @@ legend, .blind {
     overflow: hidden;
 }
 .awc-layer__inner{position:relative;}
-.awc-layer__header{padding-bottom:20px;}
-.awc-layer__header h1{font-size:30px;color:#fff;}
+.awc-layer__header{position:relative;padding-bottom:20px;}
+.awc-layer__header h1{font-size:36px;color:#fff;font-weight:700;}
 .awc-layer__header h1.type2{color:#000;}
-.awc-layer__body{}
 .awc-layer__bts{text-align:center;margin-top:40px;}
 .awc-layer__bts a{margin:0 3px;}
-.awc-layer__close{border:1px solid red;width:24px;height:24px;position:absolute;top:10px;right:0;}
-.air-fare-detail{width:1110px;margin:0 auto;}
+.awc-layer__close{width:24px;height:24px;position:absolute;top:10px;right:0;background:url('../img/ico_close3.svg') center center no-repeat;background-size:24px 24px;}
+.air-fare-detail{width:1110px;margin:0 auto;position:absolute;top:50%;left:50%;-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}
 .air-fare-detail .awc-layer__body{background:#fff;padding:80px 105px 50px 105px;}
 .air-fare-detail-info{padding-bottom:15px;box-sizing:border-box;overflow:hidden;}
 .air-fare-detail-info ul{font-size:0;}
@@ -629,3 +628,223 @@ legend, .blind {
 .air-fare-detail-list .total-pay dt{color:#a2a3a6;font-size:12px;}
 .air-fare-detail-list .total-pay dd{font-size:16px;font-weight:700;}
 .air-fare-detail-list .total-pay dd .number{font-size:30px;font-family: 'Geogrotesque-Bold';position:relative;top:2px;}
+
+.from-citys{width:910px;padding-left:90px;margin:0 auto;position:absolute;top:50%;left:50%;-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}
+.to-citys{width:910px;padding-left:90px;margin:0 auto;position:absolute;top:50%;left:50%;-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}
+.airlies{width:1000px;margin:0 auto;position:absolute;top:50%;left:50%;-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}
+.dates{width:970px;margin:0 auto;position:absolute;top:50%;left:50%;-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}
+.passenger-seat{width:920px;padding-left:80px;margin:0 auto;position:absolute;top:50%;left:50%;-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}
+
+.srching-input{margin:30px 0 40px 0;}
+.srching-input input{font-size:18px;padding-bottom:5px;color:#fff;width:280px;border:0;border-bottom:1px solid #fff;background:none;}
+.srching-input input::-webkit-input-placeholder {font-size:18px;color: #fff !important;}
+.srching-input input::-moz-placeholder {font-size:18px;color: #fff !important;}
+.srching-input input:-ms-input-placeholder {font-size:18px;color: #fff !important;}
+.srching-input input:-moz-placeholder {font-size:18px;color: #fff !important;}
+.domestic__items{display:block;font-size:0;margin:-5px 0 0 -5px;width:780px;}
+.domestic__item{display:inline-block;margin:5px;}
+.domestic__radio {
+    display: inline-block;
+    width: 120px;
+    height: 52px;
+    box-sizing: border-box;
+}
+
+.domestic__radio input {
+    position: absolute;
+    opacity: 0;
+}
+
+.domestic__radio input[type=radio] + label {
+    font-family: 'Noto Sans';
+    display: block;
+    font-size: 16px;
+    color: #fff;
+    width: 120px;
+    height: 52px;
+    line-height: 52px;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.domestic__radio input[type=radio]:checked + label {
+    color: #000;
+    border: 1px solid #000;
+}
+
+.internationals{position:relative;overflow:hidden;min-height:320px;}
+.arrive-groups{position:absolute;top:0;left:0;width:144px;border-right:1px solid #f6d699;}
+.ag__item{margin-bottom:20px;}
+.ag__link{font-size:18px;color:#fff;line-height:100%;}
+.ag__link--active{color:#000;}
+.arrive-groups-child{margin:-5px 0 0 177px}
+.agc__items{display:block;font-size:0;margin:0 0 0 -5px;}
+.agc__item{display:inline-block;margin:5px;}
+.agc__radio {
+    display: inline-block;
+    width: 120px;
+    height: 52px;
+    box-sizing: border-box;
+}
+
+.agc__radio input {
+    position: absolute;
+    opacity: 0;
+}
+
+.agc__radio input[type=radio] + label {
+    font-family: 'Noto Sans';
+    display: block;
+    font-size: 16px;
+    color: #fff;
+    width: 120px;
+    height: 52px;
+    line-height: 52px;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.agc__radio input[type=radio]:checked + label {
+    color: #000;
+    border: 1px solid #000;
+}
+
+.airline__items{display:block;font-size:0;margin:0 0 0 -5px;}
+.airline__item{display:inline-block;margin:5px;}
+
+.airline__radio {
+    display: inline-block;
+    width: 152px;
+    height: 52px;
+    box-sizing: border-box;
+}
+
+.airline__radio input {
+    position: absolute;
+    opacity: 0;
+}
+
+.airline__radio input[type=radio] + label {
+    font-family: 'Noto Sans';
+    display: block;
+    font-size: 16px;
+    color: #fff;
+    width: 152px;
+    height: 52px;
+    line-height: 52px;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.airline__radio input[type=radio]:checked + label {
+    color: #000;
+    border: 1px solid #000;
+}
+
+.cal-view{background:#fff;}
+
+.passenger-seat{}
+.result-nums{width:350px;border-bottom:1px solid #fff;font-size:18px;color:#fff;padding-bottom:5px;}
+.passengers{font-size:0;margin-top:120px;margin-bottom:40px;}
+.passengers dl{width:210px;display:inline-block;margin-right:40px;}
+.passengers dt{font-size:18px;color:#000;}
+.passengers dt em{font-size:12px;color:#fff;margin-left:5px;}
+.passengers dd{position:relative;width:210px;height:52px;margin-top:5px;box-sizing: border-box;border:1px solid #fff;}
+.passengers dd button{width:50px;height:50px;position:absolute;top:0;}
+.passengers dd .down{left:0;border-right:1px solid #fff;background:url('../img/ico_minus.svg') center center no-repeat;background-size:15px 15px;}
+.passengers dd .up{right:0;border-left:1px solid #fff;background:url('../img/ico_plus.svg') center center no-repeat;background-size:15px 15px;}
+.passengers dd input{width:107px;height:50px;font-size:16px;color:#fff;font-family:'Geogrotesque-Medium';text-align:center;background:none;border:0;margin-left:50px;}
+
+.passengers dd input::-webkit-input-placeholder {
+    font-size:16px;
+    color: #fff !important;
+}
+
+.passengers dd input::-moz-placeholder {
+    font-size:16px;
+    color: #fff !important;
+}
+
+.passengers dd input:-ms-input-placeholder {
+    font-size:16px;
+    color: #fff !important;
+}
+
+.passengers dd input:-moz-placeholder {
+    font-size:16px;
+    color: #fff !important;
+}
+.seat-class{margin-bottom:90px;}
+
+
+/* 라디오박스 */
+.seat-class-radio {
+    display: inline-block;
+    margin-right:30px;
+}
+
+.seat-class-radio input {
+    opacity: 0;
+    position: absolute;
+}
+
+.seat-class-radio input[type=radio] + label {
+    position: relative;
+    padding-left: 34px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    line-height: 22px;
+}
+
+.seat-class-radio input[type=radio] + label:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    border: 1px solid #9a9ea6;
+    width: 24px;
+    height: 24px;
+    border-radius:24px;
+    border:1px solid #fff;
+    transition: 0.5s;
+    -ms-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.seat-class-radio input[type=radio] + label:after {
+    content: '';
+}
+
+.seat-class-radio input[type=radio]:checked + label {
+    color: #000;
+}
+
+.seat-class-radio input[type=radio]:checked + label:after {
+    background:#fff;width:12px;height:12px;border-radius:12px;
+    position:absolute;top:6px;left:6px;
+}
+
+.passenger-seat .bt-selects{width:210px;height:52px;line-height:48px;text-align:center;color:#fff;border:1px solid #fff;font-size:16px;box-sizing: border-box}
