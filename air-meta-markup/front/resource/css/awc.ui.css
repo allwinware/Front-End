@@ -534,30 +534,42 @@ legend, .blind {
 
 /* 레이아웃 */
 .awc-wrap{height:100%;}
-.awc-container{position:absolute;top:0;left:80px;right:0;bottom:0;z-index:10;background:#fff;height:100%;
-    transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
+.awc-wrap:before{content:"";position:fixed;top:0;left:0;z-index:5;width:100%;height:100%;background:rgba(0,0,0,.7);
+    -webkit-transition: 500ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    transition: 300ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    -webkit-transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860); /* easeOutQuart */
+    -webkit-transition-delay: 250ms;
+    transition-delay: 250ms;
+    -ms-transition:none;
 }
-.awc-container:before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);}
-.awc-container__inner{position:relative;height:100%;background:#fff;
-
+.awc-container{/*transform: translateX(80px);*/position:absolute;top:0;left:80px;right:0;bottom:0;z-index:10;background:#fff;height:100%;
+    -webkit-transition: 500ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    transition: 300ms cubic-bezier(0.785, 0.135, 0.150, 0.860); /* easeOutQuart */
+    -webkit-transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860); /* easeOutQuart */
+    -ms-transition:none;
 }
+.awc-container__inner{position:relative;height:100%;background:#fff;}
 .awc-lnb{position:fixed;top:0;left:80px;width:230px;height:100%;overflow:hidden;background:#fff;
 }
-.awc-content{background:#fff;padding:90px 0 0 270px;overflow:hidden;opacity: 1;
-
-}
+.awc-content{background:#fff;padding:90px 0 0 270px;overflow:hidden;}
 .awc-content__inner {
     max-width: 1340px;
     padding-bottom: 30px;
 }
 .is-reduce{}
-.is-reduce .awc-container{overflow:hidden;transform: translateX(calc(100% - 230px));left:0;}
+.is-reduce .awc-container{background:red;overflow:hidden;-webkit-transform: translateX(-webkit-calc(100% - 230px));transform: translateX(calc(100% - 230px));
+    transform: translate(100%, 0) translate(-230px, 0);
+}
 .is-reduce .awc-container:before{}
-.is-reduce .awc-container .awc-lnb{position:static;top:auto;left:0;background:#fff;}
-.is-reduce .awc-container .awc-content{padding:0;opacity: 0;}
-
+.is-reduce .awc-container .awc-lnb{background:#fff;z-index:10;position:static;left:auto;
+}
+.is-reduce .awc-container .awc-content{}
+.is-reduce .awc-wrap:before{
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+}
 
 /* 좌측메뉴 */
 .lnb__inner{position:relative;height:100%;overflow:hidden;padding:0 40px;}
@@ -581,8 +593,8 @@ legend, .blind {
 
 /* 꼬리 로고 */
 .airline-code__wing{position:relative;font-size:14px;display:inline-block;height:28px;line-height:40px;}
-.airline-code__wing .tail{width:26px;height:28px;display:inline-block;vertical-align:top;margin-right:5px;}
-.airline-code__wing .tail img{width:26px;height:28px;}
+.airline-code__wing .tail{width:34px;height:39px;display:inline-block;vertical-align:top;margin-right:5px;}
+.airline-code__wing .tail img{width:34px;height:39px;}
 
 /* 직항,경유 */
 .trip-label{display:inline-block;vertical-align:top;width:34px;height:16px;line-height:16px;font-size:10px;text-align:center;color:#fff;}
@@ -685,7 +697,7 @@ legend, .blind {
 .result-list__items .result-schedules{position:relative;margin-top:65px;}
 .result-list__items .result-schedules .airline{width:120px;position:absolute;top:50%;left:0;-ms-transform: translate(0, -50%);-webkit-transform: translate(0, -50%);transform: translate(0, -50%);}
 .result-list__items .result-schedules .airline-code__wing{line-height:130%;margin:0 0 0 30px;}
-.result-list__items .result-schedules .airline-code__wing .code{display:block;}
+.result-list__items .result-schedules .airline-code__wing .tail{display:block;}
 .result-list__items .result-schedules .trips{margin:0 0 0 120px;}
 .result-list__items .result-schedules .trip-item{font-size:0;margin:15px 0;}
 .result-list__items .result-schedules .trip-item dl{display:inline-block;}
@@ -1342,6 +1354,17 @@ legend, .blind {
     transform: translate(-50%, -50%);
 }
 
+.awc-layer2__inner.alert {
+    width: 420px;
+    height:220px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 .awc-layer2__inner .logo {
     margin: 25px 0 10px 0;
     display: block;
@@ -1630,12 +1653,17 @@ legend, .blind {
     background: url('../img/ico_close1.svg') center center no-repeat;
 }
 
+
+.awc-layer2__inner.alert .txts{width:420px;height:155px;vertical-align:middle;text-align:center;font-size:20px;font-weight:500;display:table-cell;}
+
 .awc-layer2__inner .bts {
     position: absolute;
     bottom: 40px;
     left: 35px;
     right: 35px;
 }
+.awc-layer2__inner .bts.two{text-align:center;}
+.awc-layer2__inner .bts.two .bt{display:inline-block;width:200px;margin:0 5px;}
 
 .awc-layer2__inner .bt {
     margin-top: 10px;
@@ -1654,6 +1682,16 @@ legend, .blind {
 
 .awc-layer2__inner .bt.navy {
     background: #292a4d;
+    color: #fff;
+}
+
+.awc-layer2__inner .bt.black {
+    background: #161820;
+    color: #fff;
+}
+
+.awc-layer2__inner .bt.yellow {
+    background: #ebaa2c;
     color: #fff;
 }
 
@@ -1770,7 +1808,7 @@ legend, .blind {
 }
 
 .awc-loading2 {
-    display: none;
+    /*display: none;*/
     width: 100%;
     height: 100%;
     position: fixed;
@@ -1826,7 +1864,17 @@ legend, .blind {
     width: 39px;
     height: 44px;
     margin: 0 auto 10px auto;
-    border: 1px solid red;
+    -webkit-animation: mymove 3s infinite;
+    animation: mymove 3s infinite;
+    background:url('http://cdn.allwin.bid/static/img/wing/wing-AC.svg') center center no-repeat;
+}
+
+@keyframes mymove {
+    0%   {background:url('http://cdn.allwin.bid/static/img/wing/wing-AC.svg') center center no-repeat;}
+    25%  {background:url('http://cdn.allwin.bid/static/img/wing/wing-LJ.svg') center center no-repeat;}
+    50%  {background:url('http://cdn.allwin.bid/static/img/wing/wing-IT.svg') center center no-repeat;}
+    75%  {background:url('http://cdn.allwin.bid/static/img/wing/wing-MM.svg') center center no-repeat;}
+    100% {background:url('http://cdn.allwin.bid/static/img/wing/wing-VJ.svg') center center no-repeat;}
 }
 
 /* 마이페이지 */
