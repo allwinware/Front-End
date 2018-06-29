@@ -594,7 +594,7 @@ legend, .blind {
 
 .awc-paging li {
     display: inline-block;
-    cursor:pointer;
+    cursor: pointer;
 }
 .awc-paging a {
     display: inline-block;
@@ -614,7 +614,7 @@ legend, .blind {
     color: #292a4d !important;
 }
 
-.awc-paging li.active a{
+.awc-paging li.active a {
     border: 1px solid #292a4d !important;
     color: #292a4d !important;
 }
@@ -1083,7 +1083,7 @@ legend, .blind {
     font-weight: 300;
     font-size: 40px;
     line-height: 120%;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     letter-spacing: -2px;
 }
 
@@ -1098,6 +1098,11 @@ legend, .blind {
 .welcome-txt .type2 {
     color: #161820;
 }
+
+.welcome-child-txt{margin-bottom:50px;}
+.welcome-child-txt h3{font-size:24px;font-weight:700;}
+.welcome-child-txt p{font-size:12px;color:#a4a4a4;}
+
 
 /* 탭 */
 .tabs.start {
@@ -2034,6 +2039,11 @@ legend, .blind {
     width: 650px;
     font-size: 0;
 }
+
+.awc-login .bts a{margin-right:10px;}
+.awc-login .bts p{margin-top:25px;}
+.awc-login .bts a.bt-first{margin:0;font-size:16px;color:#ebaa2c;border-bottom:1px solid #ebaa2c}
+.awc-login .bts a.bt-first strong{font-weight:bold;}
 
 .awc-join {
     width: 880px;
@@ -3565,8 +3575,8 @@ legend, .blind {
     background: #292a4d;
     color: #fff;
 }
-
-.awc-layer2__inner.layer-forms .add-sends {
+.awc-layer2__inner.layer-forms .add-sends{border-bottom:0;}
+.awc-layer2__inner.layer-forms .add-sends-in {
     min-height: 280px;
     max-height: 280px;
     overflow: hidden;
@@ -3577,7 +3587,10 @@ legend, .blind {
 .awc-layer2__inner.layer-forms .add-sends li {
     position: relative;
     padding: 4px 0;
+    border-bottom:1px solid #e1e1e1;
 }
+
+.awc-layer2__inner.layer-forms .add-sends li:last-child{border-bottom:0;}
 
 .awc-layer2__inner.layer-forms .add-sends li:first-child {
     padding-top: 0;
@@ -3588,22 +3601,22 @@ legend, .blind {
     margin-right: 8px;
 }
 
+.awc-layer2__inner.layer-forms .add-sends .tb-tit{position:absolute;top:0;left:0;display:inline-block;width:160px;line-height:40px;font-size:16px;font-weight:500;}
+.awc-layer2__inner.layer-forms .add-sends .inputs-group{margin-top:4px;}
+.awc-layer2__inner.layer-forms .add-sends .inputs-group:first-child{margin-top:0;}
+.awc-layer2__inner.layer-forms .add-sends .inputs{margin-left:160px;}
 .awc-layer2__inner.layer-forms .add-sends .i1 {
-    width: 80px;
+    width: 100px;
 }
 
 .awc-layer2__inner.layer-forms .add-sends .i2 {
-    width: 140px;
-}
-
-.awc-layer2__inner.layer-forms .add-sends .i3 {
-    width: 280px;
+    width: 200px;
 }
 
 .awc-layer2__inner.layer-forms .add-sends .delete {
     position: absolute;
     top: 4px;
-    right: 8px;
+    right: 55px;
     width: 36px;
     height: 40px;
 }
@@ -3623,7 +3636,7 @@ legend, .blind {
 
 .awc-layer2__inner.layer-forms .add-sends .util {
     text-align: right;
-    margin: 4px 44px 0 0;
+    margin: 4px 93px 0 0;
 }
 
 .awc-layer2__inner.layer-forms .add-sends .util em {
@@ -3636,7 +3649,7 @@ legend, .blind {
 }
 
 .awc-layer2__inner.layer-forms .add-sends .util button {
-    width: 143px;
+    width: 120px;
     height: 40px;
     line-height: 40px;
     text-indent: 0;
@@ -4726,15 +4739,17 @@ legend, .blind {
     opacity: 0;
 }
 
+
+
 .slide-fade-enter-active {
-    animation: slide-coming .3s;
-    animation-delay: .3s;
-    opacity: 1;
+    animation: slide-coming .15s;
+    animation-delay: .15s;
+    opacity: 0;
 }
 
 .slide-fade-leave-active {
-    animation: slide-going .3s;
-    opacity: 1;
+    animation: slide-going .15s;
+    opacity: 0;
 }
 
 @keyframes slide-going {
@@ -4743,14 +4758,14 @@ legend, .blind {
         opacity: 1;
     }
     to {
-        transform: translateX(-50px);
+        transform: translateX(-100px);
         opacity: 0;
     }
 }
 
 @keyframes slide-coming {
     from {
-        transform: translateX(-50px);
+        transform: translateX(-100px);
         opacity: 0;
     }
     to {
@@ -4759,40 +4774,31 @@ legend, .blind {
     }
 }
 
-.page-fade-enter-active, .page-fade-leave-active {
-    opacity: 0;
-    transition: all .1s ease;
+
+
+.slide-left-enter-active {
+    animation: slide-left-coming .15s;
+    animation-delay: .15s;
 }
 
-.page-fade-enter, .page-fade-leave-active {
-    opacity: 0
+.slide-left-leave-active {
+    animation: slide-left-going .15s;
 }
 
-.page-left-enter-active {
-    animation: coming .2s;
-    animation-delay: .2s;
-    opacity: 0;
-}
-
-.page-left-leave-active {
-    animation: going .2s;
-    opacity: 1;
-}
-
-@keyframes going {
+@keyframes slide-left-going {
     from {
         transform: translateX(0);
         opacity: 1;
     }
     to {
-        transform: translateX(-10px);
+        transform: translateX(-100px);
         opacity: 0;
     }
 }
 
-@keyframes coming {
+@keyframes slide-left-coming {
     from {
-        transform: translateX(-10px);
+        transform: translateX(-100px);
         opacity: 0;
     }
     to {
