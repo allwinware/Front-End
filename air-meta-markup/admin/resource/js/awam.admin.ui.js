@@ -9,7 +9,7 @@ AWAMUI = (function () {
             init: function () {
 
                 AWAMUI.common.datepicker();
-                AWAMUI.common.fixedHeader();
+                //AWAMUI.common.fixedHeader();
                 AWAMUI.common.nav();
             },
             fixedHeader: function () {
@@ -35,9 +35,10 @@ AWAMUI = (function () {
                     var index = $depth1.index($(this));
                     $depthItems.removeClass('active');
                     $(this).addClass('active');
-                    if ($(this).closest('.header').hasClass('fixed')) {
-                        $depth2.slideDown('fast');
-                    }
+                    $depth2.slideDown('fast');
+                    // if ($(this).closest('.header').hasClass('fixed')) {
+                    //     $depth2.slideDown('fast');
+                    // }
                     $depth2Item.eq(index).addClass('active');
                 });
 
@@ -50,9 +51,10 @@ AWAMUI = (function () {
 
                 $(document).on('mouseleave', '.header', function () {
                     $depthItems.removeClass('active');
-                    if ($(this).hasClass('fixed')) {
-                        $depth2.hide();
-                    }
+                    $depth2.hide();
+                    // if ($(this).hasClass('fixed')) {
+                    //     $depth2.hide();
+                    // }
                 });
 
             },
@@ -67,12 +69,6 @@ AWAMUI = (function () {
                         onlyMonth: true,
                         time: {
                             enabled: false
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
@@ -86,12 +82,6 @@ AWAMUI = (function () {
                         singleMonth: true,
                         time: {
                             enabled: false
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
@@ -106,12 +96,6 @@ AWAMUI = (function () {
                         singleMonth: true,
                         time: {
                             enabled: true
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
@@ -122,12 +106,6 @@ AWAMUI = (function () {
                         autoClose: true,
                         time: {
                             enabled: false
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
@@ -135,17 +113,10 @@ AWAMUI = (function () {
                 $('.js-datepicker-range-month').each(function () {
                     $(this).allwinDatepicker({
                         container: $(this).parent(),
-                        stickyMonths: true,
                         autoClose: false,
                         onlyMonth: true,
                         time: {
                             enabled: false
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
