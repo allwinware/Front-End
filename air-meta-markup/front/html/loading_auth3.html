@@ -37,6 +37,14 @@
             overflow: hidden
         }
 
+        input, select, textarea, button {
+            font-family: 'Noto Sans', 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', Dotum, '돋움', sans-serif;
+            letter-spacing: -.5px;
+            font-weight: 400;
+            font-size: 16px;
+            outline: none;
+        }
+
         ol, ul, li {
             list-style: none
         }
@@ -68,6 +76,76 @@
             color: #000
         }
 
+        input[type=checkbox], input[type=radio], input[type=text], input[type=password], input[type=email] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            -o-appearance: none;
+            appearance: none;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+            border: 0;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            -o-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        input[type=text]::-ms-clear {
+            display: none;
+        }
+
+        ::-webkit-input-placeholder {
+            font-size: 14px;
+            color: #a4a4a4 !important;
+        }
+
+        ::-moz-placeholder {
+            font-size: 14px;
+            color: #a4a4a4 !important;
+        }
+
+        :-ms-input-placeholder {
+            font-size: 14px;
+            color: #a4a4a4 !important;
+        }
+
+        :-moz-placeholder {
+            font-size: 14px;
+            color: #a4a4a4 !important;
+        }
+
+        .custom-input {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            height: 56px;
+            border: 1px solid #c7c7c7;
+            box-sizing: border-box;
+            background: #fff;
+            vertical-align: top;
+        }
+
+        .custom-input:after {
+            content: '';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            -ms-transform: translate(0, -50%);
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+        }
+
+        .custom-input input {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 56px;
+            text-indent: 20px;
+            background: transparent;
+        }
         .loading-auth {
             width: 800px;
             margin: 200px auto 0 auto
@@ -86,6 +164,11 @@
         .loading-auth .txt1 h1 strong {
             font-weight: bold;
             display: block
+        }
+
+        .loading-auth .txt1 h1 span {
+            display: block;
+            font-size: 16px;
         }
 
         .loading-auth .ani {
@@ -149,6 +232,33 @@
             background: url('https://cdn.allwin.bid/static/img/img_loading-auth.png') center center no-repeat
         }
 
+        .loading-auth .login-form {
+            margin-top: 50px
+        }
+
+        .loading-auth .login-form label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .loading-auth .login-form .form-item {
+            margin-bottom: 40px
+        }
+
+        .loading-auth .login-form .bt-chain {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            display: block;
+            width: 200px;
+            height: 56px;
+            line-height: 56px;
+            background: #292a4d;
+        }
         .loading-auth .copyright {
             margin-top: 100px;
             letter-spacing: 0;
@@ -220,11 +330,17 @@
             <span>해당 B2B판매사 아이디와 비밀번호를 입력해주시기 바랍니다. (최초 1회 Only)</span>
         </h1>
     </div>
-    <p class="txt2">
-        <strong>ALLWIN SCANNER</strong>에서<br>
-        <strong>KRT 판매사</strong>로 회원 아이디 인증 요청 중 입니다.<br>
-        잠시만 기다려 주세요.
-    </p>
+    <div class="login-form">
+        <div class="form-item">
+            <label for="user-id">아이디</label>
+            <span class="custom-input"><input type="text" id="user-id" placeholder="아이디를 입력해주세요."></span>
+        </div>
+        <div class="form-item">
+            <label for="user-pw">비밀번호</label>
+            <span class="custom-input"><input type="password" id="user-pw" placeholder="비밀번호를 입력해주세요."></span>
+        </div>
+        <a href="" class="bt-chain">계정 연결 하기</a>
+    </div>
     <div class="copyright">
         Copyright ⓒ Allwinware inc. ALL RIGHTS RESERVED.
     </div>
