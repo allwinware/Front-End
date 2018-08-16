@@ -41,15 +41,6 @@
     <button type="button" class="top-banner__close" id="js-top-banner__close">close</button>
 </section>
 <!-- //띠배너 -->
-<!-- 띠배너 -->
-<section class="awa-top-banner">
-    <a href="" style="background:#292a4d url(../resource/img/topbanner_201801.jpg) center center no-repeat;">
-        단체항공권 = ALLWIN AIR
-        현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.
-    </a>
-    <button type="button" class="top-banner__close" id="js-top-banner__close">close</button>
-</section>
-<!-- //띠배너 -->
 <div class="awa-wrap">
     <!-- header -->
     <header class="awa-header">
@@ -3928,9 +3919,12 @@
 <!-- //여정 입력 레이어 -->
 
 <!-- 리뉴얼 팝업 -->
-<div class="awa-popups">
+<div class="awa-popups" id="awa-popups">
     <div class="awa-popup__inner">
-        <img src="../resource/img/img_openPops.png" alt="">
+        <img src="https://cdn.allwin.bid/allwinair_event/event15-1/img/img_popup.png" alt="" usemap="#popup_Map">
+        <map name="popup_Map">
+            <area shape="rect" coords="128,566,487,623" href="https://allwinscanner.com" target="_blank">
+        </map>
         <div class="layer__today-check">
             <input type="checkbox" id="today-check"><label for="today-check">오늘 하루 그만보기</label>
         </div>
@@ -3952,10 +3946,12 @@
 <script src="../resource/js/awa.ui.min.js"></script>
 <script>
     $(function () {
-        $('.awa-popups').css({
-            'top':($('.awa-top-banner').height() + $('.awa-header').height()) - 12,
-            'marginLeft':-($('.awa-popups').width() / 2)
-        });
+        // $('.awa-popups').css({
+        //     'top':($('.awa-top-banner').height() + $('.awa-header').height()) - 12,
+        //     'marginLeft':-($('.awa-popups').width() / 2)
+        // });
+
+        $("#awa-popups").draggable();
 
         AWAUI.main.init();
 
