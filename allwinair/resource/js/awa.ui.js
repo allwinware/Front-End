@@ -19,7 +19,7 @@ AWAUI = (function () {
                     var sticky = $('.awa-header'),
                         scroll = $(window).scrollTop();
 
-                    if (scroll >= 80) sticky.addClass('fixed');
+                    if (scroll >= 133) sticky.addClass('fixed');
                     else sticky.removeClass('fixed');
                 });
             },
@@ -39,12 +39,6 @@ AWAUI = (function () {
                         onlyMonth: true,
                         time: {
                             enabled: false
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
@@ -58,12 +52,6 @@ AWAUI = (function () {
                         singleMonth: true,
                         time: {
                             enabled: false
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
@@ -78,12 +66,6 @@ AWAUI = (function () {
                         singleMonth: true,
                         time: {
                             enabled: true
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
@@ -94,12 +76,6 @@ AWAUI = (function () {
                         autoClose: true,
                         time: {
                             enabled: false
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
                         }
                     });
                 });
@@ -107,18 +83,8 @@ AWAUI = (function () {
                 $('.js-datepicker-range-month').each(function () {
                     $(this).allwinDatepicker({
                         container: $(this).parent(),
-                        stickyMonths: true,
                         autoClose: false,
-                        onlyMonth: true,
-                        time: {
-                            enabled: false
-                        },
-                        customOpenAnimation: function (cb) {
-                            $(this).fadeIn(0, cb);
-                        },
-                        customCloseAnimation: function (cb) {
-                            $(this).fadeOut(0, cb);
-                        }
+                        onlyMonth: true
                     });
                 });
             },
