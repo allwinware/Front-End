@@ -36,47 +36,54 @@
 <section class="awa-top-banner">
     <ul class="one">
         <li class="first">
-            <a href="" style="background-image:url(https://dummyimage.com/1220x100/292a4d/fff);background-color:#292a4d;">
+            <a href="" style="background-image:url(https://s3.ap-northeast-2.amazonaws.com/biz.allwin.co.kr/production/2018/08/16/044322/pkHi2R5felNP5Jg4sXGicUZTU850ROJ32pZQYY2Q.png);background-color:#3d3f7a;">
                 단체항공권 = ALLWIN AIR
                 현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.
             </a>
         </li>
+        <li class="first">
+            <a href="" style="background-image:url(https://s3.ap-northeast-2.amazonaws.com/biz.allwin.co.kr/production/2018/08/16/044322/pkHi2R5felNP5Jg4sXGicUZTU850ROJ32pZQYY2Q.png);background-color:#3d3f7a;">
+                단체항공권 = ALLWIN AIR
+                현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.
+            </a>
+        </li>
+
     </ul>
 
-    <ul class="two">
-        <li class="first">
-            <a href="" style="background-image:url(https://dummyimage.com/610x100/f18c8c/fff);background-color:#f18c8c;">
-                단체항공권 = ALLWIN AIR
-                현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.
-            </a>
-        </li>
-        <li class="second">
-            <a href="" style="background-image:url(https://dummyimage.com/610x100/93f18c/fff);background-color:#93f18c;">
-                단체항공권 = ALLWIN AIR
-                현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.
-            </a>
-        </li>
-    </ul>
-    <ul class="three">
-        <li class="first">
-            <a href="" style="background-image:url(https://dummyimage.com/407x100/8c93f1/fff);background-color:#8c93f1;">
-                단체항공권 = ALLWIN AIR
-                현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.
-            </a>
-        </li>
-        <li class="second">
-            <a href="" style="background-image:url(https://dummyimage.com/407x100/e58cf1/fff);background-color:#e68cf1;">
-                단체항공권 = ALLWIN AIR
-                현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.
-            </a>
-        </li>
-        <li class="third">
-            <a href="" style="background-image:url(https://dummyimage.com/407x100/f1d18c/fff);background-color:#f1d18c;">
-                단체항공권 = ALLWIN AIR
-                현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.
-            </a>
-        </li>
-    </ul>
+    <!--<ul class="two">-->
+        <!--<li class="first">-->
+            <!--<a href="" style="background-image:url(https://dummyimage.com/610x100/f18c8c/fff);background-color:#f18c8c;">-->
+                <!--단체항공권 = ALLWIN AIR-->
+                <!--현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.-->
+            <!--</a>-->
+        <!--</li>-->
+        <!--<li class="second">-->
+            <!--<a href="" style="background-image:url(https://dummyimage.com/610x100/93f18c/fff);background-color:#93f18c;">-->
+                <!--단체항공권 = ALLWIN AIR-->
+                <!--현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.-->
+            <!--</a>-->
+        <!--</li>-->
+    <!--</ul>-->
+    <!--<ul class="three">-->
+        <!--<li class="first">-->
+            <!--<a href="" style="background-image:url(https://dummyimage.com/407x100/8c93f1/fff);background-color:#8c93f1;">-->
+                <!--단체항공권 = ALLWIN AIR-->
+                <!--현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.-->
+            <!--</a>-->
+        <!--</li>-->
+        <!--<li class="second">-->
+            <!--<a href="" style="background-image:url(https://dummyimage.com/407x100/e58cf1/fff);background-color:#e68cf1;">-->
+                <!--단체항공권 = ALLWIN AIR-->
+                <!--현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.-->
+            <!--</a>-->
+        <!--</li>-->
+        <!--<li class="third">-->
+            <!--<a href="" style="background-image:url(https://dummyimage.com/407x100/f1d18c/fff);background-color:#f1d18c;">-->
+                <!--단체항공권 = ALLWIN AIR-->
+                <!--현재 52개의 항공사와 416개의 여행사가 함께하고 있습니다.-->
+            <!--</a>-->
+        <!--</li>-->
+    <!--</ul>-->
     <button type="button" class="top-banner__close" id="js-top-banner__close">close</button>
 </section>
 <!-- //띠배너 -->
@@ -3989,6 +3996,27 @@
 <script>
     $(function () {
         AWAUI.main.init();
+
+        if($('.awa-top-banner').length != 0 ){
+            $('.awa-top-banner .one').awaSlide({
+                mode: 'vertical',
+                auto: true,
+                autoDelay: 3000,
+                onSliderLoad:function(){
+                    var pageLenght = $('.awa-top-banner .awa-slide__pager-item').length;
+                    if(pageLenght === 1){
+                        $('.awa-slide__controls').hide();
+                    }
+                }
+            });
+
+            $('.awa-top-banner').mouseenter(function(){
+                $('.top-banner__close').stop().fadeIn();
+            }).mouseleave(function(){
+                $('.top-banner__close').stop().fadeOut();
+            });
+        }
+
 
         var bidH = $(window).height() - 520, bidH2 = $(window).height() - 600;
         $('.bidding_outer').css('height', bidH);
