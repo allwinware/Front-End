@@ -245,6 +245,7 @@
 
         // GENERAL
         mode: 'horizontal',
+        slideSelector: '',
         infiniteLoop: true,
         hideControlOnEnd: false,
         speed: 500,
@@ -12688,10 +12689,14 @@ and dependencies (minified).
                 setDateRange(d1, d2, silent);
             },
             getStartDateRange: function () {
-                return moment(new Date(parseInt(opt.start)));
+                return new Date(opt.start);
             },
             getEndDateRange: function () {
-                return moment(new Date(parseInt(opt.end)));
+                return new Date(opt.end);
+            },
+            getDateRange: function () {
+                var dateRange =  new Date(opt.start) + opt.separator + new Date(opt.end);
+                return dateRange;
             },
             clear: clearSelection,
             close: closeDatePicker,
@@ -12777,21 +12782,21 @@ and dependencies (minified).
                 box.addClass('two-months');
             }
 
-
-            var monthDate = opt.singleDate ? moment(opt.month1).format("YYYY.MM") : moment(opt.month1).format("YYYY.MM") + " ~ " + moment(opt.month2).format("YYYY.MM");
-
             if (opt.onlyMonth) {
                 box.find('.week-name, .month-wrapper tbody').hide();
                 box.find('.bt-month-apply').click(function () {
-                    var monthDate;
+                    var monthDate, dateRange;
                     closeDatePicker();
                     if (opt.singleDate) {
+                        console.log("single");
                         monthDate = moment(opt.month1).format("YYYY.MM");
+                        opt.setValue.call(selfDom, monthDate);
                     } else {
-                        monthDate = moment(opt.month1).format("YYYY.MM") + " ~ " + moment(opt.month2).format("YYYY.MM");
-                    }
+                        console.log("range");
+                       monthDate = moment(opt.month1).format("YYYY.MM") + " ~ " + moment(opt.month2).format("YYYY.MM");
+                       opt.setValue.call(selfDom, monthDate);
 
-                    opt.setValue.call(selfDom, monthDate, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
+                    }
                 });
             }
 
@@ -13026,7 +13031,7 @@ and dependencies (minified).
                     });
                 });
             } else {
-                box.slideDown(animationTime, function () {
+                box.fadeIn(animationTime, function () {
                     $(self).trigger('datepicker-opened', {
                         relatedTarget: box
                     });
@@ -13066,11 +13071,10 @@ and dependencies (minified).
                 } else if (defaults.length == 1 && opt.singleDate) {
                     box.find('.time1 .hour select').val(moment(defaults[0]).format('HH'));
                     box.find('.time1 .minute select').val(moment(defaults[0]).format('mm'));
-                    setSingleDate(getValidValue(defaults[0], ___format, moment.locale(opt.language)));
+               //     setSingleDate(getValidValue(defaults[0], ___format, moment.locale(opt.language)));
                 }
                 initiated = true;
             }
-
 
         }
 
@@ -13443,7 +13447,6 @@ and dependencies (minified).
                     showMonth(moment(newDate).add(-1, 'month'), oppositeType);
                 }
             }
-
             showGap();
         }
 
@@ -13519,7 +13522,6 @@ and dependencies (minified).
                 }else{
                     dateRange = getDateString(new Date(opt.start));
                 }
-
                 opt.setValue.call(selfDom, dateRange, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
 
                 if (initiated && !silent) {
@@ -13848,7 +13850,7 @@ and dependencies (minified).
             if (opt.customCloseAnimation) {
                 opt.customCloseAnimation.call(box.get(0), afterAnim);
             } else {
-                $(box).slideUp(opt.duration, afterAnim);
+                $(box).fadeOut(opt.duration, afterAnim);
             }
             $(self).trigger('datepicker-close', {
                 relatedTarget: box
