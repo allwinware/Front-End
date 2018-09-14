@@ -572,8 +572,7 @@
                 </div>
             </div>
 
-            <div class="special-price" data-slides='["../resource/img/img_special-visual1.jpg", "../resource/img/img_special-visual2.jpg"]'>
-                <div class="bgs"></div>
+            <div class="special-price" >
                 <div class="special-price-inner">
                     <div class="tits">
                         <strong>특가항공권</strong><em>고마운 가격의 항공권, 실시간으로 확보하세요</em>
@@ -903,6 +902,7 @@
                         </ul>
                     </div>
                 </div>
+                <div class="bgs"></div>
             </div>
 
             <!-- 패밀리 옥션 -->
@@ -2442,17 +2442,28 @@
     $(function () {
         AWAUI.main.init();
 
-        var $slides = $('.special-price');
-        var images = $slides.data('slides');
-        var count = images.length;
-        var slideshow = function() {
-            $slides
-                .css('background-image', 'url("' + images[Math.floor(Math.random() * count)] + '")')
-                .show(0, function() {
-                    setTimeout(slideshow, 1500);
-                });
-        };
-        slideshow();
+        var images = [
+            '../resource/img/img_special-visual1.jpg',
+            '../resource/img/img_special-visual2.jpg'
+        ];
+        var $body = $(".special-price"),
+            $bg = $(".bgs"),
+            n = images.length,
+            c = 0;
+
+        for(var i=0; i<n; i++){
+            var tImg = new Image();
+            tImg.src = images[i];
+        }
+
+        $body.css({backgroundImage : "url("+images[c]+")"});
+
+        (function loopBg(){
+            $bg.hide().css({backgroundImage : "url("+images[++c%n]+")"}).delay(1500).fadeTo(3000, 1, function(){
+                $body.css({backgroundImage : "url("+images[c%n]+")"});
+                loopBg();
+            });
+        }());
 
         $('#special-price-slider > ul').awaSlide({
             slideSelector: '.special-price-item',
