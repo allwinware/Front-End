@@ -163,7 +163,7 @@
                             </ul>
                         </div>
                     </div>
-                    <button type="button" class="rank-toggle">toggle</button>
+                    <button type="button" class="rank-toggle" disabled="disabled">toggle</button>
                 </div>
             </div>
         </section>
@@ -1825,19 +1825,31 @@
             pause: 5000,
             auto: true
         });
-        $rankToggle.on('click', function () {
-            if ($(this).data("show") == "no") {
-                $rankExpend.removeClass('expend');
-                $rankComm.reloadSlider();
-                $rankMatching.reloadSlider();
-                $(this).data("show", "yes");
-            } else {
-                $rankComm.destroySlider();
-                $rankMatching.destroySlider();
-                $rankExpend.addClass('expend');
-                $(this).data("show", "no");
-            }
+        $rank.on('mouseenter', function () {
+            console.log("over");
+            $rankComm.destroySlider();
+            $rankMatching.destroySlider();
+            $rankExpend.addClass('expend');
         });
+        $rank.on('mouseleave', function () {
+            console.log("out");
+            $rankExpend.removeClass('expend');
+            $rankComm.reloadSlider();
+            $rankMatching.reloadSlider();
+        });
+        // $rankToggle.on('click', function () {
+        //     if ($(this).data("show") == "no") {
+        //         $rankExpend.removeClass('expend');
+        //         $rankComm.reloadSlider();
+        //         $rankMatching.reloadSlider();
+        //         $(this).data("show", "yes");
+        //     } else {
+        //         $rankComm.destroySlider();
+        //         $rankMatching.destroySlider();
+        //         $rankExpend.addClass('expend');
+        //         $(this).data("show", "no");
+        //     }
+        // });
 
         //메인 인트로
         var DefaultDuration = 1.3,
