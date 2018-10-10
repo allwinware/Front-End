@@ -51,7 +51,7 @@
                             <li><a href="">서비스 소개</a></li>
                         </ul>
                     </div>
-                    <button type="button" class="apply">발권요청</button>
+                    <button type="button" class="pnr-toggle">발권요청</button>
                 </div>
             </div>
         </section>
@@ -59,15 +59,15 @@
             <div class="inner">
                 <div class="tabs">
                     <ul>
-                        <li class="actived"><a href="">개별항공권</a></li>
+                        <li><a href="">개별항공권</a></li>
                         <li><a href="">단체항공권</a></li>
                     </ul>
                 </div>
-                <div class="ranks ">
+                <div class="ranks">
                     <div class="rank-comm">
                         <strong class="tit">커미션 랭킹</strong>
                         <div class="rank-items">
-                            <ul>
+                            <ul class="rank-comm-slide">
                                 <li class="rank-item">
                                     <em class="number">1</em>
                                     <strong class="name">월드**</strong>
@@ -114,7 +114,7 @@
                     <div class="rank-matching">
                         <strong class="tit">매칭 랭킹</strong>
                         <div class="rank-items">
-                            <ul>
+                            <ul class="rank-matching-slide">
                                 <li class="rank-item">
                                     <em class="number">1</em>
                                     <strong class="name">LAX</strong>
@@ -163,7 +163,7 @@
                             </ul>
                         </div>
                     </div>
-                    <button type="button" class="rank-toggle"></button>
+                    <button type="button" class="rank-toggle">toggle</button>
                 </div>
             </div>
         </section>
@@ -195,12 +195,12 @@
 
     <div class="container">
         <div class="content">
-            <div class="main-evt">
+            <div class="main-evt" style="display:none;">
                 <a href="" style="background:url('../resource/img/img_main-top-evt.jpg') center center no-repeat;">이벤트입니다.</a>
                 <button type="button" class="close">close</button>
             </div>
             <div class="main-views">
-                <div class="col scanner">
+                <div class="intro-item col scanner" id="scanner">
                     <div class="col-inner">
                         <strong class="tit">ALLWIN SCANNER</strong>
                         <div class="txts">
@@ -227,10 +227,10 @@
                                 <em class="txt">오늘 커미션 혜택까지<br>남은시간</em>
                             </div>
                         </div>
-                        <button type="button" class="apply">개별항공권 비교발권하기</button>
+                        <button type="button" class="apply" id="js-scanner-toggle">개별항공권 비교발권하기</button>
                     </div>
                 </div>
-                <div class="col matching">
+                <div class="intro-item col matching" id="matching">
                     <div class="col-inner">
                         <strong class="tit">ALLWIN MATCHING</strong>
                         <div class="txts">
@@ -256,10 +256,10 @@
                                 </dl>
                             </div>
                         </div>
-                        <button type="button" class="apply">단체항공권 요청하기</button>
+                        <button type="button" class="apply" id="js-matching-toggle">단체항공권 요청하기</button>
                     </div>
                 </div>
-                <div class="layer-search layer-scanner" style="display:none;">
+                <div class="layer-search layer-scanner">
                     <div class="inner">
                         <h2>개별항공권</h2>
                         <div class="scanner-form">
@@ -367,7 +367,7 @@
                         <button type="button" class="close">close</button>
                     </div>
                 </div>
-                <div class="layer-search layer-matching" style="display:none;">
+                <div class="layer-search layer-matching">
                     <div class="inner">
                         <h2>단체항공권 </h2>
                         <div class="matching-form">
@@ -1683,6 +1683,83 @@
 </div>
 <!-- //출귀국 시간 -->
 
+<!-- CRS 공유방법 -->
+<div class="air-layer">
+    <div class="inner crs-share">
+        <div class="layer-header">
+            <h1 class="type1">CRS 공유방법</h1>
+        </div>
+        <div class="layer-body">
+            <div class="crs-lists">
+                <dl>
+                    <dt>셀커넥 (구토파스)</dt>
+                    <dd>
+                        <ol>
+                            <li>
+                                <div>
+                                    <em>1.</em>ES SELK131A-B <span class="enter">enter</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <em>2.</em>ER <span class="enter">enter</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <em>3.</em>발권요청시 마다 예약공유해주시기 바랍니다.
+                                </div>
+                            </li>
+                        </ol>
+                    </dd>
+                </dl>
+
+                <dl>
+                    <dt>세이버 (구 애바카스)</dt>
+                    <dd>
+                        <ol>
+                            <li>
+                                <div>
+                                    <em>1.</em>S19 </em>ER <span class="enter">enter</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <em>2.</em>W/Gs/A/F308/ALLOTH/pnru <span class="enter">enter</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </dd>
+                </dl>
+
+                <dl>
+                    <dt>갈릴레오 / 월드스팬</dt>
+                    <dd>
+                        <ol>
+                            <li>
+                                <div>
+                                    <em>1.</em>PNR 입력 요청후 help desk로 연동신청
+                                </div>
+                            <li>
+                                <div>
+                                    <em>2.</em>갈릴레오 02-3210-2350
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <em>3.</em>월드스팬 02-724-7095~6
+                                </div>
+                            </li>
+                        </ol>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <button type="button" class="close">close</button>
+    </div>
+</div>
+<!-- // CRS 공유방법 -->
+
 <!-- 매칭 시작 -->
 <div class="air-layer2">
     <div class="matching-start">
@@ -1718,24 +1795,130 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
     $(function () {
-        $('.banner-items > ul').awaSlide({
+
+        //pnr 레이어
+        var $pnrToggle = $('.pnr-toggle'),
+            $pnrLayer = $('.layer-pnr'),
+            $pnrLayerClose = $pnrLayer.find('.close');
+        $pnrToggle.on("click", function () {
+            $pnrToggle.addClass('actived');
+            $pnrLayer.addClass('show');
+        });
+        $pnrLayerClose.on("click", function () {
+            $pnrToggle.removeClass('actived');
+            $pnrLayer.removeClass('show');
+        });
+
+        //랭킹
+        var $rankExpend = $('.header-row2'),
+            $rank = $('.ranks'),
+            $rankToggle = $rank.find('.rank-toggle'),
+            $rankComm = $rank.find('.rank-comm-slide'),
+            $rankMatching = $rank.find('.rank-matching-slide');
+        $rankComm.awaSlide({
+            mode: 'vertical',
+            pause: 5000,
+            auto: true
+        });
+        $rankMatching.awaSlide({
+            mode: 'vertical',
+            pause: 5000,
+            auto: true
+        });
+        $rankToggle.on('click', function () {
+            if ($(this).data("show") == "no") {
+                $rankExpend.removeClass('expend');
+                $rankComm.reloadSlider();
+                $rankMatching.reloadSlider();
+                $(this).data("show", "yes");
+            } else {
+                $rankComm.destroySlider();
+                $rankMatching.destroySlider();
+                $rankExpend.addClass('expend');
+                $(this).data("show", "no");
+            }
+        });
+
+        //메인 인트로
+        var DefaultDuration = 1.3,
+            leaveDuration = 0.8,
+            ease = "Expo.easeOut",
+            $introStage = $('.main-views'),
+            $introInner = $introStage.find('.col-inner'),
+            $introEle = $introStage.find('.intro-item'),
+            $introScanner = $introStage.find('.col.scanner'),
+            $introMatching = $introStage.find('.col.matching'),
+            $introLayerStage = $introStage.find('.layer-search'),
+            $introLayerScanner = $introStage.find('.layer-scanner'),
+            $introLayerMatching = $introStage.find('.layer-matching'),
+            $scannerToggle = $introStage.find('#js-scanner-toggle'),
+            $matchingToggle = $introStage.find('#js-matching-toggle'),
+            $introLayerScannerClose = $introLayerScanner.find('.close'),
+            $introLayerMatchingClose = $introLayerMatching.find('.close');
+        $introEle.on('mouseenter', function () {
+            if ($(this).attr('id') === "scanner") {
+                TweenMax.to($introScanner, DefaultDuration, {width: '55%', ease: ease});
+                TweenMax.to($introMatching, DefaultDuration, {width: '45%', ease: ease});
+            } else if ($(this).attr('id') === "matching") {
+                TweenMax.to($introScanner, DefaultDuration, {width: '45%', ease: ease});
+                TweenMax.to($introMatching, DefaultDuration, {width: '55%', ease: ease});
+            }
+        });
+        // $('.main-views').on('mouseleave', function () {
+        //     TweenMax.to($introInner,leaveDuration,{opacity:1, ease:ease});
+        //     TweenMax.to($introLayerStage,leaveDuration,{opacity:0, zIndex:-1, ease:ease});
+        //     TweenMax.to($introLayerScanner,leaveDuration,{left:"-100%"});
+        //     TweenMax.to($introLayerMatching,leaveDuration,{right:"-100%"});
+        //     TweenMax.to($introScanner,leaveDuration,{width:'50%', ease:ease});
+        //     TweenMax.to($introMatching,leaveDuration,{width:'50%', ease:ease});
+        // });
+        $scannerToggle.on('click', function () {
+            TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
+            TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 10, left: 0, ease: ease});
+            TweenMax.to($introScanner, DefaultDuration, {width: '100%', ease: ease});
+            TweenMax.to($introMatching, DefaultDuration, {width: '0', ease: ease});
+        });
+        $matchingToggle.on('click', function () {
+            TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
+            TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 10, right: 0, ease: ease});
+            TweenMax.to($introScanner, DefaultDuration, {width: '0', ease: ease});
+            TweenMax.to($introMatching, DefaultDuration, {width: '100%', ease: ease});
+        });
+        $introLayerScannerClose.on('click', function () {
+            TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+            TweenMax.to($introLayerStage, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+            TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+            TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+            TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+            TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+        });
+        $introLayerMatchingClose.on('click', function () {
+            TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+            TweenMax.to($introLayerStage, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+            TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+            TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+            TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+            TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+        });
+
+
+        //메인 이벤트 배너
+        var $bannerEvt = $('.banner-items > ul');
+        $bannerEvt.awaSlide({
             auto: true,
             autoDelay: 5000
         });
 
-        $('.rank-items > ul').awaSlide({
-            mode: 'vertical',
-            auto: true,
-            autoDelay: 3000
-        });
-
-        $('#datapicker-input').allwinDatepicker({
+        //날짜검색 달력
+        var $datapickerInput = $('#datapicker-input');
+        $datapickerInput.allwinDatepicker({
             stickyMonths: true,
             inline: true,
             container: '.datapicker-view',
             alwaysOpen: true,
             hoveringTooltip: false
         });
+
     });
 </script>
 </body>
