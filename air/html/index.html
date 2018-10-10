@@ -112,52 +112,47 @@
                         </div>
                     </div>
                     <div class="rank-matching">
-                        <strong class="tit">매칭 랭킹</strong>
+                        <strong class="tit">최근 성공 매칭</strong>
                         <div class="rank-items">
                             <ul class="rank-matching-slide">
                                 <li class="rank-item">
-                                    <em class="number">1</em>
-                                    <strong class="name">LAX</strong>
+                                    <strong class="three-code">LAX</strong>
+                                    <strong class="name">로스앤젤레스</strong>
                                     <div class="side">
                                         <span class="seat">20석</span>
                                         <span class="code">7J</span>
-                                        <em class="change up"></em>
                                     </div>
                                 </li>
                                 <li class="rank-item">
-                                    <em class="number">2</em>
-                                    <strong class="name">VTE</strong>
+                                    <strong class="three-code">VTE</strong>
+                                    <strong class="name">방콕</strong>
                                     <div class="side">
                                         <span class="seat">10석</span>
                                         <span class="code">AE</span>
-                                        <em class="change up"></em>
                                     </div>
                                 </li>
                                 <li class="rank-item">
-                                    <em class="number">3</em>
-                                    <strong class="name">CXR</strong>
+                                    <strong class="three-code">CXR</strong>
+                                    <strong class="name">바르셀로나</strong>
                                     <div class="side">
                                         <span class="seat">50석</span>
                                         <span class="code">CX</span>
-                                        <em class="change up"></em>
                                     </div>
                                 </li>
                                 <li class="rank-item">
-                                    <em class="number">4</em>
-                                    <strong class="name">PUS</strong>
+                                    <strong class="three-code">HNL</strong>
+                                    <strong class="name">호놀룰루(하와이)</strong>
                                     <div class="side">
                                         <span class="seat">100석</span>
                                         <span class="code">AH</span>
-                                        <em class="change down"></em>
                                     </div>
                                 </li>
                                 <li class="rank-item">
-                                    <em class="number">5</em>
-                                    <strong class="name">DAD</strong>
+                                    <strong class="three-code">DAD</strong>
+                                    <strong class="name">요하네스버그</strong>
                                     <div class="side">
                                         <span class="seat">40석</span>
                                         <span class="code">AI</span>
-                                        <em class="change down"></em>
                                     </div>
                                 </li>
                             </ul>
@@ -409,7 +404,7 @@
                                         </span>
                                         <span class="radio">
                                             <input type="radio" id="trip-stay" name="trip-method" value=""/>
-                                            <label for="trip-stay">경유</label>
+                                            <label for="trip-stay">경유포함</label>
                                         </span>
                                     </div>
                                 </div>
@@ -1837,19 +1832,19 @@
             $rankComm.reloadSlider();
             $rankMatching.reloadSlider();
         });
-        // $rankToggle.on('click', function () {
-        //     if ($(this).data("show") == "no") {
-        //         $rankExpend.removeClass('expend');
-        //         $rankComm.reloadSlider();
-        //         $rankMatching.reloadSlider();
-        //         $(this).data("show", "yes");
-        //     } else {
-        //         $rankComm.destroySlider();
-        //         $rankMatching.destroySlider();
-        //         $rankExpend.addClass('expend');
-        //         $(this).data("show", "no");
-        //     }
-        // });
+        $rankToggle.on('click', function () {
+            if ($(this).data("show") == "no") {
+                $rankExpend.removeClass('expend');
+                $rankComm.reloadSlider();
+                $rankMatching.reloadSlider();
+                $(this).data("show", "yes");
+            } else {
+                $rankComm.destroySlider();
+                $rankMatching.destroySlider();
+                $rankExpend.addClass('expend');
+                $(this).data("show", "no");
+            }
+        });
 
         //메인 인트로
         var DefaultDuration = 1.3,
@@ -1872,32 +1867,41 @@
             $introLayerMatchingClose = $introLayerMatching.find('.close');
         $introEle.on('mouseenter', function () {
             if ($(this).attr('id') === "scanner") {
-                TweenMax.to($introScanner, DefaultDuration, {width: '55%', ease: ease});
-                TweenMax.to($introMatching, DefaultDuration, {width: '45%', ease: ease});
+                TweenMax.to($introScanner, DefaultDuration, {paddingRight: '90px', left: '0', ease: ease});
+                TweenMax.to($introMatching, DefaultDuration, {right: '-90px', paddingLeft: '0', ease: ease});
+                TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
             } else if ($(this).attr('id') === "matching") {
-                TweenMax.to($introScanner, DefaultDuration, {width: '45%', ease: ease});
-                TweenMax.to($introMatching, DefaultDuration, {width: '55%', ease: ease});
+                TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '-90px', ease: ease});
+                TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '90px', ease: ease});
+                TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '-90px', ease: ease});
             }
         });
-        // $('.main-views').on('mouseleave', function () {
-        //     TweenMax.to($introInner,leaveDuration,{opacity:1, ease:ease});
-        //     TweenMax.to($introLayerStage,leaveDuration,{opacity:0, zIndex:-1, ease:ease});
-        //     TweenMax.to($introLayerScanner,leaveDuration,{left:"-100%"});
-        //     TweenMax.to($introLayerMatching,leaveDuration,{right:"-100%"});
-        //     TweenMax.to($introScanner,leaveDuration,{width:'50%', ease:ease});
-        //     TweenMax.to($introMatching,leaveDuration,{width:'50%', ease:ease});
-        // });
+
+        $(document).on('mouseover', function (event) {
+            if (!$(event.target).closest('.main-views').length) {
+                $introTabItem.removeClass('actived');
+                TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+                TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+                TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+                TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+                TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+                TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
+                TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
+                TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+            }
+        });
+
         $scannerToggle.on('click', function () {
             $introTabItem.eq(0).addClass('actived');
             TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
-            TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 10, left: 0, ease: ease});
+            TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 2, left: 0, ease: ease});
             TweenMax.to($introScanner, DefaultDuration, {width: '100%', ease: ease});
             TweenMax.to($introMatching, DefaultDuration, {width: '0', ease: ease});
         });
         $matchingToggle.on('click', function () {
             $introTabItem.eq(1).addClass('actived');
             TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
-            TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 10, right: 0, ease: ease});
+            TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 2, right: 0, ease: ease});
             TweenMax.to($introScanner, DefaultDuration, {width: '0', ease: ease});
             TweenMax.to($introMatching, DefaultDuration, {width: '100%', ease: ease});
         });
