@@ -617,11 +617,19 @@ legend, .blind {
 .bt-full.navy {
     background: #2a2a4e;
 }
+
+.bt-full.gray {
+    background: #949494;
+}
   .bt-full.w160 {
     width: 160px !important; }
 
 .bt-full.w207 {
     width: 207px;
+}
+
+.bt-full.w240 {
+    width: 240px;
 }
 
 .bt-small {
@@ -749,12 +757,10 @@ legend, .blind {
     box-sizing: border-box; }
   .custom-select.large .select2-container--default .select2-selection--single .select2-selection__arrow b {
     top: 24px !important; }
-
 .custom-select.line .select2-container .select2-selection--single {
     border: 0;
     border-bottom: 1px solid #000;
 }
-
 .custom-select .select2-container .select2-selection--single {
     border-radius: 1px;
     height: 42px;
@@ -792,6 +798,7 @@ legend, .blind {
     width: 100%;
     height: 40px;
       text-indent: 16px;
+      font-size: 14px;
   }
   .custom-input:after {
     content: '';
@@ -886,6 +893,47 @@ legend, .blind {
     border: 1px solid #fc5625;
 }
 
+.custom-input.file {
+    border: 0;
+    border-radius: 0;
+}
+
+.custom-input.file input {
+    width: 270px;
+    border: 1px solid #cecece;
+    border-radius: 3px;
+}
+
+.custom-input.file button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 90px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #111;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.custom-textarea {
+    position: relative;
+    border: 1px solid #cecece;
+    border-radius: 3px;
+    background: #fff;
+    display: block;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.custom-textarea textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+}
+
 .custom-radio {
   display: inline-block; }
   .custom-radio input {
@@ -977,6 +1025,35 @@ legend, .blind {
     background: #ff4378; }
   .trip-label.label2 {
     background: #000; }
+
+.paging {
+    margin: 40px auto 0 auto;
+    text-align: center;
+    font-size: 0;
+}
+
+.paging a {
+    display: inline-block;
+    margin: 0 2px;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 16px;
+    color: #fff;
+    border: 1px solid #fff;
+    font-family: 'Geogrotesque-Medium';
+    text-align: center;
+}
+
+.paging a:hover {
+    border: 1px solid #111 !important;
+    color: #292a4d !important;
+}
+
+.paging .actived {
+    border: 1px solid #111 !important;
+    color: #292a4d !important;
+}
 
 .awa-datepicker {
   min-width: 230px;
@@ -1449,7 +1526,7 @@ legend, .blind {
       display: inline-block;
       margin: 0 15px 10px 0;
       border-bottom: 1px solid #000;
-      font-size: 16px;
+        font-size: 14px;
       color: #000;
       font-family: 'Noto Sans'; }
   .air-layer .internationals {
@@ -1530,7 +1607,6 @@ legend, .blind {
 .air-layer .airlines {
     position: relative;
     overflow: hidden;
-    min-height: 320px;
 }
 
 .air-layer .airlines .airline-group {
@@ -1561,15 +1637,61 @@ legend, .blind {
     margin: -5px 0 0 177px;
 }
 
-.air-layer .airlines .airline-group-child ul {
-    display: block;
-    font-size: 0;
-    margin: 0 0 0 -5px;
+.air-layer .airlines .airline-group-child .sort {
+    position: relative;
 }
 
-.air-layer .airlines .airline-group-child li {
+.air-layer .airlines .airline-group-child .sort .all {
+    font-size: 14px;
+    color: #111;
+    position: absolute;
+    top: 8px;
+    left: 0;
+}
+
+.air-layer .airlines .airline-group-child .sort .all.actived {
+    border-bottom: 1px solid #111;
+}
+
+.air-layer .airlines .airline-group-child .sort ul {
+    margin: 0 0 10px 45px;
+}
+
+.air-layer .airlines .airline-group-child .sort ul li {
     display: inline-block;
-    margin: 5px;
+}
+
+.air-layer .airlines .airline-group-child .sort ul button {
+    font-size: 14px;
+    padding: 0 5px;
+    width: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.air-layer .airlines .airline-group-child .sort ul.ko button {
+    color: #111;
+}
+
+.air-layer .airlines .airline-group-child .sort ul.ko button.actived {
+    border-bottom: 1px solid #111;
+}
+
+.air-layer .airlines .airline-group-child .sort ul.en li {
+    margin-left: 1px;
+}
+
+.air-layer .airlines .airline-group-child .sort ul.en button {
+    color: #fff;
+    font-family: 'Geogrotesque-Regular';
+}
+
+.air-layer .airlines .airline-group-child .sort ul.en button.actived {
+    border-bottom: 1px solid #fff;
+}
+
+.air-layer .airlines .airline-group-child .sort ul.en button:disabled {
+    color: #ffc956;
 }
 
 .air-layer .airlines .airline-group-child .airline-items {
@@ -4210,7 +4332,7 @@ legend, .blind {
     margin-bottom: 10px;
 }
 
-.joins .join-group .row .row-inner .col .tit em {
+.joins .join-group .row .row-inner .col .tit .tip {
     font-size: 12px;
     color: #aaa;
     margin-left: 10px;
@@ -4332,13 +4454,255 @@ legend, .blind {
     width: 100%;
 }
 
-.joins .join-bts {
+.joins .bts {
     text-align: center;
     margin-top: 80px;
 }
 
-.joins .join-bts .bt-full {
-    width: 240px;
+.member-switch {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.member-switch .txts {
+    text-align: center;
+}
+
+.member-switch .txts h2 {
+    font-size: 36px;
+    font-weight: 100;
+    line-height: 120%;
+}
+
+.member-switch .txts h2 strong {
+    font-weight: 700;
+}
+
+.member-switch .txts p {
+    margin-top: 15px;
+    font-size: 16px;
+    line-height: 120%;
+}
+
+.member-switch .txts p strong {
+    font-weight: 700;
+    color: #edaf08;
+}
+
+.member-switch .marketing-check {
+    padding: 90px 0 75px 0;
+    margin: 90px 0 80px 0;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.member-switch .marketing-check h3 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.member-switch .marketing-check .check-items {
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 25px;
+}
+
+.member-switch .marketing-check .check-items ul {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.member-switch .marketing-check .check-items li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.member-switch .marketing-check .check-items li .custom-check {
+    margin-right: 0;
+}
+
+.member-switch .bts {
+    text-align: center;
+}
+
+.survey {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.survey .celebration {
+    position: relative;
+    padding-top: 130px;
+    background: url("../../resource/img/ico_deco.png") center top no-repeat;
+    text-align: center;
+    margin: 0 0 70px 0;
+}
+
+.survey .celebration:before {
+    content: 'SUCCESS';
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    color: #fff;
+    font-family: 'Geogrotesque-SemiBold';
+    margin-left: -35px;
+    width: 66px;
+    height: 52px;
+    padding-left: 5px;
+    background: url("../../resource/img/ico_flag-yellow.svg") center center no-repeat;
+    background-size: 71px 52px;
+    font-size: 12px;
+    line-height: 37px;
+}
+
+.survey .celebration h2 {
+    font-size: 36px;
+    line-height: 120%;
+}
+
+.survey .celebration p {
+    margin: 30px 0;
+    font-size: 18px;
+    line-height: 130%;
+}
+
+.survey .celebration p strong {
+    font-weight: bold;
+}
+
+.survey .celebration .logo {
+    font-size: 30px;
+    color: #edaf08;
+    font-family: 'Geogrotesque-Bold';
+}
+
+.survey .row {
+    padding: 60px 0;
+    border-top: 1px solid #e7e7e7;
+}
+
+.survey .row .t1 {
+    line-height: 130%;
+    font-size: 24px;
+    color: #111;
+    margin-bottom: 30px;
+}
+
+.survey .row .t1 strong {
+    font-weight: 700;
+}
+
+.survey .row .tips {
+    margin-top: 10px;
+}
+
+.survey .row .tips li {
+    color: #fc5625;
+    font-size: 12px;
+}
+
+.survey .row .row-inner {
+    position: relative;
+}
+
+.survey .row .row-inner:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.survey .row .row-inner .col {
+    position: relative;
+    font-size: 0;
+    display: inline-block;
+    vertical-align: top;
+    width: 370px;
+}
+
+.survey .row .row-inner .col .tit {
+    display: block;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.survey .row .row-inner .col .tit .num {
+    font-size: 18px;
+    font-family: 'Geogrotesque-Medium';
+    margin-right: 3px;
+}
+
+.survey .row .row-inner .col .tit .tip {
+    font-size: 12px;
+    color: #aaa;
+    margin-left: 10px;
+}
+
+.survey .row .row-inner .col .tit .tip.noti {
+    color: #fc5625;
+}
+
+.survey .row .row-inner .col:first-child {
+    float: left;
+}
+
+.survey .row .row-inner .col:last-child {
+    float: right;
+}
+
+.survey .row .row-inner .col.block {
+    display: block;
+    width: 100%;
+}
+
+.survey .row .row-inner .col .in-box .survey-check {
+    font-size: 0;
+}
+
+.survey .row .row-inner .col .in-box .survey-check li {
+    position: relative;
+    display: inline-block;
+    width: 16.6%;
+    margin: 10px 0;
+}
+
+.survey .row .row-inner .col .in-box .survey-check li.mb0 {
+    margin-bottom: 0;
+}
+
+.survey .row .row-inner .col .in-box .survey-check li.etc {
+    width: 270px;
+}
+
+.survey .row .row-inner .col .in-box .survey-check li.etc .custom-input {
+    position: relative;
+    top: -7px;
+    height: 34px;
+}
+
+.survey .row .row-inner .col .in-box .survey-check li.etc .custom-input input {
+    height: 36px;
+}
+
+.survey .row .row-inner .col .in-box .byte {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.survey .bts {
+    text-align: center;
+    font-size: 0;
+    margin-top: 20px;
+}
+
+.survey .bts a {
+    margin: 0 5px;
 }
 
 /*# sourceMappingURL=air.ui.css.map */
