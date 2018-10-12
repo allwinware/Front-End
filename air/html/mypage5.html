@@ -552,17 +552,24 @@
                         </div>
                         <div class="mypage-in-tabs">
                             <ul>
-                                <li class="actived"><a href="">예약</a></li>
-                                <li><a href="">발권</a></li>
+                                <li><a href="">예약</a></li>
+                                <li class="actived"><a href="">발권</a></li>
+                            </ul>
+                        </div>
+                        <div class="mypage-in-tabs-child">
+                            <ul>
+                                <li><a href="">발권내역</a></li>
+                                <li><a href="">환불</a></li>
+                                <li><a href="">실적</a></li>
+                                <li class="actived"><a href="">정산</a></li>
+                                <li><a href="">입금/결제 내역</a></li>
+                                <li><a href="">SMS</a></li>
                             </ul>
                         </div>
                         <div class="mypage-forms">
                             <div class="form-group">
                                 <ul>
-                                    <li class="w200">
-                                        <span class="custom-input"><input type="text" placeholder="예약번호 입력"></span>
-                                    </li>
-                                    <li class="w200">
+                                    <li class="w190">
                                     <span class="custom-select">
                                         <select name="" id="">
                                             <option value="">판매사</option>
@@ -570,44 +577,19 @@
                                         </select>
                                     </span>
                                     </li>
-                                    <li class="w168">
-                                    <span class="custom-select">
-                                        <select name="" id="">
-                                            <option value="">OK 여부</option>
-                                            <option value="">OK</option>
-                                            <option value="">대기</option>
-                                        </select>
-                                    </span>
+                                    <li class="w190">
+                                        <span class="custom-input"><input type="text" placeholder="목적지 입력"></span>
                                     </li>
-                                    <li class="w182">
-                                    <span class="custom-select">
-                                        <select name="" id="">
-                                            <option value="">요금확정여부</option>
-                                            <option value="">확정</option>
-                                            <option value="">미확정</option>
-                                        </select>
-                                    </span>
+                                    <li class="w190">
+                                        <span class="custom-input"><input type="text" placeholder="출발지 입력"></span>
                                     </li>
-                                    <li class="w200">
-                                    <span class="custom-select">
-                                        <select name="" id="">
-                                            <option value="">취소상태</option>
-                                            <option value="">ACTIVE</option>
-                                            <option value="">취소완료</option>
-
-                                        </select>
-                                    </span>
+                                    <li class="w190">
+                                        <span class="custom-input"><input type="text" placeholder="항공 입력"></span>
                                     </li>
-                                    <li class="w200">
+                                    <li class="w190">
                                     <span class="custom-select">
                                         <select name="" id="">
-                                            <option value="">발권여부</option>
-                                            <option value="">발권전</option>
-                                            <option value="">발권요청</option>
-                                            <option value="">발권중</option>
-                                            <option value="">일부발권</option>
-                                            <option value="">발권완료</option>
-                                            <option value="">확인필요</option>
+                                            <option value="">TASF 미결제</option>
                                         </select>
                                     </span>
                                     </li>
@@ -615,36 +597,26 @@
                                     <span class="custom-select">
                                         <select name="" id="">
                                             <option value="">항공 CRS</option>
-                                            <option value="">애바카스</option>
-                                            <option value="">갈릴레오</option>
-                                            <option value="">월드스팬</option>
-                                            <option value="">아마데우스</option>
                                         </select>
                                     </span>
                                     </li>
-                                    <li class="w378">
+                                    <li class="w420">
                                         <div class="mix-form">
                                         <span class="custom-select">
                                             <select name="" id="">
                                                 <option value="">검색선택</option>
-                                                <option value="">항공PNR</option>
-                                                <option value="">예약자ID</option>
-                                                <option value="">예약자명</option>
-                                                <option value="">예약자연락처</option>
-                                                <option value="">탑승객한글명</option>
-                                                <option value="">탑승객영문명</option>
                                             </select>
                                         </span>
-                                            <span class="custom-input"><input type="text" placeholder="검색 조건을 먼저 확인하세요"></span>
+                                            <span class="custom-input"><input type="text" class="default-picker"
+                                                                              placeholder="검색조건을 먼저 확인하세요"></span>
                                         </div>
                                     </li>
-                                    <li class="w378">
+                                    <li class="w420">
                                         <div class="mix-form">
                                         <span class="custom-select">
                                             <select name="" id="">
-                                                <option value="">예약일</option>
-                                                <option value="">고객결제시한</option>
-                                                <option value="">항공출발일</option>
+                                                <option value="">발권일</option>
+                                                <option value="">발권출발일</option>
                                             </select>
                                         </span>
                                             <span class="custom-input"><input type="text" class="default-picker"
@@ -654,7 +626,7 @@
                                 </ul>
                             </div>
                             <div class="bts">
-                                <button type="button" id="srch" class="bt-full navy w240">조회하기</button>
+                                <button type="button" class="bt-full navy w240">조회하기</button>
                             </div>
                         </div>
                     </div>
@@ -662,7 +634,7 @@
                     <div class="mypage-tbs">
                         <div class="mypage-tb__util">
                             <div class="num">
-                                <strong>15</strong>건
+                                검색결과:<strong>15</strong>건
                             </div>
                             <div class="bt">
                                 <button type="button" class="bt-small navy">엑셀로 다운받기</button>
@@ -672,180 +644,238 @@
                             <thead>
                             <tr>
                                 <th>판매사</th>
+                                <th>항공료<br>TAX</th>
+                                <th>총 청구금액</th>
+                                <th>총 결제금액</th>
+                                <th>총 미결제금액</th>
+                                <th>총 선취컴</th>
+                                <th>총 지급커미션</th>
+                                <th>지급완료<br>지급예정</th>
+                                <th>총 지급수수료</th>
+                                <th>지급완료<br>지급예정</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="set-tr">
+                                <td rowspan="2">KRT</td>
+                                <td rowspan="2">1,455,000<br>124,000</td>
+                                <td rowspan="2">9,999,999,999</td>
+                                <td rowspan="2">9,999,999,999</td>
+                                <td rowspan="2">9,999,999,999</td>
+                                <td rowspan="2">999,999,999</td>
+                                <td rowspan="2">1,177</td>
+                                <td>0</td>
+                                <td rowspan="2">6,200</td>
+                                <td>5,000</td>
+                            </tr>
+                            <tr class="set-tr">
+                                <td>555,555</td>
+                                <td>1,200</td>
+                            </tr>
+                            </tbody>
+                            <tbody>
+                            <tr class="set-tr">
+                                <td rowspan="2">자유투어</td>
+                                <td rowspan="2">9,999,999,999<br>2,905,000</td>
+                                <td rowspan="2">9,999,999,999</td>
+                                <td rowspan="2">9,999,999,999</td>
+                                <td rowspan="2">9,999,999,999</td>
+                                <td rowspan="2">999,999,999</td>
+                                <td rowspan="2">1,177</td>
+                                <td>0</td>
+                                <td rowspan="2">0</td>
+                                <td>8,000</td>
+                            </tr>
+                            <tr class="set-tr">
+                                <td>555,555</td>
+                                <td>1,200</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr class="total">
+                                <td>TOTAL</td>
+                                <td>9,999,999,999<br>9,999,999,999</td>
+                                <td>9,999,999,999</td>
+                                <td>9,999,999,999</td>
+                                <td>9,999,999,999</td>
+                                <td>9,999,999,999</td>
+                                <td>9,999</td>
+                                <td class="gap">999,999<br>9,999,999,999</td>
+                                <td>9,999,999,999</td>
+                                <td>999,999<br>9,999,999,999</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <br><br>
+
+                    <div class="mypage-tbs">
+                        <div class="mypage-tb__util">
+                            <div class="num">
+                                발권일 기준: <em>2018.05.23 - 2018.06.23</em>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>요청번호</th>
+                                <th>요청구분</th>
+                                <th>인원</th>
+                                <th>판매사</th>
                                 <th>예약번호</th>
-                                <th>취소상태</th>
-                                <th>예약일<br>결제시한</th>
-                                <th>PNR(CRS)</th>
-                                <th>인원수</th>
-                                <th>항공사</th>
-                                <th>여정</th>
-                                <th>요금</th>
-                                <th>출발일</th>
-                                <th>OK여부</th>
+                                <th>CRS<br>PNR</th>
+                                <th>항공료<br>TAX</th>
+                                <th>청구금액<br>TASF 결제</th>
+                                <th>결제금액</th>
+                                <th>미결제금액</th>
+                                <th>선취컴</th>
+                                <th>지급 커미션</th>
+                                <th>지급 수수료</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
-                                </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
+                                <td>2895<br>05.05 11:44</td>
+                                <td>발권요청</td>
+                                <td>2</td>
+                                <td>KRT</td>
+                                <td>T180000121212</td>
+                                <td>세이버(S)<br>DTSKZS</td>
+                                <td>250,000<br>74,000</td>
+                                <td>152,700<br>미결제</td>
+                                <td>152,700</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1,177</td>
+                                <td>0</td>
                             </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
+                            <tr class="ticker-tr">
+                                <td colspan="15">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td rowspan="2" class="bn">티켓번호<br>675344549482<br>05.03 발권</td>
+                                            <td rowspan="2" class="bn">LEE GILDONG</td>
+                                            <td rowspan="2" class="bn">
+                                                <strong class="code">OZ</strong><br>
+                                                ICN-MFM-BKK-MFM-ICN<br>
+                                                2018.06.05 출발
+                                            </td>
+                                            <td>항공료<br>250,000</td>
+                                            <td>청구금액<br>250,000</td>
+                                            <td>결제금액<br>250,000</td>
+                                            <td>Q-CHRG<br>250,000</td>
+                                            <td>(판) 발권수수료<br>250,000</td>
+                                            <td>(판) 수수료<br>250,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bn">TAX<br>250,000</td>
+                                            <td class="bn">TASF<br>결제 미결제</td>
+                                            <td class="bn">미결제금액<br>250,000</td>
+                                            <td class="bn">대리점컴<br>250,000</td>
+                                            <td class="bn">(대) TASF<br>250,000</td>
+                                            <td class="bn">(대) 수수료<br>250,000</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
                             </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
+                            <tr class="ticker-tr">
+                                <td colspan="15">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td rowspan="2" class="bn">티켓번호<br>675344549482<br>05.03 발권</td>
+                                            <td rowspan="2" class="bn">LEE GILDONG</td>
+                                            <td rowspan="2" class="bn">
+                                                <strong class="code">OZ</strong><br>
+                                                ICN-MFM-BKK-MFM-ICN<br>
+                                                2018.06.05 출발
+                                            </td>
+                                            <td>항공료<br>250,000</td>
+                                            <td>청구금액<br>250,000</td>
+                                            <td>결제금액<br>250,000</td>
+                                            <td>Q-CHRG<br>250,000</td>
+                                            <td>(판) 발권수수료<br>250,000</td>
+                                            <td>(판) 수수료<br>250,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bn">TAX<br>250,000</td>
+                                            <td class="bn">TASF<br>결제 미결제</td>
+                                            <td class="bn">미결제금액<br>250,000</td>
+                                            <td class="bn">대리점컴<br>250,000</td>
+                                            <td class="bn">(대) TASF<br>250,000</td>
+                                            <td class="bn">(대) 수수료<br>250,000</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
-                            </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
-                                </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
-                            </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
-                                </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
-                            </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
-                                </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
-                            </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
-                                </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
-                            </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
-                                </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
-                            </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
-                                </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
-                            </tr>
-                            <tr>
-                                <td class="seller">(주)KRT</td>
-                                <td class="rsv-number"><a href="">T1700001987</a></td>
-                                <td class="cancel-status">취소완료</td>
-                                <td class="at">
-                                    2018.06.04<br>
-                                    2018.06.11
-                                </td>
-                                <td class="pnr">SADSDF(B)</td>
-                                <td class="number">20</td>
-                                <td class="airplane">OZ</td>
-                                <td class="trip"><p>(RT) ICN-NRT-ICN</p></td>
-                                <td class="money">0</td>
-                                <td class="at">2018.01.23</td>
-                                <td class="ok-status">OK</td>
                             </tr>
                             </tbody>
+                            <tbody>
+                            <tr>
+                                <td>2895<br>05.05 11:44</td>
+                                <td>발권요청</td>
+                                <td>1</td>
+                                <td>자유투어</td>
+                                <td>T180000121212</td>
+                                <td>아마데우스(A)<br>3243-4834</td>
+                                <td>88,484,000<br>1,350,000</td>
+                                <td>88,484,900<br>-</td>
+                                <td>0</td>
+                                <td>88,484,900</td>
+                                <td>25,000</td>
+                                <td>1,177</td>
+                                <td>1,200</td>
+                            </tr>
+                            </tbody>
+                            <tbody>
+                            <tr>
+                                <td>2895<br>05.05 11:44</td>
+                                <td>VOID</td>
+                                <td>2</td>
+                                <td>KRT</td>
+                                <td>T180000121212</td>
+                                <td>세이버(S)<br>DTSKZS</td>
+                                <td>1,205,000<br>50,000</td>
+                                <td>27,000<br>미결제</td>
+                                <td>56,472<br>(+선취컴)</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>100,000</td>
+                                <td>30,000</td>
+                            </tr>
+                            </tbody>
+                            <tbody>
+                            <tr>
+                                <td>2895<br>05.05 11:44</td>
+                                <td>발권요청</td>
+                                <td>1</td>
+                                <td>자유투어</td>
+                                <td>T180000121212</td>
+                                <td>아마데우스(A)<br>3243-4834</td>
+                                <td>2,789,000<br>1,555,900</td>
+                                <td>566,560<br>-</td>
+                                <td>0</td>
+                                <td>566,560</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr class="total">
+                                <td colspan="6">TOTAL</td>
+                                <td>99,999,999<br>99,999,999</td>
+                                <td>99,999,999<br>99,999,999</td>
+                                <td>99,999,999</td>
+                                <td>99,999,999</td>
+                                <td>9,999,999</td>
+                                <td>999,999</td>
+                                <td>999,999</td>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
 
@@ -873,7 +903,7 @@
                 </ul>
                 <ul>
                     <li>서울시 중구 서소문로 106 동화빌딩 9층</li>
-                    <li>개인정보책임자:이규영</li>
+                    </개인정보책임자:이규영</li>
                 </ul>
                 <ul>
                     <li>㈜올윈웨어</li>
