@@ -9546,3 +9546,7 @@ Parsley.setLocale('ko');
     }
 
 }));
+
+$.validator.addMethod("regex", function (value, elemnet, regexpr) {
+    return regexpr.test(value);
+})
