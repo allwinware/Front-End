@@ -723,7 +723,7 @@ legend, .blind {
     background: #000;
   }
   &.navy {
-    background: #2a2a4e;
+    background: #210f5c;
   }
   &.gray {
     background: #949494;
@@ -750,7 +750,7 @@ legend, .blind {
   border-radius: 2px;
   font-weight: 700;
   &.navy {
-    background: #292a4d;
+    background: #210f5c;
   }
   &.yellow {
     background: #ebaa2c;
@@ -1136,9 +1136,9 @@ legend, .blind {
   display: block;
   box-sizing: border-box;
   overflow: hidden;
+  padding: 10px;
   textarea {
     width: 100%;
-    padding: 10px;
     font-size: 14px;
   }
   &.error {
@@ -1243,9 +1243,10 @@ legend, .blind {
 
 .trip-label {
   display: inline-block;
-  width: 34px;
+  min-width: 20px;
   height: 16px;
   line-height: 16px;
+  padding: 0 5px;
   text-align: center;
   font-size: 10px;
   color: #fff;
@@ -2809,6 +2810,15 @@ legend, .blind {
     text-align: center;
     min-width: 340px;
     padding: 75px 40px 146px 40px;
+    .tit {
+      font-size: 16px;
+      font-weight: 700;
+      display: block;
+      text-align: left;
+      position: absolute;
+      top: 40px;
+      left: 40px;
+    }
     &.matching-start {
       width: 480px;
       .txt1 {
@@ -2884,15 +2894,6 @@ legend, .blind {
     &.seller-chain {
       width: 480px;
       padding-top: 120px;
-      .tit {
-        font-size: 16px;
-        font-weight: 700;
-        display: block;
-        text-align: left;
-        position: absolute;
-        top: 40px;
-        left: 40px;
-      }
       .txt1 {
         font-size: 36px;
         line-height: 120%;
@@ -2951,6 +2952,78 @@ legend, .blind {
         }
       }
     }
+    &.sms-send {
+      width: 480px;
+      padding-top: 100px;
+      padding-bottom: 70px;
+      .input-items {
+        min-height: 250px;
+        .input-item {
+          position: relative;
+          margin-bottom: 10px;
+          .custom-input {
+            &:first-child {
+              width: 236px;
+            }
+            &:last-child {
+              width: 208px;
+            }
+          }
+        }
+        .del {
+          position: absolute;
+          top: 13px;
+          right: 10px;
+          width: 16px;
+          height: 16px;
+          background: url('../../resource/img/ico_close4.png') center center no-repeat;
+          opacity: 0.3;
+        }
+      }
+      .add {
+        em {
+          font-size: 12px;
+          color: #aaa;
+          display: inline-block;
+          margin-left: 10px;
+          line-height: 32px;
+          vertical-align: top;
+        }
+      }
+      .mr10 {
+        margin-right: 10px;
+      }
+    }
+    &.admin-reg {
+      width: 480px;
+      padding-top: 100px;
+      padding-bottom: 70px;
+    }
+    &.seller-id {
+      width: 480px;
+      padding-top: 85px;
+      .seller-id-list {
+        border-top: 1px solid #414141;
+        li {
+          position: relative;
+          overflow: hidden;
+          font-size: 14px;
+          border-bottom: 1px solid #ececec;
+          line-height: 60px;
+          padding: 0 10px;
+          .name {
+            float: left;
+          }
+          .date {
+            float: right;
+            color: #aaa;
+            em {
+              font-family: 'Geogrotesque-Regular';
+            }
+          }
+        }
+      }
+    }
     .default-txts {
       vertical-align: middle;
       text-align: center;
@@ -2962,15 +3035,110 @@ legend, .blind {
         margin-bottom: 10px;
         font-size: 30px;
         font-weight: 100;
+        line-height: 120%;
         strong {
           font-weight: 700;
         }
       }
       .txt2 {
-        margin-bottom: 26px;
         font-size: 14px;
         font-weight: 700;
+        line-height: 130%;
+        .fc {
+          font-family: 'Geogrotesque-SemiBold';
+        }
       }
+      .txt3 {
+        margin-top: 26px;
+      }
+      .okay-list {
+        dl {
+          position: relative;
+          display: inline-block;
+          font-size: 14px;
+          padding: 0 10px;
+          &:first-child {
+            &:before {
+              content: '';
+              width: 1px;
+              height: 12px;
+              background: #cecece;
+              position: absolute;
+              top: 5px;
+              right: 0;
+            }
+          }
+        }
+        dt {
+          display: inline-block;
+          font-family: 'Geogrotesque-SemiBold';
+        }
+        dd {
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .row {
+    font-size: 0;
+    text-align: left;
+    margin-bottom: 30px;
+    overflow: hidden;
+    &.solo {
+      .col {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        float: none !important;
+      }
+    }
+    .col {
+      position: relative;
+      display: inline-block;
+      width: 50%;
+      max-width: 236px;
+      &:first-child {
+        float: left;
+      }
+      &:last-child {
+        float: right;
+      }
+      label {
+        font-size: 14px;
+        color: #111;
+        display: block;
+        font-weight: 500;
+        margin-bottom: 10px;
+        overflow: hidden;
+        em {
+          font-size: 12px;
+          color: #aaa;
+          margin-left: 5px;
+          display: inline-block;
+          &.byte {
+            float: right;
+          }
+        }
+      }
+      select {
+        width: 100%;
+      }
+      .marketing-check {
+        p {
+          font-size: 14px;
+          margin-bottom: 30px;
+        }
+        padding: 15px 8px 20px 8px;
+        border-top: 1px solid #333;
+        border-bottom: 1px solid #e1e1e1;
+      }
+    }
+    .required {
+      position: absolute;
+      top: 0px;
+      right: 0;
+      font-size: 12px;
+      color: #fc5625;
     }
   }
   .layer-bts {
@@ -5862,6 +6030,51 @@ legend, .blind {
         display: inline-block;
       }
     }
+
+    .sms {
+      width: 420px;
+      margin-bottom: 20px;
+      &__gage {
+        position: relative;
+        margin-top: 10px;
+        padding-bottom: 25px;
+        .use {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          color: #ebaa2c;
+          font-size: 14px;
+          b {
+            font-weight: normal;
+            font-family: 'Geogrotesque-Medium'
+          }
+        }
+        .rest {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          font-size: 14px;
+          b {
+            font-weight: normal;
+            font-family: 'Geogrotesque-Medium'
+          }
+        }
+      }
+      &__gage-outer {
+        position: relative;
+        width: 420px;
+        height: 4px;
+        background: #e9e9f4;
+      }
+      &__gage-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: #ebaa2c;
+      }
+    }
+
     .form-group {
       font-size: 0;
       width: 1210px;
@@ -5967,9 +6180,13 @@ legend, .blind {
         }
       }
       .bt {
+        font-size: 0;
         position: absolute;
         top: 0;
         right: 0;
+        button, a {
+          margin-left: 8px;
+        }
       }
     }
     table {
