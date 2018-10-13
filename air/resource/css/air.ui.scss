@@ -3951,36 +3951,45 @@ legend, .blind {
     }
   }
   .form-util {
+    position: relative;
     padding-bottom: 20px;
-    .tabs {
+    .start-types {
       display: inline-block;
       margin: 10px 60px 0 0;
+      .custom-radio {
+        input {
+          & + label {
+            padding-top: 8px;
+            padding-left: 0;
+            font-size: 16px;
+            color: #ccc;
+            &:before {
+              content: '';
+              display: none;
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 2px;
+              background: #fff;
+            }
+          }
+          &:checked + label {
+            font-weight: 700;
+            color: #f9c028;
+            &:before {
+              display: block;
+            }
+            &:after {
+              display: none;
+            }
+          }
+        }
+      }
       li {
         position: relative;
         display: inline-block;
         margin-right: 15px;
-        padding-top: 8px;
-        &.actived {
-          &:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #fff;
-          }
-          a {
-            color: #fff;
-            font-weight: 700;
-          }
-        }
-      }
-      a {
-        display: block;
-        //height:40px;
-        font-size: 16px;
-        color: #ccc;
       }
     }
     .trip-types {
@@ -3988,6 +3997,14 @@ legend, .blind {
       li {
         display: inline-block;
         margin-right: 25px;
+      }
+    }
+    .trip-bts {
+      position: absolute;
+      bottom: 20px;
+      right: 120px;
+      a {
+        margin-left: 10px;
       }
     }
   }

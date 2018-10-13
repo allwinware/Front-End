@@ -267,13 +267,20 @@
                                 <p>홀세일 판매시간 혜택을 한눈에 비교하여 최고의 발권혜택을 연결합니다.</p>
                             </div>
                             <div class="form-util">
-                                <div class="tabs">
+                                <div class="start-types">
                                     <ul>
                                         <li class="actived">
-                                            <a href="">국내출발</a>
+                                            <span class="custom-radio">
+                                                <input type="radio" id="start-type1" name="start-types" checked
+                                                       value=""/>
+                                                <label for="start-type1">국내출발</label>
+                                            </span>
                                         </li>
                                         <li>
-                                            <a href="">해외출발</a>
+                                            <span class="custom-radio">
+                                                <input type="radio" id="start-type2" name="start-types" value=""/>
+                                                <label for="start-type2">해외출발</label>
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -298,6 +305,10 @@
                                             </span>
                                         </li>
                                     </ul>
+                                </div>
+                                <div class="trip-bts">
+                                    <a href="" class="bt-link">구간추가</a>
+                                    <a href="" class="bt-link">구간삭제</a>
                                 </div>
                             </div>
                             <!--<div class="layer-forms first">-->
@@ -642,19 +653,19 @@
                 }
             });
 
-            $(document).on('mouseover', function (event) {
-                if (!$(event.target).closest('.views, .intro-tabs').length) {
-                    $introTabItem.removeClass('actived');
-                    TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-                    TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-                    TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-                    TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-                    TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-                    TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
-                    TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
-                    TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
-                }
-            });
+            // $(document).on('mouseover', function (event) {
+            //     if (!$(event.target).closest('.views, .intro-tabs').length) {
+            //         $introTabItem.removeClass('actived');
+            //         TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+            //         TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+            //         TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+            //         TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+            //         TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+            //         TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
+            //         TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
+            //         TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+            //     }
+            // });
 
             $scannerToggle.on('click', function () {
                 $introTabItem.eq(0).addClass('actived');
