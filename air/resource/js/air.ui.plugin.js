@@ -20618,6 +20618,7 @@ and dependencies (minified).
     jQuery.fn.select2.amd = S2;
 
     // Return the Select2 instance for anyone who is importing it.
+
     return select2;
 }));
 
@@ -20752,5 +20753,12 @@ and dependencies (minified).
     }
 
 }(jQuery));
+
+$('select').on('select2:open', function (e) {
+  $('.select2-results__options').mCustomScrollbar('destroy');
+  setTimeout(function () {
+    $('.select2-results__options').mCustomScrollbar({scrollInertia: 100});
+  }, 0);
+});
 
 $('input[type=file]').customFile();
