@@ -749,6 +749,7 @@ legend, .blind {
   color: #fff;
   border-radius: 2px;
   font-weight: 700;
+  box-sizing: border-box;
   &.navy {
     background: #210f5c;
   }
@@ -765,7 +766,11 @@ legend, .blind {
   display: inline-block;
   font-size: 14px;
   color: #a4a4a4;
-  border-bottom: 1px solid #a4a4a4
+  border-bottom: 1px solid #a4a4a4;
+  &.black {
+    color: #111;
+    border-bottom: 1px solid #111;
+  }
 }
 
 .close {
@@ -5390,27 +5395,183 @@ legend, .blind {
       color: #000;
     }
   }
+
   .join-group {
     margin-top: 65px;
-    h3 {
+  }
+  .bts {
+    text-align: center;
+    margin-top: 80px;
+  }
+}
+
+.join-group {
+  h3 {
+    position: relative;
+    display: block;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 700;
+    em {
       position: relative;
-      display: block;
-      margin-bottom: 30px;
-      font-size: 24px;
-      font-weight: 700;
-      em {
+      top: 7px;
+      margin-left: 15px;
+      font-size: 13px;
+      color: #aaa;
+      line-height: 130%;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+  .row {
+    margin-bottom: 35px;
+    .row-inner {
+      position: relative;
+      &:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      .col {
         position: relative;
-        top: 7px;
-        margin-left: 15px;
-        font-size: 13px;
-        color: #aaa;
-        line-height: 130%;
+        font-size: 0;
         display: inline-block;
         vertical-align: top;
+        width: 370px;
+        .tit {
+          display: block;
+          font-weight: 500;
+          font-size: 14px;
+          margin-bottom: 10px;
+          .tip {
+            font-size: 12px;
+            color: #aaa;
+            margin-left: 10px;
+          }
+        }
+        &:first-child {
+          float: left;
+        }
+        &:last-child {
+          float: right;
+        }
+        &.block {
+          display: block;
+          width: 100%;
+        }
+        .in-box {
+          .choice-airline {
+            font-size: 14px;
+            color: #111;
+            display: inline-block;
+            margin-right: 15px;
+            margin-top: 10px;
+            .del {
+              position: relative;
+              top: 5px;
+              display: inline-block;
+              vertical-align: top;
+              width: 11px;
+              height: 11px;
+              margin-left: 5px;
+              background: url('../../resource/img/ico_del.png') center center no-repeat;
+            }
+          }
+          .addr {
+            .custom-input {
+              margin-top: 5px;
+              &:first-child {
+                margni-top: 0;
+              }
+            }
+            .bt-link {
+              position: absolute;
+              top: 0;
+              right: 0;
+              color: #111;
+            }
+          }
+          .choice-bsp {
+            .custom-radio {
+              margin-top: 10px;
+              &:first-child {
+                margin-top: 0;
+              }
+            }
+          }
+          .marketing-check {
+            position: absolute;
+            top: 0;
+            right: 0;
+            li {
+              display: inline-block;
+              margin-left: 20px;
+            }
+            .custom-check {
+              margin-right: 0;
+            }
+          }
+          .policy {
+            border: 1px solid #cecece;
+            box-sizing: border-box;
+            overflow: hidden;
+            .scroll {
+              height: 70px;
+              overflow: hidden;
+              overflow-y: auto;
+              font-size: 12px;
+              color: #666;
+              padding: 15px;
+              line-height: 160%;
+            }
+          }
+          .policy-check {
+            position: absolute;
+            top: 0;
+            right: 0;
+            .custom-check {
+              margin-right: 0;
+            }
+          }
+        }
       }
     }
-    .row {
-      margin-bottom: 35px;
+    .all-check-policy {
+      text-align: right;
+      margin-top: 20px;
+      .custom-check {
+        margin-right: 0;
+      }
+    }
+    .required {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      font-size: 12px;
+      color: #fc5625;
+    }
+  }
+
+  .row {
+    &.upload {
+      padding: 30px 0;
+      border-top: 1px solid #e7e7e7;
+      .t1 {
+        line-height: 130%;
+        font-size: 24px;
+        color: #111;
+        margin-bottom: 30px;
+        strong {
+          font-weight: 700;
+        }
+      }
+      .tips {
+        margin-top: 10px;
+        li {
+          color: #fc5625;
+          font-size: 12px;
+        }
+      }
       .row-inner {
         position: relative;
         &:after {
@@ -5427,12 +5588,20 @@ legend, .blind {
           .tit {
             display: block;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 16px;
             margin-bottom: 10px;
+            .num {
+              font-size: 18px;
+              font-family: 'Geogrotesque-Medium';
+              margin-right: 3px;
+            }
             .tip {
               font-size: 12px;
               color: #aaa;
               margin-left: 10px;
+              &.noti {
+                color: #fc5625;
+              }
             }
           }
           &:first-child {
@@ -5446,104 +5615,44 @@ legend, .blind {
             width: 100%;
           }
           .in-box {
-            .choice-airline {
-              font-size: 14px;
-              color: #111;
-              display: inline-block;
-              margin-right: 15px;
-              margin-top: 10px;
-              .del {
-                position: relative;
-                top: 5px;
-                display: inline-block;
-                vertical-align: top;
-                width: 11px;
-                height: 11px;
-                margin-left: 5px;
-                background: url('../../resource/img/ico_del.png') center center no-repeat;
-              }
-            }
-            .addr {
-              .custom-input {
-                margin-top: 5px;
-                &:first-child {
-                  margni-top: 0;
-                }
-              }
-              .bt-link {
-                position: absolute;
-                top: 0;
-                right: 0;
-                color: #111;
-              }
-            }
-            .choice-bsp {
-              .custom-radio {
-                margin-top: 10px;
-                &:first-child {
-                  margin-top: 0;
-                }
-              }
-            }
-            .marketing-check {
-              position: absolute;
-              top: 0;
-              right: 0;
+            .survey-check {
+              font-size: 0;
               li {
+                position: relative;
                 display: inline-block;
-                margin-left: 20px;
-              }
-              .custom-check {
-                margin-right: 0;
-              }
-            }
-            .policy {
-              border: 1px solid #cecece;
-              box-sizing: border-box;
-              overflow: hidden;
-              .scroll {
-                height: 70px;
-                overflow: hidden;
-                overflow-y: auto;
-                font-size: 12px;
-                color: #666;
-                padding: 15px;
-                line-height: 160%;
+                width: 16.6%;
+                margin: 10px 0;
+                &.mb0 {
+                  margin-bottom: 0;
+                }
+                &.etc {
+                  width: 270px;
+                  .custom-input {
+                    position: relative;
+                    top: -7px;
+                    height: 34px;
+                    input {
+                      height: 36px;
+                    }
+                  }
+                }
               }
             }
-            .policy-check {
+            .byte {
               position: absolute;
-              top: 0;
+              top: 15px;
               right: 0;
-              .custom-check {
-                margin-right: 0;
-              }
+              font-size: 12px;
+              color: #aaa;
             }
           }
         }
       }
-      .all-check-policy {
-        text-align: right;
-        margin-top: 20px;
-        .custom-check {
-          margin-right: 0;
-        }
-      }
-      .required {
-        position: absolute;
-        bottom: -20px;
-        left: 0;
-        font-size: 12px;
-        color: #fc5625;
-      }
-    }
-    select {
-      width: 100%;
     }
   }
-  .bts {
-    text-align: center;
-    margin-top: 80px;
+
+  select {
+    width: 100%;
   }
 }
 
@@ -6074,7 +6183,68 @@ legend, .blind {
         background: #ebaa2c;
       }
     }
-
+    .status-board {
+      position: relative;
+      overflow: hidden;
+      width: 1200px;
+      height: 158px;
+      margin-bottom: 20px;
+      background: url('../../resource/img/img_matching-list-bg.png') center center no-repeat;
+      dl {
+        display: inline-block;
+        margin-top: 45px !important;
+      }
+      dt {
+        font-size: 14px;
+        color: #000;
+      }
+      dd {
+        font-size: 49px;
+        font-family: 'Geogrotesque-SemiBold';
+        line-height: 100%;
+      }
+      .board-tit {
+        position: absolute;
+        top: 40px;
+        left: 55px;
+        strong {
+          display: block;
+          font-size: 36px;
+          font-family: 'Geogrotesque-Bold';
+        }
+        span {
+          font-size: 18px;
+          font-weight: 700;
+          em {
+            color: #edaf08;
+            font-weight: 700;
+          }
+        }
+      }
+      .ok-status {
+        width: 466px;
+        position: absolute;
+        top: 0;
+        left: 380px;
+        text-align: center;
+        dl {
+          margin: 0 55px;
+        }
+        dd {
+          color: #edaf08;
+        }
+      }
+      .fail-status {
+        width: 340px;
+        position: absolute;
+        top: 0;
+        right: 13px;
+        text-align: center;
+        dd {
+          color: #aaa;
+        }
+      }
+    }
     .form-group {
       font-size: 0;
       width: 1210px;
@@ -6106,6 +6276,9 @@ legend, .blind {
         }
         &.w250 {
           width: 250px;
+        }
+        &.w280 {
+          width: 280px;
         }
         &.w335 {
           width: 335px;
@@ -6245,7 +6418,8 @@ legend, .blind {
         td {
           font-size: 13px;
           text-align: center;
-          height: 60px;
+          min-height: 10px;
+          padding: 25px 0;
           border-bottom: 1px solid #e7e7e7;
           &.bn {
             border: 0;
@@ -6273,6 +6447,15 @@ legend, .blind {
           }
           &.number {
             font-family: 'Geogrotesque-Regular';
+            em {
+              font-family: 'Geogrotesque-Regular';
+              display: block;
+              font-size: 13px;
+              color: #aaa;
+            }
+          }
+          &.seat {
+            font-family: 'Geogrotesque-Regular';
           }
           &.airplane {
             font-family: 'Geogrotesque-Regular';
@@ -6299,8 +6482,52 @@ legend, .blind {
           &.en-txt {
             font-family: 'Geogrotesque-Regular';
           }
+          &.chain {
+            width: 155px;
+          }
+          &.end {
+            color: #aaa;
+          }
+          &.success {
+            color: #fc5625;
+          }
+          &.schedule {
+            text-align: left;
+            padding-left: 50px;
+            padding-right: 10px;
+            .item2 {
+              margin: 5px 0 10px 0;
+              p {
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 100%;
+                padding: 2px 0;
+              }
+              .bar {
+                display: inline-block;
+                width: 8px;
+                height: 2px;
+                background: #161820;
+                vertical-align: top;
+                position: relative;
+                top: 8px;
+              }
+            }
+            .item3 {
+              font-size: 12px;
+              em {
+                font-family: 'Geogrotesque-Regular';
+              }
+            }
+          }
         }
       }
+    }
+  }
+  &-datas {
+    margin-top: 30px;
+    .join-group {
+      width: 796px;
     }
   }
 }

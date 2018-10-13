@@ -829,6 +829,20 @@
             }
         });
 
+        var $myMenuToggle = $('.mymenu-toggle'),
+            $allMyMenus = $('.all-mymenu');
+        $myMenuToggle.on('click', function () {
+            if ($(this).data("show") == "no") {
+                $(this).removeClass('actived');
+                $allMyMenus.slideUp('fast');
+                $(this).data("show", "yes");
+            } else {
+                $(this).addClass('actived');
+                $allMyMenus.slideDown('fast');
+                $(this).data("show", "no");
+            }
+        });
+
         //기본 달력
         $('.default-picker').allwinDatepicker({autoClose: true});
     });

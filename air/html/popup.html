@@ -2608,7 +2608,7 @@
                 <span class="custom-select">
                     <select name="" id="">
                         <option value="">일반 담당자</option>
-                        <option value="">최고 담당자</option>
+                        <option value="">관리자</option>
                     </select>
                 </span>
             </div>
@@ -2907,6 +2907,20 @@
             change: function (event, ui) {
             },
             create: function (event, ui) {
+            }
+        });
+
+        var $myMenuToggle = $('.mymenu-toggle'),
+            $allMyMenus = $('.all-mymenu');
+        $myMenuToggle.on('click', function () {
+            if ($(this).data("show") == "no") {
+                $(this).removeClass('actived');
+                $allMyMenus.slideUp('fast');
+                $(this).data("show", "yes");
+            } else {
+                $(this).addClass('actived');
+                $allMyMenus.slideDown('fast');
+                $(this).data("show", "no");
             }
         });
 
