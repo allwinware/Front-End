@@ -12663,7 +12663,6 @@ and dependencies (minified).
                 if (typeof d1 == 'string') {
                     d1 = moment(d1, opt.format).toDate();
                 }
-
                 opt.end = false;
                 setSingleDate(d1);
 
