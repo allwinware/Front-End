@@ -12692,7 +12692,8 @@ and dependencies (minified).
                 return moment(opt.end);
             },
             getDateRange: function () {
-                var dateRange = moment(opt.start) + opt.separator + moment(opt.end);
+              var dateRange = moment(opt.start).format() + opt.separator
+                  + moment(opt.end).format();
                 return dateRange;
             },
             clear: clearSelection,
