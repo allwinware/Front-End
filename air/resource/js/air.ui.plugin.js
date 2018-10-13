@@ -12686,13 +12686,13 @@ and dependencies (minified).
                 setDateRange(d1, d2, silent);
             },
             getStartDateRange: function () {
-                return moment(opt.start).format();
+                return moment(opt.start);
             },
             getEndDateRange: function () {
-                return moment(opt.end).format();
+                return moment(opt.end);
             },
             getDateRange: function () {
-                var dateRange = moment(opt.start).format() + opt.separator + moment(opt.end).format();
+                var dateRange = moment(opt.start) + opt.separator + moment(opt.end);
                 return dateRange;
             },
             clear: clearSelection,
