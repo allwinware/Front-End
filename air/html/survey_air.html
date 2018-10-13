@@ -862,19 +862,19 @@
                 }
             });
 
-            $(document).on('mouseover', function (event) {
-                if (!$(event.target).closest('.views, .intro-tabs').length) {
-                    $introTabItem.removeClass('actived');
-                    TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-                    TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-                    TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-                    TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-                    TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-                    TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
-                    TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
-                    TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
-                }
-            });
+            // $(document).on('mouseover', function (event) {
+            //     if (!$(event.target).closest('.views, .intro-tabs').length) {
+            //         $introTabItem.removeClass('actived');
+            //         TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+            //         TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+            //         TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+            //         TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+            //         TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+            //         TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
+            //         TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
+            //         TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+            //     }
+            // });
 
             $scannerToggle.on('click', function () {
                 $introTabItem.eq(0).addClass('actived');
@@ -1029,6 +1029,9 @@
             create: function (event, ui) {
             }
         });
+
+        //기본 달력
+        $('.default-picker').allwinDatepicker({autoClose: true});
     });
 </script>
 </body>

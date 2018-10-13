@@ -12656,7 +12656,6 @@ and dependencies (minified).
         if (opt.alwaysOpen) {
             open(0);
         }
-
         // expose some api
         $(this).data('allwinDatepicker', {
             setStart: function (d1) {
