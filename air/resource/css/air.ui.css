@@ -835,6 +835,14 @@ legend, .blind {
   .custom-input.inline {
     display: inline-block;
     vertical-align: top; }
+
+.custom-input.pos:after {
+  width: 15px;
+  height: 20px;
+  top: 9px;
+  right: 14px;
+  background: url("../../resource/img/ico_position.png") center center no-repeat;
+}
   .custom-input.large {
     height: 56px;
     border: 0; }
@@ -849,12 +857,10 @@ legend, .blind {
     .custom-input.large input {
       height: 56px;
       text-indent: 20px; }
-  .custom-input.pos:after {
-    width: 15px;
-    height: 20px;
-    top: 18px;
-    right: 14px;
-    background: url("../../resource/img/ico_position.png") center center no-repeat; }
+
+.custom-input.large.pos:after {
+  top: 18px;
+}
   .custom-input.cal:after {
     width: 20px;
     height: 20px;
@@ -1335,7 +1341,7 @@ legend, .blind {
   display: none;
   width: 100%;
   height: 100%;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -2914,12 +2920,10 @@ legend, .blind {
 
 .views {
   position: relative;
-  min-height: 768px;
 }
 
 .main .views {
   overflow: hidden; }
-
 .main .footer {
   margin-top: 0;
 }
@@ -3247,7 +3251,8 @@ legend, .blind {
   .layer-pnr.show {
     top: 91px;
     opacity: 1;
-    z-index: 2; }
+    z-index: 3;
+  }
   .layer-pnr .inner {
     position: relative;
     width: 1200px;
@@ -3301,13 +3306,13 @@ legend, .blind {
 
 .intro-gate {
   position: relative;
-  height: 820px;
+  height: 760px;
   font-size: 0;
   overflow: hidden; }
   .intro-gate > .col {
     position: absolute;
     top: 0;
-    height: 820px;
+    height: 760px;
     display: inline-block; }
     .intro-gate > .col:after {
       content: '';
@@ -3335,17 +3340,24 @@ legend, .blind {
       position: relative;
       z-index: 2;
       width: 100%;
-      height: 750px;
+      height: 760px;
       text-align: left;
-      padding: 70px 0 0 0;
       display: inline-block; }
     .intro-gate > .col .tit {
+      display: block;
       font-size: 18px;
       font-family: 'Geogrotesque-SemiBold';
       color: #fff;
-      font-weight: 700; }
+      font-weight: 700;
+      margin-top: 70px;
+    }
     .intro-gate > .col .txts {
-      margin: 155px 0 0 0; }
+      margin: 130px 0 0 0;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
+      -webkit-transition-delay: 0ms;
+      transition-delay: 0ms;
+    }
       .intro-gate > .col .txts .t1 {
         font-size: 38px;
         color: #fff;
@@ -3359,9 +3371,14 @@ legend, .blind {
         font-weight: 500;
         margin: 20px 0 0 0; }
     .intro-gate > .col .benefits {
-      margin: 199px 0 25px 0;
+      margin: 190px 0 25px 0;
       color: #fff;
-      line-height: 100%; }
+      line-height: 100%;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
+      -webkit-transition-delay: 20ms;
+      transition-delay: 20ms;
+    }
       .intro-gate > .col .benefits .comm {
         display: inline-block;
         vertical-align: top;
@@ -3401,7 +3418,10 @@ legend, .blind {
           font-size: 12px;
           line-height: 18px; }
     .intro-gate > .col .totals {
-      margin: 200px 0 25px 0; }
+      margin: 190px 0 25px 0;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
+    }
       .intro-gate > .col .totals > div {
         display: inline-block;
         margin-right: 50px; }
@@ -3439,8 +3459,38 @@ legend, .blind {
       border-radius: 2px;
     }
 
+@media all and (max-height: 768px) {
+  .intro-gate {
+    height: 628px;
+  }
+
+  .intro-gate > .col {
+    height: 628px;
+  }
+
+  .intro-gate > .col .col-inner {
+    height: 628px;
+  }
+
+  .intro-gate > .col .tit {
+    margin-top: 70px;
+  }
+
+  .intro-gate > .col .txts {
+    margin: 110px 0 0 0;
+  }
+
+  .intro-gate > .col .benefits {
+    margin: 110px 0 25px 0;
+  }
+
+  .intro-gate > .col .totals {
+    margin: 110px 0 25px 0;
+  }
+}
 .layer-search {
   width: 100%;
+  height: 760px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -3579,7 +3629,7 @@ legend, .blind {
   .layer-search .inner {
     position: relative;
     width: 1200px;
-    height: 820px;
+    height: 760px;
     margin: 0 auto;
     padding: 0 10px;
     box-sizing: border-box; }
@@ -3589,14 +3639,17 @@ legend, .blind {
   .layer-search h2 {
     position: absolute;
     top: 70px;
-    left: 0;
+    left: 10px;
     font-size: 24px;
     color: #fff;
     font-weight: 700; }
   .layer-search .scanner-form {
     width: 1009px;
     margin: 0 auto 0 auto;
-    padding-top: 140px; }
+    padding-top: 120px;
+    -webkit-transition: .3s ease-out;
+    transition: .3s ease-out;
+  }
     .layer-search .scanner-form .custom-input, .layer-search .scanner-form .custom-select {
       margin: 0 2px 0 0; }
     .layer-search .scanner-form .first {
@@ -3605,7 +3658,10 @@ legend, .blind {
       margin-bottom: 60px; }
   .layer-search .matching-form {
     width: 815px;
-    padding: 200px 0 0 0; }
+    padding: 200px 0 0 0;
+    -webkit-transition: .3s;
+    transition: .3s;
+  }
     .layer-search .matching-form .custom-input, .layer-search .matching-form .custom-select {
       margin: 0 2px 0 0; }
     .layer-search .matching-form .global {
@@ -3745,7 +3801,7 @@ legend, .blind {
     .layer-search .matching-result .result-inner {
       position: relative;
       width: 240px;
-      height: 630px;
+      height: 760px;
       margin: 0 auto 0 auto;
       padding-top: 78px; }
     .layer-search .matching-result .result-course p {
@@ -3824,10 +3880,13 @@ legend, .blind {
             font-weight: 400; }
     .layer-search .matching-result .result-total {
       position: absolute;
-      bottom: 25px;
+      top: 560px;
       right: 0;
       width: 100%;
-      text-align: right; }
+      text-align: right;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
+    }
       .layer-search .matching-result .result-total span {
         font-size: 16px;
         color: #fff; }
@@ -3863,6 +3922,31 @@ legend, .blind {
         .layer-search .matching-result .result-bts button.cancel {
           background: #000; }
 
+@media all and (max-height: 768px) {
+  .layer-search {
+    height: 628px;
+  }
+
+  .layer-search .inner {
+    height: 628px;
+  }
+
+  .layer-search .scanner-form {
+    padding-top: 110px;
+  }
+
+  .layer-search .matching-form {
+    padding: 140px 0 0 0;
+  }
+
+  .layer-search .matching-result .result-inner {
+    height: 550px;
+  }
+
+  .layer-search .matching-result .result-total {
+    top: 435px;
+  }
+}
 .sub .intro-gate {
   position: absolute;
   top: -100px;
@@ -5262,6 +5346,24 @@ legend, .blind {
   right: 0;
   font-size: 12px;
   color: #aaa;
+}
+
+.survey .row .row-inner .col .in-box .choice-ciy {
+  display: inline-block;
+  margin: 20px 20px 0 0;
+  font-size: 14px;
+}
+
+.survey .row .row-inner .col .in-box .choice-ciy button {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background: url("../../resource/img/ico_close4.png") center center no-repeat;
+  background-size: 13px 13px;
+  opacity: .5;
+  vertical-align: top;
+  position: relative;
+  top: 4px;
 }
 
 .survey .bts {

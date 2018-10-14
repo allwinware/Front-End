@@ -905,271 +905,296 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
+      //인트로 액션
+      var DefaultDuration = 1.3,
+          leaveDuration = 0.5,
+          ease = "Expo.easeOut",
+          $introTabs = $('.intro-tabs'),
+          $introTabItem = $('.intro-tabs').find('li'),
+          $introTabLink = $introTabItem.find('a'),
+          $introStage = $('.intro-gate'),
+          $introInner = $introStage.find('.col-inner'),
+          $introEle = $introStage.find('.intro-item'),
+          $introScanner = $introStage.find('.col.scanner'),
+          $introMatching = $introStage.find('.col.matching'),
+          //$introLayerStage = $introStage.find('.layer-search'),
+          $introLayerScanner = $('.layer-scanner'),
+          $introLayerMatching = $('.layer-matching'),
+          $scannerToggle = $introStage.find('#js-scanner-toggle'),
+          $matchingToggle = $introStage.find('#js-matching-toggle'),
+          $introLayerScannerClose = $introLayerScanner.find('.close'),
+          $introLayerMatchingClose = $introLayerMatching.find('.close');
+      if ($('.main').length != 0) {
+          $introEle.on('mouseenter', function () {
+              if ($(this).attr('id') === "scanner") {
+                  TweenMax.to($introScanner, DefaultDuration, {paddingRight: '45px', left: '0', ease: ease});
+                  TweenMax.to($introMatching, DefaultDuration, {right: '-45px', paddingLeft: '0', ease: ease});
+                  TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+              } else if ($(this).attr('id') === "matching") {
+                  TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '-45px', ease: ease});
+                  TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '45px', ease: ease});
+                  TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '-45px', ease: ease});
+              }
+          });
 
-    //pnr 레이어
-    var $pnrToggle = $('.pnr-toggle'),
-        $pnrLayer = $('.layer-pnr'),
-        $pnrLayerClose = $pnrLayer.find('.close');
-    $pnrToggle.on("click", function () {
-      $pnrToggle.addClass('actived');
-      $pnrLayer.addClass('show');
-    });
-    $pnrLayerClose.on("click", function () {
-      $pnrToggle.removeClass('actived');
-      $pnrLayer.removeClass('show');
-    });
+          // $(document).on('mouseover', function (event) {
+          //     if (!$(event.target).closest('.views, .intro-tabs').length) {
+          //         $introTabItem.removeClass('actived');
+          //         TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+          //         TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+          //         TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+          //         TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+          //         TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+          //         TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
+          //         TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
+          //         TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+          //     }
+          // });
 
-    //랭킹
-    var $rankExpend = $('.header-row2'),
-        $rank = $('.ranks'),
-        $rankToggle = $rank.find('.rank-toggle'),
-        $rankComm = $rank.find('.rank-comm-slide'),
-        $rankMatching = $rank.find('.rank-matching-slide');
-    $rankComm.awaSlide({
-      mode: 'vertical',
-      pause: 5000,
-      auto: true
-    });
-    $rankMatching.awaSlide({
-      mode: 'vertical',
-      pause: 5000,
-      auto: true
-    });
-    $rank.on('mouseenter', function () {
-      $rankComm.destroySlider();
-      $rankMatching.destroySlider();
-      $rankExpend.addClass('expend');
-    });
-    $rank.on('mouseleave', function () {
-      $rankExpend.removeClass('expend');
-      $rankComm.reloadSlider();
-      $rankMatching.reloadSlider();
-    });
-    $rankToggle.on('click', function () {
-      if ($(this).data("show") == "no") {
-        $rankExpend.removeClass('expend');
-        $rankComm.reloadSlider();
-        $rankMatching.reloadSlider();
-        $(this).data("show", "yes");
-      } else {
-        $rankComm.destroySlider();
-        $rankMatching.destroySlider();
-        $rankExpend.addClass('expend');
-        $(this).data("show", "no");
+          $scannerToggle.on('click', function () {
+              $introTabItem.eq(0).addClass('actived');
+              TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
+              TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 2, left: 0, ease: ease});
+              TweenMax.to($introScanner, DefaultDuration, {
+                  paddingRight: '45px',
+                  left: '0',
+                  width: '100%',
+                  ease: ease
+              });
+              TweenMax.to($introMatching, DefaultDuration, {
+                  width: '0',
+                  right: '-45px',
+                  paddingLeft: '0',
+                  ease: ease
+              });
+          });
+          $matchingToggle.on('click', function () {
+              $introTabItem.eq(1).addClass('actived');
+              TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
+              TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 2, right: 0, ease: ease});
+              TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', width: '0', left: '-45px', ease: ease});
+              TweenMax.to($introMatching, DefaultDuration, {
+                  right: '0',
+                  width: '100%',
+                  paddingLeft: '90px',
+                  ease: ease
+              });
+          });
       }
-    });
-
-    //인트로 액션
-    var DefaultDuration = 1.3,
-        leaveDuration = 0.5,
-        ease = "Expo.easeOut",
-        $introTabs = $('.intro-tabs'),
-        $introTabItem = $('.intro-tabs').find('li'),
-        $introTabLink = $introTabItem.find('a'),
-        $introStage = $('.intro-gate'),
-        $introInner = $introStage.find('.col-inner'),
-        $introEle = $introStage.find('.intro-item'),
-        $introScanner = $introStage.find('.col.scanner'),
-        $introMatching = $introStage.find('.col.matching'),
-        //$introLayerStage = $introStage.find('.layer-search'),
-        $introLayerScanner = $('.layer-scanner'),
-        $introLayerMatching = $('.layer-matching'),
-        $scannerToggle = $introStage.find('#js-scanner-toggle'),
-        $matchingToggle = $introStage.find('#js-matching-toggle'),
-        $introLayerScannerClose = $introLayerScanner.find('.close'),
-        $introLayerMatchingClose = $introLayerMatching.find('.close');
-    if ($('.main').length != 0) {
-      $introEle.on('mouseenter', function () {
-        if ($(this).attr('id') === "scanner") {
-          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '90px', left: '0', ease: ease});
-          TweenMax.to($introMatching, DefaultDuration, {right: '-90px', paddingLeft: '0', ease: ease});
-          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
-        } else if ($(this).attr('id') === "matching") {
-          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '-90px', ease: ease});
-          TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '90px', ease: ease});
-          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '-90px', ease: ease});
-        }
+      $introLayerScannerClose.on('click', function () {
+          $introTabItem.removeClass('actived');
+          if ($('body').hasClass('main')) {
+              TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+              TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+              TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+              TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+              TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+          } else {
+              $introScanner.hide();
+              $introMatching.hide();
+              TweenMax.to($introLayerScanner, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+              TweenMax.to($introLayerMatching, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+          }
+      });
+      $introLayerMatchingClose.on('click', function () {
+          $introTabItem.removeClass('actived');
+          if ($('body').hasClass('main')) {
+              TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+              TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+              TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+              TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+              TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+          } else {
+              $introScanner.hide();
+              $introMatching.hide();
+              TweenMax.to($introLayerScanner, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+              TweenMax.to($introLayerMatching, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+          }
+      });
+      $introTabLink.click(function () {
+          var index = $introTabLink.index($(this));
+          $introTabItem.removeClass('actived');
+          $(this).parent().addClass('actived');
+          if ($('body').hasClass('main')) {
+              if (index === 0) {
+                  $scannerToggle.click();
+                  TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+              } else if (index === 1) {
+                  $matchingToggle.click();
+                  TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+              }
+          } else {
+              $introStage.show();
+              if (index === 0) {
+                  $introScanner.fadeIn('fast');
+                  $introMatching.hide();
+                  TweenMax.to($introLayerScanner, 0, {opacity: 1, zIndex: 20});
+                  TweenMax.to($introLayerMatching, 0, {opacity: 0, zIndex: -1});
+              } else if (index === 1) {
+                  $introScanner.hide();
+                  $introMatching.fadeIn('fast');
+                  TweenMax.to($introLayerScanner, 0, {opacity: 0, zIndex: -1});
+                  TweenMax.to($introLayerMatching, 0, {opacity: 1, zIndex: 20});
+              }
+          }
+          return false;
       });
 
-      // $(document).on('mouseover', function (event) {
-      //     if (!$(event.target).closest('.views, .intro-tabs').length) {
-      //         $introTabItem.removeClass('actived');
-      //         TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-      //         TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-      //         TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-      //         TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-      //         TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-      //         TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
-      //         TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
-      //         TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
-      //     }
-      // });
-
-      $scannerToggle.on('click', function () {
-        $introTabItem.eq(0).addClass('actived');
-        TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
-        TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 2, left: 0, ease: ease});
-        TweenMax.to($introScanner, DefaultDuration, {
-          paddingRight: '90px',
-          left: '0',
-          width: '100%',
-          ease: ease
-        });
-        TweenMax.to($introMatching, DefaultDuration, {
-          width: '0',
-          right: '-90px',
-          paddingLeft: '0',
-          ease: ease
-        });
-      });
-      $matchingToggle.on('click', function () {
-        $introTabItem.eq(1).addClass('actived');
-        TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
-        TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 2, right: 0, ease: ease});
-        TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', width: '0', left: '-90px', ease: ease});
-        TweenMax.to($introMatching, DefaultDuration, {
-          right: '0',
-          width: '100%',
-          paddingLeft: '90px',
-          ease: ease
-        });
-      });
-    }
-    $introLayerScannerClose.on('click', function () {
-      $introTabItem.removeClass('actived');
-      if ($('body').hasClass('main')) {
-        TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-        TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-        TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-        TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-        TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-      } else {
-        $introScanner.hide();
-        $introMatching.hide();
-        TweenMax.to($introLayerScanner, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
-        TweenMax.to($introLayerMatching, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
-      }
-    });
-    $introLayerMatchingClose.on('click', function () {
-      $introTabItem.removeClass('actived');
-      if ($('body').hasClass('main')) {
-        TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-        TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-        TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-        TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-        TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-      } else {
-        $introScanner.hide();
-        $introMatching.hide();
-        TweenMax.to($introLayerScanner, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
-        TweenMax.to($introLayerMatching, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
-      }
-    });
-    $introTabLink.click(function () {
-      var index = $introTabLink.index($(this));
-      $introTabItem.removeClass('actived');
-      $(this).parent().addClass('actived');
-      if ($('body').hasClass('main')) {
-        if (index === 0) {
-          $scannerToggle.click();
-          TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-        } else if (index === 1) {
-          $matchingToggle.click();
+      function resetIntro() {
+          $introTabItem.removeClass('actived');
+          TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
           TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-        }
-      } else {
-        $introStage.show();
-        if (index === 0) {
-          $introScanner.fadeIn('fast');
-          $introMatching.hide();
-          TweenMax.to($introLayerScanner, 0, {opacity: 1, zIndex: 20});
-          TweenMax.to($introLayerMatching, 0, {opacity: 0, zIndex: -1});
-        } else if (index === 1) {
-          $introScanner.hide();
-          $introMatching.fadeIn('fast');
-          TweenMax.to($introLayerScanner, 0, {opacity: 0, zIndex: -1});
-          TweenMax.to($introLayerMatching, 0, {opacity: 1, zIndex: 20});
-        }
+          TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+          TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+          TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
+          TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
+          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
       }
-      return false;
-    });
 
-    //메인 이벤트 배너
-    var $bannerEvt = $('.banner-items > ul');
-    $bannerEvt.awaSlide({
-      auto: true,
-      autoDelay: 5000
-    });
-
-    //날짜검색
-    var $datapickerInput = $('#datapicker-input');
-    if ($datapickerInput.length != 0) {
-      $datapickerInput.allwinDatepicker({
-        stickyMonths: true,
-        inline: true,
-        container: '.datapicker-view',
-        alwaysOpen: true,
-        hoveringTooltip: false
+      //pnr 레이어
+      var $pnrToggle = $('.pnr-toggle'),
+          $pnrLayer = $('.layer-pnr'),
+          $pnrDims = $('<div class="pnr-dims"></div>'),
+          $pnrLayerClose = $pnrLayer.find('.close');
+      $pnrToggle.on("click", function () {
+          $pnrToggle.addClass('actived');
+          $pnrLayer.addClass('show');
+          $pnrDims.appendTo('body').css({
+              'width': '100%',
+              'height': '100%',
+              'background-color': '#fff',
+              'position': 'fixed',
+              'top': '176px',
+              'bottom': '0',
+              'left': 0,
+              'right': 0,
+              'z-index': 99,
+              'opacity': '0'
+          });
       });
-    }
+      $pnrLayerClose.on("click", function () {
+          $pnrToggle.removeClass('actived');
+          $pnrLayer.removeClass('show');
+          $pnrDims.remove();
+      });
 
-    //검색 필터
-    var $filterToggle = $('#js-filter-toggle'),
-        $filterLayer = $('.filters');
-    $filterToggle.click(function (e) {
-      e.preventDefault()
-      if ($(this).data("show") == "no") {
-        $filterLayer.hide();
-        $(this).data("show", "yes");
-      } else {
-        $filterLayer.show();
-        $(this).data("show", "no");
-      }
-    });
+      //랭킹
+      var $rankExpend = $('.header-row2'),
+          $rank = $('.ranks'),
+          $rankToggle = $rank.find('.rank-toggle'),
+          $rankComm = $rank.find('.rank-comm-slide'),
+          $rankMatching = $rank.find('.rank-matching-slide');
+      $rankComm.awaSlide({
+          mode: 'vertical',
+          pause: 5000,
+          auto: true
+      });
+      $rankMatching.awaSlide({
+          mode: 'vertical',
+          pause: 5000,
+          auto: true
+      });
+      $rank.on('mouseenter', function () {
+          $rankComm.destroySlider();
+          $rankMatching.destroySlider();
+          $rankExpend.addClass('expend');
+      });
+      $rank.on('mouseleave', function () {
+          $rankExpend.removeClass('expend');
+          $rankComm.reloadSlider();
+          $rankMatching.reloadSlider();
+      });
+      $rankToggle.on('click', function () {
+          if ($(this).data("show") == "no") {
+              $rankExpend.removeClass('expend');
+              $rankComm.reloadSlider();
+              $rankMatching.reloadSlider();
+              $(this).data("show", "yes");
+          } else {
+              $rankComm.destroySlider();
+              $rankMatching.destroySlider();
+              $rankExpend.addClass('expend');
+              $(this).data("show", "no");
+          }
+      });
 
-    //깃발 2개짜리
-    $('.filter-bid-range.mutiple').bidding({
-      orientation: "horizontal",
-      range: true,
-      min: 0,
-      max: 500,
-      values: [0, 500],
-      slide: function (event, ui) {
-        $(this).closest('.filter-bid-range').find('.bid__value-min em').text(ui.values[0]);
-        $(this).closest('.filter-bid-range').find('.bid__value-max em').text(ui.values[1]);
-      },
-      change: function (event, ui) {
-      },
-      create: function (event, ui) {
-      }
-    });
+      //메인 이벤트 배너
+      var $bannerEvt = $('.banner-items > ul');
+      $bannerEvt.awaSlide({
+          auto: true,
+          autoDelay: 5000
+      });
 
-    //깃발 1개짜리
-    $('.filter-bid-range.solo').bidding({
-      orientation: "horizontal",
-      min: 0,
-      slide: function (event, ui) {
-        $(this).closest('.filter-bid-range').find('.bid__value-min em').text(ui.value);
-      },
-      change: function (event, ui) {
-      },
-      create: function (event, ui) {
+      //날짜검색
+      var $datapickerInput = $('#datapicker-input');
+      if ($datapickerInput.length != 0) {
+          $datapickerInput.allwinDatepicker({
+              stickyMonths: true,
+              inline: true,
+              container: '.datapicker-view',
+              alwaysOpen: true,
+              hoveringTooltip: false
+          });
       }
-    });
 
-    var $myMenuToggle = $('.mymenu-toggle'),
-        $allMyMenus = $('.all-mymenu');
-    $myMenuToggle.on('click', function () {
-      if ($(this).data("show") == "no") {
-        $(this).removeClass('actived');
-        $allMyMenus.slideUp('fast');
-        $(this).data("show", "yes");
-      } else {
-        $(this).addClass('actived');
-        $allMyMenus.slideDown('fast');
-        $(this).data("show", "no");
-      }
-    });
+      //검색 필터
+      var $filterToggle = $('#js-filter-toggle'),
+          $filterLayer = $('.filters');
+      $filterToggle.click(function (e) {
+          e.preventDefault()
+          if ($(this).data("show") == "no") {
+              $filterLayer.hide();
+              $(this).data("show", "yes");
+          } else {
+              $filterLayer.show();
+              $(this).data("show", "no");
+          }
+      });
+
+      //깃발 2개짜리
+      $('.filter-bid-range.mutiple').bidding({
+          orientation: "horizontal",
+          range: true,
+          min: 0,
+          max: 500,
+          values: [0, 500],
+          slide: function (event, ui) {
+              $(this).closest('.filter-bid-range').find('.bid__value-min em').text(ui.values[0]);
+              $(this).closest('.filter-bid-range').find('.bid__value-max em').text(ui.values[1]);
+          },
+          change: function (event, ui) {
+          },
+          create: function (event, ui) {
+          }
+      });
+
+      //깃발 1개짜리
+      $('.filter-bid-range.solo').bidding({
+          orientation: "horizontal",
+          min: 0,
+          slide: function (event, ui) {
+              $(this).closest('.filter-bid-range').find('.bid__value-min em').text(ui.value);
+          },
+          change: function (event, ui) {
+          },
+          create: function (event, ui) {
+          }
+      });
+
+      var $myMenuToggle = $('.mymenu-toggle'),
+          $allMyMenus = $('.all-mymenu');
+      $myMenuToggle.on('click', function () {
+          if ($(this).data("show") == "no") {
+              $(this).removeClass('actived');
+              $allMyMenus.slideUp('fast');
+              $(this).data("show", "yes");
+          } else {
+              $(this).addClass('actived');
+              $allMyMenus.slideDown('fast');
+              $(this).data("show", "no");
+          }
+      });
 
     //기본 달력
     $('.default-picker').allwinDatepicker({autoClose: true});

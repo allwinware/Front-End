@@ -1,5 +1,7 @@
 @charset "UTF-8";
 $width: 1200px;
+$introMaxHeight: 760px;
+$introMinHeight: 628px;
 
 @import url(https://cdn.allwin.bid/static/css/awa_wfont.css);
 
@@ -987,6 +989,15 @@ legend, .blind {
     display: inline-block;
     vertical-align: top;
   }
+  &.pos {
+    &:after {
+      width: 15px;
+      height: 20px;
+      top: 9px;
+      right: 14px;
+      background: url('../../resource/img/ico_position.png') center center no-repeat;
+    }
+  }
   &.large {
     height: 56px;
     border: 0;
@@ -1009,14 +1020,10 @@ legend, .blind {
       height: 56px;
       text-indent: 20px;
     }
-  }
-  &.pos {
-    &:after {
-      width: 15px;
-      height: 20px;
-      top: 18px;
-      right: 14px;
-      background: url('../../resource/img/ico_position.png') center center no-repeat;
+    &.pos {
+      &:after {
+        top: 18px;
+      }
     }
   }
   &.cal {
@@ -1600,7 +1607,7 @@ legend, .blind {
   display: none;
   width: 100%;
   height: 100%;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -3224,7 +3231,6 @@ legend, .blind {
 
 .views {
   position: relative;
-  min-height: 768px;
 }
 
 .main {
@@ -3638,7 +3644,7 @@ legend, .blind {
   &.show {
     top: 91px;
     opacity: 1;
-    z-index: 2;
+    z-index: 3;
   }
 
   .inner {
@@ -3704,13 +3710,13 @@ legend, .blind {
 
 .intro-gate {
   position: relative;
-  height: 820px;
+  height: $introMaxHeight;
   font-size: 0;
   overflow: hidden;
   & > .col {
     position: absolute;
     top: 0;
-    height: 820px;
+    height: $introMaxHeight;
     display: inline-block;
     &:after {
       content: '';
@@ -3743,19 +3749,24 @@ legend, .blind {
       position: relative;
       z-index: 2;
       width: 100%;
-      height: 750px;
+      height: $introMaxHeight;
       text-align: left;
-      padding: 70px 0 0 0;
       display: inline-block;
     }
     .tit {
+      display: block;
       font-size: 18px;
       font-family: 'Geogrotesque-SemiBold';
       color: #fff;
       font-weight: 700;
+      margin-top: 70px;
     }
     .txts {
-      margin: 155px 0 0 0;
+      margin: 130px 0 0 0;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
+      -webkit-transition-delay: 0ms;
+      transition-delay: 0ms;
       .t1 {
         font-size: 38px;
         color: #fff;
@@ -3773,9 +3784,13 @@ legend, .blind {
       }
     }
     .benefits {
-      margin: 199px 0 25px 0;
+      margin: 190px 0 25px 0;
       color: #fff;
       line-height: 100%;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
+      -webkit-transition-delay: 20ms;
+      transition-delay: 20ms;
       .comm {
         display: inline-block;
         vertical-align: top;
@@ -3824,7 +3839,9 @@ legend, .blind {
       }
     }
     .totals {
-      margin: 200px 0 25px 0;
+      margin: 190px 0 25px 0;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
       & > div {
         display: inline-block;
         margin-right: 50px;
@@ -3880,8 +3897,33 @@ legend, .blind {
   }
 }
 
+@media all and (max-height: 768px) {
+  .intro-gate {
+    height: $introMinHeight;
+    & > .col {
+      height: $introMinHeight;
+      .col-inner {
+        height: $introMinHeight;
+      }
+      .tit {
+        margin-top: 70px;
+      }
+      .txts {
+        margin: 110px 0 0 0;
+      }
+      .benefits {
+        margin: 110px 0 25px 0;
+      }
+      .totals {
+        margin: 110px 0 25px 0;
+      }
+    }
+  }
+}
+
 .layer-search {
   width: 100%;
+  height: $introMaxHeight;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -3896,7 +3938,6 @@ legend, .blind {
       right: -90px;
     }
   }
-
   .custom-radio {
     input {
       & + label {
@@ -3910,7 +3951,6 @@ legend, .blind {
       }
     }
   }
-
   .w200 {
     width: 200px !important;
   }
@@ -4053,7 +4093,7 @@ legend, .blind {
   .inner {
     position: relative;
     width: $width;
-    height: 820px;
+    height: $introMaxHeight;
     margin: 0 auto;
     padding: 0 10px;
     box-sizing: border-box;
@@ -4065,7 +4105,7 @@ legend, .blind {
   h2 {
     position: absolute;
     top: 70px;
-    left: 0;
+    left: 10px;
     font-size: 24px;
     color: #fff;
     font-weight: 700;
@@ -4073,7 +4113,9 @@ legend, .blind {
   .scanner-form {
     width: 1009px;
     margin: 0 auto 0 auto;
-    padding-top: 140px;
+    padding-top: 120px;
+    -webkit-transition: .3s ease-out;
+    transition: .3s ease-out;
     .custom-input, .custom-select {
       margin: 0 2px 0 0;
     }
@@ -4087,6 +4129,8 @@ legend, .blind {
   .matching-form {
     width: 815px;
     padding: 200px 0 0 0;
+    -webkit-transition: .3s;
+    transition: .3s;
     .custom-input, .custom-select {
       margin: 0 2px 0 0;
     }
@@ -4244,7 +4288,7 @@ legend, .blind {
     .result-inner {
       position: relative;
       width: 240px;
-      height: 630px;
+      height: $introMaxHeight;
       margin: 0 auto 0 auto;
       padding-top: 78px;
     }
@@ -4345,10 +4389,12 @@ legend, .blind {
     }
     .result-total {
       position: absolute;
-      bottom: 25px;
+      top: 560px;
       right: 0;
       width: 100%;
       text-align: right;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
       span {
         font-size: 16px;
         color: #fff;
@@ -4393,6 +4439,30 @@ legend, .blind {
     }
   }
 }
+
+@media all and (max-height: 768px) {
+  .layer-search {
+    height: $introMinHeight;
+    .inner {
+      height: $introMinHeight;
+    }
+    .scanner-form {
+      padding-top: 110px;
+    }
+    .matching-form {
+      padding: 140px 0 0 0;
+    }
+    .matching-result {
+      .result-inner {
+        height: 550px;
+      }
+      .result-total {
+        top: 435px;
+      }
+    }
+  }
+}
+
 
 .sub {
   .intro-gate {
@@ -5891,6 +5961,22 @@ legend, .blind {
             right: 0;
             font-size: 12px;
             color: #aaa;
+          }
+          .choice-ciy {
+            display: inline-block;
+            margin: 20px 20px 0 0;
+            font-size: 14px;
+            button {
+              display: inline-block;
+              width: 13px;
+              height: 13px;
+              background: url('../../resource/img/ico_close4.png') center center no-repeat;
+              background-size: 13px 13px;
+              opacity: .5;
+              vertical-align: top;
+              position: relative;
+              top: 4px;
+            }
           }
         }
       }
