@@ -522,6 +522,8 @@
           <br>
           <button type="button" onclick="$('#air-fare-detail').show();return false;">항공료 상세</button>
           <br>
+          <button type="button" onclick="AIRUI.layer.open('srch-loading');">스캐너 로딩</button>
+          <br>
           <hr style="display:block;">
           <button type="button" onclick="AIRUI.layer.open('alert');">기본 alert</button>
           <br>
@@ -2298,6 +2300,36 @@
 </div>
 <!-- //항공료 상세 내역 -->
 
+<!-- 스캐너 검색 로딩 -->
+<div class="air-layer" id="srch-loading">
+  <div class="inner srch-loading">
+    <p class="tits">
+      선택하신 스케줄로<br><strong>실시간 요금 조회중입니다</strong>
+    </p>
+    <div class="trips">
+      <div>
+        <dl>
+          <dt>인천 <strong>ICN</strong></dt>
+          <dd>18.06.13</dd>
+        </dl>
+        <dl>
+          <dt>로스앤젤레스 <strong>LAX</strong></dt>
+          <dd>18.06.13</dd>
+        </dl>
+        <dl>
+          <dt>샌프란시스코 <strong>SFO</strong></dt>
+          <dd>18.06.13</dd>
+        </dl>
+      </div>
+      <div class="gage" style="width:20%;">
+        <span class="bar"></span>
+        <span class="plane"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //스캐너 검색 로딩 -->
+
 <!-- 로그인 -->
 <div class="air-layer2" id="login">
   <div class="inner login">
@@ -2661,14 +2693,14 @@
     <div class="row solo">
       <div class="col">
         <label for="">사업자등록증 사본</label>
-        <span class="custom-input file"><input type="file" id="file1" multiple/></span>
+        <span class="custom-input file"><input type="text"><button type="button">파일업로드</button></span>
         <p class="required">* 최대 20MB까지 업로드 가능합니다.</p>
       </div>
     </div>
     <div class="row solo">
       <div class="col">
         <label for="">통장사본</label>
-        <span class="custom-input file"><input type="file" id="file2" multiple/></span>
+        <span class="custom-input file"><input type="text"><button type="button">파일업로드</button></span>
         <p class="required">* 통장사본을 업로드해주세요.</p>
       </div>
     </div>
@@ -2731,14 +2763,6 @@
 
       $(document).on('mouseover', function (event) {
         if (!$(event.target).closest('.views, .intro-tabs, .select2, .select2-container').length) {
-          // $introTabItem.removeClass('actived');
-          // TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-          // TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-          // TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-          //TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-          //TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-          // TweenMax.to($introScannerDims, DefaultDuration, {opacity:.4, ease: ease});
-          // TweenMax.to($introMatchingDims, DefaultDuration, {opacity:.4, ease: ease});
           TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
           TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
           TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
