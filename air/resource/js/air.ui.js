@@ -11,8 +11,6 @@ AIRUI = (function () {
             },
             select: function () {
                 $('.custom-select select').select2({minimumResultsForSearch: -1});
-              $('.policy .scroll').mCustomScrollbar({scrollInertia: 100});
-
                 // $('.awa-select__srch select').select2();
             }
         },
