@@ -781,9 +781,9 @@
 <script>
   $(function () {
     //인트로 액션
-    var DefaultDuration = 1.3,
-        leaveDuration = 0.5,
-        ease = "Expo.easeOut",
+    var DefaultDuration = 0.4,
+        leaveDuration = 0.4,
+        ease = "Power2.easeInOut",
         $introTabs = $('.intro-tabs'),
         $introTabItem = $('.intro-tabs').find('li'),
         $introTabLink = $introTabItem.find('a'),
@@ -791,7 +791,9 @@
         $introInner = $introStage.find('.col-inner'),
         $introEle = $introStage.find('.intro-item'),
         $introScanner = $introStage.find('.col.scanner'),
+        $introScannerDims = $introScanner.find('.intro-dims'),
         $introMatching = $introStage.find('.col.matching'),
+        $introMatchingDims = $introMatching.find('.intro-dims'),
         //$introLayerStage = $introStage.find('.layer-search'),
         $introLayerScanner = $('.layer-scanner'),
         $introLayerMatching = $('.layer-matching'),
@@ -802,43 +804,49 @@
     if ($('.main').length != 0) {
       $introEle.on('mouseenter', function () {
         if ($(this).attr('id') === "scanner") {
-          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '45px', left: '0', ease: ease});
-          TweenMax.to($introMatching, DefaultDuration, {right: '-45px', paddingLeft: '0', ease: ease});
+          TweenMax.to($introScannerDims, DefaultDuration, {opacity: .8, ease: ease});
+          TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
+          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '70px', left: '0', ease: ease});
+          TweenMax.to($introMatching, DefaultDuration, {right: '-70px', paddingLeft: '0', ease: ease});
           TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
         } else if ($(this).attr('id') === "matching") {
-          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '-45px', ease: ease});
-          TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '45px', ease: ease});
-          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '-45px', ease: ease});
+          TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
+          TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .8, ease: ease});
+          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '-70px', ease: ease});
+          TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '70px', ease: ease});
+          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '-70px', ease: ease});
         }
       });
 
-      // $(document).on('mouseover', function (event) {
-      //     if (!$(event.target).closest('.views, .intro-tabs').length) {
-      //         $introTabItem.removeClass('actived');
-      //         TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-      //         TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-      //         TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-      //         TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-      //         TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-      //         TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
-      //         TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
-      //         TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
-      //     }
-      // });
+      $(document).on('mouseover', function (event) {
+        if (!$(event.target).closest('.views, .intro-tabs, .select2, .select2-container').length) {
+          // $introTabItem.removeClass('actived');
+          // TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+          // TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+          // TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+          //TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+          //TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+          // TweenMax.to($introScannerDims, DefaultDuration, {opacity:.4, ease: ease});
+          // TweenMax.to($introMatchingDims, DefaultDuration, {opacity:.4, ease: ease});
+          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
+          TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
+          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+        }
+      });
 
       $scannerToggle.on('click', function () {
         $introTabItem.eq(0).addClass('actived');
         TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
         TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 2, left: 0, ease: ease});
         TweenMax.to($introScanner, DefaultDuration, {
-          paddingRight: '45px',
+          paddingRight: '70px',
           left: '0',
           width: '100%',
           ease: ease
         });
         TweenMax.to($introMatching, DefaultDuration, {
           width: '0',
-          right: '-45px',
+          right: '-70px',
           paddingLeft: '0',
           ease: ease
         });
@@ -847,11 +855,11 @@
         $introTabItem.eq(1).addClass('actived');
         TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
         TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 2, right: 0, ease: ease});
-        TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', width: '0', left: '-45px', ease: ease});
+        TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', width: '0', left: '-70px', ease: ease});
         TweenMax.to($introMatching, DefaultDuration, {
           right: '0',
           width: '100%',
-          paddingLeft: '90px',
+          paddingLeft: '70px',
           ease: ease
         });
       });

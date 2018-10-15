@@ -538,7 +538,8 @@ legend, .blind {
   cursor: pointer;
   float: right;
   font-weight: bold;
-  margin-right: 30px; }
+  margin-right: 30px;
+  display: none; }
 
 .select2-container--default.select2-container--disabled .select2-selection--single .select2-selection__clear {
   display: none; }
@@ -1283,8 +1284,7 @@ legend, .blind {
   z-index: 100;
   overflow: hidden; }
   .air-layer .inner {
-    position: relative;
-  }
+    position: relative; }
     .air-layer .inner.from-citys {
       width: 910px;
       margin: 0 auto;
@@ -2941,15 +2941,15 @@ legend, .blind {
     top: 0;
     height: 760px;
     display: inline-block; }
-    .intro-gate > .col:after {
-      content: '';
+    .intro-gate > .col .intro-dims {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1; }
+      background: #000;
+      z-index: 1;
+      opacity: .4; }
     .intro-gate > .col.scanner {
       width: 50%;
       left: 0px;
@@ -2957,12 +2957,17 @@ legend, .blind {
       .intro-gate > .col.scanner .col-inner {
         width: 590px;
         padding-left: 10px; }
+        .intro-gate > .col.scanner .col-inner .apply:before {
+          content: '개별항공권 비교발권하기'; }
     .intro-gate > .col.matching {
       width: 50%;
       right: 0; }
       .intro-gate > .col.matching .col-inner {
         width: 530px;
         padding-left: 70px; }
+        .intro-gate > .col.matching .col-inner .apply:before {
+          content: '단체항공권 요청하기';
+          left: 70px; }
     .intro-gate > .col .col-inner {
       position: relative;
       z-index: 2;
@@ -2996,7 +3001,7 @@ legend, .blind {
         font-weight: 500;
         margin: 20px 0 0 0; }
     .intro-gate > .col .benefits {
-      margin: 190px 0 25px 0;
+      margin: 175px 0 0 0;
       color: #fff;
       line-height: 100%;
       -webkit-transition: .3s ease-out;
@@ -3009,7 +3014,9 @@ legend, .blind {
         font-size: 52px;
         line-height: 100%;
         font-family: 'Geogrotesque-Thin';
-        margin-right: 40px; }
+        margin-right: 40px;
+        position: relative;
+        top: -3px; }
         .intro-gate > .col .benefits .comm strong {
           font-family: 'Geogrotesque-Bold'; }
       .intro-gate > .col .benefits .time {
@@ -3042,7 +3049,7 @@ legend, .blind {
           font-size: 12px;
           line-height: 18px; }
     .intro-gate > .col .totals {
-      margin: 190px 0 25px 0;
+      margin: 170px 0 0 0;
       -webkit-transition: .3s ease-out;
       transition: .3s ease-out; }
       .intro-gate > .col .totals > div {
@@ -3071,15 +3078,30 @@ legend, .blind {
       .intro-gate > .col .totals .seat dd:after {
         content: '석'; }
     .intro-gate > .col .apply {
-      width: 200px;
-      height: 42px;
-      line-height: 42px;
-      text-align: center;
-      background: #fff;
-      color: #000;
-      font-weight: 700;
-      font-size: 14px;
-      border-radius: 2px; }
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%; }
+      .intro-gate > .col .apply:before {
+        content: '';
+        position: absolute;
+        top: 620px;
+        left: 10px;
+        width: 200px;
+        height: 42px;
+        line-height: 42px;
+        text-align: center;
+        background: #fff;
+        color: #000;
+        font-weight: 700;
+        font-size: 14px;
+        border-radius: 2px;
+        -webkit-transition: .3s ease-out;
+        transition: .3s ease-out;
+        -webkit-transition-delay: 30ms;
+        transition-delay: 30ms; }
 
 @media all and (max-height: 768px) {
   .intro-gate {
@@ -3093,9 +3115,11 @@ legend, .blind {
       .intro-gate > .col .txts {
         margin: 110px 0 0 0; }
       .intro-gate > .col .benefits {
-        margin: 110px 0 25px 0; }
+        margin: 90px 0 0; }
       .intro-gate > .col .totals {
-        margin: 110px 0 25px 0; } }
+        margin: 95px 0 0; }
+      .intro-gate > .col .apply:before {
+        top: 515px; } }
 .layer-search {
   width: 100%;
   height: 760px;

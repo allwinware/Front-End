@@ -38,12 +38,6 @@ AIRUI = (function () {
                     'left': 0,
                     'z-index': 99
                 }).fadeTo('fast', 0.5);
-                $(window).resize(function () {
-                    $(targetLayer).css({
-                        'top': Math.max(0, (($(window).height() - $(targetLayer).height()) / 2) + $(window).scrollTop()) + "px",
-                        'left': Math.max(0, (($(window).width() - $(targetLayer).width()) / 2) + $(window).scrollLeft()) + "px"
-                    }).fadeIn('fast');
-                });
             },
             close: function (layerID) {
                 $('body').removeClass('kill');
