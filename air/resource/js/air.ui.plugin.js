@@ -14308,7 +14308,8 @@ and dependencies (minified).
           '               <th colspan="' + _colspan + '" class="month-name">' +
           '               </th>' +
           '               <th class=>' +
-          (opt.singleDate || !opt.stickyMonths ? '<span class="next">' + arrowNext + '</span>' : '') +
+          (!opt.stickyMonths ? '<span class="prev">' + arrowNext + '</span>' : '') +
+          // (opt.singleDate || !opt.stickyMonths ? '<span class="next">' + arrowNext + '</span>' : '') +
           '               </th>' +
           '           </tr>' +
           '           <tr class="week-name">' + getWeekHead() +
