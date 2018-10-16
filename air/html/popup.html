@@ -1341,7 +1341,7 @@
               </ul>
             </div>
           </div>
-          <ul class="airline-items">
+          <ul class="airline-items mCustomScrollbar">
             <li>
                     <span class="airline-radio">
                         <span class="tail">
@@ -1486,7 +1486,6 @@
                         <label for="7G"><em class="code">7G</em>스타플라이어</label>
                     </span>
             </li>
-            <!--
             <li>
         <span class="airline-radio">
             <span class="tail">
@@ -1880,7 +1879,6 @@
             <label for="HX">홍콩항공</label>
         </span>
             </li>
-            -->
           </ul>
         </div>
 
@@ -2836,6 +2834,8 @@
       var index = $introTabLink.index($(this));
       $introTabItem.removeClass('actived');
       $(this).parent().addClass('actived');
+      TweenMax.to($introScannerDims, DefaultDuration, {opacity: .8, ease: ease});
+      TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .8, ease: ease});
       if ($('body').hasClass('main')) {
         if (index === 0) {
           $scannerToggle.click();
