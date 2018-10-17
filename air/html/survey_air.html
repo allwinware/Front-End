@@ -938,32 +938,35 @@
       TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
     }
 
-      //pnr 레이어
-      var $pnrToggle = $('.pnr-toggle'),
-          $pnrLayer = $('.layer-pnr'),
-          $pnrDims = $('<div class="pnr-dims"></div>'),
-          $pnrLayerClose = $pnrLayer.find('.close');
-      $pnrToggle.on("click", function () {
-          $pnrToggle.addClass('actived');
-          $pnrLayer.addClass('show');
-          $pnrDims.appendTo('body').css({
-              'width': '100%',
-              'height': '100%',
-              'background-color': '#fff',
-              'position': 'fixed',
-              'top': '176px',
-              'bottom': '0',
-              'left': 0,
-              'right': 0,
-              'z-index': 99,
-              'opacity': '0'
-          });
+    //pnr 레이어
+    var $header = $('.header'),
+        $pnrToggle = $('.pnr-toggle'),
+        $pnrLayer = $('.layer-pnr'),
+        $pnrDims = $('<div class="pnr-dims"></div>'),
+        $pnrLayerClose = $pnrLayer.find('.close');
+    $pnrToggle.on("click", function () {
+      $pnrDims.appendTo('body').css({
+        'width': '100%',
+        'height': '100%',
+        'background-color': '#000',
+        'position': 'fixed',
+        'top': '0',
+        'bottom': '0',
+        'left': 0,
+        'right': 0,
+        'z-index': 99,
+        'opacity': '0.8'
       });
-      $pnrLayerClose.on("click", function () {
-          $pnrToggle.removeClass('actived');
-          $pnrLayer.removeClass('show');
-          $pnrDims.remove();
-      });
+      $header.addClass('show');
+      $pnrToggle.addClass('actived');
+      $pnrLayer.addClass('show');
+    });
+    $pnrLayerClose.on("click", function () {
+      $header.removeClass('show');
+      $pnrToggle.removeClass('actived');
+      $pnrLayer.removeClass('show');
+      $pnrDims.remove();
+    });
 
       //랭킹
       var $rankExpend = $('.header-row2'),
