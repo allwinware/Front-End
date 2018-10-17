@@ -12837,14 +12837,17 @@ and dependencies (minified).
     opt = $.extend(true, {
       autoClose: false,
       format: 'YYYY.MM.DD',
-      separator: ' ~ ',
+      separator: ' - ',
       language: 'auto',
       startOfWeek: 'sunday', // or monday
       getValue: function () {
         return $(this).val();
       },
       setValue: function (s) {
-        if (!$(this).attr('readonly') && !$(this).is(':disabled') && s != $(this).val()) {
+        // if (!$(this).attr('readonly') && !$(this).is(':disabled') && s != $(this).val()) {
+        //   $(this).val(s);
+        // }
+        if (!$(this).is(':disabled') && s != $(this).val()) {
           $(this).val(s);
         }
       },
