@@ -737,10 +737,13 @@
         $pnrLayer = $('.layer-pnr'),
         $pnrDims = $('<div class="pnr-dims"></div>'),
         $pnrLayerClose = $pnrLayer.find('.close');
-    $pnrToggle.on("click", function () {
+    $pnrToggle.on("click", function (e) {
+      e.preventDefault();
       $pnrToggle.addClass('actived');
       $header.addClass('show');
+      $('.pnr-dims').remove();
       $pnrDims.appendTo('body, .header');
+
     });
     $pnrLayerClose.on("click", function () {
       $header.removeClass('show');
