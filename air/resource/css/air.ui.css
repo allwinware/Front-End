@@ -1779,6 +1779,12 @@ legend, .blind {
                 line-height: 100%;
                 text-align: left;
                 margin-top: 10px; }
+              .air-layer .airlines .airline-group-child .airline-items .airline-radio input + label span {
+                display: block;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                word-wrap: normal;
+                overflow: hidden; }
             .air-layer .airlines .airline-group-child .airline-items .airline-radio input:checked + label {
               color: #000;
               border: 1px solid #000; }
@@ -2646,7 +2652,7 @@ legend, .blind {
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 255, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 20000; }
   .air-loading .wing {
     display: block;
@@ -2657,12 +2663,13 @@ legend, .blind {
     right: 50%;
     -ms-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%); }
+    transform: translate(-50%, -50%);
+    color: #fff; }
     .air-loading .wing .wing-thumb {
       width: 35px;
       height: 44px;
       display: block;
-      margin: 0 auto; }
+      margin: 0 auto 5px auto; }
       .air-loading .wing .wing-thumb img {
         width: 39px;
         height: 44px;
@@ -4058,8 +4065,13 @@ legend, .blind {
             overflow: hidden;
             min-height: 39px; }
       .results .result-lists .result-list__items .result-schedules {
-        position: relative;
-        margin-top: 65px; }
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 100%; }
         .results .result-lists .result-list__items .result-schedules .airline {
           width: 120px;
           position: absolute;
@@ -4197,24 +4209,36 @@ legend, .blind {
       .results .result-lists .result-list__items .schedule-detail {
         position: relative;
         top: 0px;
-        padding: 40px 0;
         overflow: hidden;
         border-top: 1px solid #ccc; }
         .results .result-lists .result-list__items .schedule-detail .departure {
           position: relative;
-          width: 379px;
+          width: 380px;
           float: left;
-          margin-left: 40px; }
+          margin-left: 40px;
+          padding: 40px 0; }
         .results .result-lists .result-list__items .schedule-detail .arrival {
           position: relative;
           width: 611px;
           float: right;
-          margin-right: 40px; }
+          margin-right: 40px;
+          padding: 40px 0; }
+        .results .result-lists .result-list__items .schedule-detail .multiple-schedule {
+          border-bottom: 1px solid #e6e6e6;
+          margin: 0 40px;
+          padding: 40px 0; }
+          .results .result-lists .result-list__items .schedule-detail .multiple-schedule:last-child {
+            border-bottom: 0; }
+          .results .result-lists .result-list__items .schedule-detail .multiple-schedule .multiple-group {
+            width: 380px;
+            display: inline-block;
+            margin-right: 40px; }
         .results .result-lists .result-list__items .schedule-detail .schedule-detail__tit {
           font-size: 18px;
           color: #292a4d;
           font-weight: 500;
-          display: block; }
+          display: block;
+          line-height: 100%; }
         .results .result-lists .result-list__items .schedule-detail .schedule-detail__items {
           position: relative;
           margin-top: 20px; }
@@ -4246,9 +4270,15 @@ legend, .blind {
               .results .result-lists .result-list__items .schedule-detail .schedule-detail__items .schedule-detail__item .info1 dt {
                 color: #999;
                 display: inline-block;
-                font-size: 14px; }
+                vertical-align: top;
+                font-size: 14px;
+                width: 100px;
+                line-height: 120%;
+                position: relative;
+                top: 3px; }
               .results .result-lists .result-list__items .schedule-detail .schedule-detail__items .schedule-detail__item .info1 dd {
                 display: inline-block;
+                vertical-align: top;
                 width: 50px;
                 font-family: 'Geogrotesque-Medium';
                 font-size: 20px; }

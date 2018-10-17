@@ -2228,6 +2228,13 @@ legend, .blind {
                 text-align: left;
                 margin-top: 10px;
               }
+              span {
+                display: block;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                word-wrap: normal;
+                overflow: hidden;
+              }
             }
             &:checked + label {
               color: #000;
@@ -3362,11 +3369,12 @@ legend, .blind {
     -ms-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    color: #fff;
     .wing-thumb {
       width: 35px;
       height: 44px;
       display: block;
-      margin: 0 auto;
+      margin: 0 auto 5px auto;
       img {
         width: 39px;
         height: 44px;
@@ -5161,8 +5169,13 @@ legend, .blind {
         }
       }
       .result-schedules {
-        position: relative;
-        margin-top: 65px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 100%;
         .airline {
           width: 120px;
           position: absolute;
@@ -5335,26 +5348,43 @@ legend, .blind {
       .schedule-detail {
         position: relative;
         top: 0px;
-        padding: 40px 0;
+        //padding: 40px 0;
         overflow: hidden;
         border-top: 1px solid #ccc;
         .departure {
           position: relative;
-          width: 379px;
+          width: 380px;
           float: left;
           margin-left: 40px;
+          padding: 40px 0;
         }
         .arrival {
           position: relative;
           width: 611px;
           float: right;
           margin-right: 40px;
+          padding: 40px 0;
         }
+        .multiple-schedule {
+          border-bottom: 1px solid #e6e6e6;
+          margin: 0 40px;
+          padding: 40px 0;
+          &:last-child {
+            border-bottom: 0;
+          }
+          .multiple-group {
+            width: 380px;
+            display: inline-block;
+            margin-right: 40px;
+          }
+        }
+
         .schedule-detail__tit {
           font-size: 18px;
           color: #292a4d;
           font-weight: 500;
           display: block;
+          line-height: 100%;
         }
         .schedule-detail__items {
           position: relative;
@@ -5395,10 +5425,16 @@ legend, .blind {
               dt {
                 color: #999;
                 display: inline-block;
+                vertical-align: top;
                 font-size: 14px;
+                width: 100px;
+                line-height: 120%;
+                position: relative;
+                top: 3px;
               }
               dd {
                 display: inline-block;
+                vertical-align: top;
                 width: 50px;
                 font-family: 'Geogrotesque-Medium';
                 font-size: 20px;
