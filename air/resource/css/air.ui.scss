@@ -3503,12 +3503,28 @@ legend, .blind {
   }
 }
 
+.pnr-dims {
+  width: 100%;
+  background: #000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  opacity: .8;
+}
 /* header */
 .header {
   border-bottom: 1px solid #e7e7e7;
   &.show {
     position: relative;
     z-index: 100;
+    border-bottom: 0;
+    .layer-pnr {
+      top: 91px;
+      z-index: 3;
+    }
   }
   .inner {
     position: relative;
@@ -3896,73 +3912,72 @@ legend, .blind {
       }
     }
   }
-}
-
-.layer-pnr {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #f5f5f5;
-  overflow: hidden;
-  opacity: 1;
-  z-index: 1;
-  -webkit-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -moz-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -o-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
-  -webkit-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -moz-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
-  &.show {
-    top: 91px;
-    opacity: 1;
-    z-index: 3;
-  }
-
-  .inner {
-    position: relative;
-    width: $width;
-    height: 85px;
-    text-align: right;
-    font-size: 0;
-  }
-  .pnr-form {
-    padding: 19px 0;
-  }
-  .custom-select {
-    text-align: left;
-    margin-right: 5px;
-    select {
-      width: 200px;
+  .layer-pnr {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #f5f5f5;
+    overflow: hidden;
+    z-index: 1;
+    -webkit-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    -moz-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    -o-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
+    -webkit-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    -moz-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    -o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
+    .inner {
+      position: relative;
+      width: $width;
+      height: 85px;
+      text-align: right;
+      font-size: 0;
+    }
+    .pnr-form {
+      padding: 19px 0;
+    }
+    .custom-select {
+      text-align: left;
+      margin-right: 5px;
+      select {
+        width: 200px;
+      }
+    }
+    .custom-input {
+      width: 360px;
+      margin-right: 5px;
+    }
+    .apply {
+      display: inline-block;
+      width: 120px;
+      height: 42px;
+      line-height: 42px;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 2px;
+      color: #fff;
+      background: #f9c028;
+      font-weight: 700;
+    }
+    .close {
+      position: absolute;
+      top: 24px;
+      right: -67px;
+      width: 29px;
+      height: 30px;
+      background: url('../../resource/img/ico_close1.png') center center no-repeat;
     }
   }
-  .custom-input {
-    width: 360px;
-    margin-right: 5px;
-  }
-  .apply {
-    display: inline-block;
-    width: 120px;
-    height: 42px;
-    line-height: 42px;
-    text-align: center;
-    font-size: 14px;
-    border-radius: 2px;
-    color: #fff;
-    background: #f9c028;
-    font-weight: 700;
-  }
-  .close {
+  .pnr-dims {
     position: absolute;
-    top: 24px;
-    right: -67px;
-    width: 29px;
-    height: 30px;
-    background: url('../../resource/img/ico_close1.png') center center no-repeat;
+    top: 91px;
+    z-index: 2;
   }
 }
+
+
 
 .main-evt {
   position: relative;
@@ -4770,6 +4785,11 @@ legend, .blind {
 
 
 .sub {
+  .header {
+    .pnr-dims {
+      display: none;
+    }
+  }
   .intro-gate {
     position: absolute;
     top: -100px;
@@ -4797,7 +4817,6 @@ legend, .blind {
       }
     }
   }
-
   .layer-search {
     h2 {
       display: none;
