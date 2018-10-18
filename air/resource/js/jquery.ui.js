@@ -5875,8 +5875,7 @@
             options.values = options.values.slice(0);
           }
         }
-        console.log("_createRange", options.format);
-        if (!this.range || !this.range.length || options.format) {
+        if (!this.range || !this.range.length) {
           this.range = $("<div>").appendTo(this.element);
           this.range.before("<span class='bid__value bid__value-max'>MAX<em>"
               + this._formatString(options.max) + "</em></span>");
@@ -6458,7 +6457,6 @@
           returnString = this._lpad(val, 2, 0) + ':00';
           break;
         case /^HH(.*) mm(.*)$/.test(type) :
-          console.log(val.length);
           if (val.length == 4) {
             var arr = /^HH(.*) mm(.*)$/.exec(type);
             returnString = val.substring(0, 2) + arr[1] + val.substring(2) + arr[2];
@@ -6471,7 +6469,6 @@
           break;
       }
 
-      console.log(returnString);
       return returnString;
     },
     _handleEvents: {
