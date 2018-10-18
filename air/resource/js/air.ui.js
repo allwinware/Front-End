@@ -1,9 +1,5 @@
 AIRUI = (function () {
-    'use strict';
-
-  var $body = $('body'), //body
-      $customSelect = $('.custom-select select'), //select
-      $loadingThumb = $('.wing-thumb'); //로딩 이미지
+  'use strict';
 
   var AIRUI = {
     /**
@@ -16,20 +12,22 @@ AIRUI = (function () {
         AIRUI.common.tooltips();
       },
       select: function () {
-        $customSelect.select2({minimumResultsForSearch: -1});
+        $('.custom-select select').select2({minimumResultsForSearch: -1});
+        // $('.awa-select__srch select').select2();
       },
       loading: function () {
-        var loading = new TimelineMax({repeat: -1});
-        loading.to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-7C.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-CX.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-LJ.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-NX.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-PR.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-SQ.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-TG.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-VJ.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-VN.svg)'})
-        .to($loadingThumb, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-ZE.svg)'});
+        var $elGSAP = $('.wing-thumb'),
+            tl = new TimelineMax({repeat: -1});
+        tl.to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-7C.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-CX.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-LJ.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-NX.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-PR.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-SQ.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-TG.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-VJ.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-VN.svg)'})
+        .to($elGSAP, 0.2, {backgroundImage: 'url(https://cdn.allwin.bid/static/img/wing/wing-ZE.svg)'});
       },
       tooltips: function () {
         $('.js-tooltips').each(function () {
@@ -85,14 +83,10 @@ AIRUI = (function () {
                 ui.tooltip.animate({top: ui.tooltip.position().top + 5}, "fast");
               }
             }
+
           });
         });
         $(".ui-helper-hidden-accessible").remove();
-      }
-    },
-    main: {
-      init: function () {
-
       }
     },
     /**
@@ -132,5 +126,5 @@ AIRUI = (function () {
 }());
 
 $(function () {
-    AIRUI.common.init();
+  AIRUI.common.init();
 });
