@@ -922,6 +922,8 @@
 
       $(document).on('mouseover', function (event) {
         if (!$(event.target).closest('.views, .intro-tabs, .select2, .select2-container').length) {
+          TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
+          TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
           TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
           TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
           TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
@@ -930,6 +932,8 @@
 
       $scannerToggle.on('click', function () {
         $introTabItem.eq(0).addClass('actived');
+        TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
+        TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
         TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
         TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 2, left: 0, ease: ease});
         TweenMax.to($introScanner, DefaultDuration, {
@@ -947,6 +951,8 @@
       });
       $matchingToggle.on('click', function () {
         $introTabItem.eq(1).addClass('actived');
+        TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
+        TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
         TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
         TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 2, right: 0, ease: ease});
         TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', width: '0', left: '-70px', ease: ease});
@@ -992,8 +998,6 @@
       var index = $introTabLink.index($(this));
       $introTabItem.removeClass('actived');
       $(this).parent().addClass('actived');
-      TweenMax.to($introScannerDims, DefaultDuration, {opacity: .8, ease: ease});
-      TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .8, ease: ease});
       if ($('body').hasClass('main')) {
         if (index === 0) {
           $scannerToggle.click();

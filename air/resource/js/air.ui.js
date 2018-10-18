@@ -98,10 +98,11 @@ AIRUI = (function () {
             dims = $('<div class="dims"></div>');
 
         $('body').addClass('kill');
-        $(targetLayer).css({
-          'top': Math.max(0, (($(window).height() - $(targetLayer).height()) / 2) + $(window).scrollTop()) + "px",
-          'left': Math.max(0, (($(window).width() - $(targetLayer).width()) / 2) + $(window).scrollLeft()) + "px"
-        }).fadeIn('fast');
+        $(targetLayer).fadeIn('fast');
+        // $(targetLayer).css({
+        //   'top': Math.max(0, (($(window).height() - $(targetLayer).height()) / 2) + $(window).scrollTop()) + "px",
+        //   'left': Math.max(0, (($(window).width() - $(targetLayer).width()) / 2) + $(window).scrollLeft()) + "px"
+        // }).fadeIn('fast');
         $(dims).appendTo('body').css({
           'width': '100%',
           'height': '100%',
