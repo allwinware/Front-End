@@ -90,20 +90,22 @@ AIRUI = (function () {
         $(".ui-helper-hidden-accessible").remove();
       },
       top: function () {
-        $(window).on('scroll', function () {
-          if ($(this).scrollTop() > $(window).height()) {
-            $('.air-top').show();
-            if ($('.air-top').offset().top + $('.air-top').height() >= $('.footer').offset().top - 10) {
+        if ($('.air-top').length > 0) {
+          $(window).on('scroll', function () {
+            if ($(this).scrollTop() > $(window).height()) {
+              $('.air-top').show();
+              if ($('.air-top').offset().top + $('.air-top').height() >= $('.footer').offset().top - 10) {
+                $('.air-top').hide();
+              }
+            } else {
               $('.air-top').hide();
             }
-          } else {
-            $('.air-top').hide();
-          }
-        });
-        $(document).on('click', '.air-top', function () {
-          $("html, body").animate({scrollTop: 0}, "fast");
-          return false;
-        });
+          });
+          $(document).on('click', '.air-top', function () {
+            $("html, body").animate({scrollTop: 0}, "fast");
+            return false;
+          });
+        }
       }
     },
     /**
