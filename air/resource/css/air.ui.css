@@ -2771,27 +2771,66 @@ input:-webkit-autofill:active {
   right: 0;
   background: rgba(0, 0, 0, 0);
   z-index: 20000; }
-  .air-loading .wing {
-    display: block;
-    text-align: center;
-    font-size: 12px;
+
+.air-loading:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 3px;
+}
+
+.air-loading:after {
+  content: '';
     position: absolute;
     top: 50%;
-    right: 50%;
-    -ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    color: #fff; }
-    .air-loading .wing .wing-thumb {
-      position: relative;
-      width: 35px;
-      height: 44px;
-      display: block;
-      margin: 0 auto 5px auto; }
-      .air-loading .wing .wing-thumb img {
-        width: 39px;
-        height: 44px;
-        transition: all 1s ease; }
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  background: url("../../resource/img/ico_loading-circle.png") center center no-repeat;
+  -webkit-animation: rotate-center 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite backwards;
+  animation: rotate-center 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite backwards;
+}
+
+@-webkit-keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.air-loading2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #ebaa2c;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  z-index: 20000;
+}
 
 .air-top {
   display: none;
