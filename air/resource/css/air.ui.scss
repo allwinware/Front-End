@@ -3784,22 +3784,22 @@ input:-webkit-autofill:active {
 }
 
 @-webkit-keyframes rotate-center {
-  0% {
+  from {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
-  100% {
+  to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 
 @keyframes rotate-center {
-  0% {
+  from {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
-  100% {
+  to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
@@ -4367,6 +4367,8 @@ input:-webkit-autofill:active {
 
 .main-evt {
   position: relative;
+  height: 120px;
+  overflow: hidden;
   a {
     display: block;
     height: 120px;
@@ -6136,15 +6138,27 @@ input:-webkit-autofill:active {
     margin: 0 auto;
     overflow: hidden;
     box-sizing: border-box;
+    height: 240px;
   }
-  .tit {
-    display: block;
-    font-family: 'Geogrotesque-Bold';
-    font-size: 18px;
-    position: absolute;
-    top: 40px;
-    left: 10px;
-    z-index: 10;
+
+  .two {
+    font-size: 0;
+  }
+  .two > li {
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+    vertical-align: top;
+    & > a {
+      display: block;
+      height: 240px;
+    }
+  }
+  .two > li.first .banner-a {
+    background-position: right center !important;
+  }
+  .two > li.second a {
+    background-position: left center !important;
   }
   .banner-item {
     height: 240px;
@@ -6158,7 +6172,7 @@ input:-webkit-autofill:active {
   }
   .awa-slide__pager {
     position: absolute;
-    top: 45px;
+    top: 35px;
     right: 50%;
     margin-right: -600px;
   }
@@ -6168,54 +6182,15 @@ input:-webkit-autofill:active {
   .awa-slide__pager-link {
     font-size: 18px;
     color: #ccc;
+    display: inline-block;
+    height: auto !important;
     font-family: 'Geogrotesque-Bold';
   }
   .awa-slide_pager-link--active {
     color: #313131;
     border-bottom: 2px solid #313131;
   }
-
-  .two {
-    font-size: 0;
-  }
-  .two li {
-    display: inline-block;
-    width: 50%;
-    box-sizing: border-box;
-  }
-  .two a {
-    display: block;
-    height: 240px;
-  }
-  .two li.first a {
-    background-position: right center !important;
-  }
-  .two li.second a {
-    background-position: left center !important;
-  }
-  .three {
-    font-size: 0;
-  }
-  .three li {
-    display: inline-block;
-    width: 33.33%;
-    box-sizing: border-box;
-  }
-  .three a {
-    display: block;
-    height: 240px;
-  }
-  .three li.first a {
-    background-position: right center !important;
-  }
-  .three li.second a {
-    background-position: center center !important;
-  }
-  .three li.third a {
-    background-position: left center !important;
-  }
 }
-
 .login {
   width: 480px;
   margin: 40px auto 0 auto;
@@ -6320,7 +6295,6 @@ input:-webkit-autofill:active {
           position: absolute;
           top: -1px;
           left: -2px;
-
           width: 125px;
           height: 43px;
           background: #f9c028;
