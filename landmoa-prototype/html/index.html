@@ -1026,10 +1026,18 @@
       });
     });
 
+    $(window).scroll(function () {
+      if ($(this).scrollTop() >= $('.land-detail-representative .benefits').offset().top) {
+        $('.land-detail-mail').addClass('absolute');
+      } else {
+        $('.land-detail-mail').removeClass('absolute');
+      }
+    });
+
     //랜드 js
     /////////////////////////////////////
     //검색 옵션 스크롤
-    $(".land-srching-opts .in-scroll").mCustomScrollbar();
+    $(".land-srching-opts .in-scroll, .estimate-scroll").mCustomScrollbar();
 
     //검색 체크박스 오버
     $('.land-check').mouseenter(function () {
