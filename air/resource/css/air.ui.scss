@@ -3494,7 +3494,7 @@ input:-webkit-autofill:active {
       width: 480px;
       padding-bottom: 85px;
       .txt {
-        margin-bottom: 50px;
+        margin-bottom: 40px;
         p {
           font-size: 36px;
           font-weight: 100;
@@ -3514,6 +3514,85 @@ input:-webkit-autofill:active {
       .benefit-upload-tips {
         position: relative;
         text-align: left;
+        &:before {
+          content: '';
+          display: block;
+          width: 29px;
+          height: 21px;
+          background: url('https://cdn.allwin.bid/air/resource/img/ico_flag-yellow.svg') center center no-repeat;
+          background-size: 29px 21px;
+        }
+        li {
+          font-size: 12px;
+          color: #999;
+        }
+      }
+    }
+    &.seller-info {
+      width: 480px;
+      padding-bottom: 85px;
+      .txt {
+        margin-bottom: 40px;
+        p {
+          font-size: 36px;
+          font-weight: 100;
+        }
+        strong {
+          font-size: 14px;
+          font-weight: 700;
+        }
+      }
+      .seller-info-list {
+        border-top: 1px solid #000;
+        li {
+          position: relative;
+          border-bottom: 1px solid #e6e6e6;
+          min-height: 125px;
+          text-align: left;
+          .seller-logo {
+            display: table;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 150px;
+            height: 125px;
+            text-align: center;
+            span {
+              display: table-cell;
+              vertical-align: middle;
+            }
+          }
+          .seller-info-txts {
+            margin: 0 0 0 150px;
+            .dls {
+              height: 125px;
+              display: table-cell;
+              vertical-align: middle;
+            }
+            dl {
+
+            }
+            dt {
+              width: 65px;
+              font-size: 14px;
+              font-weight: 700;
+              display: inline-block;
+            }
+            dd {
+              font-size: 14px;
+              display: inline-block;
+              &.tel {
+                font-family: 'Geogrotesque-Medium';
+              }
+            }
+          }
+        }
+      }
+      .seller-info-tips {
+        position: relative;
+        text-align: left;
+        margin-top: 35px;
         &:before {
           content: '';
           display: block;
@@ -4805,7 +4884,7 @@ input:-webkit-autofill:active {
               transition-delay: .1s;
               .in-land {
                 position: absolute;
-                bottom: 105px;
+                top: 0;
                 right: 0;
                 font-size: 14px;
                 font-weight: 700;
@@ -4883,6 +4962,7 @@ input:-webkit-autofill:active {
           font-weight: 700;
         }
         .txt {
+          position: relative;
           margin-top: 10px;
           font-size: 14px;
           font-weight: 500;
@@ -5840,28 +5920,64 @@ input:-webkit-autofill:active {
   bottom: 0;
   overflow: hidden;
   z-index: 10;
-  .close {
-    position: absolute;
-    top: 30px;
-    right: -90px;
-    width: 47px;
-    height: 47px;
-    background: url('../../resource/img/land/ico_close2.png') center center no-repeat;
-  }
-  .inner {
-    position: relative;
-    width: 1200px;
-    height: 800px;
-    margin: 0 auto;
-    z-index: 2;
-  }
   &.layer-scanner {
     background: #f3b308;
+    transition: all .5s;
+    &.active {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 800px;
+      z-index: 1;
+      opacity: 1;
+      margin-left: 0;
+    }
+
+    &.mutiple {
+      .air-ticketing {
+        display: none;
+      }
+    }
+    h2 {
+      color: #000;
+    }
+    .inner {
+      //opacity: 0;
+    }
   }
   &.layer-matching {
-    background: #f3b308;
+    background: url('../../resource/img/img_main-visual-matching2.jpg') center center no-repeat;
+    transition: all .5s;
+    &.active {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 800px;
+      z-index: 1;
+      opacity: 1;
+      margin-left: 0;
+    }
+    .close {
+      right: 385px;
+    }
   }
   &.layer-land {
+    transition: all .5s;
+    .close {
+      right: -80px;
+    }
+    &.active {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 800px;
+      z-index: 1;
+      opacity: 1;
+      margin-left: 0;
+    }
     .land-srch-input {
       width: 534px;
       height: 40px;
@@ -6066,13 +6182,685 @@ input:-webkit-autofill:active {
       right: 0;
       bottom: 0;
       z-index: 1;
-      background-position: center center !important;
-      background-repeat: no-repeat !important;
-      background-size: cover !important;
-      -webkit-filter: blur(10px);
-      -moz-filter: blur(10px);
-      -ms-filter: blur(10px);
-      filter: blur(10px);
+      //background-position: center center !important;
+      //background-repeat: no-repeat !important;
+      //background-size: cover !important;
+      //-webkit-filter: blur(10px);
+      //-moz-filter: blur(10px);
+      //-ms-filter: blur(10px);
+      //filter: blur(10px);
+    }
+  }
+  h2 {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    font-size: 24px;
+    color: #fff;
+    font-weight: 700;
+  }
+  .close {
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    width: 47px;
+    height: 47px;
+    background: url('../../resource/img/land/ico_close2.png') center center no-repeat;
+  }
+  .inner {
+    position: relative;
+    width: 1200px;
+    height: 800px;
+    margin: 0 auto;
+    z-index: 2;
+  }
+  .custom-radio {
+    input {
+      & + label {
+        color: #fff;
+      }
+      &:checked {
+        & + label {
+          color: #f9c028;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  .w200 {
+    width: 200px !important;
+  }
+  .w218 {
+    width: 218px !important;
+  }
+  .w274 {
+    width: 274px !important;
+  }
+  .w280 {
+    width: 280px !important;
+  }
+  .w301 {
+    width: 301px !important;
+  }
+  .w483 {
+    width: 483px !important;
+  }
+  .ml10 {
+    margin-right: 10px !important;
+  }
+  .mr8 {
+    margin-left: 8px !important;
+  }
+  .mr10 {
+    margin-left: 10px !important;
+  }
+  .mt12 {
+    margin-top: 12px !important;
+  }
+  .box-radio-group {
+    display: inline-block;
+    border-radius: 2px;
+    overflow: hidden;
+    .radio {
+      display: inline-block;
+      input {
+        opacity: 0;
+        position: absolute;
+        & + label {
+          position: relative;
+          text-align: center;
+          color: #b2b2b2;
+          font-size: 16px;
+          cursor: pointer;
+          display: block;
+          width: 100px;
+          height: 56px;
+          line-height: 56px;
+          box-sizing: border-box;
+          background: #fff;
+        }
+        &:checked {
+          & + label {
+            color: #000;
+            &:before {
+              content: '';
+              margin-right: 8px;
+              display: inline-block;
+              width: 13px;
+              height: 10px;
+              background: url('https://cdn.allwin.bid/air/resource/img/ico_check.png') center center no-repeat;
+            }
+          }
+        }
+      }
+      &:first-child {
+        input {
+          & + label {
+            border-right: 1px solid #d8d8d8;
+          }
+        }
+      }
+    }
+  }
+  .number-input {
+    position: relative;
+    display: block;
+    border-radius: 2px;
+    overflow: hidden;
+    width: 301px;
+    height: 56px;
+    button {
+      position: absolute;
+      top: 0;
+      width: 50px;
+      height: 56px;
+      background: #fff;
+      &.up {
+        right: 0;
+        border-left: 1px solid #d4d4d4;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: 0 0 0 -8px;
+          width: 16px;
+          height: 1px;
+          background: #000;
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: 0 0 0 -7px;
+          width: 15px;
+          height: 1px;
+          background: #000;
+          transform: rotate(90deg);
+          -ms-transform: rotate(90deg);
+        }
+      }
+      &.down {
+        left: 0;
+        border-right: 1px solid #d4d4d4;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: 0 0 0 -8px;
+          width: 16px;
+          height: 1px;
+          background: #000;
+        }
+      }
+    }
+    input {
+      position: absolute;
+      top: 0;
+      left: 50px;
+      width: 201px;
+      height: 56px;
+      text-align: center;
+      font-family: 'Geogrotesque-SemiBold';
+      font-size: 18px;
+    }
+  }
+  .scanner-form {
+    width: 827px;
+    padding-top: 120px;
+    -webkit-transition: .3s ease-out;
+    transition: .3s ease-out;
+    .custom-input, .custom-select {
+      margin: 0 2px 0 0;
+      vertical-align: top;
+    }
+    .first {
+      margin-bottom: 80px;
+      .bt-srch {
+        margin-top: 12px;
+      }
+    }
+    .second {
+      margin-bottom: 60px;
+    }
+    .third {
+    }
+    .select2-container {
+      .select2-selection--single {
+        border: 0;
+      }
+    }
+  }
+  .matching-form {
+    width: 815px;
+    padding: 200px 0 0 0;
+    -webkit-transition: .3s;
+    transition: .3s;
+    .custom-input, .custom-select {
+      margin: 0 2px 0 0;
+    }
+    .global {
+      width: 404px;
+      position: absolute;
+      top: 0;
+      left: 412px;
+    }
+    .line {
+      margin: 50px 0 50px 0;
+      height: 1px;
+      background: rgba(255, 255, 255, .3);
+    }
+  }
+  .layer-forms {
+    .row {
+      position: relative;
+      font-size: 0;
+      margin-top: 10px;
+      &.last {
+        width: 613px;
+      }
+      &:first-child {
+        margin-top: 0;
+      }
+      .col {
+        width: 301px;
+        display: inline-block;
+        vertical-align: top;
+        &:first-child {
+          float: left;
+        }
+        &:last-child {
+          float: right;
+        }
+      }
+      .tip {
+        font-size: 14px;
+        color: #b2b2b2;
+        margin: 5px 0 0 5px;
+        display: block;
+      }
+    }
+    .label {
+      font-size: 16px;
+      color: #fff;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .custom-input input {
+      padding-right: 45px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-wrap: normal;
+      overflow: hidden;
+    }
+  }
+  .bt-srch {
+    width: 202px;
+    height: 56px;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    line-height: 56px;
+    font-weight: 700;
+    border-radius: 2px;
+    border: 2px solid #fff;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    &:hover {
+      background: rgba(255, 255, 255, .2);
+    }
+  }
+  .txts {
+    color: #000;
+    margin-bottom: 20px;
+    h3 {
+      font-size: 30px;
+      font-weight: 300;
+      strong {
+        font-weight: 700;
+      }
+    }
+    p {
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+  .form-util {
+    position: relative;
+    padding-bottom: 20px;
+    .start-types {
+      display: block;
+      height: 41px;
+      border-bottom: 1px solid rgba(255, 255, 255, .3);
+      .custom-radio {
+        input {
+          & + label {
+            width: 100px;
+            height: 41px;
+            line-height: 41px;
+            font-size: 16px;
+            color: #fff;
+            padding: 0;
+            text-align: center;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            &:before {
+              content: '';
+              position: absolute;
+              top: auto;
+              bottom: 0;
+              left: 0;
+              width: 0;
+              height: 2px;
+              background: #fff;
+              border-radius: initial;
+              border: 0;
+              -webkit-transition: all .3s;
+              transition: all .3s;
+            }
+          }
+          &:hover + label {
+            background: rgba(255, 255, 255, .2);
+          }
+          &:checked + label {
+            font-weight: 700;
+            &:before {
+              display: block;
+              width: 100%;
+            }
+            &:after {
+              display: none;
+            }
+          }
+        }
+      }
+      li {
+        position: relative;
+        display: inline-block;
+      }
+    }
+    .trip-types {
+      padding-top: 30px;
+      display: inline-block;
+      li {
+        display: inline-block;
+        margin-right: 25px;
+      }
+      .custom-radio {
+        input {
+          & + label {
+            &:before {
+              border: 0;
+            }
+          }
+          &:checked + label {
+            color: #fff;
+          }
+        }
+      }
+    }
+    .trip-bts {
+      position: absolute;
+      bottom: 15px;
+      right: 0px;
+      a {
+        margin-left: 10px;
+        color: #fff;
+        border-bottom: 1px solid #fff;
+      }
+    }
+  }
+  .share {
+    text-align: right;
+    margin-top: 10px;
+    a {
+      font-size: 14px;
+      color: #fff;
+      display: inline-block;
+      border-bottom: 1px solid #fff;
+    }
+  }
+  .matching-result {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    background: rgba(0, 0, 0, .67);
+    &.long {
+      .result-inner {
+        padding-top: 30px;
+        height: 730px
+      }
+    }
+    .result-inner {
+      position: relative;
+      width: 240px;
+      height: 722px;
+      margin: 0 auto 0 auto;
+      padding-top: 78px;
+    }
+    .result-labels {
+    }
+    .result-course {
+      p {
+        margin: 10px 0;
+        strong {
+          display: inline-block;
+          font-size: 30px;
+          color: #fff;
+          font-weight: 700;
+          vertical-align: top;
+          line-height: 120%;
+        }
+      }
+      .plane {
+        position: relative;
+        top: 10px;
+        display: inline-block;
+        vertical-align: top;
+        width: 20px;
+        height: 16px;
+        margin: 0 10px;
+        background: url('https://cdn.allwin.bid/air/resource/img/ico_plane.png') center center no-repeat;
+      }
+    }
+    .result-date {
+      overflow: hidden;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .2);
+      dl {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        text-align: right;
+        margin: 3px 0;
+      }
+      dt {
+        position: absolute;
+        top: 0;
+        left: 0;
+        line-height: 100%;
+        font-size: 14px;
+        color: #fff;
+      }
+      dd {
+        input {
+          text-align: right;
+          background: none;
+          border: 0;
+          font-size: 14px;
+          color: #aaa;
+          font-family: 'Geogrotesque-Regular';
+        }
+      }
+    }
+    .result-price {
+      border-bottom: 1px solid rgba(255, 255, 255, .2);
+      overflow: hidden;
+      padding: 15px 0;
+      .seat {
+        color: #fff;
+        font-size: 14px;
+        em {
+          color: #f9c028;
+        }
+      }
+      .price {
+        margin-top: 5px;
+        display: block;
+        position: relative;
+        color: #fff;
+        .multiply {
+          float: left;
+          font-size: 16px;
+          font-family: 'Geogrotesque-Regular';
+        }
+        .sum {
+          float: right;
+          position: relative;
+          font-size: 16px;
+          font-family: 'Geogrotesque-SemiBold';
+          &:after {
+            content: '원';
+            display: inline-block;
+            margin-left: 3px;
+            vertical-align: top;
+            font-size: 14px;
+            color: #fff;
+            font-family: 'Noto Sans';
+            font-weight: 400;
+          }
+        }
+      }
+    }
+    .result-total {
+      position: absolute;
+      top: 560px;
+      right: 0;
+      width: 100%;
+      text-align: right;
+      -webkit-transition: .3s ease-out;
+      transition: .3s ease-out;
+      span {
+        font-size: 16px;
+        color: #fff;
+      }
+      strong {
+        display: block;
+        color: #fff;
+        position: relative;
+        font-size: 30px;
+        font-family: 'Geogrotesque-SemiBold';
+        &:after {
+          content: '원';
+          display: inline-block;
+          margin-left: 5px;
+          vertical-align: top;
+          font-size: 23px;
+          color: #fff;
+          font-family: 'Noto Sans';
+          font-weight: 400;
+        }
+      }
+    }
+    .result-bts {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      button {
+        width: 100%;
+        height: 56px;
+        text-align: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 16px;
+        &.apply {
+          background: #f9c028;
+        }
+        &.cancel {
+          background: #000;
+        }
+      }
+    }
+  }
+  .benefits {
+    height: 800px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    background: rgba(255, 255, 255, .5);
+    .benefit-tit {
+      display: block;
+      font-size: 24px;
+      font-weight: 300;
+      padding: 50px 30px 0 30px;
+      line-height: 100%;
+    }
+    .benefit-lists {
+      position: absolute;
+      bottom: 112px;
+      left: 0;
+      right: 0;
+      height: 576px;
+      margin: 0 auto;
+      .list-scroll {
+        padding: 0 20px;
+        height: 576px;
+        overflow: hidden;
+        overflow-y: auto;
+        .mCustomScrollBox {
+          position: static;
+        }
+      }
+      li {
+        position: relative;
+        padding: 40px 0;
+        border-top: 1px solid rgba(255, 255, 255, .5);
+        &:first-child {
+          border-top: 0;
+        }
+      }
+      .flag {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        height: 27px;
+        line-height: 19px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        &.money {
+          width: 32px;
+          padding-left: 13px;
+          background: url('../../resource/img/img_orage-flag.png') center center no-repeat;
+        }
+        &.com {
+          width: 42px;
+          padding-left: 13px;
+          background: url('../../resource/img/img_black-flag.png') center center no-repeat;
+        }
+      }
+      .seller {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        img {
+          height: 25px;
+        }
+      }
+      .box {
+        margin: 50px 0 0 0;
+      }
+      .txt {
+        font-size: 16px;
+      }
+      .money {
+        strong {
+          font-family: 'Geogrotesque-SemiBold';
+          font-size: 30px;
+        }
+        em {
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+      .per {
+        strong {
+          font-family: 'Geogrotesque-SemiBold';
+          font-size: 30px;
+        }
+        em {
+          font-weight: 700;
+          font-size: 26px;
+        }
+      }
+    }
+    .benefit-bts {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      button {
+        width: 300px;
+        height: 56px;
+        line-height: 56px;
+        text-align: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 16px;
+        &.white {
+          color: #f9c028;
+          background: #fff;
+        }
+        &.yellow {
+          background: #f9c028;
+        }
+      }
     }
   }
 }
