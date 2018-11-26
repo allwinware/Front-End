@@ -1035,158 +1035,213 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
-    //인트로 액션
-    var DefaultDuration = 0.4,
-        leaveDuration = 0.4,
-        ease = "Power2.easeInOut",
-        $introTabs = $('.intro-tabs'),
+    var src = $('.land-group-rolling > ul > li').eq(0).find('img').data('blur-bg');
+    $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
+
+    var slider = $('.land-group-rolling > ul').awaSlide({
+      minSlides: 4,
+      maxSlides: 4,
+      slideWidth: 240,
+      slideMargin: 18,
+      auto: true,
+      autoDelay: 5000
+    });
+    $('.land-group-item').mouseenter(function () {
+      var src = $(this).find('img').data('blur-bg');
+      var appendObj = $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
+      $('.clone-bg').remove();
+      $('.layer-land').append(appendObj);
+      // $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
+    });
+    $('.allwin-recommend-rolling > ul').awaSlide({
+      minSlides: 4,
+      maxSlides: 4,
+      moveSlides: 4,
+      slideWidth: 280,
+      slideMargin: 27,
+      auto: true,
+      autoDelay: 5000
+    });
+    $('.allin-land-rolling > ul').awaSlide({
+      slideWidth: 178,
+      auto: true,
+      autoDelay: 5000
+    });
+
+    $(".benefit-lists .list-scroll").mCustomScrollbar();
+
+    var $introTabs = $('.intro-tabs'),
         $introTabItem = $('.intro-tabs').find('li'),
-        $introTabLink = $introTabItem.find('a'),
-        $introStage = $('.intro-gate'),
-        $introInner = $introStage.find('.col-inner'),
-        $introEle = $introStage.find('.intro-item'),
-        $introScanner = $introStage.find('.col.scanner'),
-        $introScannerDims = $introScanner.find('.intro-dims'),
-        $introMatching = $introStage.find('.col.matching'),
-        $introMatchingDims = $introMatching.find('.intro-dims'),
-        //$introLayerStage = $introStage.find('.layer-search'),
-        $introLayerScanner = $('.layer-scanner'),
-        $introLayerMatching = $('.layer-matching'),
-        $scannerToggle = $introStage.find('#js-scanner-toggle'),
-        $matchingToggle = $introStage.find('#js-matching-toggle'),
-        $introLayerScannerClose = $introLayerScanner.find('.close'),
-        $introLayerMatchingClose = $introLayerMatching.find('.close');
-    if ($('.main').length != 0) {
-      $introEle.on('mouseenter', function () {
-        if ($(this).attr('id') === "scanner") {
-          TweenMax.to($introScannerDims, DefaultDuration, {opacity: .8, ease: ease});
-          TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
-          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '70px', left: '0', ease: ease});
-          TweenMax.to($introMatching, DefaultDuration, {right: '-70px', paddingLeft: '0', ease: ease});
-          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
-        } else if ($(this).attr('id') === "matching") {
-          TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
-          TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .8, ease: ease});
-          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '-70px', ease: ease});
-          TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '70px', ease: ease});
-          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '-70px', ease: ease});
-        }
-      });
+        $introTabLink = $introTabItem.find('a');
 
-      $(document).on('mouseover', function (event) {
-        if (!$(event.target).closest('.views, .intro-tabs, .select2, .select2-container').length) {
-          TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
-          TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
-          TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
-          TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
-          TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
-        }
-      });
-
-      $scannerToggle.on('click', function () {
-        $introTabItem.eq(0).addClass('actived');
-        TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
-        TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
-        TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
-        TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 2, left: 0, ease: ease});
-        TweenMax.to($introScanner, DefaultDuration, {
-          paddingRight: '70px',
-          left: '0',
-          width: '100%',
-          ease: ease
-        });
-        TweenMax.to($introMatching, DefaultDuration, {
-          width: '0',
-          right: '-70px',
-          paddingLeft: '0',
-          ease: ease
-        });
-      });
-      $matchingToggle.on('click', function () {
-        $introTabItem.eq(1).addClass('actived');
-        TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
-        TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
-        TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
-        TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 2, right: 0, ease: ease});
-        TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', width: '0', left: '-70px', ease: ease});
-        TweenMax.to($introMatching, DefaultDuration, {
-          right: '0',
-          width: '100%',
-          paddingLeft: '70px',
-          ease: ease
-        });
-      });
-    }
-    $introLayerScannerClose.on('click', function () {
-      $introTabItem.removeClass('actived');
-      if ($('body').hasClass('main')) {
-        TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-        TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-        TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-        TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-        TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-      } else {
-        $introScanner.hide();
-        $introMatching.hide();
-        TweenMax.to($introLayerScanner, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
-        TweenMax.to($introLayerMatching, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
-      }
-    });
-    $introLayerMatchingClose.on('click', function () {
-      $introTabItem.removeClass('actived');
-      if ($('body').hasClass('main')) {
-        TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-        TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-        TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-        TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-        TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-      } else {
-        $introScanner.hide();
-        $introMatching.hide();
-        TweenMax.to($introLayerScanner, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
-        TweenMax.to($introLayerMatching, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
-      }
-    });
     $introTabLink.click(function () {
       var index = $introTabLink.index($(this));
       $introTabItem.removeClass('actived');
       $(this).parent().addClass('actived');
-      if ($('body').hasClass('main')) {
-        if (index === 0) {
-          $scannerToggle.click();
-          TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-        } else if (index === 1) {
-          $matchingToggle.click();
-          TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-        }
-      } else {
-        $introStage.show();
-        if (index === 0) {
-          $introScanner.fadeIn('fast');
-          $introMatching.hide();
-          TweenMax.to($introLayerScanner, 0, {opacity: 1, zIndex: 20});
-          TweenMax.to($introLayerMatching, 0, {opacity: 0, zIndex: -1});
-        } else if (index === 1) {
-          $introScanner.hide();
-          $introMatching.fadeIn('fast');
-          TweenMax.to($introLayerScanner, 0, {opacity: 0, zIndex: -1});
-          TweenMax.to($introLayerMatching, 0, {opacity: 1, zIndex: 20});
-        }
+      $('.layer-search').hide();
+      if (index === 0) {
+        $('.layer-scanner').show();
+      } else if (index === 1) {
+        $('.layer-matching').show();
+      } else if (index === 2) {
+        $('.layer-land').show();
+        slider.reloadSlider();
       }
       return false;
     });
 
-    function resetIntro() {
-      $introTabItem.removeClass('actived');
-      TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
-      TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
-      TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
-      TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
-      TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
-      TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
-      TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
-      TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
-    }
+    // //인트로 액션
+    // var DefaultDuration = 0.4,
+    //     leaveDuration = 0.4,
+    //     ease = "Power2.easeInOut",
+    //     $introTabs = $('.intro-tabs'),
+    //     $introTabItem = $('.intro-tabs').find('li'),
+    //     $introTabLink = $introTabItem.find('a'),
+    //     $introStage = $('.intro-gate'),
+    //     $introInner = $introStage.find('.col-inner'),
+    //     $introEle = $introStage.find('.intro-item'),
+    //     $introScanner = $introStage.find('.col.scanner'),
+    //     $introScannerDims = $introScanner.find('.intro-dims'),
+    //     $introMatching = $introStage.find('.col.matching'),
+    //     $introMatchingDims = $introMatching.find('.intro-dims'),
+    //     //$introLayerStage = $introStage.find('.layer-search'),
+    //     $introLayerScanner = $('.layer-scanner'),
+    //     $introLayerMatching = $('.layer-matching'),
+    //     $scannerToggle = $introStage.find('#js-scanner-toggle'),
+    //     $matchingToggle = $introStage.find('#js-matching-toggle'),
+    //     $introLayerScannerClose = $introLayerScanner.find('.close'),
+    //     $introLayerMatchingClose = $introLayerMatching.find('.close');
+    // if ($('.main').length != 0) {
+    //   $introEle.on('mouseenter', function () {
+    //     if ($(this).attr('id') === "scanner") {
+    //       TweenMax.to($introScannerDims, DefaultDuration, {opacity: .8, ease: ease});
+    //       TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
+    //       TweenMax.to($introScanner, DefaultDuration, {paddingRight: '70px', left: '0', ease: ease});
+    //       TweenMax.to($introMatching, DefaultDuration, {right: '-70px', paddingLeft: '0', ease: ease});
+    //       TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+    //     } else if ($(this).attr('id') === "matching") {
+    //       TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
+    //       TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .8, ease: ease});
+    //       TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '-70px', ease: ease});
+    //       TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '70px', ease: ease});
+    //       TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '-70px', ease: ease});
+    //     }
+    //   });
+    //
+    //   $(document).on('mouseover', function (event) {
+    //     if (!$(event.target).closest('.views, .intro-tabs, .select2, .select2-container').length) {
+    //       TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
+    //       TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
+    //       TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
+    //       TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
+    //       TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+    //     }
+    //   });
+    //
+    //   $scannerToggle.on('click', function () {
+    //     $introTabItem.eq(0).addClass('actived');
+    //     TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
+    //     TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
+    //     TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
+    //     TweenMax.to($introLayerScanner, DefaultDuration, {opacity: '1', zIndex: 2, left: 0, ease: ease});
+    //     TweenMax.to($introScanner, DefaultDuration, {
+    //       paddingRight: '70px',
+    //       left: '0',
+    //       width: '100%',
+    //       ease: ease
+    //     });
+    //     TweenMax.to($introMatching, DefaultDuration, {
+    //       width: '0',
+    //       right: '-70px',
+    //       paddingLeft: '0',
+    //       ease: ease
+    //     });
+    //   });
+    //   $matchingToggle.on('click', function () {
+    //     $introTabItem.eq(1).addClass('actived');
+    //     TweenMax.to($introScannerDims, DefaultDuration, {opacity: .4, ease: ease});
+    //     TweenMax.to($introMatchingDims, DefaultDuration, {opacity: .4, ease: ease});
+    //     TweenMax.to($introInner, DefaultDuration, {opacity: 0, ease: ease});
+    //     TweenMax.to($introLayerMatching, DefaultDuration, {opacity: '1', zIndex: 2, right: 0, ease: ease});
+    //     TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', width: '0', left: '-70px', ease: ease});
+    //     TweenMax.to($introMatching, DefaultDuration, {
+    //       right: '0',
+    //       width: '100%',
+    //       paddingLeft: '70px',
+    //       ease: ease
+    //     });
+    //   });
+    // }
+    // $introLayerScannerClose.on('click', function () {
+    //   $introTabItem.removeClass('actived');
+    //   if ($('body').hasClass('main')) {
+    //     TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+    //     TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+    //     TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+    //     TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+    //     TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+    //   } else {
+    //     $introScanner.hide();
+    //     $introMatching.hide();
+    //     TweenMax.to($introLayerScanner, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+    //     TweenMax.to($introLayerMatching, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+    //   }
+    // });
+    // $introLayerMatchingClose.on('click', function () {
+    //   $introTabItem.removeClass('actived');
+    //   if ($('body').hasClass('main')) {
+    //     TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+    //     TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+    //     TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+    //     TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+    //     TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+    //   } else {
+    //     $introScanner.hide();
+    //     $introMatching.hide();
+    //     TweenMax.to($introLayerScanner, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+    //     TweenMax.to($introLayerMatching, leaveDuration, {opacity: 0, zIndex: -1, ease: ease});
+    //   }
+    // });
+    // $introTabLink.click(function () {
+    //   var index = $introTabLink.index($(this));
+    //   $introTabItem.removeClass('actived');
+    //   $(this).parent().addClass('actived');
+    //   if ($('body').hasClass('main')) {
+    //     if (index === 0) {
+    //       $scannerToggle.click();
+    //       TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+    //     } else if (index === 1) {
+    //       $matchingToggle.click();
+    //       TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+    //     }
+    //   } else {
+    //     $introStage.show();
+    //     if (index === 0) {
+    //       $introScanner.fadeIn('fast');
+    //       $introMatching.hide();
+    //       TweenMax.to($introLayerScanner, 0, {opacity: 1, zIndex: 20});
+    //       TweenMax.to($introLayerMatching, 0, {opacity: 0, zIndex: -1});
+    //     } else if (index === 1) {
+    //       $introScanner.hide();
+    //       $introMatching.fadeIn('fast');
+    //       TweenMax.to($introLayerScanner, 0, {opacity: 0, zIndex: -1});
+    //       TweenMax.to($introLayerMatching, 0, {opacity: 1, zIndex: 20});
+    //     }
+    //   }
+    //   return false;
+    // });
+    //
+    // function resetIntro() {
+    //   $introTabItem.removeClass('actived');
+    //   TweenMax.to($introInner, leaveDuration, {opacity: 1, ease: ease});
+    //   TweenMax.to($introLayerScanner, leaveDuration, {left: "-100%"});
+    //   TweenMax.to($introLayerMatching, leaveDuration, {right: "-100%"});
+    //   TweenMax.to($introScanner, leaveDuration, {width: '50%', ease: ease});
+    //   TweenMax.to($introMatching, leaveDuration, {width: '50%', ease: ease});
+    //   TweenMax.to($introScanner, DefaultDuration, {paddingRight: '0', left: '0', ease: ease});
+    //   TweenMax.to($introMatching, DefaultDuration, {right: '0', paddingLeft: '0', ease: ease});
+    //   TweenMax.to($introMatching.find('.col-inner'), DefaultDuration, {marginLeft: '0px', ease: ease});
+    // }
 
     //pnr 레이어
     var $header = $('.header'),

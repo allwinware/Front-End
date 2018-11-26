@@ -838,9 +838,10 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
-    var src = $('.land-group-rolling > ul > li').eq(0).find('img').attr('src');
-    $('.clone-bg').attr('style', 'background-image: url("' + src + '")').fadeIn();
-    $('.land-group-rolling > ul').awaSlide({
+    var src = $('.land-group-rolling > ul > li').eq(0).find('img').data('blur-bg');
+    $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
+
+    var slider = $('.land-group-rolling > ul').awaSlide({
       minSlides: 4,
       maxSlides: 4,
       slideWidth: 240,
@@ -849,9 +850,11 @@
       autoDelay: 5000
     });
     $('.land-group-item').mouseenter(function () {
-      console.log($(this).find('img').attr('src'));
-      var src = $(this).find('img').attr('src');
-      $('.clone-bg').attr('style', 'background-image: url("' + src + '")').fadeIn();
+      var src = $(this).find('img').data('blur-bg');
+      var appendObj = $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
+      $('.clone-bg').remove();
+      $('.layer-land').append(appendObj);
+      // $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
     });
     $('.allwin-recommend-rolling > ul').awaSlide({
       minSlides: 4,
@@ -866,6 +869,28 @@
       slideWidth: 178,
       auto: true,
       autoDelay: 5000
+    });
+
+    $(".benefit-lists .list-scroll").mCustomScrollbar();
+
+    var $introTabs = $('.intro-tabs'),
+        $introTabItem = $('.intro-tabs').find('li'),
+        $introTabLink = $introTabItem.find('a');
+
+    $introTabLink.click(function () {
+      var index = $introTabLink.index($(this));
+      $introTabItem.removeClass('actived');
+      $(this).parent().addClass('actived');
+      $('.layer-search').hide();
+      if (index === 0) {
+        $('.layer-scanner').show();
+      } else if (index === 1) {
+        $('.layer-matching').show();
+      } else if (index === 2) {
+        $('.layer-land').show();
+        slider.reloadSlider();
+      }
+      return false;
     });
 
     // //인트로 액션
