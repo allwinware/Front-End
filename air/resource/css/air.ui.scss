@@ -206,7 +206,7 @@ input:-webkit-autofill:active {
 
 .mCSB_scrollTools {
   position: absolute;
-  width: 16px;
+  width: 11px;
   height: auto;
   left: auto;
   top: 0;
@@ -264,9 +264,9 @@ input:-webkit-autofill:active {
   width: 8px;
   height: 100%;
   margin: 0 auto;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
   text-align: center
 }
 
@@ -1188,12 +1188,12 @@ input:-webkit-autofill:active {
   &.cal-long {
     em {
       font-size: 16px;
-      color: #000;
+      color: #ccc;
       position: absolute;
       top: 0;
       left: 20px;
       line-height: 56px;
-      font-family: 'Geogrotesque-SemiBold';
+      font-family: 'Geogrotesque-Medium';
     }
     input {
       text-indent: 120px;
@@ -6372,20 +6372,49 @@ input:-webkit-autofill:active {
     padding-top: 120px;
     -webkit-transition: .3s ease-out;
     transition: .3s ease-out;
+    .bt-srch {
+      width: 202px;
+    }
     .custom-input, .custom-select {
       margin: 0 2px 0 0;
       vertical-align: top;
+      &.pos {
+        width: 274px;
+      }
+      &.cal {
+        width: 274px;
+      }
+      &.cal-long {
+        width: 274px;
+      }
+      &.arrow {
+        width: 274px;
+        margin-top: 10px;
+      }
     }
     .first {
       margin-bottom: 80px;
       .bt-srch {
-        margin-top: 12px;
+        margin-top: 10px;
       }
     }
     .second {
       margin-bottom: 60px;
+      .custom-input, .custom-select {
+        &.arrow {
+          margin-top: 0px;
+        }
+      }
     }
     .third {
+      .custom-select {
+        select {
+          width: 200px;
+        }
+      }
+      .custom-input {
+        width: 218px;
+      }
     }
     .select2-container {
       .select2-selection--single {
@@ -6411,6 +6440,18 @@ input:-webkit-autofill:active {
       margin: 50px 0 50px 0;
       height: 1px;
       background: rgba(255, 255, 255, .3);
+    }
+    .form-util {
+      .trip-types {
+        padding-top: 0;
+        .custom-radio {
+          input {
+            &:checked + label {
+              color: #f9c028 !important;
+            }
+          }
+        }
+      }
     }
   }
   .layer-forms {
@@ -6457,7 +6498,6 @@ input:-webkit-autofill:active {
     }
   }
   .bt-srch {
-    width: 202px;
     height: 56px;
     color: #fff;
     text-align: center;
@@ -6872,9 +6912,41 @@ input:-webkit-autofill:active {
     }
   }
   .layer-search {
+    top: -100px;
     height: 480px;
     .inner {
       height: 480px;
+    }
+    h2 {
+      display: none;
+    }
+    &.layer-scanner {
+      height: 240px;
+      top: -100px;
+      left: 0;
+      &.mutiple {
+        height: 448px;
+      }
+      .inner {
+        height: 240px;
+      }
+      .txts {
+        display: none;
+      }
+      .air-ticketing {
+        display: none;
+      }
+    }
+    &.layer-matching {
+      height: 560px;
+      top: -100px;
+      right: 0;
+      .inner {
+        height: 560px;
+      }
+      .close {
+        right: 10px;
+      }
     }
     &.layer-land {
       height: 480px;
@@ -6888,106 +6960,69 @@ input:-webkit-autofill:active {
         display: none;
       }
     }
+    .scanner-form {
+      width: 1010px;
+      margin: 0 auto;
+      padding-top: 30px;
+      .bt-srch {
+        width: 120px;
+        margin-top: 0;
+      }
+      .custom-input, .custom-select {
+        margin: 0 2px 0 0;
+        vertical-align: top;
+        &.pos {
+          width: 200px;
+        }
+        &.cal {
+          width: 280px;
+        }
+        &.cal-long {
+          width: 605px;
+        }
+        &.arrow {
+          width: 200px;
+          margin-top: 0px;
+        }
+      }
+    }
+    .matching-form {
+      width: 814px;
+      padding-top: 70px;
+      margin: 0 auto;
+    }
+    .matching-result {
+      background: none;
+      width: 192px;
+      height: 56px;
+      bottom: auto;
+      top: 434px;
+      right: 192px;
+      border-radius: 2px;
+      overflow: hidden;
+      .result-inner {
+        display: none;
+      }
+      .result-bts {
+        position: static;
+        bottom: auto;
+        right: auto;
+        button {
+          width: 192px;
+          &.cancel {
+            display: none;
+          }
+        }
+      }
+    }
+    .layer-forms {
+      .row {
+        &:last-child {
+          //width: 615px;
+        }
+      }
+    }
   }
-  //.intro-gate {
-  //  position: absolute;
-  //  top: -100px;
-  //  left: 0;
-  //  width: 100%;
-  //  height: 100%;
-  //  display: none;
-  //  & > .col {
-  //    z-index: 20;
-  //    &.scanner {
-  //      display: none;
-  //      width: 100%;
-  //      height: 240px;
-  //      &.mutiple {
-  //        height: 448px;
-  //      }
-  //    }
-  //    &.matching {
-  //      display: none;
-  //      width: 100%;
-  //      height: 560px;
-  //    }
-  //    .col-inner {
-  //      display: none;
-  //    }
-  //  }
-  //}
-  //.layer-search {
-  //  h2 {
-  //    display: none;
-  //  }
-  //  &.layer-scanner {
-  //    height: 240px;
-  //    top: -100px;
-  //    left: 0;
-  //    &.mutiple {
-  //      height: 448px;
-  //    }
-  //    .inner {
-  //      height: 240px;
-  //    }
-  //    .txts {
-  //      display: none;
-  //    }
-  //    .air-ticketing {
-  //      display: none;
-  //    }
-  //  }
-  //  .scanner-form {
-  //    padding-top: 45px;
-  //  }
-  //  &.layer-matching {
-  //    height: 560px;
-  //    top: -100px;
-  //    right: 0;
-  //    .inner {
-  //      height: 560px;
-  //    }
-  //    .close {
-  //      right: 10px;
-  //    }
-  //  }
-  //  .matching-form {
-  //    width: 814px;
-  //    padding-top: 70px;
-  //    margin: 0 auto;
-  //  }
-  //  .matching-result {
-  //    background: none;
-  //    width: 192px;
-  //    height: 56px;
-  //    bottom: auto;
-  //    top: 434px;
-  //    right: 192px;
-  //    border-radius: 2px;
-  //    overflow: hidden;
-  //    .result-inner {
-  //      display: none;
-  //    }
-  //    .result-bts {
-  //      position: static;
-  //      bottom: auto;
-  //      right: auto;
-  //      button {
-  //        width: 192px;
-  //        &.cancel {
-  //          display: none;
-  //        }
-  //      }
-  //    }
-  //  }
-  //  .layer-forms {
-  //    .row {
-  //      &:last-child {
-  //        //width: 615px;
-  //      }
-  //    }
-  //  }
-  //}
 }
 
 /* footer */
