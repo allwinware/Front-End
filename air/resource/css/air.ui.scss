@@ -6378,6 +6378,7 @@ input:-webkit-autofill:active {
   .result-lists {
     position: relative;
     width: 1200px;
+    min-height: 1100px;
     margin: 0 auto;
     .filters {
       width: 200px;
@@ -6492,8 +6493,12 @@ input:-webkit-autofill:active {
       }
       &__items {
         //border:1px solid #e7e7e7;
+        margin-top: 20px;
         overflow: hidden;
         box-sizing: border-box;
+        &:first-child {
+          margin-top: 0;
+        }
         .min-price-prd {
           position: relative;
           &:hover {
@@ -6592,6 +6597,18 @@ input:-webkit-autofill:active {
                       }
                     }
                   }
+                  &.twice {
+                    .detail-trip-item {
+                      &.stopover {
+                        &.sto1 {
+                          margin-left: -120px;
+                        }
+                        &.sto2 {
+                          margin-left: 30px;
+                        }
+                      }
+                    }
+                  }
                   &:before {
                     content: '';
                     width: 100%;
@@ -6601,6 +6618,15 @@ input:-webkit-autofill:active {
                     top: 50%;
                     left: 0;
                     margin-top: -1px;
+                  }
+                  .label-item {
+                    position: absolute;
+                    top: -15px;
+                    left: 0;
+                    right: 0;
+                  }
+                  .trip-label {
+                    margin-right: 0;
                   }
                   .detail-trip-item {
                     position: absolute;
@@ -6644,9 +6670,20 @@ input:-webkit-autofill:active {
                         right: 0;
                       }
                     }
-                    &.stopover {
+                    &.stopover, &.direct {
+                      width: 90px;
                       position: absolute;
                       left: 50%;
+                      margin-left: -45px;
+                      &:before {
+                        left: 50%;
+                        margin-left: -6px;
+                      }
+                    }
+                    &.direct {
+                      &:before {
+                        display: none;
+                      }
                     }
                     .city {
                       width: 100%;
@@ -6669,9 +6706,24 @@ input:-webkit-autofill:active {
                       font-size: 18px;
                       color: #111;
                     }
+                    .plus {
+                      font-size: 12px;
+                      color: #f9c028;
+                      font-family: 'Geogrotesque-Medium';
+                      position: absolute;
+                      bottom: -1px;
+                      right: -15px;
+                    }
                     .kix-at {
+                      position: absolute;
+                      left: 0;
+                      right: 0;
+                      bottom: -15px;
+                      display: block;
                       font-weight: 500;
+                      font-size: 12px;
                       em {
+                        font-size: 12px;
                         font-family: 'Geogrotesque-Medium';
                       }
                     }
