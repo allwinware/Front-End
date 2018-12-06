@@ -708,7 +708,7 @@
             </div>
             <div class="av-bts">
               <a href="">파트너사 가입하기</a>
-              <a href="">문의하기</a>
+              <a href="" onclick="AIRUI.layer.open('contact-us');return false;">문의하기</a>
             </div>
             <div class="av-numbers">
               <dl>
@@ -1349,6 +1349,96 @@
   </footer>
 </div>
 
+<!-- 문의하기 -->
+<div class="air-layer2" id="contact-us">
+  <div class="inner contact-us">
+    <span class="tit">문의하기</span>
+    <div class="contact-in-scroll">
+      <div class="row solo">
+        <div class="col">
+          <label for="">업종</label>
+          <ul class="company-type">
+            <li>
+              <span class="type-check">
+                <input type="radio" id="tc1" name="tc">
+                <label for="tc1">항공사</label>
+              </span>
+            </li>
+            <li>
+              <span class="type-check">
+                <input type="radio" id="tc2" name="tc">
+                <label for="tc2">ATR</label>
+              </span>
+            </li>
+            <li>
+              <span class="type-check">
+                <input type="radio" id="tc3" name="tc">
+                <label for="tc3">BSP</label>
+              </span>
+            </li>
+            <li>
+              <span class="type-check">
+                <input type="radio" id="tc4" name="tc">
+                <label for="tc4">랜드사</label>
+              </span>
+            </li>
+            <li>
+              <span class="type-check">
+                <input type="radio" id="tc5" name="tc">
+                <label for="tc5">기타</label>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row solo">
+        <div class="col">
+          <label for="">업체명</label>
+          <span class="custom-input"><input type="text" placeholder="업체명을 입력하세요"></span>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col">
+          <label for="">담당자명</label>
+          <span class="custom-input mr10"><input type="text" placeholder="홍길동"></span>
+        </div>
+        <div class="col">
+          <label for="">답변 받을 연락처</label>
+          <span class="custom-input mr10"><input type="text" placeholder="숫자만 입력하세요 (-제외)"></span>
+        </div>
+      </div>
+      <div class="row solo">
+        <div class="col">
+          <label for="">제목</label>
+          <span class="custom-input"><input type="text" placeholder="제목을 입력하세요"></span>
+        </div>
+      </div>
+      <div class="row solo">
+        <div class="col">
+          <label for="">내용 <em class="byte">0 / 2000byte</em></label>
+          <span class="custom-textarea"><textarea name="" id="" rows="3"></textarea></span>
+        </div>
+      </div>
+      <div class="row solo">
+        <div class="col">
+          <label for="">개인정보의 수집 및 이용목적, 이용기간</label>
+          <div class="contact-policy">
+            <span class="custom-textarea"><textarea name="" id="" rows="3"></textarea></span>
+            <span class="custom-check">
+              <input type="checkbox" name="" id="check-ok">
+                <label for="check-ok">개인정보의 수집 및 이용목적, 이용기간에 동의합니다.</label>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-bts">
+      <button type="button" class="gray" onclick="AIRUI.layer.close('contact-us');">닫기</button>
+      <button type="button" class="yellow">문의하기</button>
+    </div>
+  </div>
+</div>
+<!-- //문의하기 -->
 <script src="../resource/js/jquery-2.2.4.min.js"></script>
 <script src="../resource/js/jquery.ui.min.js"></script>
 <script src="../resource/js/air.util.plugin.min.js"></script>
@@ -1408,6 +1498,10 @@
       return false;
     });
 
+    ///////////////////////////////////////////////////////////////////////////
+    //서비스 소개 js
+    $(".contact-in-scroll").mCustomScrollbar();
+
     //카운터
     $('.count').each(function () {
       $(this).prop('Counter', 0).animate({
@@ -1465,6 +1559,7 @@
         $('.about-tabs .depth2 li').hide();
       }
     });
+    ///////////////////////////////////////////////////////////////////////////
 
     // //인트로 액션
     // var DefaultDuration = 0.4,
