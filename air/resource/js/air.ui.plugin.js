@@ -840,6 +840,7 @@
      */
     var clickNextBind = function (e) {
       e.preventDefault();
+      e.stopPropagation();
       if (slider.controls.el.hasClass('disabled')) {
         return;
       }
@@ -857,6 +858,7 @@
      */
     var clickPrevBind = function (e) {
       e.preventDefault();
+      e.stopPropagation();
       if (slider.controls.el.hasClass('disabled')) {
         return;
       }
