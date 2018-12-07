@@ -732,8 +732,8 @@
           <div class="about-detail">
             <div class="about-tabs">
               <ul class="depth1">
-                <li class="active"><a href="#BSP"><span><em>WHY?</em>BSP</span></a></li>
-                <li><a href="#ATR"><span><em>WHY?</em>ATR</span></a></li>
+                <li><a href="#BSP"><span><em>WHY?</em>BSP</span></a></li>
+                <li class="active"><a href="#ATR"><span><em>WHY?</em>ATR</span></a></li>
                 <li><a href="#AIRLINE"><span><em>WHY?</em>AIRLINE</span></a></li>
                 <li><a href="#LANDPLUS"><span><em>WHY?</em>LAND</span></a></li>
               </ul>
@@ -855,6 +855,7 @@
                   </div>
                   <div class="in-section matching">
                     <div class="row info1">
+                      <strong class="countdown">23:59:59</strong>
                       <div class="txts">
                         <p class="in-txt2">
                           단체항공권을<br>
@@ -1507,7 +1508,7 @@
       $(this).prop('Counter', 0).animate({
         Counter: $(this).text()
       }, {
-        duration: 2000,
+        duration: 10000,
         easing: 'swing',
         step: function (now) {
           $(this).text(Math.ceil(now).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
@@ -1532,9 +1533,9 @@
     });
 
     var cateMenuTop = $('.about-visual').height(), sections = $('.in-section');
-    $('.about-tabs').find('a').on('click', function () {
+    $('.about-tabs .depth1').find('a').on('click', function () {
       var $el = $(this), id = $el.attr('href');
-      var index = $('.about-tabs').find('a').index($(this));
+      var index = $('.about-tabs .depth1').find('a').index($(this));
       $('.about-tabs').find('li').removeClass('active');
       $(this).parent().addClass('active');
       $('.about-section').hide();
@@ -1548,7 +1549,7 @@
 
       if (currentPos >= cateMenuTop && currentPos < cateMenuBtm) {
         $(sections).each(function (i) {
-          var top = $(this).offset().top,
+          var top = $(this).offset().top - 60,
               bottom = top + $(this).outerHeight();
           if (currentPos >= top && currentPos <= bottom) {
             $('.about-tabs .depth2 li').hide();
