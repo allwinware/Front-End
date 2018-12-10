@@ -715,6 +715,8 @@
           <br>
           <button type="button" onclick="$('#crs-share').show();return false;">CRS 공유방법</button>
           <br>
+          <button type="button" onclick="$('#pnr-reg').show();return false;">PNR 입력</button>
+          <br>
           <button type="button" onclick="$('#air-fare-detail').show();return false;">항공료 상세</button>
           <br>
           <button type="button" onclick="AIRUI.layer.open('srch-loading');">스캐너 로딩</button>
@@ -2557,6 +2559,30 @@
 </div>
 <!-- // CRS 공유방법 -->
 
+<!-- PNR 입력 -->
+<div class="air-layer" id="pnr-reg">
+  <div class="inner pnr-reg">
+    <div class="layer-header">
+      <h1 class="type1">PNR 입력 </h1>
+    </div>
+    <div class="layer-body">
+      <div class="pnr-reg-txts">
+        <p class="pnr-txt">
+          이 곳에 각 단말기 상의 보여지는 PNR 전체를 처음부터 PHONE 필드까지 정확히 드래그 하여 <strong>붙여넣기</strong> 한 후, 입력완료 버튼을 눌러주세요.<br>
+          정확히, 드래그 하여, 붙여넣었다면 PNR정보를 자동으로 발권의뢰 정보로 불러올 수 있습니다.<br>
+          단, 이름 사이 띄어쓰기 불가 (MR, MS, MSTR, MISS 타이틀 필수)
+        </p>
+        <div class="pnr-textarea">
+          <textarea name="" id="" placeholder="입력하세요."></textarea>
+        </div>
+        <button type="button">입력완료</button>
+      </div>
+    </div>
+    <button type="button" class="close">close</button>
+  </div>
+</div>
+<!-- // PNR 입력 -->
+
 <!-- 매칭 시작 -->
 <div class="air-layer2" id="matching-start">
   <div class="inner matching-start">
@@ -3378,7 +3404,7 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
-    // AIRUI.layer.open('contact-us');
+    AIRUI.layer.open('pnr-reg');
     $(".layer-srch-result .in-scroll").mCustomScrollbar();
     $(".estimate-scroll").mCustomScrollbar();
     $(".contact-in-scroll").mCustomScrollbar();
