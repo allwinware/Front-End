@@ -8228,12 +8228,15 @@ input:-webkit-autofill:active {
     background: rgba(0, 0, 0, .8);
   }
   .result-detail-inner {
-    width: 1091px;
+    width: 803px;
     background: #fff;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
+    &.expend {
+      width: 1091px;
+    }
   }
   .result-detail-tit {
     position: absolute;
@@ -8294,32 +8297,47 @@ input:-webkit-autofill:active {
         margin-top: 40px;
       }
       .tit {
+        position: relative;
         display: block;
         font-size: 16px;
         color: #111;
         font-weight: 700;
         line-height: 100%;
         padding-bottom: 10px;
+        button {
+          position: absolute;
+          bottom: 8px;
+          right: 2px;
+          width: 80px;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          color: #fff;
+          background: #292a4d;
+          font-size: 12px;
+          font-weight: 700;
+        }
       }
     }
     .col {
+      position: relative;
       display: inline-block;
       box-sizing: border-box;
       &.schedule {
-        //width:723px;
-        -webkit-flex: 1;
-        flex: 1;
+        width: 723px;
       }
       &.fares {
-        //width:723px;
-        -webkit-flex: 1;
-        flex: 1;
+        width: 723px;
       }
       &.benefit {
+        position: absolute;
+        top: 0;
+        right: 0;
         width: 248px;
       }
     }
     .in-box {
+      position: relative;
       height: 307px;
       box-sizing: border-box;
     }
@@ -8496,6 +8514,271 @@ input:-webkit-autofill:active {
         background: #e7e7e7;
         &.awa-slide_pager-link--active {
           background: #f9c028;
+        }
+      }
+    }
+    .schedule-view {
+      border: 1px solid #e7e7e7;
+      border-radius: 5px;
+      overflow: hidden;
+      .min-price-prd {
+        position: relative;
+        height: 266px;
+        .info1 {
+          position: relative;
+          box-sizing: border-box;
+          min-height: 266px;
+          display: table;
+          padding: 25px 0;
+          .trip-items {
+            //height: 245px;
+            display: table-cell;
+            vertical-align: middle;
+            font-size: 0;
+            .trip-item {
+              width: 723px;
+              padding: 15px 0;
+              .airline {
+                width: 80px;
+                display: inline-block;
+                vertical-align: top;
+                margin-left: 40px;
+                .airline-code__wing {
+                  height: auto;
+                  line-height: 180%;
+                  .tail {
+                    display: block;
+                    margin: 0;
+                  }
+                  .name {
+                    width: 70px;
+                    font-size: 12px;
+                    display: block;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    word-wrap: normal;
+                    overflow: hidden;
+                  }
+                }
+              }
+              .plane-code {
+                width: 140px;
+                display: inline-block;
+                vertical-align: top;
+                padding-left: 15px;
+                margin-top: 10px;
+                strong {
+                  font-family: 'Geogrotesque-SemiBold';
+                  font-size: 12px;
+                }
+                .total-at {
+                  display: block;
+                  font-weight: 500;
+                  font-size: 12px;
+                }
+              }
+              .detail-trips {
+                position: relative;
+                display: inline-block;
+                vertical-align: top;
+                width: 370px;
+                height: 30px;
+                margin-top: 10px;
+                &.once {
+                  .detail-trip-item {
+                    &.stopover {
+
+                    }
+                  }
+                }
+                &.twice {
+                  .detail-trip-item {
+                    &.stopover {
+                      &.sto1 {
+                        margin-left: -120px;
+                      }
+                      &.sto2 {
+                        margin-left: 30px;
+                      }
+                    }
+                  }
+                }
+                &:before {
+                  content: '';
+                  width: 100%;
+                  height: 2px;
+                  background: #e7e7e7;
+                  position: absolute;
+                  top: 50%;
+                  left: 0;
+                  margin-top: -1px;
+                }
+                .label-item {
+                  position: absolute;
+                  top: -15px;
+                  left: 0;
+                  right: 0;
+                }
+                .trip-label {
+                  margin-right: 0;
+                }
+                .detail-trip-item {
+                  position: absolute;
+                  top: 50%;
+                  width: 42px;
+                  height: 30px;
+                  margin-top: -15px;
+                  text-align: center;
+                  &:before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    background: #f9c028;
+                    border: 4px solid #fff;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 12px;
+                    margin-top: -6px;
+                    box-sizing: border-box;
+                    overflow: hidden;
+                  }
+                  &.start, &.end {
+                  }
+                  &.start {
+                    left: -21px;
+                    &:before {
+                      left: 50%;
+                      margin-left: -6px;
+                    }
+                    .city, .at {
+                      left: 0;
+                    }
+                  }
+                  &.end {
+                    right: -21px;
+                    &:before {
+                      right: 50%;
+                      margin-right: -6px;
+                    }
+                    .city, .at {
+                      right: 0;
+                    }
+                  }
+                  &.stopover, &.direct {
+                    width: 90px;
+                    position: absolute;
+                    left: 50%;
+                    margin-left: -45px;
+                    &:before {
+                      left: 50%;
+                      margin-left: -6px;
+                    }
+                  }
+                  &.direct {
+                    &:before {
+                      display: none;
+                    }
+                  }
+                  .city {
+                    width: 100%;
+                    position: absolute;
+                    top: -10px;
+                    text-align: center;
+                    line-height: 100%;
+                    display: inline-block;
+                    font-family: 'Geogrotesque-Medium';
+                    font-size: 14px;
+                    color: #aaa;
+                  }
+                  .at {
+                    position: absolute;
+                    bottom: -15px;
+                    font-weight: normal;
+                    line-height: 100%;
+                    display: inline-block;
+                    font-family: 'Geogrotesque-SemiBold';
+                    font-size: 18px;
+                    color: #111;
+                  }
+                  .plus {
+                    font-size: 12px;
+                    color: #f9c028;
+                    font-family: 'Geogrotesque-Medium';
+                    position: absolute;
+                    bottom: -1px;
+                    right: -15px;
+                  }
+                  .kix-at {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: -15px;
+                    display: block;
+                    font-weight: 500;
+                    font-size: 12px;
+                    em {
+                      font-size: 12px;
+                      font-family: 'Geogrotesque-Medium';
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .bt-schedule {
+        positiopn: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background: #f7f7f7;
+        border-top: 1px solid #e7e7e7;
+        font-weight: 700;
+        font-size: 13px;
+      }
+    }
+    .fare-tb {
+      width: 723px;
+      thead {
+        th {
+          border-top: 1px solid #111;
+          border-bottom: 1px solid #111;
+          height: 50px;
+          font-weight: 700;
+          text-align: center;
+          font-size: 12px;
+        }
+      }
+      tbody {
+        th {
+          font-size: 13px;
+          border-bottom: 1px solid #e7e7e7;
+          text-align: center;
+        }
+        td {
+          height: 50px;
+          position: relative;
+          font-size: 13px;
+          font-family: 'Geogrotesque-Regular';
+          border-bottom: 1px solid #e7e7e7;
+          text-align: center;
+          &:after {
+            content: '원';
+            font-sise: 13px;
+          }
+        }
+        .total {
+          th {
+            background: #f5f5f8;
+          }
+          td {
+            background: #f5f5f8;
+            font-family: 'Geogrotesque-SemiBold';
+          }
         }
       }
     }
