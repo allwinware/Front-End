@@ -2266,6 +2266,8 @@ input:-webkit-autofill:active {
     }
   }
   .srching-input {
+    position:relative;
+    width:820px;
     //margin-bottom: 40px;
     ::-webkit-input-placeholder {
       color: #fff;
@@ -2290,11 +2292,29 @@ input:-webkit-autofill:active {
       font-size: 18px;
       padding-bottom: 10px;
       color: #fff;
-      width: 820px;
+      width: 100%;
       border: 0;
       border-bottom: 1px solid #fff;
       text-indent: 30px;
       background: url('https://cdn.allwin.bid/air/resource/img/ico_srch.png') 0 6px no-repeat;
+    }
+    .del{
+      position:absolute;
+      top:10px;
+      right:0;
+      font-size:12px;
+      height:16px;
+      line-height:16px;
+      color:#fff;
+      &:before{
+        content:'';
+        display:inline-block;
+        width:16px;
+        height:16px;
+        background: url('../../resource/img/ico_val-close.png') center center no-repeat;
+        vertical-align: top;
+        margin-right:5px;
+      }
     }
     .result-nums {
       width: 350px;
@@ -2529,6 +2549,7 @@ input:-webkit-autofill:active {
       left: 0;
       width: 144px;
       height: 100%;
+      min-height:300px;
       border-right: 1px solid #f6d699;
       li {
         margin-bottom: 20px;
@@ -2669,6 +2690,48 @@ input:-webkit-autofill:active {
               em {
                 color: #000;
               }
+            }
+            &:hover + label {
+              background-color: rgba(255, 255, 255, 0.1);
+            }
+          }
+        }
+        .land-radio {
+          position: relative;
+          display: inline-block;
+          width: 152px;
+          height: 52px;
+          box-sizing: border-box;
+          input {
+            position: absolute;
+            opacity: 0;
+            & + label {
+              font-family: 'Noto Sans';
+              display: block;
+              font-size: 16px;
+              color: #fff;
+              width: 152px;
+              height: 52px;
+              line-height: 52px;
+              border: 1px solid #fff;
+              box-sizing: border-box;
+              text-align: left;
+              overflow: hidden;
+              cursor: pointer;
+              box-sizing: border-box;
+              text-align:center;
+              //span {
+              //  display: block;
+              //  text-overflow: ellipsis;
+              //  white-space: nowrap;
+              //  word-wrap: normal;
+              //  overflow: hidden;
+              //}
+            }
+            &:checked + label {
+              color: #000;
+              border: 1px solid #000;
+              font-weight:700;
             }
             &:hover + label {
               background-color: rgba(255, 255, 255, 0.1);
@@ -5495,13 +5558,12 @@ input:-webkit-autofill:active {
       margin-left: 0;
     }
     .land-srch-input {
-      width: 534px;
+      width: 1015px;
       height: 40px;
       position: absolute;
       top: 190px;
       left: 50%;
-      margin-left: -267px;
-      background: url('https://cdn.allwin.bid/air/resource/img/land/ico_srch.png') 0 5px no-repeat;
+      margin-left: -508px;
       ::-webkit-input-placeholder {
         font-size: 16px;
         font-weight: 700;
@@ -5522,7 +5584,7 @@ input:-webkit-autofill:active {
         font-weight: 700;
         color: #fff;
       }
-      button {
+      button{
         position: absolute;
         top: 0;
         right: 0;
@@ -5543,15 +5605,26 @@ input:-webkit-autofill:active {
           color: #000;
         }
       }
-      input {
-        position: relative;
-        top: -10px;
-        width: 421px;
-        height: 50px;
-        background: none;
-        text-indent: 40px;
-        color: #fff;
-        border-bottom: 3px solid #f9c028;
+      .in{
+        position:relative;
+        width:791px;
+        background: url('https://cdn.allwin.bid/air/resource/img/land/ico_srch.png') 0 5px no-repeat;
+        .land-total-srch-bt {
+          width: 100px;
+        }
+        .land-total-srch-input {
+          position: relative;
+          top: -10px;
+          width: 679px;
+          height: 50px;
+          background: none;
+          text-indent: 40px;
+          color: #fff;
+          border-bottom: 3px solid #f9c028;
+        }
+      }
+      .land-name-srch-bt{
+        width:216px;
       }
     }
     .land-group {
@@ -12528,6 +12601,7 @@ all and (min-device-pixel-ratio: 1.5) {
   margin-left: -600px;
   text-align: right;
   z-index: 10;
+  font-size:0;
   &.absolute {
     position: absolute;
     bottom: auto;

@@ -1803,33 +1803,52 @@ input:-webkit-autofill:active {
           background: url(https://cdn.allwin.bid/air/resource/img/ico_select-arrow2-on.png) center center no-repeat !important;
           -webkit-transform: rotateZ(0);
           transform: rotateZ(0); }
-  .air-layer .srching-input ::-webkit-input-placeholder {
-    color: #fff;
-    font-size: 18px; }
-  .air-layer .srching-input ::-moz-placeholder {
-    color: #fff;
-    font-size: 18px; }
-  .air-layer .srching-input :-ms-input-placeholder {
-    color: #fff;
-    font-size: 18px; }
-  .air-layer .srching-input :-moz-placeholder {
-    color: #fff;
-    font-size: 18px; }
-  .air-layer .srching-input input {
-    font-size: 18px;
-    padding-bottom: 10px;
-    color: #fff;
-    width: 820px;
-    border: 0;
-    border-bottom: 1px solid #fff;
-    text-indent: 30px;
-    background: url("https://cdn.allwin.bid/air/resource/img/ico_srch.png") 0 6px no-repeat; }
-  .air-layer .srching-input .result-nums {
-    width: 350px;
-    border-bottom: 1px solid #fff;
-    font-size: 18px;
-    color: #fff;
-    padding-bottom: 5px; }
+  .air-layer .srching-input {
+    position: relative;
+    width: 820px; }
+    .air-layer .srching-input ::-webkit-input-placeholder {
+      color: #fff;
+      font-size: 18px; }
+    .air-layer .srching-input ::-moz-placeholder {
+      color: #fff;
+      font-size: 18px; }
+    .air-layer .srching-input :-ms-input-placeholder {
+      color: #fff;
+      font-size: 18px; }
+    .air-layer .srching-input :-moz-placeholder {
+      color: #fff;
+      font-size: 18px; }
+    .air-layer .srching-input input {
+      font-size: 18px;
+      padding-bottom: 10px;
+      color: #fff;
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid #fff;
+      text-indent: 30px;
+      background: url("https://cdn.allwin.bid/air/resource/img/ico_srch.png") 0 6px no-repeat; }
+    .air-layer .srching-input .del {
+      position: absolute;
+      top: 10px;
+      right: 0;
+      font-size: 12px;
+      height: 16px;
+      line-height: 16px;
+      color: #fff; }
+      .air-layer .srching-input .del:before {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: url("../../resource/img/ico_val-close.png") center center no-repeat;
+        vertical-align: top;
+        margin-right: 5px; }
+    .air-layer .srching-input .result-nums {
+      width: 350px;
+      border-bottom: 1px solid #fff;
+      font-size: 18px;
+      color: #fff;
+      padding-bottom: 5px; }
   .air-layer .domestic-items {
     display: block;
     font-size: 0;
@@ -2004,6 +2023,7 @@ input:-webkit-autofill:active {
       left: 0;
       width: 144px;
       height: 100%;
+      min-height: 300px;
       border-right: 1px solid #f6d699; }
       .air-layer .airlines .airline-group li {
         margin-bottom: 20px; }
@@ -2116,6 +2136,36 @@ input:-webkit-autofill:active {
               .air-layer .airlines .airline-group-child .airline-items .airline-radio input:checked + label em {
                 color: #000; }
             .air-layer .airlines .airline-group-child .airline-items .airline-radio input:hover + label {
+              background-color: rgba(255, 255, 255, 0.1); }
+        .air-layer .airlines .airline-group-child .airline-items .land-radio {
+          position: relative;
+          display: inline-block;
+          width: 152px;
+          height: 52px;
+          box-sizing: border-box; }
+          .air-layer .airlines .airline-group-child .airline-items .land-radio input {
+            position: absolute;
+            opacity: 0; }
+            .air-layer .airlines .airline-group-child .airline-items .land-radio input + label {
+              font-family: 'Noto Sans';
+              display: block;
+              font-size: 16px;
+              color: #fff;
+              width: 152px;
+              height: 52px;
+              line-height: 52px;
+              border: 1px solid #fff;
+              box-sizing: border-box;
+              text-align: left;
+              overflow: hidden;
+              cursor: pointer;
+              box-sizing: border-box;
+              text-align: center; }
+            .air-layer .airlines .airline-group-child .airline-items .land-radio input:checked + label {
+              color: #000;
+              border: 1px solid #000;
+              font-weight: 700; }
+            .air-layer .airlines .airline-group-child .airline-items .land-radio input:hover + label {
               background-color: rgba(255, 255, 255, 0.1); }
   .air-layer .passengers {
     font-size: 0;
@@ -4263,13 +4313,12 @@ input:-webkit-autofill:active {
       opacity: 1;
       margin-left: 0; }
     .layer-search.layer-land .land-srch-input {
-      width: 534px;
+      width: 1015px;
       height: 40px;
       position: absolute;
       top: 190px;
       left: 50%;
-      margin-left: -267px;
-      background: url("https://cdn.allwin.bid/air/resource/img/land/ico_srch.png") 0 5px no-repeat; }
+      margin-left: -508px; }
       .layer-search.layer-land .land-srch-input ::-webkit-input-placeholder {
         font-size: 16px;
         font-weight: 700;
@@ -4305,15 +4354,23 @@ input:-webkit-autofill:active {
         .layer-search.layer-land .land-srch-input button:hover {
           background: #fff;
           color: #000; }
-      .layer-search.layer-land .land-srch-input input {
+      .layer-search.layer-land .land-srch-input .in {
         position: relative;
-        top: -10px;
-        width: 421px;
-        height: 50px;
-        background: none;
-        text-indent: 40px;
-        color: #fff;
-        border-bottom: 3px solid #f9c028; }
+        width: 791px;
+        background: url("https://cdn.allwin.bid/air/resource/img/land/ico_srch.png") 0 5px no-repeat; }
+        .layer-search.layer-land .land-srch-input .in .land-total-srch-bt {
+          width: 100px; }
+        .layer-search.layer-land .land-srch-input .in .land-total-srch-input {
+          position: relative;
+          top: -10px;
+          width: 679px;
+          height: 50px;
+          background: none;
+          text-indent: 40px;
+          color: #fff;
+          border-bottom: 3px solid #f9c028; }
+      .layer-search.layer-land .land-srch-input .land-name-srch-bt {
+        width: 216px; }
     .layer-search.layer-land .land-group {
       font-size: 0;
       position: absolute;
@@ -9272,7 +9329,8 @@ input:-webkit-autofill:active {
   left: 50%;
   margin-left: -600px;
   text-align: right;
-  z-index: 10; }
+  z-index: 10;
+  font-size: 0; }
   .land-detail-mail.absolute {
     position: absolute;
     bottom: auto;
