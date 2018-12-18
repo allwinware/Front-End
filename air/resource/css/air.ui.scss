@@ -1552,6 +1552,63 @@ input:-webkit-autofill:active {
   }
 }
 
+.csr-tooltip {
+  position: absolute;
+  top: 53px;
+  left: 50%;
+  -ms-transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  width: 317px;
+  border: 1px solid #7d7d7d;
+  box-sizing: border-box;
+  background: #fff;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    margin-left: -3px;
+    width: 6px;
+    height: 4px;
+    background: url('https://cdn.allwin.bid/air/resource/img/ico_tooltip-arrow-top.png') center center no-repeat;
+  }
+  .csr-tooltip-inner {
+    position: relative;
+    padding: 20px;
+  }
+  strong {
+    font-weight: 700;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  li {
+    font-size: 12px;
+    line-height: 19px;
+    padding: 2px 0;
+  }
+  .enter {
+    margin-left: 6px;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid #888;
+    font-size: 11px;
+    padding: 0 17px 0 6px;
+    font-family: 'Geogrotesque-Regular';
+    background: url('../../resource/img/ico_enter.png') 30px center no-repeat;
+  }
+  button {
+    position: absolute;
+    top: 23px;
+    right: 20px;
+    width: 13px;
+    height: 13px;
+    background: url(https://cdn.allwin.bid/air/resource/img/ico_close4.png) center center no-repeat;
+    background-size: 13px 13px;
+  }
+}
+
 .awa-datepicker {
   min-width: 230px;
   position: absolute;
@@ -3063,6 +3120,45 @@ input:-webkit-autofill:active {
       text-align: center;
     }
   }
+  .crs-tabs {
+    position: relative;
+    margin-bottom: 55px;
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
+    font-size: 0;
+    li {
+      position: relative;
+      display: inline-block;
+      width: 100px;
+      text-align: center;
+      &.is-actived {
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: #fff;
+        }
+        a {
+          font-weight: 700;
+        }
+      }
+      &:hover {
+        a {
+          background: rgba(255, 255, 255, .2);
+        }
+      }
+    }
+    a {
+      font-size: 16px;
+      color: #fff;
+      display: block;
+      padding: 10px 0;
+      -webkit-transition: all .3s;
+      transition: all .3s;
+    }
+  }
   .crs-lists {
     dl {
       margin-bottom: 50px;
@@ -3076,6 +3172,7 @@ input:-webkit-autofill:active {
     li {
       font-size: 16px;
       color: #fff;
+      line-height: 24px;
       em {
         display: inline-block;
         vertical-align: top;
@@ -4762,7 +4859,7 @@ input:-webkit-autofill:active {
     left: 0;
     right: 0;
     background: #f5f5f5;
-    overflow: hidden;
+    //overflow: hidden;
     z-index: 1;
     -webkit-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
     -moz-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
@@ -4794,6 +4891,7 @@ input:-webkit-autofill:active {
     .custom-select {
       text-align: left;
       margin-right: 5px;
+      position: relative;
       select {
         width: 200px;
       }
@@ -5360,6 +5458,11 @@ input:-webkit-autofill:active {
     .inner {
       //opacity: 0;
     }
+    .air-ticketing {
+      .csr-tooltip {
+        top: 61px;
+      }
+    }
   }
   &.layer-matching {
     background: url('https://cdn.allwin.bid/air/resource/img/img_main-visual-matching2.jpg') center center no-repeat;
@@ -5912,6 +6015,9 @@ input:-webkit-autofill:active {
       white-space: nowrap;
       word-wrap: normal;
       overflow: hidden;
+    }
+    .custom-select {
+      position: relative;
     }
   }
   .bt-srch {
