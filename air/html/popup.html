@@ -748,19 +748,25 @@
           <br>
           <button type="button" onclick="AIRUI.layer.open('admin-reg');">담당자 등록</button>
           <br>
+          <button type="button" onclick="AIRUI.layer.open('admin-reg2');">담당자 등록(신규)</button>
+          <br>
           <button type="button" onclick="AIRUI.layer.open('benefit-upload');">커미션 업로드</button>
           <br>
           <button type="button" onclick="AIRUI.layer.open('estimate-contact');">견적 문의 메일 보내기</button>
           <br>
           <button type="button" onclick="AIRUI.layer.open('contact-us');">문의하기</button>
           <br>
-          <button type="button" onclick="AIRUI.layer.open('contact-us2');">문의하기2</button>
+          <button type="button" onclick="AIRUI.layer.open('contact-us2');">문의하기(신규)</button>
           <br>
           <button type="button" onclick="AIRUI.layer.open('land-apply');">입점 신청</button>
           <br>
           <button type="button" onclick="AIRUI.layer.open('auth-phone');">휴대폰 인증</button>
           <br>
           <button type="button" onclick="AIRUI.layer.open('auth-mail');">이메일 인증</button>
+          <br>
+          <button type="button" onclick="AIRUI.layer.open('member-out');">회원 탈퇴</button>
+          <br>
+          <button type="button" onclick="AIRUI.layer.open('member-out2');">회원 탈퇴 확인</button>
         </div>
       </div>
     </div>
@@ -3392,8 +3398,103 @@
       </div>
     </div>
     <div class="layer-bts">
-      <button type="button" class="gray" onclick="AIRUI.layer.close('sms-send');">닫기</button>
+      <button type="button" class="gray" onclick="AIRUI.layer.close('admin-reg');">닫기</button>
       <button type="button" class="yellow">전송하기</button>
+    </div>
+  </div>
+</div>
+<!-- //담당자 등록 -->
+
+<!-- 담당자 등록 -->
+<div class="air-layer2" id="admin-reg2">
+  <div class="inner admin-reg">
+    <span class="tit">담당자 등록</span>
+    <div class="row solo">
+      <div class="col">
+        <label for="">담당자 이름</label>
+        <span class="custom-input"><input type="text" placeholder="홍길동"></span>
+      </div>
+    </div>
+    <div class="row solo">
+      <div class="col">
+        <label for="">ID (e-mail) <em>로그인 ID로 사용됩니다.</em></label>
+        <span class="custom-input"><input type="text" placeholder="exam@allwin.com"></span>
+        <p class="required">이미 가입된 e-mail 입니다</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="">비밀번호</label>
+        <span class="custom-input"><input type="password" placeholder=""></span>
+        <p class="required">숫자, 영문 포함 8자 이상 입력하세요</p>
+      </div>
+      <div class="col">
+        <label for="">비밀번호 확인</label>
+        <span class="custom-input"><input type="password" placeholder=""></span>
+        <p class="required">비밀번호가 맞지 않습니다</p>
+      </div>
+    </div>
+    <div class="row solo">
+      <div class="col">
+        <label for="">회사 직통번호</label>
+        <span class="custom-input"><input type="password" placeholder="숫자만 입력하세요 (-제외)"></span>
+      </div>
+    </div>
+    <div class="row solo">
+      <div class="col">
+        <label for="">휴대폰 번호</label>
+        <div class="phone-input">
+          <span class="custom-input "><input type="text" placeholder="숫자만 입력 (-제외)"><em class="time">유효시간  04:43</em></span>
+          <button type="button">인증번호 발송</button>
+        </div>
+        <p class="auth-txt">인증되었습니다.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="">권한 여부</label>
+        <span class="custom-select">
+                    <select name="" id="" style="width:100%;">
+                        <option value="">일반 담당자</option>
+                        <option value="">관리자</option>
+                    </select>
+                </span>
+      </div>
+      <div class="col">
+        <label for="">재직 여부</label>
+        <span class="custom-select">
+                    <select name="" id="" style="width:100%;">
+                        <option value="">재직여부</option>
+                        <option value="">재직</option>
+                        <option value="">휴직</option>
+                        <option value="">퇴사</option>
+                    </select>
+                </span>
+      </div>
+    </div>
+    <div class="row solo">
+      <div class="col">
+        <label for="">마케팅 수신동의</label>
+        <div class="marketing-check">
+          <p>등록하신 휴대폰 번호, e-mail 정보로 특가항공권 정보 및 이벤트 소식 등을<br>
+            받으실 수 있습니다. </p>
+          <span class="custom-check">
+                        <input type="checkbox" id="marketing-sms">
+                        <label for="marketing-sms">SMS</label>
+                   </span>
+          <span class="custom-check">
+                        <input type="checkbox" id="marketing-mail">
+                        <label for="marketing-mail">E-MAIL</label>
+                   </span>
+        </div>
+        <div class="out-link">
+          <a href="">탈퇴하기</a>
+        </div>
+      </div>
+    </div>
+    <div class="layer-bts">
+      <button type="button" class="gray" onclick="AIRUI.layer.close('admin-reg2');">닫기</button>
+      <button type="button" class="yellow">수정</button>
     </div>
   </div>
 </div>
@@ -3414,6 +3515,73 @@
         탈퇴 후 언제든 다시 재가입이 가능하며, 재가입 시 모든 이력은 복원되지 않습니다.
       </li>
     </ul>
+    <div class="out-form">
+      <strong class="tits">탈퇴 계정 확인</strong>
+      <div class="row">
+        <div class="col">
+          <label for="">ID (e-mail)</label>
+          <span class="custom-input"><input type="text" placeholder="" value="emily@allwin.com " disabled="disabled"></span>
+        </div>
+        <div class="col">
+          <label for="">비밀번호</label>
+          <span class="custom-input"><input type="password" placeholder=""></span>
+          <p class="required">비밀번호가 맞지 않습니다</p>
+        </div>
+      </div>
+      <div class="row solo mb0">
+        <div class="col">
+          <p class="choice-tit">
+            <strong>탈퇴사유를 알려주세요.</strong>
+            보내주신 의견을 참고하여 더 좋은 서비스로 보답 드리겠습니다.
+          </p>
+          <ul class="out-lists">
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol1" name="out-list">
+                <label for="ol1">이벤트 등의 목적으로 한시적 이용 </label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol2" name="out-list">
+                <label for="ol2">불친절한 응대</label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol3" name="out-list">
+                <label for="ol3">시스템의 잦은 오류 및 장애</label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol4" name="out-list">
+                <label for="ol4">원하는 혜택이 없음</label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol5" name="out-list">
+                <label for="ol5">퇴사 혹은 본 사업자에 귀속되지 않음</label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol6" name="out-list">
+                <label for="ol6">기타</label>
+              </span>
+              <span class="custom-input"><input type="text"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="out-check">
+      <span class="custom-check">
+        <input type="checkbox" id="out-check">
+        <label for="out-check">회원탈퇴에 대한 내용을 모두 확인하였으며 이에 동의합니다.</label>
+      </span>
+    </div>
     <div class="layer-bts">
       <button type="button" class="gray" onclick="AIRUI.layer.close('member-out');">닫기</button>
       <button type="button" class="yellow">회원 탈퇴</button>
@@ -3421,6 +3589,97 @@
   </div>
 </div>
 <!-- //회원탈퇴 -->
+
+<!-- 회원탈퇴 확인 -->
+<div class="air-layer2" id="member-out2">
+  <div class="inner member-out">
+    <span class="tit">회원 탈퇴</span>
+    <p class="out-txt1">그 동안 올윈에어에 보내주신 성원에 감사드립니다.</p>
+    <ul class="out-txt2">
+      <li>
+        회원 탈퇴 시에는 개인정보취급방침에 의거하여 모든 개인정보가 삭제됩니다.<br>
+        단, 개인정보취급방침 제3조 [개인정보의 보유 및 이용기간]에 의거 보존할 의무가
+        있는 경우 회사는 회원의 개인정보를 보관합니다.
+      </li>
+      <li>
+        탈퇴 후 언제든 다시 재가입이 가능하며, 재가입 시 모든 이력은 복원되지 않습니다.
+      </li>
+    </ul>
+    <div class="out-form">
+      <strong class="tits">탈퇴 계정 확인</strong>
+      <div class="row solo">
+        <div class="col">
+          <label for="">ID (e-mail)</label>
+          <span class="custom-input"><input type="text" placeholder="" value="emily@allwin.com " disabled="disabled"></span>
+        </div>
+      </div>
+      <div class="row solo mb0">
+        <div class="col">
+          <p class="choice-tit">
+            <strong>탈퇴사유를 알려주세요.</strong>
+            보내주신 의견을 참고하여 더 좋은 서비스로 보답 드리겠습니다.
+          </p>
+          <ul class="out-lists">
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol1" name="out-list">
+                <label for="ol1">이벤트 등의 목적으로 한시적 이용 </label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol2" name="out-list">
+                <label for="ol2">불친절한 응대</label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol3" name="out-list">
+                <label for="ol3">시스템의 잦은 오류 및 장애</label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol4" name="out-list">
+                <label for="ol4">원하는 혜택이 없음</label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol5" name="out-list">
+                <label for="ol5">퇴사 혹은 본 사업자에 귀속되지 않음</label>
+              </span>
+            </li>
+            <li>
+              <span class="custom-radio">
+                <input type="radio" id="ol6" name="out-list">
+                <label for="ol6">기타</label>
+              </span>
+              <span class="custom-input"><input type="text"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="out-check">
+      <div class="row solo">
+        <div class="col">
+          <label for="">탈퇴 처리자 확인</label>
+          <span class="custom-input"><input type="text" placeholder="" value="홍길동 (emily@allwin.bid)" disabled="disabled"></span>
+        </div>
+      </div>
+      <span class="custom-check">
+        <input type="checkbox" id="out-check">
+        <label for="out-check">회원탈퇴에 대한 내용을 모두 확인하였으며 이에 동의합니다.</label>
+      </span>
+    </div>
+    <div class="layer-bts">
+      <button type="button" class="gray" onclick="AIRUI.layer.close('member-out2');">닫기</button>
+      <button type="button" class="yellow">회원 탈퇴</button>
+    </div>
+  </div>
+</div>
+<!-- //회원탈퇴 확인  -->
 
 <!-- 커미션 업로드 -->
 <div class="air-layer2" id="benefit-upload">
@@ -3808,7 +4067,10 @@
     <div class="row solo">
       <div class="col">
         <label for="">인증번호</label>
-        <span class="custom-input phone"><input type="text"><button type="button">인증번호 확인</button><em class="time">유효시간  04:43</em></span>
+        <div class="phone-input">
+          <span class="custom-input"><input type="text"><em class="time">유효시간  04:43</em></span>
+          <button type="button">인증번호 확인</button>
+        </div>
         <p class="required">다시 확인 바랍니다. </p>
       </div>
     </div>
@@ -3837,7 +4099,10 @@
     <div class="row solo">
       <div class="col">
         <label for="">인증번호</label>
-        <span class="custom-input phone"><input type="text"><button type="button">인증번호 확인</button><em class="time">유효시간  04:43</em></span>
+        <div class="phone-input">
+          <span class="custom-input phone"><input type="text"><em class="time">유효시간  04:43</em></span>
+          <button type="button">인증번호 확인</button>
+        </div>
         <p class="required">다시 확인 바랍니다. </p>
       </div>
     </div>
@@ -3856,7 +4121,7 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
-    AIRUI.layer.open('member-out');
+    // AIRUI.layer.open('admin-reg2');
     $(".layer-srch-result .in-scroll").mCustomScrollbar();
     $(".estimate-scroll").mCustomScrollbar();
     $(".contact-in-scroll").mCustomScrollbar();

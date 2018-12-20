@@ -1198,6 +1198,7 @@ input:-webkit-autofill:active {
     z-index: 1;
     &:disabled {
       background: #f0f0f0;
+      color: #aaa;
     }
   }
   &:after {
@@ -1364,39 +1365,6 @@ input:-webkit-autofill:active {
       box-sizing: border-box;
       font-size: 14px;
       border-radius: 2px;
-    }
-  }
-  &.phone {
-    border: 0;
-    border-radius: 0;
-    input {
-      width: 355px;
-      border: 1px solid #cecece;
-      border-radius: 2px;
-    }
-    button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 115px;
-      height: 40px;
-      line-height: 39px;
-      border: 1px solid #111;
-      text-align: center;
-      box-sizing: border-box;
-      font-size: 14px;
-      border-radius: 2px;
-      &.black {
-        background: #111;
-        color: #fff;
-      }
-    }
-    .time {
-      position: absolute;
-      top: 0;
-      right: 140px;
-      font-size: 12px;
-      line-height: 40px;
     }
   }
 }
@@ -3762,7 +3730,7 @@ input:-webkit-autofill:active {
     }
     &.sms-send {
       width: 480px;
-      padding-top: 100px;
+      padding-top: 90px;
       padding-bottom: 70px;
       .input-items {
         min-height: 250px;
@@ -3804,27 +3772,27 @@ input:-webkit-autofill:active {
     }
     &.admin-reg {
       width: 480px;
-      padding-top: 100px;
+      padding-top: 90px;
       padding-bottom: 70px;
     }
     &.member-out {
       width: 480px;
-      padding-top: 100px;
+      padding-top: 90px;
       padding-bottom: 70px;
       .out-txt1 {
         border-bottom: 1px solid #333;
-        padding-bottom: 20px;
+        padding-bottom: 15px;
         font-size: 16px;
         font-weight: 500;
         text-align: left;
       }
       .out-txt2 {
-        margin: 10px 0 10px 3px;
+        margin: 15px 0 15px 3px;
         text-align: left;
         li {
           position: relative;
           font-size: 14px;
-          padding: 10px 0 10px 7px;
+          padding: 5px 0 5px 7px;
           &:before {
             content: '';
             position: absolute;
@@ -3836,10 +3804,68 @@ input:-webkit-autofill:active {
           }
         }
       }
+      .out-form {
+        border-top: 1px solid #e1e1e1;
+        border-bottom: 1px solid #e1e1e1;
+        padding: 30px 0 0 0;
+        .tits {
+          font-size: 16px;
+          display: block;
+          font-weight: 700;
+          line-height: 100%;
+          text-align: left;
+          margin-bottom: 25px;
+        }
+        .choice-tit {
+          font-size: 14px;
+          color: #aaa;
+          border-bottom: 1px solid #333;
+          padding-bottom: 15px;
+          strong {
+            font-size: 16px;
+            font-weight: 500;
+            display: block;
+            color: #111;
+          }
+        }
+        .out-lists {
+          padding: 10px 0 5px 8px;
+          .custom-radio {
+            vertical-align: top;
+          }
+          input + label {
+            margin-bottom: 0 !important;
+            color: #aaa;
+            font-weight: 400;
+          }
+          input:checked + label {
+            color: #000;
+          }
+          li {
+            padding: 5px 0;
+          }
+          .custom-input {
+            width: 410px;
+            height: 32px;
+            display: inline-block;
+            margin-left: 5px;
+            top: -5px;
+            input {
+              height: 30px;
+            }
+          }
+        }
+        .mb0 {
+          margin-bottom: 0;
+        }
+      }
+      .out-check {
+        padding: 30px 0 20px 0;
+      }
     }
     &.contact-us {
       width: 480px;
-      padding-top: 100px;
+      padding-top: 90px;
       padding-bottom: 70px;
       .contact-in-scroll {
         height: 585px;
@@ -4340,11 +4366,54 @@ input:-webkit-autofill:active {
         }
       }
     }
+    .phone-input {
+      position: relative;
+      .custom-input {
+        width: 355px;
+      }
+      .time {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        font-size: 12px;
+        line-height: 40px;
+        color: #111;
+      }
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 115px;
+        height: 42px;
+        line-height: 39px;
+        border: 1px solid #111;
+        text-align: center;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 2px;
+        &.black {
+          background: #111;
+          color: #fff;
+        }
+        &:disabled {
+          background: #949494;
+          color: #fff;
+          border: 1px solid #949494;
+        }
+      }
+    }
+    .auth-txt {
+      font-size: 12px;
+      color: #111;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
   .row {
     font-size: 0;
     text-align: left;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     overflow: hidden;
     &.solo {
       .col {
@@ -4370,7 +4439,7 @@ input:-webkit-autofill:active {
         color: #111;
         display: block;
         font-weight: 500;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         overflow: hidden;
         em {
           font-size: 12px;
@@ -4390,14 +4459,24 @@ input:-webkit-autofill:active {
           font-size: 14px;
           margin-bottom: 30px;
         }
-        padding: 15px 8px 20px 8px;
+        padding: 15px 8px 10px 8px;
         border-top: 1px solid #333;
         border-bottom: 1px solid #e1e1e1;
+      }
+      .out-link {
+        text-align: right;
+        padding-top: 5px;
+        a {
+          font-size: 14px;
+          color: #aaa;
+          border-bottom: 1px solid #aaa;
+          display: inline-block;
+        }
       }
     }
     .required {
       position: absolute;
-      top: 0px;
+      top: 3px;
       right: 0;
       font-size: 12px;
       color: #fc5625;
@@ -9515,7 +9594,7 @@ input:-webkit-autofill:active {
               overflow-y: auto;
               font-size: 12px;
               color: #666;
-              padding: 15px 5px 15px 15px;
+              padding: 15px 0 15px 15px;
               line-height: 160%;
             }
             ol {
@@ -9872,6 +9951,46 @@ input:-webkit-autofill:active {
             .custom-check {
               margin-right: 0;
             }
+          }
+          .phone-input {
+            position: relative;
+            .custom-input {
+              width: 246px;
+            }
+            .time {
+              position: absolute;
+              top: 0;
+              right: 15px;
+              font-size: 12px;
+              line-height: 40px;
+              color: #111;
+            }
+            button {
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 115px;
+              height: 42px;
+              line-height: 39px;
+              border: 1px solid #111;
+              text-align: center;
+              box-sizing: border-box;
+              font-size: 14px;
+              border-radius: 2px;
+              &.black {
+                background: #111;
+                color: #fff;
+              }
+              &:disabled {
+                background: #949494;
+                color: #fff;
+                border: 1px solid #949494;
+              }
+            }
+          }
+          .auth-txt {
+            font-size: 12px;
+            color: #111;
           }
         }
       }
