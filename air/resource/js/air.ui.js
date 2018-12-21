@@ -136,7 +136,9 @@ AIRUI = (function () {
       },
       close: function (layerID) {
         $('body').removeClass('kill');
-        $("#" + layerID).fadeOut('fast');
+        $("#" + layerID).fadeOut('fast', function () {
+          $(this).trigger('fadeOutAfter');
+        });
         $('.dims').remove();
       }
     }
