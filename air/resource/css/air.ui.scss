@@ -4695,6 +4695,8 @@ input:-webkit-autofill:active {
 
 /* header */
 .header {
+  position: relative;
+  z-index: 30;
   border-bottom: 1px solid #e7e7e7;
   &.show {
     position: relative;
@@ -5672,6 +5674,15 @@ input:-webkit-autofill:active {
   }
 }
 
+.layer-search-dims {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .4);
+  z-index: 19;
+}
 .layer-search {
   display: none;
   width: 100%;
@@ -5681,6 +5692,9 @@ input:-webkit-autofill:active {
   bottom: 0;
   //overflow: hidden;
   z-index: 20;
+  -webkit-box-shadow: 0px 20px 32px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 20px 32px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 20px 32px 0px rgba(0, 0, 0, 0.5);
   &.layer-scanner {
     background: #f3b308;
     transition: all .5s;
@@ -11151,6 +11165,45 @@ input:-webkit-autofill:active {
             text-align: left;
             img {
               max-width: 100%;
+            }
+
+            ol, ul, li {
+              list-style: initial;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+              font-size: initial;
+            }
+
+            hr {
+              display: initial;
+            }
+
+            a {
+              text-decoration: initial;
+            }
+
+            em, address {
+              font-style: initial;
+            }
+
+            button {
+              font-size: initial;
+            }
+
+            input[type=checkbox], input[type=radio], input[type=text], input[type=password], input[type=email] {
+              -webkit-appearance: initial;
+              -moz-appearance: initial;
+              -ms-appearance: initial;
+              -o-appearance: initial;
+              appearance: initial;
+            }
+            legend, .blind {
+              overflow: hidden;
+              position: initial;
+              width: auto;
+              height: auto;
+              clip: initial;
             }
           }
           &.toggle {
