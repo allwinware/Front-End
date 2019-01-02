@@ -407,8 +407,10 @@
                   <div class="layer-forms third">
                     <div class="row">
                       <span class="custom-select inline large">
-                        <select name="" id="">
-                            <option value="">(주)KRT</option>
+                        <select name="" id="" class="icon-select">
+                            <option value="">판매사 선택</option>
+                            <option value="tourway">투어웨이</option>
+                            <option value="worldkrt">(주)KRT</option>
                         </select>
                       </span>
                       <span class="custom-select inline large">
@@ -527,7 +529,24 @@
                   </div>
                 </div>
 
-                <div class="benefits">
+                <div class="benefit-tourway">
+                  <span class="seller-logo"><img src="https://cdn.allwin.bid/air/resource/img/benefit/img_logo-tourway.png" alt=""></span>
+                  <div class="benefit-txts">
+                    <p class="t1">
+                      투어웨이에서 발권하면<br>
+                      <strong>금액 제한없이</strong>
+                    </p>
+                    <p class="t2">
+                      최대 <strong>7<em>%</em></strong> <span>COMM</span>
+                    </p>
+                    <p class="t3">
+                      (항공사별 상이)
+                    </p>
+                  </div>
+                  <a href="">자세히 보기</a>
+                </div>
+
+                <div class="benefits" style="display:none;">
                   <strong class="benefit-tit">판매사 혜택</strong>
                   <div class="benefit-lists">
                     <div class="list-scroll">
@@ -939,19 +958,16 @@
                   </p>
 
                   <div class="benefits">
-                    <div class="comm">
-                      <strong>3%</strong> COMM
-                    </div>
-                    <div class="time">
-                      <div class="countdown">
-                        <strong id="hour">08</strong>
-                        <em>:</em>
-                        <strong id="min">04</strong>
-                        <em>:</em>
-                        <strong id="sec">21</strong>
-                      </div>
-                      <em class="txt">커미션 혜택 남은 시간</em>
-                    </div>
+                    <p class="btxt1">
+                      금액 제한 없는<br>
+                      <strong>투어웨이</strong> 발권 혜택
+                    </p>
+                    <p class="btxt2">
+                      최대 <strong>7%</strong> <span>COMM</span>
+                    </p>
+                    <p class="btxt3">
+                      (항공사별 상이)
+                    </p>
                   </div>
                   <span class="plane"></span>
                 </div>
@@ -1194,6 +1210,20 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
+    function formatOptions(state) {
+      if (!state.id) {
+        return state.text;
+      }
+      console.log(state.element.value);
+      var $state = $('<span>' + state.element.text + '<i class="' + state.element.value + '"></i></span>');
+      return $state;
+    }
+
+    $('.icon-select').select2({
+      minimumResultsForSearch: -1,
+      templateResult: formatOptions
+    });
+
     //csr select
     $('.csr-share-select').on("select2:select", function (e) {
       var data = e.params.data;
