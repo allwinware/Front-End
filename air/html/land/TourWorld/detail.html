@@ -277,7 +277,12 @@
                 <a href="" class="land-details-home">homepage</a>
                 <a href="" class="land-details-mail">견적문의메일</a>
               </div>
-              <img src="side.jpg" alt="">
+              <div class="land-landmark">
+                <img src="side1.jpg" alt="">
+              </div>
+              <div class="land-custom">
+                <img src="side2.jpg" alt="">
+              </div>
             </div>
           </div>
         </div>
@@ -331,6 +336,7 @@
   var landDetails = {
     $window: $(window),
     $body: $('body'),
+    detailHeight: $('.land-details .landmoa').outerHeight(),
     $wrapDetailLayout: $('.detail-layout'),
     $wrapDetailVisual: $('.detail-visual'),
     detailVisualHeight: $('.detail-visual').height(),
@@ -338,9 +344,11 @@
     detailSectionHeight: $('.detail-rows').outerHeight(),
     $wrapDetailSectionItem: $('.info-row'),
     $wrapDetailTabLink: $('.detail-layout').find('.menus a'),
+    $wrapLandMark: $('.land-landmark'),
     $wrapRepresentativeItems: $('.representative-items > ul'),
     representativeItemLength: $('.representative-item').length,
     $wrapRepresentativeProducts: $('.representative-products > ul'),
+    sideOff: $('.detail-side').position().top,
 
     init: function () {
       console.log("init");
@@ -376,31 +384,35 @@
             id = $this.attr('href');
         $li.removeClass('is-actived');
         $this.parent().addClass('is-actived');
-        $('html, body').animate({scrollTop: $(id).offset().top}, 'fast');
+        $('html, body').animate({scrollTop: $(id).offset().top - 150}, 'fast');
         return false;
       });
     },
     landDetailScrollEvent: function () {
       var currentPos = this.$window.scrollTop(),
           $tabItem =  this.$wrapDetailLayout.find('.menus li');
-
-      if (currentPos >= this.$wrapDetailLayout.offset().top) {
+      if (currentPos >= this.$wrapDetailLayout.offset().top - 33) {
         this.$body.addClass('is-scrolled');
-      } else {
+      }
+      else {
         this.$body.removeClass('is-scrolled');
       }
 
       if (currentPos >= this.detailVisualHeight && currentPos < this.detailSectionHeight) {
+        console.log("a");
         $(this.$wrapDetailSectionItem).each(function (i) {
-          var top = $(this).offset().top,
+          var top = $(this).offset().top - 180,
               bottom = top + $(this).outerHeight();
           if (currentPos >= top && currentPos <= bottom) {
             $tabItem.removeClass('is-actived');
             $tabItem.eq(i).addClass('is-actived');
           }
         });
+      } else if (currentPos < this.detailVisualHeight) {
+        console.log("b");
+        this.$body.removeClass('is-scrolled');
       }else if(currentPos > this.detailSectionHeight){
-        console.log("aa");
+        console.log("c");
       }
     }
   };
