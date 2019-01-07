@@ -272,13 +272,13 @@
                 <img src="footer.jpg" alt="">
               </div>
             </div>
-            <!--<div class="detail-side">-->
-            <!--<div class="btn">-->
-            <!--<a href="" class="land-details-home">homepage</a>-->
-            <!--<a href="" class="land-details-mail">견적문의메일</a>-->
-            <!--</div>-->
-            <!--<img src="side.jpg" alt="">-->
-            <!--</div>-->
+            <div class="detail-side">
+              <div class="btn">
+                <a href="" class="land-details-home">homepage</a>
+                <a href="" class="land-details-mail">견적문의메일</a>
+              </div>
+              <img src="side.jpg" alt="">
+            </div>
           </div>
         </div>
       </div>
@@ -332,19 +332,25 @@
     $window: $(window),
     $body: $('body'),
     $wrapDetailLayout: $('.detail-layout'),
+    $wrapDetailVisual: $('.detail-visual'),
+    detailVisualHeight: $('.detail-visual').height(),
+    $wrapDetailSection: $('.detail-rows'),
+    detailSectionHeight: $('.detail-rows').outerHeight(),
+    $wrapDetailSectionItem: $('.info-row'),
+    $wrapDetailTabLink: $('.detail-layout').find('.menus a'),
     $wrapRepresentativeItems: $('.representative-items > ul'),
-    $wrapRepresentativeItemLength: $('.representative-item').length,
+    representativeItemLength: $('.representative-item').length,
     $wrapRepresentativeProducts: $('.representative-products > ul'),
-
 
     init: function () {
       console.log("init");
       this.representativeItemsSlide();
       this.representativeProductsSlide();
+      this.landDetailTabs();
       this.$window.on("scroll", $.proxy(this.landDetailScrollEvent, this));
     },
     representativeItemsSlide: function () {
-      if (this.$wrapRepresentativeItemLength >= 5) {
+      if (this.representativeItemLength >= 5) {
         this.$wrapRepresentativeItems.awaSlide({
           minSlides: 4,
           maxSlides: 4,
@@ -363,13 +369,38 @@
         autoDelay: 5000
       });
     },
+    landDetailTabs: function(){
+      this.$wrapDetailTabLink.on('click', function (e) {
+        var $this = $(this),
+            $li = $(e.target.parentElement),
+            id = $this.attr('href');
+        $li.removeClass('is-actived');
+        $this.parent().addClass('is-actived');
+        $('html, body').animate({scrollTop: $(id).offset().top}, 'fast');
+        return false;
+      });
+    },
     landDetailScrollEvent: function () {
-      console.log("scrolling");
-      if (this.$window.scrollTop() >= this.$wrapDetailLayout.offset().top - 100) {
+      var currentPos = this.$window.scrollTop(),
+          $tabItem =  this.$wrapDetailLayout.find('.menus li');
+
+      if (currentPos >= this.$wrapDetailLayout.offset().top) {
         this.$body.addClass('is-scrolled');
-      }
-      else {
+      } else {
         this.$body.removeClass('is-scrolled');
+      }
+
+      if (currentPos >= this.detailVisualHeight && currentPos < this.detailSectionHeight) {
+        $(this.$wrapDetailSectionItem).each(function (i) {
+          var top = $(this).offset().top,
+              bottom = top + $(this).outerHeight();
+          if (currentPos >= top && currentPos <= bottom) {
+            $tabItem.removeClass('is-actived');
+            $tabItem.eq(i).addClass('is-actived');
+          }
+        });
+      }else if(currentPos > this.detailSectionHeight){
+        console.log("aa");
       }
     }
   };
