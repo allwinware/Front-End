@@ -233,7 +233,7 @@ input:-webkit-autofill:active {
 }
 
 .mCS-dir-rtl > .mCSB_outside + .mCSB_scrollTools {
-  left: -26px
+  left: -26px;
 }
 
 .mCSB_scrollTools .mCSB_draggerContainer {
@@ -246,7 +246,7 @@ input:-webkit-autofill:active {
 }
 
 .mCSB_scrollTools a + .mCSB_draggerContainer {
-  margin: 20px 0
+  margin: 20px 0;
 }
 
 .mCSB_scrollTools .mCSB_draggerRail {
@@ -256,7 +256,7 @@ input:-webkit-autofill:active {
   -webkit-border-radius: 16px;
   -moz-border-radius: 16px;
   border-radius: 16px;
-  background: #e5e5e5;
+  background: rgba(229, 229, 229, .5);
 }
 
 .mCSB_scrollTools .mCSB_dragger {
@@ -459,13 +459,11 @@ input:-webkit-autofill:active {
 .mCS-autoHide > .mCustomScrollBox > .mCSB_scrollTools, .mCS-autoHide > .mCustomScrollBox ~ .mCSB_scrollTools {
   opacity: 0;
   filter: "alpha(opacity=0)";
-  -ms-filter: "alpha(opacity=0)"
 }
 
 .mCS-autoHide:hover > .mCustomScrollBox > .mCSB_scrollTools, .mCS-autoHide:hover > .mCustomScrollBox ~ .mCSB_scrollTools, .mCustomScrollBox:hover > .mCSB_scrollTools, .mCustomScrollBox:hover ~ .mCSB_scrollTools, .mCustomScrollbar > .mCustomScrollBox > .mCSB_scrollTools.mCSB_scrollTools_onDrag, .mCustomScrollbar > .mCustomScrollBox ~ .mCSB_scrollTools.mCSB_scrollTools_onDrag {
   opacity: 1;
   filter: "alpha(opacity=100)";
-  -ms-filter: "alpha(opacity=100)"
 }
 
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
@@ -7559,13 +7557,16 @@ input:-webkit-autofill:active {
   .result-lists {
     position: relative;
     width: 1200px;
-    min-height: 1100px;
+    min-height: 700px;
     margin: 0 auto;
     .filters {
       width: 200px;
       position: absolute;
       top: 0;
       left: 0;
+      bottom: 0;
+      overflow: hidden;
+      overflow-y: auto;
       border-top: 1px solid #111;
       &.filters-loading {
         min-height: 1124px;
@@ -8172,10 +8173,21 @@ input:-webkit-autofill:active {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   .multiple-schedule {
+    position: relative;
     border-top: 1px solid #e6e6e6;
     padding: 20px 0;
     margin: 0 40px;
     font-size: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      bottom: 20px;
+      width: 1px;
+      margin-left: 0px;
+      background: #e7e7e7;
+    }
     &:first-child {
       border-top: 0;
     }
@@ -8185,7 +8197,7 @@ input:-webkit-autofill:active {
       vertical-align: top;
       box-sizing: border-box;
       padding: 20px 0 30px 0;
-      border-right: 1px solid #e7e7e7;
+      //border-right: 1px solid #e7e7e7;
       &:first-child {
         .schedule-detail__tit {
           margin-left: 0;
@@ -9199,9 +9211,6 @@ input:-webkit-autofill:active {
     }
     .row {
       position: relative;
-      //margin:40px 40px 0 40px;
-      //display: -webkit-flex;
-      //display: flex;
       box-sizing: border-box;
       &.first {
         width: 723px;
@@ -14768,7 +14777,6 @@ all and (min-device-pixel-ratio: 1.5) {
     padding: 90px 0 145px 0;
   }
 }
-
 @keyframes placeHolderShimmer {
   from {
     background-position: -468px 0;

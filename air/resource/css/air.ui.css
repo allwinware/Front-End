@@ -209,7 +209,8 @@ input:-webkit-autofill:active {
   -webkit-border-radius: 16px;
   -moz-border-radius: 16px;
   border-radius: 16px;
-  background: #e5e5e5; }
+  background: rgba(229, 229, 229, 0.5);
+}
 
 .mCSB_scrollTools .mCSB_dragger {
   cursor: pointer;
@@ -5965,13 +5966,16 @@ input:-webkit-autofill:active {
 .results2 .result-lists {
   position: relative;
   width: 1200px;
-  min-height: 1100px;
+  min-height: 700px;
   margin: 0 auto; }
   .results2 .result-lists .filters {
     width: 200px;
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0;
+    overflow: hidden;
+    overflow-y: auto;
     border-top: 1px solid #111; }
 
 .results2 .result-lists .filters.filters-loading {
@@ -6436,10 +6440,22 @@ input:-webkit-autofill:active {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px; }
   .results2 .schedule-detail .multiple-schedule, .result-details .schedule-detail .multiple-schedule {
+    position: relative;
     border-top: 1px solid #e6e6e6;
     padding: 20px 0;
     margin: 0 40px;
     font-size: 0; }
+
+.results2 .schedule-detail .multiple-schedule:after, .result-details .schedule-detail .multiple-schedule:after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  bottom: 20px;
+  width: 1px;
+  margin-left: 0px;
+  background: #e7e7e7;
+}
     .results2 .schedule-detail .multiple-schedule:first-child, .result-details .schedule-detail .multiple-schedule:first-child {
       border-top: 0; }
     .results2 .schedule-detail .multiple-schedule .multiple-group, .result-details .schedule-detail .multiple-schedule .multiple-group {
@@ -6448,7 +6464,7 @@ input:-webkit-autofill:active {
       vertical-align: top;
       box-sizing: border-box;
       padding: 20px 0 30px 0;
-      border-right: 1px solid #e7e7e7; }
+    }
       .results2 .schedule-detail .multiple-schedule .multiple-group:first-child .schedule-detail__tit, .result-details .schedule-detail .multiple-schedule .multiple-group:first-child .schedule-detail__tit {
         margin-left: 0; }
       .results2 .schedule-detail .multiple-schedule .multiple-group:last-child, .result-details .schedule-detail .multiple-schedule .multiple-group:last-child {
