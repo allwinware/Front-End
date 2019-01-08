@@ -3051,8 +3051,18 @@
       <a href="" class="bt-link">아이디/비밀번호찾기</a>
     </div>
     <div class="login-banner">
-      <a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/meta-assets/production/event/event2000/img/event_thumb_login2.png"
-                      alt=""></a>
+      <!--<a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/meta-assets/production/event/event2000/img/event_thumb_login2.png"-->
+      <!--alt=""></a>-->
+      <div class="login-banner-rolling">
+        <ul>
+          <li class="item"><a href=""><img
+              src="https://s3.ap-northeast-2.amazonaws.com/meta-assets/production/event/event2000/img/event_thumb_login2.png"
+              alt=""></a></li>
+          <li class="item"><a href=""><img
+              src="https://s3.ap-northeast-2.amazonaws.com/meta-assets/production/event/event2000/img/event_thumb_login2.png"
+              alt=""></a></li>
+        </ul>
+      </div>
     </div>
 
     <button type="button" class="close" onclick="AIRUI.layer.close('login');">close</button>
@@ -4151,7 +4161,7 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
-    // AIRUI.layer.open('admin-reg2');
+    AIRUI.layer.open('login');
     $(".layer-srch-result .in-scroll").mCustomScrollbar();
     $(".estimate-scroll").mCustomScrollbar();
     $(".contact-in-scroll").mCustomScrollbar();
@@ -4206,6 +4216,12 @@
         slider.reloadSlider();
       }
       return false;
+    });
+
+    $('.login-banner-rolling > ul').awaSlide({
+      mode: 'vertical',
+      auto: true,
+      autoDelay: 5000
     });
 
     // //인트로 액션

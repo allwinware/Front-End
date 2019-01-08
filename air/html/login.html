@@ -727,8 +727,18 @@
             <a href="" class="bt-link">아이디/비밀번호찾기</a>
           </div>
           <div class="login-banner">
-            <a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/meta-assets/production/event/event2000/img/event_thumb_login2.png"
-                            alt=""></a>
+            <!--<a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/meta-assets/production/event/event2000/img/event_thumb_login2.png"-->
+            <!--alt=""></a>-->
+            <div class="login-banner-rolling">
+              <ul>
+                <li class="item"><a href=""><img
+                    src="https://s3.ap-northeast-2.amazonaws.com/meta-assets/production/event/event2000/img/event_thumb_login2.png"
+                    alt=""></a></li>
+                <li class="item"><a href=""><img
+                    src="https://s3.ap-northeast-2.amazonaws.com/meta-assets/production/event/event2000/img/event_thumb_login2.png"
+                    alt=""></a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -778,6 +788,12 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
+    $('.login-banner-rolling > ul').awaSlide({
+      mode: 'vertical',
+      auto: true,
+      autoDelay: 5000
+    });
+
     var src = $('.land-group-rolling > ul > li').eq(0).find('img').data('blur-bg');
     $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
 
