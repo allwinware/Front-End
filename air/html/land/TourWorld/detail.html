@@ -347,14 +347,13 @@
     $wrapRepresentativeItems: $('.representative-items > ul'),
     representativeItemLength: $('.representative-item').length,
     $wrapRepresentativeProducts: $('.representative-products > ul'),
-    sideOff: $('.detail-side').position().top,
 
     init: function () {
       console.log("init");
       this.representativeItemsSlide();
       this.representativeProductsSlide();
       this.landDetailTabs();
-      this.$window.on("scroll", $.proxy(this.landDetailScrollEvent, this));
+      this.$window.on("orientationchange load scroll", $.proxy(this.landDetailScrollEvent, this));
     },
     representativeItemsSlide: function () {
       if (this.representativeItemLength >= 5) {
@@ -400,7 +399,7 @@
       if (currentPos >= this.detailVisualHeight && currentPos < this.detailSectionHeight) {
         console.log("a");
         $(this.$wrapDetailSectionItem).each(function (i) {
-          var top = $(this).offset().top - 180,
+          var top = $(this).offset().top - 200,
               bottom = top + $(this).outerHeight();
           if (currentPos >= top && currentPos <= bottom) {
             $tabItem.removeClass('is-actived');
