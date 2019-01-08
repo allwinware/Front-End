@@ -865,6 +865,104 @@ input:-webkit-autofill:active {
   }
 }
 
+.loading-ani {
+  -webkit-animation-name: placeHolderShimmer;
+  -ms-animation-name: placeHolderShimmer;
+  animation-name: placeHolderShimmer;
+  -webkit-animation-duration: 1.5s;
+  -ms-animation-duration: 1.5s;
+  animation-duration: 1.5s;
+  -webkit-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -ms-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #f6f7f8), color-stop(20%, #edeef1), color-stop(40%, #f6f7f8), color-stop(100%, #f6f7f8));
+  background-image: -webkit-linear-gradient(left, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-image: linear-gradient(left, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+  &.ele-tit {
+    height: 20px;
+  }
+  &.ele1 {
+    width: 40px;
+    height: 20px;
+  }
+  &.ele2 {
+    width: 60px;
+    height: 20px;
+  }
+  &.ele3 {
+    width: 80px;
+    height: 20px;
+  }
+  &.ele4 {
+    height: 50px;
+  }
+  &.ele5 {
+    width: 34px;
+    height: 62px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 0 40px;
+  }
+  &.ele6 {
+    width: 70px;
+    height: 35px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 13px 0 0 50px;
+  }
+  &.ele7 {
+    width: 430px;
+    height: 60px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 0 40px;
+  }
+  &.ele8 {
+    width: 50px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+  }
+  &.ele9 {
+    width: 125px;
+    height: 30px;
+    display: block;
+    margin: 5px auto;
+  }
+  &.ele10 {
+    width: 70px;
+    height: 15px;
+    display: block;
+    margin: 0 auto;
+  }
+  &.ele11 {
+    width: 80px;
+    height: 30px;
+    display: block;
+    margin: 35px auto 0 auto;
+  }
+  &.ele12 {
+    width: 80px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+  }
+  &.ele13 {
+    width: 100px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
 .clear {
   clear: both;
 }
@@ -7328,50 +7426,15 @@ input:-webkit-autofill:active {
     width: 1200px;
     min-height: 1100px;
     margin: 0 auto;
-    .filters-loading {
-      width: 200px;
-      min-height: 1124px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-top: 1px solid #111;
-
-      //animation-duration: 1s;
-      //animation-fill-mode: forwards;
-      //animation-iteration-count: infinite;
-      //animation-name: placeHolderShimmer;
-      //animation-timing-function: linear;
-      //background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
-
-
-      -webkit-animation-name: placeHolderShimmer;
-      -ms-animation-name: placeHolderShimmer;
-      animation-name: placeHolderShimmer;
-      -webkit-animation-duration: 1s;
-      -ms-animation-duration: 1s;
-      animation-duration: 1s;
-      -webkit-animation-fill-mode: forwards;
-      -ms-animation-fill-mode: forwards;
-      animation-fill-mode: forwards;
-      -webkit-animation-iteration-count: infinite;
-      -ms-animation-iteration-count: infinite;
-      animation-iteration-count: infinite;
-      -webkit-animation-timing-function: linear;
-      -ms-animation-timing-function: linear;
-      animation-timing-function: linear;
-      background: #f6f7f8;
-      background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #f6f7f8), color-stop(20%, #edeef1), color-stop(40%, #f6f7f8), color-stop(100%, #f6f7f8));
-      background-image: -webkit-linear-gradient(left, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
-      background-image: linear-gradient(left, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
-      background-repeat: no-repeat;
-
-    }
     .filters {
       width: 200px;
       position: absolute;
       top: 0;
       left: 0;
       border-top: 1px solid #111;
+      &.filters-loading {
+        min-height: 1124px;
+      }
       .filter-item {
         border-bottom: 1px solid #e7e7e7;
         padding: 30px 0;
@@ -7502,6 +7565,10 @@ input:-webkit-autofill:active {
             min-height: 243px;
             display: table;
             padding: 25px 0;
+            &.fake {
+              border-radius: 5px;
+              border-bottom: 1px solid #e7e7e7;
+            }
             .trip-items {
               //height: 245px;
               display: table-cell;
@@ -7734,6 +7801,10 @@ input:-webkit-autofill:active {
             width: 246px;
             text-align: center;
             @include transition(all 0.5s);
+            &.fake {
+              border-radius: 5px;
+              border-bottom: 1px solid #e7e7e7;
+            }
             .info2-inner {
               position: absolute;
               top: 50%;
