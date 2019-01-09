@@ -863,6 +863,81 @@ input:-webkit-autofill:active {
   }
 }
 
+.trip-tooltips {
+  font-size: 0;
+  padding: 15px 0;
+  text-align: left;
+  .trip-tooltip-groups {
+  }
+  .trip-tooltip-group {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px 25px;
+    &:before {
+      content: '/';
+      font-size: 26px;
+      font-weight: 100;
+      position: absolute;
+      top: 10px;
+      right: -6px;
+      line-height: 80%;
+      color: #111;
+    }
+    &:first-child {
+
+    }
+    &:last-child {
+      &:before {
+        display: none;
+      }
+    }
+  }
+  .trip-groups {
+  }
+  .tri-item {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 25px;
+    &:after {
+      content: '';
+      width: 16px;
+      height: 13px;
+      position: absolute;
+      top: 7px;
+      right: -10px;
+      background: url('https://cdn.allwin.bid/air/resource/img/ico_plane2.png') no-repeat;
+    }
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+      &:after {
+        display: none;
+      }
+    }
+    .city {
+      display: block;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 100%;
+      em {
+        font-family: 'Geogrotesque-SemiBold';
+      }
+    }
+    .date {
+      display: block;
+      font-size: 12px;
+      color: #aaa;
+      em {
+        font-family: 'Geogrotesque-Medium';
+      }
+    }
+  }
+}
+
 .loading-ani {
   -webkit-animation-name: placeHolderShimmer;
   -ms-animation-name: placeHolderShimmer;
@@ -1102,8 +1177,7 @@ input:-webkit-autofill:active {
 }
 
 .close {
-  -webkit-transition: .5s;
-  transition: .5s;
+  @include transition(all 0.5s);
 }
 
 .close:hover {
@@ -4879,7 +4953,7 @@ input:-webkit-autofill:active {
   width: 48px;
   height: 48px;
   line-height: 48px;
-  margin-right: -650px;
+  margin-right: -670px;
   border: 1px solid #161820;
   background: #fff;
   &:hover {
@@ -5976,18 +6050,52 @@ input:-webkit-autofill:active {
   }
 }
 
-.main-evt {
+.ad-area {
   position: relative;
-  height: 120px;
-  overflow: hidden;
-  a {
-    display: block;
-    height: 120px;
-    font-size: 0;
-    text-align: center;
+  margin-top: 20px;
+  .ad-banner-rolling {
+    .awa-slide__pager {
+      left: 10px;
+      margin-left: 0;
+    }
+    .item {
+      &.ad {
+        &:after {
+          right: 20px;
+          margin-right: 0;
+        }
+      }
+    }
   }
-  .main-top-rolling {
-    text-align: center;
+}
+
+.ad-banner-rolling {
+  text-align: center;
+  .item {
+    position: relative;
+    a {
+      font-size: 0;
+      display: block;
+    }
+    &.ad {
+      &:after {
+        content: 'AD';
+        width: 42px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: #fff;
+        background: rgba(0, 0, 0, .7);
+        font-family: 'Geogrotesque-SemiBold';
+        font-size: 14px;
+        text-align: center;
+        position: absolute;
+        bottom: 15px;
+        right: 50%;
+        margin-right: -600px;
+        border-radius: 2px;
+      }
+    }
   }
   .awa-slide__controls-direction {
     display: none;
@@ -6017,15 +6125,38 @@ input:-webkit-autofill:active {
   .awa-slide_pager-link--active {
     width: 20px;
   }
+}
 
-  .close {
-    position: absolute;
-    top: 50%;
+.banner-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  margin: 0 0 0 0;
+  width: 30px;
+  height: 30px;
+  background: url('https://cdn.allwin.bid/air/resource/img/ico_close1.png') center center no-repeat;
+
+  @include transition(all 0.5s);
+  &:hover {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+}
+
+.main-evt {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+  a {
+    display: block;
+    height: 120px;
+    font-size: 0;
+    text-align: center;
+  }
+  .banner-close {
     right: 50%;
-    margin: -15px -590px 0 0;
-    width: 30px;
-    height: 30px;
-    background: url('https://cdn.allwin.bid/air/resource/img/ico_close1.png') center center no-repeat;
+    margin: 0 -600px 0 0;
   }
 }
 
@@ -7504,9 +7635,11 @@ input:-webkit-autofill:active {
         margin-left: 15px;
         line-height: 100%;
         strong {
+          cursor: pointer;
           font-size: 24px;
           font-family: 'Noto Sans';
           font-weight: 400;
+          padding-bottom: 2px;
           border-bottom: 2px solid #292a4d;
         }
         em {
@@ -7678,7 +7811,6 @@ input:-webkit-autofill:active {
         font-size: 13px;
         color: #111;
         border-top: 1px solid #111;
-        border-bottom: 1px solid #e7e7e7;
       }
       &__items {
         //border:1px solid #e7e7e7;
@@ -9209,7 +9341,7 @@ input:-webkit-autofill:active {
     left: 0;
     &.tourway {
       bottom: 0;
-      .row {
+      .rows {
         padding: 10px 40px;
       }
     }
@@ -13416,42 +13548,6 @@ all and (min-device-pixel-ratio: 1.5) {
           }
         }
       }
-    }
-  }
-  .land-ad {
-    position: relative;
-    width: 1200px;
-    display: table;
-    margin-top: 30px;
-    a {
-      display: block;
-      height: 120px;
-      text-align: center;
-      display: table-cell;
-      vertical-align: middle;
-    }
-    .type {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      width: 64px;
-      height: 27px;
-      line-height: 27px;
-      color: #fff;
-      font-family: 'Geogrotesque-SemiBold';
-      font-size: 14px;
-      text-align: center;
-      background: rgba(132, 132, 132, .7);
-    }
-    .t1 {
-      color: #000;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .t2 {
-      font-weight: 700;
-      font-size: 32px;
-      color: #fff;
     }
   }
   .land-recommend {
