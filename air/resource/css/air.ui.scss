@@ -3937,7 +3937,7 @@ input:-webkit-autofill:active {
           height: 305px;
           overflow: hidden;
           overflow-y: auto;
-          padding: 0 8px;
+          padding: 10px 8px;
         }
         ol {
           font-size: 12px;
@@ -6012,9 +6012,10 @@ input:-webkit-autofill:active {
     background: #fff;
     opacity: .5;
     font-size: 0;
+    @include transition(all 0.5s);
   }
   .awa-slide_pager-link--active {
-    opacity: 1;
+    width: 20px;
   }
 
   .close {
@@ -7557,16 +7558,16 @@ input:-webkit-autofill:active {
   .result-lists {
     position: relative;
     width: 1200px;
-    min-height: 700px;
+    //min-height: 700px;
     margin: 0 auto;
+    &:after {
+      content: " ";
+      display: block;
+      clear: both;
+    }
     .filters {
       width: 200px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      overflow: hidden;
-      overflow-y: auto;
+      float: left;
       border-top: 1px solid #111;
       &.filters-loading {
         min-height: 1124px;
@@ -7585,6 +7586,7 @@ input:-webkit-autofill:active {
         .filter-tits {
           position: relative;
           font-size: 0;
+          margin-bottom: 10px;
           .tit {
             font-weight: 700;
             font-size: 14px;
@@ -7667,7 +7669,9 @@ input:-webkit-autofill:active {
       }
     }
     .lists {
-      margin: 0 0 0 230px;
+      width: 970px;
+      float: right;
+      //margin: 0 0 0 230px;
       .no-result {
         padding: 120px 0;
         text-align: center;
@@ -8176,7 +8180,7 @@ input:-webkit-autofill:active {
     position: relative;
     border-top: 1px solid #e6e6e6;
     padding: 20px 0;
-    margin: 0 40px;
+    //margin: 0 40px;
     font-size: 0;
     &:after {
       content: '';
@@ -8200,7 +8204,7 @@ input:-webkit-autofill:active {
       //border-right: 1px solid #e7e7e7;
       &:first-child {
         .schedule-detail__tit {
-          margin-left: 0;
+          //margin-left: 0;
         }
       }
       &:last-child {
@@ -9744,6 +9748,9 @@ input:-webkit-autofill:active {
     bottom: 56px;
     left: 0;
     background: #fff;
+    &.tourway {
+      bottom: 0;
+    }
     .schedule-inner {
       padding: 30px 40px 40px 40px;
     }
