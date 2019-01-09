@@ -1,12 +1,34 @@
 @charset "UTF-8";
 $width: 1220px;
 $height: 800px;
+$allwinColor: #ebaa2c;
+$imgPath: 'https://cdn.allwin.bid/air/resource/img';
 
 @mixin transition($transition...) {
   -moz-transition: $transition;
   -o-transition: $transition;
   -webkit-transition: $transition;
   transition: $transition;
+}
+
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin translate($x, $y) {
+  @include transform(translate($x, $y));
+}
+
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
 }
 
 @import url(https://cdn.allwin.bid/static/css/awa_wfont.css);
@@ -541,7 +563,7 @@ input:-webkit-autofill:active {
   right: 16px !important;
   width: 13px !important;
   height: 8px !important;
-  background: url('https://cdn.allwin.bid/air/resource/img/ico_select-arrow-off.png') center center no-repeat !important;
+  background: url('#{$imgPath}/ico_select-arrow-off.png') center center no-repeat !important;
   border: none !important;
   left: auto !important;
   margin: 0 !important;
@@ -550,7 +572,7 @@ input:-webkit-autofill:active {
 }
 
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-  background: url('https://cdn.allwin.bid/air/resource/img/ico_select-arrow-on.png') center center no-repeat !important;
+  background: url('#{$imgPath}/ico_select-arrow-on.png') center center no-repeat !important;
   -webkit-transform: rotateZ(0);
   transform: rotateZ(0);
 
@@ -629,7 +651,7 @@ input:-webkit-autofill:active {
     display: inline-block;
     width: 102px;
     height: 28px;
-    background: url('https://cdn.allwin.bid/air/resource/img/img_comm-flag.png') center center no-repeat;
+    background: url('#{$imgPath}/img_comm-flag.png') center center no-repeat;
     margin-left: 10px;
   }
 }
@@ -675,7 +697,7 @@ input:-webkit-autofill:active {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #ebaa2c;
+  background-color: $allwinColor;
   color: white
 }
 
@@ -699,7 +721,7 @@ input:-webkit-autofill:active {
 }
 
 .select2-container--picker-select2 .select2-results__option--highlighted[aria-selected] {
-  background-color: #ebaa2c;
+  background-color: $allwinColor;
   color: white
 }
 
@@ -726,7 +748,7 @@ input:-webkit-autofill:active {
   margin-top: -3px;
   width: 4px;
   height: 6px;
-  background: url('https://cdn.allwin.bid/air/resource/img/ico_tooltip-arrow-left.png') center center no-repeat;
+  background: url('#{$imgPath}/ico_tooltip-arrow-left.png') center center no-repeat;
 }
 
 .awa-tooltip.right:before {
@@ -735,7 +757,7 @@ input:-webkit-autofill:active {
   margin-top: -3px;
   width: 4px;
   height: 6px;
-  background: url('https://cdn.allwin.bid/air/resource/img/ico_tooltip-arrow-right.png') center center no-repeat;
+  background: url('#{$imgPath}/ico_tooltip-arrow-right.png') center center no-repeat;
 }
 
 .awa-tooltip.bottom:before {
@@ -744,7 +766,7 @@ input:-webkit-autofill:active {
   margin-left: -3px;
   width: 6px;
   height: 4px;
-  background: url('https://cdn.allwin.bid/air/resource/img/ico_tooltip-arrow-btm.png') center center no-repeat;
+  background: url('#{$imgPath}/ico_tooltip-arrow-btm.png') center center no-repeat;
 }
 
 .awa-tooltip.top:before {
@@ -753,7 +775,7 @@ input:-webkit-autofill:active {
   margin-left: -3px;
   width: 6px;
   height: 4px;
-  background: url('https://cdn.allwin.bid/air/resource/img/ico_tooltip-arrow-top.png') center center no-repeat;
+  background: url('#{$imgPath}/ico_tooltip-arrow-top.png') center center no-repeat;
 }
 
 .awa-tooltip.left {
@@ -907,7 +929,7 @@ input:-webkit-autofill:active {
       position: absolute;
       top: 7px;
       right: -10px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_plane2.png') no-repeat;
+      background: url('#{$imgPath}/ico_plane2.png') no-repeat;
     }
     &:first-child {
       padding-left: 0;
@@ -1052,11 +1074,6 @@ input:-webkit-autofill:active {
 
 .kill {
   overflow: hidden;
-  //position: fixed;
-  //top: 0;
-  //left: 0;
-  //right: 0;
-  //bottom: 0;
   width: 100%;
   height: 100%;
 }
@@ -1111,7 +1128,7 @@ input:-webkit-autofill:active {
     color: #a4a4a4;
   }
   &.yellow {
-    background: #ebaa2c;
+    background: $allwinColor;
   }
   &.black {
     background: #000;
@@ -1157,7 +1174,7 @@ input:-webkit-autofill:active {
     background: #210f5c;
   }
   &.yellow {
-    background: #ebaa2c;
+    background: $allwinColor;
   }
   &.line {
     border: 1px solid #292a4d;
@@ -1205,8 +1222,8 @@ input:-webkit-autofill:active {
   height: 2px;
   .bid__handle {
     position: absolute;
-    left: -4px;
     bottom: -3px;
+    left: -4px;
     z-index: 2;
     width: 8px;
     height: 8px;
@@ -1227,7 +1244,7 @@ input:-webkit-autofill:active {
       width: 21px;
       height: 17px;
       text-align: center;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_bid-flag.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_bid-flag.png') center center no-repeat;
       background-size: 21px 17px;
     }
   }
@@ -1407,7 +1424,7 @@ input:-webkit-autofill:active {
       height: 20px;
       top: 9px;
       right: 14px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_position.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_position.png') center center no-repeat;
     }
   }
   &.large {
@@ -1449,7 +1466,7 @@ input:-webkit-autofill:active {
       height: 20px;
       top: 18px;
       right: 16px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_cal.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_cal.png') center center no-repeat;
     }
   }
   &.time {
@@ -1458,7 +1475,7 @@ input:-webkit-autofill:active {
       height: 22px;
       top: 17px;
       right: 21px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_time.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_time.png') center center no-repeat;
     }
   }
   &.cal-long {
@@ -1479,7 +1496,7 @@ input:-webkit-autofill:active {
       height: 20px;
       top: 18px;
       right: 16px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_cal.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_cal.png') center center no-repeat;
     }
   }
   &.arrow {
@@ -1488,7 +1505,7 @@ input:-webkit-autofill:active {
       height: 13px;
       top: 14px;
       right: 20px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_input-arrow.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_input-arrow.png') center center no-repeat;
     }
   }
   &.money {
@@ -1521,7 +1538,7 @@ input:-webkit-autofill:active {
       margin: -6px 0 0 0;
       width: 18px;
       height: 12px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_won.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_won.png') center center no-repeat;
     }
   }
   &.line {
@@ -1621,7 +1638,7 @@ input:-webkit-autofill:active {
           width: 10px;
           height: 10px;
           border-radius: 10px;
-          background: #ebaa2c;
+          background: $allwinColor;
         }
       }
     }
@@ -1661,8 +1678,8 @@ input:-webkit-autofill:active {
       & + label {
         color: #000;
         &:before {
-          border: 1px solid #ebaa2c;
-          background: #fff url('https://cdn.allwin.bid/air/resource/img/ico_check.png') center center no-repeat;
+          border: 1px solid $allwinColor;
+          background: #fff url('#{$imgPath}/ico_check.png') center center no-repeat;
         }
       }
     }
@@ -1770,7 +1787,7 @@ input:-webkit-autofill:active {
     margin-left: -3px;
     width: 6px;
     height: 4px;
-    background: url('https://cdn.allwin.bid/air/resource/img/ico_tooltip-arrow-top.png') center center no-repeat;
+    background: url('#{$imgPath}/ico_tooltip-arrow-top.png') center center no-repeat;
   }
   .csr-tooltip-inner {
     position: relative;
@@ -1793,7 +1810,7 @@ input:-webkit-autofill:active {
     display: inline-block;
     width: 54px;
     height: 19px;
-    background: url(https://cdn.allwin.bid/air/resource/img/img_enter2.png) center center no-repeat;
+    background: url('#{$imgPath}/img_enter2.png') center center no-repeat;
   }
   button {
     position: absolute;
@@ -1801,7 +1818,7 @@ input:-webkit-autofill:active {
     right: 14px;
     width: 13px;
     height: 13px;
-    background: url(https://cdn.allwin.bid/air/resource/img/ico_close4.png) center center no-repeat;
+    background: url('#{$imgPath}/ico_close4.png') center center no-repeat;
     background-size: 13px 13px;
   }
 }
@@ -1958,7 +1975,7 @@ input:-webkit-autofill:active {
           display: inline-block;
           min-width: 30px;
           height: 30px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_arrow-left-black.svg') center center no-repeat;
+          background: url('#{$imgPath}/ico_arrow-left-black.svg') center center no-repeat;
           background-size: 10px 19px;
         }
         .next {
@@ -1968,7 +1985,7 @@ input:-webkit-autofill:active {
           display: inline-block;
           min-width: 30px;
           height: 30px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_arrow-right-black.svg') center center no-repeat;
+          background: url('#{$imgPath}/ico_arrow-right-black.svg') center center no-repeat;
           background-size: 10px 19px;
         }
         .dot {
@@ -2023,11 +2040,11 @@ input:-webkit-autofill:active {
         color: #999;
       }
       .first-date-selected {
-        background: #ebaa2c !important;
+        background: $allwinColor !important;
         color: #fff;
       }
       .last-date-selected {
-        background: #ebaa2c !important;
+        background: $allwinColor !important;
         color: #fff;
       }
       .checked {
@@ -2071,7 +2088,7 @@ input:-webkit-autofill:active {
       font-size: 14px;
       padding-left: 10px;
       width: 80px;
-      height: 30px; /*background: url() 60px center no-repeat;*/
+      height: 30px;
     }
     .hour {
       float: left;
@@ -2124,42 +2141,21 @@ input:-webkit-autofill:active {
   z-index: 100;
   overflow: hidden;
   .inner {
-    position: relative;
+    width: 970px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include translate(-50%, -50%);
     &.from-citys {
-      width: 970px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
     }
     &.to-citys {
-      width: 970px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
     }
     &.airlies {
-      width: 970px;
       height: 625px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
       .paging a {
         color: #fff;
         border: 1px solid #fff;
       }
-
       .paginationjs {
         margin: 40px auto 0 auto;
         text-align: center;
@@ -2190,17 +2186,8 @@ input:-webkit-autofill:active {
           }
         }
       }
-
     }
     &.dates {
-      width: 970px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
       .layer-header {
         padding-bottom: 20px;
       }
@@ -2210,63 +2197,19 @@ input:-webkit-autofill:active {
     }
     &.crs-share {
       width: 580px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
     }
     &.pnr-reg {
       width: 820px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
     }
     &.zip-code {
       width: 580px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
     }
     &.passenger-seat {
-      width: 970px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
     }
     &.times {
-      width: 970px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
     }
     &.air-fare-detail {
       width: 1110px;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
       .layer-header {
         padding-bottom: 20px;
       }
@@ -2278,13 +2221,9 @@ input:-webkit-autofill:active {
     &.srch-loading {
       width: 100%;
       max-width: 1200px;
-      margin: 0 auto;
-      position: absolute;
       top: 100px;
       left: 50%;
-      -ms-transform: translate(-50%, 0);
-      -webkit-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
+      @include translate(-50%, 0);
       .tits {
         font-weight: 300;
         font-size: 40px;
@@ -2333,28 +2272,18 @@ input:-webkit-autofill:active {
           position: absolute;
           top: 50%;
           left: 0;
-          -ms-transform: translate(0, -50%);
-          -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
-          -moz-transition: 0.3s;
-          -o-transition: 0.3s;
-          -webkit-transition: 0.3s;
-          transition: 0.3s;
+          @include translate(0, -50%);
+          @include transition(0.3s);
         }
         .plane {
           width: 20px;
           height: 16px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_white-plane.svg') center center no-repeat;
+          background: url('#{$imgPath}/ico_white-plane.svg') center center no-repeat;
           position: absolute;
           top: 50%;
           right: 0;
-          -ms-transform: translate(0, -50%);
-          -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
-          -moz-transition: 0.3s;
-          -o-transition: 0.3s;
-          -webkit-transition: 0.3s;
-          transition: 0.3s;
+          @include translate(0, -50%);
+          @include transition(0.3s);
         }
       }
     }
@@ -2408,7 +2337,7 @@ input:-webkit-autofill:active {
             color: #fff;
             &:before {
               border: 1px solid #fff;
-              background: #fff url('https://cdn.allwin.bid/air/resource/img/ico_check.png') center center no-repeat;
+              background: #fff url('#{$imgPath}/ico_check.png') center center no-repeat;
               background-size: 8px 7px;
             }
           }
@@ -2436,7 +2365,7 @@ input:-webkit-autofill:active {
                 right: 10px !important;
                 width: 13px !important;
                 height: 8px !important;
-                background: url(https://cdn.allwin.bid/air/resource/img/ico_select-arrow2-off.png) center center no-repeat !important;
+                background: url('#{$imgPath}/ico_select-arrow2-off.png') center center no-repeat !important;
                 border: none !important;
                 left: auto !important;
                 margin: 0 !important;
@@ -2450,7 +2379,7 @@ input:-webkit-autofill:active {
             .select2-selection--single {
               .select2-selection__arrow {
                 b {
-                  background: url(https://cdn.allwin.bid/air/resource/img/ico_select-arrow2-on.png) center center no-repeat !important;
+                  background: url('#{$imgPath}/ico_select-arrow2-on.png') center center no-repeat !important;
                   -webkit-transform: rotateZ(0);
                   transform: rotateZ(0);
                 }
@@ -2464,7 +2393,6 @@ input:-webkit-autofill:active {
   .srching-input {
     position:relative;
     width:820px;
-    //margin-bottom: 40px;
     ::-webkit-input-placeholder {
       color: #fff;
       font-size: 18px;
@@ -2492,7 +2420,7 @@ input:-webkit-autofill:active {
       border: 0;
       border-bottom: 1px solid #fff;
       text-indent: 30px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_srch.png') 0 6px no-repeat;
+      background: url('#{$imgPath}/ico_srch.png') 0 6px no-repeat;
     }
     .del{
       position:absolute;
@@ -2507,7 +2435,7 @@ input:-webkit-autofill:active {
         display:inline-block;
         width:16px;
         height:16px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_val-close.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_val-close.png') center center no-repeat;
         vertical-align: top;
         margin-right:5px;
       }
@@ -2549,10 +2477,8 @@ input:-webkit-autofill:active {
           box-sizing: border-box;
           text-align: center;
           cursor: pointer;
-          transition: all 0.3s;
-          -webkit-transition: all 0.3s;
-          -moz-transition: all 0.3s;
           box-sizing: border-box;
+          @include transition(all, 0.3s);
         }
         &:checked + label {
           color: #000;
@@ -2614,9 +2540,7 @@ input:-webkit-autofill:active {
         padding: 0 20px;
         height: 75px;
         box-sizing: border-box;
-        -moz-transition: 0.3s;
-        -webkit-transition: 0.3s;
-        transition: 0.3s;
+        @include transition(0.3s);
         span {
           color: #fff;
           display: block;
@@ -2624,9 +2548,7 @@ input:-webkit-autofill:active {
           white-space: nowrap;
           word-wrap: normal;
           overflow: hidden;
-          -moz-transition: 0.3s;
-          -webkit-transition: 0.3s;
-          transition: 0.3s;
+          @include transition(0.3s);
         }
         &.col1 {
           span {
@@ -2719,10 +2641,8 @@ input:-webkit-autofill:active {
             box-sizing: border-box;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            -webkit-transition: all 0.3s;
-            -moz-transition: all 0.3s;
             box-sizing: border-box;
+            @include transition(all, 0.3s);
           }
           &:checked + label {
             color: #000;
@@ -2921,13 +2841,6 @@ input:-webkit-autofill:active {
               white-space: nowrap;
               word-wrap: normal;
               overflow: hidden;
-              //span {
-              //  display: block;
-              //  text-overflow: ellipsis;
-              //  white-space: nowrap;
-              //  word-wrap: normal;
-              //  overflow: hidden;
-              //}
             }
             &:checked + label {
               color: #000;
@@ -3167,7 +3080,7 @@ input:-webkit-autofill:active {
     position: absolute;
     top: 3px;
     right: 0;
-    background: url('https://cdn.allwin.bid/air/resource/img/ico_close3.png') center center no-repeat;
+    background: url('#{$imgPath}/ico_close3.png') center center no-repeat;
     background-size: 24px 24px;
   }
   .datapicker-outer {
@@ -3226,13 +3139,13 @@ input:-webkit-autofill:active {
             .prev {
               min-width: 50px;
               height: 66px;
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_prev-arrow.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_prev-arrow.png') center center no-repeat;
               background-size: 16px 28px;
             }
             .next {
               min-width: 50px;
               height: 66px;
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_next-arrow.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_next-arrow.png') center center no-repeat;
               background-size: 16px 28px;
             }
             .dot {
@@ -3323,11 +3236,11 @@ input:-webkit-autofill:active {
                 }
               }
               .first-date-selected {
-                background: #ebaa2c !important;
+                background: $allwinColor !important;
                 color: #fff;
               }
               .last-date-selected {
-                background: #ebaa2c !important;
+                background: $allwinColor !important;
                 color: #fff;
               }
               .checked {
@@ -3378,7 +3291,7 @@ input:-webkit-autofill:active {
       height: 60px;
       line-height: 60px;
       margin: 0 auto 0 auto;
-      background: #ebaa2c;
+      background: $allwinColor;
       font-size: 18px;
       color: #fff;
       text-align: center;
@@ -3459,7 +3372,7 @@ input:-webkit-autofill:active {
       display: inline-block;
       width: 54px;
       height: 19px;
-      background: url('https://cdn.allwin.bid/air/resource/img/img_enter.png') center center no-repeat;
+      background: url('#{$imgPath}/img_enter.png') center center no-repeat;
     }
   }
   .pnr-reg-txts {
@@ -3495,8 +3408,7 @@ input:-webkit-autofill:active {
       color: #fff;
       border: 1px solid #fff;
       font-size: 18px;
-      -webkit-transition: 0.5s;
-      transition: 0.5s;
+      @include transition(0.5s);
       &:hover {
         background: #fff;
         color: #edaf08;
@@ -3572,7 +3484,7 @@ input:-webkit-autofill:active {
         vertical-align: top;
         width: 16px;
         height: 13px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_black-plane.svg') center center no-repeat;
+        background: url('#{$imgPath}/ico_black-plane.svg') center center no-repeat;
         background-size: 16px 13px;
       }
     }
@@ -3658,7 +3570,7 @@ input:-webkit-autofill:active {
         padding: 5px 0;
         dt {
           float: left;
-          color: #ebaa2c;
+          color: $allwinColor;
           width: 75px;
         }
         dd {
@@ -3669,7 +3581,7 @@ input:-webkit-autofill:active {
         }
         .sale {
           font-weight: 700;
-          color: #ebaa2c;
+          color: $allwinColor;
         }
         .txt2 {
           color: #a6a6a6;
@@ -3687,9 +3599,7 @@ input:-webkit-autofill:active {
         position: absolute;
         top: 50%;
         right: 25px;
-        -ms-transform: translate(0, -50%);
-        -webkit-transform: translate(0, -50%);
-        transform: translate(0, -50%);
+        @include translate(0, -50%);
         text-align: right;
         line-height: 150%;
         dt {
@@ -3713,9 +3623,7 @@ input:-webkit-autofill:active {
     position: fixed;
     top: 50%;
     height: 92px;
-    -ms-transform: translate(0, -50%);
-    -webkit-transform: translate(0, -50%);
-    transform: translate(0, -50%);
+    @include translate(0, -50%);
     .t1 {
       font-weight: 700;
       font-size: 22px;
@@ -3748,11 +3656,11 @@ input:-webkit-autofill:active {
       padding-right: 70px;
       .ico {
         right: 0;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_recom-next.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_recom-next.png') center center no-repeat;
         &:after {
           opacity: 1;
           right: 0;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_recom-next.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_recom-next.png') center center no-repeat;
         }
       }
     }
@@ -3762,10 +3670,10 @@ input:-webkit-autofill:active {
       padding-left: 70px;
       .ico {
         left: 0;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_recom-prev.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_recom-prev.png') center center no-repeat;
         &:after {
           left: 0;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_recom-prev.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_recom-prev.png') center center no-repeat;
         }
       }
     }
@@ -3865,7 +3773,7 @@ input:-webkit-autofill:active {
     right: 20px;
     width: 29px;
     height: 29px;
-    background: url('https://cdn.allwin.bid/air/resource/img/ico_close1.png') center center no-repeat;
+    background: url('#{$imgPath}/ico_close1.png') center center no-repeat;
   }
   .inner {
     background: #fff;
@@ -3875,9 +3783,7 @@ input:-webkit-autofill:active {
     position: absolute;
     top: 50%;
     left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    @include translate(-50%, -50%);
     text-align: center;
     min-width: 340px;
     padding: 75px 40px 146px 40px;
@@ -3959,9 +3865,7 @@ input:-webkit-autofill:active {
       position: absolute;
       top: 50%;
       left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+      @include translate(-50%, -50%);
     }
     &.seller-chain {
       width: 480px;
@@ -4107,7 +4011,7 @@ input:-webkit-autofill:active {
           right: 10px;
           width: 16px;
           height: 16px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_close4.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_close4.png') center center no-repeat;
           opacity: 0.3;
         }
       }
@@ -4362,7 +4266,7 @@ input:-webkit-autofill:active {
           display: block;
           width: 29px;
           height: 21px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_flag-yellow.svg') center center no-repeat;
+          background: url('#{$imgPath}/ico_flag-yellow.svg') center center no-repeat;
           background-size: 29px 21px;
         }
         li {
@@ -4442,7 +4346,7 @@ input:-webkit-autofill:active {
           display: block;
           width: 29px;
           height: 21px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_flag-yellow.svg') center center no-repeat;
+          background: url('#{$imgPath}/ico_flag-yellow.svg') center center no-repeat;
           background-size: 29px 21px;
         }
         li {
@@ -4470,7 +4374,7 @@ input:-webkit-autofill:active {
         text-align: center;
         margin: 20px 0 0 0;
         height: 200px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_win-deco.png') center top no-repeat;
+        background: url('#{$imgPath}/ico_win-deco.png') center top no-repeat;
       }
 
       .evt-winner__tit2 strong {
@@ -4478,7 +4382,7 @@ input:-webkit-autofill:active {
         font-weight: normal;
         display: block;
         font-size: 18px;
-        color: #ebaa2c;
+        color: $allwinColor;
         font-family: 'Geogrotesque-SemiBold';
       }
 
@@ -4901,7 +4805,7 @@ input:-webkit-autofill:active {
     width: 30px;
     height: 30px;
     margin: -15px 0 0 -15px;
-    background: url('https://cdn.allwin.bid/air/resource/img/ico_loading-circle.png') center center no-repeat;
+    background: url('#{$imgPath}/ico_loading-circle.png') center center no-repeat;
     -webkit-animation: rotate-center 1s cubic-bezier(0.550, 0.055, 0.675, 0.190) infinite backwards;
     animation: rotate-center 1s cubic-bezier(0.550, 0.055, 0.675, 0.190) infinite backwards;
   }
@@ -4934,7 +4838,7 @@ input:-webkit-autofill:active {
   top: 0;
   left: 0;
   height: 4px;
-  background: #ebaa2c;
+  background: $allwinColor;
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
   -webkit-transition: 0.3s;
@@ -5144,7 +5048,7 @@ input:-webkit-autofill:active {
       display: block;
       width: 137px;
       height: 20px;
-      background: url('https://cdn.allwin.bid/air/resource/img/img_header-logo.png') center center no-repeat;
+      background: url('#{$imgPath}/img_header-logo.png') center center no-repeat;
       background-size: 137px 20px;
     }
   }
@@ -5235,7 +5139,7 @@ input:-webkit-autofill:active {
         right: -23px;
         width: 21px;
         height: 20px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_new.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_new.png') center center no-repeat;
       }
     }
     .pnr-toggle {
@@ -5308,10 +5212,10 @@ input:-webkit-autofill:active {
         height: 7px;
         vertical-align: top;
         &.up {
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_rank-up.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_rank-up.png') center center no-repeat;
         }
         &.down {
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_rank-down.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_rank-down.png') center center no-repeat;
         }
         &.equal {
           &:before {
@@ -5326,7 +5230,7 @@ input:-webkit-autofill:active {
           }
         }
         &.new {
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_rank-new.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_rank-new.png') center center no-repeat;
         }
       }
       .rank-items {
@@ -5422,7 +5326,7 @@ input:-webkit-autofill:active {
         position: absolute;
         top: 0;
         right: 0;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_rank-arrow-off.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_rank-arrow-off.png') center center no-repeat;
         -webkit-transition: -webkit-transform .3s;
         transition: transform .3s;
         -webkit-transform: rotateZ(0);
@@ -5433,7 +5337,6 @@ input:-webkit-autofill:active {
       z-index: 25;
       .ranks {
         top: -1px;
-        //width: 601px;
         width: 299px;
         height: 203px;
         border: 1px solid #d7d7d7;
@@ -5443,7 +5346,7 @@ input:-webkit-autofill:active {
         -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
         box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
         .rank-toggle {
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_rank-arrow-on.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_rank-arrow-on.png') center center no-repeat;
         }
         .change {
           top: 12px;
@@ -5523,7 +5426,6 @@ input:-webkit-autofill:active {
     left: 0;
     right: 0;
     background: #f5f5f5;
-    //overflow: hidden;
     z-index: 1;
     -webkit-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
     -moz-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
@@ -5588,7 +5490,7 @@ input:-webkit-autofill:active {
       right: -67px;
       width: 29px;
       height: 30px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_close1.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_close1.png') center center no-repeat;
     }
   }
   .pnr-dims {
@@ -5788,7 +5690,7 @@ input:-webkit-autofill:active {
             right: -70px;
             width: 257px;
             height: 263px;
-            background: url('https://cdn.allwin.bid/air/resource/img/img_main-plane.png') center center no-repeat;
+            background: url('#{$imgPath}/img_main-plane.png') center center no-repeat;
 
             transition: all .9s cubic-bezier(.19, 1, .22, 1);
             -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
@@ -5799,7 +5701,7 @@ input:-webkit-autofill:active {
           }
         }
         &.matching {
-          background: url('https://cdn.allwin.bid/air/resource/img/img_main-bg.png') center center no-repeat;
+          background: url('#{$imgPath}/img_main-bg.png') center center no-repeat;
           .bt {
             -webkit-transition-delay: .2s;
             transition-delay: .2s;
@@ -5910,11 +5812,11 @@ input:-webkit-autofill:active {
               }
               .awa-slide__prev {
                 left: 10px;
-                background: url('https://cdn.allwin.bid/air/resource/img/img_main-prev.png') center center no-repeat;
+                background: url('#{$imgPath}/img_main-prev.png') center center no-repeat;
               }
               .awa-slide__next {
                 right: 10px;
-                background: url('https://cdn.allwin.bid/air/resource/img/img_main-next.png') center center no-repeat;
+                background: url('#{$imgPath}/img_main-next.png') center center no-repeat;
               }
               .awa-slide__pager {
                 display: none;
@@ -5982,7 +5884,7 @@ input:-webkit-autofill:active {
       top: 5px;
       right: 0;
       padding-right: 10px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_recom-arrow.png') right center no-repeat;
+      background: url('#{$imgPath}/ico_recom-arrow.png') right center no-repeat;
     }
     .allwin-recommend-rolling {
       .recommend-item {
@@ -6037,11 +5939,11 @@ input:-webkit-autofill:active {
       }
       .awa-slide__prev {
         left: -90px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_recom-prev.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_recom-prev.png') center center no-repeat;
       }
       .awa-slide__next {
         right: -90px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_recom-next.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_recom-next.png') center center no-repeat;
       }
       .awa-slide__pager {
         display: none;
@@ -6070,6 +5972,7 @@ input:-webkit-autofill:active {
 }
 
 .ad-banner-rolling {
+  position: relative;
   text-align: center;
   .item {
     position: relative;
@@ -6134,7 +6037,7 @@ input:-webkit-autofill:active {
   margin: 0 0 0 0;
   width: 30px;
   height: 30px;
-  background: url('https://cdn.allwin.bid/air/resource/img/ico_close1.png') center center no-repeat;
+  background: url('#{$imgPath}/ico_close1.png') center center no-repeat;
 
   @include transition(all 0.5s);
   &:hover {
@@ -6176,7 +6079,6 @@ input:-webkit-autofill:active {
   position: absolute;
   top: 0;
   bottom: 0;
-  //overflow: hidden;
   z-index: 20;
   -webkit-box-shadow: 0px 20px 32px 0px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 20px 32px 0px rgba(0, 0, 0, 0.5);
@@ -6203,9 +6105,6 @@ input:-webkit-autofill:active {
     h2 {
       color: #000;
     }
-    .inner {
-      //opacity: 0;
-    }
     .air-ticketing {
       .csr-tooltip {
         top: 61px;
@@ -6213,7 +6112,7 @@ input:-webkit-autofill:active {
     }
   }
   &.layer-matching {
-    background: url('https://cdn.allwin.bid/air/resource/img/img_main-visual-matching2.jpg') center center no-repeat;
+    background: url('#{$imgPath}/img_main-visual-matching2.jpg') center center no-repeat;
     transition: all .5s;
     background-size: cover !important;
     &.active {
@@ -6249,7 +6148,7 @@ input:-webkit-autofill:active {
       top: 190px;
       left: 50%;
       margin-left: -267px;
-      background: url('https://cdn.allwin.bid/air/resource/img/land/ico_srch.png') 0 5px no-repeat;
+      background: url('#{$imgPath}/land/ico_srch.png') 0 5px no-repeat;
       ::-webkit-input-placeholder {
         font-size: 16px;
         font-weight: 700;
@@ -6349,7 +6248,7 @@ input:-webkit-autofill:active {
       .in{
         position:relative;
         width:791px;
-        background: url('https://cdn.allwin.bid/air/resource/img/land/ico_srch.png') 0 5px no-repeat;
+        background: url('#{$imgPath}/land/ico_srch.png') 0 5px no-repeat;
         .land-total-srch-bt {
           width: 100px;
           background: #fff;
@@ -6444,11 +6343,11 @@ input:-webkit-autofill:active {
       }
       .awa-slide__prev {
         left: -85px;
-        background: url('https://cdn.allwin.bid/air/resource/img/land/ico_prev2.png') center center no-repeat;
+        background: url('#{$imgPath}/land/ico_prev2.png') center center no-repeat;
       }
       .awa-slide__next {
         right: -85px;
-        background: url('https://cdn.allwin.bid/air/resource/img/land/ico_next2.png') center center no-repeat;
+        background: url('#{$imgPath}/land/ico_next2.png') center center no-repeat;
       }
       .awa-slide__pager {
         text-align: center;
@@ -6490,7 +6389,7 @@ input:-webkit-autofill:active {
           font-family: 'Geogrotesque-Bold';
           display: inline-block;
           vertical-align: top;
-          background: url('https://cdn.allwin.bid/air/resource/img/land/ico_yellowflag-small.png') center center no-repeat;
+          background: url('#{$imgPath}/land/ico_yellowflag-small.png') center center no-repeat;
         }
         .area {
           font-size: 12px;
@@ -6516,16 +6415,7 @@ input:-webkit-autofill:active {
       background: #fff;
       transition: background-image 1s ease-in-out;
       -webkit-transition: background-image 1s ease-in-out;
-      //-webkit-transition: all 0.5s ease-in-out;
-      //transition: all 0.5s ease-in-out;
       background-size: cover !important;
-      //background-position: center center !important;
-      //background-repeat: no-repeat !important;
-      //background-size: cover !important;
-      //-webkit-filter: blur(10px);
-      //-moz-filter: blur(10px);
-      //-ms-filter: blur(10px);
-      //filter: blur(10px);
     }
   }
   h2 {
@@ -6543,7 +6433,7 @@ input:-webkit-autofill:active {
     right: 0px;
     width: 47px;
     height: 47px;
-    background: url('https://cdn.allwin.bid/air/resource/img/land/ico_close2.png') center center no-repeat;
+    background: url('#{$imgPath}/land/ico_close2.png') center center no-repeat;
   }
   .inner {
     position: relative;
@@ -6626,7 +6516,7 @@ input:-webkit-autofill:active {
               display: inline-block;
               width: 13px;
               height: 10px;
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_check.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_check.png') center center no-repeat;
             }
           }
         }
@@ -7010,7 +6900,7 @@ input:-webkit-autofill:active {
         width: 20px;
         height: 16px;
         margin: 0 10px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_plane.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_plane.png') center center no-repeat;
       }
     }
     .result-date {
@@ -7183,12 +7073,12 @@ input:-webkit-autofill:active {
         &.money {
           width: 32px;
           padding-left: 13px;
-          background: url('https://cdn.allwin.bid/air/resource/img/img_orage-flag.png') center center no-repeat;
+          background: url('#{$imgPath}/img_orage-flag.png') center center no-repeat;
         }
         &.com {
           width: 42px;
           padding-left: 13px;
-          background: url('https://cdn.allwin.bid/air/resource/img/img_black-flag.png') center center no-repeat;
+          background: url('#{$imgPath}/img_black-flag.png') center center no-repeat;
         }
       }
       .seller {
@@ -7254,7 +7144,7 @@ input:-webkit-autofill:active {
     right: -18px;
     width: 318px;
     height: 436px;
-    background: url('https://cdn.allwin.bid/air/resource/img/benefit/img_bg-box.png') 0 0 no-repeat;
+    background: url('#{$imgPath}/benefit/img_bg-box.png') 0 0 no-repeat;
     &:after {
       content: '';
       position: absolute;
@@ -7262,7 +7152,7 @@ input:-webkit-autofill:active {
       right: 35px;
       width: 127px;
       height: 131px;
-      background: url('https://cdn.allwin.bid/air/resource/img/benefit/img_plane.png') center center no-repeat;
+      background: url('#{$imgPath}/benefit/img_plane.png') center center no-repeat;
     }
     .seller-logo {
       display: inline-block;
@@ -7304,7 +7194,7 @@ input:-webkit-autofill:active {
             left: -4px;
             width: 55px;
             height: 28px;
-            background: url('https://cdn.allwin.bid/air/resource/img/benefit/img_flag1.png') center center no-repeat;
+            background: url('#{$imgPath}/benefit/img_flag1.png') center center no-repeat;
           }
         }
       }
@@ -7451,13 +7341,6 @@ input:-webkit-autofill:active {
         }
       }
     }
-    .layer-forms {
-      .row {
-        &:last-child {
-          //width: 615px;
-        }
-      }
-    }
   }
 }
 
@@ -7482,7 +7365,7 @@ input:-webkit-autofill:active {
     display: block;
     width: 134px;
     height: 19px;
-    background: url('https://cdn.allwin.bid/air/resource/img/img_footer-logo.png') 0 0 no-repeat;
+    background: url('#{$imgPath}/img_footer-logo.png') 0 0 no-repeat;
     background-size: 134px 19px;
   }
   .footer-info {
@@ -7593,7 +7476,7 @@ input:-webkit-autofill:active {
           left: 50%;
           width: 20px;
           height: 16px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_black-plane.svg') center center no-repeat;
+          background: url('#{$imgPath}/ico_black-plane.svg') center center no-repeat;
           background-size: 20px 16px;
         }
         &:before {
@@ -7691,7 +7574,6 @@ input:-webkit-autofill:active {
   .result-lists {
     position: relative;
     width: 1200px;
-    //min-height: 700px;
     margin: 0 auto;
     &:after {
       content: " ";
@@ -7710,7 +7592,6 @@ input:-webkit-autofill:active {
         padding: 30px 0;
         dt {
           padding: 0 5px;
-          //margin-bottom: 10px;
         }
         dd {
           padding: 0 5px;
@@ -7755,9 +7636,9 @@ input:-webkit-autofill:active {
             right: 5px;
             width: 18px;
             height: 18px;
-            background: url('https://cdn.allwin.bid/air/resource/img/ico_select-arrow-off.png') center center no-repeat;
+            background: url('#{$imgPath}/ico_select-arrow-off.png') center center no-repeat;
             &.is-toggled {
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_select-arrow-on.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_select-arrow-on.png') center center no-repeat;
             }
           }
         }
@@ -7777,8 +7658,8 @@ input:-webkit-autofill:active {
             &:checked {
               & + label {
                 &:before {
-                  border: 1px solid #ebaa2c;
-                  background: #ebaa2c url(https://cdn.allwin.bid/air/resource/img/ico_check2.png) center center no-repeat;
+                  border: 1px solid $allwinColor;
+                  background: $allwinColor url('#{$imgPath}/ico_check2.png') center center no-repeat;
                   background-size: 9px 7px;
                 }
               }
@@ -7804,7 +7685,6 @@ input:-webkit-autofill:active {
     .lists {
       width: 970px;
       float: right;
-      //margin: 0 0 0 230px;
       .no-result {
         padding: 120px 0;
         text-align: center;
@@ -7813,7 +7693,6 @@ input:-webkit-autofill:active {
         border-top: 1px solid #111;
       }
       &__items {
-        //border:1px solid #e7e7e7;
         margin-top: 20px;
         overflow: hidden;
         box-sizing: border-box;
@@ -7851,7 +7730,6 @@ input:-webkit-autofill:active {
               border-bottom: 1px solid #e7e7e7;
             }
             .trip-items {
-              //height: 245px;
               display: table-cell;
               vertical-align: middle;
               font-size: 0;
@@ -7904,8 +7782,8 @@ input:-webkit-autofill:active {
                       &:checked {
                         & + label {
                           &:before {
-                            border: 1px solid #ebaa2c;
-                            background: #ebaa2c url(https://cdn.allwin.bid/air/resource/img/ico_check2.png) center center no-repeat;
+                            border: 1px solid $allwinColor;
+                            background: $allwinColor url('#{$imgPath}/ico_check2.png') center center no-repeat;
                             background-size: 9px 7px;
                           }
                         }
@@ -8091,9 +7969,7 @@ input:-webkit-autofill:active {
               top: 50%;
               right: 0;
               width: 246px;
-              -ms-transform: translate(0, -50%);
-              -webkit-transform: translate(0, -50%);
-              transform: translate(0, -50%);
+              @include translate(0, -50%);
               text-align: center;
             }
             .seller {
@@ -8165,7 +8041,7 @@ input:-webkit-autofill:active {
               display: inline-block;
               width: 13px;
               height: 8px;
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_select-arrow3-off.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_select-arrow3-off.png') center center no-repeat;
             }
             &:first-child {
               width: 726px;
@@ -8180,7 +8056,7 @@ input:-webkit-autofill:active {
               border-bottom-left-radius: 0;
               border-bottom-right-radius: 0;
               &:after {
-                background: url('https://cdn.allwin.bid/air/resource/img/ico_select-arrow3-on.png') center center no-repeat;
+                background: url('#{$imgPath}/ico_select-arrow3-on.png') center center no-repeat;
               }
             }
           }
@@ -8312,7 +8188,6 @@ input:-webkit-autofill:active {
     position: relative;
     border-top: 1px solid #e6e6e6;
     padding: 20px 0;
-    //margin: 0 40px;
     font-size: 0;
     &:after {
       content: '';
@@ -8333,12 +8208,6 @@ input:-webkit-autofill:active {
       vertical-align: top;
       box-sizing: border-box;
       padding: 20px 0 30px 0;
-      //border-right: 1px solid #e7e7e7;
-      &:first-child {
-        .schedule-detail__tit {
-          //margin-left: 0;
-        }
-      }
       &:last-child {
         border-right: 0;
       }
@@ -8356,7 +8225,6 @@ input:-webkit-autofill:active {
   .schedule-detail__items {
     position: relative;
     text-align: center;
-    //margin-top: 20px;
     .schedule-detail__item {
       position: relative;
       font-size: 0;
@@ -8383,7 +8251,6 @@ input:-webkit-autofill:active {
         display: inline-block;
         vertical-align: top;
         text-align: right;
-        //margin-bottom: 30px;
         dl {
           text-align: right;
           right: 0;
@@ -8414,7 +8281,6 @@ input:-webkit-autofill:active {
         height: 135px;
         display: inline-block;
         vertical-align: top;
-        //margin-bottom: 30px;
         dl {
           text-align: left;
           left: 0;
@@ -8443,9 +8309,7 @@ input:-webkit-autofill:active {
         position: absolute;
         top: 50%;
         left: 0;
-        -ms-transform: translate(0, -50%);
-        -webkit-transform: translate(0, -50%);
-        transform: translate(0, -50%);
+        @include translate(0, -50%);
         .plane-code {
           font-weight: 500;
           color: #fe4e0c;
@@ -8469,7 +8333,7 @@ input:-webkit-autofill:active {
           font-size: 12px;
         }
         .plus {
-          color: #ebaa2c;
+          color: $allwinColor;
           font-size: 12px;
           font-family: 'Geogrotesque-Medium';
         }
@@ -8485,9 +8349,7 @@ input:-webkit-autofill:active {
         top: 50%;
         right: 0;
         text-align: right;
-        -ms-transform: translate(0, -50%);
-        -webkit-transform: translate(0, -50%);
-        transform: translate(0, -50%);
+        @include translate(0, -50%);
         .codeshare, .hidden-stops {
           display: inline-block;
           font-size: 12px;
@@ -8504,7 +8366,7 @@ input:-webkit-autofill:active {
         vertical-align: top;
         width: 40px;
         height: 135px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_result-line.png') center center repeat-y;
+        background: url('#{$imgPath}/ico_result-line.png') center center repeat-y;
         &:before {
           content: '';
           z-index: 1;
@@ -8543,14 +8405,12 @@ input:-webkit-autofill:active {
     z-index: 0;
     display: inline-block;
     vertical-align: top;
-    background: url('https://cdn.allwin.bid/air/resource/img/ico_dot-line3.gif') center center repeat-y;
+    background: url('#{$imgPath}/ico_dot-line3.gif') center center repeat-y;
     span {
       position: absolute;
       top: 50%;
       right: -78px;
-      -ms-transform: translate(0, -50%);
-      -webkit-transform: translate(0, -50%);
-      transform: translate(0, -50%);
+      @include translate(0, -50%);
       font-size: 12px;
       color: #fe4e0c;
       font-weight: 500;
@@ -8588,7 +8448,7 @@ input:-webkit-autofill:active {
         margin: 13px 10px 0 10px;
         width: 20px;
         height: 16px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_black-plane.svg') center center no-repeat;
+        background: url('#{$imgPath}/ico_black-plane.svg') center center no-repeat;
         background-size: 20px 16px;
       }
       .bt-link {
@@ -8689,7 +8549,7 @@ input:-webkit-autofill:active {
             &:checked {
               & + label {
                 &:before {
-                  background: #ebaa2c url('https://cdn.allwin.bid/air/resource/img/ico_check2.png') center center no-repeat;
+                  background: $allwinColor url('#{$imgPath}/ico_check2.png') center center no-repeat;
                   background-size: 10px 8px;
                 }
               }
@@ -8788,7 +8648,7 @@ input:-webkit-autofill:active {
         z-index: 19;
         width: 18px;
         height: 7px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_result-round1.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_result-round1.png') center center no-repeat;
       }
       .row {
         position: relative;
@@ -8802,7 +8662,7 @@ input:-webkit-autofill:active {
           z-index: 10;
           width: 1px;
           height: 100%;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_dot-line.png') center center repeat-y;
+          background: url('#{$imgPath}/ico_dot-line.png') center center repeat-y;
         }
         &:after {
           content: '';
@@ -8812,7 +8672,7 @@ input:-webkit-autofill:active {
           z-index: 19;
           width: 18px;
           height: 7px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_result-round3.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_result-round3.png') center center no-repeat;
         }
         .col1 {
           position: absolute;
@@ -8847,7 +8707,7 @@ input:-webkit-autofill:active {
             z-index: 19;
             width: 18px;
             height: 7px;
-            background: url('https://cdn.allwin.bid/air/resource/img/ico_result-round2.png') center center no-repeat;
+            background: url('#{$imgPath}/ico_result-round2.png') center center no-repeat;
           }
           .inner {
             min-height: 230px;
@@ -8863,18 +8723,14 @@ input:-webkit-autofill:active {
         position: absolute;
         top: 50%;
         left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        -webkit-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+        @include translate(-50%, -50%);
         width: 100%;
         .airline {
           width: 120px;
           position: absolute;
           top: 50%;
           left: 0;
-          -ms-transform: translate(0, -50%);
-          -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+          @include translate(0, -50%);
         }
         .airline-code__wing {
           line-height: 130%;
@@ -8915,7 +8771,7 @@ input:-webkit-autofill:active {
             width: 14px;
             height: 11px;
             margin: 0 auto 3px auto;
-            background: url('https://cdn.allwin.bid/air/resource/img/ico_gray-plane.svg') center center no-repeat;
+            background: url('#{$imgPath}/ico_gray-plane.svg') center center no-repeat;
             background-size: 14px 11px;
           }
           em {
@@ -8923,7 +8779,7 @@ input:-webkit-autofill:active {
           }
         }
         .plus {
-          color: #ebaa2c;
+          color: $allwinColor;
           font-size: 14px;
         }
         .types {
@@ -8931,9 +8787,7 @@ input:-webkit-autofill:active {
           position: absolute;
           top: 50%;
           right: 30px;
-          -ms-transform: translate(0, -50%);
-          -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+          @include translate(0, -50%);
           margin-top: 9px;
         }
       }
@@ -8969,7 +8823,7 @@ input:-webkit-autofill:active {
             font-size: 14px;
             display: inline-block;
             width: 130px;
-            color: #ebaa2c;
+            color: $allwinColor;
             line-height: 20px;
           }
           .b2 {
@@ -9016,12 +8870,12 @@ input:-webkit-autofill:active {
             display: inline-block;
             width: 15px;
             height: 9px;
-            background: url('https://cdn.allwin.bid/air/resource/img/ico_result-arrow-down.svg') center center no-repeat;
+            background: url('#{$imgPath}/ico_result-arrow-down.svg') center center no-repeat;
             background-size: 15px 9px;
           }
           &.active {
             &:after {
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_result-arrow-up.svg') center center no-repeat;
+              background: url('#{$imgPath}/ico_result-arrow-up.svg') center center no-repeat;
               background-size: 15px 9px;
             }
           }
@@ -9039,7 +8893,6 @@ input:-webkit-autofill:active {
       .schedule-detail {
         position: relative;
         top: 0px;
-        //padding: 40px 0;
         overflow: hidden;
         border-top: 1px solid #ccc;
         .departure {
@@ -9164,9 +9017,7 @@ input:-webkit-autofill:active {
               position: absolute;
               top: 50%;
               left: 0;
-              -ms-transform: translate(0, -50%);
-              -webkit-transform: translate(0, -50%);
-              transform: translate(0, -50%);
+              @include translate(0, -50%);
               .plane-code {
                 font-family: 'Geogrotesque-SemiBold';
                 font-size: 12px;
@@ -9176,7 +9027,7 @@ input:-webkit-autofill:active {
                 font-family: 'Geogrotesque-Regular'
               }
               .plus {
-                color: #ebaa2c;
+                color: $allwinColor;
                 font-size: 12px;
                 margin-left: 5px;
               }
@@ -9191,9 +9042,7 @@ input:-webkit-autofill:active {
               position: absolute;
               top: 50%;
               right: 0;
-              -ms-transform: translate(0, -50%);
-              -webkit-transform: translate(0, -50%);
-              transform: translate(0, -50%);
+              @include translate(0, -50%);
               .hidden-stop-item {
                 padding-top: 13px;
                 dt {
@@ -9234,7 +9083,7 @@ input:-webkit-autofill:active {
               height: 110px;
               margin: 0 10px;
               padding-bottom: 30px;
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_dot-line2.gif') center top repeat-y;
+              background: url('#{$imgPath}/ico_dot-line2.gif') center top repeat-y;
               &:before {
                 content: '';
                 z-index: 1;
@@ -9243,7 +9092,7 @@ input:-webkit-autofill:active {
                 left: 50%;
                 width: 2px;
                 height: 110px;
-                background: #ebaa2c;
+                background: $allwinColor;
                 margin-left: -1px;
               }
               &:after {
@@ -9255,7 +9104,7 @@ input:-webkit-autofill:active {
                 margin-left: -7px;
                 width: 14px;
                 height: 16px;
-                background: url('https://cdn.allwin.bid/air/resource/img/ico_yellow-plane2.svg') center center no-repeat;
+                background: url('#{$imgPath}/ico_yellow-plane2.svg') center center no-repeat;
                 background-size: 14px 16px;
               }
             }
@@ -9460,11 +9309,11 @@ input:-webkit-autofill:active {
           margin: 30px 0 0 20px;
           &.com {
             width: 45px;
-            background: url('https://cdn.allwin.bid/air/resource/img/img_black-flag.png') center center no-repeat;
+            background: url('#{$imgPath}/img_black-flag.png') center center no-repeat;
           }
           &.money {
             width: 35px;
-            background: url('https://cdn.allwin.bid/air/resource/img/img_orage-flag.png') center center no-repeat;
+            background: url('#{$imgPath}/img_orage-flag.png') center center no-repeat;
           }
         }
         .txts {
@@ -9584,10 +9433,10 @@ input:-webkit-autofill:active {
       }
       .awa-slide__prev {
         border-left: 1px solid #ddd;
-        background: #fff url('https://cdn.allwin.bid/air/resource/img/ico_prev-arrow2.png') center center no-repeat;
+        background: #fff url('#{$imgPath}/ico_prev-arrow2.png') center center no-repeat;
       }
       .awa-slide__next {
-        background: #fff url('https://cdn.allwin.bid/air/resource/img/ico_next-arrow2.png') center center no-repeat;
+        background: #fff url('#{$imgPath}/ico_next-arrow2.png') center center no-repeat;
       }
     }
     .awa-slide__pager {
@@ -9624,7 +9473,6 @@ input:-webkit-autofill:active {
           display: table;
           padding: 25px 0;
           .trip-items {
-            //height: 245px;
             display: table-cell;
             vertical-align: middle;
             font-size: 0;
@@ -9947,7 +9795,7 @@ input:-webkit-autofill:active {
     left: -55px;
     width: 23px;
     height: 23px;
-    background: url('https://cdn.allwin.bid/air/resource/img/ico_close2.png') center center no-repeat;
+    background: url('#{$imgPath}/ico_close2.png') center center no-repeat;
   }
 }
 
@@ -10049,37 +9897,22 @@ input:-webkit-autofill:active {
     }
   }
   .login-banner {
+    position: relative;
     margin-top: 100px;
     padding-top: 40px;
     border-top: 1px solid #e0e0e0;
-    .login-banner-rolling {
-      position: relative;
-      font-size: 0;
-      .awa-slide__controls-direction {
-        display: none;
-      }
+    .ad-banner-rolling {
       .awa-slide__pager {
-        height: 6px;
-        position: absolute;
-        top: 7px;
-        right: 5px;
+        left: 10px;
+        margin-left: 0;
       }
-      .awa-slide__pager-item {
-        display: inline-block;
-        margin: 0 2px;
-        vertical-align: top;
-      }
-      .awa-slide__pager-link {
-        display: block;
-        width: 6px;
-        height: 6px;
-        border-radius: 6px;
-        background: #fff;
-        opacity: .5;
-        font-size: 0;
-      }
-      .awa-slide_pager-link--active {
-        opacity: 1;
+      .item {
+        &.ad {
+          &:after {
+            right: 20px;
+            margin-right: 0;
+          }
+        }
       }
     }
   }
@@ -10291,7 +10124,7 @@ input:-webkit-autofill:active {
               width: 11px;
               height: 11px;
               margin-left: 5px;
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_del.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_del.png') center center no-repeat;
             }
           }
           .addr {
@@ -10423,10 +10256,10 @@ input:-webkit-autofill:active {
         text-align: center;
         width: 50%;
         &:first-child {
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_dormant1.png') center 0 no-repeat;
+          background: url('#{$imgPath}/ico_dormant1.png') center 0 no-repeat;
         }
         &:last-child {
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_dormant2.png') center 19px no-repeat;
+          background: url('#{$imgPath}/ico_dormant2.png') center 19px no-repeat;
         }
       }
       span {
@@ -10622,7 +10455,7 @@ input:-webkit-autofill:active {
               width: 11px;
               height: 11px;
               margin-left: 5px;
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_del.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_del.png') center center no-repeat;
             }
           }
           .addr {
@@ -10930,7 +10763,7 @@ input:-webkit-autofill:active {
   .celebration {
     position: relative;
     padding-top: 130px;
-    background: url('https://cdn.allwin.bid/air/resource/img/ico_deco.png') center top no-repeat;
+    background: url('#{$imgPath}/ico_deco.png') center top no-repeat;
     text-align: center;
     margin: 0 0 70px 0;
     &:before {
@@ -10945,7 +10778,7 @@ input:-webkit-autofill:active {
       width: 66px;
       height: 52px;
       padding-left: 5px;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_flag-yellow.svg') center center no-repeat;
+      background: url('#{$imgPath}/ico_flag-yellow.svg') center center no-repeat;
       background-size: 71px 52px;
       font-size: 12px;
       line-height: 37px;
@@ -11069,7 +10902,7 @@ input:-webkit-autofill:active {
               display: inline-block;
               width: 13px;
               height: 13px;
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_close4.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_close4.png') center center no-repeat;
               background-size: 13px 13px;
               opacity: .5;
               vertical-align: top;
@@ -11229,7 +11062,7 @@ input:-webkit-autofill:active {
         vertical-align: top;
         width: 18px;
         height: 14px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_hamburger.png') center center no-repeat;
+        background: url('#{$imgPath}/ico_hamburger.png') center center no-repeat;
       }
       &.actived {
         &:before {
@@ -11241,7 +11074,7 @@ input:-webkit-autofill:active {
           vertical-align: top;
           width: 18px;
           height: 16px;
-          background: url('https://cdn.allwin.bid/air/resource/img/ico_close4.png') center center no-repeat;
+          background: url('#{$imgPath}/ico_close4.png') center center no-repeat;
         }
       }
     }
@@ -11264,7 +11097,7 @@ input:-webkit-autofill:active {
         color: #111;
         line-height: 100%;
         &.actived {
-          color: #ebaa2c;
+          color: $allwinColor;
         }
       }
       & > ul {
@@ -11383,7 +11216,7 @@ input:-webkit-autofill:active {
           position: absolute;
           bottom: 0;
           left: 0;
-          color: #ebaa2c;
+          color: $allwinColor;
           font-size: 14px;
           b {
             font-weight: normal;
@@ -11412,7 +11245,7 @@ input:-webkit-autofill:active {
         top: 0;
         left: 0;
         height: 4px;
-        background: #ebaa2c;
+        background: $allwinColor;
       }
     }
     .status-board {
@@ -11421,7 +11254,7 @@ input:-webkit-autofill:active {
       width: 1200px;
       height: 158px;
       margin-bottom: 20px;
-      background: url('https://cdn.allwin.bid/air/resource/img/img_matching-list-bg.png') center center no-repeat;
+      background: url('#{$imgPath}/img_matching-list-bg.png') center center no-repeat;
       dl {
         display: inline-block;
         margin-top: 45px !important;
@@ -11604,7 +11437,7 @@ input:-webkit-autofill:active {
           td {
             border-bottom: 0;
             &.toggle {
-              background: url('https://cdn.allwin.bid/air/resource/img/ico_select-arrow3-on.png') center center no-repeat;
+              background: url('#{$imgPath}/ico_select-arrow3-on.png') center center no-repeat;
             }
             &.tits {
               p {
@@ -11710,7 +11543,7 @@ input:-webkit-autofill:active {
             }
             &.important {
               p {
-                background: url('https://cdn.allwin.bid/air/resource/img/ico_star.png') left center no-repeat;
+                background: url('#{$imgPath}/ico_star.png') left center no-repeat;
               }
             }
           }
@@ -11891,7 +11724,7 @@ input:-webkit-autofill:active {
             }
           }
           &.toggle {
-            background: url('https://cdn.allwin.bid/air/resource/img/ico_select-arrow3-off.png') center center no-repeat;
+            background: url('#{$imgPath}/ico_select-arrow3-off.png') center center no-repeat;
           }
         }
       }
@@ -12019,7 +11852,7 @@ input:-webkit-autofill:active {
       width: 155px;
       height: 155px;
       display: block;
-      background: url('https://cdn.allwin.bid/air/resource/img/ico_error.png') center center no-repeat;
+      background: url('#{$imgPath}/ico_error.png') center center no-repeat;
     }
   }
   &__txt2 {
@@ -12046,7 +11879,7 @@ input:-webkit-autofill:active {
         font-weight: 500;
         display: block;
         padding-top: 15px;
-        background: url('https://cdn.allwin.bid/air/resource/img/ico_yellow-plane.svg') center top no-repeat;
+        background: url('#{$imgPath}/ico_yellow-plane.svg') center top no-repeat;
         background-size: 23px 18px;
       }
       p {
@@ -12309,21 +12142,10 @@ all and (min-device-pixel-ratio: 1.5) {
 
 .landmoa {
   background: #f5f5f5;
-  //padding-bottom:145px;
   .land-visual {
     position: relative;
     height: 400px;
     background-size: cover !important;
-    //&:before {
-    //  content: '';
-    //  position: absolute;
-    //  top: 0;
-    //  left: 0;
-    //  bottom: 0;
-    //  right: 0;
-    //  z-index: 1;
-    //  background: rgba(0, 0, 0, .35);
-    //}
     .land-visual-inner {
       position: relative;
       z-index: 2;
@@ -12338,7 +12160,7 @@ all and (min-device-pixel-ratio: 1.5) {
       top: 53px;
       left: 0;
       border-bottom: 3px solid #f9c028;
-      background: url('https://cdn.allwin.bid/air/resource/img/land/ico_srch.png') 10px center no-repeat;
+      background: url('#{$imgPath}/land/ico_srch.png') 10px center no-repeat;
       ::-webkit-input-placeholder {
         font-size: 16px;
         font-weight: 700;
@@ -12359,14 +12181,6 @@ all and (min-device-pixel-ratio: 1.5) {
         font-weight: 700;
         color: #fff;
       }
-      //button{
-      //  position:absolute;
-      //  top:0;
-      //  left:0;
-      //  width:40px;
-      //  height:47px;
-      //  background:url('https://cdn.allwin.bid/air/resource/img/land/ico_srch.png') center center no-repeat;
-      //}
       input {
         margin: 0 0 0 40px;
         width: 327px;
@@ -12409,7 +12223,7 @@ all and (min-device-pixel-ratio: 1.5) {
             font-family: 'Geogrotesque-Bold';
             display: inline-block;
             vertical-align: top;
-            background: url('https://cdn.allwin.bid/air/resource/img/land/ico_yellowflag-small.png') center center no-repeat;
+            background: url('#{$imgPath}/land/ico_yellowflag-small.png') center center no-repeat;
           }
           .area {
             font-weight: 700;
@@ -12574,7 +12388,7 @@ all and (min-device-pixel-ratio: 1.5) {
               width: 12px;
               height: 12px;
               margin-left: 5px;
-              background: url('https://cdn.allwin.bid/air/resource/img/land/ico_del.png') center center no-repeat;
+              background: url('#{$imgPath}/land/ico_del.png') center center no-repeat;
             }
           }
           .awa-slide__prev, .awa-slide__next {
@@ -12585,11 +12399,11 @@ all and (min-device-pixel-ratio: 1.5) {
           }
           .awa-slide__prev {
             left: 0;
-            background: url('https://cdn.allwin.bid/air/resource/img/land/ico_prev.png') center center no-repeat;
+            background: url('#{$imgPath}/land/ico_prev.png') center center no-repeat;
           }
           .awa-slide__next {
             right: 0;
-            background: url('https://cdn.allwin.bid/air/resource/img/land/ico_next.png') center center no-repeat;
+            background: url('#{$imgPath}/land/ico_next.png') center center no-repeat;
           }
         }
       }
@@ -12679,7 +12493,7 @@ all and (min-device-pixel-ratio: 1.5) {
       width: 32px;
       height: 32px;
       font-size: 0;
-      background: url('https://cdn.allwin.bid/air/resource/img/land/ico_del.png') center center no-repeat;
+      background: url('#{$imgPath}/land/ico_del.png') center center no-repeat;
       vertical-align: top;
     }
     .opt-stage {
@@ -12742,7 +12556,6 @@ all and (min-device-pixel-ratio: 1.5) {
         position: absolute;
         top: 0;
         right: 0;
-        //border-right: 1px solid #f5f5f5;
         .opt-util-bt {
           position: absolute;
           bottom: 20px;
@@ -12755,7 +12568,7 @@ all and (min-device-pixel-ratio: 1.5) {
           right: 30px;
           width: 34px;
           height: 34px;
-          background: url('https://cdn.allwin.bid/air/resource/img/land/ico_close.png') center center no-repeat;
+          background: url('#{$imgPath}/land/ico_close.png') center center no-repeat;
           font-size: 0;
         }
         .reset {
@@ -12774,7 +12587,7 @@ all and (min-device-pixel-ratio: 1.5) {
             width: 13px;
             height: 17px;
             margin-right: 5px;
-            background: url('https://cdn.allwin.bid/air/resource/img/land/ico_reset.png') center center no-repeat;
+            background: url('#{$imgPath}/land/ico_reset.png') center center no-repeat;
           }
         }
         .success {
@@ -12847,24 +12660,7 @@ all and (min-device-pixel-ratio: 1.5) {
     width: 59px;
     height: 54px;
     z-index: 6;
-    background: url('https://cdn.allwin.bid/air/resource/img/land/ico_pick-gray.png') center center no-repeat;
-    //&:before {
-    //  content: '';
-    //  display: inline-block;
-    //  width: 8px;
-    //  height: 54px;
-    //  vertical-align: top;
-    //  padding-left: 1px;
-    //  background: url('https://cdn.allwin.bid/air/resource/img/land/ico_grayflag-big-left.png') center center no-repeat;
-    //}
-    //&:after {
-    //  content: '';
-    //  display: inline-block;
-    //  width: 9px;
-    //  height: 54px;
-    //  vertical-align: top;
-    //  background: url('https://cdn.allwin.bid/air/resource/img/land/ico_grayflag-big-right.png') center center no-repeat;
-    //}
+    background: url('#{$imgPath}/land/ico_pick-gray.png') center center no-repeat;
     em {
       display: inline-block;
       vertical-align: top;
@@ -12877,16 +12673,7 @@ all and (min-device-pixel-ratio: 1.5) {
     }
     &.is-picked {
       width: 99px;
-      background: url('https://cdn.allwin.bid/air/resource/img/land/ico_pick-yellow.png') center center no-repeat;
-      //&:before {
-      //  background: url('https://cdn.allwin.bid/air/resource/img/land/ico_yellowflag-big-left.png') center center no-repeat;
-      //}
-      //&:after {
-      //  background: url('https://cdn.allwin.bid/air/resource/img/land/ico_yellowflag-big-right.png') center center no-repeat;
-      //}
-      em {
-
-      }
+      background: url('#{$imgPath}/land/ico_pick-yellow.png') center center no-repeat;
     }
   }
   .land-pick {
@@ -12959,10 +12746,8 @@ all and (min-device-pixel-ratio: 1.5) {
           display: block;
           height: 214px;
           overflow: hidden;
-          //z-index: 3;
           img {
-            transition: transform 1.5s;
-            -webkit-transition: transform 1.5s;
+            @include transition(transform, 1.5s);
           }
         }
         .infos {
@@ -13122,7 +12907,6 @@ all and (min-device-pixel-ratio: 1.5) {
       z-index: 5;
       border-radius: 3px;
       overflow: hidden;
-      //text-align: center;
       &.wide {
         top: 10px;
         text-align: center;
@@ -13149,13 +12933,6 @@ all and (min-device-pixel-ratio: 1.5) {
         }
       }
       .t1 {
-        //text-align: center;
-        //margin: 50px 0 0 0;
-        //font-size: 18px;
-        //font-weight: 700;
-        //color: #fff;
-        //display: inline-block;
-        //border-bottom: 1px solid #fff;
         margin: 50px 0 0 40px;
         font-size: 18px;
         font-weight: 700;
@@ -13164,12 +12941,6 @@ all and (min-device-pixel-ratio: 1.5) {
         border-bottom: 1px solid #fff;
       }
       .t2 {
-        //text-align: center;
-        //margin: 10px 0 0 0;
-        //font-size: 46px;
-        //color: #fff;
-        //font-weight: 300;
-        //line-height: 120%;
         margin: 10px 0 0 40px;
         font-size: 46px;
         color: #fff;
@@ -13197,7 +12968,7 @@ all and (min-device-pixel-ratio: 1.5) {
             display: block;
             width: 21px;
             height: 18px;
-            background: url('https://cdn.allwin.bid/air/resource/img/land/ico_white-flag.png') center center no-repeat;
+            background: url('#{$imgPath}/land/ico_white-flag.png') center center no-repeat;
           }
         }
         .tel {
@@ -13249,12 +13020,6 @@ all and (min-device-pixel-ratio: 1.5) {
       margin: 10px 15px 0 15px;
       box-sizing: border-box;
       &:hover {
-        .thumb {
-          img {
-            //-webkit-transform: scale(1.08);
-            //transform: scale(1.08);
-          }
-        }
         .item-inner {
           .hashtag {
             bottom: 0;
@@ -13423,12 +13188,6 @@ all and (min-device-pixel-ratio: 1.5) {
       margin: 10px 15px 0 15px;
       box-sizing: border-box;
       &:hover {
-        .thumb {
-          img {
-            //-webkit-transform: scale(1.08);
-            //transform: scale(1.08);
-          }
-        }
         .item-inner {
           .hashtag {
             bottom: 0;
@@ -13591,7 +13350,7 @@ all and (min-device-pixel-ratio: 1.5) {
         width: 78px;
         height: 25px;
         font-size: 0;
-        background: url('https://cdn.allwin.bid/air/resource/img/land/img_allwinpick.png') center center no-repeat;
+        background: url('#{$imgPath}/land/img_allwinpick.png') center center no-repeat;
       }
     }
     .txt3 {
@@ -13607,7 +13366,7 @@ all and (min-device-pixel-ratio: 1.5) {
         height: 23px;
         display: block;
         margin-bottom: 5px;
-        background: url('https://cdn.allwin.bid/air/resource/img/land/ico_srch.png') center center no-repeat;
+        background: url('#{$imgPath}/land/ico_srch.png') center center no-repeat;
       }
       button {
         margin-top: 20px;
@@ -13733,24 +13492,6 @@ all and (min-device-pixel-ratio: 1.5) {
           z-index: 0;
         }
       }
-      //&.land-detail-img5 {
-      //  height: 899px;
-      //  overflow: hidden;
-      //  img {
-      //    position: absolute;
-      //    left: 50%;
-      //    margin-left: -960px;
-      //    &:first-child {
-      //      top: 0;
-      //    }
-      //    &:last-child {
-      //      bottom: 0;
-      //    }
-      //  }
-      //}
-      //&.land-detail-img6 {
-      //  //border-top: 1px solid #000;
-      //}
     }
   }
   .land-want {
@@ -13780,7 +13521,7 @@ all and (min-device-pixel-ratio: 1.5) {
       right: 20px;
       width: 16px;
       height: 16px;
-      background: url('https://cdn.allwin.bid/air/resource/img/land/ico_close2.png') center center no-repeat;
+      background: url('#{$imgPath}/land/ico_close2.png') center center no-repeat;
       background-size: 16px 16px;
     }
   }
@@ -13788,13 +13529,13 @@ all and (min-device-pixel-ratio: 1.5) {
     display: inline-block;
     width: 40px;
     height: 40px;
-    background: url('https://cdn.allwin.bid/air/resource/img/land/land-home.jpg') center center no-repeat;
+    background: url('#{$imgPath}/land/land-home.jpg') center center no-repeat;
   }
   .land-details-mail {
     display: inline-block;
     width: 147px;
     height: 40px;
-    background: url('https://cdn.allwin.bid/air/resource/img/land/land-contact.jpg') center center no-repeat;
+    background: url('#{$imgPath}/land/land-contact.jpg') center center no-repeat;
   }
   .detail-visual {
     position: absolute;
@@ -13919,7 +13660,7 @@ all and (min-device-pixel-ratio: 1.5) {
         right: 0;
         z-index: 1;
         height: 84px;
-        background: url('https://cdn.allwin.bid/air/resource/img/land/ico_shadow.png') center top no-repeat;
+        background: url('#{$imgPath}/land/ico_shadow.png') center top no-repeat;
       }
       .representative-item {
         display: inline-block;
@@ -13935,11 +13676,11 @@ all and (min-device-pixel-ratio: 1.5) {
         }
         .awa-slide__prev {
           left: 0;
-          background: url('https://cdn.allwin.bid/air/resource/img/land/ico_prev3.png') center center no-repeat;
+          background: url('#{$imgPath}/land/ico_prev3.png') center center no-repeat;
         }
         .awa-slide__next {
           right: 0;
-          background: url('https://cdn.allwin.bid/air/resource/img/land/ico_next3.png') center center no-repeat;
+          background: url('#{$imgPath}/land/ico_next3.png') center center no-repeat;
         }
       }
       .awa-slide__pager {
@@ -13955,7 +13696,7 @@ all and (min-device-pixel-ratio: 1.5) {
         left: 0;
         right: 0;
         height: 84px;
-        background: url('https://cdn.allwin.bid/air/resource/img/land/ico_shadow.png') center top no-repeat;
+        background: url('#{$imgPath}/land/ico_shadow.png') center top no-repeat;
       }
       .awa-slide__controls-direction {
         display: none;
@@ -14034,7 +13775,7 @@ all and (min-device-pixel-ratio: 1.5) {
   a {
     display: inline-block;
     vertical-align: top;
-    background: #f9c028 url('https://cdn.allwin.bid/air/resource/img/land/ico_homepage.png') center center no-repeat;
+    background: #f9c028 url('#{$imgPath}/land/ico_homepage.png') center center no-repeat;
     width: 70px;
     height: 60px;
     line-height: 60px;
@@ -14052,7 +13793,6 @@ all and (min-device-pixel-ratio: 1.5) {
       vertical-align: top;
       width: 16px;
       height: 16px;
-      //background: url('https://cdn.allwin.bid/air/resource/img/land/ico_whelk.png') center center no-repeat;
     }
   }
   button {
@@ -14073,7 +13813,7 @@ all and (min-device-pixel-ratio: 1.5) {
       vertical-align: top;
       width: 16px;
       height: 16px;
-      background: url('https://cdn.allwin.bid/air/resource/img/land/ico_whelk.png') center center no-repeat;
+      background: url('#{$imgPath}/land/ico_whelk.png') center center no-repeat;
     }
   }
 }
@@ -14082,7 +13822,7 @@ all and (min-device-pixel-ratio: 1.5) {
   text-align: center;
   width: 100%;
   height: 405px;
-  background: url('https://cdn.allwin.bid/air/resource/img/land/img_guide-visual.jpg') center center no-repeat;
+  background: url('#{$imgPath}/land/img_guide-visual.jpg') center center no-repeat;
   background-size: cover;
   overflow: hidden;
   .in {
@@ -14242,7 +13982,7 @@ all and (min-device-pixel-ratio: 1.5) {
             right: -80px;
             width: 141px;
             height: 50px;
-            background: url('https://cdn.allwin.bid/air/resource/img/land/img_guide-plane.jpg') center center no-repeat;
+            background: url('#{$imgPath}/land/img_guide-plane.jpg') center center no-repeat;
           }
         }
         p {
@@ -14270,7 +14010,7 @@ all and (min-device-pixel-ratio: 1.5) {
                 left: -75px;
                 width: 167px;
                 height: 163px;
-                background: url('https://cdn.allwin.bid/air/resource/img/land/img_guide-deco.png') center center no-repeat;
+                background: url('#{$imgPath}/land/img_guide-deco.png') center center no-repeat;
               }
             }
           }
@@ -14361,7 +14101,7 @@ all and (min-device-pixel-ratio: 1.5) {
     height: 560px;
     text-align: center;
     overflow: hidden;
-    background: url('https://cdn.allwin.bid/air/resource/img/about/img_about-visual.jpg') center center no-repeat;
+    background: url('#{$imgPath}/about/img_about-visual.jpg') center center no-repeat;
     background-size: cover !important;
     .av-logo {
       display: block;
@@ -14759,7 +14499,7 @@ all and (min-device-pixel-ratio: 1.5) {
           &.info1 {
             &:after {
               right: -40px;
-              background: url('https://cdn.allwin.bid/air/resource/img/about/img_atr-diagram2.jpg') right 156px no-repeat;
+              background: url('#{$imgPath}/about/img_atr-diagram2.jpg') right 156px no-repeat;
             }
           }
           &.info2 {
@@ -14772,7 +14512,7 @@ all and (min-device-pixel-ratio: 1.5) {
           &.info1 {
             &:after {
               right: -30px;
-              background: url('https://cdn.allwin.bid/air/resource/img/about/img_atr-diagram3.png') right 90px no-repeat;
+              background: url('#{$imgPath}/about/img_atr-diagram3.png') right 90px no-repeat;
             }
             .countdown {
               color: #efefef;
@@ -14792,7 +14532,7 @@ all and (min-device-pixel-ratio: 1.5) {
           &.info1 {
             &:after {
               right: -45px;
-              background: url('https://cdn.allwin.bid/air/resource/img/about/img_atr-diagram4.jpg') right 190px no-repeat;
+              background: url('#{$imgPath}/about/img_atr-diagram4.jpg') right 190px no-repeat;
             }
           }
         }
@@ -14802,7 +14542,7 @@ all and (min-device-pixel-ratio: 1.5) {
           &.info1 {
             &:after {
               right: -80px;
-              background: url('https://cdn.allwin.bid/air/resource/img/about/img_atr-diagram5.jpg') right 190px no-repeat;
+              background: url('#{$imgPath}/about/img_atr-diagram5.jpg') right 190px no-repeat;
             }
           }
         }
@@ -14874,7 +14614,7 @@ all and (min-device-pixel-ratio: 1.5) {
         background: #b3b3b3;
       }
       .awa-slide_pager-link--active {
-        background: #ebaa2c;
+        background: $allwinColor;
       }
     }
   }
