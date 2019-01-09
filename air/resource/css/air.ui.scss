@@ -19,8 +19,28 @@ $imgPath: 'https://cdn.allwin.bid/air/resource/img';
   transform: $transforms;
 }
 
+@mixin transform-origin($origin) {
+  moz-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -webkit-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+@mixin rotate($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+@mixin scale($scale) {
+  @include transform(scale($scale));
+}
+
 @mixin translate($x, $y) {
   @include transform(translate($x, $y));
+}
+
+@mixin skew($x, $y) {
+  @include transform(skew(#{$x}deg, #{$y}deg));
 }
 
 @mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
@@ -191,7 +211,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s;
+  @include transition(background-color 5000s ease-in-out 0s);
 }
 
 .mCustomScrollbar {
@@ -465,17 +485,11 @@ input:-webkit-autofill:active {
 }
 
 .mCSB_scrollTools, .mCSB_scrollTools .mCSB_buttonDown, .mCSB_scrollTools .mCSB_buttonLeft, .mCSB_scrollTools .mCSB_buttonRight, .mCSB_scrollTools .mCSB_buttonUp, .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  -webkit-transition: opacity .2s ease-in-out, background-color .2s ease-in-out;
-  -moz-transition: opacity .2s ease-in-out, background-color .2s ease-in-out;
-  -o-transition: opacity .2s ease-in-out, background-color .2s ease-in-out;
-  transition: opacity .2s ease-in-out, background-color .2s ease-in-out
+  @include transition(opacity .2s ease-in-out, background-color .2s ease-in-out);
 }
 
 .mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_draggerRail, .mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_dragger_bar, .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerRail, .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_dragger_bar {
-  -webkit-transition: width .2s ease-out .2s, height .2s ease-out .2s, margin-left .2s ease-out .2s, margin-right .2s ease-out .2s, margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s, opacity .2s ease-in-out, background-color .2s ease-in-out;
-  -moz-transition: width .2s ease-out .2s, height .2s ease-out .2s, margin-left .2s ease-out .2s, margin-right .2s ease-out .2s, margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s, opacity .2s ease-in-out, background-color .2s ease-in-out;
-  -o-transition: width .2s ease-out .2s, height .2s ease-out .2s, margin-left .2s ease-out .2s, margin-right .2s ease-out .2s, margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s, opacity .2s ease-in-out, background-color .2s ease-in-out;
-  transition: width .2s ease-out .2s, height .2s ease-out .2s, margin-left .2s ease-out .2s, margin-right .2s ease-out .2s, margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s, opacity .2s ease-in-out, background-color .2s ease-in-out
+  @include transition(width .2s ease-out .2s, height .2s ease-out .2s, margin-left .2s ease-out .2s, margin-right .2s ease-out .2s, margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s, opacity .2s ease-in-out, background-color .2s ease-in-out);
 }
 
 .mCS-autoHide > .mCustomScrollBox > .mCSB_scrollTools, .mCS-autoHide > .mCustomScrollBox ~ .mCSB_scrollTools {
@@ -2273,7 +2287,7 @@ input:-webkit-autofill:active {
           top: 50%;
           left: 0;
           @include translate(0, -50%);
-          @include transition(0.3s);
+          @include transition(all 0.3s);
         }
         .plane {
           width: 20px;
@@ -2283,7 +2297,7 @@ input:-webkit-autofill:active {
           top: 50%;
           right: 0;
           @include translate(0, -50%);
-          @include transition(0.3s);
+          @include transition(all 0.3s);
         }
       }
     }
@@ -2478,7 +2492,7 @@ input:-webkit-autofill:active {
           text-align: center;
           cursor: pointer;
           box-sizing: border-box;
-          @include transition(all, 0.3s);
+          @include transition(all 0.3s);
         }
         &:checked + label {
           color: #000;
@@ -2540,7 +2554,7 @@ input:-webkit-autofill:active {
         padding: 0 20px;
         height: 75px;
         box-sizing: border-box;
-        @include transition(0.3s);
+        @include transition(all 0.3s);
         span {
           color: #fff;
           display: block;
@@ -2548,7 +2562,7 @@ input:-webkit-autofill:active {
           white-space: nowrap;
           word-wrap: normal;
           overflow: hidden;
-          @include transition(0.3s);
+          @include transition(all 0.3s);
         }
         &.col1 {
           span {
@@ -2642,7 +2656,7 @@ input:-webkit-autofill:active {
             text-align: center;
             cursor: pointer;
             box-sizing: border-box;
-            @include transition(all, 0.3s);
+            @include transition(all 0.3s);
           }
           &:checked + label {
             color: #000;
@@ -2984,9 +2998,7 @@ input:-webkit-autofill:active {
             height: 24px;
             border-radius: 24px;
             border: 1px solid #fff;
-            transition: 0.5s;
-            -ms-transition: 0.5s;
-            -webkit-transition: 0.5s;
+            @include transition(all 0.5s);
           }
           &:after {
             content: '';
@@ -3332,8 +3344,7 @@ input:-webkit-autofill:active {
       color: #fff;
       display: block;
       padding: 10px 0;
-      -webkit-transition: all .3s;
-      transition: all .3s;
+      @include transition(all 0.3s);
     }
   }
   .crs-lists {
@@ -3408,7 +3419,7 @@ input:-webkit-autofill:active {
       color: #fff;
       border: 1px solid #fff;
       font-size: 18px;
-      @include transition(0.5s);
+      @include transition(all 0.5s);
       &:hover {
         background: #fff;
         color: #edaf08;
@@ -4839,10 +4850,7 @@ input:-webkit-autofill:active {
   left: 0;
   height: 4px;
   background: $allwinColor;
-  -moz-transition: 0.3s;
-  -o-transition: 0.3s;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+  @include transition(all 0.3s);
   z-index: 20000;
 }
 
@@ -4863,8 +4871,7 @@ input:-webkit-autofill:active {
   &:hover {
     background: #161820;
     color: #fff;
-    -webkit-transition: all .5s;
-    transition: all .5s;
+    @include transition(all 0.5s);
   }
 }
 
@@ -5153,9 +5160,7 @@ input:-webkit-autofill:active {
       color: #fff;
       background: #f9c028;
       font-weight: 700;
-      transition: all 0.3s;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
+      @include transition(all 0.3s);
       &.actived {
         background: #949494;
       }
@@ -5427,10 +5432,7 @@ input:-webkit-autofill:active {
     right: 0;
     background: #f5f5f5;
     z-index: 1;
-    -webkit-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-    -moz-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-    -o-transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-    transition: all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
+    @include transition(all 200ms cubic-bezier(0.250, 0.460, 0.450, 0.940));
     -webkit-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
     -moz-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
     -o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
@@ -5558,9 +5560,7 @@ input:-webkit-autofill:active {
           font-size: 18px;
           font-weight: 700;
         }
-        transition: all .9s cubic-bezier(.19, 1, .22, 1);
-        -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-        -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+        @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
       }
       .service-col {
         position: relative;
@@ -5637,9 +5637,8 @@ input:-webkit-autofill:active {
               line-height: 130%;
               -webkit-transform: translateY(0);
               transform: translateY(0);
-              transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+
+              @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
 
               -webkit-transition-delay: .1s;
               transition-delay: .1s;
@@ -5652,9 +5651,8 @@ input:-webkit-autofill:active {
               font-weight: 700;
               -webkit-transform: translateY(0);
               transform: translateY(0);
-              transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+
+              @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
 
               -webkit-transition-delay: .15s;
               transition-delay: .15s;
@@ -5673,9 +5671,7 @@ input:-webkit-autofill:active {
               -webkit-transform: translateY(0);
               transform: translateY(0);
 
-              transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+              @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
 
               -webkit-transition-delay: .2s;
               transition-delay: .2s;
@@ -5692,9 +5688,7 @@ input:-webkit-autofill:active {
             height: 263px;
             background: url('#{$imgPath}/img_main-plane.png') center center no-repeat;
 
-            transition: all .9s cubic-bezier(.19, 1, .22, 1);
-            -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-            -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+            @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
 
             -webkit-transition-delay: .25s;
             transition-delay: .25s;
@@ -5720,9 +5714,7 @@ input:-webkit-autofill:active {
               -webkit-transform: translateY(0);
               transform: translateY(0);
 
-              transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+              @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
 
               -webkit-transition-delay: .1s;
               transition-delay: .1s;
@@ -5731,9 +5723,7 @@ input:-webkit-autofill:active {
               -webkit-transform: translateY(0);
               transform: translateY(0);
 
-              transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+              @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
 
               -webkit-transition-delay: .15s;
               transition-delay: .15s;
@@ -5770,9 +5760,7 @@ input:-webkit-autofill:active {
               -webkit-transform: translateY(0);
               transform: translateY(0);
 
-              transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+              @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
 
               -webkit-transition-delay: .1s;
               transition-delay: .1s;
@@ -5833,9 +5821,7 @@ input:-webkit-autofill:active {
               -webkit-transform: translateY(0);
               transform: translateY(0);
 
-              transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -webkit-transition: all .9s cubic-bezier(.19, 1, .22, 1);
-              -ms-transition: all .9s cubic-bezier(.19, 1, .22, 1);
+              @include transition(all .9s cubic-bezier(.19, 1, .22, 1));
 
               -webkit-transition-delay: .15s;
               transition-delay: .15s;
@@ -6038,7 +6024,6 @@ input:-webkit-autofill:active {
   width: 30px;
   height: 30px;
   background: url('#{$imgPath}/ico_close1.png') center center no-repeat;
-
   @include transition(all 0.5s);
   &:hover {
     transform: rotate(90deg);
@@ -6085,7 +6070,7 @@ input:-webkit-autofill:active {
   box-shadow: 0px 20px 32px 0px rgba(0, 0, 0, 0.5);
   &.layer-scanner {
     background: #f3b308;
-    transition: all .5s;
+    @include transition(all 0.5s);
     &.active {
       top: 0;
       left: 0;
@@ -6113,7 +6098,7 @@ input:-webkit-autofill:active {
   }
   &.layer-matching {
     background: url('#{$imgPath}/img_main-visual-matching2.jpg') center center no-repeat;
-    transition: all .5s;
+    @include transition(all 0.5s);
     background-size: cover !important;
     &.active {
       top: 0;
@@ -6130,7 +6115,7 @@ input:-webkit-autofill:active {
     }
   }
   &.layer-land {
-    transition: all .5s;
+    @include transition(all 0.5s);
     &.active {
       top: 0;
       left: 0;
@@ -6183,8 +6168,7 @@ input:-webkit-autofill:active {
         font-size: 14px;
         font-weight: bold;
         color: #fff;
-        -webkit-transition: all .5s;
-        transition: all .5s;
+        @include transition(all 0.5s);
         &:hover {
           background: #fff;
           color: #000;
@@ -6242,8 +6226,7 @@ input:-webkit-autofill:active {
         font-size: 14px;
         font-weight: bold;
         color: #fff;
-        -webkit-transition: all .5s;
-        transition: all .5s;
+        @include transition(all 0.5s);
       }
       .in{
         position:relative;
@@ -6413,8 +6396,7 @@ input:-webkit-autofill:active {
       bottom: 0;
       z-index: 1;
       background: #fff;
-      transition: background-image 1s ease-in-out;
-      -webkit-transition: background-image 1s ease-in-out;
+      @include transition(background-image 1s ease-in-out);
       background-size: cover !important;
     }
   }
@@ -6598,8 +6580,7 @@ input:-webkit-autofill:active {
   .scanner-form {
     width: 828px;
     padding-top: 120px;
-    -webkit-transition: .3s ease-out;
-    transition: .3s ease-out;
+    @include transition(all 0.3s ease-out);
     .bt-srch {
       width: 202px;
     }
@@ -6653,8 +6634,7 @@ input:-webkit-autofill:active {
   .matching-form {
     width: 815px;
     padding: 200px 0 0 0;
-    -webkit-transition: .3s;
-    transition: .3s;
+    @include transition(all 0.3s);
     .custom-input, .custom-select {
       margin: 0 2px 0 0;
     }
@@ -6731,6 +6711,12 @@ input:-webkit-autofill:active {
     .custom-select {
       position: relative;
     }
+    .tips {
+      margin-top: 5px;
+      li {
+        font-size: 12px;
+      }
+    }
   }
   .bt-srch {
     height: 56px;
@@ -6742,8 +6728,7 @@ input:-webkit-autofill:active {
     font-weight: 700;
     border-radius: 2px;
     border: 2px solid #fff;
-    -webkit-transition: all .3s;
-    transition: all .3s;
+    @include transition(all 0.3s);
     &:hover {
       background: rgba(255, 255, 255, .2);
     }
@@ -6780,8 +6765,7 @@ input:-webkit-autofill:active {
             color: #fff;
             padding: 0;
             text-align: center;
-            -webkit-transition: all .3s;
-            transition: all .3s;
+            @include transition(all 0.3s);
             &:before {
               content: '';
               position: absolute;
@@ -6793,8 +6777,7 @@ input:-webkit-autofill:active {
               background: #fff;
               border-radius: initial;
               border: 0;
-              -webkit-transition: all .3s;
-              transition: all .3s;
+              @include transition(all 0.3s);
             }
           }
           &:hover + label {
@@ -6978,8 +6961,7 @@ input:-webkit-autofill:active {
       right: 0;
       width: 100%;
       text-align: right;
-      -webkit-transition: .3s ease-out;
-      transition: .3s ease-out;
+      @include transition(0.3s ease-out);
       span {
         font-size: 16px;
         color: #fff;
@@ -9193,6 +9175,11 @@ input:-webkit-autofill:active {
       .rows {
         padding: 10px 40px;
       }
+      .row {
+        &.second {
+          bottom: 10px;
+        }
+      }
     }
     .rows {
       padding: 40px;
@@ -9320,6 +9307,13 @@ input:-webkit-autofill:active {
           font-size: 15px;
           margin: 15px 0 0 20px;
           letter-spacing: -1px;
+          .txt {
+            font-size: 15px;
+            letter-spacing: -1px;
+            &.bold {
+              font-weight: 700;
+            }
+          }
           .per {
             display: block;
             font-size: 30px;
@@ -9828,6 +9822,9 @@ input:-webkit-autofill:active {
   .two > li.second a {
     background-position: left center !important;
   }
+  .banner-items {
+    position: relative;
+  }
   .banner-item {
     height: 240px;
     a {
@@ -9839,10 +9836,10 @@ input:-webkit-autofill:active {
     display: none;
   }
   .awa-slide__pager {
+    width: 600px;
     position: absolute;
     top: 35px;
-    right: 50%;
-    margin-right: -600px;
+    text-align: right;
   }
   .awa-slide__pager-item {
     margin-left: 20px;
@@ -9915,6 +9912,7 @@ input:-webkit-autofill:active {
         }
       }
     }
+
   }
 }
 
@@ -12747,7 +12745,7 @@ all and (min-device-pixel-ratio: 1.5) {
           height: 214px;
           overflow: hidden;
           img {
-            @include transition(transform, 1.5s);
+            @include transition(transform 1.5s);
           }
         }
         .infos {
@@ -12855,9 +12853,8 @@ all and (min-device-pixel-ratio: 1.5) {
           background: rgba(249, 192, 40, .9);
           text-align: center;
           z-index: 4;
-          -webkit-transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
-          -moz-transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
-          transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
+          @include transition(all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000));
+
           -webkit-transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000);
           -moz-transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000);
           transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
@@ -13133,10 +13130,7 @@ all and (min-device-pixel-ratio: 1.5) {
           background: rgba(249, 192, 40, .9);
           text-align: center;
           z-index: 5;
-          -webkit-transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
-          -moz-transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
-          transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
-
+          @include transition(all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000));
           -webkit-transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000);
           -moz-transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000);
           transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
@@ -13271,10 +13265,7 @@ all and (min-device-pixel-ratio: 1.5) {
           height: 129px;
           background: rgba(249, 192, 40, .9);
           text-align: center;
-          -webkit-transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
-          -moz-transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
-          transition: all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
-
+          @include transition(all 300ms cubic-bezier(0.075, 0.820, 0.165, 1.000));
           -webkit-transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000);
           -moz-transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000);
           transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
@@ -13745,15 +13736,11 @@ all and (min-device-pixel-ratio: 1.5) {
       background: #ededed;
       height: 452px;
       overflow: hidden;
-      transition: all .5s cubic-bezier(.19, 1, .22, 1);
-      -webkit-transition: all .5s cubic-bezier(.19, 1, .22, 1);
-      -ms-transition: all .5s cubic-bezier(.19, 1, .22, 1);
+      @include transition(all .5s cubic-bezier(.19, 1, .22, 1));
     }
     .land-custom {
       background: #ededed;
-      transition: all .5s cubic-bezier(.19, 1, .22, 1);
-      -webkit-transition: all .5s cubic-bezier(.19, 1, .22, 1);
-      -ms-transition: all .5s cubic-bezier(.19, 1, .22, 1);
+      @include transition(all .5s cubic-bezier(.19, 1, .22, 1));
     }
   }
 }
