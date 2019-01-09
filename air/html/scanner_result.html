@@ -1540,6 +1540,19 @@
                   </div>
                 </div>
               </div>
+
+              <div class="ad-area">
+                <div class="ad-banner-rolling">
+                  <ul>
+                    <li class="item ad"><a href="" style="background:#e3bac7;"><img
+                        src="https://cdn.allwin.bid/air/resource/img/event/allwin-land/event_thumb_maintop.jpg" alt=""></a></li>
+                    <li class="item"><a href="" style="background:#e3bac7;"><img
+                        src="https://cdn.allwin.bid/air/resource/img/event/allwin-land/event_thumb_maintop.jpg" alt=""></a></li>
+                  </ul>
+                </div>
+                <button type="button" class="banner-close" onclick="$(this).parent().slideUp();">close</button>
+              </div>
+
               <div class="lists__items">
                 <div class="min-price-prd">
                   <div class="info1">
@@ -2824,6 +2837,15 @@
 <script src="../resource/js/air.ui.min.js"></script>
 <script>
   $(function () {
+    $('.ad-banner-rolling > ul').awaSlide({
+      mode: 'vertical',
+      auto: true,
+      autoDelay: 5000
+    });
+    if ($('.ad-banner-rolling .awa-slide__pager-item').length <= 1) {
+      $('.ad-banner-rolling .awa-slide__pager').hide();
+    }
+
     var src = $('.land-group-rolling > ul > li').eq(0).find('img').data('blur-bg');
     $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
 

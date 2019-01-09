@@ -1010,8 +1010,11 @@ input:-webkit-autofill:active {
     border-bottom: 1px solid #111; }
 
 .close {
-  -webkit-transition: .5s;
-  transition: .5s; }
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
 
 .close:hover {
   transform: rotate(90deg);
@@ -4813,26 +4816,57 @@ input:-webkit-autofill:active {
     .main-conts .allwin-recommend .allwin-recommend-rolling .awa-slide__pager {
       display: none; }
 
-.main-evt {
+.ad-area {
   position: relative;
-  height: 120px;
-  overflow: hidden; }
-  .main-evt a {
-    display: block;
-    height: 120px;
-    font-size: 0;
-    text-align: center;
-  }
+  margin-top: 20px;
+}
 
-.main-evt .main-top-rolling {
+.ad-area .ad-banner-rolling .awa-slide__pager {
+  left: 10px;
+  margin-left: 0;
+}
+
+.ad-area .ad-banner-rolling .item.ad:after {
+  right: 20px;
+  margin-right: 0;
+}
+
+.ad-banner-rolling {
   text-align: center;
 }
 
-.main-evt .awa-slide__controls-direction {
+.ad-banner-rolling .item {
+  position: relative;
+}
+
+.ad-banner-rolling .item a {
+  font-size: 0;
+  display: block;
+}
+
+.ad-banner-rolling .item.ad:after {
+  content: 'AD';
+  width: 42px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  font-family: 'Geogrotesque-SemiBold';
+  font-size: 14px;
+  text-align: center;
+  position: absolute;
+  bottom: 15px;
+  right: 50%;
+  margin-right: -600px;
+  border-radius: 2px;
+}
+
+.ad-banner-rolling .awa-slide__controls-direction {
   display: none;
 }
 
-.main-evt .awa-slide__pager {
+.ad-banner-rolling .awa-slide__pager {
   height: 8px;
   position: absolute;
   top: 10px;
@@ -4840,13 +4874,13 @@ input:-webkit-autofill:active {
   margin-left: -600px;
 }
 
-.main-evt .awa-slide__pager-item {
+.ad-banner-rolling .awa-slide__pager-item {
   display: inline-block;
   margin: 0 3px;
   vertical-align: top;
 }
 
-.main-evt .awa-slide__pager-link {
+.ad-banner-rolling .awa-slide__pager-link {
   display: block;
   width: 8px;
   height: 8px;
@@ -4860,17 +4894,47 @@ input:-webkit-autofill:active {
   transition: all 0.5s;
 }
 
-.main-evt .awa-slide_pager-link--active {
+.ad-banner-rolling .awa-slide_pager-link--active {
   width: 20px;
 }
-  .main-evt .close {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    margin: -15px -590px 0 0;
-    width: 30px;
-    height: 30px;
-    background: url("https://cdn.allwin.bid/air/resource/img/ico_close1.png") center center no-repeat; }
+
+.banner-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  margin: 0 0 0 0;
+  width: 30px;
+  height: 30px;
+  background: url("https://cdn.allwin.bid/air/resource/img/ico_close1.png") center center no-repeat;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.banner-close:hover {
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+}
+
+.main-evt {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.main-evt a {
+  display: block;
+  height: 120px;
+  font-size: 0;
+  text-align: center;
+}
+
+.main-evt .banner-close {
+  right: 50%;
+  margin: 0 -600px 0 0;
+}
 
 .layer-search-dims {
   position: fixed;
@@ -10610,37 +10674,6 @@ input:-webkit-autofill:active {
               content: '#'; }
             .landmoa .land-more-items .land-item .item-inner .hashtag li a:hover {
               text-decoration: underline; }
-  .landmoa .land-ad {
-    position: relative;
-    width: 1200px;
-    display: table;
-    margin-top: 30px; }
-    .landmoa .land-ad a {
-      display: block;
-      height: 120px;
-      text-align: center;
-      display: table-cell;
-      vertical-align: middle; }
-    .landmoa .land-ad .type {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      width: 64px;
-      height: 27px;
-      line-height: 27px;
-      color: #fff;
-      font-family: 'Geogrotesque-SemiBold';
-      font-size: 14px;
-      text-align: center;
-      background: rgba(132, 132, 132, 0.7); }
-    .landmoa .land-ad .t1 {
-      color: #000;
-      font-size: 14px;
-      font-weight: 700; }
-    .landmoa .land-ad .t2 {
-      font-weight: 700;
-      font-size: 32px;
-      color: #fff; }
   .landmoa .land-recommend {
     background-size: cover !important; }
     .landmoa .land-recommend .land-recommend-inner {
