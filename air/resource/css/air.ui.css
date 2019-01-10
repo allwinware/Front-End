@@ -1084,7 +1084,7 @@ input:-webkit-autofill:active {
     bottom: -20px;
     font-size: 0; }
     .filter-bid-range .bid__value em {
-      font-family: 'Geogrotesque-Regular';
+      font-family: 'Geogrotesque-Regular', 'Noto Sans';
       color: #666;
       font-size: 13px; }
     .filter-bid-range .bid__value.bid__value-max {
@@ -3042,6 +3042,7 @@ input:-webkit-autofill:active {
   width: 970px;
   margin-left: -485px;
   font-size: 0;
+  z-index: 10;
 }
 
 .air-layer .air-schedules li {
@@ -4024,6 +4025,10 @@ input:-webkit-autofill:active {
   height: 150px;
 }
 
+.sub.land-details.is-scrolled .landmoa .detail-visual .detail-visual-trans {
+  height: 150px;
+}
+
 .sub.land-details.is-scrolled .landmoa .detail-visual .txts {
   display: none;
 }
@@ -4040,6 +4045,10 @@ input:-webkit-autofill:active {
 .sub.land-details.is-scrolled .landmoa .detail-header .in {
   position: relative;
   width: 1080px;
+}
+
+.sub.land-details.is-scrolled .landmoa .detail-layout {
+  z-index: initial;
 }
 
 .sub.land-details.is-scrolled .landmoa .detail-rows {
@@ -4233,7 +4242,7 @@ input:-webkit-autofill:active {
       font-size: 0;
       position: absolute;
       top: 0;
-      right: 0;
+      right: 9px;
       cursor: pointer;
       overflow: hidden; }
       .header .header-row2 .ranks .awa-slide__controls {
@@ -6266,7 +6275,16 @@ input:-webkit-autofill:active {
       font-size: 13px;
       color: #111;
       border-top: 1px solid #111;
+      border-bottom: 1px solid #e7e7e7;
     }
+
+.results2 .result-lists .lists .no-scroll-result {
+  padding: 120px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #111;
+  border-top: 1px solid #111;
+}
     .results2 .result-lists .lists__items {
       margin-top: 20px;
       overflow: hidden;
@@ -10956,23 +10974,64 @@ input:-webkit-autofill:active {
     height: 380px;
     text-align: center;
     overflow: hidden; }
+
+.landmoa .detail-visual .detail-visual-trans {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 380px;
+  z-index: 1;
+  -ms-animation: zoomin 15s ease-in;
+  -webkit-animation: zoomin 15s ease-in;
+  animation: zoomin 15s ease-in;
+  -ms-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
     .landmoa .detail-visual .txts {
+      position: relative;
+      z-index: 2;
       padding-top: 85px;
     }
     .landmoa .detail-visual .txt1 {
       font-size: 22px;
       color: #fff;
       font-weight: 300;
-      line-height: 100%; }
+      line-height: 100%;
+      opacity: 0;
+      -ms-animation: txt .6s ease-in-out;
+      -webkit-animation: txt .6s ease-in-out;
+      animation: txt .6s ease-in-out;
+      -ms-animation-delay: .3s;
+      -webkit-animation-delay: .3s;
+      animation-delay: .3s;
+      -ms-animation-fill-mode: forwards;
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+    }
     .landmoa .detail-visual .txt2 {
       font-size: 42px;
       color: #fff;
       font-weight: 300;
-      letter-spacing: -1.5px; }
-      .landmoa .detail-visual .txt2 strong {
+      letter-spacing: -1.5px;
+      opacity: 0;
+      -ms-animation: txt .6s ease-in-out;
+      -webkit-animation: txt .6s ease-in-out;
+      animation: txt .6s ease-in-out;
+      -ms-animation-delay: .7s;
+      -webkit-animation-delay: .7s;
+      animation-delay: .7s;
+      -ms-animation-fill-mode: forwards;
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+    }
+
+.landmoa .detail-visual .txt2 span, .landmoa .detail-visual .txt2 strong {
         font-weight: 700; }
   .landmoa .detail-layout {
     position: relative;
+    z-index: 2;
     width: 1440px;
     background: #ededed;
     margin: -117px auto 70px auto;
@@ -11029,6 +11088,7 @@ input:-webkit-autofill:active {
         .landmoa .detail-rows .tits h3 strong {
           font-weight: 700; }
           .landmoa .detail-rows .tits h3 strong.eng {
+            font-weight: normal;
             font-family: 'Geogrotesque-Bold'; }
       .landmoa .detail-rows .tits span {
         font-family: 'Geogrotesque-Medium';
@@ -11055,6 +11115,10 @@ input:-webkit-autofill:active {
         z-index: 1;
         height: 84px;
         background: url("https://cdn.allwin.bid/air/resource/img/land/ico_shadow.png") center top no-repeat; }
+
+.landmoa .detail-rows .representative-items .awa-slide__viewport {
+  z-index: 2;
+}
       .landmoa .detail-rows .representative-items .representative-item {
         display: inline-block;
         position: relative;
@@ -11063,7 +11127,9 @@ input:-webkit-autofill:active {
         position: absolute;
         top: 43px;
         width: 61px;
-        height: 88px; }
+        height: 88px;
+        z-index: 3;
+      }
       .landmoa .detail-rows .representative-items .awa-slide__controls-direction .awa-slide__prev {
         left: 0;
         background: url("https://cdn.allwin.bid/air/resource/img/land/ico_prev3.png") center center no-repeat; }
@@ -11806,6 +11872,46 @@ input:-webkit-autofill:active {
   }
   to {
     background-position: 468px 0;
+  }
+}
+
+@-webkit-keyframes zoomin {
+  from {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomin {
+  from {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes txt1 {
+  from {
+    opacity: 0;
+    transform: translate(0, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes txt {
+  from {
+    opacity: 0;
+    transform: translate(0, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
   }
 }
 
