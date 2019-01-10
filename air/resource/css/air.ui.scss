@@ -3631,7 +3631,7 @@ input:-webkit-autofill:active {
     }
   }
   .air-control {
-    position: fixed;
+    position: absolute;
     top: 50%;
     height: 92px;
     @include translate(0, -50%);
@@ -3749,6 +3749,25 @@ input:-webkit-autofill:active {
       font-size: 20px;
       color: #fff;
       font-family: 'Geogrotesque-Medium';
+    }
+  }
+  .slide-groups {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-size: 0;
+    .groups-slides {
+      @include transition(all 0.5s);
+    }
+    .slide-group {
+      display: inline-block;
+      .slide-item {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        box-sizing: border-box;
+        font-size: 15px;
+      }
     }
   }
 }
@@ -9305,13 +9324,19 @@ input:-webkit-autofill:active {
         }
         .txts {
           font-size: 15px;
-          margin: 15px 0 0 20px;
+          margin: 15px 15px 0 20px;
           letter-spacing: -1px;
           .txt {
-            font-size: 15px;
+            font-size: 14px;
             letter-spacing: -1px;
+            margin-top: 5px;
+            line-height: 130%;
+            &:first-child {
+              margin-top: 0;
+            }
             &.bold {
               font-weight: 700;
+              font-size: 19px;
             }
           }
           .per {
