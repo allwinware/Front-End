@@ -772,7 +772,7 @@
             <button type="button" class="close">close</button>
           </div>
         </div>
-        <div class="layer-search layer-land">
+        <div class="layer-search layer-land" style="display:block;">
           <div class="inner">
             <h2>랜드+</h2>
             <div class="land-nums">
@@ -1275,6 +1275,7 @@
     var src = $('.land-group-rolling > ul > li').eq(0).find('img').data('blur-bg');
     $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
 
+
     var slider = $('.land-group-rolling > ul').awaSlide({
       minSlides: 4,
       maxSlides: 4,
@@ -1284,9 +1285,10 @@
       // auto: true,
       // autoDelay: 5000
     });
-    $('.land-group-item').mouseenter(function () {
+    $('.land-group-item').on('mouseenter', function (e) {
       var src = $(this).find('img').data('blur-bg');
-      $('.clone-bg').attr('style', 'background-image: url("' + src + '")');
+      $('.clone-bg').css('background-image', 'url(' + src + ')');
+
     });
     $('.allwin-recommend-rolling > ul').awaSlide({
       minSlides: 4,
