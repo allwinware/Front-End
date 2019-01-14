@@ -406,14 +406,19 @@
         $(this.$wrapDetailSectionItem).each(function (i) {
           var top = $(this).offset().top - 200,
               bottom = top + $(this).outerHeight();
+
+          console.log("a");
+          console.log($(this).attr('id'));
           if (currentPos >= top && currentPos <= bottom) {
             $tabItem.removeClass('is-actived');
             $tabItem.eq(i).addClass('is-actived');
           }
         });
       } else if (currentPos < this.detailVisualHeight) {
+        console.log("b");
         this.$body.removeClass('is-scrolled');
       } else if (currentPos > this.detailSectionHeight) {
+        console.log("c");
       }
     }
   };

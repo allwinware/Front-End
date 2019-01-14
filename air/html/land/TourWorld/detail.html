@@ -413,7 +413,7 @@
     },
     landDetailScrollEvent: function () {
       var currentPos = this.$window.scrollTop(),
-          $tabItem =  this.$wrapDetailLayout.find('.menus li');
+          $tabItem = this.$wrapDetailLayout.find('.menus li');
       if (currentPos >= this.$wrapDetailLayout.offset().top - 33) {
         this.$body.addClass('is-scrolled');
       }
@@ -421,19 +421,33 @@
         this.$body.removeClass('is-scrolled');
       }
 
-      if (currentPos >= this.detailVisualHeight && currentPos < this.detailSectionHeight) {
-        $(this.$wrapDetailSectionItem).each(function (i) {
-          var top = $(this).offset().top - 200,
-              bottom = top + $(this).outerHeight();
-          if (currentPos >= top && currentPos <= bottom) {
-            $tabItem.removeClass('is-actived');
-            $tabItem.eq(i).addClass('is-actived');
-          }
-        });
-      } else if (currentPos < this.detailVisualHeight) {
-        this.$body.removeClass('is-scrolled');
-      }else if(currentPos > this.detailSectionHeight){
-      }
+      $(this.$wrapDetailSectionItem).each(function (i) {
+        var top = $(this).offset().top - 200,
+            bottom = top + $(this).outerHeight();
+
+        if (currentPos >= top && currentPos <= bottom) {
+          console.log($(this).attr('id'));
+          $tabItem.removeClass('is-actived');
+          $tabItem.eq(i).addClass('is-actived');
+        }
+      });
+
+      // if (currentPos >= this.detailVisualHeight && currentPos < this.detailSectionHeight) {
+      //   $(this.$wrapDetailSectionItem).each(function (i) {
+      //     var top = $(this).offset().top - 200,
+      //         bottom = top + $(this).outerHeight();
+      //
+      //     if (currentPos >= top && currentPos <= bottom) {
+      //       $tabItem.removeClass('is-actived');
+      //       $tabItem.eq(i).addClass('is-actived');
+      //     }
+      //   });
+      // } else if (currentPos < this.detailVisualHeight) {
+      //   console.log("b");
+      //   this.$body.removeClass('is-scrolled');
+      // } else if (currentPos > this.detailSectionHeight) {
+      //   console.log("c");
+      // }
     }
   };
 
