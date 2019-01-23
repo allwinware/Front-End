@@ -12896,7 +12896,7 @@ and dependencies (minified).
     }
     opt = $.extend(true, {
       autoClose: false,
-      format: 'YYYY.MM.DD',
+      format: 'YYYY-MM-DD',
       separator: ' - ',
       language: 'auto',
       startOfWeek: 'sunday', // or monday
@@ -12967,9 +12967,10 @@ and dependencies (minified).
     opt.isTouchDevice = 'ontouchstart' in window || navigator.msMaxTouchPoints;
 
     //if it is a touch device, hide hovering tooltip
-    if (opt.isTouchDevice) {
+    if (opt.isTouchDevice || opt.alwaysOpen) {
       opt.hoveringTooltip = false;
     }
+
 
     //show one month on mobile devices
     if (opt.singleMonth == 'auto') {
@@ -13100,7 +13101,10 @@ and dependencies (minified).
       $(this).data('date-picker-opened', true);
 
       box = createDom().hide();
-      //box.append('<div class="date-range-length-tip"></div>');
+      if (opt.alwaysOpen) {
+        box.append('<div class="datepicker-tooltip"></div>');
+      }
+
 
       $(opt.container).append(box);
 
@@ -13728,7 +13732,7 @@ and dependencies (minified).
       var tooltip = '';
 
       if (day.hasClass('has-tooltip') && day.attr('data-tooltip')) {
-        tooltip = '<span class="tooltip-content">' + day.attr('data-tooltip') + '</span>';
+        tooltip = '<span class="datepicker-tooltip-inner">' + day.attr('data-tooltip') + '</span>';
       } else if (!day.hasClass('invalid')) {
         if (opt.singleDate) {
           box.find('.day.hovering').removeClass('hovering');
@@ -13779,7 +13783,7 @@ and dependencies (minified).
         var _top = posDay.top - posBox.top;
         _left += day.width() / 2;
 
-        var $tip = box.find('.date-range-length-tip');
+        var $tip = box.find('.datepicker-tooltip');
         var w = $tip.css({
           'visibility': 'hidden',
           'display': 'none'
@@ -13789,17 +13793,21 @@ and dependencies (minified).
         _top -= h;
         setTimeout(function () {
           $tip.css({
-            left: _left,
-            top: _top,
+            left: _left + 25,
+            top: _top + 60,
             display: 'block',
             'visibility': 'visible'
           });
         }, 10);
+      } else {
+        box.find('.datepicker-tooltip').hide();
+
       }
     }
 
     function clearHovering() {
       box.find('.day.hovering').removeClass('hovering');
+      box.find('.datepicker-tooltip').hide();
     }
 
     function dateChanged(date) {
@@ -14193,6 +14201,7 @@ and dependencies (minified).
       });
 
       box.find('.day').unbind("mouseleave").mouseleave(function (evt) {
+        box.find('.datepicker-tooltip').hide();
         if (opt.singleDate) {
           clearHovering();
         }
