@@ -21495,7 +21495,7 @@ $('select').on('select2:open', function (e) {
           type: 'get',
           cache: false,
           data: {},
-          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+          contentType: 'application/json; charset=UTF-8',
           dataType: 'json',
           async: true
         };
