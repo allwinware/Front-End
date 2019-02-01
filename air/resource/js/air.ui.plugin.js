@@ -12896,7 +12896,7 @@ and dependencies (minified).
     }
     opt = $.extend(true, {
       autoClose: false,
-      format: 'YYYY-MM-DD',
+        format: 'YYYY.MM.DD',
       separator: ' - ',
       language: 'auto',
       startOfWeek: 'sunday', // or monday
