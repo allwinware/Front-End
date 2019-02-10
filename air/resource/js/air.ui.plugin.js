@@ -801,7 +801,7 @@
           pagerQty = getPagerQty();
       for (var i = 0; i < pagerQty; i++) {
         linkContent = '';
-        linkContent = "0" + (i + 1);
+        linkContent = i + 1;
         slider.pagerEl.addClass('awa-slide__default-pager');
         pagerHtml += '<span class="awa-slide__pager-item"><a href="" data-slide-index="' + i + '" class="awa-slide__pager-link">'
             + linkContent + '</a></span>';
