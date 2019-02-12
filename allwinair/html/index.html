@@ -4000,6 +4000,11 @@
 <script src="../resource/js/awa.ui.plugin.min.js"></script>
 <script src="../resource/js/awa.ui.min.js"></script>
 <script>
+    function numberWithCommas(x) {
+        var str = x + '';
+        return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     $(function () {
         AWAUI.main.init();
 
@@ -4040,16 +4045,18 @@
             min: min,
             max: max,
             value: value,
+            format: "currency",
             slide: function (event, ui) {
                 //console.log("slide");
                 //깃발 움직일때 값 세팅
-                $(this).closest('.tender_range').addClass('active').find('.bid__handle-ment, .user_price').text(ui.value);
+                $(this).closest('.tender_range').addClass('active').find('.bid__handle-ment, .user_price').text(numberWithCommas(ui.value));
             },
             change: function (event, ui) {
                 //console.log("change");
             },
             create: function (event, ui) {
                 //console.log("create");
+                $(this).closest('.tender_range').addClass('active').find('.bid__handle-ment, .user_price').text(numberWithCommas(value));
             }
         });
         $('.bt_success').on('click', function () {
@@ -4063,6 +4070,7 @@
             min: min,
             max: max,
             value: value,
+            format: "currency",
             slide: function (event, ui) {
                 //console.log("slide");
                 //깃발 움직일때 값 세팅
@@ -4073,6 +4081,7 @@
             },
             create: function (event, ui) {
                 //console.log("create");
+                $(this).closest('.tender_range').addClass('active').find('.bid__handle-ment, .user_price').text(value);
             }
         });
 
@@ -4082,6 +4091,7 @@
             min: min,
             max: max,
             value: value,
+            format: "currency",
             slide: function (event, ui) {
                 //console.log("slide");
                 $('.prd_name_box').removeClass('active').eq(0).addClass('active');
@@ -4116,6 +4126,7 @@
             min: 320000, //최소 가격
             max: 370000, //최대 가격
             value: 345000, //
+            format: "currency",
             slide: function (event, ui) {
                 //console.log("slide");
                 //깃발 움직일때 값 세팅
