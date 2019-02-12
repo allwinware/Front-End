@@ -1,14 +1,15 @@
 @charset "UTF-8";
 @import "https://allwinair.com/resource/css/air.ui.min.css";
-.bid {
-    position: relative;
-    background: #aaaaaa;
-    width: 2px;
-    height: 100%;
-    margin: 0 auto;
-}
 
-.bid:before {
+/*
+.bid {
+  position: relative;
+  background: #aaaaaa;
+  width: 2px;
+  height: 100%;
+  margin: 0 auto;
+
+  &:before {
     content: '';
     position: absolute;
     top: -10px;
@@ -17,39 +18,141 @@
     height: 10px;
     border-radius: 10px;
     background: #aaaaaa;
+  }
 }
 
 .bid .bid__handle {
-    position: absolute;
-    left: -4px;
-    z-index: 2;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    background: #f3b614;
-    -ms-touch-action: none;
-    touch-action: none;
-    text-align: center;
-    cursor: pointer;
-    outline: none;
+  position: absolute;
+  left: -4px;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #f3b614;
+  -ms-touch-action: none;
+  touch-action: none;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
 }
 
 .bid .bid__handle-ment {
-    font-size: 14px;
-    color: #f3b614;
-    position: absolute;
-    bottom: -5px;
-    right: 20px;
-}
+  font-size: 14px;
+  color: #f3b614;
+  position: absolute;
+  bottom: -5px;
+  right: 20px;
 
-.bid .bid__handle-ment:before {
+  &:before {
     content: '';
     position: absolute;
     bottom: 10px;
     right: -40px;
     width: 21px;
     height: 17px;
-    background: url("../../resource/img/bm/ico_flag.png") center center no-repeat;
+    background: url('../../resource/img/bm/ico_flag.png') center center no-repeat;
+  }
+}
+
+.bid .bid__range {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  display: block;
+  border: 0;
+  background-position: 0 0;
+  background: #ebaa2c;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: -4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background: #ebaa2c;
+  }
+}
+.bid .bid__range--min {
+  bottom: 0;
+}
+
+.bid .bid__range--max {
+  top: 0;
+}
+
+.bid .bid__value {
+  position: absolute;
+  right: 16px;
+  color: #000;
+}
+
+.bid .bid__value em {
+  font-size: 14px;
+  color: #000;
+}
+
+.bid .bid__value.bid__value-max {
+  top: -15px;
+}
+
+.bid .bid__value.bid__value-min {
+  bottom: -5px;
+}
+*/
+.bid {
+    position: relative;
+    background: #3e3e3e;
+    width: 4px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.bid .bid__handle {
+    position: absolute;
+    left: -6px;
+    z-index: 2;
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    background: #fff;
+    cursor: default;
+    -ms-touch-action: none;
+    touch-action: none;
+    text-align: center;
+    cursor: pointer;
+    outline: 0;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+}
+
+.bid .bid__handle-ment {
+    position: absolute;
+    bottom: 7px;
+    left: 8px;
+    display: block;
+    font-size: 13px;
+    width: 131px;
+    height: 50px;
+    text-align: center;
+    background: url("https://allwinware.github.io/Front-End/allwinair/resource/img/img_bid-flog@2x.png") center center no-repeat;
+    background-size: 131px 50px;
+    font-weight: 500;
+    line-height: 33px;
+    text-indent: -5px;
+}
+
+.bid .bid__handle-ment:before {
+    content: '￦';
+    font-size: 12px;
+    margin-right: 3px;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 35px;
+    vertical-align: top;
 }
 
 .bid .bid__range {
@@ -63,17 +166,6 @@
     background: #ebaa2c;
 }
 
-.bid .bid__range:before {
-    content: '';
-    position: absolute;
-    bottom: 0px;
-    left: -4px;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    background: #ebaa2c;
-}
-
 .bid .bid__range--min {
     bottom: 0;
 }
@@ -84,21 +176,28 @@
 
 .bid .bid__value {
     position: absolute;
-    right: 16px;
+    right: 20px;
     color: #000;
+    font-family: 'Geogrotesque-SemiBold';
+    font-size: 14px;
+    width: 230px;
+    text-align: right;
 }
 
 .bid .bid__value em {
-    font-size: 14px;
     color: #000;
+    font-family: 'Geogrotesque-SemiBold';
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 .bid .bid__value.bid__value-max {
-    top: -15px;
+    top: -5px;
 }
 
 .bid .bid__value.bid__value-min {
     bottom: -5px;
+    color: #000;
 }
 
 .main .bm-header {
@@ -494,9 +593,9 @@
 
 .bm-srching .form-box .bidding_outer {
     position: absolute;
-    top: 30px;
-    right: 80px;
-    height: 215px;
+    top: 20px;
+    right: 150px;
+    height: 230px;
 }
 
 .bm-srching .bts {
@@ -1045,10 +1144,10 @@
 }
 
 .bm-prds .bm-prd-layer .info2 .bids .bidding_outer {
-    height: 185px;
     position: absolute;
-    top: 40px;
-    right: 80px;
+    top: 20px;
+    right: 150px;
+    height: 220px;
 }
 
 .bm-prds .bm-prd-layer .bts {
