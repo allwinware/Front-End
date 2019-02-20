@@ -97,6 +97,12 @@ AIRUI = (function () {
               if ($('.air-top').offset().top + $('.air-top').height() >= $('.footer').offset().top - 10) {
                 $('.air-top').hide();
               }
+
+              if ($('.land-want').length > 0) {
+                $('.air-top').css('bottom', '70px');
+              } else {
+                $('.air-top').css('bottom', '20px');
+              }
             } else {
               $('.air-top').hide();
             }
