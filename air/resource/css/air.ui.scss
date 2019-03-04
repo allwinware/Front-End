@@ -7530,6 +7530,10 @@ input:-webkit-autofill:active {
           }
         }
       }
+
+      .awa-slide__controls-direction {
+        display: none;
+      }
       .awa-slide__prev, .awa-slide__next {
         position: absolute;
         bottom: 100px;
@@ -7546,7 +7550,26 @@ input:-webkit-autofill:active {
         background: url('#{$imgPath}/ico_recom-next.png') center center no-repeat;
       }
       .awa-slide__pager {
-        display: none;
+        font-size: 0;
+        text-align: center;
+        margin-top: 40px;
+
+        .awa-slide__pager-item {
+          display: inline-block;
+          margin: 0 4px;
+        }
+
+        .awa-slide__pager-link {
+          display: block;
+          width: 6px;
+          height: 6px;
+          border-radius: 6px;
+          background: #e7e7e7;
+        }
+
+        .awa-slide_pager-link--active {
+          background: #f9c028;
+        }
       }
     }
   }
@@ -16825,6 +16848,136 @@ all and (min-device-pixel-ratio: 1.5) {
     padding: 90px 0 145px 0;
   }
 }
+
+.quick-summery {
+  display: none;
+  position: fixed;
+  top: 236px;
+  right: 50%;
+  margin-right: -762px;
+  width: 130px;
+  z-index: 1000;
+  background: #fff;
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+
+  .inner {
+    border-top: 2px solid #000;
+    padding: 0 10px;
+  }
+
+  .summery-group {
+    margin: 25px 0 0 0;
+
+    dl {
+      overflow: hidden;
+      line-height: 100%;
+      padding: 2px 0;
+
+    }
+
+    dt {
+      color: #666;
+      font-size: 12px;
+      float: left;
+    }
+
+    dd {
+      font-weight: 500;
+      color: #fe4d0a;
+      font-size: 12px;
+      float: right;
+      border-bottom: 1px solid #fe4d0a;
+    }
+
+    .total {
+      dt {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      dd {
+        float: none;
+        text-align: left;
+        border-bottom: 0;
+
+        &:after {
+          content: '원';
+          font-size: 12px;
+          color: #fe4d0a;
+        }
+      }
+    }
+
+    .bts {
+      li {
+        margin-top: 1px;
+        line-height: 100%;
+      }
+
+      a {
+        display: block;
+        width: 106px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        background: #111;
+        color: #fff;
+        font-weight: 500;
+        font-size: 12px;
+      }
+    }
+
+    .links {
+      li {
+        line-height: 100%;
+        margin-bottom: 10px;
+      }
+
+      a {
+        font-size: 12px;
+        color: #666;
+      }
+    }
+  }
+
+  .summery-tit {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    line-height: 100%;
+  }
+
+  .top {
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 12px;
+  }
+}
+
+@media screen and (min-width: 1599px) {
+  .quick-summery {
+    display: block;
+  }
+  @media screen and (max-height: 785px) {
+    .quick-summery {
+      top: auto;
+      bottom: 10px;
+    }
+  }
+}
+
+
+
 @keyframes placeHolderShimmer {
   from {
     background-position: -468px 0;
