@@ -10,7 +10,7 @@ AIRUI = (function () {
         AIRUI.common.select();
         AIRUI.common.loading();
         AIRUI.common.tooltips();
-        AIRUI.common.top();
+        // AIRUI.common.top();
       },
       select: function () {
         $('.custom-select select').select2({minimumResultsForSearch: -1});
