@@ -7109,9 +7109,9 @@ input:-webkit-autofill:active {
 
 .main-conts {
   padding: 0 0 100px 0;
-  -webkit-box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  //-webkit-box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  //-moz-box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  //box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
   .allwin-service {
     width: 1200px;
     margin: 0 auto;
@@ -9366,9 +9366,13 @@ input:-webkit-autofill:active {
       &.filters-loading {
         min-height: 1124px;
       }
-      .filter-item {
+
+      .filter-outer {
+        position: relative;
         border-bottom: 1px solid #e7e7e7;
         padding: 30px 0;
+      }
+      .filter-item {
         dt {
           padding: 0 5px;
         }
@@ -9458,6 +9462,31 @@ input:-webkit-autofill:active {
         }
         .bid-solo {
           min-height: 42px;
+        }
+      }
+
+      .filter-more {
+        position: relative;
+        top: 10px;
+        font-size: 13px;
+        color: #111;
+        width: 100%;
+        text-align: left;
+        margin: 0 0 0 3px;
+
+        &.is-actived {
+          &:after {
+            background: url('#{$imgPath}/ico_select-arrow3-on.png') center center no-repeat;
+          }
+        }
+
+        &:after {
+          content: '';
+          display: inline-block;
+          margin-left: 5px;
+          width: 13px;
+          height: 8px;
+          background: url('#{$imgPath}/ico_select-arrow3-off.png') center center no-repeat;
         }
       }
     }
@@ -16860,7 +16889,7 @@ all and (min-device-pixel-ratio: 1.5) {
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 
   &.more {
-    top: 276px;
+    top: 366px;
   }
 
   .inner {

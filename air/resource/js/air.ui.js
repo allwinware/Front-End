@@ -119,32 +119,37 @@ AIRUI = (function () {
         }
       },
       summery: function () {
-        var summeryPos,
-            summeryTop = $('.quick-summery').css('top'),
-            replaceSummeryTop = summeryTop.replace(/[^0-9]/g, "");
+        var summeryPos;
 
         scrollCheck();
 
         function scrollCheck() {
           if ($('.main-evt').length > 0) {
-            summeryPos = 1066;
+            summeryPos = 973;
             $('.quick-summery').addClass('more');
             if ($('.main-evt').css('display') === "none") {
-              summeryPos = 946;
+              summeryPos = 853;
               $('.quick-summery').removeClass('more');
             }
           } else {
-            summeryPos = 946;
+            summeryPos = 853;
             $('.quick-summery').removeClass('more');
           }
 
         }
 
-        if ($('.evt-banners').length > 0) {
+        if ($('body').hasClass('main')) {
           $(window).on('scroll', function () {
             scrollCheck();
 
-            if ($(window).scrollTop() + $('.quick-summery').height() >= $('.evt-banners').offset().top - replaceSummeryTop) {
+            var bannerCheck;
+            if ($('.evt-banners').length > 0) {
+              bannerCheck = $('.evt-banners').offset().top - 400
+            } else {
+              bannerCheck = $('.allwin-recommend').offset().top
+            }
+
+            if ($(window).scrollTop() + $('.quick-summery').height() >= bannerCheck) {
               $('.quick-summery').css({
                 'position': 'absolute',
                 'top': summeryPos + "px"
