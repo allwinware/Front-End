@@ -47,7 +47,7 @@
               <li><a href="">마이페이지</a></li>
             </ul>
             <ul>
-              <li class="evt-menu"><a href="">이벤트 <em class="new">new</em></a></li>
+              <li class="evt-menu"><a href="">이벤트</a></li>
               <li><a href="">서비스 소개</a></li>
             </ul>
           </div>
@@ -64,7 +64,7 @@
       <div class="inner">
         <div class="intro-tabs">
           <ul>
-              <li><a href="">실시간 항공권</a></li>
+            <li><a href="">개별항공권</a></li>
             <li><a href="">단체항공권</a></li>
             <li><a href="">랜드+</a></li>
           </ul>
@@ -385,17 +385,19 @@
           moveSlides: 1,
           slideWidth: 240,
           infiniteLoop: false,
-          auto: true
+          auto: true,
+          autoDelay: 5000
         });
       }
     },
     representativeProductsSlide: function () {
       this.$wrapRepresentativeProducts.awaSlide({
+        infiniteLoop: false,
         auto: true,
-        pause:10000
+        autoDelay: 5000
       });
     },
-    landDetailTabs: function () {
+    landDetailTabs: function(){
       this.$wrapDetailTabLink.on('click', function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -411,7 +413,7 @@
     },
     landDetailScrollEvent: function () {
       var currentPos = this.$window.scrollTop(),
-          $tabItem = this.$wrapDetailLayout.find('.menus li');
+          $tabItem =  this.$wrapDetailLayout.find('.menus li');
       if (currentPos >= this.$wrapDetailLayout.offset().top - 33) {
         this.$body.addClass('is-scrolled');
       }
@@ -419,33 +421,19 @@
         this.$body.removeClass('is-scrolled');
       }
 
-      $(this.$wrapDetailSectionItem).each(function (i) {
-        var top = $(this).offset().top - 200,
-            bottom = top + $(this).outerHeight();
-
-        if (currentPos >= top && currentPos <= bottom) {
-          console.log($(this).attr('id'));
-          $tabItem.removeClass('is-actived');
-          $tabItem.eq(i).addClass('is-actived');
-        }
-      });
-
-      // if (currentPos >= this.detailVisualHeight && currentPos < this.detailSectionHeight) {
-      //   $(this.$wrapDetailSectionItem).each(function (i) {
-      //     var top = $(this).offset().top - 200,
-      //         bottom = top + $(this).outerHeight();
-      //
-      //     if (currentPos >= top && currentPos <= bottom) {
-      //       $tabItem.removeClass('is-actived');
-      //       $tabItem.eq(i).addClass('is-actived');
-      //     }
-      //   });
-      // } else if (currentPos < this.detailVisualHeight) {
-      //   console.log("b");
-      //   this.$body.removeClass('is-scrolled');
-      // } else if (currentPos > this.detailSectionHeight) {
-      //   console.log("c");
-      // }
+      if (currentPos >= this.detailVisualHeight && currentPos < this.detailSectionHeight) {
+        $(this.$wrapDetailSectionItem).each(function (i) {
+          var top = $(this).offset().top - 200,
+              bottom = top + $(this).outerHeight();
+          if (currentPos >= top && currentPos <= bottom) {
+            $tabItem.removeClass('is-actived');
+            $tabItem.eq(i).addClass('is-actived');
+          }
+        });
+      } else if (currentPos < this.detailVisualHeight) {
+        this.$body.removeClass('is-scrolled');
+      }else if(currentPos > this.detailSectionHeight){
+      }
     }
   };
 
