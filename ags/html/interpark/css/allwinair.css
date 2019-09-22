@@ -191,6 +191,7 @@ button {
   letter-spacing: -0.16px;
 }
 
+a	{cursor:pointer;}
 
 /*	인터파크 스타일 - 임시	*/
 #dHead	{height:226px;}
@@ -206,6 +207,9 @@ nav, output, ruby, section, summary, time, mark, audio, video
       -moz-box-sizing: border-box;
       -webkit-box-sizing: border-box; }
 
+
+.leftWrap	{float:left;}
+.rightWrap	{float:right;}
 /*	기본 레이아웃	*/
 .allwinContents	{width:980px; margin:0 auto; text-align:left;overflow:hidden;}
 .allwinContents h1	{font-size: 24px;
@@ -340,7 +344,7 @@ content: "";
 
 .seatContainer .sts-plane-model	{width:70px; height:196px; border:1px solid #e4e4e4; background:url("../images/seatmini_bg.png") no-repeat 50% 50%; background-size:contain}
 .seatContainer .sts-plane-model-outer	{display:inline-block;}
-.seatContainer .sts-view	{position:sticky; top:20px; margin-left:20px; z-index:1;}
+.seatContainer .sts-view	{position:sticky; top:20px; margin-left:20px; z-index:1; width:70px;}
 .seatContainer .sts-legend	{margin-right:20px; float:right; display:inline-block;}
 
 
@@ -515,7 +519,7 @@ content: "";
   font-weight: bold;letter-spacing: -0.15px;
   text-align: center; color:#fff;background: #e25147;}
 .allwinContents .contentsContainer .contentsWrap .contents.meal .mealSelectWrap .mealContainer ul li ul li:first-child a	{background: #7d7d7d;}
-.allwinContents .contentsContainer .contentsWrap .contents.meal .mealSelectWrap .mealContainer ul li ul li a.soldout	{line-height:30px; color:#aaa; background:#fff;border:1px solid #979797;}
+.allwinContents .contentsContainer .contentsWrap .contents.meal .mealSelectWrap .mealContainer ul li ul li a.soldout	{line-height:30px; color:#aaa; background:#fff;border:1px solid #979797; cursor:default;}
 
 
 .allwinContents .contentsContainer .contentsWrap .contents.lounge .loungeContainer	{overflow:hidden;}
@@ -617,3 +621,66 @@ content: "";
 .payList ul li ul li .ea	{float:right; text-align:right; color:#e25147}
 .payList ul li ul li .ea a.delete	{width:14px; height:14px;  display:inline-block; vertical-align:middle; margin-top:-2px; background:url("../images/btn_del.png") no-repeat 50% 50%;}
 .payList ul li ul li .ea a.delete.none	{background:none; cursor:default;}
+
+/*	table	*/
+table	{background:#fff; border-collapse:collapse;border-spacing:0;table-layout:fixed;zoom:1; width:100%; empty-cells:show;border-top:1px solid #e4e4e4;}
+table th	{vertical-align:top;text-align:center; border-bottom:1px solid #e4e4e4; padding:12px 0;}
+table td	{vertical-align:middle; text-align:left; border-bottom:1px solid #e4e4e4; line-height: 1.5; padding:12px 0;}
+
+/*	popup	*/
+.popupContainer	{display:none; position:fixed; width:100%; height:100%; top:0; left:0; z-index:10;}
+
+.popupContainer .popupWrap	{z-index:1; position:absolute;background:#fff; width:460px;}
+.popupContainer .popupDimmed	{position: fixed; width: 100%; height: 100%; background: rgba(0,0,0,0.2);}
+
+.popupContainer .popupTitleWrap	{position:relative; background: #7e8185;height:50px;}
+.popupContainer .popupTitleWrap:after	{content:""; display:block; clear:both;}
+.popupContainer .popupTitleWrap .title	{line-height:50px;font-size: 16px;
+  font-weight: bold;letter-spacing: -0.2px;
+  color: #fff; padding-left:16px;}
+.popupContainer .popupTitleWrap .close	{cursor:pointer; position:absolute; width:50px; height:50px; text-align:center; top:0; right:0;  background:url("../images/btn_close.png") 50% 50% no-repeat; text-indent:-9999%}
+
+.popupContainer .popupContentWrap	{border:1px solid  #7e8185; border-top:none;padding:20px 16px 32px; overflow:hidden;}
+.popupContainer .popupContent	{font-size: 11px;line-height: 1.45;  letter-spacing: -0.14px;}
+.popupContainer .popupBtnWrap	{}
+.popupContainer .popupBtnWrap a.close	{display:block; width:80px; height:34px; line-height:34px; margin:24px auto 0;background: #e25147; color:#fff;font-size: 14px;  font-weight: bold;letter-spacing: -0.18px;  text-align: center;}
+
+.popupContainer.exitSeatPopup .popupWrap	{width:460px; }
+.popupContainer.exitSeatPopup .popupContent	{border: 1px solid #e4e4e4; padding:14px 12px;}
+.popupContainer.exitSeatPopup .popupContent p	{margin-bottom:18px;}
+.popupContainer.exitSeatPopup .popupContent ol	{margin-bottom:18px;}
+.popupContainer.exitSeatPopup .popupContent span	{color: #e25147;}
+.popupContainer.exitSeatPopup  .popupBtnWrap	{margin-top:12px;}
+.popupContainer.exitSeatPopup  .popupBtnWrap label	{font-size: 11px;letter-spacing: -0.4px;}
+
+
+.popupContainer.seatInfoPopup .popupWrap	{width:460px; }
+.popupContainer.seatInfoPopup .popupContent	{border: 1px solid #e4e4e4; padding:14px 12px;}
+
+.popupContainer[class*="mealPopup"] .popupWrap	{width:980px; }
+.popupContainer[class*="mealPopup"] .popupContentWrap	{padding:32px 24px;}
+
+
+.popupContainer[class*="mealPopup"] .leftWrap	{width:240px;}
+.popupContainer[class*="mealPopup"] .rightWrap	{width:668px;}
+.popupContainer[class*="mealPopup"] .title	{font-size: 14px;  font-weight: bold;letter-spacing: -0.18px;line-height:42px;}
+.popupContainer[class*="mealPopup"]  table	{font-size: 12px;letter-spacing: -0.15px;}
+.popupContainer[class*="mealPopup"]  table th	{  font-weight: bold;  color: #e25147;}
+.popupContainer[class*="mealPopup"]  table td	{}
+.popupContainer[class*="mealPopup"] ul	{margin:17px 0 24px;}
+.popupContainer[class*="mealPopup"] ul li	{display:inline-block; margin-right:6px;}
+.popupContainer[class*="mealPopup"] .info	{font-size: 12px;line-height: 1.5;  letter-spacing: -0.15px;  color: #888;}
+
+
+.popupContainer[class*="loungePopup"] .popupWrap	{width:780px; }
+.popupContainer[class*="loungePopup"] .popupContentWrap	{padding:16px; text-align:center;}
+
+
+.popupContainer[class*="loungePopup"] .popupContentWrap p	{font-size: 12px;
+  font-weight: bold;letter-spacing: -0.15px;
+  text-align: right;
+  color: #e25147;}
+
+
+
+.popupLayout	{text-align:center; font-size: 14px;  font-weight: bold;letter-spacing: -0.18px;line-height:42px;}
