@@ -71,18 +71,23 @@
 			         <div class="form-group">
 		                <ul>
 		                  <li>
-		                  	<span class="custom-select">
+						  <!--	191004	-->
+		                  	<span class="custom-select custom">
 				              	<select name="" id="">
 					                <option value="">항공사를 선택하세요</option>
 					                <option value="">제주항공</option>
+					                <option value="">티웨이항공</option>
 				                </select>
 				              </span>
+						  <!--	//191004	-->
 		                  </li>
 		                  <li>
 		                    <span class="custom-input large"><input type="text" placeholder="PNR을 입력하세요"></span>
 		                  </li>
 		                  <li>
-		                    <span class="custom-input large"><input type="text" placeholder="출발일자를 선택하세요"></span>						                    
+						  <!--	191004	-->
+							<span class="custom-input"><input type="text" class="default-picker" placeholder="출발일자를 선택하세요"></span>
+						  <!--	//191004	-->
 		                  </li>
 		                  <li>
 		                  	 <button type="button" class="bt-full">검색하기</button>
@@ -413,7 +418,9 @@
       autoDelay: 5000
     });
 
+
     //날짜검색
+	/*
     var $datapickerInput = $('#datapicker-input');
 
     var holidays = [
@@ -441,7 +448,7 @@
         }
       });
     }
-
+*/
     //검색 필터
     var $filterToggle = $('#js-filter-toggle'),
         $filterLayer = $('.filters');
@@ -500,8 +507,27 @@
       }
     });
 
+/*	191007	*/
     //기본 달력
     // $('.default-picker').allwinDatepicker({autoClose: true});
+    $.datepicker.regional['ko'] = {
+        closeText : '닫기',
+        prevText : '',
+        nextText : '',
+        currentText : 'TODAY',
+        monthNames : ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+        dayNamesMin : ['일', '월', '화', '수', '목', '금', '토'],
+        dateFormat : 'yy년 mm월 dd일',
+        firstDay : 0,
+        isRTL : false,
+        showMonthAfterYear : true,
+        yearSuffix : '.',
+		showOtherMonths: true
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ko']);
+	$( ".default-picker" ).datepicker();
+
+/*	//191007	*/
   });
 </script>
 </body>
