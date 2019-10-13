@@ -35,6 +35,10 @@ $(document).ready(function () {
 		$('.popupContainer').hide();
 	});
 
+	$(".popupContainer.buyHistory .popupContent > ul > li > p").click(function(){
+		$(this).parents().toggleClass("on");
+	});
+
 	$(window).scroll(function() {
 //		var topOffset = $(".priceContainer").offset();
 		if ($(document).scrollTop() > 574 ) {
@@ -43,8 +47,6 @@ $(document).ready(function () {
 			$(".priceContainer").removeClass("menuFixed");
 		}
 	});
-
-
 });
 
 
