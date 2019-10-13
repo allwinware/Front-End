@@ -35,6 +35,16 @@ $(document).ready(function () {
 		$('.popupContainer').hide();
 	});
 
+	$(window).scroll(function() {
+//		var topOffset = $(".priceContainer").offset();
+		if ($(document).scrollTop() > 574 ) {
+			$(".priceContainer").addClass("menuFixed");
+		}	else	{
+			$(".priceContainer").removeClass("menuFixed");
+		}
+	});
+
+
 });
 
 

@@ -211,7 +211,7 @@ nav, output, ruby, section, summary, time, mark, audio, video
 .leftWrap	{float:left;}
 .rightWrap	{float:right;}
 /*	기본 레이아웃	*/
-.allwinContents	{width:980px; margin:0 auto; text-align:left;overflow:hidden;}
+.allwinContents	{width:980px; margin:0 auto; text-align:left;overflow:hidden; position:relative;}
 .allwinContents h1	{font-size: 24px;
   font-weight: bold; letter-spacing: -0.3px; margin:42px 0 30px;}
 .allwinContents .summaryWrap	{position:relative; width:100%; height:180px;background:url("../images/bg_summary.png") no-repeat 50% 50%; color:#fff;}
@@ -228,9 +228,8 @@ nav, output, ruby, section, summary, time, mark, audio, video
 .allwinContents .contentsContainer	{float:left; width:736px; }
 .allwinContents .contentsContainer h2	{font-size: 20px;
   font-weight: bold;letter-spacing: -0.25px; margin:54px 0 16px;}
-.allwinContents .priceContainer	{width:220px; float:right;}
-
-
+.allwinContents .priceContainer	{width:220px; margin-top:60px;/*position:absolute; right:0; top:291px;*/ background:#fff; float:right;}
+.allwinContents .priceContainer.menuFixed	{position:fixed; top:0; left:calc(50% + 270px);margin-top:10px;}
 .allwinContents .contentsContainer .tabSelect	{width:100%; overflow:hidden;}
 .allwinContents .contentsContainer .tabSelect li	{float:left; text-align:center; cursor:pointer; border:1px solid #e4e4e4; border-bottom-color:#e25147; background:#f7f7f7;font-size: 16px;
   font-weight: bold; color:#aaa;letter-spacing: -0.2px; padding:14px 13px;white-space:nowrap;text-overflow: ellipsis;overflow: hidden;}
@@ -589,7 +588,7 @@ content: "";
 
 
 
-.priceContainer	{margin-top:54px;}
+/*.priceContainer	{margin-top:54px;}*/
 .priceContainer h2	{font-size: 16px;
   font-weight: bold;letter-spacing: -0.2px; line-height:26px;}
 .priceContainer h2 a	{display:block; float:right; border:1px solid #666;font-size: 11px;
@@ -687,6 +686,67 @@ table td	{vertical-align:middle; text-align:left; border-bottom:1px solid #e4e4e
   text-align: right;
   color: #e25147;}
 
+.popupContainer.payDetail .popupWrap	{width:980px; }
+.popupContainer.payDetail table {clear:both; margin-top:16px; border-top:2px solid #afafaf;}
+.popupContainer.payDetail table th	{font-size: 14px;  font-weight: bold; letter-spacing: -0.18px;padding: 14px 0;}
+.popupContainer.payDetail table th span	{width:100%; display:block; border-left:1px solid #afafaf; height:15px; line-height:15px;}
+.popupContainer.payDetail table tr th:first-child span	{border-left:none;}
+.popupContainer.payDetail table tbody tr td	{letter-spacing: -0.16px; color:#000;font-size: 13px; border-left:1px solid  #e4e4e4;}
+.popupContainer.payDetail table tbody tr td:first-child	{text-align:center;  font-weight: bold; border-left:none;}
+.popupContainer.payDetail table tbody tr td:nth-child(2)	{padding-left:12px;}
+.popupContainer.payDetail table tbody tr td:nth-child(3)	{padding-right:24px; text-align:right;}
+.popupContainer.payDetail table tfoot tr td	{text-align:right;font-size: 12px;  font-weight: bold;letter-spacing: -0.15px; padding-right:24px;}
+.popupContainer.payDetail table tfoot tr td span	{color: #e25147;letter-spacing: -0.18px;font-size: 14px; margin-left:16px;}
+
+.popupContainer.payDetail ul.itinerary li	{display:inline-block; cursor:pointer; height:30px; line-height:28px; margin-left:5px; border:1px solid #666; padding:0 12px;font-size: 12px;  font-weight: bold;letter-spacing: -0.15px; color:#aaa;}
+.popupContainer.payDetail ul.itinerary li.on	{background: #426fbe; color:#fff;line-height:30px; border:none;}
+.popupContainer.payDetail ul.itinerary li span	{display:inline-block; width:12px; height:10px; margin:0 6px; background:url("../images/ico_airplane_min_off.png") no-repeat 50% 50%;}
+.popupContainer.payDetail ul.itinerary li.on span	{background-image:url("../images/ico_airplane_min_on.png") }
+
+
+.popupContainer.buyHistory .popupWrap	{}
+.popupContainer.buyHistory .popupContent > ul	{height:431px; overflow-y:auto; border-top:2px solid #afafaf; border-bottom:1px solid #e4e4e4;}
+.popupContainer.buyHistory .popupContent > ul > li	{border-bottom:1px solid #e4e4e4;}
+.popupContainer.buyHistory .popupContent > ul > li > p	{color: #000; line-height:45px;cursor:pointer;}
+.popupContainer.buyHistory .popupContent > ul > li > p:before	{content:"";width:12px; height:7px; vertical-align:middle; display:inline-block;background:url("../images/ico_toggle.png") no-repeat 50% 50%; margin:-4px 10px 0 12px;
+transition: all 0.2s ease 0s;
+-webkit-transition: all 0.2s ease 0s;
+}
+
+.popupContainer.buyHistory .popupContent > ul > li.on > p:before	{
+			-webkit-transform: rotate(180deg);
+			-moz-transform: rotate(180deg);
+			transform: rotate(180deg);
+			-o-transform: rotate(180deg);
+			-ms-transform: rotate(180deg);
+}
+
+.popupContainer.buyHistory .popupContent > ul > li > p span:first-child	{text-align:left;font-size: 13px;  font-weight: bold;letter-spacing: -0.16px;  text-decoration:underline;}
+.popupContainer.buyHistory .popupContent > ul > li > p span:last-child	{float:right;text-align:right; margin-right:12px; font-size: 11px;letter-spacing: -0.14px;}
+.popupContainer.buyHistory .popupContent > ul > li > p + ul	{background: #f4f4f4; padding:8px 34px; display:none;
+	transition: all 0.2s ease 0s;
+	-webkit-transition: all 0.2s ease 0s;
+}
+.popupContainer.buyHistory .popupContent > ul > li.on > p + ul	{display:block;}
+.popupContainer.buyHistory .popupContent > ul > li > p + ul > li	{margin:8px 0;}
+.popupContainer.buyHistory .popupContent > ul > li > p + ul p	{font-size: 12px;  font-weight: bold;letter-spacing: -0.15px; margin-bottom:6px;}
+.popupContainer.buyHistory .popupContent > ul > li > p + ul p ul li	{font-size: 11px;line-height: 1.36;  letter-spacing: -0.14px;}
+
+
+
+.popupContainer.receiptPopup table	{border-top:2px solid #afafaf;}
+.popupContainer.receiptPopup table td	{padding:9px 12px;font-size: 13px;letter-spacing: -0.16px; color:#000;border-left: 1px solid #e4e4e4;}
+.popupContainer.receiptPopup table tr td:first-child	{border-left:none;}
+.popupContainer.receiptPopup table tr td:nth-child(2)	{text-align:right;}
+.popupContainer.receiptPopup table tr td:nth-child(3)	{text-align:right;font-size: 11px;line-height: 1.36;  letter-spacing: -0.14px;}
+.popupContainer.receiptPopup table tr td a	{font-size: 12px;letter-spacing: -0.15px;  font-weight: bold; color:#aaa; display:block; border:1px solid #666; line-height:28px; text-align:center;}
+
+
+
+
+
+
+
 
 
 
@@ -716,6 +776,10 @@ table td	{vertical-align:middle; text-align:left; border-bottom:1px solid #e4e4e
 .allwinContents .completeWrap .tableWrap table.history tbody tr td:first-child	{text-align:center;
   font-weight: bold;}
 .allwinContents .completeWrap .tableWrap table.history tbody tr td:last-child	{text-align:center;color: #e25147;}
+
+
+
+
 
 
 
