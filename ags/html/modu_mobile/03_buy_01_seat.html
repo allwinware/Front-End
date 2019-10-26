@@ -1,0 +1,629 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>Buy_Seat</title>
+	<meta name="keywords" content="">
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<link rel="stylesheet" href="css/jquery-ui.css" />
+	<link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/common.css" media="screen" />
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<div class="pageWrap wrapper">
+<!--	스크롤 가능 영역	-->
+	<div class="contentContainer seat">
+		<div class="headerWrap">
+			<div class="systemWrap">
+				<p class="title">부가서비스</p>
+				<a href="" class="btn back">
+					<img src="images/btn_back.png" width="16" height="16" alt="Back" />				
+				</a>
+				<a href="" class="btn close">
+					<img src="images/btn_close.png" width="14" height="14" alt="Close" />
+				</a>
+			</div>
+			<div class="titleWrap">
+				<p class="title">1. 사전 좌석 구매</p>
+				<ul class="step">
+					<li class="on">1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+				</ul>
+			</div>
+		</div>
+		<div class="selectWrap">
+			<div class="scheduleWrap">
+				<div class="swiper-container schedule">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="from">
+								<span>icn</span>인천
+							</div>
+							<div class="info">
+								<p>가는 편</p>
+								<ul>
+									<li>제주항공 TW715</li>
+									<li class="shape">
+										<img src="images/img_shape.png" width="15" height="15" alt="" />
+									</li>
+									<li>2019. 11. 16</li>
+								</ul>
+							</div>
+							<div class="to">
+								<span>han</span>하노이
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="from">
+								<span>han</span>하노이
+							</div>
+							<div class="info">
+								<p>오는 편</p>
+								<ul>
+									<li>제주항공 TW715</li>
+									<li class="shape">
+										<img src="images/img_shape.png" width="15" height="15" alt="" />
+									</li>
+									<li>2019. 11. 16</li>
+								</ul>
+							</div>
+							<div class="to">
+								<span>icn</span>인천
+							</div>
+						</div>
+					</div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+		<!--	스크롤시 상단 고정 영역	-->
+			<div class="passengerWrap">
+				<p class="title">승객을 선택한 후, 좌석을 선택하세요</p>
+				<div class="swiper-container passenger">
+					<ul class="swiper-wrapper">
+						<li class="swiper-slide selected">
+							<p>Kim, allwin</p>
+							<span class="select">F5</span>
+						</li>
+						<li class="swiper-slide">
+							<p>Bae, Sungjune</p>
+							<span class="select">A1</span>
+						</li>
+						<li class="swiper-slide">
+							<p>Lee, Nayoen</p>
+							<span>선택하세요</span>
+						</li>
+						<li class="swiper-slide">
+							<p>Bae, Sungjune</p>
+							<span>A1 (선택불가)</span>
+						</li>
+						<li class="swiper-slide">
+							<p>Lee, Nayoen</p>
+							<span>선택하세요</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		<!--	//스크롤시 상단 고정 영역	-->
+		</div>
+		<div class="choiceWrap">
+			<div class="titleWrap">
+				<p class="title">좌석 선택하기</p>
+				<div class="btnWrap">
+					<a href="" class="btn">좌석 규정 보기</a>
+				</div>
+			</div>
+			<div class="legendWrap">
+				<dl>
+				<!--
+					<dt class="newclass">뉴클래스 좌석</dt>
+					<dd></dd>
+				-->
+					<dt class="frontexit">앞 좌석 / 비상구 좌석</dt>
+					<dd>15,000원</dd>
+					<dt class="regionA">A 구역</dt>
+					<dd>10,000원</dd>
+					<dt class="regionB">B 구역</dt>
+					<dd>5,000원</dd>
+					<dt class="regionC">C 구역</dt>
+					<dd>3,000원</dd>
+					<dt>선택불가</dt>
+					<dd></dd>
+				</dl>
+			</div>
+			<div class="seatContainer b737">
+				<div class="seatWrap">
+					<ul>
+						<li class="frontexit selected">1A</li>
+						<li class="frontexit">1B</li>
+						<li class="frontexit">1C</li>
+					</ul>
+					<ul>
+						<li class="regionA done popupBtn" id="seatInfoPopup">2A</li>	<!--	구매불가 안내 팝업 샘플	-->
+						<li class="regionA">2B</li>
+						<li class="regionA">2C</li>
+						<li class="frontexit">2D</li>
+						<li class="frontexit">2E</li>
+						<li class="frontexit done">2F</li>
+					</ul>
+					<ul>
+						<li class="regionA done">3A</li>
+						<li class="regionA">3B</li>
+						<li class="regionA">3C</li>
+						<li class="regionA">3D</li>
+						<li class="regionA">3E</li>
+						<li class="regionA">3F</li>
+					</ul>
+					<ul>
+						<li class="regionA">4A</li>
+						<li class="regionA">4B</li>
+						<li class="regionA done">4C</li>
+						<li class="regionA done">4D</li>
+						<li class="regionA">4E</li>
+						<li class="regionA">4F</li>
+					</ul>
+					<ul>
+						<li class="regionA done">5A</li>
+						<li class="regionA done">5B</li>
+						<li class="regionA">5C</li>
+						<li class="regionA">5D</li>
+						<li class="regionA">5E</li>
+						<li class="regionA">5F</li>
+					</ul>
+					<ul>
+						<li class="regionA done">6A</li>
+						<li class="regionA">6B</li>
+						<li class="regionA">6C</li>
+						<li class="regionA">6D</li>
+						<li class="regionA">6E</li>
+						<li class="regionA">6F</li>
+					</ul>
+					<ul>
+						<li class="regionA done">7A</li>
+						<li class="regionA">7B</li>
+						<li class="regionA">7C</li>
+						<li class="regionA">7D</li>
+						<li class="regionA done">7E</li>
+						<li class="regionA done">7F</li>
+					</ul>
+					<ul>
+						<li class="regionA done">8A</li>
+						<li class="regionA">8B</li>
+						<li class="regionA">8C</li>
+						<li class="regionA">8D</li>
+						<li class="regionA">8E</li>
+						<li class="regionA">8F</li>
+					</ul>
+					<ul>
+						<li class="regionA done">9A</li>
+						<li class="regionA">9B</li>
+						<li class="regionA">9C</li>
+						<li class="regionA">9D</li>
+						<li class="regionA done">9E</li>
+						<li class="regionA done">9F</li>
+					</ul>
+					<ul>
+						<li class="regionA">10A</li>
+						<li class="regionA">10B</li>
+						<li class="regionA">10C</li>
+						<li class="regionA">10D</li>
+						<li class="regionA">10E</li>
+						<li class="regionA">10F</li>
+					</ul>
+					<ul>
+						<li class="regionA done">11A</li>
+						<li class="regionA done">11B</li>
+						<li class="regionA">11C</li>
+						<li class="regionA">11D</li>
+						<li class="regionA">11E</li>
+						<li class="regionA">11F</li>
+					</ul>
+					<ul>
+						<li class="regionB done">12A</li>
+						<li class="regionB">12B</li>
+						<li class="regionB">12C</li>
+						<li class="regionB">12D</li>
+						<li class="regionB done">12E</li>
+						<li class="regionB done">12F</li>
+					</ul>
+					<ul>
+						<li class="regionB">13A</li>
+						<li class="regionB">13B</li>
+						<li class="regionB">13C</li>
+						<li class="regionB">13D</li>
+						<li class="regionB">13E</li>
+						<li class="regionB done">13F</li>
+					</ul>
+					<ul>
+						<li class="regionB">14A</li>
+						<li class="regionB">14B</li>
+						<li class="regionB">14C</li>
+						<li class="regionB">14D</li>
+						<li class="regionB">14E</li>
+						<li class="regionB done">14F</li>
+					</ul>
+					<ul>
+						<li class="frontexit">15A</li>
+						<li class="frontexit">15B</li>
+						<li class="frontexit">15C</li>
+						<li class="frontexit">15D</li>
+						<li class="frontexit">15E</li>
+						<li class="frontexit">15F</li>
+					</ul>
+					<ul>
+						<li class="frontexit">16A</li>
+						<li class="frontexit">16B</li>
+						<li class="frontexit">16C</li>
+						<li class="frontexit">16D</li>
+						<li class="frontexit">16E</li>
+						<li class="frontexit">16F</li>
+					</ul>
+					<ul>
+						<li class="regionB">17A</li>
+						<li class="regionB">17B</li>
+						<li class="regionB">17C</li>
+						<li class="regionB">17D</li>
+						<li class="regionB">17E</li>
+						<li class="regionB">17F</li>
+					</ul>
+					<ul>
+						<li class="regionB">18A</li>
+						<li class="regionB">18B</li>
+						<li class="regionB">18C</li>
+						<li class="regionB">18D</li>
+						<li class="regionB">18E</li>
+						<li class="regionB">18F</li>
+					</ul>
+					<ul>
+						<li class="regionB">19A</li>
+						<li class="regionB">19B</li>
+						<li class="regionB">19C</li>
+						<li class="regionB">19D</li>
+						<li class="regionB">19E</li>
+						<li class="regionB">19F</li>
+					</ul>
+					<ul>
+						<li class="regionB">20A</li>
+						<li class="regionB">20B</li>
+						<li class="regionB">20C</li>
+						<li class="regionB">20D</li>
+						<li class="regionB">20E</li>
+						<li class="regionB">20F</li>
+					</ul>
+					<ul>
+						<li class="regionB">21A</li>
+						<li class="regionB">21B</li>
+						<li class="regionB">21C</li>
+						<li class="regionB">21D</li>
+						<li class="regionB">21E</li>
+						<li class="regionB">21F</li>
+					</ul>
+					<ul>
+						<li class="regionB">22A</li>
+						<li class="regionB">22B</li>
+						<li class="regionB">22C</li>
+						<li class="regionB">22D</li>
+						<li class="regionB">22E</li>
+						<li class="regionB">22F</li>
+					</ul>
+					<ul>
+						<li class="regionC">23A</li>
+						<li class="regionC">23B</li>
+						<li class="regionC">23C</li>
+						<li class="regionC">23D</li>
+						<li class="regionC">23E</li>
+						<li class="regionC">23F</li>
+					</ul>
+					<ul>
+						<li class="regionC">24A</li>
+						<li class="regionC">24B</li>
+						<li class="regionC">24C</li>
+						<li class="regionC">24D</li>
+						<li class="regionC">24E</li>
+						<li class="regionC">24F</li>
+					</ul>
+					<ul>
+						<li class="regionC">25A</li>
+						<li class="regionC">25B</li>
+						<li class="regionC">25C</li>
+						<li class="regionC">25D</li>
+						<li class="regionC">25E</li>
+						<li class="regionC">25F</li>
+					</ul>
+					<ul>
+						<li class="regionC">26A</li>
+						<li class="regionC">26B</li>
+						<li class="regionC">26C</li>
+						<li class="regionC">26D</li>
+						<li class="regionC">26E</li>
+						<li class="regionC">26F</li>
+					</ul>
+					<ul>
+						<li class="regionC">27A</li>
+						<li class="regionC">27B</li>
+						<li class="regionC">27C</li>
+						<li class="regionC">27D</li>
+						<li class="regionC">27E</li>
+						<li class="regionC">27F</li>
+					</ul>
+					<ul>
+						<li class="regionC">28A</li>
+						<li class="regionC">28B</li>
+						<li class="regionC">28C</li>
+						<li class="regionC">28D</li>
+						<li class="regionC">28E</li>
+						<li class="regionC">28F</li>
+					</ul>
+					<ul>
+						<li class="regionC">29A</li>
+						<li class="regionC">29B</li>
+						<li class="regionC">29C</li>
+						<li class="regionC">29D</li>
+						<li class="regionC">29E</li>
+						<li class="regionC">29F</li>
+					</ul>
+					<ul>
+						<li class="regionC">30A</li>
+						<li class="regionC">30B</li>
+						<li class="regionC">30C</li>
+						<li class="regionC">30D</li>
+						<li class="regionC">30E</li>
+						<li class="regionC">30F</li>
+					</ul>
+					<ul>
+						<li class="regionC">31A</li>
+						<li class="regionC">31B</li>
+						<li class="regionC">31C</li>
+						<li class="regionC">31D</li>
+						<li class="regionC">31E</li>
+						<li class="regionC">31F</li>
+					</ul>
+					<ul>
+						<li class="regionC">32A</li>
+						<li class="regionC">32B</li>
+						<li class="regionC">32C</li>
+						<li class="regionC">32D</li>
+						<li class="regionC">32E</li>
+						<li class="regionC">32F</li>
+					</ul>
+				</div>
+				<div class="seatNumWrap">
+					<ul>
+						<li class="frontexit">1</li>
+						<li>2</li>
+						<li>3</li>
+						<li>4</li>
+						<li>5</li>
+						<li>6</li>
+						<li>7</li>
+						<li>8</li>
+						<li>9</li>
+						<li>10</li>
+						<li>11</li>
+						<li>12</li>
+						<li>13</li>
+						<li>14</li>
+						<li class="frontexit">15</li>
+						<li class="frontexit">16</li>
+						<li>17</li>
+						<li>18</li>
+						<li>19</li>
+						<li>20</li>
+						<li>21</li>
+						<li>22</li>
+						<li>23</li>
+						<li>24</li>
+						<li>25</li>
+						<li>26</li>
+						<li>27</li>
+						<li>28</li>
+						<li>29</li>
+						<li>30</li>
+						<li>31</li>
+						<li>32</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="finalWrap">
+			<div class="infoWrap">
+				<dl>
+					<dt>꼭 읽어보세요!</dt>
+					<dd>안내 텍스트 한줄</dd>
+					<dd>안내 텍스트 한줄</dd>
+					<dd>안내 텍스트 두줄 처리, 안내 텍스트 두줄 처리, 안내 텍스트 두줄 처리, 안내 텍스트 두줄 처리, 안내 텍스트 두줄 처리</dd>
+					<dt>취소/환불 규정</dt>
+					<dd>안내 텍스트 한줄</dd>
+					<dd>안내 텍스트 한줄</dd>
+					<dd>안내 텍스트 두줄 처리, 안내 텍스트 두줄 처리, 안내 텍스트 두줄 처리, 안내 텍스트 두줄 처리, 안내 텍스트 두줄 처리</dd>
+				</dl>
+			</div>
+			<div class="btnWrap">
+				<input type="button" name="" id="" class="btn" value="사전 수하물 구매 단계로 이동" />
+			</div>
+		</div>
+	</div>
+<!--	//스크롤 가능 영역	-->
+<!--	191026 하단 고정 메뉴	-->
+	<div class="paySummaryContainer close">
+		<div class="moreWrap">
+			<p class="moreBtn">
+				<img src="images/btn_summary.png" width="10" height="5" alt="" />
+			</p>
+			<div class="paySummaryWrap">
+				<dl>
+					<dt>부가서비스 총 결제금액</dt>
+					<dd>999,900원</dd>
+				</dl>
+				<div class="detailWrap">
+					<ul class="payDetail">
+						<li>
+							<p class="title">Kim, Allwin</p>
+							<table summary="결제 금액">
+								<caption class="blind">결제 금액</caption>
+								<colgroup>
+									<col style="width:22%;"/>
+									<col />
+									<col style="width:28%;"/>
+								</colgroup>
+								<thead>
+									<tr>
+										<th>구간</th>
+										<th>부가서비스 신청</th>
+										<th>금액</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th colspan="2">결제금액</th>
+										<td>99,000원</td>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr>
+										<td>가는편</td>
+										<td>
+											비상구 좌석 : A15<br />
+											수하물 : 20kg<br />
+											기내식 : 오색비빔밥<br />
+											라운지 이용권
+										</td>
+										<td>69,000원</td>
+									</tr>
+									<tr>
+										<td>오는편</td>
+										<td>수하물 : 20kg</td>
+										<td>30,000원</td>
+									</tr>
+								</tbody>
+							</table>
+						</li>
+						<li>
+							<p class="title">Bae, Sungjune</p>
+							<table summary="결제 금액">
+								<caption class="blind">결제 금액</caption>
+								<colgroup>
+									<col style="width:22%;"/>
+									<col />
+									<col style="width:28%;"/>
+								</colgroup>
+								<thead>
+									<tr>
+										<th>구간</th>
+										<th>부가서비스 신청</th>
+										<th>금액</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th colspan="2">결제금액</th>
+										<td>99,000원</td>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr>
+										<td>가는편</td>
+										<td>
+											A구역 좌석 : E3<br />
+											라운지 이용권
+										</td>
+										<td>24,900원</td>
+									</tr>
+									<tr>
+										<td>오는편</td>
+										<td>
+											수하물 : 20kg<br />
+											기내식 : 패밀리세트
+										</td>
+										<td>54,900원</td>
+									</tr>
+								</tbody>
+							</table>
+						</li>
+						<li>
+							<p class="title">Lee, Nayoen</p>
+							<table summary="결제 금액">
+								<caption class="blind">결제 금액</caption>
+								<colgroup>
+									<col style="width:22%;"/>
+									<col />
+									<col style="width:28%;"/>
+								</colgroup>
+								<thead>
+									<tr>
+										<th>구간</th>
+										<th>부가서비스 신청</th>
+										<th>금액</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th colspan="2">결제금액</th>
+										<td>99,000원</td>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr>
+										<td>가는편</td>
+										<td>
+											수하물 : 20kg<br />
+											라운지 이용권											
+										</td>
+										<td>99,900원</td>
+									</tr>
+								</tbody>
+							</table>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="moreDimmed"></div>
+	</div>
+<!--	//191026 하단 고정 메뉴	-->
+</div>
+<!--	popup - 구매불가 안내	-->
+	<div class="popupContainer seatInfoPopup">
+		<div class="popupWrap">
+			<div class="popupContentWrap">
+				<div class="popupImgWrap">
+					<img src="images/img_alert.png" width="80" height="80" alt="" />
+				</div>
+				<div class="popupContent">
+					<p class="title">사전 좌석 구매를 할 수 없습니다.</p>
+					<p>항공기 출발 24시간 내에는 해당 서비스를<br />구매하실 수 없습니다.</p>
+				</div>
+				<div class="popupBtnWrap">
+					<a class="btn close">확인</a>
+				</div>
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	popup - 구매불가 안내	-->
+<script>
+	var swiper = new Swiper('.schedule', {
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+		pagination: {
+			el: '.swiper-pagination',
+		},
+	});
+	var swiper = new Swiper('.passenger', {
+		slidesPerView: 2.5,
+		spaceBetween: 8,
+		freeMode: true
+	});
+</script>
+</body>
+</html>
