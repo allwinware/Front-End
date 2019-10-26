@@ -13,6 +13,7 @@ $(document).ready(function () {
 	$(".paySummaryContainer .moreBtn").click(function(){
 		$(".paySummaryContainer").toggleClass("open");
 		$(".paySummaryContainer").toggleClass("close");
+		$("body").toggleClass("menuOpen");
 		$(".paySummaryContainer.open .paySummaryWrap").css("height", $(window).height() - 44 );
 		$(".paySummaryContainer.close .paySummaryWrap").css("height", 56 );
 	});
