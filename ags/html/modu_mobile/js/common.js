@@ -11,6 +11,7 @@ $(document).ready(function () {
 		}
 	});
 	$(".paySummaryContainer .moreBtn").click(function(){
+		$(".paySummaryContainer .detailWrap").css("height", $(window).height() - 100 );
 		$(".paySummaryContainer").toggleClass("open");
 		$(".paySummaryContainer").toggleClass("close");
 		$("body").toggleClass("menuOpen");
