@@ -39,7 +39,28 @@ body.menuOpen .contentContainer	{height:100%; min-height:100%; overflow:hidden !
 
 .pageWrap.wrapper	{width:100vw; /*height:100vh; */position:relative;}
 
-.contentContainer.seat	{background:#f8f8f8;}
+
+.inputWrap {position:relative;}
+	.inputWrap input {position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
+	.inputWrap input + label {cursor:pointer; display:inline-block; zoom:1; *display:inline; position:relative; -webkit-user-select:none;  -moz-user-select:none; -ms-user-select:none;line-height:20px;color:#aaa; font-size:12px; }
+	.inputWrap input + label:before {content:" "; display:inline-block; zoom:1; *display:inline; vertical-align: middle; display:inline-block; width:20px; height:20px; border-radius:50%;}
+	.inputWrap input:checked + label	{color:#ff4f24;}
+	.inputWrap input[type="checkbox"] + label:before	{border:1px solid #ddd; background-size:11px 9px; background-repeat:no-repeat; background-position:50% 50%; margin-right:5px;}
+	.inputWrap input[type="checkbox"] + label:before {background-image:url("../images/input_checkbox.png");}
+	.inputWrap input[type="checkbox"]:checked + label:before {border-color:#ff4f24; background:#ff4f24 url("../images/input_checkbox_on.png");background-size:11px 9px; background-repeat:no-repeat; background-position:50% 50%;}
+
+	.inputWrap input[type="radio"] + label:before	{border:1px solid #ddd; background-size:11px 9px; background-repeat:no-repeat; background-position:50% 50%; margin-right:5px;}
+	.inputWrap input[type="radio"] + label:before {background-image:url("../images/input_checkbox.png");}
+	.inputWrap input[type="radio"]:checked + label:before {border-color:#ff4f24; background:#ff4f24 url("../images/input_checkbox_on.png");background-size:11px 9px; background-repeat:no-repeat; background-position:50% 50%;}
+
+
+	/*	.inputWrap input[type="checkbox"]:disabled + label:before {background-position:0% 100%}
+	.inputWrap input[type="checkbox"]:disabled + label	{color:#888; cursor:default;}*/
+
+
+.contentContainer	{background:#f8f8f8;}
+.contentContainer.onboard	{background:#fff;}
+.contentContainer.complete	{background:#fff;}
 
 .pageWrap.wrapper.passengerFixed .passengerWrap	{position:fixed; top:0; left:0; z-index:10; width:100%;}
 .pageWrap.wrapper.passengerFixed .selectWrap:after	{content:""; width:100%; background:#f8f8f8; height:8px; position:fixed; top:125px; left:0; z-index:5;}
@@ -58,6 +79,7 @@ body.menuOpen .contentContainer	{height:100%; min-height:100%; overflow:hidden !
 		.headerWrap .titleWrap .step	{float:right; padding:15px 0;}
 		.headerWrap .titleWrap .step li	{display:inline-block; width:18px; height:18px; border-radius:50%; line-height:16px; text-align:center; border:1px solid #e4e4e4; background:#fff; font-size:10px; font-weight:600;}
 		.headerWrap .titleWrap .step li.on	{background:#000; border-color:#000; color:#fff;}
+		.headerWrap .titleWrap .step li img	{margin-top:5px;}
 
 .selectWrap	{background:#fff; }
 	.selectWrap .scheduleWrap	{}
@@ -111,7 +133,7 @@ body.menuOpen .contentContainer	{height:100%; min-height:100%; overflow:hidden !
 	.choiceWrap .titleWrap	{padding:16px 4.3%; overflow:hidden;}
 	.choiceWrap .titleWrap .title	{float:left; font-size: 14px; font-weight:800; line-height:24px;}
 	.choiceWrap .titleWrap .btnWrap	{float:right;}
-	.choiceWrap .titleWrap .btnWrap .btn	{width:76px; height:24px; line-height:22px;border-radius: 2px; border:1px solid #000;font-size: 10px; text-align:center; font-weight:600;}
+	.choiceWrap .titleWrap .btnWrap .btn	{padding:0 7px; height:24px; line-height:22px;border-radius: 2px; border:1px solid #000;font-size: 10px; text-align:center; font-weight:600;}
 
 	.choiceWrap .legendWrap	{clear:both; padding:0 4.3% 16px ;}
 	.choiceWrap .legendWrap dl	{font-size: 11px;letter-spacing: -0.14px; font-weight:600;  line-height:2;}
@@ -302,7 +324,49 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible;}
 	.contentContainer.baggage .sliderContainer .range-labels li {    position: relative;    float: left;    width: 20%;    text-align: center;    font-size: 13px; font-weight:600;  }
 	.contentContainer.baggage .sliderContainer .range-labels .active {color: #ff4f24;}
 
+.contentContainer.lounge .choiceWrap > .infoWrap	{border-bottom:1px solid #f0f0f0; padding:0 4.3% 13px;}
+
+	.contentContainer.lounge .infoWrap p	{font-size: 12px;line-height: 1.33; margin:3px 0;}
+	.contentContainer.lounge .infoWrap p:first-child	{font-size: 13px;line-height: 1.38; margin:0 0 6px;}
+	.contentContainer.lounge .infoWrap p:nth-child(2) span	{font-weight:600;}
+	.contentContainer.lounge .infoWrap p:last-child	{color:#ff4f24;}
+
+	.contentContainer.lounge .passengerList	{padding:16px 4.3% 6px;}
+	.contentContainer.lounge .passengerList li	{width:100%; clear:both; border:1px solid #000; border-radius:10px; padding:14px 12px; margin-bottom:10px}
+	.contentContainer.lounge .passengerList li .passenger	{text-transform:uppercase; font-weight:600; font-size:12px; line-height:22px; float:left;}
+	.contentContainer.lounge .passengerList li .inputWrap	{float:right;}
+
+	.pageWrap.wrapper.passengerFixed .contentContainer.lounge .selectWrap:after	{display:none;}
+	.pageWrap.wrapper.passengerFixed .contentContainer.lounge .choiceWrap	{padding-top:0;}
+
+.contentContainer.meals .choiceWrap > .infoWrap	{border-bottom:1px solid #f0f0f0; padding:0 4.3% 13px;}
+	.contentContainer.meals .infoWrap p	{font-size: 13px;line-height: 1.38; margin:3px 0;}
+
+	.contentContainer.meals .mealsWrap	{padding:0 4.3%;}
+	.contentContainer.meals .mealsWrap li	{width:calc(50% - 5px); margin-bottom:30px;}
+	.contentContainer.meals .mealsWrap li:nth-child(odd)	{float:left; clear:both;}
+	.contentContainer.meals .mealsWrap li:nth-child(even)	{float:right;}
+
+	.contentContainer.meals .mealsWrap li > img	{margin-bottom:16px;}
+	.contentContainer.meals .mealsWrap li .inputWrap	{}
+	.contentContainer.meals .mealsWrap li .inputWrap input + label {color:#000; font-size:15px; font-weight:600;width:calc(100% - 6px); white-space:nowrap;text-overflow: ellipsis;overflow: hidden;}
+	.contentContainer.meals .mealsWrap li .inputWrap input:checked + label	{color:#000;}
+	.contentContainer.meals .mealsWrap li .price	{margin-top:12px; font-size: 13px;line-height: 1.15;line-height:15px; color:#ff4f24; font-weight:600;}
+	.contentContainer.meals .mealsWrap li .price span	{font-weight:400; color:#aaa;text-decoration: line-through; margin-right:8px;}
+
+.contentContainer.complete	{}
+
+	.contentContainer.complete .headerWrap	{box-shadow:none; margin-bottom: 0;}
+
+	.contentContainer.complete .finalWrap	{background:#fff url("../images/bg_complete.png") no-repeat 100% 0%; text-align:center; border-bottom:1px solid #f0f0f0; padding:50px 4.3% 26px; background-size:contain;}
+	.contentContainer.complete .finalWrap p	{font-size: 20px;line-height: 1.4;  letter-spacing: -0.5px; font-weight:600; margin-bottom:16px;} 
+	.contentContainer.complete .finalWrap span	{display:block;font-size: 13px;line-height: 1.38;  letter-spacing: -0.33px; color:#888; margin-bottom:22px;}
+
+	.contentContainer.complete .detailWrap > .title	{font-size: 14px; font-weight:800;letter-spacing: -0.35px; padding:50px 4.3% 24px}
+
+.contentContainer.complete ul.payDetail	{padding-bottom:20px;}
 
 @media screen and (max-width : 320px) {
 
 }
+
