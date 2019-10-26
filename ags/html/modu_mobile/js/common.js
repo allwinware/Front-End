@@ -12,6 +12,9 @@ $(document).ready(function () {
 	});
 	$(".paySummaryContainer .moreBtn").click(function(){
 		$(".paySummaryContainer").toggleClass("open");
+		$(".paySummaryContainer").toggleClass("close");
+		$(".paySummaryContainer.open .paySummaryWrap").css("height", $(window).height() - 44 );
+		$(".paySummaryContainer.close .paySummaryWrap").css("height", 56 );
 	});
 });
 
