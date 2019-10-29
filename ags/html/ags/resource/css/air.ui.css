@@ -23657,3 +23657,100 @@ td.w220	{width:220px;}
 .sec + .sec	 table tbody td	{padding:75px 0;}
 
 .agspage .conts .sec .tit	{padding:20px 30px; width:380px;}
+
+
+.loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0);
+	z-index: 20000;
+}
+
+.loading:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100px;
+	height: 100px;
+	margin: -50px 0 0 -50px;
+	background: rgba(255, 255, 255, 0.96);
+	border-radius: 3px;
+
+	-webkit-animation: opacity 0.2s 1;
+	animation: opacity 0.2s 1;
+
+}
+
+.loading:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 30px;
+	height: 30px;
+	margin: -15px 0 0 -15px;
+	background:url("../images/ico_loading-circle.png") center center no-repeat;
+
+		-webkit-animation: rotate-center 0.75s 0.25s ease-in-out infinite backwards, opacity 0.2s 1;
+		animation: rotate-center 0.75s 0.25s ease-in-out infinite backwards, opacity 0.2s 1;
+}
+.loadingWrap.hide	{
+	-webkit-animation: hideLoading 0.2s 1 forwards;
+	animation: hideLoading 0.2s 1 forwards;
+}
+
+@-webkit-keyframes rotate-center {
+	from {
+		-webkit-transform:rotate(0); 	transform: rotate(0);
+	}
+	to {
+		-webkit-transform: rotate(360deg);	transform: rotate(360deg);
+	}
+}
+@keyframes rotate-center {
+	from {
+		transform:rotate(0);	transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);transform: rotate(360deg);
+	}
+}
+
+@-webkit-keyframes opacity {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@keyframes opacity {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+
+@-webkit-keyframes hideLoading {
+	from {
+		display:block; opacity:1;
+	}
+	to {
+		display:none; opacity:0;
+	}
+}
+
+@keyframes hideLoading {
+	from {
+		display:block; opacity:1;
+	}
+	to {
+		display:none; opacity:0;
+	}
+}
