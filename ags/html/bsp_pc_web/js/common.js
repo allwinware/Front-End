@@ -28,6 +28,16 @@ $(document).ready(function () {
 		$('.popupContainer .popupWrap').not( ":hidden" ).css("top","calc(50% - "+(popupHeight+2)/2+"px");
 	});
 
+	$(document).on('click', '.agreeWrap .tabSelect li', function() {
+		var tabIndex = $(this).attr('id');
+		$(this).siblings().removeClass("on");
+		$(this).addClass("on");
+		$(".agreeWrap .tabContent li").removeClass("on");
+		$(".agreeWrap .tabContent li."+tabIndex).addClass("on");
+	});
+
+
+
 	$(document).on('click', '.popupDimmed', function() {
 		$(this).parent().hide();
 	});
