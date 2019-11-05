@@ -39,8 +39,16 @@ $(document).ready(function () {
 		$(this).parents().toggleClass("on");
 	});
 
+	$(".selectForm > p").click(function(){
+		$(this).toggleClass("on");
+	});
+	$(".selectForm > ul > li").click(function(){
+		$(".selectForm > p").removeClass("on");
+	});
+
+
 	$(window).scroll(function() {
-//		var topOffset = $(".priceContainer").offset();
+		var topOffset = $(".priceContainer").offset();
 		if ($(document).scrollTop() > 302 ) {
 			$(".priceContainer").addClass("menuFixed");
 		}	else	{
