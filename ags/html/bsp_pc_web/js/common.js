@@ -46,15 +46,25 @@ $(document).ready(function () {
 		$(".selectForm > p").removeClass("on");
 	});
 
-
 	$(window).scroll(function() {
-		var topOffset = $(".priceContainer").offset();
 		if ($(document).scrollTop() > 302 ) {
 			$(".priceContainer").addClass("menuFixed");
 		}	else	{
 			$(".priceContainer").removeClass("menuFixed");
 		}
-	});
+	});	
+
+	$(window).scroll(function() {
+		var scrollHeight = $(document).height();
+		var scrollPosition = $(window).height() + $(window).scrollTop();		
+		if (scrollPosition > scrollHeight - 284 + 948 - $(".priceContainer").innerHeight()) {		
+				$(".priceContainer").addClass("bottom");
+				$(".priceContainer").css("bottom",scrollPosition - scrollHeight + 284);
+			}	else	{
+				$(".priceContainer").removeClass("bottom");
+				$(".priceContainer").css("bottom","auto");
+			}
+		});	
 });
 
 
