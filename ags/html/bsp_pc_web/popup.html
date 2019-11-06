@@ -5,8 +5,10 @@
 	<title>POPUP</title>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.bxslider.js"></script>
+	<script type="text/javascript" src="js/jquery.selectric.js"></script>	<!--	191107	-->
 	<script type="text/javascript" src="js/common.js"></script>
     <link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css" />   
+    <link rel="stylesheet" type="text/css" href="css/selectric.css" />	<!--	191107	-->   
     <link rel="stylesheet" type="text/css" href="css/common.css" />   
 	<style>
 		.popupLayout	{text-align:center; font-size: 14px;  font-weight: bold;letter-spacing: -0.18px;line-height:42px;}
@@ -409,8 +411,10 @@
 									<label for="phone">휴대폰 번호</label>
 									<input type="tel" id="phone" placeholder="숫자만 입력하세요 (-제외)" />
 								</li>
+							<!--	191107	-->
 								<li class="category left">
-									<p class="title">유형</p>
+									<label for="category">유형</p>
+								<!--
 									<div class="selectForm">
 										<p>선택</p>
 										<ul>
@@ -419,7 +423,15 @@
 											<li>옵션 3</li>
 										</ul>
 									</div>
+								-->
+									<select name="" id="category">
+										<option>선택</option>
+										<option>옵션 1</option>
+										<option>옵션 2</option>
+										<option>옵션 3</option>
+									</select>
 								</li>
+							<!--	//191107	-->
 								<li class="ordernum right">
 									<label for="ordernum">주문번호</label>
 									<input type="text" id="ordernum" placeholder="주문번호를 입력하세요" />
@@ -517,5 +529,12 @@
 			<div class="popupDimmed"></div>
 		</div>
 	<!--	//	popup - 1:1 문의하기 취소 경고	-->
+<!--	191107	-->
+	<script>
+		$(function() {
+			$('select').selectric();
+		});
+	</script>
+<!--	//191107	-->
 </body>
 </html>
