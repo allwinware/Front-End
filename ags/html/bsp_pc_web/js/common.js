@@ -36,7 +36,10 @@ $(document).ready(function () {
 		$(".agreeWrap .tabContent li."+tabIndex).addClass("on");
 	});
 
-
+    $(".anchorWrap a").click(function(event){    
+        event.preventDefault();
+        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+    });
 
 	$(document).on('click', '.popupDimmed', function() {
 		$(this).parent().hide();
@@ -56,6 +59,19 @@ $(document).ready(function () {
 		$(".selectForm > p").removeClass("on");
 	});
 
+
+    $("tr.titleWrap").click(function(event){    
+		$(this).siblings().removeClass("view");
+		$(this).toggleClass("view");
+    });
+
+
+
+
+
+
+
+
 	$(window).scroll(function() {
 		if ($(document).scrollTop() > 302 ) {
 			$(".priceContainer").addClass("menuFixed");
@@ -63,6 +79,15 @@ $(document).ready(function () {
 			$(".priceContainer").removeClass("menuFixed");
 		}
 	});	
+
+	$(window).scroll(function() {
+		if ($(document).scrollTop() > 80 ) {
+			$(".headerContainer.main").addClass("fixed");
+		}	else	{
+			$(".headerContainer.main").removeClass("fixed");
+		}
+	});	
+
 
 	$(window).scroll(function() {
 		var scrollHeight = $(document).height();
@@ -75,6 +100,7 @@ $(document).ready(function () {
 				$(".priceContainer").css("bottom","auto");
 			}
 		});	
+
 });
 
 

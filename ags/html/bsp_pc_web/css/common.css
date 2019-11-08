@@ -42,13 +42,27 @@ nav, output, ruby, section, summary, time, mark, audio, video
 .bold	{font-weight:bold !important;}
 .uppercase	{text-transform:uppercase;}
 /*	기본 레이아웃	*/
-.headerContainer	{border-bottom: 1px solid #e7e7e7;}
-.headerWrap	{position:relative; overflow:hidden; width:1200px; height:80px; margin:0 auto; color:#000;}
-.headerWrap h1	{position:absolute; top:0; left:20%; width:60%; text-align:center;}
-.headerWrap h1 img	{margin:27px auto;}
-.headerWrap .leftWrap	{line-height:80px;font-size: 15px;  font-weight: 700;letter-spacing: -0.19px;}
-.headerWrap .rightWrap	{}
-.headerWrap .rightWrap li	{cursor:pointer; margin-left:12px; font-weight:600; line-height:80px;display:inline-block;font-size: 13px;letter-spacing: -0.16px;}
+.headerContainer	{width:100%; border-bottom: 1px solid #e7e7e7;}
+.headerWrap	{/*position:relative;*/ overflow:hidden;  border-bottom:1px solid #e7e7e7;}
+.header	{width:1200px; height:80px; margin:0 auto; padding:0 110px;}
+.header h1	{/*position:absolute; top:0; left:20%; width:60%; text-align:center;*/ float:left;}
+/*.headerWrap h1 img	{margin:27px auto;}*/
+/*.headerWrap .leftWrap	{line-height:80px;font-size: 15px;  font-weight: 700;letter-spacing: -0.19px;}*/
+.header ul{float:right;}
+.header ul li	{/*cursor:pointer;*/ margin-left:17px; display:inline-block;}
+.header ul li a	{color:#000; font-weight:400; line-height:80px;font-size: 13px;letter-spacing: -0.16px; font-weight:600;}
+
+.anchorWrap	{display:none;border-bottom:1px solid #e7e7e7; background:#fff; height:50px;}
+.headerContainer.main .anchorWrap	{display:block;}
+.anchorWrap ul	{width:1200px; text-align:center; margin:0 auto;}
+.anchorWrap li	{display:inline-block; margin:0 30px; }
+.anchorWrap li a	{font-size: 14px;line-height: 1.14;  letter-spacing: -0.18px; font-weight:600; display:block; line-height:48px;border-bottom:2px solid transparent;}
+.anchorWrap li a:hover	{border-bottom:2px solid #ff4f24; color: #ff4f24;}
+
+.headerContainer.fixed	{position:fixed; top:-80px;z-index:10;}
+
+.headerContainer.fixed + .bodyWrap	{padding-top:130px;}
+
 
 .summaryContainer	{position:relative;width:100%; min-width:1200px; height:180px;background:url("../images/bg_summary.png") no-repeat 50% 50%; background-size:cover; color:#fff;}
 /*.summaryContainer:before	{position:absolute; width:100%; height:180px; background:rgba(0,0,0,0.66); top:0; left:0; content:""; display:block;}*/
@@ -73,7 +87,7 @@ nav, output, ruby, section, summary, time, mark, audio, video
 .allwinContents .contentsContainer	{float:left; width:736px; }
 .allwinContents .contentsContainer h2	{font-size: 20px;  font-weight: bold;letter-spacing: -0.25px; margin:48px 0 14px;}
 .allwinContents .priceContainer	{width:220px; margin-top:40px;/*position:absolute; right:0; top:291px;*/ background:#fff; float:right; padding-top:12px;}
-.allwinContents .priceContainer.menuFixed	{position:fixed; top:0; left:calc(50% + 270px); margin-top:0;}
+.allwinContents .priceContainer.menuFixed	{position:fixed; top:50px; left:calc(50% + 270px); margin-top:0;}
 .allwinContents .priceContainer.menuFixed.bottom	{top:auto;}
 
 .allwinContents .contentsContainer .tabSelect	{width:100%; overflow:hidden;}
@@ -88,8 +102,8 @@ nav, output, ruby, section, summary, time, mark, audio, video
 .allwinContents .contentsContainer .tabSelect.item04 li	{width:25%;}
 
 .allwinContents .contentsContainer .contentsWrap	{clear:both;}
-.allwinContents .contentsContainer .contentsWrap .contents	{clear:both; margin-top:50px;}
-.allwinContents .contentsContainer .contentsWrap .contents:first-child	{margin-top:40px;}
+.allwinContents .contentsContainer .contentsWrap .contents	{clear:both; padding-top:60px;}
+/*.allwinContents .contentsContainer .contentsWrap .contents:first-child	{padding-top:40px;}*/
 .allwinContents .contentsContainer .contentsWrap .contents h3	{font-size: 18px;  font-weight: bold;letter-spacing: -0.23px; border-bottom:1px solid #000; padding-bottom:16px; margin-bottom:20px;}
 .allwinContents .contentsContainer .contentsWrap .contents h3 + .info	{/*margin:20px 0 32px;*/}
 
@@ -622,23 +636,18 @@ content: "";
 
 .footerContainer	{margin-top:120px; clear:both; width:100%; border-top:1px solid #e7e7e7;}
 .footerContainer .footerWrap	{width:1200px; margin:0 auto; padding:40px 0 50px; overflow:hidden;}
-.footerContainer .footerWrap .logoWrap	{float:left; margin-right:50px;}
-.footerContainer .footerWrap .infoWrap	{float:left;}
-.footerContainer .footerWrap .infoWrap li	{font-size: 11px; color:#666; line-height:12px; float:left; margin-bottom:8px;}
-.footerContainer .footerWrap .infoWrap li:before	{height:12px; width:1px; background:#ccc; content:""; display:block; float:left; margin:0 10px;}
-.footerContainer .footerWrap .infoWrap li:nth-child(odd)	{clear:both;}
-.footerContainer .footerWrap .infoWrap li:nth-child(odd):before	{display:none;}
-.footerContainer .footerWrap .infoWrap li:nth-child(7)	{clear:none;}
-.footerContainer .footerWrap .infoWrap li:nth-child(7):before	{display:block;}
-.footerContainer .footerWrap .infoWrap p	{clear:both;font-size: 10px; color:#000;}
-.footerContainer .footerWrap > ul	{float:right;}
-.footerContainer .footerWrap > ul li	{float:left;font-size: 11px;  font-weight: bold;color:#666; line-height:12px;}
-.footerContainer .footerWrap > ul li:before	{height:12px; width:1px; background:#ccc; content:""; display:block; float:left; margin:0 10px;}
-.footerContainer .footerWrap > ul li:first-child:before	{display:none;}
+.footerContainer .footerWrap .logoWrap	{float:left; }
+.footerContainer .footerWrap .infoWrap	{clear:both;}
+.footerContainer .footerWrap li	{font-size: 11px; color:#666; line-height:12px; float:left;}
+.footerContainer .footerWrap li:before	{height:12px; width:1px; background:#ccc; content:""; display:block; float:left; margin:0 10px;}
+.footerContainer .footerWrap li:first-child:before	{display:none;}
+.footerContainer .footerWrap .rightWrap li	{font-weight:600;}
 
+.footerContainer .footerWrap p	{font-size: 11px; color:#666; line-height:12px;}
+.footerContainer .footerWrap p.copyright	{font-size: 10px; color:#000; letter-spacing:0; clear:both; margin-top:14px;}
 
-
-
+.footerContainer .footerWrap .infoWrap	{padding-top:24px;}
+.footerContainer .footerWrap .infoWrap ul	{margin-top:8px; overflow:hidden;}
 
 
 
@@ -682,7 +691,16 @@ table td	{vertical-align:middle; text-align:left; border-bottom:1px solid #e4e4e
 .popupContainer[class*="ConfirmPopup"] .popupContentWrap .content	{text-align:center; padding:40px 0; font-size: 16px;  font-weight: bold;line-height: 1.5;  letter-spacing: -0.2px; color:#000;}
 
 
+.popupContainer[class*="Alert"] .popupWrap	{width:527px;border-radius: 2px; background:none; }
+.popupContainer[class*="Alert"] .popupWrap .popupTitleWrap	{display:none;}
 
+.popupContainer[class*="Alert"] .popupBtnWrap.double a	{background:#f9c028; color:#fff;font-size: 16px;letter-spacing: -0.8px;border-radius: 0 0 2px 0;  }
+.popupContainer[class*="Alert"] .popupBtnWrap.double a.close	{background:#484848;border-radius: 0 0 0 2px;}
+
+
+.popupContainer[class*="Alert"] .popupContentWrap .content	{font-size: 20px; font-weight:600;letter-spacing: -1px; padding:100px 0; background:#fff;border-radius: 2px 2px 0 0;}
+.popupContainer[class*="Alert"] .popupContentWrap {    border:none;}
+.popupContainer[class*="Alert"] .popupDimmed	{background: rgba(0,0,0,0.8);}
 
 .popupContainer.exitSeatPopup .popupWrap	{width:460px; }
 .popupContainer.exitSeatPopup .popupContent	{border: 1px solid #e4e4e4; padding:14px 12px;}
@@ -1272,3 +1290,150 @@ display:none;
 			-o-transform: rotate(0deg);
 			-ms-transform: rotate(0deg);
 }
+
+
+
+
+.allwinContents.policy	{padding:0;}
+.policyWrap	{font-size: 12px;line-height: 1.75;  letter-spacing: -0.6px;  color: #666;}
+.policyWrap h2	{font-size: 40px; font-weight:600;letter-spacing: -2px; color:#000; margin:70px 0 40px;}
+.policyWrap .title	{font-weight:600; color:#000;}
+.policyWrap > ol > li	{margin-top:24px;}
+.policyWrap > ol > li:first-child	{margin-top:36px;}
+.policyWrap > ol > li > ol > li > ol	{padding-left:14px;}
+
+.policyWrap > ol > li > ol > li > p + ul > li 	{margin-top:24px;}
+
+.allwinContents[class*="cs"]	{padding:0 1px;}
+
+
+.allwinContents[class*="cs"] .titleContainer	{padding:70px 0 60px; border-bottom:1px solid #e7e7e7;}
+.allwinContents[class*="cs"] .titleContainer .titleWrap	{overflow:hidden;}
+.allwinContents[class*="cs"] .titleContainer .titleWrap h2	{float:left;font-size: 20px;letter-spacing: -1px; font-weight:600; color:#333; }
+.allwinContents[class*="cs"] .titleContainer .titleWrap ul	{float:right;}
+.allwinContents[class*="cs"] .titleContainer .titleWrap ul li	{display:inline-block;font-size: 12px;letter-spacing: -0.6px;color: #aaa; }
+.allwinContents[class*="cs"] .titleContainer .titleWrap ul li:after	{content: ">";    font-size: 12px;    color: #aaa;    margin-left: 7px;}
+.allwinContents[class*="cs"] .titleContainer .titleWrap ul li:last-child:after	{display:none;}
+
+.allwinContents[class*="cs"] .titleContainer .tabmenuWrap	{clear:both;position: relative;    background: #f9f9f9;    font-size: 0; margin:22px 0 27px;}
+
+
+.allwinContents[class*="cs"] .titleContainer .tabmenuWrap:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e7e7e7;
+    z-index: 0;
+}
+
+.allwinContents[class*="cs"] .titleContainer .tabmenuWrap ul li {position: relative;
+    display: inline-block;
+    min-width: 143px;
+    height: 51px;
+    box-sizing: border-box;
+	}
+
+.allwinContents[class*="cs"] .titleContainer .tabmenuWrap ul li:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 20px;
+    margin-top: -10px;
+    background: #cecece;
+}
+
+.allwinContents[class*="cs"] .titleContainer .tabmenuWrap ul li a	{position: relative;
+    z-index: 2;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    display: block;
+    padding: 0 20px;
+    height: 51px;
+    line-height: 51px;
+
+}
+.allwinContents[class*="cs"] .titleContainer .tabmenuWrap ul li.on:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -1px;
+    background: #fff;
+    width: 100%;
+    height: 51px;
+    z-index: 1;
+    border: 1px solid #e7e7e7;
+    border-bottom: 0;
+}
+
+.allwinContents[class*="cs"] .titleContainer .tabmenuWrap ul li.on a {    font-weight: 700;    color: #111;}
+
+.allwinContents[class*="cs"] .titleContainer .searchWrap	{}
+.allwinContents[class*="cs"] .titleContainer .searchWrap > ul > li	{display:inline-block; margin-right:6px;}
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.category	{width:250px;}
+/*.allwinContents[class*="cs"] .titleContainer .searchWrap li .selectric	{margin:0;}*/
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.title	{}
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.title p.selectWrap	{float:left;width:170px;}
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.title p.selectWrap .selectric	{border-right:none;   border-radius: 3px 0 0 3px;}
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.title input[type="text"]	{float:left;width:290px;
+    border-radius: 0 3px 3px 0;
+    border: 1px solid #cecece;
+    line-height: 40px;
+    height: 42px;
+    margin: 16px 0 30px;
+    padding: 0 16px;
+    font-size: 14px;}
+
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.title input::-webkit-input-placeholder {text-align:right;}
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.title input::-moz-placeholder {	text-align:right;}
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.title input:-ms-input-placeholder {	text-align:right;}
+.allwinContents[class*="cs"] .titleContainer .searchWrap li.title input:-moz-placeholder {	text-align:right;}
+
+
+.allwinContents[class*="cs"] .titleContainer .searchWrap .btnWrap	{text-align:center;margin-top:8px;}
+.allwinContents[class*="cs"] .titleContainer .searchWrap .btnWrap button	{width: 240px; height:56px;border-radius: 2px;  background-color: #210f5c; font-size: 16px; font-weight:600;line-height: 0.88;  letter-spacing: -0.8px; color:#fff;margin:0 auto;}
+
+
+
+
+.allwinContents[class*="cs"] .tableWrap	{margin-top:70px;}
+.allwinContents[class*="cs"] .tableWrap .tableTitleWrap	{margin-bottom:16px;}
+.allwinContents[class*="cs"] .tableWrap .tableTitleWrap p	{letter-spacing: -0.65px;font-size: 13px; color::#111;}
+.allwinContents[class*="cs"] .tableWrap .tableTitleWrap p span	{letter-spacing: -1px;font-size: 20px;}
+
+.allwinContents[class*="cs"] .tableWrap table	{border-top:1px solid #111;}
+.allwinContents[class*="cs"] .tableWrap thead th	{border-bottom:1px solid #111; font-weight:600; font-size:13px;padding:16px 0;}
+
+.allwinContents[class*="cs"] .tableWrap td	{text-align:center;border:none;font-size: 13px;line-height: 1.38;  letter-spacing: -0.65px; color:#111; padding:21px 0;}
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap	{cursor:pointer;}
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap td img	{margin:0 auto;transition: all 0.2s ease 0s;-webkit-transition: all 0.2s ease 0s;}
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap.view td img	{
+			-webkit-transform: rotate(180deg);
+			-moz-transform: rotate(180deg);
+			transform: rotate(180deg);
+			-o-transform: rotate(180deg);
+			-ms-transform: rotate(180deg);
+}
+
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap td.left	{white-space:nowrap;text-overflow: ellipsis;overflow: hidden;padding:21px 20px;}
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap.view td.left	{text-decoration:underline; font-weight:600;}
+
+.allwinContents.cs_faq .tableWrap tr.titleWrap td.left	{padding:21px 70px 21px 100px;}
+.allwinContents.cs_faq .tableWrap tr.titleWrap td.left.important	{background:url("../images/ico_star.png") no-repeat 80px 50%;}
+
+
+
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap + tr td	{border-bottom:1px solid #e4e4e4; }
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap + tr td	{padding:0;}
+
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap + tr .contentWrap	{display:none;text-align:left; background: #f9f9f9;padding:40px;}
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap + tr .contentWrap img	{margin:20px 0 0;}
+.allwinContents[class*="cs"] .tableWrap tr.titleWrap.view + tr	 td .contentWrap	{display:block;}
+
+.allwinContents[class*="cs"] .tableWrap tr.none td	{padding:112px 0;border-bottom:1px solid #e4e4e4;}
