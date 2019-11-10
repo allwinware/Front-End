@@ -1715,3 +1715,164 @@ display:none;
 .cs_qna .content .qnaWrap	{border-bottom:1px solid #f9f9f9;}
 .cs_qna td > span	{color:#aaa;}
 .cs_qna td > span.end	{color:#ff4f24;}
+
+
+
+.loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0);
+	z-index: 20000;
+}
+
+.loading:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100px;
+	height: 100px;
+	margin: -50px 0 0 -50px;
+	background: rgba(255, 255, 255, 0.96);
+	border-radius: 3px;
+
+	-webkit-animation: opacity 0.2s 1;
+	animation: opacity 0.2s 1;
+
+}
+
+.loading:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 30px;
+	height: 30px;
+	margin: -15px 0 0 -15px;
+	background:url("../images/ico_loading-circle.png") center center no-repeat;
+
+		-webkit-animation: rotate-center 0.75s 0.25s ease-in-out infinite backwards, opacity 0.2s 1;
+		animation: rotate-center 0.75s 0.25s ease-in-out infinite backwards, opacity 0.2s 1;
+}
+.loadingWrap.hide	{
+	-webkit-animation: hideLoading 0.2s 1 forwards;
+	animation: hideLoading 0.2s 1 forwards;
+}
+
+@-webkit-keyframes rotate-center {
+	from {
+		-webkit-transform:rotate(0); 	transform: rotate(0);
+	}
+	to {
+		-webkit-transform: rotate(360deg);	transform: rotate(360deg);
+	}
+}
+@keyframes rotate-center {
+	from {
+		transform:rotate(0);	transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);transform: rotate(360deg);
+	}
+}
+
+@-webkit-keyframes opacity {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@keyframes opacity {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+
+@-webkit-keyframes hideLoading {
+	from {
+		display:block; opacity:1;
+	}
+	to {
+		display:none; opacity:0;
+	}
+}
+
+@keyframes hideLoading {
+	from {
+		display:block; opacity:1;
+	}
+	to {
+		display:none; opacity:0;
+	}
+}
+
+.mainLoadingWrap {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width:100%; height:100%;
+	background: #fee700;
+	z-index: 20000;
+}
+.mainLoadingWrap.hide	{
+	-webkit-animation: hideLoading 0.2s 1 forwards;
+	animation: hideLoading 0.2s 1 forwards;
+}
+
+.mainLoadingWrap .mainLoading	{position:absolute; text-align:center; top:calc(50% - 60px); left:calc(50% - 200px);}
+.mainLoadingWrap .mainLoading > p	{font-size: 24px;line-height: 1.42; color:#000;}
+.mainLoadingWrap .mainLoading > p span	{font-weight:800; display:block;}
+
+.mainLoadingWrap .mainLoading .progressWrap	{position:relative; width:400px; margin:34px auto 0; height:15px;}
+.mainLoadingWrap .mainLoading .progressWrap p	{position:absolute; top:6px; left:0; background:#000; height:3px; border-radius:1.5px; 
+		-webkit-animation:gograph 2s ease-in-out infinite backwards;
+		animation:gograph 2s ease-in-out infinite backwards;
+}
+.mainLoadingWrap .mainLoading .progressWrap img	{position:absolute; top:0; left:0; 
+		-webkit-animation: go 2s ease-in-out infinite backwards;
+		animation: go 2s ease-in-out infinite backwards;
+}
+@-webkit-keyframes gograph {
+	from {
+		width:0%;
+	}
+	to {
+		width:100%;
+	}
+}
+@keyframes gograph {
+	from {
+		width:0%;
+	}
+	to {
+		width:100%;
+	}
+}
+
+
+@-webkit-keyframes go {
+	from {
+		left:0;
+	}
+	to {
+		left:380px;
+	}
+}
+@keyframes go {
+	from {
+		left:0;
+	}
+	to {
+		left:380px;
+	}
+}
