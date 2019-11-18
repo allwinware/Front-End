@@ -24,9 +24,7 @@ $(document).ready(function () {
 	$(document).on('click', '.popupBtn', function() {
 		var popupIndex = $(this).attr('id');
 		$(".popupContainer."+popupIndex).show();
-//		var popupwidth = $('.popupContainer .popupWrap').not( ":hidden" ).width();
 		var popupHeight = $('.popupContainer .popupWrap').not( ":hidden" ).height();
-//		$('.popupContainer .popupWrap').not( ":hidden" ).css("left","calc(50% - "+(popupwidth+2)/2+"px");
 		$('.popupContainer .popupWrap').not( ":hidden" ).css("top","calc(50% - "+(popupHeight+2)/2+"px");
 	});
 /*
@@ -37,6 +35,17 @@ $(document).ready(function () {
 	$(document).on('click', '.popupContainer .close', function() {
 		$('.popupContainer').hide();
 	});
+//	191119
+	$(document).on('click', '.alertBtn', function() {
+		var alertIndex = $(this).attr('id');
+		$(".alertContainer."+alertIndex).show();
+		$("body").addClass("menuOpen");
+	});
+	$(document).on('click', '.alertContainer .close', function() {
+		$('.alertContainer').hide();
+		$("body").removeClass("menuOpen");
+	});
+//	- 191119
 
 	$(".contentContainer.pay .agreeWrap ul li .more").click(function(){
 		$(this).parent().toggleClass("open");
