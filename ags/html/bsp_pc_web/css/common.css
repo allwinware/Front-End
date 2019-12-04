@@ -608,7 +608,7 @@ content: "";
 	.inputWrap input[type="radio"] + label:before {width:20px; height:20px;margin-top:-3px;}
 
 	.inputWrap input[type="checkbox"] + label:before {background:url("../images/input_check.png") 0% 0% no-repeat;}
-	.inputWrap input[type="radio"] + label:before {background:url("../images/input_radio.png") 0% 0% no-repeat;}
+	/*.inputWrap input[type="radio"] + label:before {background:url("../images/input_radio.png") 0% 0% no-repeat;}*//*이미지 파일을 찾지 못해 에러 발생하므로 주석처리함 (최아율, 191204)*/
 	.inputWrap input[type="checkbox"]:checked + label:before {background-position:0% 50%}
 	.inputWrap input[type="radio"]:checked + label:before {background-position:0% 100%}
 
@@ -906,7 +906,7 @@ transition: all 0.2s ease 0s;
   font-weight: bold;letter-spacing: -0.3px; margin:60px 0 16px;}
 .allwinContents .completeWrap h1 + p	{font-size: 14px;line-height: 1.43;
   letter-spacing: -0.18px;}
-.allwinContents .completeWrap .btnWrap	{margin:42px; 0 60px;}
+.allwinContents .completeWrap .btnWrap	{margin:42px 0 60px;}/*[margin:42px; 0 60px;] -> [margin:42px 0 60px;]으로 수정함(최아율, 191204)*/
 .allwinContents .completeWrap .btnWrap a	{display:inline-block; letter-spacing: -0.2px;  text-align: center;  color: #000;font-size: 16px;  font-weight: bold; background:#fee700; width:220px; height:60px; line-height:60px;margin-left:6px;}
   .allwinContents .completeWrap .btnWrap a:first-child	{background:#eee; margin-left:0;}
 .allwinContents .completeWrap .tableWrap	{}
@@ -1457,7 +1457,7 @@ display:none;
 
 .allwinContents[class*="cs"] .tableWrap	{margin-top:70px;}
 .allwinContents[class*="cs"] .tableWrap .tableTitleWrap	{margin-bottom:16px;}
-.allwinContents[class*="cs"] .tableWrap .tableTitleWrap p	{letter-spacing: -0.65px;font-size: 13px; color::#111;}
+.allwinContents[class*="cs"] .tableWrap .tableTitleWrap p	{letter-spacing: -0.65px;font-size: 13px; color:#111;}/*[color::#111;] -> [color:#111;]으로 수정함(최아율, 191204)*/
 .allwinContents[class*="cs"] .tableWrap .tableTitleWrap p span	{letter-spacing: -1px;font-size: 20px;}
 
 .allwinContents[class*="cs"] .tableWrap table	{border-top:1px solid #111;}
@@ -1886,8 +1886,12 @@ display:none;
 }
 
 .headerContainer.error	{}
-.headerContainer.error + .bodyWrap	{text-align:center;margin:238px auto;}
-.headerContainer.error + .bodyWrap img	{margin:0 auto}
+.headerContainer.error + .bodyWrap	{text-align:center;margin:238px auto; font-weight:400; letter-spacing: 0;}/*[font-weight:400; letter-spacing: 0;] 추가(최아율, 191204)*/
+.headerContainer.error + .bodyWrap img	{margin:0 auto 46px}/*[margin:0 auto;] -> [margin:0 auto 46px]으로 수정함(최아율, 191204)*/
 .headerContainer.error + .bodyWrap p	{text-align:center;font-size: 24px;color:#000; margin-bottom:16px;}
-.headerContainer.error + .bodyWrap span	{text-align:center; display:block;font-size: 13px;line-height: 1.38; color:#888;}
+.headerContainer.error + .bodyWrap span	{text-align:center; display:block;font-size: 13px; line-height: 1.6em; color:#888;}/*[line-height: 1.384615384615385em]으로 수정함(최아율, 191204)*/
+.headerContainer.error + .bodyWrap span + span { margin-top: 16px; }
+.error--emphasis {font-weight:600;font-style:normal;color:#FF4F24;}
+.error--buttonWrap { margin-top: 32px; text-align: center; }
+.error--buttonWrap a { margin: 0 8px; font-size: 13px; font-weight: 600; text-decoration: underline; }
 .headerContainer.error + .bodyWrap + .footerContainer	{}
