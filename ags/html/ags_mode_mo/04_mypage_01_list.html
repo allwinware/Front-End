@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>마이페이지</title>
+	<meta name="keywords" content="">
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/common.css" media="screen">
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<div class="pageWrap wrapper">
+	<div class="contentContainer mypage">
+		<div class="headerWrap">
+			<div class="systemWrap">
+                <a href="" class="btn nav">
+                    <img src="images/btn_nav.png" width="18" height="12" alt="Navigation">
+                </a>
+				<p class="title">마이페이지</p>
+				<a href="" class="btn close">
+					<img src="images/btn_close.png" width="14" height="14" alt="Close">
+				</a>
+			</div>
+		</div>
+        <div class="mypage__list">
+            <div class="title">
+                <h4>김모두님의 예약현황 입니다.</h4>
+                <p>예약번호 클릭 시 예약상세 내역을 확인하실 수 있습니다.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="list">
+                <div class="list-header">
+                    <h5 class="float-left">총 7건의 예약내역</h5>
+                    <p class="float-right">
+                        <label for="select01" class="sr-only">정렬조건</label>
+                        <select id="select01" class="ui-sort--small">
+                            <option>신청일 순</option>
+                            <option>출발일 순</option>
+                        </select>
+                    </p>
+                </div>
+
+
+                <!-- 부가서비스 신청내역이 없을 때 -->
+                <div class="ticket-empty">
+                    부가서비스 신청내역이 없습니다.
+                </div>
+                <!-- //부가서비스 신청내역이 없을 때 -->
+
+
+                <!-- 부가서비스 신청내역이 있을 때 -->
+                <ul class="ticket-group">
+                    <!-- 부가서비스 신청내역 : 결제완료 상태 -->
+                    <li class="ticket-item active">
+                        <dl class="ticket-info">
+                            <dt class="ticket-num">항공권 예약번호</dt>
+                            <dd>123456</dd>
+                            <dt class="status">부가서비스 결제상태</dt>
+                            <dd>결제완료</dd><!-- 상태는 결제완료, 취소/환불완료 두 가지이며, 결제완료인 경우 상위 li의 클래스에 active 클래스가 붙습니다. -->
+                            <dt class="destination">출발지/도착지 정보</dt>
+                            <dd>
+                                <dl class="destination__from-to">
+                                    <dt class="from">출발지</dt>
+                                    <dd><span class="text-ellipsis">인천</span> ICN</dd>
+                                    <dt class="to">도착지</dt>
+                                    <dd><span class="text-ellipsis">하노이</span> HAN</dd>
+                                </dl>
+                            </dd>
+                            <dt class="duration">여정일</dt>
+                            <dd>2019.09.30(월) - 2019.10.05(토)</dd>
+                            <dt class="service">신청내역</dt>
+                            <dd>사전 좌석구매 외 3건 (2019.11.05) </dd>
+                        </dl>
+                        <a href="#none" target="_self" class="btn_ticket-link">자세히보기</a>
+                    </li>
+                    <!-- 부가서비스 신청내역 : 취소/환불완료 상태 -->
+                    <li class="ticket-item">
+                        <dl class="ticket-info">
+                            <dt class="ticket-num">항공권 예약번호</dt>
+                            <dd>123456</dd>
+                            <dt class="status">부가서비스 결제상태</dt>
+                            <dd>취소/환불완료</dd><!-- 상태는 결제완료, 취소/환불완료 두 가지이며, 취소/환불완료인 경우 상위 li의 클래스에 active 클래스가 빠지고 하단 a태그가 삭제됩니다. -->
+                            <dt class="destination">출발지/도착지 정보</dt>
+                            <dd>
+                                <dl class="destination__from-to">
+                                    <dt class="from">출발지</dt>
+                                    <dd><span class="text-ellipsis">인천</span> ICN</dd>
+                                    <dt class="to">도착지</dt>
+                                    <dd><span class="text-ellipsis">하노이</span> HAN</dd>
+                                </dl>
+                            </dd>
+                            <dt class="duration">여정일</dt>
+                            <dd>2019.09.30(월) - 2019.10.05(토)</dd>
+                            <dt class="service">신청내역</dt>
+                            <dd>사전 좌석구매 외 3건 (2019.11.05) </dd>
+                        </dl>
+                    </li>
+                    <li class="ticket-item active">
+                        <dl class="ticket-info">
+                            <dt class="ticket-num">항공권 예약번호</dt>
+                            <dd>123456</dd>
+                            <dt class="status">부가서비스 결제상태</dt>
+                            <dd>결제완료</dd><!-- 상태는 결제완료, 취소/환불완료 두 가지이며, 결제완료인 경우 상위 li의 클래스에 active 클래스가 붙습니다. -->
+                            <dt class="destination">출발지/도착지 정보</dt>
+                            <dd>
+                                <dl class="destination__from-to">
+                                    <dt class="from">출발지</dt>
+                                    <dd><span class="text-ellipsis">인천</span> ICN</dd>
+                                    <dt class="to">도착지</dt>
+                                    <dd><span class="text-ellipsis">하노이</span> HAN</dd>
+                                </dl>
+                            </dd>
+                            <dt class="duration">여정일</dt>
+                            <dd>2019.09.30(월) - 2019.10.05(토)</dd>
+                            <dt class="service">신청내역</dt>
+                            <dd>사전 좌석구매 외 3건 (2019.11.05) </dd>
+                        </dl>
+                        <a href="#none" target="_self" class="btn_ticket-link">자세히보기</a>
+                    </li>
+                    <li class="ticket-item active">
+                        <dl class="ticket-info">
+                            <dt class="ticket-num">항공권 예약번호</dt>
+                            <dd>123456</dd>
+                            <dt class="status">부가서비스 결제상태</dt>
+                            <dd>결제완료</dd><!-- 상태는 결제완료, 취소/환불완료 두 가지이며, 결제완료인 경우 상위 li의 클래스에 active 클래스가 붙습니다. -->
+                            <dt class="destination">출발지/도착지 정보</dt>
+                            <dd>
+                                <dl class="destination__from-to">
+                                    <dt class="from">출발지</dt>
+                                    <dd><span class="text-ellipsis">인천</span> ICN</dd>
+                                    <dt class="to">도착지</dt>
+                                    <dd><span class="text-ellipsis">하노이</span> HAN</dd>
+                                </dl>
+                            </dd>
+                            <dt class="duration">여정일</dt>
+                            <dd>2019.09.30(월) - 2019.10.05(토)</dd>
+                            <dt class="service">신청내역</dt>
+                            <dd>사전 좌석구매 외 3건 (2019.11.05) </dd>
+                        </dl>
+                        <a href="#none" target="_self" class="btn_ticket-link">자세히보기</a>
+                    </li>
+                </ul>
+                <!-- //부가서비스 신청내역이 있을 때 -->
+
+
+
+            </div>
+        </div>
+
+
+
+	</div>
+	<div class="footerContainer">
+		<div class="footerWrap">
+			<div class="logoWrap">
+				<img src="images/logo_footer.png" width="135" height="20" alt="">
+			</div>
+			<ul class="rightWrap">
+				<li><a href="#">개인정보취급방침</a></li>
+				<li>고객센터 : 1522-4148 (평일 09:00~18:00)</li>
+			</ul>
+			<div class="infoWrap">
+				<p>모두투어 항공사 부가서비스는 (주)올윈에어와의 제휴로 제공됩니다.</p>
+				<ul>
+					<li>서울시 중구 서소문로 106 동화빌딩 9층</li>
+					<li>㈜올윈웨어</li>
+					<li>대표이사:이정갑
+					<li>사업자등록번호:220-88-72464</li>
+				</ul>
+				<p class="copyright">COPYRIGHT ALLWINWARE INC. ALL RIGHTS RESERVED</p>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
