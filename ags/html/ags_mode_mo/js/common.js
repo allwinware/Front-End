@@ -58,6 +58,12 @@ $(document).ready(function () {
 		$(".payDetailContainer").hide();
 	});
 
+    // 191205 navigation menu 추가
+    $(document).on('click', '.btn.nav', function(){
+        $(".navigation-layer").addClass("active");
+    });
+    $(document).on('click', '.layer-close', function(){
+        $(".navigation-layer").removeClass("active");
+    });
 });
-
 
