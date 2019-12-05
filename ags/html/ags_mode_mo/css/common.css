@@ -307,7 +307,7 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 	.popupContainer .popupWrap	{z-index:100; position:absolute;width:87.2%; left:6.4%;}
 	.popupContainer .popupDimmed	{position: fixed; width: 100%; height: 100%; background: rgba(0,0,0,0.75);}
 
-	.popupContainer .popupContentWrap	{border-radius: 3px; background:#fff;  padding:12px 3.7%; overflow:hidden;}
+	.popupContainer .popupContentWrap	{border-radius: 3px; background:#fff;  padding:12px 16px; overflow:hidden;}/*header가 있는 팝업을 위해 수정하였습니다. [padding:12px 3.7%;] -> [padding:12px 16px;] (최아율, 191205)*/
 	.popupContainer .popupImgWrap	{padding:28px 0 1px}
 	.popupContainer .popupContent	{text-align:center;}
 	.popupContainer .popupContent p	{font-size: 13px;line-height: 1.38;}
@@ -315,7 +315,10 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 	.popupContainer .popupBtnWrap	{margin-top:40px;}
 	.popupContainer .popupBtnWrap a.close	{line-height:46px; background: #fee700; font-size: 14px;  font-weight: 600; letter-spacing: -0.35px;border-radius: 3px;}
 
-
+    .popupContainer .popupHeader { position: relative; margin: -12px -16px 0; padding: 16px; border-bottom: 1px solid #F0F0F0; }
+    .popupContainer .popupHeader .popupTitle { overflow: hidden; font-size: 16px; font-weight: 600; line-height: 1.2em; text-align: center; text-overflow: ellipsis; }
+    .popupContainer .popupHeader + .popupContent { font-size: 13px; text-align: left; }
+    .popupContainer .popupHeader + .popupContent > .area-wrap { padding-top: 16px }
 
 .contentContainer.baggage .choiceWrap > .infoWrap	{border-bottom:1px solid #f0f0f0; padding:0 4.3% 13px;}
 
@@ -739,6 +742,25 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 	.footerContainer .footerWrap .infoWrap ul li	{margin-top:8px;}
 
 
+
+/*공통*/
+.divider { margin-left: 4.3%; margin-top: 32px; height: 1px; border-top: 1px solid #000; }
+.float-left { float: left; }
+.float-right { float: right; }
+.text-center { text-align: center; }
+.text-bold { font-weight: 600; }
+.uppercase { text-transform: uppercase; }
+.ui-sort--small { -webkit-appearance: none; padding-right: 0; height: 18px; border: 0; font-size: 10px; text-align: right; color: #000; background: url(../images/ico_arrow-down.png) right 5px top 50% no-repeat; }
+.sr-only {position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;}
+.text-ellipsis { overflow: hidden;display:inline-block;white-space:nowrap;text-overflow: ellipsis;vertical-align:middle; }
+.text-emphasis { color: #FF4F24; font-style: normal; }
+.page-title { padding: 32px 4.3% 0; }
+.page-title h4 { font-size: 14px; font-weight: 800; letter-spacing: -0.03em; line-height: 25px; }
+.page-title p { margin-top: 16px; font-size: 13px; font-weight: 400; letter-spacing: -0.024em; line-height: 20px; }
+.area-wrap { padding-top: 32px; }
+.area-wrap + .area-wrap { padding-top: 50px; }
+.area-wrap__title { padding: 0 4.3% 16px; font-size: 14px; letter-spacing: -0.35px; font-weight: 800; }
+
 /*마이페이지 티켓 스타일*/
 [class*='mypage__'] .ticket-item { position: relative; margin-top: 16px; border-radius: 8px; box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25); border: solid 1px #f0f0f0; padding:0 16px 16px; opacity: 0.2 }
 [class*='mypage__'] .ticket-item.active { box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.05); opacity: 1 }
@@ -775,11 +797,25 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 [class*='mypage__'] .ticket-item .service + dd {  }
 [class*='mypage__'] .ticket-item .service + dd:before { content: ""; display: inline-block; margin: 0 7px -2px; width: 1px; height: 10px; background-color: #E4E4E4; }
 
+/*마이페이지 테이블 스타일(공통사용가능)*/
+.detail-info { width:100%; padding-left:4.3%; overflow:visible; }
+.info-table { margin-top: 10px }
+.info-table	{font-size: 13px;letter-spacing: -0.33px;}
+.info-table thead th {font-weight:600; padding:14px 16px; border-top:1px solid #000; border-bottom:1px solid #f0f0f0;text-align:left;}
+.info-table thead th:nth-child(2) {text-align:left; padding-left:7%;}
+.info-table tfoot {}
+.info-table tfoot th {font-weight:600;font-size:12px; text-align:left;  padding:14px 16px; background:#f8f8f8;border-bottom:1px solid #f0f0f0;}
+.info-table tfoot td {font-weight:600;color:#ff4f24; padding:14px 16px; background:#f8f8f8;border-bottom:1px solid #f0f0f0;}
+.info-table tbody {}
+.info-table tbody td {color:#aaa;line-height: 1.54; padding:14px 16px;border-bottom:1px solid #f0f0f0; text-align:left;}
+.info-table tbody td:nth-child(2) {text-align:left; padding-left:7%;}
+.info-table tfoot td { background-color: #f8f8f8; }
+.info-table td.price { text-align: right; }
+.info-table tfoot td.price { color: #FF4F24; }
+.info-table tfoot .formula { padding-bottom: 4px; font-size: 11px; font-weight: 600; color: #aaa; }
+
 /*마이페이지 리스트 뷰(04_mypage_01_list.html)*/
 .mypage__list { padding-bottom: 80px }
-.mypage__list .title { padding: 32px 4.3% 0; }
-.mypage__list .title h4 { font-size: 16px; font-weight: 600; letter-spacing: -0.03em; line-height: 25px; }
-.mypage__list .title p { font-size: 13px; font-weight: 400; letter-spacing: -0.024em; line-height: 20px; }
 .mypage__list .list { padding-top: 32px; }
 .mypage__list .list-header { padding: 0 4.3%; }
 .mypage__list .list-header:after { content: ''; display: table; clear: both; }
@@ -793,52 +829,54 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 .mypage__detail { padding-bottom: 80px }
 .mypage__detail .ticket-item { margin: 0 4.3% 0; }
 .mypage__detail .btn_service-cancel { display: inline-block; margin: -6px -6px 0 0; padding: 6px; }
-.mypage__detail .detail-info { width:100%; padding-left:4.3%; overflow:visible; }
-.mypage__detail .detail-info {}
+.mypage__detail .detail-info { margin-top: -16px }
 .mypage__detail .detail-info li { margin-top: 24px; }
 .mypage__detail .detail-info .title	{text-align:left; font-weight:800;text-transform:uppercase; font-size: 13px;letter-spacing: -0.33px; color:#ff4f24; margin-bottom:10px;}
-.mypage__detail .info-table { margin-top: 10px }
-.mypage__detail .info-table	{font-size: 13px;letter-spacing: -0.33px;}
-.mypage__detail .info-table thead	{}
-.mypage__detail .info-table thead th	{font-weight:600; padding:14px 16px; border-top:1px solid #000; border-bottom:1px solid #f0f0f0;text-align:left;}
-.mypage__detail .info-table thead th:nth-child(2)	{text-align:left; padding-left:7%;}
-.mypage__detail .info-table tfoot	{}
-.mypage__detail .info-table tfoot th	{font-weight:600;font-size:12px; text-align:left;  padding:14px 16px; background:#f8f8f8;border-bottom:1px solid #f0f0f0;}
-.mypage__detail .info-table tfoot td	{font-weight:600;color:#ff4f24; padding:14px 16px; background:#f8f8f8;border-bottom:1px solid #f0f0f0;}
-.mypage__detail .info-table tbody	{}
-.mypage__detail .info-table tbody td	{color:#aaa;line-height: 1.54; padding:14px 16px;border-bottom:1px solid #f0f0f0; text-align:left;}
-.mypage__detail .info-table tbody td:nth-child(2)	{text-align:left; padding-left:7%;}
-.mypage__detail .info-table thead th:first-child	{padding-left:22px;}
-.mypage__detail .info-table thead th:last-child	{text-align:right;padding-right:34px;}
-.mypage__detail .info-table tbody td:last-child	{text-align:right;}
-.mypage__detail .info-table tfoot td:last-child	{text-align:right;}
 .mypage__detail .notice { margin-top: 32px; padding: 0 4.3%; }
+.mypage__detail .info-table thead th:nth-of-type(1),
+.mypage__detail .info-table tbody td:nth-of-type(1) { text-align: center; }
+.mypage__detail .info-table thead th:nth-of-type(3) { text-align: center; }
+
+/*마이페이지 취소환불(04_mypage_03_refund.html)*/
+.mypage__refund { padding-bottom: 80px }
+.mypage__refund .info-table th,
+.mypage__refund .info-table td { color: #000; }
+.mypage__refund .info-table .inputWrap { text-align: center; }
+.mypage__refund .info-table .inputWrap label:before { margin-right: 0; }
+.mypage__refund .info-table thead th:nth-of-type(2),
+.mypage__refund .info-table tbody td:nth-of-type(2) { padding-left: 8px; }
+.mypage__refund .info-table thead th:nth-of-type(3) { text-align: center; }
+.mypage__refund .customer-name { font-size: 12px; font-weight: 600; letter-spacing: -0.3px; }
+.mypage__refund .service-name { font-size: 13px; line-height: 20px; font-weight: 400; letter-spacing: -0.33px; }
+
+/*마이페이지 취소환불 팝업(04_mypage_03_refund.html)*/
+.pop__refund-services .area-wrap.notice .notice__list { margin-top: -12px; }
+
 
 
 .notice .notice__title { font-size: 13px; font-weight: 600; }
 .notice .notice__list { padding-top: 6px; font-size: 12px; line-height: 16px; font-weight: 300; }
 .notice .notice__list li { position: relative; margin-top: 6px; padding-left: 6px; text-align: justify }
 .notice .notice__list li:before { content: ""; position: absolute; left: 0; top: 6px; display: inline-block; width: 2px; height: 2px; background-color: #000; border-radius: 50%; }
-.divider { margin-left: 4.3%; margin-top: 32px; height: 1px; border-top: 1px solid #000; }
-.float-left { float: left; }
-.float-right { float: right; }
-.ui-sort--small { -webkit-appearance: none; padding-right: 0; height: 18px; border: 0; font-size: 10px; text-align: right; color: #000; background: url(../images/ico_arrow-down.png) right 5px top 50% no-repeat; }
-.sr-only {position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;}
-.text-ellipsis { overflow: hidden;display:inline-block;white-space:nowrap;text-overflow: ellipsis;vertical-align:middle; }
-.area-wrap { padding-top: 32px; }
-.area-wrap + .areaWrap { padding-top: 50px; }
-.area-wrap__title { padding: 0 4.3%; font-size: 14px; letter-spacing: -0.35px; font-weight: 800; }
+
+.page-btn-wrap { margin-top: 32px; padding: 0 4.3%; text-align: center; }
+.page-btn-wrap .btn { color: #000; height: 54px; border-radius: 3px; letter-spacing: -0.4px; font-weight: 600; line-height: 16px; }
+.page-btn-wrap .btn:before { content: ""; display: inline-block; width: 0; height: 100%; vertical-align: middle; }
+.page-btn-wrap .btn:nth-of-type(1) { width: 100px; background-color: #DDDDDD; }
+.page-btn-wrap .btn:nth-of-type(1) { width: 237px; background-color: #FEE700; }
+.page-btn-wrap .btn:only-child { width: 100%; background-color: #FEE700; }
+
+.agreement__title { padding: 0 4.3% 16px; font-size: 14px; letter-spacing: -0.35px; font-weight: 800; }
+.agreement__list { margin: 0 0 0 4.3%; padding: 10px 0 16px 16px; border-top: 1px solid #000; background-color: #F8F8F8; }
+.agreement__list > li { position: relative; padding: 0 16px 0 6px; margin-top: 6px; font-size: 11px; font-weight: 300; text-align: justify; line-height: 14px; }
+.agreement__list > li:before { content: ""; position: absolute; left: 0; top: 6px; display: inline-block; width: 2px; height: 2px; background-color: #000; border-radius: 50%; }
+.agreement__list > li > ul > li { position: relative; margin-top: 6px; padding-left: 8px;  }
+.agreement__list > li > ul > li:before { content: "-"; position: absolute; left: 0; top: 0; display: inline-block; }
+.agreement__check { padding: 16px 4.3% 0; font-weight: 600; font-size: 12px; line-height: 12px; }
+.agreement__check label { color: #000 !important; }
+
+
 
 @media screen and (max-width : 320px) {
 
 }
-
-
-
-.ticketWrap .ticket .scheduleWrap	{font-size: 20px;letter-spacing: -0.38px; font-weight:800; text-transform:uppercase;}
-.ticketWrap .ticket .scheduleWrap p	{display:inline-block;}
-.ticketWrap .ticket .scheduleWrap p span	{vertical-align:middle; display:inline-block;white-space:nowrap;text-overflow: ellipsis;overflow: hidden; max-width:72px;}
-.ticketWrap .ticket .scheduleWrap img	{display:inline-block; vertical-align:middle; margin:-2px 6px 0;}
-
-.ticketWrap .ticket .info	{margin-top:16px;font-size: 11px; line-height:20px;letter-spacing: -0.21px;}
-.ticketWrap .ticket .info span	{border-radius: 2px; border:1px solid #ff4f24;font-size: 11px; line-height:18px; color:#ff4f24; display:inline-block; padding:0 5px; font-weight:600; margin-right:8px;}
