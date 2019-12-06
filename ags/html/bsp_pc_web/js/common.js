@@ -89,7 +89,7 @@ $(document).ready(function () {
 	});	
 
 
-	$(window).scroll(function() {
+	/*$(window).scroll(function() {
 		var scrollHeight = $(document).height();
 		var scrollPosition = $(window).height() + $(window).scrollTop();		
 		if (scrollPosition > scrollHeight - 284 + 948 - $(".priceContainer").innerHeight()) {		
@@ -99,7 +99,7 @@ $(document).ready(function () {
 				$(".priceContainer").removeClass("bottom");
 				$(".priceContainer").css("bottom","auto");
 			}
-		});	
+		});	*/
 
 });
 

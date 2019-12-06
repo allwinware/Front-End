@@ -1476,16 +1476,29 @@
 	/*결제정보 Sidebar 고정*/
     (function(fixedSidebar){
         var $target = $(".priceContainer"),
-            targetPosY = $target.offset().top;
+            targetHeight = $target.height(),
+            targetPosY1 = $target.offset().top;
         function sidebarHandler(){
-            var currentScrollTop = $(document).scrollTop();
-            if (currentScrollTop > targetPosY) {
+            var currentScrollTop = $(document).scrollTop(),
+                targetPosY2 = $target.offset().top,
+                targetRail = $(document).height() - currentScrollTop - targetHeight - 300 ;
+            if (currentScrollTop > targetPosY1 && targetRail > 0) {
                 $target.addClass("menuFixed").css({
-                    "top": currentScrollTop - 257
+                    "top": currentScrollTop - 257,
+                    "bottom": "initial"
                 })
+            } else if (currentScrollTop > targetPosY1 && 0 > targetRail) {
+                $target.css({
+                    "top": "initial",
+                    "bottom": "0"
+                });
             } else {
                 $target.removeClass("menuFixed")
             }
+            console.log("문서높이 : " + $(document).height())
+            console.log("currentScrollTop : " + currentScrollTop)
+            console.log("targetHeight : " + targetHeight)
+            console.log("targetRail : " + targetRail)
         }
         $(window).on("scroll", function(){
             sidebarHandler();
