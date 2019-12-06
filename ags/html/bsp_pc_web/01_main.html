@@ -5,7 +5,7 @@
 	<title>MAIN</title>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.bxslider.js"></script>
-	<script type="text/javascript" src="js/stickyfill.js"></script>
+	<!--<script type="text/javascript" src="js/stickyfill.js"></script>-->
 	<script type="text/javascript" src="js/common.js"></script>
     <link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css" />   
     <link rel="stylesheet" type="text/css" href="css/common.css" />   
@@ -20,7 +20,7 @@
 				</h1>
 				<ul>
 					<li><a href="#">항공 부가서비스 신청하기</a></li>
-					<li><a href="#">신청 내역</a></li>
+					<li><a href="#">신청내역/취소</a></li>
 					<li><a href="#">고객센터</a></li>
 					<li style="display:none"><a href="#">서비스 소개</a></li>
 				</ul>
@@ -55,33 +55,39 @@
 			<div class="contentsContainer">
 				<h2>제주항공 부가서비스</h2>
 				<div class="tabContainer">
-					<ul class="tabSelect item02">
+					<ul id="fixedTabs" class="tabSelect item02 fixed-tabs">
 						<li class="on">인천<span></span>하네다</li>
 						<li>하네다<span></span>인천</li>
 					</ul>
-					<ul class="tabSelect item03">	<!--	여정 수에 따라 클래스 변경	-->
+                    <!--	여정 수에 따라 클래스 변경	-->
+					<!--<ul id="fixedTabs" class="tabSelect item03 fixed-tabs">
 						<li>인천<span></span>하네다</li>
 						<li class="on">하네다<span></span>후쿠오카</li>
 						<li>후쿠오카<span></span>인천</li>
 					</ul>
-					<ul class="tabSelect item04">
+					<ul id="fixedTabs" class="tabSelect item04 fixed-tabs">
 						<li>인천<span></span>시우다드후시우다드후</li>
 						<li>구간 2</li>
 						<li>구간 3</li>
 						<li class="on">구간 4</li>
-					</ul>
+					</ul>-->
 					<div class="contentsWrap">
 						<div class="contents seat" id="anchor_seat">
 							<h3>1. 사전 좌석 구매</h3>
-							<p class="info">본인이 원하는 좌석을 사전에 구매하여 원하는 좌석을 배정받기 위해 공항에 일찍 갈 필요가 없어 시간을 절약할 수 있는 편리한 서비스 입니다. 앉고 싶은 자리를 미리 예약하세요!</p>
-							<div class="notSale noneLounge">	<!--	191107	-->
+							<p class="info">
+                                <strong>맨 앞자리 / 비상구 좌석을 원하십니까?</strong><br>
+                                앉고 싶은 좌석을 지금 선택하세요!<br>
+                                미리 선택하며, 공항에 일찍 갈 필요 없어 시간이 절감됩니다.
+                            </p><!-- 191206 텍스트 수정 및 HTML 태그 추가 -->
+                            <!--	191107	-->
+                            <!--<div class="notSale noneLounge">
 								<p class="title">항공기 출발 시간이 임박하여<br />해당 서비스를 예약할 수 없습니다.</p>
 								<ul>
 									<li>- 사전 좌석 예약 : 첫 구간 출발 24시간 전까지만 구매 가능합니다.</li>
 									<li>- 사전 수하물 구매 : 첫 구간 출발 24시간 전까지만 구매 가능합니다.</li>
 									<li>- 사전 기내식 주문 : 첫 구간 출발 3일 전까지 사전 주문이 가능합니다.</li>
 								</ul>
-							</div>
+							</div>-->
 							<div class="priceInfo">
 								<p class="title">사전 좌석 구매 요금 정보</p>
 								<ul>
@@ -774,7 +780,10 @@
 						</div>
 						<div class="contents baggage" id="anchor_baggage">
 							<h3>2. 사전 수하물 구매</h3>
-							<p class="info">위탁 수하물을 온라인으로 사전 구매할 수 있는 서비스입니다. 수하물이 추가로 필요할 경우 할인된 가격으로 사전에 구매 가능합니다.</p>
+                            <p class="info">
+                                <strong>짐이 많으십니까?</strong><br>
+                                공항보다 30% 저렴하게 미리 구매하세요.
+                            </p><!-- 191206 텍스트 수정 및 HTML 태그 추가 -->
 							<div class="notSale">
 								<p class="title">항공기 출발 시간이 임박하여<br />해당 서비스를 예약할 수 없습니다.</p>
 								<ul>
@@ -920,7 +929,10 @@
 						</div>
 						<div class="contents meal" id="anchor_meal">
 							<h3>3. 사전 기내식 구매</h3>
-							<p class="info">맛있는 기내식을 사전에 예약 주문하여, 기내에서 편하게 드실 수 있는 서비스입니다.</p>
+                            <p class="info">
+                                <strong>따뜻한 기내식을 원하십니까?</strong><br>
+                                기내식은 미리 준비해야 하므로 출발 3일 전까지만 주문 가능하며, 공항에서는 구매 불가합니다.
+                            </p><!-- 191206 텍스트 수정 및 HTML 태그 추가 -->
 							<div class="notSale">
 								<p class="title">항공기 출발 시간이 임박하여<br />해당 서비스를 예약할 수 없습니다.</p>
 								<ul>
@@ -1460,6 +1472,56 @@
 			autoHover: true
 		});
 	});
+
+	/*결제정보 Sidebar 고정*/
+    (function(fixedSidebar){
+        var $target = $(".priceContainer"),
+            targetPosY = $target.offset().top;
+        function sidebarHandler(){
+            var currentScrollTop = $(document).scrollTop();
+            if (currentScrollTop > targetPosY) {
+                $target.addClass("menuFixed").css({
+                    "top": currentScrollTop - 257
+                })
+            } else {
+                $target.removeClass("menuFixed")
+            }
+        }
+        $(window).on("scroll", function(){
+            sidebarHandler();
+        }).scroll()
+    })();
+
+    /*구간 Tab Menu 고정*/
+    (function(fixedTabHeader){
+        var $target = $("#fixedTabs"),
+            $targetParent = $target.parent(),
+            targetPosY = $target.offset().top - $target.height(),
+            targetPosL,
+            targetWidth;
+
+        function tabHandler(){
+            var currentScrollTop = $(document).scrollTop();
+            if (currentScrollTop > targetPosY) {
+                $target.addClass("active").css({
+                    "left": targetPosL,
+                    "right": targetPosL + targetWidth,
+                    "width": targetWidth
+                })
+            } else {
+                $target.removeClass("active")
+            }
+        }
+        $(window).on("resize", function(){
+            targetPosL = $targetParent.offset().left;
+            targetWidth = $targetParent.parent().width();
+            tabHandler();
+        }).resize();
+        $(window).on("scroll", function(){
+            tabHandler();
+        }).scroll()
+    })();
+
 </script>
 </body>
 </html>
