@@ -761,6 +761,8 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 .area-wrap + .area-wrap { padding-top: 50px; }
 .area-wrap__title { padding: 0 4.3% 16px; font-size: 14px; letter-spacing: -0.35px; font-weight: 800; }
 
+.headerWrap.ui-fixed { position: fixed; top: 0; left: 0; right: 0; z-index: 1; }
+
 /*마이페이지 티켓 스타일*/
 [class*='mypage__'] .ticket-item { position: relative; margin-top: 16px; border-radius: 8px; box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25); border: solid 1px #f0f0f0; padding:0 16px 16px; opacity: 0.2 }
 [class*='mypage__'] .ticket-item.active { box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.05); opacity: 1 }
@@ -784,6 +786,7 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 [class*='mypage__'] .ticket-item.active .ticket-num + dd { color: #FF4F24; }
 [class*='mypage__'] .ticket-item .status + dd { position: absolute; right: 16px; top: 0; font-size: 12px; font-weight: 800; }
 [class*='mypage__'] .ticket-item.active .status + dd { color: #FF4F24; }
+[class*='mypage__'] .ticket-item .status + dd small { font-size: 0.9em; font-weight: 400; }
 [class*='mypage__'] .ticket-item .destination + dd { font-size: 20px; font-weight:800; letter-spacing:-0.38px; text-transform:uppercase; }
 [class*='mypage__'] .ticket-item .destination__from-to dt,
 [class*='mypage__'] .ticket-item .destination__from-to dd { display: inline-block; }
@@ -825,16 +828,16 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 .detail-info { width:100%; padding-left:4.3%; overflow:visible; }
 .info-table { margin-top: 10px }
 .info-table	{font-size: 13px;letter-spacing: -0.33px;}
-.info-table thead th {font-weight:600; padding:14px 16px; border-top:1px solid #000; border-bottom:1px solid #f0f0f0;text-align:left;}
-.info-table thead th:nth-child(2) {text-align:left; padding-left:7%;}
+.info-table thead th {font-weight:600; padding:14px 8px; border-top:1px solid #000; border-bottom:1px solid #f0f0f0;text-align:left;}
+.info-table thead th:nth-child(2) { }
 .info-table tfoot {}
-.info-table tfoot th {font-weight:600;font-size:12px; text-align:left;  padding:14px 16px; background:#f8f8f8;border-bottom:1px solid #f0f0f0;}
-.info-table tfoot td {font-weight:600;color:#ff4f24; padding:14px 16px; background:#f8f8f8;border-bottom:1px solid #f0f0f0;}
+.info-table tfoot th {font-weight:600;font-size:12px; text-align:left;  padding:14px 8px; background:#f8f8f8;border-bottom:1px solid #f0f0f0;}
+.info-table tfoot td {font-weight:600;color:#ff4f24; padding:14px 8px; background:#f8f8f8;border-bottom:1px solid #f0f0f0; text-align: left;}
 .info-table tbody {}
-.info-table tbody td {color:#aaa;line-height: 1.54; padding:14px 16px;border-bottom:1px solid #f0f0f0; text-align:left;}
-.info-table tbody td:nth-child(2) {text-align:left; padding-left:7%;}
+.info-table tbody td {color:#aaa;line-height: 1.54; padding:14px 8px;border-bottom:1px solid #f0f0f0; text-align:left;}
+.info-table tbody td:nth-child(2) { }
 .info-table tfoot td { background-color: #f8f8f8; }
-.info-table td.price { text-align: right; }
+.info-table td.price { text-align: right !important; }
 .info-table tfoot td.price { color: #FF4F24; }
 .info-table tfoot .formula { padding-bottom: 8px; font-size: 11px; font-weight: 600; color: #aaa; }
 
@@ -850,8 +853,10 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 .mypage__list .ticket-group { overflow: visible; padding: 0 4.3%; }
 
 /*마이페이지 디테일 뷰(04_mypage_02_detail.html)*/
-.mypage__detail { padding-bottom: 50px }
-.mypage__detail .ticket-item { margin: -16px 4.3% 0; }
+.mypage__detail { overflow: auto; position: relative; padding: 200px 0 50px; }
+.mypage__detail .area-wrap.ui-fixed { position: fixed; top: 45px; left: 0; right: 0; padding: 16px 4.3%; height: 170px; background-color: #f8f8f8; z-index: 1 }
+.mypage__detail .area-wrap.ui-fixed ~ * { z-index: 0; }
+.mypage__detail .ticket-item { margin: 0; background-color: #fff; }
 .mypage__detail .btn_service-cancel { display: inline-block; margin: -6px -6px 0 0; padding: 6px; background-color: #FF4F24; color: #fff; border-radius: 3px; }
 .mypage__detail .customer-services { padding: 16px 4.3% 0; font-size: 12px; font-weight: 400; letter-spacing: -0.3px; color: #aaa; }
 .mypage__detail .customer-services:before { content: "※"; padding-right: 3px; }
@@ -859,11 +864,15 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 .mypage__detail .detail-info li { margin-top: 24px; }
 .mypage__detail .detail-info .title	{text-align:left; font-weight:800;text-transform:uppercase; font-size: 13px;letter-spacing: -0.33px; color:#ff4f24; margin-bottom:10px;}
 .mypage__detail .notice { margin-top: 32px; padding: 0 4.3%; }
+.mypage__detail .info-table thead th,
+.mypage__detail .info-table tbody th,
+.mypage__detail .info-table tbody td { text-align: center; }
 .mypage__detail .info-table thead th:nth-of-type(1),
-.mypage__detail .info-table tbody td:nth-of-type(1) { text-align: center; }
+.mypage__detail .info-table tbody td:nth-of-type(1) { text-align: left; }
 .mypage__detail .info-table thead th:nth-of-type(1) ~ th,
-.mypage__detail .info-table tbody td:nth-of-type(1) ~ td { padding-left: 8px; }
-.mypage__detail .info-table thead th:nth-of-type(3) { text-align: center; }
+.mypage__detail .info-table tbody td:nth-of-type(1) ~ td {  }
+.mypage__detail .info-table tr.active th,
+.mypage__detail .info-table tr.active td { color: #000; }
 
 /*마이페이지 취소환불(04_mypage_03_refund.html)*/
 .mypage__refund { padding-bottom: 50px }
@@ -873,7 +882,7 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 .mypage__refund .info-table .inputWrap { text-align: center; }
 .mypage__refund .info-table .inputWrap label:before { margin-right: 0; }
 .mypage__refund .info-table thead th:nth-of-type(2),
-.mypage__refund .info-table tbody td:nth-of-type(2) { padding-left: 8px; }
+.mypage__refund .info-table tbody td:nth-of-type(2) {  }
 .mypage__refund .info-table thead th:nth-of-type(3) { text-align: center; }
 .mypage__refund .customer-name { font-size: 12px; font-weight: 600; letter-spacing: -0.3px; }
 .mypage__refund .service-name { font-size: 13px; line-height: 20px; font-weight: 400; letter-spacing: -0.33px; }
