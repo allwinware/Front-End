@@ -1480,14 +1480,13 @@
             targetPosY1 = $target.offset().top;
         function sidebarHandler(){
             var currentScrollTop = $(document).scrollTop(),
-                targetPosY2 = $target.offset().top,
-                targetRail = $(document).height() - currentScrollTop - targetHeight - 270 ;
-            if (currentScrollTop > targetPosY1 && targetRail > 0) {
+                targetRail = $(document).height() - currentScrollTop - targetHeight - 300 ;
+            if (currentScrollTop > targetPosY1 && targetRail > 100) {
                 $target.addClass("menuFixed").css({
                     "top": currentScrollTop - 257,
                     "bottom": "initial"
                 })
-            } else if (currentScrollTop > targetPosY1 && 0 > targetRail) {
+            } else if (currentScrollTop > targetPosY1 && 100 > targetRail) {
                 $target.css({
                     "top": "initial",
                     "bottom": "0"
@@ -1495,10 +1494,6 @@
             } else {
                 $target.removeClass("menuFixed")
             }
-            console.log("문서높이 : " + $(document).height())
-            console.log("currentScrollTop : " + currentScrollTop)
-            console.log("targetHeight : " + targetHeight)
-            console.log("targetRail : " + targetRail)
         }
         $(window).on("scroll", function(){
             sidebarHandler();
