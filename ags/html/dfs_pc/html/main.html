@@ -18,6 +18,92 @@
     <link rel="shortcut icon" href="" type="image/x-icon">
     <link rel="stylesheet" href="../resource/js/bxslider/jquery.bxslider.min.css">
     <link rel="stylesheet" href="../resource/css/dfs.min.css">
+    <script src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script src="../resource/js/bxslider/jquery.bxslider.min.js"></script>
+    <script src="../resource/js/modernizr-custom.js"></script>
+    <script src="../resource/js/dfs.ui.js"></script>
+    <script>
+        $(document).ready(function() {
+            //이 페이지가 main 페이지임을 선언합니다.
+            $("#dfs-wrap").attr("data-page-type", "main");
+
+            //bxslider를 정의합니다.
+            /*$(function(){
+                $("#top5_category1").bxSlider({
+                    mode: 'horizontal',
+                    infiniteLoop: true,
+                    slideWidth: 230,
+                    minSlides: 4,
+                    maxSlides: 4,
+                    moveSlides: 1,
+                    controls: true,
+                    pager: false,
+                    auto: true,
+                    autoHover: true,
+                    touchEnabled:false
+                });
+                $("#top5_category2").bxSlider({
+                    mode: 'horizontal',
+                    infiniteLoop: true,
+                    slideWidth: 230,
+                    minSlides: 4,
+                    maxSlides: 4,
+                    moveSlides: 1,
+                    controls: true,
+                    pager: false,
+                    auto: true,
+                    autoHover: true,
+                    touchEnabled:false
+                })
+            });*/
+        });
+        $(window).on("load", function(){
+
+            /* 브라우저 좌측에 따라다니는 DFS Navigation 동작 정의 */
+            /*(function(dfsNavHandler){
+                $(".dfs-nav-wrap").css("height", $(this).parents().innerHeight());
+
+                var $dfsNav = $("#dfs-nav-sticky");
+                var $dfsBavStopper = $("#footer");
+                if (!!$dfsNav.offset()) { // make sure "#dfs-nav-wrap" element exists
+                    var generalSidebarHeight = $dfsNav.innerHeight();
+                    var dfsNavOffset = $dfsNav.offset().top - $pageHeader.height();
+                    var dfsNavStopperPosition = $dfsBavStopper.offset().top;
+                    var stopPoint = dfsNavStopperPosition - generalSidebarHeight - dfsNavOffset;
+                    var diff = stopPoint + dfsNavOffset;
+
+                    $(window).scroll(function(){ // scroll event
+                        var windowTop = $(window).scrollTop(); // returns number
+                        if (stopPoint < windowTop) {
+                            $dfsNav.css({ position: 'absolute', top: '', bottom: '0' });
+                        } else if (dfsNavOffset < windowTop) {
+                            $dfsNav.css({ position: 'fixed', top: $pageHeader.height(), bottom: '' });
+                        } else {
+                            $dfsNav.css({position: 'absolute', top: '0', bottom: ''});
+                        }
+                    });
+                }
+            })();*/
+
+            //nav의 동작을 정의합니다.
+            /*$(".dfs-nav-wrap .depth1 > li > a")
+                .on("mouseover", function(){
+                    $(this).parent("li").addClass("active").siblings("li").removeClass("active");
+                });
+            $(".dfs-nav").on("mouseleave", function(){
+                $(".dfs-nav-wrap .depth1 > li").removeClass("active")
+            });
+
+            //카테고리별 브랜드 리스트 레이어 팝업의 동작을 정의합니다.
+            $(".btn_brand-list").on("click", function(){
+                $(".btn_brand-list").not($(this)).removeClass("active");
+                $(this).siblings(".brand-list-wrap").toggleClass("active");
+            });
+            $(".brand-list-wrap .btn_close").on("click", function(){
+                $(this).parents(".brand-list-wrap").removeClass("active");
+            });*/
+        });
+    </script>
 </head>
 <body>
     <div id="dfs-wrap" class="dfs-wrap">
@@ -2160,90 +2246,5 @@
             </div>
         </footer>
     </div><!-- //.dfs_wrap -->
-
-    <script src="../resource/js/jquery-3.4.1.min.js"></script>
-    <script src="../resource/js/bxslider/jquery.bxslider.min.js"></script>
-    <script src="../resource/js/modernizr-custom.js"></script>
-    <script src="../resource/js/dfs.ui.js"></script>
-    <script>
-        $(document).ready(function(){
-            //이 페이지가 main 페이지임을 선언합니다.
-            $("#dfs-wrap").attr("data-page-type", "main");
-
-            //bxslider를 정의합니다.
-            $(function(){
-                $("#top5_category1").bxSlider({
-                    mode: 'horizontal',
-                    infiniteLoop: true,
-                    slideWidth: 230,
-                    minSlides: 4,
-                    maxSlides: 4,
-                    moveSlides: 1,
-                    controls: true,
-                    pager: false,
-                    auto: true,
-                    autoHover: true,
-                    touchEnabled:false
-                });
-                $("#top5_category2").bxSlider({
-                    mode: 'horizontal',
-                    infiniteLoop: true,
-                    slideWidth: 230,
-                    minSlides: 4,
-                    maxSlides: 4,
-                    moveSlides: 1,
-                    controls: true,
-                    pager: false,
-                    auto: true,
-                    autoHover: true,
-                    touchEnabled:false
-                })
-            });
-
-            /* 브라우저 좌측에 따라다니는 DFS Navigation 동작 정의 */
-            (function(dfsNavHandler){
-                $(".dfs-nav-wrap").css("height", $(this).parents().innerHeight());
-
-                var $dfsNav = $("#dfs-nav-sticky");
-                var $dfsBavStopper = $("#footer");
-                if (!!$dfsNav.offset()) { // make sure "#dfs-nav-wrap" element exists
-                    var generalSidebarHeight = $dfsNav.innerHeight();
-                    var dfsNavOffset = $dfsNav.offset().top - $pageHeader.height();
-                    var dfsNavStopperPosition = $dfsBavStopper.offset().top;
-                    var stopPoint = dfsNavStopperPosition - generalSidebarHeight - dfsNavOffset;
-                    var diff = stopPoint + dfsNavOffset;
-
-                    $(window).scroll(function(){ // scroll event
-                        var windowTop = $(window).scrollTop(); // returns number
-                        if (stopPoint < windowTop) {
-                            $dfsNav.css({ position: 'absolute', top: '', bottom: '0' });
-                        } else if (dfsNavOffset < windowTop) {
-                            $dfsNav.css({ position: 'fixed', top: $pageHeader.height(), bottom: '' });
-                        } else {
-                            $dfsNav.css({position: 'absolute', top: '0', bottom: ''});
-                        }
-                    });
-                }
-            })();
-
-            //nav의 동작을 정의합니다.
-            $(".dfs-nav-wrap .depth1 > li > a")
-                .on("mouseover", function(){
-                    $(this).parent("li").addClass("active").siblings("li").removeClass("active");
-                });
-            $(".dfs-nav").on("mouseleave", function(){
-                $(".dfs-nav-wrap .depth1 > li").removeClass("active")
-            });
-
-            //카테고리별 브랜드 리스트 레이어 팝업의 동작을 정의합니다.
-            $(".btn_brand-list").on("click", function(){
-                $(".btn_brand-list").not($(this)).removeClass("active");
-                $(this).siblings(".brand-list-wrap").toggleClass("active");
-            });
-            $(".brand-list-wrap .btn_close").on("click", function(){
-                $(this).parents(".brand-list-wrap").removeClass("active");
-            });
-        });
-    </script>
 </body>
 </html>
