@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>예약내역 상세 - 제주항공 기내면세점</title>
+    <meta name="viewport" content="width=1380">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="Description" content="">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <link rel="stylesheet" href="../resource/css/dfs.min.css">
+    <script src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script src="../resource/js/modernizr-custom.js"></script>
+    <script src="../resource/js/dfs.ui.js"></script>
+    <script>
+        $(window).on("load", function(){
+            //신청내역 자세히 보기 버튼 동작 구성
+            (function(tableRowController){
+                var $trigger = $(".btn_details");
+                $trigger.on("click", function(){
+                    $(this).toggleClass("active");
+                   $(this).parents("tr").next(".details").toggleClass("active");
+                });
+            })();
+        });
+    </script>
+</head>
+<body>
+    <div id="dfs-wrap" class="dfs-wrap">
+        <header id="header" class="header">
+            <div class="global-header-wrap">
+                <div class="inner">
+                    <h1 class="logo">
+                        <img src="../resource/img/common/header-logo__jj-modetour@2x.jpg" alt="제주항공 X 모두투어">
+                    </h1>
+                    <h2 class="sr-only">사이트 메뉴</h2>
+                    <ul class="global-nav">
+                        <li><a href="#none" target="_self">항공 부가서비스 신청하기</a></li>
+                        <li><a href="#none" target="_self">신청내역/취소</a></li>
+                        <li><a href="#none" target="_self">고객센터</a></li>
+                        <li><a href="#none" target="_self" class="btn_dfs">기내면세예약</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="dfs-header" class="dfs-header-wrap">
+                <div class="inner">
+                    <h2 class="sr-only">기내면세점 글로벌 메뉴</h2>
+                    <ul class="path">
+                        <li>기내면세예약 홈</li>
+                        <li>예약내역/취소</li>
+                    </ul>
+                    <ul class="dfs-side-nav">
+                        <li><a href="#none" target="_self" class="btn_cart">장바구니 <span class="ico"><i class="num">99</i><i class="sr-only">개의 상품이 담겨있습니다.</i></span></a></li>
+                        <li><a href="#none" target="_self" class="btn_mypage">예약내역/취소</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <hr>
+
+        <div id="container" class="container">
+
+
+            <!--
+                ▪︎ .contents는 sub page 별로 CSS 클래스가 별도로 추가되어 붙습니다. (ex: class='contents page__product-detail') HTML 분할 시 이 점 참고 바랍니다.
+                ※ 단, 메인 페이지는 해당사항 없습니다. (메인 페이지는 스크립트를 이용해 #dfs-wrap에 data-page-type='main'으로 처리)
+            -->
+            <section class="contents page__resv-detail">
+                <div class="inner">
+                    <header class="page-header">
+                        <h3 class="page-title">신청서</h3>
+                        <p class="page-description">
+                            예약내역을 확인하고 수정/취소하실 수 있는 페이지입니다.<br>
+                            기내면세 신청, 수정, 취소는 출발기준 48시간, 도착기준 58시간 이전까지만 가능합니다.
+                        </p>
+                    </header>
+
+                    <div class="resv-info-bar">
+                        <dl class="resv-info">
+                            <dt>신청번호</dt>
+                            <dd>777710113091375</dd>
+                        </dl>
+                        <div class="btn-wrap">
+                            <a href="#none" target="_self" class="btn_resv-cancel">예약취소</a>
+                            <a href="#none" target="_self" class="btn_resv-modify">수정하기</a>
+                            <a href="#none" target="_self" class="btn_voucher1">전체 교환권 메일/SMS 받기</a>
+                            <a href="#none" target="_self" class="btn_voucher2">전체 교환권 출력</a>
+                        </div>
+                    </div>
+
+                    <section class="resv-detail">
+                        <h4 class="title-tag">출국</h4>
+                        <div class="table-wrap">
+                            <table class="table_resv-summary">
+                                <colgroup>
+                                    <col style="width: 250px">
+                                    <col>
+                                    <col style="width: 200px">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col"><span class="sr-only">신청자</span></th>
+                                    <th scope="col">신청내역</th>
+                                    <th scope="col">예약금액</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th scope="row" colspan="2">출국 시 결제할 예상금액</th>
+                                    <td>
+                                        총
+                                        <dl class="price-info">
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">322</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">387,900</span></dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <td>Bae, Sungjune</td>
+                                    <td><a href="#none" target="_self" class="btn_details">후 공진향 미 에센셜베이스 40, 에스티로더 갈색병 인텐스 리셋 컨센트레이트 20ml, 까뮤 VSOP ELEGANCE</a></td>
+                                    <td>
+                                        <dl class="price-info">
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">600</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">680,200</span></dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                <tr class="details">
+                                    <td colspan="3">
+                                        <div class="table-wrap">
+                                            <table class="table_resv-detail">
+                                                <colgroup>
+                                                    <col>
+                                                    <col style="width: 160px">
+                                                    <col style="width: 160px">
+                                                    <col style="width: 100px">
+                                                    <col style="width: 180px">
+                                                </colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">주문상품명</th>
+                                                    <th scope="col">Ref.No</th>
+                                                    <th scope="col">상품코드</th>
+                                                    <th scope="col">수량</th>
+                                                    <th scope="col">품목별 예약금액</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [후] 공진향 미 에센셜베이스40
+                                                    </td>
+                                                    <td>51104190</td>
+                                                    <td>2280000621001</td>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">33</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">38,600</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [에스티로더] 갈색병 인텐스 리셋 컨센트레이트 20ml
+                                                    </td>
+                                                    <td>P9YJ019000</td>
+                                                    <td>2290000773228</td>
+                                                    <td>2</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">76</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">88,900</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [까뮤] VSOP ELEGANCE
+                                                    </td>
+                                                    <td>VSOPE70CL</td>
+                                                    <td>2590000662257</td>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">43</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">50,300</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kim, Siwon</td>
+                                    <td><a href="#none" target="_self" class="btn_details">설화수 20ml, 로얄샬루트, 록시땅 핸드로션 50ml, 정관장 홍삼 1BOX(24개입)</a></td>
+                                    <td>
+                                        <dl class="price-info">
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">600</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">680,200</span></dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                <tr class="details">
+                                    <td colspan="3">
+                                        <div class="table-wrap">
+                                            <table class="table_resv-detail">
+                                                <colgroup>
+                                                    <col>
+                                                    <col style="width: 160px">
+                                                    <col style="width: 160px">
+                                                    <col style="width: 100px">
+                                                    <col style="width: 180px">
+                                                </colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">주문상품명</th>
+                                                    <th scope="col">Ref.No</th>
+                                                    <th scope="col">상품코드</th>
+                                                    <th scope="col">수량</th>
+                                                    <th scope="col">품목별 예약금액</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [후] 공진향 미 에센셜베이스40
+                                                    </td>
+                                                    <td>51104190</td>
+                                                    <td>2280000621001</td>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">33</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">38,600</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="resv-detail">
+                        <h4 class="title-tag">귀국</h4>
+                        <div class="table-wrap">
+                            <table class="table_resv-summary">
+                                <colgroup>
+                                    <col style="width: 250px">
+                                    <col>
+                                    <col style="width: 200px">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col"><span class="sr-only">신청자</span></th>
+                                    <th scope="col">신청내역</th>
+                                    <th scope="col">예약금액</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th scope="row" colspan="2">출국 시 결제할 예상금액</th>
+                                    <td>
+                                        총
+                                        <dl class="price-info">
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">322</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">387,900</span></dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <td>Bae, Sungjune</td>
+                                    <td><a href="#none" target="_self" class="btn_details">후 공진향 미 에센셜베이스 40, 에스티로더 갈색병 인텐스 리셋 컨센트레이트 20ml, 까뮤 VSOP ELEGANCE</a></td>
+                                    <td>
+                                        <dl class="price-info">
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">600</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">680,200</span></dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                <tr class="details">
+                                    <td colspan="3">
+                                        <div class="table-wrap">
+                                            <table class="table_resv-detail">
+                                                <colgroup>
+                                                    <col>
+                                                    <col style="width: 160px">
+                                                    <col style="width: 160px">
+                                                    <col style="width: 100px">
+                                                    <col style="width: 180px">
+                                                </colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">주문상품명</th>
+                                                    <th scope="col">Ref.No</th>
+                                                    <th scope="col">상품코드</th>
+                                                    <th scope="col">수량</th>
+                                                    <th scope="col">품목별 예약금액</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [후] 공진향 미 에센셜베이스40
+                                                    </td>
+                                                    <td>51104190</td>
+                                                    <td>2280000621001</td>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">33</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">38,600</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [에스티로더] 갈색병 인텐스 리셋 컨센트레이트 20ml
+                                                    </td>
+                                                    <td>P9YJ019000</td>
+                                                    <td>2290000773228</td>
+                                                    <td>2</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">76</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">88,900</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [까뮤] VSOP ELEGANCE
+                                                    </td>
+                                                    <td>VSOPE70CL</td>
+                                                    <td>2590000662257</td>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">43</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">50,300</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kim, Siwon</td>
+                                    <td><a href="#none" target="_self" class="btn_details">설화수 20ml, 로얄샬루트, 록시땅 핸드로션 50ml, 정관장 홍삼 1BOX(24개입)</a></td>
+                                    <td>
+                                        <dl class="price-info">
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">600</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">680,200</span></dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                <tr class="details">
+                                    <td colspan="3">
+                                        <div class="table-wrap">
+                                            <table class="table_resv-detail">
+                                                <colgroup>
+                                                    <col>
+                                                    <col style="width: 160px">
+                                                    <col style="width: 160px">
+                                                    <col style="width: 100px">
+                                                    <col style="width: 180px">
+                                                </colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">주문상품명</th>
+                                                    <th scope="col">Ref.No</th>
+                                                    <th scope="col">상품코드</th>
+                                                    <th scope="col">수량</th>
+                                                    <th scope="col">품목별 예약금액</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [에스티로더] 갈색병 인텐스 리셋 컨센트레이트 20ml
+                                                    </td>
+                                                    <td>P9YJ019000</td>
+                                                    <td>2290000773228</td>
+                                                    <td>2</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">76</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">88,900</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="img-wrap">
+                                                            <img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지">
+                                                        </span>
+                                                        [까뮤] VSOP ELEGANCE
+                                                    </td>
+                                                    <td>VSOPE70CL</td>
+                                                    <td>2590000662257</td>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <dl class="price-info">
+                                                            <dt class="price-usd">가격(USD, $)</dt>
+                                                            <dd><span class="digits">43</span></dd>
+                                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                                            <dd><span class="digits">50,300</span></dd>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="price-sum">
+                    <div class="inner">
+                        <h4 class="title">결제할 금액 총 합계</h4>
+                        <div class="total">
+                            총
+                            <dl class="price-info">
+                                <dt class="price-usd">가격(USD, $)</dt>
+                                <dd><i class="digits">9400</i></dd>
+                                <dt class="price-krw">가격(원, ₩)</dt>
+                                <dd><i class="digits">11,182,240</i></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="scroll-top-wrap">
+                <div class="inner">
+                    <a href="#none" id="btn_scroll-top" class="btn_scroll-top">맨 위로</a>
+                </div>
+            </div>
+        </div><!-- //.container -->
+
+        <hr>
+
+        <footer id="footer" class="footer">
+            <div class="inner">
+                <div class="logo">
+                    <img src="../resource/img/common/footer-logo__allwinair@2x.png" alt="ALLWIN AIR">
+                </div>
+                <ul class="agreements">
+                    <li><a href="#">개인정보취급방침</a></li>
+                    <li>고객센터 : 1522-2284 (평일 09:30~17:00)</li>
+                </ul>
+                <div class="company-info">
+                    <p>모두투어 항공사 부가서비스는 (주)올윈에어와의 제휴로 제공됩니다.</p>
+                    <ul class="detail-info">
+                        <li>서울시 중구 서소문로 106 동화빌딩 9층</li>
+                        <li>㈜올윈웨어</li>
+                        <li>대표이사 : 이정갑
+                        <li>사업자등록번호 : 220-88-72464</li>
+                    </ul>
+                    <p class="copyright">Copyright Allwinware INC., All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div><!-- //.dfs_pc-wrap -->
+</body>
+</html>
