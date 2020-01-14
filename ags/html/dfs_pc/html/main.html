@@ -23,7 +23,12 @@
     <script src="../resource/js/modernizr-custom.js"></script>
     <script src="../resource/js/dfs.ui.js"></script>
     <script>
-        $(document).ready(function() {
+
+        $(document).ready(function(){
+            var $body = $("body"),
+                $page = $("#dfs-wrap"),
+                $pageHeader = $("#header");
+
             //이 페이지가 main 페이지임을 선언합니다.
             $("#dfs-wrap").attr("data-page-type", "main");
 
@@ -56,8 +61,6 @@
                     touchEnabled:false
                 })
             });
-        });
-        $(window).on("load", function(){
 
             /* 브라우저 좌측에 따라다니는 DFS Navigation 동작 정의 */
             (function(dfsNavHandler){
@@ -74,6 +77,7 @@
 
                     $(window).scroll(function(){ // scroll event
                         var windowTop = $(window).scrollTop(); // returns number
+                        console.log(stopPoint);
                         if (stopPoint < windowTop) {
                             $dfsNav.css({ position: 'absolute', top: '', bottom: '0' });
                         } else if (dfsNavOffset < windowTop) {
@@ -94,12 +98,13 @@
                 $(".dfs-nav-wrap .depth1 > li").removeClass("active")
             });
 
+
             //카테고리별 브랜드 리스트 레이어 팝업의 동작을 정의합니다.
-            $(".btn_brand-list").on("click", function(){
+            $(".btn_brand-list").on("click", function () {
                 $(".btn_brand-list").not($(this)).removeClass("active");
                 $(this).siblings(".brand-list-wrap").toggleClass("active");
             });
-            $(".brand-list-wrap .btn_close").on("click", function(){
+            $(".brand-list-wrap .btn_close").on("click", function () {
                 $(this).parents(".brand-list-wrap").removeClass("active");
             });
         });

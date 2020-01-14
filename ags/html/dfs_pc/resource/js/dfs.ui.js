@@ -1,7 +1,3 @@
-var $body = $("body"),
-    $page = $("#dfs-wrap"),
-    $pageHeader = $("#header");
-
 /* 상품가격 등의 숫자정보 표현 시 콤마 추가기능 정의 */
 $.fn.digits = function(){
     return this.each(function(){
@@ -10,6 +6,10 @@ $.fn.digits = function(){
 };
 
 $(document).ready(function(){
+    var $body = $("body"),
+        $page = $("#dfs-wrap"),
+        $pageHeader = $("#header");
+
     /* 상품가격 등의 숫자정보 표현 시 콤마 추가 */
     (function(digitsHandler){
         $(".digits").digits();
@@ -65,29 +65,4 @@ $(document).ready(function(){
             headerHandler();
         }).scroll()
     })();
-
-    /* 브라우저 상단에 붙어있는 DFS HEADER 동작 정의 */
-    /*(function(dfsNavHandler){
-        var $dfsNav = $("#dfs-nav-sticky");
-        var $dfsBavStopper = $("#footer");
-        if (!!$dfsNav.offset()) { // make sure "#dfs-nav-wrap" element exists
-            var generalSidebarHeight = $dfsNav.innerHeight();
-            /!*var dfsNavTop = $dfsNav.offset().top;*!/
-            var dfsNavOffset = $dfsNav.offset().top + 50;
-            var dfsNavStopperPosition = $dfsBavStopper.offset().top;
-            var stopPoint = dfsNavStopperPosition - generalSidebarHeight - dfsNavOffset;
-            var diff = stopPoint + dfsNavOffset;
-
-            $(window).scroll(function(){ // scroll event
-                var windowTop = $(window).scrollTop(); // returns number
-                if (stopPoint < windowTop) {
-                    $dfsNav.css({ position: 'absolute', top: diff });
-                } else if (dfsNavOffset < windowTop) {
-                    $dfsNav.css({ position: 'fixed', top: $pageHeader.height() });
-                } else {
-                    $dfsNav.css({position: 'absolute', top: 'initial'});
-                }
-            });
-        }
-    })();*/
 });
