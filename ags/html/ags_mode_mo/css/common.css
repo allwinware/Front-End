@@ -74,7 +74,7 @@ body.menuOpen .contentContainer	{height:100%; min-height:100%; overflow:hidden !
         .headerWrap .systemWrap a.nav	{left:4.3%;/*background:url("../images/btn_back.png") no-repeat 50% 50%;*/ padding-top:6px; }
 		.headerWrap .systemWrap a.back	{left:4.3%;/*background:url("../images/btn_back.png") no-repeat 50% 50%;*/ padding-top:4px;}
         .headerWrap .systemWrap a.nav + a.back {left:calc(4.3% + 24px + 8px)}/*24px:.nav아이콘너비, 8px:여백*/
-		.headerWrap .systemWrap a.close	{right:4.3%;/*background:url("../images/btn_close.png") no-repeat 50% 50%;*/padding-top:5px;}
+		.headerWrap .systemWrap a.close	{right:4.3%;/*background:url("../images/ico_close.png") no-repeat 50% 50%;*/padding-top:5px;}
 		.headerWrap .systemWrap .title	{margin: 0 auto; width: calc(100% - 4.3% - 4.3% - 34px * 4);text-align:center; line-height:44px;}
 		.headerWrap .systemWrap .title span	{font-weight:400;}
 
@@ -351,15 +351,110 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 	.contentContainer.baggage .sliderContainer .range-labels li {    position: relative;    float: left;    width: 20%;    text-align: center;    font-size: 13px; font-weight:600;  }
 	.contentContainer.baggage .sliderContainer .range-labels .active {color: #ff4f24;}
 
-.contentContainer.lounge .choiceWrap > .infoWrap	{padding:0 4.3% 13px;}/*라운지 가격정보 추가에 따른 CSS 수정 (최아율, 191223)*/
+.contentContainer.lounge .choiceWrap > .infoWrap	{padding:0 4.3% 13px;}
 
-	.contentContainer.lounge .infoWrap p	{font-size: 12px;line-height: 1.33; margin:3px 0;}
-	.contentContainer.lounge .infoWrap p:first-child	{font-size: 13px;line-height: 1.38; margin:0 0 6px;}
-	.contentContainer.lounge .infoWrap p:nth-child(2) span	{font-weight:600;}
-	.contentContainer.lounge .infoWrap p:last-child	{color:#ff4f24;}
+	.contentContainer.lounge .infoWrap p	{ font-size: 13px; line-height: 18px; margin:3px 0 }
+    .contentContainer.lounge .infoWrap ul { padding-top: 15px }
+    .contentContainer.lounge .infoWrap li { font-size: 12px; line-height: 16px; color: #ff4f24 }
+    /* AGS 모바일 라운지 갤러리 추가 */
+    .contentContainer.lounge .loungeSlideWrap { z-index: 0; position: relative; height: 280px; }
+    .contentContainer.lounge .loungeSlideWrap .loungeSlide { z-index: 0; position: relative; }
+    .contentContainer.lounge .loungeSlideWrap .loungeSlide li { z-index: 0; position: relative; }
+    .contentContainer.lounge .loungeSlideWrap .slide-title {
+        overflow: hidden;
+        -webkit-transform: translate(-50%, 0); -ms-transform: translate(-50%, 0); transform: translate(-50%, 0);
+        position: absolute; top: 30px; left: 50%;
+        font-size: 18px; font-weight: 800; color: #fff;
+        white-space: nowrap; line-height: 23px;
+        text-align: center; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5)
+    }
+    .contentContainer.lounge .loungeSlideWrap .slide-controller {
+        z-index: 5;
+        -webkit-transform: translate(0, -50%); -ms-transform: translate(0, -50%); transform: translate(0, -50%);
+        position: absolute; top: 50%; left: 0; right: 0; bottom: initial;
+        height: 36px;
+    }
+    .contentContainer.lounge .loungeSlideWrap .slide-controller:after { content: ""; display: table; clear: both; }
+    .contentContainer.lounge .loungeSlideWrap .loungeSlide-prev { overflow: hidden; float: left; width: 36px; height: 36px; background: url(../images/btn_lounge-prev.png) no-repeat; background-size: 36px auto; text-indent: -999em; }
+    .contentContainer.lounge .loungeSlideWrap .loungeSlide-next { overflow: hidden; float: right; width: 36px; height: 36px; background: url(../images/btn_lounge-next.png) no-repeat; background-size: 36px auto; text-indent: -999em; }
+    .contentContainer.lounge .loungeSlideWrap .common-info { z-index: 5; }
+    .contentContainer.lounge .loungeSlideWrap .lounge-price,
+    .contentContainer.lounge .loungeSlideWrap .lounge-price-info { position: absolute; width: 0; height: 0; margin: 0; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0 }
+    .contentContainer.lounge .loungeSlideWrap .lounge-price + dd {
+        z-index: 1;
+        overflow: hidden;
+        -webkit-transform: translate(-50%, 0); -ms-transform: translate(-50%, 0); transform: translate(-50%, 0);
+        position: absolute; bottom: 50px; left: 50%;
+        font-size: 26px; font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        white-space: nowrap;
+        text-align: center;
+    }
+    .contentContainer.lounge .loungeSlideWrap .lounge-price-info + dd {
+        z-index: 1;
+        overflow: hidden;
+        padding: 0 10px;
+        -webkit-transform: translate(-50%, 0); -ms-transform: translate(-50%, 0); transform: translate(-50%, 0);
+        position: absolute; bottom: 20px; left: 50%;
+        font-size: 12px; font-weight: 600; color: #fff;
+        white-space: nowrap; line-height: 22px;
+        text-align: center;
+        background-color: #000;
+    }
+    .contentContainer.lounge .loungeSlideWrap .lounge-customer {
+        z-index: 1;
+        position: absolute; right: 10px; bottom: 29px;
+        font-size: 12px; color: #fff;
+    }
+    .contentContainer.lounge .loungeSlideWrap .lounge-customer + dd {
+        z-index: 1;
+        position: absolute; right: 10px; bottom: 10px;
+        padding-left: 16px;
+        font-size: 14px; font-weight: 600; color: #fff;
+        background: url(../images/ico_like-w.png) 0 2px no-repeat;
+        background-size: 13px auto;
+    }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food ul {
+        padding-bottom: 10px;
+    }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food ul:after { content: ""; display: table; clear: both; }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food li {
+        position: relative;
+        float: left;
+        margin-left: 7px; padding-top: 55px; width: 69px; height: 88px;
+        background-repeat: no-repeat;
+        background-position: left top;
+        font-size: 11px; font-weight: 600;
+        text-align: center; line-height: 12px;
+        word-break: keep-all;
+        background-size: 69px auto;
+    }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food li:not(:first-child):before {
+        content: "";
+        position: absolute; left: -13px; top: 50%;
+        -webkit-transform: translate(0, -50%); -ms-transform: translate(0, -50%); transform: translate(0, -50%);
+        display: inline-block;
+        width: 13px; height: 13px;
+        background: url(../images/ico_plus.png) no-repeat;
+        background-size: 13px auto;
+    }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food li:nth-of-type(1) {
+        margin-left: 0;
+        background-image: url(../images/bg_lounge-food1.jpg);
+    }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food li:nth-of-type(2) {
+        background-image: url(../images/bg_lounge-food2.jpg);
+    }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food li:nth-of-type(3) {
+        background-image: url(../images/bg_lounge-food3.jpg);
+    }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food li:nth-of-type(4) {
+        background-image: url(../images/bg_lounge-food4.jpg);
+    }
+    .contentContainer.lounge .loungeFoodWrap .lounge-food li:nth-of-type(5) {
+        background-image: url(../images/bg_lounge-food5.jpg);
+    }
 
-    /*라운지 가격정보 추가에 따른 CSS 추가 (최아율, 191223)*/
-    .contentContainer.lounge .priceWrap .title { font-size: 12px; font-weight: 800; line-height: 1; }
+.contentContainer.lounge .priceWrap .title { font-size: 12px; font-weight: 800; line-height: 1; }
     .contentContainer.lounge .priceList { margin: -6px 0 0 4.3%; border-top: 1px solid #000; }
     .contentContainer.lounge .priceList li { overflow: hidden; padding: 16px 4.3% 0 0; height: 44px; border-bottom: 1px solid #e4e4e4; font-size: 12px; letter-spacing: -0.02em; } /*라운지 가격정보 추가에 따른 CSS 추가 (최아율, 191223)*/
     .contentContainer.lounge .priceList li dl { float: right; }
@@ -371,7 +466,6 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 	.contentContainer.lounge .passengerList	{padding:0 4.3% 6px;}
     .contentContainer.lounge .passengerList .titleWrap { padding: 24px 4.3% 16px 0; }
     .contentContainer.lounge .passengerList .title { font-size: 12px; font-weight: 800; line-height: 1; }
-    /*//라운지 가격정보 추가에 따른 CSS 추가/수정 (최아율, 191223)*/
 	.contentContainer.lounge .passengerList li	{width:100%; clear:both; border:1px solid #000; border-radius:10px; padding:14px 12px; margin-bottom:10px}
     .contentContainer.lounge .passengerList li .passengerAge { float: left; overflow: hidden; display: inline-block; margin-right: 10px; width: 34px; height: 22px; vertical-align: middle; font-size: 12px; font-weight: 600; text-align: center; line-height: 20px; border: 1px solid #aaa; border-radius: 3px; color: #aaa; }/*라운지 가격정보 추가에 따른 CSS 추가 (최아율, 191223)*/
 	.contentContainer.lounge .passengerList li .passenger	{text-transform:uppercase; font-weight:600; font-size:12px; line-height:22px; float:left;}
