@@ -67,7 +67,7 @@ body.menuOpen .contentContainer	{height:100%; min-height:100%; overflow:hidden !
 .pageWrap.wrapper.passengerFixed .choiceWrap	{padding-top:133px;}
 
 
-.headerWrap	{background:#fff; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16); margin-bottom:8px;}
+.headerWrap	{background:#fff; /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);*/ margin-bottom:8px;}
 	.headerWrap .title	{font-size:14px;letter-spacing: -0.35px;  font-weight:800;}
 	.headerWrap .systemWrap	{border-bottom:1px solid #f0f0f0; position:relative;}
 		.headerWrap .systemWrap a	{display:block; position:absolute; top:10px; width:24px; height:24px; /*text-indent:-9999vw;*/}
@@ -365,13 +365,14 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
     .contentContainer.lounge .loungeSlideWrap { z-index: 0; position: relative; height: 280px; }
     .contentContainer.lounge .loungeSlideWrap .loungeSlide { z-index: 0; position: relative; }
     .contentContainer.lounge .loungeSlideWrap .loungeSlide li { z-index: 0; position: relative; }
+    .contentContainer.lounge .loungeSlideWrap .loungeSlide li:after { z-index: 0; content: ""; display: block; position: absolute; left: 0; bottom: 0; right: 0; height: 80px; background-color: rgba(0,0,0,0.4); }
     .contentContainer.lounge .loungeSlideWrap .slide-title {
+        z-index: 1;
         overflow: hidden;
-        -webkit-transform: translate(-50%, 0); -ms-transform: translate(-50%, 0); transform: translate(-50%, 0);
-        position: absolute; top: 30px; left: 50%;
-        font-size: 18px; font-weight: 800; color: #fff;
-        white-space: nowrap; line-height: 23px;
-        text-align: center; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5)
+        position: absolute; bottom: 16px; left: 20px;
+        font-size: 18px; font-weight: 600; color: #fff;
+        line-height: 22px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5)
     }
     .contentContainer.lounge .loungeSlideWrap .slide-controller {
         z-index: 5;
@@ -388,22 +389,18 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
     .contentContainer.lounge .loungeSlideWrap .lounge-price + dd {
         z-index: 1;
         overflow: hidden;
-        -webkit-transform: translate(-50%, 0); -ms-transform: translate(-50%, 0); transform: translate(-50%, 0);
-        position: absolute; bottom: 50px; left: 50%;
-        font-size: 26px; font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        position: absolute; bottom: 20px; right: 20px;
+        font-size: 20px; font-weight: 800; color: #fff;
         white-space: nowrap;
-        text-align: center;
+        text-align: right;
     }
     .contentContainer.lounge .loungeSlideWrap .lounge-price-info + dd {
         z-index: 1;
         overflow: hidden;
-        padding: 0 10px;
-        -webkit-transform: translate(-50%, 0); -ms-transform: translate(-50%, 0); transform: translate(-50%, 0);
-        position: absolute; bottom: 20px; left: 50%;
-        font-size: 12px; font-weight: 600; color: #fff;
-        white-space: nowrap; line-height: 22px;
-        text-align: center;
-        background-color: #000;
+        position: absolute; bottom: 46px; right: 20px;
+        font-size: 11px; font-weight: 400; color: #fff;
+        white-space: nowrap;
+        text-align: right;
     }
     .contentContainer.lounge .loungeSlideWrap .lounge-customer {
         z-index: 1;
@@ -418,7 +415,47 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
         background: url(../images/ico_like-w.png) 0 2px no-repeat;
         background-size: 13px auto;
     }
-    .contentContainer.lounge .loungeFoodWrap .lounge-food ul {
+    .contentContainer.lounge .lounge-food {
+        position: absolute; right: 7px; top: 16px;
+    }
+    .contentContainer.lounge .lounge-food ul:after { content: ""; display: table; clear: both; }
+    .contentContainer.lounge .lounge-food li {
+        overflow: visible;
+        position: relative;
+        float: left;
+        padding-top: 43px; width: 46px; height: 55px;
+        background-repeat: no-repeat;
+        background-position: center top;
+        font-size: 11px; font-weight: 600;
+        text-align: center; color: #fff;
+        word-break: keep-all;
+        background-size: 36px auto;
+    }
+    .contentContainer.lounge .lounge-food li:not(:first-child):before {
+        content: "";
+        z-index: 5;
+        position: absolute; left: -4px; top: 16px;
+        display: inline-block;
+        width: 7px; height: 7px;
+        background: url(../images/ico_plus.png) no-repeat;
+        background-size: 7px auto;
+    }
+    .contentContainer.lounge .lounge-food li:nth-of-type(1) {
+        background-image: url(../images/bg_lounge-food1@2x.png);
+    }
+    .contentContainer.lounge .lounge-food li:nth-of-type(2) {
+        background-image: url(../images/bg_lounge-food2@2x.png);
+    }
+    .contentContainer.lounge .lounge-food li:nth-of-type(3) {
+        background-image: url(../images/bg_lounge-food3@2x.png);
+    }
+    .contentContainer.lounge .lounge-food li:nth-of-type(4) {
+        background-image: url(../images/bg_lounge-food4@2x.png);
+    }
+    .contentContainer.lounge .lounge-food li:nth-of-type(5) {
+        background-image: url(../images/bg_lounge-food5@2x.png);
+    }
+    /*.contentContainer.lounge .loungeFoodWrap .lounge-food ul {
         padding-bottom: 10px;
     }
     .contentContainer.lounge .loungeFoodWrap .lounge-food ul:after { content: ""; display: table; clear: both; }
@@ -457,7 +494,7 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
     }
     .contentContainer.lounge .loungeFoodWrap .lounge-food li:nth-of-type(5) {
         background-image: url(../images/bg_lounge-food5.jpg);
-    }
+    }*/
 
 .contentContainer.lounge .priceWrap .title { font-size: 12px; font-weight: 800; line-height: 1; }
     .contentContainer.lounge .priceList { margin: -6px 0 0 4.3%; border-top: 1px solid #000; }
@@ -875,6 +912,11 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 .area-wrap { padding-top: 32px; }
 .area-wrap + .area-wrap { padding-top: 50px; }
 .area-wrap__title { padding: 0 4.3% 16px; font-size: 14px; letter-spacing: -0.35px; font-weight: 800; }
+.list-hyphen li { position: relative; margin-top: 2px; padding-left: 1em; font-size: 12px; text-indent: 0; }
+.list-hyphen li:before {
+    content: "-";
+    position: absolute; left: 0; top: 0;
+}
 
 .headerWrap.ui-fixed { position: fixed; top: 0; left: 0; right: 0; z-index: 1; }
 
@@ -1015,6 +1057,26 @@ ul.payDetail	{width:100%; padding-left:4.3%; overflow:visible; }
 .navigation-layer .nav-container .nav__1depth { margin-left: 4.3%; }
 .navigation-layer .nav-container .nav__1depth > li { border-bottom: 1px solid #F0F0F0 }
 .navigation-layer .nav-container .nav__1depth > li > a { display: block; padding: 16px; min-height: 52px; font-size: 14px; letter-spacing: -0.26px; line-height: 20px; }
+
+/*부가서비스 상단 네비게이션*/
+.services-nav {
+    height: 69px;
+    border-bottom: 1px solid #F0F0F0;
+}
+.services-nav ul { display: table; width: 100%; height: 100%; }
+.services-nav li {
+    display: table-cell; width: 25%;
+    font-size: 11px; font-weight: 800;
+    letter-spacing: -0.28px;
+    text-align: center;
+    background-color: #fff;
+}
+.services-nav li.active { background-color: #FEE700; }
+.services-nav li a { display: block; padding-top: 44px; width: 100%; height: 100%; background-repeat: no-repeat; background-position: 50% 12px; }
+.services-nav li a.btn_services-seat { background-image: url(../images/ico_seat_new@2x.png); background-size: 24px auto; }
+.services-nav li a.btn_services-baggage { background-image: url(../images/ico_baggage@2x.png); background-size: 15px auto; }
+.services-nav li a.btn_services-meals { background-image: url(../images/ico_food@2x.png); background-size: 19px auto; }
+.services-nav li a.btn_services-lounge { background-image: url(../images/ico_coffee@2x.png); background-size: 26px auto; }
 
 @media screen and (max-width : 320px) {
 
