@@ -41,7 +41,7 @@ $(document).ready(function () {
         $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
     });
 
-	$(document).on('click', '.popupDimmed', function() {
+	$(document).on('click', '.popupDimmed:not(.preventClick)', function() {/*200212 dim 클릭 시 자동으로 닫히지 않게 처리하는 특수 클래스를 위한 처리 추가*/
 		$(this).parent().hide();
 	});
 	$(document).on('click', '.popupContainer .close', function() {
