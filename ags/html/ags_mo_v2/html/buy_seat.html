@@ -10,8 +10,7 @@
     <script>
         $(document).ready(function(){
             var $win = $(window),
-                $doc = $(document),
-                $body = $("body");
+                $doc = $(document);
 
             /* 좌석 선택 방식을 컨트롤 합니다. */
             (function(seatHandler){
@@ -74,8 +73,12 @@
                             activeLinkScrollLeft($checkedPsg.parent("li").next("li"), $psgLists.parent(".passenger-wrap"), 800);
                         } else if ($checkedPsg.parent("li").next("li").length === 0) {
                             /*다음 승객이 없고 다음 탭이 있을 경우, 하단 프로세스 버튼 영역으로 포커스를 내려줍니다*/
+                            fixedElHeight = 0 + 32;
+                            $("[data-ui='fixed']").each(function(){
+                                fixedElHeight += $(this).outerHeight();
+                            });
                             $("html").animate({
-                                scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top
+                                scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top - fixedElHeight
                             }, 1500);
                         }
                     });
@@ -178,7 +181,7 @@
         <h1 class="site-name">올윈에어</h1>
 
         <!-- ags-header -->
-        <header class="ags-header">
+        <header id="ags-header" class="ags-header">
             <h2 class="page-name">제주항공 부가서비스 사전 신청</h2>
             <nav class="ags-gnb">
                 <h3 class="sr-only">전역메뉴</h3>

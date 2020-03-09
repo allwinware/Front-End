@@ -232,9 +232,11 @@ $(document).ready(function(){
     $(document).on("click", "#btn_summary-drawer1, #btn_summary-drawer2, #btn_summary-drawer3", function(){
         var $target = $("#ags-summary");
         if($target.hasClass("active") === true){
+            $target.css("height", "");
             popupHide($target);
         } else {
             popupShow($target);
+            $target.css("height", $win.innerHeight() - $("#ags-header").height());
         }
     });
 
