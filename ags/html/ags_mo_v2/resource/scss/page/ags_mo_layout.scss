@@ -1,0 +1,140 @@
+/* layout */
+
+html { font-size: #{$font-root-size}px; }
+body {
+  font-family: $font-common-family;
+  @include font($size: $font-root-size, $color: $mono1, $weight: 400);
+}
+.ags-wrap {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.site-name { @include sr-only }
+.ags-header {
+  position: relative;
+  height: rem($gnb-height);
+  border-bottom: 1px solid $mono8;
+  .page-name {
+    @include font($size: 14, $color: $mono1, $weight: 900, $spacing: -0.03);
+    @include valign-middle;
+    @include text-ellipsis;
+    position: absolute; top: 0; left: rem(80); bottom: 0; right: rem(80); height: inherit;
+    text-align: center;
+  }
+  .ags-gnb {
+    padding: rem(14) 0; height: rem($gnb-height);
+  }
+  .gnb-wrap {
+    @include clearfix;
+    margin: 0 rem(-$grid); padding: 0 rem($grid * 2);
+    li {
+      float: left;
+      margin: 0 rem($grid / 2);
+      &:last-of-type { float: right; }
+    }
+    a[class^='btn_'] {
+      overflow: hidden;
+      display: inline-block;
+      width: rem(24); height: rem(24);
+      text-indent: -999em;
+      background-position: 50% 50%;
+    }
+    .btn_back { @include background($file:'../img/common/ico_header-back', $type: png, $width: 16px, $height: 16px); }
+    .btn_gnb { @include background($file:'../img/common/ico_header-gnb', $type: png, $width: 18px, $height: 12px); }
+    .btn_close { @include background($file:'../img/common/ico_header-close', $type: png, $width: 14px, $height: 14px); }
+  }
+}
+.ags-container {
+  padding-bottom: rem($summary-height + 44);
+  .ags-snb {
+    height: rem($snb-height);
+    border-bottom: 1px solid $mono8;
+  }
+  .snb-wrap {
+    display: table; table-layout: fixed;
+    width: 100%; height: rem($snb-height);
+    li {
+      display: table-cell;
+      min-width: 20%; max-width: 33.333%; height: 100%;
+      text-align: center;
+      &.active { background-color: $bg-submit;}
+      &.buy a:after { content: ""; display: inline-block; width: rem(8); height: rem(4); border: solid $border-primary; border-width: 0 0 1px 1px; transform: rotate(-45deg) translate(3px, 0); }
+      &:not(:first-of-type) { border-left: 1px solid $mono8 }
+    }
+    a {
+      @include font($size: 11, $color: $mono1, $weight: 900, $spacing: -0.03);
+      display: block; width: 100%; height: 100%;
+      padding-top: rem(45);
+      text-decoration: none;
+      background-repeat: no-repeat; background-position: 50% rem(12);
+      &.btn_seat { @include background($file: '../img/buy/ico_seat', $type: png, $width: 24px, $height: 24px); }
+      &.btn_baggage { @include background($file: '../img/buy/ico_baggage', $type: png, $width: 15px, $height: 25px); }
+      &.btn_meal { @include background($file: '../img/buy/ico_meal', $type: png, $width: 19px, $height: 24px); }
+      &.btn_lounge { @include background($file: '../img/buy/ico_lounge', $type: png, $width: 26px, $height: 26px); }
+    }
+  }
+  .content-wrap { position: relative; width: 100%; }
+}
+
+.notification-title {
+  @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+  position: relative;
+  padding: rem(3) 0 rem(4) rem(22);
+  .ico {
+    @include background($file: 'common/ico_notice', $type: png, $width: rem(16), $height: rem(16));
+    position: absolute; left: 0; top: 0;
+    display: inline-block;
+    width: rem(16); height: rem(16);
+  }
+}
+.notification-list {
+  $font-size: 12;
+  @include font($size: $font-size, $color: $mono1, $weight: 300, $spacing: -0.03);
+  position: relative;
+  padding-bottom: rem(20);
+  li {
+    $line-height: 16;
+    position: relative;
+    margin-top: rem(6); padding-left: rem(9);
+    line-height: rem($line-height);
+    &:before {
+      $blt-size: 2;
+      content: "";
+      display: inline-block;
+      position: absolute; left: 0; top: rem(($line-height / 2) - $blt-size);
+      width: rem($blt-size); height: rem($blt-size);
+      background-color: $mono1; border-radius: 50%;
+    }
+  }
+}
+.content-wrap + .content-wrap {
+  border-top: 1px solid $mono8
+}
+/* 프로세스 버튼 영역 */
+.process-btn-wrap {
+  @include flex(space-between stretch flex-start nowrap);
+  margin: 0 rem(-3); padding: 0 rem($grid * 2) rem(50);
+  [class^='btn_'] { margin: 0 rem(3) !important; }
+  .btn_cancel {
+    @include form($type: button, $size: 4, $role: cancel);
+    width: auto; min-width: rem(90);
+  }
+  .btn_confirm {
+    @include form($type: button, $size: 4, $role: submit);
+    flex: 1 auto;
+    &:not(:only-child) { max-width: calc(249 / 343 * 100%); }
+  }
+}
+
+/* z-index */
+.ags-header { z-index: 500 }
+.ags-footer { z-index: 100 }
+.ags-wrap {
+  z-index: 0;
+  &.gnb-active {
+    .ags-header { z-index: 1500 }
+    .ags-summary,
+    .ags-footer { z-index: 500 }
+  }
+}

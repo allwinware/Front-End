@@ -1,0 +1,24 @@
+[role='tab'] {
+  transition: all $trs-duration;
+  transition-delay: $trs-delay;
+  color: $mono4;
+  .tabs > &.active { font-weight: 800; color: $mono1; }
+}
+[role='tabpanel'] {
+  transition: all $trs-duration;
+  transition-delay: $trs-delay;
+  overflow: hidden;
+  position: relative;
+  width: 100vw; height: 0;
+  &.active {
+    height: 100%;
+  }
+}
+.tab-wrap {  }
+.tab-panels {
+  .align-horizontal {
+    @include flex(flex-start stretch flex-start nowrap);
+    width: 1000vw;
+    [role='tabpanel'] { width: 100vw; flex: 1 auto; }
+  }
+}

@@ -1,0 +1,118 @@
+ <!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <title>팝업화면</title>
+    <link rel="stylesheet" href="../resource/css/ags_mo.min.css">
+    <script src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script src="../resource/js/ags_mo.ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(document).on("click", "[data-popup]", function(){
+                var $pop = $($(this).attr("data-popup"));
+                $pop.addClass("active");
+                createDim()
+            });
+            $(document).on("click", "[data-role='close']", function(){
+                var $pop = $("#" + $(this).parents(".pop-area").attr("id"));
+                deleteDim($pop, "active")
+            })
+        });
+    </script>
+</head>
+<body>
+	<div id="ags-wrap" class="ags-wrap">
+        <h1 class="site-name">올윈에어</h1>
+
+        <!-- ags-header -->
+        <header class="ags-header">
+            <h2 class="page-name">제주항공 부가서비스</h2>
+            <nav class="ags-gnb">
+                <h3 class="sr-only">전역메뉴</h3>
+                <ul class="gnb-wrap">
+                    <li><a href="#none" target="_self" class="btn_back">뒤로가기</a></li>
+                    <li>
+                        <a href="#none" target="_self" class="btn_nav">메뉴</a>
+                        <ul class="gnb-2dp-wrap">
+                            <li><a href="#none" target="_self">부가서비스 구매하기</a></li>
+                            <li><a href="#none" target="_self">면세품 구매하기</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#none" target="_self" class="btn_close">화면닫기</a></li>
+                </ul>
+            </nav>
+        </header>
+        <!-- //ags-header -->
+
+        <hr>
+
+        <!-- ags-container -->
+        <div class="ags-container">
+            <section class="ags-contents" data-page-id="popup">
+                <h3 class="sr-only">컨텐츠</h3>
+                <div class="content-wrap">
+                    <div class="list-wrap">
+                        <ul class="list-style1">
+                            <li><a href="#none" target="_self" data-popup="#pop_loading">페이지 로딩</a></li>
+                            <li><a href="#none" target="_self" data-popup="#pop01">선택 내역 삭제하기</a></li>
+                            <li><a href="#none" target="_self" data-popup="#pop02">약관 동의를 하세요</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- //ags-container -->
+
+	</div>
+
+    <!-- 팝업 : 페이지 로딩 -->
+    <div id="pop_loading" class="pop-area">
+        <div class="align-center">
+            <div class="page-loading">
+                <i class="ico"></i>
+                로딩 중
+            </div>
+        </div>
+    </div>
+
+    <!-- 팝업 : 선택 내역 삭제하기 -->
+    <div id="pop01" class="pop-area" data-type="alert">
+        <div class="pop-wrap">
+            <section class="pop-container">
+                <div class="ico-wrap">
+                    <i class="ico_alert--primary">!</i>
+                </div>
+                <h3 class="alert-title">선택 내역 삭제하기</h3>
+                <div class="alert-text">
+                    선택한 내역들을 삭제하시겠습니까?<br>
+                    내역이 저장되지 않습니다.
+                </div>
+            </section>
+            <footer class="pop-footer">
+                <button type="button" class="btn_cancel" data-role="close">취소</button>
+                <button type="button" class="btn_confirm">삭제하기</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 팝업 : 약관 동의를 하세요 -->
+    <div id="pop02" class="pop-area" data-type="alert">
+        <div class="pop-wrap">
+            <section class="pop-container">
+                <div class="ico-wrap">
+                    <i class="ico_alert">!</i>
+                </div>
+                <h3 class="alert-title">약관 동의를 하세요</h3>
+                <div class="alert-text">
+                    요금 규정 확인 및 약 관 동의에 체크를 한 후에<br>
+                    부가서비스 결제가 가능합니다.
+                </div>
+            </section>
+            <footer class="pop-footer">
+                <button type="button" class="btn_confirm" data-role="close">확인</button>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

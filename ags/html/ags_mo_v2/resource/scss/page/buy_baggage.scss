@@ -1,0 +1,100 @@
+/*부가서비스 구매 > 수하물*/
+[data-page-id='buy__baggage']{
+  overflow: hidden;
+  width: 100%;
+  .welcome-msg {
+    @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03);
+    padding: rem($grid * 4) rem($grid * 2);
+    line-height: rem(16);
+  }
+  .baggage-plan {
+    padding-left: rem($grid * 2);
+    .passenger-name {
+      @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+      @include background($file: 'common/ico_ags-summary-passenger', $type: png, $width: rem(12), $height: rem(12));
+      @include text-uppercase;
+      position: relative;
+      margin: rem(40) 0 rem(12); padding-left: rem(20);
+      &:first-of-type { margin-top: 0; }
+      &:after {
+        @include tagging-route;
+        position: absolute; right: rem($grid * 2); top: 0;
+      }
+      @at-root [data-page-id='buy__baggage'] .tab-panels .tab-panel:first-of-type .baggage-plan .passenger-name:after {
+        content: "가는 편";
+      }
+      @at-root [data-page-id='buy__baggage'] .tab-panels .tab-panel:nth-of-type(2) .baggage-plan .passenger-name:after {
+        content: "오는 편";
+      }
+    }
+    .table-wrap {
+      border-top: 1px solid $mono1;
+    }
+    .charge-sheet {
+      @include table($style: type1, $mg-size: small);
+      th, td { padding: rem($grid * 2) rem($grid * 2) rem($grid * 2) 0 !important; height: rem(47); border-bottom: 1px solid $mono8; vertical-align: middle; }
+      tfoot th, tfoot td { background-color: transparent; }
+      tbody td:last-of-type { text-align: right; }
+      tfoot th {
+        @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
+        text-align: left;
+      }
+      tfoot td {
+        color: $text-primary; font-weight: 600; text-align: right;
+      }
+      tbody th[scope='row'] {
+        @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
+        text-align: left;
+      }
+    }
+    .baggage-handler {
+      $size: 42;
+      position: relative;
+      margin-left: auto; width: rem(158);
+      dl {
+        width: 100%;
+      }
+      dt { @include sr-only }
+      .weight + dd {
+        @include font($size: 18, $color: $mono1, $weight: 800, $spacing: -0.03);
+        @include valign-middle();
+        height: rem($size);
+        text-align: center;
+      }
+      .price + dd {
+        @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03);
+        padding-top: rem(10)
+      }
+      [class*='btn_'] {
+        overflow: hidden;
+        position: absolute; top: 0;
+        display: inline-block;
+        width: rem($size); height: rem($size);
+        border: 1px solid $mono1; border-radius: 3px;
+        background-position: 50% 50%;
+        text-indent: -999em;
+      }
+      .btn_increase {
+        @include background($file: 'buy/ico_baggage-increase', $type: png, $width: rem(12), $height: rem(12));
+        right: 0;
+        &[disabled='disabled'] {
+          @include background($file: 'buy/ico_baggage-increase--w', $type: png, $width: rem(12), $height: rem(12));
+          background-color: $mono8;
+          border-color: $mono8;
+        }
+      }
+      .btn_decrease {
+        @include background($file: 'buy/ico_baggage-decrease', $type: png, $width: rem(12), $height: rem(2));
+        left: 0;
+        &[disabled='disabled'] {
+          @include background($file: 'buy/ico_baggage-decrease--w', $type: png, $width: rem(12), $height: rem(2));
+          background-color: $mono8;
+          border-color: $mono8;
+        }
+      }
+    }
+  }
+  .process-btn-wrap {
+    padding-top: rem(50);
+  }
+}
