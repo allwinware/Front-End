@@ -233,7 +233,7 @@ $(document).ready(function(){
         var $target = $("#passenger-summary");
         if($target.hasClass("active") === true){
             $target.css("height", "");
-            popupHide($target);
+            setTimeout(function(){popupHide($target);}, 500)
         } else {
             popupShow($target);
             $target.css("height", $win.innerHeight() - $("#ags-header").height());
