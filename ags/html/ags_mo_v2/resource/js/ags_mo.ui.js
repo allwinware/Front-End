@@ -230,7 +230,7 @@ $(document).ready(function(){
 
     /*총 결제 금액 팝업 정의*/
     $(document).on("click", "#btn_summary-drawer1, #btn_summary-drawer2, #btn_summary-drawer3", function(){
-        var $target = $("#ags-summary");
+        var $target = $("#passenger-summary");
         if($target.hasClass("active") === true){
             $target.css("height", "");
             popupHide($target);

@@ -67,19 +67,23 @@
 
                         /*2. IF문을 처리한 이후 다음 승객으로 포커스 이동*/
                         if($checkedPsg.parent("li").next("li").length > 0) {
-                            /*다음 승객이 존재하면 다음 승객으로 포커스를 넘깁니다*/
-                            $checkedPsg.parent("li").next("li").find("input[type='radio']").prop("checked", true);
-                            /*포커스를 가진 승객이 화면 좌측에 위치할 수 있도록 스크롤을 이동합니다*/
-                            activeLinkScrollLeft($checkedPsg.parent("li").next("li"), $psgLists.parent(".passenger-wrap"), 800);
+                            setTimeout(function(){
+                                /*다음 승객이 존재하면 다음 승객으로 포커스를 넘깁니다*/
+                                $checkedPsg.parent("li").next("li").find("input[type='radio']").prop("checked", true);
+                                /*포커스를 가진 승객이 화면 좌측에 위치할 수 있도록 스크롤을 이동합니다*/
+                                activeLinkScrollLeft($checkedPsg.parent("li").next("li"), $psgLists.parent(".passenger-wrap"), 800);
+                            }, 1000);
                         } else if ($checkedPsg.parent("li").next("li").length === 0) {
                             /*다음 승객이 없고 다음 탭이 있을 경우, 하단 프로세스 버튼 영역으로 포커스를 내려줍니다*/
                             fixedElHeight = 0 + 32;
                             $("[data-ui='fixed']").each(function(){
                                 fixedElHeight += $(this).outerHeight();
                             });
-                            $("html").animate({
-                                scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top - fixedElHeight
-                            }, 1500);
+                            setTimeout(function() {
+                                $("html").animate({
+                                    scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top - fixedElHeight
+                                }, 750);
+                            }, 1000)
                         }
                     });
 
@@ -1028,207 +1032,211 @@
                         <dd><button type="button" class="btn_pay-imm">바로 결제하기</button></dd>
                     </dl>
                 </div>
-                <div class="passenger-summary">
-                    <h5 class="summary-title">탑승객별 결제 금액</h5>
-                    <h6 class="passenger-name">Kim, Allwin</h6>
-                    <div class="table-wrap">
-                        <table class="charge-sheet">
-                            <caption>Kim, Allwin 결제 금액</caption>
-                            <colgroup>
-                                <col>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tfoot>
-                            <tr>
-                                <th colspan="2">금액</th>
-                                <td><span class="digits">99000</span></td>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            <tr class="title_route">
-                                <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
-                            </tr>
-                            <tr>
-                                <th scope="row">좌석 지정</th>
-                                <td>D4</td>
-                                <td><span class="digits">10000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">수하물 추가</th>
-                                <td>30kg</td>
-                                <td><span class="digits">60000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">기내식</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">라운지</th>
-                                <td>이용권 선택</td>
-                                <td><span class="digits">14900</span></td>
-                            </tr>
-                            <tr class="title_route">
-                                <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
-                            </tr>
-                            <tr>
-                                <th scope="row">좌석 지정</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">수하물 추가</th>
-                                <td>30kg</td>
-                                <td><span class="digits">60000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">기내식</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">라운지</th>
-                                <td>이용권 선택</td>
-                                <td><span class="digits">14900</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <h6 class="passenger-name">Bae, Sungjune</h6>
-                    <div class="table-wrap">
-                        <table class="charge-sheet">
-                        <caption>Bae, Sungjune 결제 금액</caption>
-                            <colgroup>
-                                <col>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tfoot>
-                            <tr>
-                                <th colspan="2">금액</th>
-                                <td><span class="digits">99000</span></td>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            <tr class="title_route">
-                                <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
-                            </tr>
-                            <tr>
-                                <th scope="row">좌석 지정</th>
-                                <td>D4</td>
-                                <td><span class="digits">10000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">수하물 추가</th>
-                                <td>30kg</td>
-                                <td><span class="digits">60000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">기내식</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">라운지</th>
-                                <td>이용권 선택</td>
-                                <td><span class="digits">14900</span></td>
-                            </tr>
-                            <tr class="title_route">
-                                <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
-                            </tr>
-                            <tr>
-                                <th scope="row">좌석 지정</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">수하물 추가</th>
-                                <td>30kg</td>
-                                <td><span class="digits">60000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">기내식</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">라운지</th>
-                                <td>이용권 선택</td>
-                                <td><span class="digits">14900</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <h6 class="passenger-name">Kim, Kukjin</h6>
-                    <div class="table-wrap">
-                        <table class="charge-sheet">
-                            <caption>Bae, Sungjune 결제 금액</caption>
-                            <colgroup>
-                                <col>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tfoot>
-                            <tr>
-                                <th colspan="2">금액</th>
-                                <td><span class="digits">99000</span></td>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            <tr class="title_route">
-                                <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
-                            </tr>
-                            <tr>
-                                <th scope="row">좌석 지정</th>
-                                <td>D4</td>
-                                <td><span class="digits">10000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">수하물 추가</th>
-                                <td>30kg</td>
-                                <td><span class="digits">60000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">기내식</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">라운지</th>
-                                <td>이용권 선택</td>
-                                <td><span class="digits">14900</span></td>
-                            </tr>
-                            <tr class="title_route">
-                                <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
-                            </tr>
-                            <tr>
-                                <th scope="row">좌석 지정</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">수하물 추가</th>
-                                <td>30kg</td>
-                                <td><span class="digits">60000</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">기내식</th>
-                                <td><a href="#none" target="_self">구매하기</a></td>
-                                <td><span class="digits">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">라운지</th>
-                                <td>이용권 선택</td>
-                                <td><span class="digits">14900</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </footer>
         <!-- //ags-summary -->
 	</div>
+
+    <!-- 총 결제금액 팝업 -->
+    <div id="passenger-summary" class="passenger-summary">
+        <a href="#none" target="_self" id="btn_summary-drawer3" class="btn_drawer"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
+        <h5 class="summary-title">탑승객별 결제 금액</h5>
+        <h6 class="passenger-name">Kim, Allwin</h6>
+        <div class="table-wrap">
+            <table class="charge-sheet">
+                <caption>Kim, Allwin 결제 금액</caption>
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <tfoot>
+                <tr>
+                    <th colspan="2">금액</th>
+                    <td><span class="digits">99000</span></td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr class="title_route">
+                    <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
+                </tr>
+                <tr>
+                    <th scope="row">좌석 지정</th>
+                    <td>D4</td>
+                    <td><span class="digits">10000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">수하물 추가</th>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
+                </tr>
+                <tr class="title_route">
+                    <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
+                </tr>
+                <tr>
+                    <th scope="row">좌석 지정</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">수하물 추가</th>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6 class="passenger-name">Bae, Sungjune</h6>
+        <div class="table-wrap">
+            <table class="charge-sheet">
+                <caption>Bae, Sungjune 결제 금액</caption>
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <tfoot>
+                <tr>
+                    <th colspan="2">금액</th>
+                    <td><span class="digits">99000</span></td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr class="title_route">
+                    <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
+                </tr>
+                <tr>
+                    <th scope="row">좌석 지정</th>
+                    <td>D4</td>
+                    <td><span class="digits">10000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">수하물 추가</th>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
+                </tr>
+                <tr class="title_route">
+                    <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
+                </tr>
+                <tr>
+                    <th scope="row">좌석 지정</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">수하물 추가</th>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6 class="passenger-name">Kim, Kukjin</h6>
+        <div class="table-wrap">
+            <table class="charge-sheet">
+                <caption>Bae, Sungjune 결제 금액</caption>
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <tfoot>
+                <tr>
+                    <th colspan="2">금액</th>
+                    <td><span class="digits">99000</span></td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr class="title_route">
+                    <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
+                </tr>
+                <tr>
+                    <th scope="row">좌석 지정</th>
+                    <td>D4</td>
+                    <td><span class="digits">10000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">수하물 추가</th>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
+                </tr>
+                <tr class="title_route">
+                    <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
+                </tr>
+                <tr>
+                    <th scope="row">좌석 지정</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">수하물 추가</th>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- //총 결제금액 팝업 -->
 </body>
 </html>
