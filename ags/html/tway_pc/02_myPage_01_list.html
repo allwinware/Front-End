@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>리스트 - 나의 예약/결제 내역 - AGS PC</title>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/common.css">   
+</head>
+<body>
+	<div class="headerContainer">
+		<div class="headerWrap">
+			<div class="header">
+                <h1>
+                    <i class="symbol_tway">티웨이</i><i class="ico_by">X</i><i class="symbol_onlinetour">온라인투어</i>
+                    <!--<i class="symbol_tway">티웨이</i><i class="ico_by">X</i><i class="symbol_modetour">모두투어</i>-->
+                </h1>
+				<ul>
+					<li><a href="#">항공 부가서비스 신청하기</a></li>
+					<li><a href="#">신청내역/취소</a></li>
+					<li><a href="#">고객센터</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="anchorWrap">
+			<ul>
+				<li><a href="#anchor_seat">사전 좌석 구매</a></li>
+				<li><a href="#anchor_baggage">사전 수하물 구매</a></li>
+				<li><a href="#anchor_meal">사전 기내식 구매</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="bodyWrap">
+		<div class="allwinContents mypageList">
+			<h1><img src="images/img_arr.png" width="" height="" alt="">나의 예약/결제 내역<span>부가서비스</span></h1>
+			<div class="info">
+				부가서비스 상담은 올윈에어 고객센터를 이용해 주세요.<br>
+				고객센터 : 1522-4148 (평일 09:30~17:00 / 점심시간 12:00~13:00)
+			</div>
+			<div class="search-module">
+		        <label for="pcdPnrAddr1" class="tit">예약번호</label>
+		        <input type="text" id="pcdPnrAddr1" name="pcdPnrAddr1" value="" title="예약번호 입력란" class="ipt-txt">
+		        <strong class="tit">출발일기준</strong>
+		        <span class="sub-btn-spot">
+		            <button type="button" class="btn" onclick="javascript:setToDate('quarterMonth');">3개월</button>
+		            <button type="button" class="btn" onclick="javascript:setToDate('halfMonth');">6개월</button>
+		            <button type="button" class="btn" onclick="javascript:setToDate('aYear');">1년</button>
+		            <input type="hidden" id="today" value="20191014">
+		            <input type="hidden" id="quarterMonth" value="20200114">
+		            <input type="hidden" id="halfMonth" value="20200414">
+		            <input type="hidden" id="aYear" value="20201013">
+		        </span>		        
+		        <span>
+		        	<input type="hidden" id="isSoto" value="soto">
+		            <input type="text" class="ipt-txt" title="조회 시작 일자" id="fromDate" name="fromDate" readonly="readonly" value="20190714" onclick="javascript:openMainCal('calendarContainer', '2', '2', this, true, '', 'fromDate', '', 'toDate', null, true);">
+		            <button type="button" class="icon" onclick="javascript:openMainCal('calendarContainer', '2', '2', this, true, '', 'fromDate', '', 'toDate', null, true);">
+		            	<img src="https://sslimage.interpark.com/_mypage_n/btn/bt_cal.gif" alt="달력">
+		            </button> ~
+		            <input type="text" class="ipt-txt" title="조회 종료 일자" id="toDate" name="toDate" readonly="readonly" value="20201014" onclick="javascript:openMainCal('calendarContainer', '2', '2', this, true, '', 'fromDate', '', 'toDate', null, true);">
+		            <button type="button" class="icon" onclick="javascript:openMainCal('calendarContainer', '2', '2', this, true, '', 'fromDate', '', 'toDate', null, true);">
+		            	<img src="https://sslimage.interpark.com/_mypage_n/btn/bt_cal.gif" alt="달력">
+		            </button>
+		        </span>
+		        <button type="submit" class="btn-search">조회</button>
+		    </div>
+			<div class="tableWrap">
+				<div class="tableTitleWrap">
+					<p class="title"><span>배성준</span>님의 예약현황 입니다. 예약번호 클릭 시 예약상세 내역을 확인하실 수 있습니다.</p>
+					<div class="selectWrap">
+						<select>
+							<option>항공사</option>
+						</select>
+						<select>
+							<option>상태</option>
+						</select>
+					</div>
+				</div>
+				<table>
+					<caption class="blind">예약현황</caption>
+					<colgroup>
+						<col style="width:80px">
+						<col style="width:90px">
+						<col >
+						<col style="width:110px">
+						<col span="2" style="width:90px">
+						<col style="width:85px">
+					</colgroup>
+					<thead>
+						<tr>
+							<th><span>항공권<br>예약번호</span></th>
+							<th><span>항공사</span></th>
+							<th><span>여정</span></th>
+							<th><span>구매 항목</span></th>
+							<th><span>구매일</span></th>
+							<th><span>총 결제 금액</span></th>
+							<th><span>상태</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><a href="#">ABCDEF</a></td>
+							<td>티웨이</td>
+							<td>
+								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+								출국 : 2019.11.15(월)<br>귀국 : 2019.11.20(목)
+							</td>
+							<td>사전 좌석 구매<br>외 3건</td>
+							<td>2019.05.15<br>18:25</td>
+							<td>32,000원</td>
+							<td>결제완료</td>
+						</tr>
+						<tr>
+							<td><a href="#">ABCDEF</a></td>
+							<td>티웨이</td>
+							<td>
+								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+								출국 : 2019.11.15(월)<br>귀국 : 2019.11.20(목)
+							</td>
+							<td>사전 좌석 구매<br>외 3건</td>
+							<td>2019.05.15<br>18:25</td>
+							<td>32,000원</td>
+							<td>결제완료</td>
+						</tr>
+						<tr>
+							<td><a href="#">ABCDEF</a></td>
+							<td>티웨이</td>
+							<td>
+								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+								출국 : 2019.11.15(월)<br>귀국 : 2019.11.20(목)
+							</td>
+							<td>사전 좌석 구매<br>외 3건</td>
+							<td>2019.05.15<br>18:25</td>
+							<td>32,000원</td>
+							<td>결제완료</td>
+						</tr>
+						<tr>
+							<td><a href="#">ABCDEF</a></td>
+							<td>티웨이</td>
+							<td>
+								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+								출국 : 2019.11.15(월)<br>귀국 : 2019.11.20(목)
+							</td>
+							<td>사전 좌석 구매<br>외 3건</td>
+							<td>2019.05.15<br>18:25</td>
+							<td>32,000원</td>
+							<td>결제완료</td>
+						</tr>
+						<tr>
+							<td><a href="#">ABCDEF</a></td>
+							<td>티웨이</td>
+							<td>
+								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+								출국 : 2019.11.15(월)<br>귀국 : 2019.11.20(목)
+							</td>
+							<td>사전 좌석 구매<br>외 3건</td>
+							<td>2019.05.15<br>18:25</td>
+							<td>32,000원</td>
+							<td>결제완료</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="paginateWrap">
+					<ul>
+						<li><a href="#"><img src="images/paginate_first.png" width="10"  height="8" alt="go first"></a></li>
+						<li><a href="#"><img src="images/paginate_prev.png" width="5" height="8" alt="go prev"></a></li>
+						<li><a class="on" href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">6</a></li>
+						<li><a href="#">7</a></li>
+						<li><a href="#">8</a></li>
+						<li><a href="#">9</a></li>
+						<li><a href="#">10</a></li>
+						<li><a href="#"><img src="images/paginate_next.png" width="5" height="8" alt="go next"></a></li>
+						<li><a href="#"><img src="images/paginate_last.png" width="10" height="8" alt="go last"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footerContainer">
+		<div class="footerWrap">
+			<div class="logoWrap">
+				<img src="images/logo_footer.png" width="135" height="20" alt="">
+			</div>
+			<ul class="rightWrap">
+				<li><a href="#">개인정보취급방침</a></li>
+				<li>고객센터 : 1522-4148 (평일 09:30~17:00)</li>
+			</ul>
+			<div class="infoWrap">
+				<p>모두투어 항공사 부가서비스는 (주)올윈에어와의 제휴로 제공됩니다.</p>
+				<ul>
+					<li>서울시 중구 서소문로 106 동화빌딩 9층</li>
+					<li>㈜올윈웨어</li>
+					<li>대표이사:이정갑
+					<li>사업자등록번호:220-88-72464</li>
+				</ul>
+				<p class="copyright">COPYRIGHT ALLWINWARE INC. ALL RIGHTS RESERVED</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
