@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     <title>좌석 지정 - 부가서비스 예약하기</title>
-    <link rel="stylesheet" href="../resource/css/ags_mo.min.css">
+    <link rel="stylesheet" href="../resource/css/ags_mo_tway.min.css">
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
@@ -89,7 +89,7 @@
 
 
                     /*승객에게 좌석을 부여한 뒤, 좌석 텍스트 뒤에 붙는 삭제(X)버튼의 기능을 정의합니다*/
-                    $(document).on("click", ".btn_delete", function(){
+                    $doc.on("click", ".btn_delete", function(){
                         var $this = $(this)/*클릭한 삭제버튼*/;
                             owner = $this.parents("dl").find(".passenger-name + dd").text()/*클릭한 삭제버튼이 작동할 승객의 성명*/;
 
@@ -98,6 +98,7 @@
 
                         /*해당 승객에게 포커스를 맞춰줍니다*/
                         $(this).closest("dl").siblings("input[type='radio']").prop("checked", true);
+                        activeLinkScrollLeft($(this).closest("li"), $psgLists.parent(".passenger-wrap"), 800);
 
                         /*승객의 좌석 텍스트를 삭제합니다*/
                         $(this).parent("dd").html("")
@@ -117,7 +118,7 @@
 
             /*좌석 범례 클릭 기능 정의*/
             (function(legendClickHandler) {
-                $doc.on("click", ".tab-panel.active .seat-legend a", function () {
+                $doc.on("click", ".tab-panel.active .seat-legend li:not(.seat-disabled) a", function () {
                     var $this = $(this)/*클릭된 범례 아이템*/,
                         $target = $(".tab-panel.active .seat-num a[class='" + $this.attr("data-scrollTo") + "']:first-of-type")/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템*/,
                         position = $target.offset().top - parseInt($(".tab-panel.active").css("padding-top")) - 7/*클릭된 범례 아이템과 일치하는 좌석 중 첫번째의 화면 위치*/;
@@ -133,47 +134,27 @@
                     $seats = $(".seat-num"),
                     tabPanelPdTop = parseInt($(".tab-panel.active").css("padding-top")) + 8,
                     seatType2Pos = $seats.find(".seat-type2:first-of-type").offset().top - tabPanelPdTop,
-                    seatType3Pos = $seats.find(".seat-type3:first-of-type").offset().top - tabPanelPdTop,
-                    seatType4Pos = $seats.find(".seat-type4:first-of-type").offset().top - tabPanelPdTop,
-                    seatType5Pos = $seats.find(".seat-type5:first-of-type").offset().top - tabPanelPdTop,
-                    seatType6Pos = $seats.find(".seat-type6:first-of-type").offset().top - tabPanelPdTop;
+                    seatType3Pos = $seats.find(".seat-type3:first-of-type").offset().top - tabPanelPdTop;
+
                 $win.on("scroll", function(){
                     if(seatType2Pos >= $html.scrollTop()){
-                        var $target1 = $(".seat-legend li:first-of-type");
+                        var $target1 = $(".seat-legend li.seat-type1");
                         /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
                         $target1.addClass("active").siblings().removeClass("active");
                         /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
                         activeLinkScrollLeft($target1, ".tab-panel.active .seat-legend", 10)
                     } else if($html.scrollTop() >= seatType2Pos && seatType3Pos > $html.scrollTop()){
-                        var $target2 = $(".seat-legend li:nth-of-type(2)");
+                        var $target2 = $(".seat-legend li.seat-type2");
                         /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
                         $target2.addClass("active").siblings().removeClass("active");
                         /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
                         activeLinkScrollLeft($target2, ".tab-panel.active .seat-legend", 10)
-                    } else if($html.scrollTop() >= seatType3Pos && seatType4Pos > $html.scrollTop()){
-                        var $target3 = $(".seat-legend li:nth-of-type(3)");
+                    } else if($html.scrollTop() >= seatType3Pos){
+                        var $target3 = $(".seat-legend li.seat-type3");
                         /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
                         $target3.addClass("active").siblings().removeClass("active");
                         /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
                         activeLinkScrollLeft($target3, ".tab-panel.active .seat-legend", 10)
-                    } else if($html.scrollTop() >= seatType4Pos && seatType5Pos > $html.scrollTop()){
-                        var $target4 = $(".seat-legend li:nth-of-type(4)");
-                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
-                        $target4.addClass("active").siblings().removeClass("active");
-                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
-                        activeLinkScrollLeft($target4, ".tab-panel.active .seat-legend", 10)
-                    } else if($html.scrollTop() >= seatType5Pos && seatType6Pos > $html.scrollTop()){
-                        var $target5 = $(".seat-legend li:nth-of-type(5)");
-                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
-                        $target5.addClass("active").siblings().removeClass("active");
-                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
-                        activeLinkScrollLeft($target5, ".tab-panel.active .seat-legend", 10)
-                    } else if($html.scrollTop() >= seatType6Pos){
-                        var $target6 = $(".seat-legend li:nth-of-type(6)");
-                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
-                        $target6.addClass("active").siblings().removeClass("active");
-                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
-                        activeLinkScrollLeft($target6, ".tab-panel.active .seat-legend", 10)
                     }
                 });
             })();
@@ -186,7 +167,7 @@
 
         <!-- ags-header -->
         <header id="ags-header" class="ags-header">
-            <h2 class="page-name">제주항공 부가서비스 사전 신청</h2>
+            <h2 class="page-name">티웨이항공 부가서비스 사전 신청</h2>
             <nav class="ags-gnb">
                 <h3 class="sr-only">전역메뉴</h3>
                 <ul class="gnb-wrap">
@@ -225,10 +206,10 @@
                     <div class="ags-snb">
                         <h4 class="sr-only">서브메뉴</h4>
                         <ul class="snb-wrap">
-                            <li class="active"><a href="#none" target="_self" class="btn_seat">좌석 지정</a></li><!-- 현재 활성화 된 메뉴일 경우 .active -->
-                            <li><a href="#none" target="_self" class="btn_baggage">수하물</a></li>
-                            <li><a href="#none" target="_self" class="btn_meal">기내식</a></li>
-                            <li><a href="#none" target="_self" class="btn_lounge">라운지</a></li>
+                            <li class="active"><a href="buy_seat.html" target="_self" class="btn_seat">좌석 지정</a></li><!-- 현재 활성화 된 메뉴일 경우 .active -->
+                            <li><a href="buy_baggage.html" target="_self" class="btn_baggage">수하물</a></li>
+                            <li><a href="buy_meal.html" target="_self" class="btn_meal">기내식</a></li>
+                            <!--<li><a href="buy_lounge.html" target="_self" class="btn_lounge">라운지</a></li>--><!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
                         </ul>
                     </div>
                 </header>
@@ -291,12 +272,10 @@
                                 <!-- 좌석 범례(가는편/오는편 공통) -->
                                 <div class="seat-legend" data-ui="fixed selected-centered">
                                     <ul>
-                                        <li class="active">앞 좌석 / 비상구석 <span class="digits">15000</span><a href="#none" target="_self" data-scrollTo="seat-type1">좌석보기</a></li>
-                                        <li>A 구역 <span class="digits">10000</span><a href="#none" target="_self" data-scrollTo="seat-type2">좌석보기</a></li>
-                                        <li>B 구역 <span class="digits">5000</span><a href="#none" target="_self" data-scrollTo="seat-type3">좌석보기</a></li>
-                                        <li>B 구역 등받이 고정좌석 <span class="digits">2000</span><a href="#none" target="_self" data-scrollTo="seat-type4">좌석보기</a></li>
-                                        <li>C 구역 <span class="digits">3000</span><a href="#none" target="_self" data-scrollTo="seat-type5">좌석보기</a></li>
-                                        <li>C 구역 등받이 고정좌석 <span class="digits">1000</span><a href="#none" target="_self" data-scrollTo="seat-type6">좌석보기</a></li>
+                                        <li class="seat-type1 active">프리미엄 좌석 <span class="digits">15000</span><a href="#none" target="_self" data-scrollTo="seat-type1">좌석보기</a></li>
+                                        <li class="seat-type2">앞 좌석 <span class="digits">10000</span><a href="#none" target="_self" data-scrollTo="seat-type2">좌석보기</a></li>
+                                        <li class="seat-type3">일반 좌석 <span class="digits">5000</span><a href="#none" target="_self" data-scrollTo="seat-type3">좌석보기</a></li>
+                                        <li class="seat-disabled">선택 불가 <span class="digits">-</span><a target="_self" data-scrollTo="seat-disabled" disabled="disabled">좌석보기</a></li>
                                     </ul>
                                 </div>
                                 <!-- //좌석 범례(가는편/오는편 공통) -->
@@ -310,7 +289,7 @@
                                         <span>A</span>
                                         <span>B</span>
                                         <span>C</span>
-                                        <span class="hallway">&nbsp;</span>
+                                        <span class="hallway"></span>
                                         <span>D</span>
                                         <span>E</span>
                                         <span>F</span>
@@ -321,293 +300,293 @@
                                             <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type1">A1<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">B1<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">C1<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">A1<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">B1<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">C1<span class="sr-only">(프리미엄 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A2<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">C2<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type1">D2<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">E2<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled-lg" disabled="disable">F2<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">D2<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">E2<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">F2<span class="sr-only">(프리미엄 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">A3<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">B3<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C3<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C3<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">D3<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">E3<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">F3<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A4<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B4<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C4<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A4<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B4<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C4<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D4<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E4<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F4<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D4<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E4<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F4<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A5<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B5<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C5<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A5<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B5<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C5<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D5<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">E5<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">F5<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D5<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E5<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F5<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A6<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B6<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C6<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A6<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B6<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C6<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D6<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E6<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F6<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D6<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E6<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F6<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A7<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B7<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C7<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A7<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B7<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C7<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D7<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E7<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F7<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D7<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E7<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F7<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A8<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B8<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C8<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A8<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B8<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C8<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D8<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E8<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F8<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D8<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E8<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F8<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A9<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B9<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C9<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A9<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B9<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C9<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D9<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E9<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F9<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D9<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E9<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F9<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A10<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B10<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C10<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A10<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B10<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C10<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D10<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E10<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F10<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D10<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E10<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F10<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A11<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B11<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C11<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A11<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B11<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C11<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D11<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E11<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F11<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D11<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E11<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F11<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A12<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B12<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C12<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A12<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B12<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C12<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D12<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">E12<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">F12<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D12<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E12<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F12<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A13<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B13<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C13<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A13<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B13<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C13<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D13<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E13<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F13<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D13<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E13<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F13<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type4">A14<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type4">B14<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type4">C14<span class="sr-only">(B구역)</span></a>
+                                            <a class="seat-disabled" disabled="disable">A14<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disable">B14<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disable">C14<span class="sr-only">(선택 불가)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type4">D14<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type4">E14<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type4">F14<span class="sr-only">(B구역)</span></a>
+                                            <a class="seat-disabled" disabled="disable">D14<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disable">E14<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disable">F14<span class="sr-only">(선택 불가)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type1">A15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">B15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">C15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">A15<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">B15<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">C15<span class="sr-only">(프리미엄 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type1">D15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">E15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">F15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">D15<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">E15<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">F15<span class="sr-only">(프리미엄 좌석)</span></a>
                                         </li>
                                         <li class="exit-row">
                                             <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
                                             <span class="exit_right">EXIT<i class="ico">&gt;&gt;</i></span>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type1">A16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">B16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">C16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">A16<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">B16<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">C16<span class="sr-only">(프리미엄 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type1">D16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">E16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">F16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">D16<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">E16<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">F16<span class="sr-only">(프리미엄 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A17<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B17<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C17<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A17<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B17<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C17<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D17<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E17<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F17<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D17<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E17<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F17<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A18<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B18<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C18<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A18<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B18<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C18<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D18<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E18<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F18<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D18<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E18<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F18<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A19<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B19<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C19<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A19<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B19<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C19<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D19<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E19<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F19<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D19<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E19<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F19<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A20<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B20<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C20<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A20<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B20<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C20<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D20<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E20<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F20<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D20<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E20<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F20<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A21<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B21<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C21<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A21<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B21<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C21<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D21<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E21<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F21<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D21<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E21<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F21<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A22<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B22<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C22<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A22<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B22<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C22<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D22<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E22<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F22<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D22<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E22<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F22<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A23<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B23<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C23<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A23<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B23<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C23<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D23<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E23<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F23<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D23<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E23<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F23<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A24<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B24<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C24<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A24<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B24<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C24<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D24<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E24<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F24<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D24<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E24<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F24<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A25<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B25<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C25<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A25<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B25<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C25<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D25<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E25<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F25<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D25<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E25<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F25<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A26<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B26<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C26<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A26<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B26<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C26<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D26<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E26<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F26<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D26<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E26<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F26<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A27<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B27<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C27<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A27<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B27<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C27<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D27<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E27<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F27<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D27<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E27<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F27<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A28<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B28<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C28<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A28<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B28<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C28<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D28<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E28<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F28<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D28<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E28<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F28<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A29<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B29<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C29<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A29<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B29<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C29<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D29<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E29<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F29<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D29<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E29<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F29<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A30<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B30<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C30<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A30<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B30<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C30<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D30<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E30<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F30<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D30<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E30<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F30<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A31<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B31<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C31<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A31<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B31<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C31<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D31<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E31<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F31<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D31<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E31<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F31<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type6">A32<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type6">B32<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type6">C32<span class="sr-only">(C구역)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">A32<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">B32<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">C32<span class="sr-only">(선택 불가)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type6">D32<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type6">E32<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type6">F32<span class="sr-only">(C구역)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">D32<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">E32<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">F32<span class="sr-only">(선택 불가)</span></a>
                                         </li>
                                     </ol>
                                 </div>
@@ -661,14 +640,12 @@
                                 <!-- 승객 선택 -->
 
                                 <!-- 좌석 범례(가는편/오는편 공통) -->
-                                <div class="seat-legend" data-ui="fixed">
+                                <div class="seat-legend" data-ui="fixed selected-centered">
                                     <ul>
-                                        <li class="active">앞 좌석 / 비상구석 <span class="digits">15000</span><a href="#none" target="_self" data-scrollTo="seat-type1">좌석보기</a></li>
-                                        <li>A 구역 <span class="digits">10000</span><a href="#none" target="_self" data-scrollTo="seat-type2">좌석보기</a></li>
-                                        <li>B 구역 <span class="digits">5000</span><a href="#none" target="_self" data-scrollTo="seat-type3">좌석보기</a></li>
-                                        <li>B 구역 등받이 고정좌석 <span class="digits">2000</span><a href="#none" target="_self" data-scrollTo="seat-type4">좌석보기</a></li>
-                                        <li>C 구역 <span class="digits">3000</span><a href="#none" target="_self" data-scrollTo="seat-type5">좌석보기</a></li>
-                                        <li>C 구역 등받이 고정좌석 <span class="digits">1000</span><a href="#none" target="_self" data-scrollTo="seat-type6">좌석보기</a></li>
+                                        <li class="seat-type1 active">프리미엄 좌석 <span class="digits">15000</span><a href="#none" target="_self" data-scrollTo="seat-type1">좌석보기</a></li>
+                                        <li class="seat-type2">앞 좌석 <span class="digits">10000</span><a href="#none" target="_self" data-scrollTo="seat-type2">좌석보기</a></li>
+                                        <li class="seat-type3">일반 좌석 <span class="digits">5000</span><a href="#none" target="_self" data-scrollTo="seat-type3">좌석보기</a></li>
+                                        <li class="seat-disabled">선택 불가 <span class="digits">-</span><a target="_self" data-scrollTo="seat-disabled" disabled="disabled">좌석보기</a></li>
                                     </ul>
                                 </div>
                                 <!-- //좌석 범례(가는편/오는편 공통) -->
@@ -676,13 +653,13 @@
                                 <!-- 좌석 선택 -->
                                 <div class="seat-sheet B73780001">
                                     <div class="approach-comment">
-                                        <p>지금 구매하시면 공항보다 20% 절감됩니다.</p>
+                                        <p>선호 좌석 지정은 조기 마감될 수 있습니다.</p>
                                     </div>
                                     <div class="seat-code">
                                         <span>A</span>
                                         <span>B</span>
                                         <span>C</span>
-                                        <span class="hallway">&nbsp;</span>
+                                        <span class="hallway"></span>
                                         <span>D</span>
                                         <span>E</span>
                                         <span>F</span>
@@ -693,293 +670,293 @@
                                             <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type1">A1<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">B1<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">C1<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">A1<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">B1<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">C1<span class="sr-only">(프리미엄 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A2<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">C2<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type1">D2<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">E2<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled-lg" disabled="disable">F2<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">D2<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">E2<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">F2<span class="sr-only">(프리미엄 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">A3<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">B3<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C3<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C3<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">D3<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">E3<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">F3<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B2<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A4<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B4<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C4<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A4<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B4<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C4<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D4<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E4<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F4<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D4<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E4<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F4<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A5<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B5<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C5<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A5<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B5<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C5<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D5<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">E5<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">F5<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D5<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E5<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F5<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A6<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B6<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C6<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A6<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B6<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C6<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D6<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E6<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F6<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D6<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E6<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F6<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A7<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B7<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C7<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A7<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B7<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C7<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D7<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E7<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F7<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D7<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E7<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F7<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A8<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B8<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C8<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A8<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B8<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C8<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D8<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E8<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F8<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D8<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E8<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F8<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A9<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B9<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C9<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A9<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B9<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C9<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D9<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E9<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F9<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D9<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E9<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F9<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A10<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B10<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C10<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A10<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B10<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C10<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D10<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E10<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F10<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D10<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E10<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F10<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type2">A11<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">B11<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">C11<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">A11<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">B11<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">C11<span class="sr-only">(앞 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type2">D11<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">E11<span class="sr-only">(A구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type2">F11<span class="sr-only">(A구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">D11<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">E11<span class="sr-only">(앞 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type2">F11<span class="sr-only">(앞 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A12<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B12<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C12<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A12<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B12<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C12<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D12<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">E12<span class="sr-only">(선택불가)</span></a>
-                                            <a href="#none" target="_self" class="seat-disabled" disabled="disable">F12<span class="sr-only">(선택불가)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D12<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E12<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F12<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A13<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B13<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C13<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A13<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B13<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C13<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D13<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E13<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F13<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D13<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E13<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F13<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type4">A14<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type4">B14<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type4">C14<span class="sr-only">(B구역)</span></a>
+                                            <a class="seat-disabled" disabled="disable">A14<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disable">B14<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disable">C14<span class="sr-only">(선택 불가)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type4">D14<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type4">E14<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type4">F14<span class="sr-only">(B구역)</span></a>
+                                            <a class="seat-disabled" disabled="disable">D14<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disable">E14<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disable">F14<span class="sr-only">(선택 불가)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type1">A15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">B15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">C15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">A15<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">B15<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">C15<span class="sr-only">(프리미엄 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type1">D15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">E15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">F15<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">D15<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">E15<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">F15<span class="sr-only">(프리미엄 좌석)</span></a>
                                         </li>
                                         <li class="exit-row">
                                             <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
                                             <span class="exit_right">EXIT<i class="ico">&gt;&gt;</i></span>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type1">A16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">B16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">C16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">A16<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">B16<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">C16<span class="sr-only">(프리미엄 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type1">D16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">E16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
-                                            <a href="#none" target="_self" class="seat-type1">F16<span class="sr-only">(앞 좌석 / 비상구석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">D16<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">E16<span class="sr-only">(프리미엄 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type1">F16<span class="sr-only">(프리미엄 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A17<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B17<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C17<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A17<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B17<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C17<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D17<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E17<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F17<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D17<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E17<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F17<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A18<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B18<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C18<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A18<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B18<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C18<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D18<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E18<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F18<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D18<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E18<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F18<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A19<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B19<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C19<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A19<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B19<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C19<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D19<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E19<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F19<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D19<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E19<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F19<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A20<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B20<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C20<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A20<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B20<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C20<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D20<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E20<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F20<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D20<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E20<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F20<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A21<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B21<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C21<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A21<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B21<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C21<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D21<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E21<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F21<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D21<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E21<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F21<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A22<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B22<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C22<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A22<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B22<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C22<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D22<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E22<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F22<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D22<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E22<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F22<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type3">A23<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">B23<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">C23<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A23<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B23<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C23<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type3">D23<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">E23<span class="sr-only">(B구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type3">F23<span class="sr-only">(B구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D23<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E23<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F23<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A24<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B24<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C24<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A24<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B24<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C24<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D24<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E24<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F24<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D24<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E24<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F24<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A25<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B25<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C25<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A25<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B25<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C25<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D25<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E25<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F25<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D25<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E25<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F25<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A26<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B26<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C26<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A26<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B26<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C26<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D26<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E26<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F26<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D26<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E26<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F26<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A27<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B27<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C27<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A27<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B27<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C27<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D27<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E27<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F27<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D27<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E27<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F27<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A28<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B28<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C28<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A28<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B28<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C28<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D28<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E28<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F28<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D28<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E28<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F28<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A29<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B29<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C29<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A29<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B29<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C29<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D29<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E29<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F29<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D29<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E29<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F29<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A30<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B30<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C30<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A30<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B30<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C30<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D30<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E30<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F30<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D30<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E30<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F30<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type5">A31<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">B31<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">C31<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">A31<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">B31<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">C31<span class="sr-only">(일반 좌석)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type5">D31<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">E31<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type5">F31<span class="sr-only">(C구역)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">D31<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">E31<span class="sr-only">(일반 좌석)</span></a>
+                                            <a href="#none" target="_self" class="seat-type3">F31<span class="sr-only">(일반 좌석)</span></a>
                                         </li>
                                         <li>
-                                            <a href="#none" target="_self" class="seat-type6">A32<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type6">B32<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type6">C32<span class="sr-only">(C구역)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">A32<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">B32<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">C32<span class="sr-only">(선택 불가)</span></a>
                                             <span class="hallway"><span class="sr-only">통로</span></span>
-                                            <a href="#none" target="_self" class="seat-type6">D32<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type6">E32<span class="sr-only">(C구역)</span></a>
-                                            <a href="#none" target="_self" class="seat-type6">F32<span class="sr-only">(C구역)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">D32<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">E32<span class="sr-only">(선택 불가)</span></a>
+                                            <a class="seat-disabled" disabled="disabled">F32<span class="sr-only">(선택 불가)</span></a>
                                         </li>
                                     </ol>
                                 </div>
@@ -988,7 +965,7 @@
                                 <!-- 프로세스 버튼 그룹 -->
                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
                                     <button type="button" class="btn_cancel">이전</button>
-                                    <button type="button" class="btn_confirm">수하물 선택 단계로 이동</button>
+                                    <button type="button" class="btn_confirm" onClick="location.href='buy_baggage.html'">수하물 선택 단계로 이동</button>
                                 </div>
                                 <!-- 프로세스 버튼 그룹 -->
 
@@ -999,6 +976,8 @@
 
                 </div>
                 <!-- //가는편/오는편 좌석 선택 탭 -->
+
+                <!-- 좌석 지정 서비스 관련 안내문 -->
                 <div class="notification-wrap">
                     <h4 class="notification-title"><i class="ico"></i>꼭 읽어보세요!</h4>
                     <ul class="notification-list">
@@ -1013,6 +992,7 @@
                         <li>안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리</li>
                     </ul>
                 </div>
+                <!-- //좌석 지정 서비스 관련 안내문 -->
             </section>
         </div>
         <!-- //ags-container -->
@@ -1029,7 +1009,7 @@
                     <dl>
                         <dt><a href="#none" target="_self" id="btn_summary-drawer2">총 결제 금액 자세히 보기</a></dt>
                         <dd><span class="digits">30000</span></dd>
-                        <dd><button type="button" class="btn_pay-imm">바로 결제하기</button></dd>
+                        <dd><button type="button" class="btn_pay-imm" onClick="location.href='pay_payment.html'">바로 결제하기</button></dd>
                     </dl>
                 </div>
             </div>
@@ -1040,7 +1020,7 @@
     <!-- 총 결제금액 팝업 -->
     <div id="passenger-summary" class="passenger-summary">
         <a href="#none" target="_self" id="btn_summary-drawer3" class="btn_drawer"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
-        <h5 class="summary-title">탑승객별 결제 금액</h5>
+        <h4 class="summary-title">총 결제 금액 자세히보기</h4>
         <h6 class="passenger-name">Kim, Allwin</h6>
         <div class="table-wrap">
             <table class="charge-sheet">

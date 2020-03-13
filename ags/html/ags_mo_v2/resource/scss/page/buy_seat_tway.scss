@@ -2,10 +2,7 @@
 [data-page-id='buy__seat']{
   $seat-type1: $border-primary;
   $seat-type2: #2A2167;
-  $seat-type3: #AAC8E4;
-  $seat-type4: #e487c3;
-  $seat-type5: #8BC4AA;
-  $seat-type6: #8b7be4;
+  $seat-type3: #8BC4AA;
   $seat-disabled: $mono9;
   $seat-legend-height: 86;
   overflow: hidden;
@@ -15,15 +12,19 @@
   }
   /* 좌석 범례 */
   .seat-legend {
+    z-index: 0;
     position: absolute; top: rem($buy__psg-wrap-height); left: 0; right: 0;
     overflow: auto;
     width: 100%; height: rem($seat-legend-height);
-    ul { @include clearfix; width: 600px }
+    &:after { z-index: 0; content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; border-bottom: 1px solid $mono8 }
+    ul { @include clearfix; z-index: 1; display: table }
     li {
       @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
+      z-index: 1;
       position: relative;
-      float: left;
+      display: table-cell;
       padding: rem($grid * 4.75) rem($grid * 2) rem($grid * 2);
+      white-space: nowrap;
       .digits {
         @include font($family: 'en', $size: 11, $color: $mono1, $weight: 600, $spacing: -0.03);
         display: block;
@@ -35,12 +36,10 @@
         width: 14px; height: 14px;
         border-radius: 5px 5px 2px 2px; border: rem(2) solid;
       }
-      &:nth-of-type(1):before { border-color: $seat-type1 }
-      &:nth-of-type(2):before { border-color: $seat-type2 }
-      &:nth-of-type(3):before { border-color: $seat-type3 }
-      &:nth-of-type(4):before { border-color: $seat-type4 }
-      &:nth-of-type(5):before { border-color: $seat-type5 }
-      &:nth-of-type(6):before { border-color: $seat-type6 }
+      &.seat-type1:before { border-color: $seat-type1 }
+      &.seat-type2:before { border-color: $seat-type2 }
+      &.seat-type3:before { border-color: $seat-type3 }
+      &.seat-disabled:before { border-color: $seat-disabled; @include background($file: 'buy/ico_seat-legend_seat-disabled', $type: png, $width: rem(6), $height: rem(6)); background-position: 50% 50%; }
     }
     a {
       transition: all $trs-duration;
@@ -48,6 +47,7 @@
       overflow: hidden;
       position: absolute; top: 0; right: 0; bottom: 0; left: 0;
       display: block;
+      margin-bottom: -1px;
       text-indent: -999em; text-decoration: none; color: inherit;
       border-bottom: 1px solid $mono8
     }
@@ -169,18 +169,6 @@
         border-color: $seat-type3;
         &.active { background-color: $seat-type3; box-shadow: 0 4px 8px rgba(170,200,228,0.5) }
       }
-      &.seat-type4 {
-        border-color: $seat-type4;
-        &.active { background-color: $seat-type4; box-shadow: 0 4px 8px rgba(228,135,195,0.5) }
-      }
-      &.seat-type5 {
-        border-color: $seat-type5;
-        &.active { background-color: $seat-type5; box-shadow: 0 4px 8px rgba(139,196,170,0.5) }
-      }
-      &.seat-type6 {
-        border-color: $seat-type6;
-        &.active { background-color: $seat-type6; box-shadow: 0 4px 8px rgba(139,123,228,0.5) }
-      }
       &[class^='seat-disabled'] {
         border-color: $seat-disabled;
         @include background($file: 'buy/ico_seat-disabled', $type: png, $width: rem(12), $height: rem(12));
@@ -190,6 +178,6 @@
         height: rem(36) !important;
       }
     }
-    .hallway { margin: 0 rem(6); width: rem(28); height: rem(28); }
+    .hallway { margin: 0 rem(9); width: rem(28); height: rem(28); }
   }
 }

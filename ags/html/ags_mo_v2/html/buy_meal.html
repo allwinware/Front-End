@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     <title>기내식 - 부가서비스 예약하기</title>
-    <link rel="stylesheet" href="../resource/css/ags_mo.min.css">
+    <link rel="stylesheet" href="../resource/css/ags_mo_tway.min.css">
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
@@ -41,23 +41,36 @@
                             setTimeout(function(){$this.prop("checked", false);}, 400);
                             /*if문 처리한 이후 다음 승객을 자동으로 넘어감*/
                             if($checkedPsg.parent("li").next("li").length > 0) {
-                                /*다음 승객이 있으면 다음 승객으로 넘어가기*/
-                                $checkedPsg.parent("li").next("li").find("input[type='radio']").prop("checked", true);
-                                activeLinkScrollLeft($checkedPsg.parent("li").next("li"), $psgLists.parent(".passenger-wrap"), 800);
+                                setTimeout(function(){
+                                    /*다음 승객이 있으면 다음 승객으로 넘어가기*/
+                                    $checkedPsg.parent("li").next("li").find("input[type='radio']").prop("checked", true);
+                                    activeLinkScrollLeft($checkedPsg.parent("li").next("li"), $psgLists.parent(".passenger-wrap"), 800);
+                                }, 1000);
                             } else if ($checkedPsg.parent("li").next("li").length === 0) {
                                 /*다음 승객이 없고 다음 탭이 있을 경우 하단 버튼영역으로 포커스 내려주기*/
-                                $("html").animate({
-                                    scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top
-                                }, 1500);
+                                setTimeout(function() {
+                                    $("html").animate({
+                                        scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top
+                                    }, 1500);
+                                }, 1000);
                             }
                         }
                     });
-                    $(document).on("click", ".btn_delete", function(){
-                        var $this = $(this);
-                        owner = $this.parents("dl").find(".passenger-name + dd").text();
+
+                    /*승객에게 좌석을 부여한 뒤, 좌석 텍스트 뒤에 붙는 삭제(X)버튼의 기능을 정의합니다*/
+                    $doc.on("click", ".btn_delete", function(){
+                        var $this = $(this)/*클릭한 삭제버튼*/;
+                        owner = $this.parents("dl").find(".passenger-name + dd").text()/*클릭한 삭제버튼이 작동할 승객의 성명*/;
+
+                        /*승객의 성명으로 마킹된 좌석을 찾아 마킹을 지워줍니다*/
                         $(".tab-panel.active .seat-num a.active[data-psg='" + owner + "']").attr("data-psg", "").removeClass("active");
-                        $this.closest("dl").siblings("input[type='radio']").prop("checked", true);
-                        $this.parent("dd").html("")
+
+                        /*해당 승객에게 포커스를 맞춰줍니다*/
+                        $(this).closest("dl").siblings("input[type='radio']").prop("checked", true);
+                        activeLinkScrollLeft($(this).closest("li"), $psgLists.parent(".passenger-wrap"), 800);
+
+                        /*승객의 좌석 텍스트를 삭제합니다*/
+                        $(this).parent("dd").html("")
                     });
                 });
             })();
@@ -86,7 +99,7 @@
 
         <!-- ags-header -->
         <header id="ags-header" class="ags-header">
-            <h2 class="page-name">제주항공 부가서비스 사전 신청</h2>
+            <h2 class="page-name">티웨이항공 부가서비스 사전 신청</h2>
             <nav class="ags-gnb">
                 <h3 class="sr-only">전역메뉴</h3>
                 <ul class="gnb-wrap">
@@ -125,10 +138,10 @@
                     <div class="ags-snb">
                         <h4 class="sr-only">서브메뉴</h4>
                         <ul class="snb-wrap">
-                            <li class="buy"><a href="#none" target="_self" class="btn_seat">좌석 지정</a></li><!-- 부가서비스를 신청하고 넘어왔을 경우 .buy -->
-                            <li><a href="#none" target="_self" class="btn_baggage">수하물</a></li>
-                            <li class="active"><a href="#none" target="_self" class="btn_meal">기내식</a></li><!-- 현재 활성화 된 메뉴일 경우 .active -->
-                            <li><a href="#none" target="_self" class="btn_lounge">라운지</a></li>
+                            <li class="buy"><a href="buy_seat.html" target="_self" class="btn_seat">좌석 지정</a></li><!-- 부가서비스를 신청하고 넘어왔을 경우 .buy -->
+                            <li><a href="buy_baggage.html" target="_self" class="btn_baggage">수하물</a></li>
+                            <li class="active"><a href="buy_meal.html" target="_self" class="btn_meal">기내식</a></li><!-- 현재 활성화 된 메뉴일 경우 .active -->
+                            <!--<li><a href="buy_lounge.html" target="_self" class="btn_lounge">라운지</a></li>--><!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
                         </ul>
                     </div>
                 </header>
@@ -191,6 +204,20 @@
                                 <!-- 기내식 목록 -->
                                 <div class="meal-plan">
                                     <h6 class="sr-only">기내식 목록</h6>
+
+                                    <!-- 제공할 수 있는 기내식이 없을 경우 -->
+                                    <div class="no-item">
+                                        <div class="ico-wrap">
+                                            <i class="ico_alert--primary">!</i>
+                                        </div>
+                                        <h3 class="alert-title">사전 기내식 구매를 할 수 없습니다.</h3>
+                                        <div class="alert-text">
+                                            해당 노선은 아쉽게도 기내식 구매가 불가한 노선입니다.<br>
+                                            다음에 맛있는 기내식으로 찾아뵙겠습니다.
+                                        </div>
+                                    </div>
+
+                                    <!-- 제공할 수 있는 기내식이 있을 경우 -->
                                     <div class="function-wrap">
                                         <div class="notification-text">
                                             <p class="notice-msg">
@@ -405,6 +432,7 @@
                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
                                     <button type="button" class="btn_cancel">이전</button>
                                     <button type="button" class="btn_confirm">가는편 선택완료 / 오는편 선택하기</button>
+                                    <!--<button type="button" class="btn_confirm">오는편 선택하기</button>--><!--가는 편에 선택할 기내식이 없고, 오는 편으로 넘어 가는 선택지만 존재할 경우 이 버튼을 노출합니다.-->
                                 </div>
                                 <!-- //프로세스 버튼 그룹 -->
 
@@ -452,6 +480,20 @@
                                 <!-- 기내식 목록 -->
                                 <div class="meal-plan">
                                     <h6 class="sr-only">기내식 목록</h6>
+
+                                    <!-- 제공할 수 있는 기내식이 없을 경우 -->
+                                    <div class="no-item">
+                                        <div class="ico-wrap">
+                                            <i class="ico_alert--primary">!</i>
+                                        </div>
+                                        <h3 class="alert-title">사전 기내식 구매를 할 수 없습니다.</h3>
+                                        <div class="alert-text">
+                                            해당 노선은 아쉽게도 기내식 구매가 불가한 노선입니다.<br>
+                                            다음에 맛있는 기내식으로 찾아뵙겠습니다.
+                                        </div>
+                                    </div>
+
+                                    <!-- 제공할 수 있는 기내식이 있을 경우 -->
                                     <div class="function-wrap">
                                         <div class="notification-text">
                                             <p class="notice-msg">
@@ -659,13 +701,16 @@
                                             </dl>
                                         </div>
                                     </div>
+
+
                                 </div>
                                 <!-- //기내식 목록 -->
 
                                 <!-- 프로세스 버튼 그룹 -->
                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
                                     <button type="button" class="btn_cancel">이전</button>
-                                    <button type="button" class="btn_confirm">라운지 선택 단계로 이동</button>
+                                    <!--<button type="button" class="btn_confirm" onClick="location.href='buy_lounge.html'">라운지 선택 단계로 이동</button>--><!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
+                                    <button type="button" class="btn_confirm" onClick="location.href='pay_payment.html'">결제하기</button>
                                 </div>
                                 <!-- 프로세스 버튼 그룹 -->
 
@@ -677,6 +722,7 @@
                 </div>
                 <!-- //가는편/오는편 좌석 선택 탭 -->
 
+                <!-- 좌석 지정 서비스 관련 안내문 -->
                 <div class="notification-wrap">
                     <h4 class="notification-title"><i class="ico"></i>꼭 읽어보세요!</h4>
                     <ul class="notification-list">
@@ -691,6 +737,7 @@
                         <li>안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리, 안내 텍스트 두 줄 처리</li>
                     </ul>
                 </div>
+                <!-- //좌석 지정 서비스 관련 안내문 -->
             </section>
         </div>
         <!-- //ags-container -->
@@ -707,7 +754,7 @@
                     <dl>
                         <dt><a href="#none" target="_self" id="btn_summary-drawer2">총 결제 금액 자세히 보기</a></dt>
                         <dd><span class="digits">30000</span></dd>
-                        <dd><button type="button" class="btn_pay-imm">바로 결제하기</button></dd>
+                        <dd><button type="button" class="btn_pay-imm" onClick="location.href='pay_payment.html'">바로 결제하기</button></dd>
                     </dl>
                 </div>
             </div>
@@ -718,201 +765,223 @@
     <!-- 총 결제금액 팝업 -->
     <div id="passenger-summary" class="passenger-summary">
         <a href="#none" target="_self" id="btn_summary-drawer3" class="btn_drawer"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
-        <h5 class="summary-title">탑승객별 결제 금액</h5>
-        <h6 class="passenger-name">Kim, Allwin</h6>
-        <div class="table-wrap">
-            <table class="charge-sheet">
-                <caption>Kim, Allwin 결제 금액</caption>
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-                <tfoot>
-                <tr>
-                    <th colspan="2">금액</th>
-                    <td><span class="digits">99000</span></td>
-                </tr>
-                </tfoot>
-                <tbody>
-                <tr class="title_route">
-                    <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
-                </tr>
-                <tr>
-                    <th scope="row">좌석 지정</th>
-                    <td>D4</td>
-                    <td><span class="digits">10000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물 추가</th>
-                    <td>30kg</td>
-                    <td><span class="digits">60000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">기내식</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">라운지</th>
-                    <td>이용권 선택</td>
-                    <td><span class="digits">14900</span></td>
-                </tr>
-                <tr class="title_route">
-                    <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
-                </tr>
-                <tr>
-                    <th scope="row">좌석 지정</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물 추가</th>
-                    <td>30kg</td>
-                    <td><span class="digits">60000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">기내식</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">라운지</th>
-                    <td>이용권 선택</td>
-                    <td><span class="digits">14900</span></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <h6 class="passenger-name">Bae, Sungjune</h6>
-        <div class="table-wrap">
-            <table class="charge-sheet">
-                <caption>Bae, Sungjune 결제 금액</caption>
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-                <tfoot>
-                <tr>
-                    <th colspan="2">금액</th>
-                    <td><span class="digits">99000</span></td>
-                </tr>
-                </tfoot>
-                <tbody>
-                <tr class="title_route">
-                    <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
-                </tr>
-                <tr>
-                    <th scope="row">좌석 지정</th>
-                    <td>D4</td>
-                    <td><span class="digits">10000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물 추가</th>
-                    <td>30kg</td>
-                    <td><span class="digits">60000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">기내식</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">라운지</th>
-                    <td>이용권 선택</td>
-                    <td><span class="digits">14900</span></td>
-                </tr>
-                <tr class="title_route">
-                    <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
-                </tr>
-                <tr>
-                    <th scope="row">좌석 지정</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물 추가</th>
-                    <td>30kg</td>
-                    <td><span class="digits">60000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">기내식</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">라운지</th>
-                    <td>이용권 선택</td>
-                    <td><span class="digits">14900</span></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <h6 class="passenger-name">Kim, Kukjin</h6>
-        <div class="table-wrap">
-            <table class="charge-sheet">
-                <caption>Bae, Sungjune 결제 금액</caption>
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-                <tfoot>
-                <tr>
-                    <th colspan="2">금액</th>
-                    <td><span class="digits">99000</span></td>
-                </tr>
-                </tfoot>
-                <tbody>
-                <tr class="title_route">
-                    <th colspan="3" scope="colgroup"><span class="title_tag">가는 편</span></th>
-                </tr>
-                <tr>
-                    <th scope="row">좌석 지정</th>
-                    <td>D4</td>
-                    <td><span class="digits">10000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물 추가</th>
-                    <td>30kg</td>
-                    <td><span class="digits">60000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">기내식</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">라운지</th>
-                    <td>이용권 선택</td>
-                    <td><span class="digits">14900</span></td>
-                </tr>
-                <tr class="title_route">
-                    <th colspan="3" scope="colgroup"><span class="title_tag">오는 편</span></th>
-                </tr>
-                <tr>
-                    <th scope="row">좌석 지정</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물 추가</th>
-                    <td>30kg</td>
-                    <td><span class="digits">60000</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">기내식</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td><span class="digits">0</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">라운지</th>
-                    <td>이용권 선택</td>
-                    <td><span class="digits">14900</span></td>
-                </tr>
-                </tbody>
-            </table>
+        <h4 class="summary-title">총 결제 금액 자세히보기</h4>
+        <div class="inner-wrap">
+            <h5 class="title_tag">가는 편</h5>
+            <div class="table-wrap">
+                <h6 class="passenger-name">Kim, Allwin</h6>
+                <table class="charge-sheet">
+                    <caption>Kim, Allwin 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석 지정</th>
+                        <td>D4</td>
+                        <td><span class="digits">10000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물 추가</th>
+                        <td>30kg</td>
+                        <td><span class="digits">60000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">구매하기</a></td>
+                        <td><span class="digits">0</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">라운지</th>
+                        <td>이용권 선택</td>
+                        <td><span class="digits">14900</span></td>
+                    </tr>
+                    </tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-wrap">
+                <h6 class="passenger-name">Bae, Sungjune</h6>
+                <table class="charge-sheet">
+                    <caption>Bae, Sungjune 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석 지정</th>
+                        <td>D4</td>
+                        <td><span class="digits">10000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물 추가</th>
+                        <td>30kg</td>
+                        <td><span class="digits">60000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">구매하기</a></td>
+                        <td><span class="digits">0</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">라운지</th>
+                        <td>이용권 선택</td>
+                        <td><span class="digits">14900</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-wrap">
+                <h6 class="passenger-name">Kim, Kukjin</h6>
+                <table class="charge-sheet">
+                    <caption>Kim, Kukjin 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석 지정</th>
+                        <td>D4</td>
+                        <td><span class="digits">10000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물 추가</th>
+                        <td>30kg</td>
+                        <td><span class="digits">60000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">구매하기</a></td>
+                        <td><span class="digits">0</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">라운지</th>
+                        <td>이용권 선택</td>
+                        <td><span class="digits">14900</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-wrap">
+                <dl>
+                    <dt>금액</dt>
+                    <dd><span class="digits">999000</span></dd>
+                </dl>
+            </div>
+
+            <h5 class="title_tag">오는 편</h5>
+            <div class="table-wrap">
+                <h6 class="passenger-name">Kim, Allwin</h6>
+                <table class="charge-sheet">
+                    <caption>Kim, Allwin 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석 지정</th>
+                        <td>D4</td>
+                        <td><span class="digits">10000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물 추가</th>
+                        <td>30kg</td>
+                        <td><span class="digits">60000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">구매하기</a></td>
+                        <td><span class="digits">0</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">라운지</th>
+                        <td>이용권 선택</td>
+                        <td><span class="digits">14900</span></td>
+                    </tr>
+                    </tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-wrap">
+                <h6 class="passenger-name">Bae, Sungjune</h6>
+                <table class="charge-sheet">
+                    <caption>Bae, Sungjune 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석 지정</th>
+                        <td>D4</td>
+                        <td><span class="digits">10000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물 추가</th>
+                        <td>30kg</td>
+                        <td><span class="digits">60000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">구매하기</a></td>
+                        <td><span class="digits">0</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">라운지</th>
+                        <td>이용권 선택</td>
+                        <td><span class="digits">14900</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-wrap">
+                <h6 class="passenger-name">Kim, Kukjin</h6>
+                <table class="charge-sheet">
+                    <caption>Kim, Kukjin 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석 지정</th>
+                        <td>D4</td>
+                        <td><span class="digits">10000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물 추가</th>
+                        <td>30kg</td>
+                        <td><span class="digits">60000</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">구매하기</a></td>
+                        <td><span class="digits">0</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">라운지</th>
+                        <td>이용권 선택</td>
+                        <td><span class="digits">14900</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-wrap">
+                <dl>
+                    <dt>금액</dt>
+                    <dd><span class="digits">999000</span></dd>
+                </dl>
+            </div>
         </div>
     </div>
     <!-- //총 결제금액 팝업 -->

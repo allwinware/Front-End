@@ -45,13 +45,14 @@ function moveTabByClick(el, target, position, duration){
 
 /* 팝업 생성 기능 정의 */
 function popupShow(target){
-    target.addClass("active");
-    createDim()
+    createDim();
+    setTimeout(function(){ target.addClass("active") }, 250);
 }
 /* 팝업 삭제 기능 정의  */
 function popupHide(target){
-    target.removeClass("active");
-    deleteDim()
+
+    setTimeout(function(){ target.removeClass("active"); }, 250);
+    setTimeout(function(){ deleteDim() }, 1000)
 }
 
 $(document).ready(function(){
@@ -233,7 +234,7 @@ $(document).ready(function(){
         var $target = $("#passenger-summary");
         if($target.hasClass("active") === true){
             $target.css("height", "");
-            setTimeout(function(){popupHide($target);}, 500)
+            popupHide($target)
         } else {
             popupShow($target);
             $target.css("height", $win.innerHeight() - $("#ags-header").height());
