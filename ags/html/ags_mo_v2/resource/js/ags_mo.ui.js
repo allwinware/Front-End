@@ -50,9 +50,20 @@ function popupShow(target){
 }
 /* 팝업 삭제 기능 정의  */
 function popupHide(target){
-
     setTimeout(function(){ target.removeClass("active"); }, 250);
     setTimeout(function(){ deleteDim() }, 1000)
+}
+
+/* 메시지 팝업 기능 정의(하단에서 올라오는 팝업) */
+function messagePopShow(target){
+    popupShow(target);
+    target.css({
+        "max-height": $(window).innerHeight()
+    })
+}
+function messagePopHide(target){
+    popupHide(target)
+    setTimeout(function(){ target.css("max-height", "") }, 750);
 }
 
 $(document).ready(function(){
@@ -221,12 +232,20 @@ $(document).ready(function(){
     /* 팝업 */
     $(document).on("click", "[data-popup]", function(){
         var $pop = $($(this).attr("data-popup"));
-        popupShow($pop);
+        if($pop.attr("data-type") === 'alert'){
+            popupShow($pop);
+        } else if($pop.attr("data-type") === 'message'){
+            messagePopShow($pop)
+        }
     });
 
     $(document).on("click", "[data-role='close']", function(){
         var $pop = $($("#" + $(this).parents(".pop-area").attr("id")));
-        popupHide($pop);
+        if($pop.attr("data-type") === 'alert'){
+            popupHide($pop);
+        } else if($pop.attr("data-type") === 'message'){
+            messagePopHide($pop)
+        }
     });
 
     /*총 결제 금액 팝업 정의*/
