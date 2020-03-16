@@ -1,0 +1,114 @@
+/* LAYOUT */
+html { font-size: #{$font-root-size}px; }
+body {
+  font-family: $font-common-family;
+  @include font($size: $font-root-size, $color: $mono1, $weight: 400);
+}
+
+.air-wrap {
+  position: relative;
+  min-width: 1280px; width: 100%; min-height: 768px; height: 100vh;
+  background-color: $mono1;
+}
+.header {
+  @include clearfix;
+  position: absolute; left: 0; top: 0; right: 0;
+  padding: 80px 80px 0; height: #{$gnb-height}px;
+  .site-symbol {
+    @include background($file: 'common/symbol_allwin-air', $type: png, $width: 163px, $height: 25px);
+    overflow: hidden;
+    display: inline-block;
+    width: 163px; height: 25px;
+    text-indent: -999em;
+  }
+  .nav-wrap { float: right; }
+  .site-nav {
+    height: 36px;
+    vertical-align: bottom;
+    a {
+      @include font($family: en, $size: 18, $color: $mono10, $weight: 500, $spacing: 0);
+      @include text-uppercase;
+      position: relative;
+      display: inline-block;
+      margin: 12px 25px 0;
+      line-height: 22px; text-decoration: none;
+      &:after {
+        transition: all 0.1s cubic-bezier(0.18, 0.68, 0.68, 1.21);
+        content: "";
+        position: absolute; left: 50%; bottom: 0;
+        transform: translate(-50%, 0);
+        display: block;
+        width: 0; height: 2px;
+        background-color: transparent;
+      }
+      &:hover {
+        &:after {
+          width: 100%;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+.ico_count-bubble {
+  @include font($family: en, $size: 15, $color: $mono10, $weight: 600, $spacing: 0);
+  @include valign-middle();
+  display: inline-block;
+  position: absolute; right: -22px; top: -14px;
+  padding: 2px 9px 0; min-width: 29px; height: 24px;
+  border-radius: 12px; text-align: center;
+  background-color: rgba(219, 16, 16, 0.8); border-color: #FF0000;
+}
+.container {
+  padding: #{$gnb-height}px 80px #{$footer-height}px; height: 100%;
+  .content {
+    @include font($family: en, $size: 18, $color: $mono10, $weight: 600, $spacing: 0);
+    position: relative;
+    margin: 0 auto; width: 1200px;
+  }
+}
+.footer {
+  $font-size: 11;
+  @include clearfix;
+  @include font($size: $font-size, $color: $mono10, $weight: 400);
+  position: absolute; left: 0; bottom: 0; right: 0;
+  padding: 30px 80px 0; height: #{$footer-height}px;
+  line-height: em(20, $font-size); color: $mono10;
+  .copyright-wrap {
+    @include font($family: en, $size: inherit, $color: inherit, $weight: inherit);
+    @include text-uppercase;
+    float: left;
+    padding-top: 161px;
+  }
+  .contact-wrap {
+    float: right;
+    width: 350px;
+    h3 {
+      $font-size: 20;
+      @include font($family: en, $size: $font-size, $color: $mono10, $weight: 500);
+      margin-bottom: em(12, $font-size)
+    }
+    dl {
+      @include clearfix;
+      dt, dd { float: left; }
+      dt:after { content: ":"; padding: 0.3em }
+    }
+    dl:first-of-type {
+    }
+    dl:nth-of-type(1) ~ dl {
+      dd + dt:before { content: "/"; padding: 0 0.3em }
+    }
+    dl:nth-of-type(2) {
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid rgba(216,216,216,0.33)
+    }
+    dl:nth-of-type(4) {
+      .sr-only + dd:before { content: "/"; padding: 0 0.3em }
+    }
+  }
+}
+
+/*z-index*/
+.pop-wrap { z-index: 150; }
+.page-dim { z-index: 100; }
+.air-wrap { z-index: 0; }
