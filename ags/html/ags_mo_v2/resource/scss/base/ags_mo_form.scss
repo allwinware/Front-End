@@ -5,7 +5,11 @@
   border-radius: $border-common-radius;
   white-space: nowrap;
   @if $type == "button" or $type == "select" or $type == "textbox" {
-    @if $size == 1 {
+    @if $size == 0 {
+      @include font($size: 10, $color: $mono3);
+      height: rem(18);
+      line-height: rem(18);
+    } @else if $size == 1 {
       @include font($size: 13, $color: $mono3);
       padding: 0 rem(10);
       height: rem(26);
@@ -16,9 +20,9 @@
       line-height: rem(34);
       @include font($size: 12, $color: $mono1, $weight: 600);
     } @else if $size == 3 {
-      padding: 0 rem(20);
-      height: rem(44);
-      line-height: rem(42);
+      padding: 0 rem(16);
+      height: rem(40);
+      line-height: rem(38);
       @include font($size: 13, $color: $mono1, $weight: 600);
     } @else if $size == 4 {
       padding: 0 rem(20);
@@ -134,27 +138,23 @@
       border: 1px solid #eee;
       background-color: #eee;
       color: $mono1;
+    } @else if $role == "minified" {
+      border: none;
+      background-color: transparent;
+    } @else if $role == "primary3" {
+      border: 1px solid $bg-secondary;
+      background-color: $bg-secondary;
+      color: $mono10
     }
   }
-  /*@if $type == "checkbox" or $type == "radio"{
-    @if $role == "normal" {
-      & + label .ico {
-        border: 1px solid $mono9; background-color: $mono10;
-        &:before { border: solid $mono9; }
-      }
-    } @else if $role == "disabled" {
-      & + label .ico {
-        border: 1px solid $mono9; background-color: $mono9;
-        &:before { border: solid $mono8; }
-      }
-    }
-  }*/
   @if $type == "button" {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
   } @else if $type == "select" {
-    padding-right: 0;
+    @include background($file: 'common/ico_select-arrow', $type: png, $width: 9px, $height: auto);
+    background-color: transparent; background-position: right 5px top 50%;
+    padding: 0 rem(3) 0 0;
   } @else if $type == "textbox" {
 
   } @else if $type == "textarea" {
@@ -167,6 +167,7 @@
 .ui-textbox { @include form($type: textbox) }
 .ui-select {
   @include form($type: select);
+  background-color: $mono10;
   &.size1 { @include form($size: 1, $role: normal, $type: select) }
   &.size2 { @include form($size: 2, $role: normal, $type: select) }
   &.size3 { @include form($size: 3, $role: normal, $type: select) }

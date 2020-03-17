@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <title>구매 내역 / 취소 - 부가서비스 결제하기</title>
+    <link rel="stylesheet" href="../resource/css/ags_mo_tway.min.css">
+    <script src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script src="../resource/js/ags_mo.ui.js"></script>
+</head>
+<body>
+	<div id="ags-wrap" class="ags-wrap">
+        <h1 class="site-name">올윈에어</h1>
+
+        <!-- ags-header -->
+        <header id="ags-header" class="ags-header">
+            <h2 class="page-name">구매 내역 / 취소</h2>
+            <nav class="ags-gnb">
+                <h3 class="sr-only">전역메뉴</h3>
+                <ul class="gnb-wrap">
+                    <!--<li><a href="#none" target="_self" class="btn_back">뒤로가기</a></li>--><!--본 페이지는 뒤로가기 버튼이 제공되지 않습니다.-->
+                    <li>
+                        <a href="#none" target="_self" id="btn_gnb" class="btn_gnb">메뉴</a>
+                        <div  id="gnb-2dp" class="gnb-2dp-wrap">
+                            <a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>
+                            <ul class="depth1">
+                                <li>
+                                    <a href="#none" target="_self">부가서비스 예약하기</a>
+                                    <ul class="depth2">
+                                        <li><a href="#none" target="_self">사전좌석/수하물/기내식 등 할인구매</a></li>
+                                        <li><a href="#none" target="_self">기내면세품 예약</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#none" target="_self">신청내역/취소</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#none" target="_self" class="btn_close">화면 닫기</a></li>
+                </ul>
+            </nav>
+        </header>
+        <!-- //ags-header -->
+
+        <hr>
+
+        <!-- ags-container -->
+        <div class="ags-container">
+            <section class="ags-contents" data-page-id="my__history-list">
+                <h3 class="sr-only">컨텐츠</h3>
+
+                <div class="content-wrap">
+                    <header class="content-header">
+                        <h4 class="content-title">나의 예약 / 구매 내역</h4>
+                        <p class="content-description">예약번호를 선택하여 상세 내역을 확인하세요.</p>
+                    </header>
+
+                    <!-- 기능 영역 -->
+                    <div class="function-wrap">
+                        <div class="inner-box">
+                            총 <i class="text-emphasis">4건</i>의 구매내역
+                        </div>
+                        <div class="inner-box">
+                            <label for="sort-condition01">정렬 기준</label>
+                            <select id="sort-condition01">
+                                <option>구매일 순</option>
+                                <option>출발일 순</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- //기능 영역 -->
+
+                    <!-- 예약 / 구매 내역 목록 -->
+                    <div class="history-list-wrap">
+                        <h5 class="sr-only">예약 / 구매 내역 목록</h5>
+                        <ul>
+                            <!-- 구매내역이 없을 때 -->
+                            <li></li><!-- 공백문자가 없이 완벽히 Element를 비우면 '부가서비스 신청내역이 없습니다' 텍스트가 디스플레이 됩니다. -->
+                            <!--<li class="empty">부가서비스 신청내역이 없습니다.</li>--><!-- 텍스트를 삽입해야만 하는 경우 이 html 코드를 사용하세요. -->
+
+                            <!-- 구매내역이 있으며, 왕복 항공권, 결제완료 상태일 때 -->
+                            <li>
+                                <dl>
+                                    <dt class="resv-num">여행사 예약번호</dt>
+                                    <dd>123456</dd>
+                                    <dt class="purchase-state">예약상태</dt>
+                                    <dd>결제완료</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="departure">출발 공항</dt>
+                                    <dd>인천 ICN</dd>
+                                    <dt class="arrival">도착 공항</dt>
+                                    <dd>하노이 HAN</dd>
+                                    <dt class="duration">여정 기간</dt>
+                                    <dd>2019.09.30(월) - 2019.10.15(토)</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="my-plan">구매항목</dt>
+                                    <dd>사전 좌석구매 외 3건 (2019.11.05 13:09)</dd>
+                                </dl>
+                                <a href="my_history-detail.html" target="_self" class="btn_more">자세히 보기</a>
+                            </li>
+
+                            <!-- 구매내역이 있으며, 편도 항공권, 결제완료 상태일 때 -->
+                            <li class="one-way">
+                                <dl>
+                                    <dt class="resv-num">여행사 예약번호</dt>
+                                    <dd>123456</dd>
+                                    <dt class="purchase-state">예약상태</dt>
+                                    <dd>결제완료</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="departure">출발 공항</dt>
+                                    <dd>인천 ICN</dd>
+                                    <dt class="arrival">도착 공항</dt>
+                                    <dd>하노이 HAN</dd>
+                                    <dt class="duration">여정 기간</dt>
+                                    <dd>2019.09.30(월)</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="my-plan">구매항목</dt>
+                                    <dd>사전 좌석구매 외 3건 (2019.11.05 13:09)</dd>
+                                </dl>
+                                <a href="my_history-detail.html" target="_self" class="btn_more">자세히 보기</a>
+                            </li>
+
+                            <!-- 구매내역이 있으며, 왕복 항공권, 부분 취소 상태일 때 -->
+                            <li>
+                                <dl>
+                                    <dt class="resv-num">여행사 예약번호</dt>
+                                    <dd>123456</dd>
+                                    <dt class="purchase-state">예약상태</dt>
+                                    <dd>부분 취소</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="departure">출발 공항</dt>
+                                    <dd>인천 ICN</dd>
+                                    <dt class="arrival">도착 공항</dt>
+                                    <dd>하노이 HAN</dd>
+                                    <dt class="duration">여정 기간</dt>
+                                    <dd>2019.09.30(월) - 2019.10.15(토)</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="my-plan">구매항목</dt>
+                                    <dd>사전 좌석구매 외 3건 (2019.11.05 13:09)</dd>
+                                </dl>
+                                <a href="my_history-detail.html" target="_self" class="btn_more">자세히 보기</a>
+                            </li>
+
+                            <!-- 구매내역이 있으며, 취소 / 환불완료 상태일 때 -->
+                            <li class="refund">
+                                <dl>
+                                    <dt class="resv-num">여행사 예약번호</dt>
+                                    <dd>123456</dd>
+                                    <dt class="purchase-state">예약상태</dt>
+                                    <dd>취소 / 환불완료</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="departure">출발 공항</dt>
+                                    <dd>인천 ICN</dd>
+                                    <dt class="arrival">도착 공항</dt>
+                                    <dd>하노이 HAN</dd>
+                                    <dt class="duration">여정 기간</dt>
+                                    <dd>2019.09.30(월) - 2019.10.15(토)</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="my-plan">구매항목</dt>
+                                    <dd>사전 좌석구매 외 3건 (2019.11.05 13:09)</dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- //예약 / 구매 내역 목록 -->
+
+                </div>
+
+            </section>
+        </div>
+        <!-- //ags-container -->
+
+	</div>
+</body>
+</html>
