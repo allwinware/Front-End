@@ -610,6 +610,7 @@ strong {
   margin-right: 0.35714rem;
   width: 16px;
   height: 16px;
+  line-height: 16px;
 }
 
 .ui-checkbox + label .ico:before {
@@ -1199,6 +1200,7 @@ strong {
   margin-right: 11px;
   width: 22px;
   height: 22px;
+  line-height: 22px;
 }
 
 [data-type='message'] .pop-footer input[type='checkbox'] + label .ico:before {
@@ -2197,6 +2199,7 @@ body {
   border-top: 1px solid #f0f0f0;
 }
 
+/* 규정 및 약관 아코디언 */
 /* 프로세스 버튼 영역 */
 .process-btn-wrap {
   display: flex;
@@ -2429,6 +2432,7 @@ body {
   margin-right: 0.35714rem;
   width: 16px;
   height: 16px;
+  line-height: 16px;
 }
 
 [data-page-id^='buy__'] .function-wrap .btn-group input[type='checkbox'] + label .ico:before {
@@ -3627,6 +3631,7 @@ body {
   margin-right: 0.35714rem;
   width: 16px;
   height: 16px;
+  line-height: 16px;
 }
 
 [data-page-id='buy__meal'] .meal-list input[type='radio'] + label .ico:before {
@@ -4268,6 +4273,7 @@ body {
   margin-right: 8px;
   width: 16px;
   height: 16px;
+  line-height: 16px;
 }
 
 [data-page-id='buy__lounge'] .table-wrap input[type='checkbox'] + label .ico:before {
@@ -4381,6 +4387,7 @@ body {
   margin-right: 8px;
   width: 16px;
   height: 16px;
+  line-height: 16px;
 }
 
 [data-page-id='pay__payment'] input[type='checkbox'] + label .ico:before {
@@ -4457,6 +4464,7 @@ body {
   margin-right: 8px;
   width: 16px;
   height: 16px;
+  line-height: 16px;
 }
 
 [data-page-id='pay__payment'] input[type='radio'] + label .ico:before {
@@ -4478,28 +4486,6 @@ body {
 
 [data-page-id='pay__payment'] input[type='radio']:checked + label .ico:before {
   border-color: #ffffff;
-}
-
-[data-page-id='pay__payment'] .btn_more {
-  font-size: 0.78571rem;
-  font-weight: 600;
-  color: #000;
-  letter-spacing: -0.03em;
-  padding: 0.35714rem 0.78571rem 0.35714rem 0.35714rem;
-  text-decoration: none;
-  color: inherit;
-}
-
-[data-page-id='pay__payment'] .btn_more .ico {
-  -webkit-transform: rotate(-45deg) translate(4px, 2px);
-  -ms-transform: rotate(-45deg) translate(4px, 2px);
-  -o-transform: rotate(-45deg) translate(4px, 2px);
-  transform: rotate(-45deg) translate(4px, 2px);
-  display: inline-block;
-  width: 0.28571rem;
-  height: 0.28571rem;
-  border: solid #000;
-  border-width: 0 0 1px 1px;
 }
 
 [data-page-id='pay__payment'] .ticket-wrap {
@@ -4666,8 +4652,27 @@ body {
 }
 
 [data-page-id='pay__payment'] .receipt-wrap .total .btn_more {
+  font-size: 0.78571rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  padding: 0.35714rem 0.78571rem 0.35714rem 0.35714rem;
+  text-decoration: none;
+  color: inherit;
   float: left;
   margin: 1rem 0 0 -0.35714rem;
+}
+
+[data-page-id='pay__payment'] .receipt-wrap .total .btn_more .ico {
+  -webkit-transform: rotate(-45deg) translate(4px, 2px);
+  -ms-transform: rotate(-45deg) translate(4px, 2px);
+  -o-transform: rotate(-45deg) translate(4px, 2px);
+  transform: rotate(-45deg) translate(4px, 2px);
+  display: inline-block;
+  width: 0.28571rem;
+  height: 0.28571rem;
+  border: solid #000;
+  border-width: 0 0 1px 1px;
 }
 
 [data-page-id='pay__payment'] .receipt-wrap .total dl {
@@ -4750,10 +4755,6 @@ body {
   font-weight: 600;
   color: #000;
   letter-spacing: -0.03em;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
   padding: 1.21429rem 0 0;
 }
 
@@ -4769,17 +4770,57 @@ body {
   font-size: 0.78571rem;
 }
 
-[data-page-id='pay__payment'] .agreement-wrap .agreement-list li {
-  overflow: hidden;
+[data-page-id='pay__payment'] .agreement-wrap {
+  padding: 5.71429rem 0 0 1.14286rem;
+  padding-right: 1.14286rem;
 }
 
-[data-page-id='pay__payment'] .agreement-wrap .agreement-list li.active {
+[data-page-id='pay__payment'] .agreement-wrap h5,
+[data-page-id='pay__payment'] .agreement-wrap .agreement-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.85714rem;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .agreement-list {
+  border-top: 1px solid #000;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .agreement-list > li {
+  overflow: hidden;
+  position: relative;
+  height: 3.57143rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .agreement-list > li:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .agreement-list > li label {
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  font-size: 0.92857rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  padding: 1.21429rem 1.14286rem 0 0;
+  width: calc(100% - 90px)/14rem;
+  height: 3.57143rem;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .agreement-list > li.active {
   overflow: auto;
   height: auto;
-}
-
-[data-page-id='pay__payment'] .agreement-wrap .agreement-list label {
-  right: 6.42857rem;
 }
 
 [data-page-id='pay__payment'] .agreement-wrap .agreement-list .btn_more {
@@ -4789,14 +4830,118 @@ body {
   margin-right: -0.35714rem;
 }
 
+[data-page-id='pay__payment'] .agreement-wrap .table-wrap {
+  padding-bottom: 0;
+}
+
 [data-page-id='pay__payment'] .agreement-wrap .notification-wrap {
-  margin-top: 2.35714rem;
-  padding: 2.28571rem 1.14286rem 0.85714rem;
+  padding: 2.28571rem 1.14286rem 2.28571rem;
   background-color: #F8F8F8;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .notification-wrap .notification-list {
+  padding: 0.57143rem 0 1.42857rem;
 }
 
 [data-page-id='pay__payment'] .agreement-wrap .notification-wrap .notification-list li {
   font-size: 0.78571rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.03em;
+  position: relative;
+  padding-left: 0.54545em;
+  line-height: 1.45455em;
+  letter-spacing: -0.03em;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .notification-wrap .notification-list li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.54545em;
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background-color: #5B5B5B;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .notification-wrap .notification-list li + li {
+  margin-top: 0.36364em;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .notification-wrap .notification-list:last-child {
+  padding-bottom: 0;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .notification-wrap td .notification-list {
+  padding: 0;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .notification-wrap td .notification-list .notification-text, [data-page-id='pay__payment'] .agreement-wrap .notification-wrap td .notification-list li {
+  color: #5B5B5B;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table {
+  width: 100%;
+  font-size: 0.78571rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: 0em;
+  width: 100%;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table a, [data-page-id='pay__payment'] .agreement-wrap table button, [data-page-id='pay__payment'] .agreement-wrap table input, [data-page-id='pay__payment'] .agreement-wrap table textarea, [data-page-id='pay__payment'] .agreement-wrap table select {
+  margin-bottom: 0 !important;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table th, [data-page-id='pay__payment'] .agreement-wrap table td {
+  vertical-align: middle;
+  line-height: 1.09091em;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table thead th,
+[data-page-id='pay__payment'] .agreement-wrap table tbody th[scope='colgroup'] {
+  padding: 0.90909em;
+  min-height: 2.90909em;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  background-color: #000;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table thead th + th,
+[data-page-id='pay__payment'] .agreement-wrap table tbody th[scope='colgroup'] + th {
+  border-left: 1px solid #ffffff;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table tbody th,
+[data-page-id='pay__payment'] .agreement-wrap table tbody td {
+  padding: 1.45455em 0.90909em;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table tbody th + *,
+[data-page-id='pay__payment'] .agreement-wrap table tbody td + * {
+  border-left: 1px solid #ddd;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table p {
+  line-height: 1.14286rem;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table p + ul {
+  padding-top: 0.85714rem;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table p + ul + p {
+  padding-top: 0.85714rem;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap table tbody tr:last-of-type th,
+[data-page-id='pay__payment'] .agreement-wrap table tbody tr:last-of-type td {
+  border-bottom: 0;
 }
 
 [data-page-id='pay__payment'] .agreement-wrap .agreement-all-list {
@@ -4818,6 +4963,66 @@ body {
   right: 0;
   bottom: 0;
   padding: 1.21429rem 0 0;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap dl {
+  font-size: 0.78571rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: 0em;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap dl dt {
+  padding: 0.90909em;
+  min-height: 2.90909em;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  background-color: #000;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap dl dt + th {
+  border-left: 1px solid #ffffff;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap dl dd {
+  padding: 1.45455em 0.90909em;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .btn_more {
+  font-size: 0.78571rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  padding: 0.35714rem 0.78571rem 0.35714rem 0.35714rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap .btn_more .ico {
+  -webkit-transform: rotate(-45deg) translate(4px, 2px);
+  -ms-transform: rotate(-45deg) translate(4px, 2px);
+  -o-transform: rotate(-45deg) translate(4px, 2px);
+  transform: rotate(-45deg) translate(4px, 2px);
+  display: inline-block;
+  width: 0.28571rem;
+  height: 0.28571rem;
+  border: solid #000;
+  border-width: 0 0 1px 1px;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap tbody th,
+[data-page-id='pay__payment'] .agreement-wrap tbody td {
+  text-align: center;
+}
+
+[data-page-id='pay__payment'] .agreement-wrap tbody th .notification-list,
+[data-page-id='pay__payment'] .agreement-wrap tbody th .notification-text,
+[data-page-id='pay__payment'] .agreement-wrap tbody td .notification-list,
+[data-page-id='pay__payment'] .agreement-wrap tbody td .notification-text {
+  text-align: left;
 }
 
 .ags-summary.pay__payment .inner-wrap {
@@ -5897,4 +6102,611 @@ body {
 
 [data-page-id='my__history-detail'] .total-wrap + .title {
   margin-top: 5.71429rem;
+}
+
+/*마이페이지 > 구매 내역/취소*/
+[data-page-id='my__refund'] {
+  overflow: hidden;
+  width: 100%;
+}
+
+[data-page-id='my__refund'] input[type='checkbox'] {
+  display: inline-block;
+  margin: 0 0 0.35714rem;
+  width: 100%;
+  border-radius: 3px;
+  white-space: nowrap;
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+[data-page-id='my__refund'] input[type='checkbox'] + label {
+  position: relative;
+}
+
+[data-page-id='my__refund'] input[type='checkbox'] + label .ico {
+  transition: all 0.5s;
+  /*transition-delay: $trs-delay;*/
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
+[data-page-id='my__refund'] input[type='checkbox'] + label .ico:before {
+  content: "";
+  transition: border-color 0.5s;
+  transition-delay: 0.2s;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: solid #E4E4E4;
+  border-width: 0 0 1px 1px;
+  transform: rotate(-45deg);
+}
+
+[data-page-id='my__refund'] input[type='checkbox'] + label {
+  font-size: 0.92857rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.03em;
+  height: 16px;
+}
+
+[data-page-id='my__refund'] input[type='checkbox'] + label .ico {
+  margin-right: 0.57143rem;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+}
+
+[data-page-id='my__refund'] input[type='checkbox'] + label .ico:before {
+  left: 3px;
+  top: 4px;
+  width: 8px;
+  height: 4px;
+}
+
+[data-page-id='my__refund'] input[type='checkbox'] + label .ico {
+  border: 1px solid #E4E4E4;
+  background-color: #ffffff;
+}
+
+[data-page-id='my__refund'] input[type='checkbox']:checked + label .ico {
+  border: 1px solid #FF4F24;
+  background-color: #FF4F24;
+}
+
+[data-page-id='my__refund'] input[type='checkbox']:checked + label .ico:before {
+  border-color: #ffffff;
+}
+
+[data-page-id='my__refund'] .refund-wrap {
+  position: relative;
+  padding: 3.57143rem 0 0 1.14286rem;
+}
+
+[data-page-id='my__refund'] .inner-wrap header {
+  position: relative;
+}
+
+[data-page-id='my__refund'] .inner-wrap + .inner-wrap {
+  padding-top: 5.71429rem;
+}
+
+[data-page-id='my__refund'] .title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: inline-block;
+}
+
+[data-page-id='my__refund'] .flight-num {
+  display: inline-block;
+  margin: 0 0 0.85714rem 0.28571rem;
+}
+
+[data-page-id='my__refund'] .flight-num dt {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+[data-page-id='my__refund'] .flight-num dd {
+  font-size: 0.64286rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.14286rem;
+  line-height: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #000;
+  width: auto;
+  padding: 0 0.28571rem;
+}
+
+[data-page-id='my__refund'] .check-all-wrap {
+  position: absolute;
+  right: 1.14286rem;
+  top: 0;
+}
+
+[data-page-id='my__refund'] .check-all-wrap label {
+  font-weight: 600 !important;
+}
+
+[data-page-id='my__refund'] .table-wrap {
+  position: relative;
+  padding-bottom: 1.14286rem;
+}
+
+[data-page-id='my__refund'] .table-wrap:first-of-type {
+  border-top: 1px solid #000;
+}
+
+[data-page-id='my__refund'] .table-wrap + .table-wrap {
+  border-top: 1px solid #f0f0f0;
+}
+
+[data-page-id='my__refund'] .charge-sheet {
+  width: 100%;
+}
+
+[data-page-id='my__refund'] .charge-sheet a, [data-page-id='my__refund'] .charge-sheet button, [data-page-id='my__refund'] .charge-sheet input, [data-page-id='my__refund'] .charge-sheet textarea, [data-page-id='my__refund'] .charge-sheet select {
+  margin-bottom: 0 !important;
+}
+
+[data-page-id='my__refund'] .charge-sheet caption {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+[data-page-id='my__refund'] .charge-sheet thead th {
+  font-size: 0.92857rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  padding: 0.78571rem 0;
+  height: 3.30769em;
+  line-height: 1.07692em;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody th, [data-page-id='my__refund'] .charge-sheet tbody td,
+[data-page-id='my__refund'] .charge-sheet tfoot th, [data-page-id='my__refund'] .charge-sheet tfoot td {
+  font-size: 0.92857rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.03em;
+  padding: 0.71429rem 0;
+  vertical-align: middle;
+  height: 4.30769em;
+  line-height: 1.23077em;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody th {
+  font-weight: 600;
+}
+
+[data-page-id='my__refund'] .charge-sheet tfoot th, [data-page-id='my__refund'] .charge-sheet tfoot td {
+  font-size: 0.92857rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  background-color: #ffffff;
+}
+
+[data-page-id='my__refund'] .charge-sheet thead th {
+  padding-left: 1.14286rem;
+  padding-right: 1.14286rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody td {
+  padding-left: 1.14286rem;
+  padding-right: 1.14286rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet thead th:first-child {
+  padding-left: 2.28571rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody td:first-child {
+  padding-left: 2.28571rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet thead th:last-child {
+  padding-right: 2.28571rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody td:last-child {
+  padding-right: 2.28571rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet tfoot th:first-child {
+  padding-left: 2.28571rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet tfoot td:last-child {
+  padding-right: 2.28571rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet th, [data-page-id='my__refund'] .charge-sheet td {
+  padding: 0.57143rem 1.14286rem 0.57143rem 0 !important;
+  vertical-align: middle;
+}
+
+[data-page-id='my__refund'] .charge-sheet thead th, [data-page-id='my__refund'] .charge-sheet tbody th, [data-page-id='my__refund'] .charge-sheet tbody td, [data-page-id='my__refund'] .charge-sheet tfoot th, [data-page-id='my__refund'] .charge-sheet tfoot td {
+  border-bottom: 0;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody td:last-of-type {
+  text-align: right;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody th, [data-page-id='my__refund'] .charge-sheet tbody td {
+  height: 2.14286rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody th:last-child, [data-page-id='my__refund'] .charge-sheet tbody td:last-child {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.03em;
+  padding-right: 1.14286rem;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody th[scope='row'] {
+  font-size: 0.92857rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  width: 5rem;
+  text-align: left;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody th[scope='row'] label {
+  font-weight: inherit;
+}
+
+[data-page-id='my__refund'] .charge-sheet tbody td:nth-of-type(2) {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.03em;
+  text-align: right;
+}
+
+[data-page-id='my__refund'] .passenger-name {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #FF4F24;
+  letter-spacing: -0.03em;
+  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-repeat: no-repeat;
+  background-size: 0.85714rem 0.85714rem;
+  text-transform: uppercase;
+  margin: 1.14286rem 0 0.57143rem;
+  padding-left: 1.42857rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  [data-page-id='my__refund'] .passenger-name {
+    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  [data-page-id='my__refund'] .passenger-name {
+    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+  }
+}
+
+[data-page-id='my__refund'] .total-wrap {
+  height: 3.14286rem;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+[data-page-id='my__refund'] .total-wrap dl {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+[data-page-id='my__refund'] .total-wrap dt, [data-page-id='my__refund'] .total-wrap dd {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+[data-page-id='my__refund'] .total-wrap dt {
+  font-size: 0.85714rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  width: 8.57143rem;
+}
+
+[data-page-id='my__refund'] .total-wrap dd {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 500;
+  color: #FF4F24;
+  letter-spacing: -0.03em;
+  padding-right: 1.14286rem;
+  text-align: right;
+}
+
+[data-page-id='my__refund'] .agreement-wrap {
+  padding: 5.71429rem 0 0 1.14286rem;
+  padding-right: 1.14286rem;
+}
+
+[data-page-id='my__refund'] .agreement-wrap h5,
+[data-page-id='my__refund'] .agreement-wrap .agreement-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.85714rem;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .agreement-list {
+  border-top: 1px solid #000;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .agreement-list > li {
+  overflow: hidden;
+  position: relative;
+  height: 3.57143rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .agreement-list > li:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .agreement-list > li label {
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  font-size: 0.92857rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  padding: 1.21429rem 1.14286rem 0 0;
+  width: calc(100% - 90px)/14rem;
+  height: 3.57143rem;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .agreement-list > li.active {
+  overflow: auto;
+  height: auto;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .agreement-list .btn_more {
+  position: absolute;
+  right: 1.14286rem;
+  top: 1.07143rem;
+  margin-right: -0.35714rem;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .table-wrap {
+  padding-bottom: 0;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .notification-wrap {
+  padding: 2.28571rem 1.14286rem 2.28571rem;
+  background-color: #F8F8F8;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .notification-wrap .notification-list {
+  padding: 0.57143rem 0 1.42857rem;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .notification-wrap .notification-list li {
+  font-size: 0.78571rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.03em;
+  position: relative;
+  padding-left: 0.54545em;
+  line-height: 1.45455em;
+  letter-spacing: -0.03em;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .notification-wrap .notification-list li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.54545em;
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background-color: #5B5B5B;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .notification-wrap .notification-list li + li {
+  margin-top: 0.36364em;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .notification-wrap .notification-list:last-child {
+  padding-bottom: 0;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .notification-wrap td .notification-list {
+  padding: 0;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .notification-wrap td .notification-list .notification-text, [data-page-id='my__refund'] .agreement-wrap .notification-wrap td .notification-list li {
+  color: #5B5B5B;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table {
+  width: 100%;
+  font-size: 0.78571rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: 0em;
+  width: 100%;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table a, [data-page-id='my__refund'] .agreement-wrap table button, [data-page-id='my__refund'] .agreement-wrap table input, [data-page-id='my__refund'] .agreement-wrap table textarea, [data-page-id='my__refund'] .agreement-wrap table select {
+  margin-bottom: 0 !important;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table th, [data-page-id='my__refund'] .agreement-wrap table td {
+  vertical-align: middle;
+  line-height: 1.09091em;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table thead th,
+[data-page-id='my__refund'] .agreement-wrap table tbody th[scope='colgroup'] {
+  padding: 0.90909em;
+  min-height: 2.90909em;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  background-color: #000;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table thead th + th,
+[data-page-id='my__refund'] .agreement-wrap table tbody th[scope='colgroup'] + th {
+  border-left: 1px solid #ffffff;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table tbody th,
+[data-page-id='my__refund'] .agreement-wrap table tbody td {
+  padding: 1.45455em 0.90909em;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table tbody th + *,
+[data-page-id='my__refund'] .agreement-wrap table tbody td + * {
+  border-left: 1px solid #ddd;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table p {
+  line-height: 1.14286rem;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table p + ul {
+  padding-top: 0.85714rem;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table p + ul + p {
+  padding-top: 0.85714rem;
+}
+
+[data-page-id='my__refund'] .agreement-wrap table tbody tr:last-of-type th,
+[data-page-id='my__refund'] .agreement-wrap table tbody tr:last-of-type td {
+  border-bottom: 0;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .agreement-all-list {
+  position: relative;
+  margin: -1px 0 3.57143rem;
+  height: 3.57143rem;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .agreement-all-list label {
+  font-size: 0.92857rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.21429rem 0 0;
+}
+
+[data-page-id='my__refund'] .agreement-wrap dl {
+  font-size: 0.78571rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: 0em;
+}
+
+[data-page-id='my__refund'] .agreement-wrap dl dt {
+  padding: 0.90909em;
+  min-height: 2.90909em;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  background-color: #000;
+}
+
+[data-page-id='my__refund'] .agreement-wrap dl dt + th {
+  border-left: 1px solid #ffffff;
+}
+
+[data-page-id='my__refund'] .agreement-wrap dl dd {
+  padding: 1.45455em 0.90909em;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .btn_more {
+  font-size: 0.78571rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  padding: 0.35714rem 0.78571rem 0.35714rem 0.35714rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-page-id='my__refund'] .agreement-wrap .btn_more .ico {
+  -webkit-transform: rotate(-45deg) translate(4px, 2px);
+  -ms-transform: rotate(-45deg) translate(4px, 2px);
+  -o-transform: rotate(-45deg) translate(4px, 2px);
+  transform: rotate(-45deg) translate(4px, 2px);
+  display: inline-block;
+  width: 0.28571rem;
+  height: 0.28571rem;
+  border: solid #000;
+  border-width: 0 0 1px 1px;
+}
+
+[data-page-id='my__refund'] .agreement-wrap tbody th,
+[data-page-id='my__refund'] .agreement-wrap tbody td {
+  text-align: center;
 }

@@ -198,12 +198,12 @@
     }
   }
 }
-@mixin table($style: type1, $mg-size: normal){
+@mixin table($style: type1, $font-size: 13, $mg-size: normal){
   a, button, input, textarea, select { margin-bottom: 0 !important; }
+  width: 100%;
   @if $style == type1 {
-    $font-size-thead: 13;
-    $font-size-tbody: 13;
-    width: 100%;
+    $font-size-thead: $font-size;
+    $font-size-tbody: $font-size;
     caption { @include sr-only; }
     th, td {  }
     thead th {
@@ -240,6 +240,9 @@
       tbody td:last-child { padding-right: rem($grid * 4); }
       tfoot th:first-child { padding-left: rem($grid * 4); }
       tfoot td:last-child { padding-right: rem($grid * 4); }
+    } @else if $mg-size == xsmall {
+      thead th,
+      tbody td { padding: rem(10); }
     } @else if $mg-size == none {
       thead th,
       tbody td,
@@ -252,7 +255,24 @@
     }
   }
   @if $style == type2 {
-
+    $font-size: 11;
+    @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: 0);
+    width: 100%;
+    th, td { vertical-align: middle; line-height: em(12, $font-size); }
+    thead th,
+    tbody th[scope='colgroup'] {
+      padding: em(10, $font-size); min-height: em(32, $font-size);
+      font-weight: 600; text-align: center; color: $mono10;
+      background-color: $mono1;
+      & + th { border-left: 1px solid $mono10 }
+    }
+    tbody th,
+    tbody td {
+      padding: em(16, $font-size) em(10, $font-size);
+      background-color: $mono10;
+      border-bottom: 1px solid #ddd;
+      & + * { border-left: 1px solid #ddd; }
+    }
   }
 }
 @mixin tab($params: null){

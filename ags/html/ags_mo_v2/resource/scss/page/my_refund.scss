@@ -1,0 +1,69 @@
+/*마이페이지 > 구매 내역/취소*/
+[data-page-id='my__refund']{
+  overflow: hidden;
+  width: 100%;
+  input[type='checkbox'] { @include form($size: 2, $role: normal, $type: checkbox); }
+  .refund-wrap {
+    position: relative;
+    padding: rem(50) 0 0 rem($grid * 2)
+  }
+  .inner-wrap {
+    header { position: relative; }
+    & + .inner-wrap { padding-top: rem($grid * 10) }
+  }
+  .title {
+    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
+    display: inline-block;
+  }
+  .flight-num {
+    display: inline-block;
+    margin: 0 0 rem(12) rem(4);
+    dt { @include sr-only }
+    dd { @include tagging-route; width: auto; padding: 0 rem(4); }
+  }
+  .check-all-wrap {
+    position: absolute; right: rem($grid * 2); top: 0;
+    label { font-weight: 600 !important; }
+  }
+  .table-wrap {
+    position: relative;
+    padding-bottom: rem($grid * 2);
+    &:first-of-type { border-top: 1px solid $mono1; }
+    & + .table-wrap { border-top: 1px solid $mono8; }
+  }
+  .charge-sheet {
+    @include table($style: type1, $mg-size: small);
+    th, td { padding: rem($grid) rem($grid * 2) rem($grid) 0 !important; vertical-align: middle; }
+    thead th, tbody th, tbody td, tfoot th, tfoot td { border-bottom: 0; }
+    tbody td:last-of-type { text-align: right; }
+    tbody th, tbody td { height: rem(30); }
+    tbody th:last-child, tbody td:last-child { @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03); padding-right: rem($grid * 2) }
+    tbody th[scope='row'] {
+      @include font($size: 13, $color: $mono1, $weight: 800, $spacing: -0.03);
+      width: rem(70);
+      text-align: left;
+      label { font-weight: inherit; }
+    }
+    tbody td:nth-of-type(2) { @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03); text-align: right; }
+  }
+  .passenger-name {
+    @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+    @include background($file: 'common/ico_ags-summary-passenger', $type: png, $width: rem(12), $height: rem(12));
+    @include text-uppercase;
+    margin: rem($grid * 2) 0 rem($grid); padding-left: rem(20);
+  }
+  .total-wrap {
+    height: rem(44);
+    border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
+    dl { display: table; table-layout: fixed; width: 100%; height: 100%; }
+    dt, dd { display: table-cell; vertical-align: middle; }
+    dt { @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); width: rem(120) }
+    dd { @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03); padding-right: rem($grid * 2); text-align: right; }
+  }
+  .agreement-wrap {
+    @include agreement-wrap;
+    padding-right: rem($grid * 2);
+    tbody th,
+    tbody td { text-align: center; }
+  }
+}

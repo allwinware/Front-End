@@ -4,18 +4,6 @@
   width: 100%;
   input[type='checkbox'] { @include form($size: 3, $role: normal, $type: checkbox); }
   input[type='radio'] { @include form($size: 3, $role: normal, $type: radio); }
-  .btn_more {
-    @include font($size: 11, $color: $mono1, $weight: 600, $spacing: -0.03);
-    padding: rem(5) rem(11) rem(5) rem(5); text-decoration: none; color: inherit;
-    .ico {
-      -webkit-transform: rotate(-45deg) translate(4px, 2px);
-      -ms-transform: rotate(-45deg) translate(4px, 2px);
-      -o-transform: rotate(-45deg) translate(4px, 2px);
-      transform: rotate(-45deg) translate(4px, 2px);
-      display: inline-block;
-      width: rem(4); height: rem(4); border: solid $mono1; border-width: 0 0 1px 1px;
-    }
-  }
   .ticket-wrap {
     position: relative;
     height: rem(72);
@@ -85,6 +73,7 @@
       padding-right: rem($grid * 2); height: rem(50);
       border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
       .btn_more {
+        @include btn-more--minified;
         float: left;
         margin: rem(14) 0 0 rem(-5);
       }
@@ -109,7 +98,6 @@
         border-bottom: 1px solid $mono8;
         label {
           @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
-          position: absolute; left: 0; top: 0; bottom: 0;
           padding: rem(17) 0 0;
         }
       }
@@ -127,30 +115,13 @@
     }
   }
   .agreement-wrap {
-    .agreement-list {
-      li {
-        overflow: hidden;
-        &.active { overflow: auto; height: auto; }
-      }
-      label { right: rem(90); }
-      .btn_more { position: absolute; right: rem($grid * 2); top: rem(15); margin-right: rem(-5) }
-    }
-    .notification-wrap {
-      margin-top: rem(33); padding: rem($grid * 4) rem($grid * 2) rem(12);
-      background-color: #F8F8F8;
-      .notification-list {
-        li { font-size: rem(11); }
-      }
-    }
-    .agreement-all-list {
-      position: relative;
-      margin: -1px 0 rem(50); height: rem(50);
-      border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
-      label {
-        @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
-        position: absolute; left: 0; top: 0; right: 0; bottom: 0;
-        padding: rem(17) 0 0;
-      }
+    @include agreement-wrap;
+    padding-right: rem($grid * 2);
+    tbody th,
+    tbody td {
+      text-align: center;
+      .notification-list,
+      .notification-text { text-align: left; }
     }
   }
 }
