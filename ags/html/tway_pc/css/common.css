@@ -2336,10 +2336,10 @@ dl.notification-list dd:before {
 }
 /* 200310 좌석 요금정보 스타일 시트 추가 */
 .contents.seat .priceInfo { overflow: hidden; }
-.contents.seat .priceInfo ul { overflow: hidden; }
+.contents.seat .priceInfo ul { display: table; table-layout: fixed; width: 100%; }
 .contents.seat .priceInfo ul li	{
-    float: left;
-    padding: 47px 0; width: 25%; height: 135px;
+    display: table-cell;
+    padding: 47px 0; min-width: 20%; height: 135px;
     text-align: center;
     border-bottom: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4;
  }
@@ -2354,7 +2354,8 @@ dl.notification-list dd:before {
 .contents.seat .priceInfo ul li:first-child p:before { border-color: #FF4F24 }
 .contents.seat .priceInfo ul li:nth-child(2) p:before { border-color: #2A2167 }
 .contents.seat .priceInfo ul li:nth-child(3) p:before { border-color: #8BC4AA }
-.contents.seat .priceInfo ul li:nth-child(4) p:before	{ border-color: #D4D4D4; background: url(../images/ico_priceinfo_seat-disabled@2x.png) 50% 50% no-repeat; background-size: 6px auto; }
+.contents.seat .priceInfo ul li:nth-child(4) p:before { border-color: #AAC8E4 }
+.contents.seat .priceInfo ul li:nth-child(5) p:before	{ border-color: #D4D4D4; background: url(../images/ico_priceinfo_seat-disabled@2x.png) 50% 50% no-repeat; background-size: 6px auto; }
 .contents.seat .priceInfo ul + p { margin-top: 8px; line-height: 1.5; letter-spacing: -0.15px; color: #FF4F24; }
 .contents.seat .priceInfo ul li p { font-size: 12px; font-weight: bold; letter-spacing: -0.15px; color: #000000; }
 .contents.seat .priceInfo ul li span { display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 600; letter-spacing: -0.16px; color: #FF4F24; }
@@ -2403,14 +2404,12 @@ dl.notification-list dd:before {
     display: inline-block;
 }
 .seat-num li > * { float: left; }
+.seat-num li.exit-row { padding: 8px 0; }
 .seat-num li.exit-row:first-of-type { margin-bottom: 32px; padding: 0; height: 9px; line-height: 9px; }
 .seat-num .exit_left,
-.seat-num .exit_right { margin: 0; }
-.seat-num .exit_left { font-family: Geogrotesque, NanumGothic, 'Malgun Gothic', sans-serif; font-size: 10px; font-weight: 500; color: #aaa; letter-spacing: -0.03em; }
-.seat-num .exit_right {
-    float: right;
-    font-family: Geogrotesque, NanumGothic, 'Malgun Gothic', sans-serif; font-size: 0.78571rem; font-weight: 500; color: #aaa; letter-spacing: -0.03em;
-}
+.seat-num .exit_right { margin: 0; font-family: Geogrotesque, NanumGothic, 'Malgun Gothic', sans-serif; font-size: 10px; font-weight: 500; color: #aaa; line-height: 9px; letter-spacing: -0.03em; }
+.seat-num .exit_right { float: right; }
+
 .seat-num .exit_left .ico,
 .seat-num .exit_right .ico {
     display: inline-block;
@@ -2464,6 +2463,13 @@ dl.notification-list dd:before {
 .seat-num a[class^='seat-'].seat-type3.active {
     background-color: #8BC4AA;
     box-shadow: 0 4px 8px rgba(139, 196, 170, 0.5);
+}
+.seat-num a[class^='seat-'].seat-type4 {
+    border-color: #AAC8E4;
+}
+.seat-num a[class^='seat-'].seat-type4.active {
+    background-color: #AAC8E4;
+    box-shadow: 0 4px 8px rgba(170, 200, 228, 0.5);
 }
 
 .seat-num a[class^='seat-'][class^='seat-disabled'] {
