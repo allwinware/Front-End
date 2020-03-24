@@ -5,10 +5,35 @@ body {
   @include font($size: $font-root-size, $color: $mono1, $weight: 400);
 }
 
+@include keyframe($animation_name: anm_up) {
+  0% { transform: translate(0, 50px); opacity: 0; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
 .air-wrap {
+  overflow: hidden;
   position: relative;
   min-width: 1280px; width: 100%; min-height: 768px; height: 100vh;
   background-color: $mono1;
+
+  .header, .container, .footer {
+    transform: translate(0, 50px); opacity: 0;
+  }
+  .header { @include animation($delay:0, $duration: 1s, $animation: anm_up, $direction: forward, $fillmode: fowards); }
+  .container { @include animation($delay:0.5s, $duration: 1.5s, $animation: anm_up, $direction: forward, $fillmode: fowards); }
+  .footer { @include animation($delay:1s, $duration: 2.3s, $animation: anm_up, $direction: forward, $fillmode: fowards); }
+  /*&.anm-start {
+    .header {
+      @include animation($delay:0, $duration: 1s, $animation: anm_up, $direction: forward, $fillmode: fowards);
+      transform: translate(0, 0); opacity: 1;
+    }
+    .container {
+      transform: translate(0, 0); opacity: 1;
+    }
+    .footer {
+
+      transform: translate(0, 0); opacity: 1;
+    }
+  }*/
 }
 .header {
   @include clearfix;
@@ -111,4 +136,6 @@ body {
 /*z-index*/
 .pop-area { z-index: 150; }
 .page-dim { z-index: 100; }
+.header { z-index: 10; }
+.container { z-index: 0; }
 .air-wrap { z-index: 0; }

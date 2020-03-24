@@ -232,21 +232,31 @@ html.hidden {
 
 /* POPUP */
 .page-dim {
-  transition: all 0.75s;
+  transition: all 1s;
   transition-delay: 0.25s;
   overflow: hidden;
+  visibility: hidden;
   position: fixed;
   right: 0;
-  bottom: 0;
+  top: 100vh;
+  bottom: -100vh;
   left: 0;
-  height: 0;
   background: rgba(0, 0, 0, 0);
 }
 
 .page-dim.active {
+  visibility: visible;
   top: 0;
+  bottom: 0;
   height: 100vh;
   background: black;
+}
+
+.page-dim.remove {
+  visibility: hidden;
+  top: 100vh;
+  bottom: -100vh;
+  background: rgba(0, 0, 0, 0);
 }
 
 .pop-area {
@@ -277,6 +287,13 @@ html.hidden {
   clear: both;
 }
 
+.pop_subpage {
+  display: block;
+  top: 100vh;
+  bottom: 0;
+  height: 0;
+}
+
 .pop_subpage .pop-wrap {
   margin: 0 auto;
   padding-left: 354px;
@@ -289,6 +306,14 @@ html.hidden {
   top: 0;
   bottom: 0;
   width: 354px;
+}
+
+.pop_subpage .side-nav {
+  transition: all 1s;
+  transition-delay: 1s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 50px);
 }
 
 .pop_subpage .side-nav a {
@@ -346,6 +371,11 @@ html.hidden {
 .pop_subpage .careers,
 .pop_subpage .investors {
   display: none;
+  transition: all 1s;
+  transition-delay: 1.5s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 50px);
 }
 
 .pop_subpage .organization.active,
@@ -478,6 +508,51 @@ html.hidden {
   margin: 0 0 40px 40px;
 }
 
+.pop_subpage .pop-footer .btn_pop-close {
+  transition: all 1s;
+  transition-delay: 2s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 50px);
+}
+
+.pop_subpage.active {
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+}
+
+.pop_subpage.active .side-nav,
+.pop_subpage.active .organization,
+.pop_subpage.active .global-ip,
+.pop_subpage.active .careers,
+.pop_subpage.active .investors,
+.pop_subpage.active .pop-footer .btn_pop-close {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, 0);
+}
+
+.pop_subpage.remove {
+  transition: all 1s;
+  transition-delay: 0.25s;
+  overflow: hidden;
+  top: 100vh;
+  bottom: 0;
+  height: 0;
+}
+
+.pop_subpage.remove .side-nav,
+.pop_subpage.remove .organization,
+.pop_subpage.remove .global-ip,
+.pop_subpage.remove .careers,
+.pop_subpage.remove .investors,
+.pop_subpage.remove .pop-footer .btn_pop-close {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, 0);
+}
+
 /* LAYOUT */
 html {
   font-size: 14px;
@@ -491,13 +566,130 @@ body {
   letter-spacing: 0em;
 }
 
+@-webkit-keyframes anm_up {
+  0% {
+    transform: translate(0, 50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes anm_up {
+  0% {
+    transform: translate(0, 50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+@-o-keyframes anm_up {
+  0% {
+    transform: translate(0, 50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes anm_up {
+  0% {
+    transform: translate(0, 50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
 .air-wrap {
+  overflow: hidden;
   position: relative;
   min-width: 1280px;
   width: 100%;
   min-height: 768px;
   height: 100vh;
   background-color: #000;
+  /*&.anm-start {
+    .header {
+      @include animation($delay:0, $duration: 1s, $animation: anm_up, $direction: forward, $fillmode: fowards);
+      transform: translate(0, 0); opacity: 1;
+    }
+    .container {
+      transform: translate(0, 0); opacity: 1;
+    }
+    .footer {
+
+      transform: translate(0, 0); opacity: 1;
+    }
+  }*/
+}
+
+.air-wrap .header, .air-wrap .container, .air-wrap .footer {
+  transform: translate(0, 50px);
+  opacity: 0;
+}
+
+.air-wrap .header {
+  -webkit-animation-delay: 0;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: anm_up;
+  -webkit-animation-fill-mode: fowards;
+  -webkit-animation-direction: forward;
+  -moz-animation-delay: 0;
+  -moz-animation-duration: 1s;
+  -moz-animation-name: anm_up;
+  -moz-animation-fill-mode: fowards;
+  -moz-animation-direction: forward;
+  animation-delay: 0;
+  animation-duration: 1s;
+  animation-name: anm_up;
+  animation-fill-mode: fowards;
+  animation-direction: forward;
+}
+
+.air-wrap .container {
+  -webkit-animation-delay: 0.5s;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-name: anm_up;
+  -webkit-animation-fill-mode: fowards;
+  -webkit-animation-direction: forward;
+  -moz-animation-delay: 0.5s;
+  -moz-animation-duration: 1.5s;
+  -moz-animation-name: anm_up;
+  -moz-animation-fill-mode: fowards;
+  -moz-animation-direction: forward;
+  animation-delay: 0.5s;
+  animation-duration: 1.5s;
+  animation-name: anm_up;
+  animation-fill-mode: fowards;
+  animation-direction: forward;
+}
+
+.air-wrap .footer {
+  -webkit-animation-delay: 1s;
+  -webkit-animation-duration: 2.3s;
+  -webkit-animation-name: anm_up;
+  -webkit-animation-fill-mode: fowards;
+  -webkit-animation-direction: forward;
+  -moz-animation-delay: 1s;
+  -moz-animation-duration: 2.3s;
+  -moz-animation-name: anm_up;
+  -moz-animation-fill-mode: fowards;
+  -moz-animation-direction: forward;
+  animation-delay: 1s;
+  animation-duration: 2.3s;
+  animation-name: anm_up;
+  animation-fill-mode: fowards;
+  animation-direction: forward;
 }
 
 .header {
@@ -708,25 +900,48 @@ body {
   z-index: 100;
 }
 
+.header {
+  z-index: 10;
+}
+
+.container {
+  z-index: 0;
+}
+
 .air-wrap {
   z-index: 0;
 }
 
 /* PAGE : INDEX */
-video {
+.video-wrap {
+  opacity: 0.2;
+  z-index: 0;
+  overflow: hidden;
   position: fixed;
   left: 0;
-  right: 0;
   top: 0;
+  right: 0;
   bottom: 0;
-  z-index: 0;
-  width: 177.77777778vh;
-  /* 100 * 16 / 9 */
-  height: 100%;
+}
+
+/*video {
+  opacity: 0.2;
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  !*width: 177.77777778vh; height: 100%; min-width: 100%; min-height: 56.25vw;*!
+  min-width: 100%; min-height: 56.25vw;
+}*/
+video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
   min-width: 100%;
-  min-height: 56.25vw;
-  /* 100 * 9 / 16 */
-  opacity: 0.20;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  background: url(../img/index/bg_index@2x.png) no-repeat;
+  background-size: cover;
 }
 
 .page__index {

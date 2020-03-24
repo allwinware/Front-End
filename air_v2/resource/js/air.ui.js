@@ -1,12 +1,18 @@
 /*배경 DIM 생성*/
 function createDim(){
-    $("body").append("<div class='page-dim active'></div>");
+    $("body").append("<div class='page-dim'></div>");
+    setTimeout(function(){
+        $(".page-dim").addClass("active");
+    }, 250);
     $("html, body").css("overflow", "hidden");
 }
 
 /*배경 DIM 제거*/
 function deleteDim(){
-    $(".page-dim.active").remove();
+    $(".page-dim").removeClass("active").addClass("remove");
+    setTimeout(function(){
+        $(".page-dim").remove().removeClass("remove");
+    }, 1000);
     $("html, body").css("overflow", "");
 }
 
@@ -17,8 +23,9 @@ function popupShow(target){
 }
 /* 팝업 삭제 기능 정의  */
 function popupHide(target){
-    setTimeout(function(){ target.removeClass("active"); }, 250);
-    setTimeout(function(){ deleteDim() }, 750)
+    deleteDim();
+    target.addClass("remove");
+    setTimeout( function(){ target.removeClass("active").removeClass("remove") }, 250);
 }
 
 $(document).ready(function(){

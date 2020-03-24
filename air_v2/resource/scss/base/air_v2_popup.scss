@@ -1,11 +1,11 @@
 /* POPUP */
 .page-dim {
-  transition: all 0.75s; transition-delay: 0.25s;
-  overflow: hidden;
-  position: fixed; right: 0; bottom: 0; left: 0;
-  height: 0;
+  transition: all 1s; transition-delay: 0.25s;
+  overflow: hidden; visibility: hidden;
+  position: fixed; right: 0; top: 100vh; bottom: -100vh; left: 0;
   background: rgba(0,0,0,0);
-  &.active { top: 0; height: 100vh; background: rgba(0,0,0,1); }
+  &.active { visibility: visible; top: 0; bottom: 0; height: 100vh; background: rgba(0,0,0,1); }
+  &.remove { visibility: hidden; top: 100vh; bottom: -100vh; background: rgba(0,0,0,0); }
 }
 .pop-area {
   overflow: auto;
@@ -22,6 +22,9 @@
 
 .pop_subpage {
   $nav-width: 354;
+  display: block;
+  top: 100vh; bottom: 0;
+  height: 0;
   .pop-wrap {
     margin: 0 auto; padding-left: #{$nav-width}px; width: 1442px;
   }
@@ -30,6 +33,9 @@
     width: #{$nav-width}px;
   }
   .side-nav {
+    transition: all 1s; transition-delay: 1s;
+    opacity: 0; visibility: hidden;
+    transform: translate(0, 50px);
     a {
       transition: color 0.2s;
       @include font($family: en, $size: 48, $color: $mono10, $weight: 500);
@@ -57,6 +63,9 @@
   .careers,
   .investors {
     display: none;
+    transition: all 1s; transition-delay: 1.5s;
+    opacity: 0; visibility: hidden;
+    transform: translate(0, 50px);
     &.active { display: block; }
   }
   .ico_count-bubble { right: -36px; width: 48px; height: 36px; border-radius: 18px; font-size: 24px; }
@@ -103,6 +112,40 @@
       @include clearfix;
       margin-left: auto; padding-right: 142px; width: 982px;
       li { float: left; margin: 0 0 40px 40px;}
+    }
+  }
+  .pop-footer .btn_pop-close {
+    transition: all 1s; transition-delay: 2s;
+    opacity: 0; visibility: hidden;
+    transform: translate(0, 50px);
+  }
+
+  &.active {
+    top: 0; bottom: 0;
+    height: 100vh;
+    .side-nav,
+    .organization,
+    .global-ip,
+    .careers,
+    .investors,
+    .pop-footer .btn_pop-close {
+      opacity: 1; visibility: visible;
+      transform: translate(0, 0)
+    }
+  }
+  &.remove {
+    transition: all 1s; transition-delay: 0.25s;
+    overflow: hidden;
+    top: 100vh; bottom: 0;
+    height: 0;
+    .side-nav,
+    .organization,
+    .global-ip,
+    .careers,
+    .investors,
+    .pop-footer .btn_pop-close {
+      opacity: 1; visibility: visible;
+      transform: translate(0, 0)
     }
   }
 }
