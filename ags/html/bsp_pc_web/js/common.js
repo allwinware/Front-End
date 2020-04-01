@@ -1,4 +1,15 @@
+/* 상품가격 등의 숫자정보 표현 시 콤마 추가기능 정의 */
+$.fn.digits = function(){
+    return this.each(function(){
+        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
+    })
+};
 $(document).ready(function () {
+    /* 상품가격 등의 숫자정보 표현 시 콤마 추가 */
+    (function(digitsHandler){
+        $(".digits").digits();
+    })();
+
 	$(".seatWrap ul li").click(function(){
 		$(this).toggleClass("selected");
 	});
