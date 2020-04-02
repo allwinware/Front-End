@@ -2,10 +2,14 @@ $(document).ready(function () {
 	$(".seatWrap ul li").click(function(){
 		$(this).toggleClass("selected");
 	});
-	$(".seat .passengerWrap ul li").click(function(){
+
+    /* 200402 선택불가인 경우를 고려한 선택자 수정 */
+	$(".seat .passengerWrap ul li:not(.disabled)").click(function(){
 		$(this).siblings().removeClass("selected");
 		$(this).addClass("selected");
 	});
+    /* //200402 선택불가인 경우를 고려한 선택자 수정 */
+
 	$("a.qa").hover(function(){
 		$(this).next().show();
 	}, function(){
@@ -15,9 +19,12 @@ $(document).ready(function () {
 		$(this).siblings().removeClass("selected");
 		$(this).addClass("selected");
 	});
-	$(".meal .passengerWrap ul li").click(function(){
+
+    /* 200402 선택불가인 경우를 고려한 선택자 수정 */
+	$(".meal .passengerWrap ul li:not(.disabled)").click(function(){
 		$(this).toggleClass("selected");
 	});
+    /* //200402 선택불가인 경우를 고려한 선택자 수정 */
 
 	$(document).on('click', '.popupBtn', function() {
 		var popupIndex = $(this).attr('id');
