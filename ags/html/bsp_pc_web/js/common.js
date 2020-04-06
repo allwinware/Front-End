@@ -39,10 +39,6 @@ $(document).ready(function () {
         $('.popupContainer .popupWrap').not( ":hidden" ).css("top","calc(50% - "+(popupHeight+2)/2+"px");
 	});
 
-	$(document).on("click", "#btn_dfs-resv", function(){
-        $("#dfs-resv").addClass("active");
-    });
-
 	$(document).on('click', '.agreeWrap .tabSelect li', function() {
 		var tabIndex = $(this).attr('id');
 		$(this).siblings().removeClass("on");
