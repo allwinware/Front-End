@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="css/common.css" />   
 </head>
 <body>
-<!--	191108	-->
 	<div class="headerContainer">
 		<div class="headerWrap">
 			<div class="header">
@@ -22,12 +21,14 @@
                     <!--<span><img src="images/header-logo_jeju@2x.jpg" alt="제주항공"></span><span><img src="images/header-logo_webtour@2x.jpg" alt="웹투어"></span>--><!-- 200402 웹투어 추가 -->
                     <!-- //200327 항공사, 여행사 로고 분리 -->
 				</h1>
-				<ul>
-					<li><a href="#">항공 부가서비스 신청하기</a></li>
-					<li><a href="#">신청내역/취소</a></li>
-					<li><a href="#">고객센터</a></li>
-					<li style="display:none"><a href="#">서비스 소개</a></li>
-				</ul>
+                <!-- 200331 상단 메뉴 추가 및 수정, 활성화된 메뉴에 대한 처리방식 수정 -->
+                <ul>
+                    <li><a href="#none" target="_self">항공 부가서비스 신청하기</a></li>
+                    <li><a href="#none" target="_self">기내면세 예약</a></li>
+                    <li><a href="#" class="active">신청 내역</a></li>
+                    <li><a href="#none" target="_self">고객센터</a></li>
+                </ul>
+                <!-- //200331 상단 메뉴 추가 및 수정, 활성화된 메뉴에 대한 처리방식 수정 -->
 			</div>
 		</div>
 		<div class="anchorWrap">
@@ -39,38 +40,17 @@
 			</ul>
 		</div>
 	</div>
-<!--	//191108	-->
 	<div class="bodyWrap">
 		<div class="allwinContents mypageList">
-			<h1><img src="images/img_arr.png" width="" height="" alt="" />나의 예약/결제 내역<span>부가서비스</span></h1>
+            <!-- 200408 텍스트 수정 -->
+			<h1><img src="images/img_arr.png" width="" height="" alt="" />나의 예약/결제 내역<span>부가서비스 / 기내면세품</span></h1>
 			<div class="info">
-				부가서비스 상담은 올윈에어 고객센터를 이용해 주세요. <span>Tel.1522-2284</span><br />
-				업무시간 : 평일 09:00 ~ 18:00 (발권 및 상담 가능)
+				부가서비스 상담은 올윈에어 고객센터를 이용해 주세요.<br>
+				고객센터 : 1522-4148 (평일 9:30~17:00 / 점심시간 12:00~13:00)
 			</div>
-		<!--	
-			<div class="searchWrap">
-				검색 영역 (캘린더 디자인 포함) 인터파크와 동일
-				<div class="numWrap">
-					<label for="num">예약번호</label><input id="label" type="text" />
-				</div>
-				<div class="startWrap">
-					<p class="title">
-						출발일기준
-					</p>
-					<div class="btnWrap">
-						<a href="#">3개월</a>
-						<a href="#">6개월</a>
-						<a href="#">1년</a>
-					</div>
-					<div class="dateWrap">
-						calendar
-					</div>
-					<a class="searchBtn">조회</a>
-				</div>
-			</div>
-		-->
+            <!-- //200408 텍스트 수정 -->
 			<div class="search-module">
-		        <label for="BookingNumber" class="tit">예약번호</label> 
+		        <label for="pcdPnrAddr1" class="tit">예약번호</label>
 		        <input type="text" id="pcdPnrAddr1" name="pcdPnrAddr1" value="" title="예약번호 입력란" class="ipt-txt">
 		        <strong class="tit">출발일기준</strong>
 		        <span class="sub-btn-spot">
@@ -95,9 +75,12 @@
 		        </span>
 		        <button type="submit" class="btn-search">조회</button>
 		    </div>
-			<div class="tableWrap">
+            <!-- 200408 테이블 추가로 인한 태그 구조 추가/수정 -->
+            <div class="service-detail">
+                <!-- 부가서비스 구매내역 -->
+			    <div class="tableWrap">
 				<div class="tableTitleWrap">
-					<p class="title"><span>배성준</span>님의 예약현황 입니다. 예약번호 클릭 시 예약상세 내역을 확인하실 수 있습니다.</p>
+					<p class="title"><u class="text-bold">부가서비스</u> 예약 내역입니다. 예약번호 클릭 시 예약상세 내역을 확인하실 수 있습니다.</p><!-- 200408 텍스트 수정 -->
 					<div class="selectWrap">
 						<select>
 							<option>항공사</option>
@@ -107,8 +90,8 @@
 						</select>
 					</div>
 				</div>
-				<table summary="예약현황">
-					<caption class="blind">예약현황</caption>
+				<table>
+					<caption class="blind">부가서비스 예약현황</caption><!-- 200408 텍스트 수정 -->
 					<colgroup>
 						<col style="width:80px" />
 						<col style="width:90px" />
@@ -119,18 +102,18 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th><span>항공권<br />예약번호</span></th>
+							<th><span>항공권<br>예약번호</span></th>
 							<th><span>항공사</span></th>
 							<th><span>여정</span></th>
-							<th><span>신청 항목</span></th>
-							<th><span>신청일</span></th>
+							<th><span>구매 항목</span></th><!-- 200408 텍스트 수정 -->
+							<th><span>구매일</span></th><!-- 200408 텍스트 수정 -->
 							<th><span>결제 금액</span></th>
 							<th><span>상태</span></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td><a href="#">ABCDEF</a></td>
+							<td><a href="#none" target="_self">ABCDEF</a></td>
 							<td>제주항공</td>
 							<td>
 								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
@@ -142,7 +125,7 @@
 							<td>결제완료</td>
 						</tr>
 						<tr>
-							<td><a href="#">ABCDEF</a></td>
+							<td><a href="#none" target="_self">ABCDEF</a></td>
 							<td>제주항공</td>
 							<td>
 								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
@@ -154,7 +137,7 @@
 							<td>결제완료</td>
 						</tr>
 						<tr>
-							<td><a href="#">ABCDEF</a></td>
+							<td><a href="#none" target="_self">ABCDEF</a></td>
 							<td>제주항공</td>
 							<td>
 								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
@@ -166,7 +149,7 @@
 							<td>결제완료</td>
 						</tr>
 						<tr>
-							<td><a href="#">ABCDEF</a></td>
+							<td><a href="#none" target="_self">ABCDEF</a></td>
 							<td>제주항공</td>
 							<td>
 								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
@@ -178,7 +161,7 @@
 							<td>결제완료</td>
 						</tr>
 						<tr>
-							<td><a href="#">ABCDEF</a></td>
+							<td><a href="#none" target="_self">ABCDEF</a></td>
 							<td>제주항공</td>
 							<td>
 								<p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
@@ -194,24 +177,146 @@
 			<!--	191105	-->
 				<div class="paginateWrap">
 					<ul>
-						<li><a href="#"><img src="images/paginate_first.png" width="10"  height="8" alt="go first" /></a></li>
-						<li><a href="#"><img src="images/paginate_prev.png" width="5" height="8" alt="go prev" /></a></li>
+						<li><a href="#none" target="_self"><img src="images/paginate_first.png" width="10"  height="8" alt="go first" /></a></li>
+						<li><a href="#none" target="_self"><img src="images/paginate_prev.png" width="5" height="8" alt="go prev" /></a></li>
 						<li><a class="on" href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">6</a></li>
-						<li><a href="#">7</a></li>
-						<li><a href="#">8</a></li>
-						<li><a href="#">9</a></li>
-						<li><a href="#">10</a></li>
-						<li><a href="#"><img src="images/paginate_next.png" width="5" height="8" alt="go next" /></a></li>
-						<li><a href="#"><img src="images/paginate_last.png" width="10" height="8" alt="go last" /></a></li>
+						<li><a href="#none" target="_self">2</a></li>
+						<li><a href="#none" target="_self">3</a></li>
+						<li><a href="#none" target="_self">4</a></li>
+						<li><a href="#none" target="_self">5</a></li>
+						<li><a href="#none" target="_self">6</a></li>
+						<li><a href="#none" target="_self">7</a></li>
+						<li><a href="#none" target="_self">8</a></li>
+						<li><a href="#none" target="_self">9</a></li>
+						<li><a href="#none" target="_self">10</a></li>
+						<li><a href="#none" target="_self"><img src="images/paginate_next.png" width="5" height="8" alt="go next" /></a></li>
+						<li><a href="#none" target="_self"><img src="images/paginate_last.png" width="10" height="8" alt="go last" /></a></li>
 					</ul>
 				</div>
 			<!--	//191105	-->
 			</div>
+            </div>
+            <div class="service-detail">
+                <!-- 기내면세품 구매내역 -->
+                <div class="tableWrap">
+                    <div class="tableTitleWrap">
+                        <p class="title"><u class="text-bold">기내면세품</u> 예약 내역입니다. 예약번호 클릭 시 예약상세 내역을 확인하실 수 있습니다.</p>
+                        <div class="selectWrap">
+                            <select>
+                                <option>항공사</option>
+                            </select>
+                            <select>
+                                <option>상태</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table>
+                        <caption class="blind">기내면세품 예약현황</caption>
+                        <colgroup>
+                            <col style="width:80px" />
+                            <col style="width:90px" />
+                            <col  />
+                            <col style="width:110px" />
+                            <col span="2" style="width:90px" />
+                            <col style="width:85px" />
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th><span>항공권<br />예약번호</span></th>
+                            <th><span>항공사</span></th>
+                            <th><span>여정</span></th>
+                            <th><span>구매 항목</span></th>
+                            <th><span>구매일</span></th>
+                            <th><span>예약 금액</span></th>
+                            <th><span>상태</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><a href="#none" target="_self">ABCDEF</a></td>
+                            <td>제주항공</td>
+                            <td>
+                                <p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+                                출국 : 2019.11.15(월)<br />귀국 : 2019.11.20(목)
+                            </td>
+                            <td>기내면세품</td>
+                            <td>2019.05.15<br />18:25</td>
+                            <td>32,000원</td>
+                            <td>예약완료</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">ABCDEF</a></td>
+                            <td>제주항공</td>
+                            <td>
+                                <p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+                                출국 : 2019.11.15(월)<br />귀국 : 2019.11.20(목)
+                            </td>
+                            <td>기내면세품</td>
+                            <td>2019.05.15<br />18:25</td>
+                            <td>32,000원</td>
+                            <td>예약완료</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">ABCDEF</a></td>
+                            <td>제주항공</td>
+                            <td>
+                                <p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+                                출국 : 2019.11.15(월)<br />귀국 : 2019.11.20(목)
+                            </td>
+                            <td>기내면세품</td>
+                            <td>2019.05.15<br />18:25</td>
+                            <td>32,000원</td>
+                            <td>예약완료</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">ABCDEF</a></td>
+                            <td>제주항공</td>
+                            <td>
+                                <p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+                                출국 : 2019.11.15(월)<br />귀국 : 2019.11.20(목)
+                            </td>
+                            <td>기내면세품</td>
+                            <td>2019.05.15<br />18:25</td>
+                            <td>32,000원</td>
+                            <td>예약완료</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">ABCDEF</a></td>
+                            <td>제주항공</td>
+                            <td>
+                                <p><span>인천</span>(ICN) ↔ <span>하네다</span	>(HND) 외 2여정</p>
+                                출국 : 2019.11.15(월)<br />귀국 : 2019.11.20(목)
+                            </td>
+                            <td>기내면세품</td>
+                            <td>2019.05.15<br />18:25</td>
+                            <td>32,000원</td>
+                            <td>예약완료</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--	191105	-->
+                    <div class="paginateWrap">
+                        <ul>
+                            <li><a href="#none" target="_self"><img src="images/paginate_first.png" width="10"  height="8" alt="go first" /></a></li>
+                            <li><a href="#none" target="_self"><img src="images/paginate_prev.png" width="5" height="8" alt="go prev" /></a></li>
+                            <li><a class="on" href="#">1</a></li>
+                            <li><a href="#none" target="_self">2</a></li>
+                            <li><a href="#none" target="_self">3</a></li>
+                            <li><a href="#none" target="_self">4</a></li>
+                            <li><a href="#none" target="_self">5</a></li>
+                            <li><a href="#none" target="_self">6</a></li>
+                            <li><a href="#none" target="_self">7</a></li>
+                            <li><a href="#none" target="_self">8</a></li>
+                            <li><a href="#none" target="_self">9</a></li>
+                            <li><a href="#none" target="_self">10</a></li>
+                            <li><a href="#none" target="_self"><img src="images/paginate_next.png" width="5" height="8" alt="go next" /></a></li>
+                            <li><a href="#none" target="_self"><img src="images/paginate_last.png" width="10" height="8" alt="go last" /></a></li>
+                        </ul>
+                    </div>
+                    <!--	//191105	-->
+                </div>
+            </div>
+            <!-- //200408 테이블 추가로 인한 태그 구조 추가/수정 -->
 		</div>
 	</div>
 <!--	191108	-->
@@ -221,7 +326,7 @@
 				<img src="images/logo_footer.png" width="135" height="20" alt="" />
 			</div>
 			<ul class="rightWrap">
-				<li><a href="#">개인정보취급방침</a></li>
+				<li><a href="#none" target="_self">개인정보취급방침</a></li>
 				<li>고객센터 : 1522-2284 (평일 09:00~18:00)</li>
 			</ul>
 			<div class="infoWrap">
