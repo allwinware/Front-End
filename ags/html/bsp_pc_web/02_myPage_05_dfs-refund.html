@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>MY PAGE - Detail</title>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.bxslider.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css" />   
+    <link rel="stylesheet" type="text/css" href="css/common.css" />   
+</head>
+<body>
+	<div class="headerContainer">
+		<div class="headerWrap">
+			<div class="header">
+				<h1>
+                    <!-- 200327 항공사, 여행사 로고 분리(이미지 삽입방식으로 변경) -->
+                    <span><img src="images/header-logo_jeju@2x.jpg" alt="제주항공"></span><span><img src="images/header-logo_onlinetour@2x.jpg" alt="온라인투어"></span>
+                    <!--<span><img src="images/header-logo_jeju@2x.jpg" alt="제주항공"></span><span><img src="images/header-logo_modetour@2x.jpg" alt="모두투어"></span>-->
+                    <!--<span><img src="images/header-logo_jeju@2x.jpg" alt="제주항공"></span><span><img src="images/header-logo_ybtour@2x.jpg" alt="노랑풍선"></span>-->
+                    <!--<span><img src="images/header-logo_jeju@2x.jpg" alt="제주항공"></span><span><img src="images/header-logo_webtour@2x.jpg" alt="웹투어"></span>--><!-- 200402 웹투어 추가 -->
+                    <!-- //200327 항공사, 여행사 로고 분리 -->
+				</h1>
+                <!-- 200331 상단 메뉴 추가 및 수정, 활성화된 메뉴에 대한 처리방식 수정 -->
+                <ul>
+                    <li><a href="#none" target="_self">항공 부가서비스 신청하기</a></li>
+                    <li><a href="#none" target="_self">기내면세 예약</a></li>
+                    <li><a href="#" class="active">신청 내역</a></li>
+                    <li><a href="#none" target="_self">고객센터</a></li>
+                </ul>
+                <!-- //200331 상단 메뉴 추가 및 수정, 활성화된 메뉴에 대한 처리방식 수정 -->
+			</div>
+		</div>
+		<div class="anchorWrap">
+			<ul>
+				<li><a href="#anchor_seat">사전 좌석 구매</a></li>
+				<li><a href="#anchor_baggage">사전 수하물 구매</a></li>
+				<li><a href="#anchor_meal">사전 기내식 구매</a></li>
+				<li><a href="#anchor_lounge">라운지 이용권 구매</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="bodyWrap">
+		<div class="allwinContents mypageRefund">
+			<h1><img src="images/img_arr.png" width="" height="" alt="" />나의 예약/결제 내역<span>기내면세품 취소/수정하기</span></h1>
+			<div class="info">
+				<div class="titleWrap">
+					<p class="title">[왕복] 인천<span><img src="images/img_shape.png" width="" height="" alt="" /></span>하네다</p>
+				</div>
+				<div class="detailWrap">
+					<div class="leftWrap">
+						<ul>
+							<li>예약번호 : ABCDEF</li>
+							<li>총 요금 : <span>124,000원</span></li>
+							<li>항공사 : 제주항공</li>
+						</ul>
+					</div>
+					<div class="leftWrap">
+						<ul>
+							<li>출발일 : 2019.11.15(월)</li>
+							<li>결제시한 : 2019.09.20(화) 16:10</li>
+							<li>총 인원 : 7명</li>
+						</ul>
+					</div>
+                    <div class="notification">
+                        <ul>
+                            <li>출발 48시간 전까지 주문 취소 및 수정 가능합니다.</li>
+                            <li>수정은 수량 변경만 가능합니다. 상품 추가하시려면 추가 주문 해주세요.</li>
+                        </ul>
+                    </div>
+				</div>
+			</div>
+			<div class="mypageContentsWrap">
+                <div class="welcome-message">
+                    예약 내역을 수정하세요.
+                    <span class="inputWrap">
+                        <input type="checkbox" id="refund-all" name="check-group1" data-checked="all">
+                        <label for="refund-all">전체 취소하기</label>
+                    </span>
+                </div>
+                <div class="table-wrap">
+                    <span class="inputWrap">
+                        <input type="checkbox" id="refund-select1" name="check-group1">
+                        <label for="refund-select1">선택 상품 취소</label>
+                    </span>
+                    <table><!-- 선택 상품 취소 Input이 check 되면 .disabled 클래스가 붙습니다. (하단 jQuery 참조) -->
+                        <colgroup>
+                            <col>
+                            <col style="width: 189px">
+                            <col style="width: 107px">
+                            <col style="width: 88px">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th scope="col"><span class="sr-only">상품</span></th>
+                            <th scope="col">탑승객</th>
+                            <th scope="col">가는 편 수량</th>
+                            <th scope="col">오는 편 수량</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <dl class="ind-total">
+                                    <dt class="ea">수량<span class="sr-only">(개)</span></dt>
+                                    <dd>3</dd>
+                                    <dt class="price-usd">가격(USD, $)</dt>
+                                    <dd><span class="digits">203</span></dd>
+                                    <dt class="price-krw">가격(원, ₩)</dt>
+                                    <dd><span class="digits">233800</span></dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr>
+                            <th scope="row" rowspan="3">
+                                <dl class="product-info">
+                                    <dt class="brand">브랜드</dt>
+                                    <dd>에스티로더</dd>
+                                    <dt class="product-name">상품명</dt>
+                                    <dd>갈색병 인텐스 리셋 컨센트레이트 20ml</dd>
+                                    <dt class="thumbnail">상품 이미지</dt>
+                                    <dd>
+                                        <img src="images/dfs-product/2290000773228_OR_1575010494265.jpg" alt="">
+                                    </dd>
+                                    <dt class="fnc-wrap">기능버튼</dt>
+                                    <dd><a href="#none" class="btn_delete">상품 삭제</a></dd>
+                                    <dt class="price-usd">가격(USD, $)</dt>
+                                    <dd><span class="digits">76</span></dd>
+                                    <dt class="price-krw">가격(원, ₩)</dt>
+                                    <dd><span class="digits">88900</span></dd>
+                                </dl>
+                            </th>
+                            <td><span class="customer-name">Bae, Sungjune</span></td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-des1">가는 편 수량</label>
+                                    <input type="text" id="input-ea-des1" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-arr1">오는 편 수량</label>
+                                    <input type="text" id="input-ea-arr1" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="customer-name">Son, Seungwan</span></td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-des2">가는 편 수량</label>
+                                    <input type="text" id="input-ea-des2" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-arr2">오는 편 수량</label>
+                                    <input type="text" id="input-ea-arr2" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="customer-name">Kim, Taehyeong</span></td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-des3">가는 편 수량</label>
+                                    <input type="text" id="input-ea-des3" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-arr3">오는 편 수량</label>
+                                    <input type="text" id="input-ea-arr3" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-wrap">
+                    <span class="inputWrap">
+                        <input type="checkbox" id="refund-select2" name="check-group1">
+                        <label for="refund-select2">선택 상품 취소</label>
+                    </span>
+                    <table><!-- 선택 상품 취소 Input이 check 되면 .disabled 클래스가 붙습니다. (하단 jQuery 참조) -->
+                        <colgroup>
+                            <col>
+                            <col style="width: 189px">
+                            <col style="width: 107px">
+                            <col style="width: 88px">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th scope="col"><span class="sr-only">상품</span></th>
+                            <th scope="col">탑승객</th>
+                            <th scope="col">가는 편 수량</th>
+                            <th scope="col">오는 편 수량</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <dl class="ind-total">
+                                    <dt class="ea">수량<span class="sr-only">(개)</span></dt>
+                                    <dd>3</dd>
+                                    <dt class="price-usd">가격(USD, $)</dt>
+                                    <dd><span class="digits">203</span></dd>
+                                    <dt class="price-krw">가격(원, ₩)</dt>
+                                    <dd><span class="digits">233800</span></dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr>
+                            <th scope="row" rowspan="3">
+                                <dl class="product-info">
+                                    <dt class="brand">브랜드</dt>
+                                    <dd>에스티로더</dd>
+                                    <dt class="product-name">상품명</dt>
+                                    <dd>갈색병 인텐스 리셋 컨센트레이트 20ml</dd>
+                                    <dt class="thumbnail">상품 이미지</dt>
+                                    <dd>
+                                        <img src="images/dfs-product/2290000773228_OR_1575010494265.jpg" alt="">
+                                    </dd>
+                                    <dt class="fnc-wrap">기능버튼</dt>
+                                    <dd><a href="#none" class="btn_delete">상품 삭제</a></dd>
+                                    <dt class="price-usd">가격(USD, $)</dt>
+                                    <dd><span class="digits">76</span></dd>
+                                    <dt class="price-krw">가격(원, ₩)</dt>
+                                    <dd><span class="digits">88900</span></dd>
+                                </dl>
+                            </th>
+                            <td><span class="customer-name">Bae, Sungjune</span></td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-des11">가는 편 수량</label>
+                                    <input type="text" id="input-ea-des11" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-arr11">오는 편 수량</label>
+                                    <input type="text" id="input-ea-arr11" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="customer-name">Son, Seungwan</span></td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-des12">가는 편 수량</label>
+                                    <input type="text" id="input-ea-des12" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-arr12">오는 편 수량</label>
+                                    <input type="text" id="input-ea-arr12" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="customer-name">Kim, Taehyeong</span></td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-des13">가는 편 수량</label>
+                                    <input type="text" id="input-ea-des13" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="ea-controller">
+                                    <label for="input-ea-arr13">오는 편 수량</label>
+                                    <input type="text" id="input-ea-arr13" class="input-ea">
+                                    <a href="#none" target="_self" class="btn_increase">올림</a>
+                                    <a href="#none" target="_self" class="btn_decrease">내림</a>
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="totalSummary">
+                    <p>가는 편 예약금액 <span>59,000</span>원 <span class="plus">+</span> 오는 편 예약금액<span>59,000</span>원</p>
+                    <p class="total"><span class="equal">=</span>총 예약금액 <span>999,000</span>원</p>
+                </div>
+                <div class="btnWrap">
+                    <a href="#none" target="_self">이전으로</a>
+                    <a href="#none" target="_self">취소 / 수정 완료</a>
+                </div>
+			</div>
+		</div>
+	</div>
+	<div class="footerContainer">
+		<div class="footerWrap">
+			<div class="logoWrap">
+				<img src="images/logo_footer.png" width="135" height="20" alt="" />
+			</div>
+			<ul class="rightWrap">
+				<li><a href="#">개인정보취급방침</a></li>
+				<li>고객센터 : 1522-2284 (평일 09:00~18:00)</li>
+			</ul>
+			<div class="infoWrap">
+				<p>모두투어 항공사 부가서비스는 (주)올윈에어와의 제휴로 제공됩니다.</p>
+				<ul>
+					<li>서울시 중구 서소문로 106 동화빌딩 9층</li>
+					<li>㈜올윈웨어</li>
+					<li>대표이사:이정갑
+					<li>사업자등록번호:220-88-72464</li>
+				</ul>
+				<p class="copyright">COPYRIGHT ALLWINWARE INC. ALL RIGHTS RESERVED</p>
+			</div>
+		</div>
+	</div>
+
+    <script>
+        /*input-ea control*/
+        (function(){
+            var $target = $(".input-ea");
+            $target.each(function(){
+                $(this).attr("value", "0")
+            }).on("propertychange change keyup paste input", function(){
+                if($(this).val !== 0){
+                    $(this).addClass("text-emphasis")
+                }
+            });
+            var $increase = $(".btn_increase");
+            $increase.on("click", function(e){
+                if($(this).parents("table").hasClass("disabled") === false){
+                    e.preventDefault();
+                    var $this = $(this);
+                    var $input = $this.siblings(".input-ea");
+                    var value = parseInt($input.val());
+                    value = value + 1;
+                    if(value > 0) {
+                        $input.val(value).addClass("text-emphasis")
+                    } else if(value === 0){
+                        $input.val(value).removeClass("text-emphasis")
+                    }
+                }
+            });
+            var $decrease = $(".btn_decrease");
+            $decrease.on("click", function(e){
+                if($(this).parents("table").hasClass("disabled") === false) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var $input = $this.siblings(".input-ea");
+                    var value = parseInt($input.val());
+                    value = value - 1;
+                    if (value > 0) {
+                        $input.val(value).addClass("text-emphasis")
+                    } else if (value === 0) {
+                        $input.val(value).removeClass("text-emphasis")
+                    }
+                }
+            });
+        })();
+
+        /*.input-ea 가 속한 테이블에 .disabled 클래스가 붙을 때의 기능 정의 */
+        function tableStateDisabled(target) {
+            $(target).parent(".inputWrap").siblings("table")
+                .addClass("disabled")
+                .find("input[type='text'], a:not('.btn_delete')").on("click keydown", function(){
+                return false;
+            })
+        }
+        function tableStateActive(target) {
+            $(target).parent(".inputWrap").siblings("table")
+                .removeClass("disabled")
+                .find("input[type='text'], a:not('.btn_delete')").on("click keydown", function(){
+                return true;
+            })
+        }
+
+        /*(모두 동의)전체 선택 Checkbox 기능 정의*/
+        (function(checkAllHandler){
+            $("input[data-checked='all']").each(function(){
+                var $trigger = $(this),
+                    $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this));
+                $trigger.on("change", function(){
+                    if($(this).is(":checked") === true){
+                        $family.prop("checked", true);
+                        tableStateDisabled($family)
+                    } else {
+                        $family.prop("checked", false);
+                        tableStateActive($family)
+                    }
+                });
+                $family.on("change", function(){
+                    var checkedFamily = $("input[type='checkbox'][name='" + $(this).attr("name") + "']:checked").not($trigger);
+                    if($family.length === checkedFamily.length){
+                        $trigger.prop("checked", true);
+                    } else {
+                        $trigger.prop("checked", false);
+                    }
+                });
+            });
+        })();
+
+        /*(예약 내역 수정)선택 상품 취소 체크박스 활성화 시, 테이블 컬러 교체 & .input-ea 핸들링 차단*/
+        (function(){
+            $(".table-wrap > .inputWrap input[type='checkbox']").on("change", function(e){
+                if($(this).is(":checked") === true){
+                    tableStateDisabled(e.target)
+                } else {
+                    tableStateActive(e.target)
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
