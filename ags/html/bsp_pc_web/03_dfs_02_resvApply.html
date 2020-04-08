@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>MAIN</title>
+	<title>기내면세 주문서 작성</title>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.bxslider.js"></script>
 	<!--<script type="text/javascript" src="js/stickyfill.js"></script>-->
@@ -195,12 +195,12 @@
                     <dt><label for="input-text03"><span class="customer-name">Kim, Taehyeong</span></label></dt>
                     <dd><input type="text" id="input-text03" class="input-text" placeholder="여권번호를 입력하세요"></dd>
                 </dl>
-                <ul>
+                <ul class="notification-list">
                     <li>여권번호가 없는 경우 예약하기 버튼 클릭 시 임시저장으로 연결됩니다.</li>
                     <li>관세법상 여권번호가 실제 여권과 다른 경우, 관세법상 면세품을 받으실 수 없습니다.</li>
                 </ul>
             </div>
-            <div class="agreement-wrap">
+            <div class="agreement-list-wrap">
                 <h3 class="title">
                     <img src="images/img_arr.png" width="" height="" alt="">
                     예약주문 확인사항 동의
@@ -212,7 +212,7 @@
                             <label for="agreement01">기내면세 이용안내</label>
                         </span>
                         <a href="#none" target="_self" class="btn_more">자세히 보기</a>
-                        <div class="agreement-text">
+                        <div class="agreement-wrap">
                             <table>
                                 <caption class="sr-only">기내면세 이용안내</caption>
                                 <colgroup>
@@ -228,7 +228,7 @@
 
                                         주류 : 1 liter (1 Bottle)<br>
                                         담배 : 1 carton(200pcs) / 50pcs(250g)<br>
-                                        향수 : 60ml<br>
+                                        향수 : 60ml<br><br>
 
                                         * 주류 및 담배는 만 19세 미만인 자의 반입이 불가능합니다.<br><br>
 
@@ -252,7 +252,7 @@
                             <label for="agreement02">취소/변경 안내</label>
                         </span>
                         <a href="#none" target="_self" class="btn_more">자세히 보기</a>
-                        <div class="agreement-text">
+                        <div class="agreement-wrap">
                             <table>
                                 <caption class="sr-only">취소/변경 안내</caption>
                                 <colgroup>
@@ -288,7 +288,7 @@
                             <label for="agreement03">상품 인도 안내</label>
                         </span>
                         <a href="#none" target="_self" class="btn_more">자세히 보기</a>
-                        <div class="agreement-text">
+                        <div class="agreement-wrap">
                             <ul class="notification-list">
                                 <li>기내면세 예약시에 가는편 수령상품과 오는편 수령상품을 구분해 주시고, 해당 편에 해당하는 주문서를 기내에서 승무원에게 제출해 상품 인도를 요청하시면 됩니다.</li>
                                 <li>반드시 출국자의 본인이 여권, 탑승권, 교환권(주문번호)를 제시해 주시면 상품을 인도 받으실 수 있습니다.</li>
@@ -301,7 +301,7 @@
                     </li>
                     <li>
                         <span class="inputWrap">
-                            <input type="checkbox" id="agreement04" name="check-group2">
+                            <input type="checkbox" id="agreement04" name="check-group2" data-checked="all">
                             <label for="agreement04">모두 동의하기</label>
                         </span>
                     </li>
@@ -404,6 +404,36 @@
                 } else if(value === 0) {
                     $input.val(value).removeClass("text-emphasis")
                 }
+            });
+        })();
+
+        /*(예약주문 확인사항 동의)아코디언 탭 디스플레이 정의*/
+        (function(){
+            $(".agreement-list-wrap .agreement-list a.btn_more").on("click", function(){
+                $(this).parent("li").toggleClass("active").siblings("li").removeClass("active");
+            });
+        })();
+
+        /*(모두 동의)전체 선택 Checkbox 기능 정의*/
+        (function(checkAllHandler){
+            $("input[data-checked='all']").each(function(){
+                var $trigger = $(this),
+                    $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this));
+                $trigger.on("change", function(){
+                    if($(this).is(":checked") === true){
+                        $family.prop("checked", true);
+                    } else {
+                        $family.prop("checked", false);
+                    }
+                });
+                $family.on("change", function(){
+                    var checkedFamily = $("input[type='checkbox'][name='" + $(this).attr("name") + "']:checked").not($trigger);
+                    if($family.length === checkedFamily.length){
+                        $trigger.prop("checked", true);
+                    } else {
+                        $trigger.prop("checked", false);
+                    }
+                });
             });
         })();
 
