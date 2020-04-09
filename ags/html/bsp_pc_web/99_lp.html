@@ -28,10 +28,14 @@
 			<li><a class="popupBtn" id="qnaPopup_re">추가 문의하기</a></li>
 			<li><a class="popupBtn" id="qnaDeleteConfirmPopup">1:1 문의하기 취소 경고</a></li>
 			<li><a class="popupBtn" id="qnaDeleteConfirmPopupAlert">작성한 글 삭제</a></li>
-            <li><a class="popupBtn" id="noServices1ConfirmPopup">오는 편 미선택 시</a></li><!-- 오는편 가는편 예약확인 안내에 따른 팝업 추가, 200206 최아율 -->
-            <li><a class="popupBtn" id="noServices2ConfirmPopup">가는 편 미선택 시</a></li><!-- 오는편 가는편 예약확인 안내에 따른 팝업 추가, 200206 최아율 -->
+            <li><a class="popupBtn" id="noServices1ConfirmPopup">오는 편 미선택 시</a></li>
+            <li><a class="popupBtn" id="noServices2ConfirmPopup">가는 편 미선택 시</a></li>
             <!--<li><a class="popupBtn" id="noServices3ConfirmPopup">다구간 미선택 시</a></li>-->
-            <li><a class="popupBtn" id="beforeTicketing">아직 발권이 완료되지 않았습니다.</a></li><!-- 수동발권 시, 발권완료 후 재방문 유도 팝업, 200212 최아율 -->
+            <li><a class="popupBtn" id="beforeTicketing">아직 발권이 완료되지 않았습니다.</a></li>
+            <li><a class="popupBtn" id="pop_dfs-save">주문서가 임시저장됩니다.</a></li>
+            <li><a class="popupBtn" id="pop_dfs-refund1">기내면세 취소/수정</a></li>
+            <li><a class="popupBtn" id="pop_dfs-refund2">기내면세 취소/수정(예약건 없음)</a></li>
+            <li><a class="popupBtn" id="pop_dfs-send-receipt">이메일/SMS로 주문서 받기</a></li>
 		</ul>
 	</div>
 	<!--	popup - 비상구 좌석 안내	-->
@@ -672,12 +676,115 @@
     </div>
     <!-- //popup - 수동발권 시, 발권완료 후 재방문 유도 팝업 수정, 200218 최아율 -->
 
-<!--	191107	-->
+    <!-- popup - 주문서가 임시저장됩니다 -->
+    <div class="popupContainer pop_dfs-save">
+        <div class="popupWrap">
+            <div class="popupTitleWrap">
+                <p class="title">주문서가 임시저장됩니다.</p>
+                <a class="close">close</a>
+            </div>
+            <div class="popupContentWrap">
+                <div class="popupContent">
+                    <div class="content">
+                        여권번호 등록이 안되어 임시저장됩니다.<br>
+                        주문서 완성을 위해 출발 전에<br>
+                        여권번호를 등록해 주세요.
+                    </div>
+                </div>
+                <div class="popupBtnWrap">
+                    <a class="confirm">확인</a>
+                </div>
+            </div>
+        </div>
+        <div class="popupDimmed"></div>
+    </div>
+
+    <!-- popup - 기내면세 취소/수정 -->
+    <div class="popupContainer pop_dfs-refund1">
+        <div class="popupWrap">
+            <div class="popupTitleWrap">
+                <p class="title">기내면세 취소/수정</p>
+                <a class="close">close</a>
+            </div>
+            <div class="popupContentWrap">
+                <div class="popupContent">
+                    <div class="content">
+                        기내면세 주문서를 수정하시겠습니까?
+                    </div>
+                </div>
+                <div class="popupBtnWrap">
+                    <a class="close">취소</a>
+                    <a class="close confirm">확인</a>
+                </div>
+            </div>
+        </div>
+        <div class="popupDimmed"></div>
+    </div>
+
+    <!-- popup - 기내면세 취소/수정(예약건 없음) -->
+    <div class="popupContainer pop_dfs-refund2">
+        <div class="popupWrap">
+            <div class="popupTitleWrap">
+                <p class="title">기내면세 취소/수정</p>
+                <a class="close">close</a>
+            </div>
+            <div class="popupContentWrap">
+                <div class="popupContent">
+                    <div class="content">
+                        취소/수정 가능한 예약건 없습니다.
+                    </div>
+                </div>
+                <div class="popupBtnWrap">
+                    <a class="close confirm">확인</a>
+                </div>
+            </div>
+        </div>
+        <div class="popupDimmed"></div>
+    </div>
+
+    <!-- popup - 이메일/SMS로 주문서 받기 -->
+    <div class="popupContainer pop_dfs-send-receipt">
+        <div class="popupWrap">
+            <div class="popupTitleWrap">
+                <p class="title">이메일/SMS로 주문서 받기</p>
+                <a class="close">close</a>
+            </div>
+            <div class="popupContentWrap">
+                <div class="popupContent">
+                    <div class="content">
+                        <dl class="send-message">
+                            <dt>예약번호</dt>
+                            <dd>1912170801</dd>
+                            <dt><label for="input-text01">이메일</label></dt>
+                            <dd><input type="text" id="input-text01" placeholder="이메일을 입력하세요"></dd>
+                            <dt><label for="input-text02">휴대폰번호</label></dt>
+                            <dd><input type="text" id="input-text02" placeholder="숫자만 입력하세요 (-제외)"></dd>
+                        </dl>
+                        <div class="notification-list">
+                            <h5 class="notification-title">꼭 읽어보세요!</h5>
+                            <ul class="notification-text">
+                                <li class="text-emphasis">주문서를 출력이 불가능 하실 경우에는 주문서 번호, 물품, 수량을 메모하셔서 상품수령 시 제시해 주십시오.</li>
+                                <li>
+                                    상품과 수량과 품명을 확인하시고, 이상이 있을 경우 기내 승무원에게 바로 통보하여 주시기 바랍니다.<br>
+                                    (출국 후 상품 분실에 대한 책임은 일체지지 않습니다)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="popupBtnWrap">
+                    <a class="close confirm">전송하기</a>
+                </div>
+            </div>
+        </div>
+        <div class="popupDimmed"></div>
+    </div>
+
+
 	<script>
 		$(function() {
 			$('select').selectric();
 		});
 	</script>
-<!--	//191107	-->
 </body>
 </html>
