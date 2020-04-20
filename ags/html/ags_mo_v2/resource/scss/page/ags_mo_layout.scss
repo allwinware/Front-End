@@ -48,12 +48,12 @@ body {
 .ags-container {
   padding-bottom: rem($summary-height + 44);
   .ags-snb {
-    height: rem($snb-height);
+    height: rem($buy__snb-height);
     border-bottom: 1px solid $mono8;
   }
   .snb-wrap {
     display: table; table-layout: fixed;
-    width: 100%; height: rem($snb-height);
+    width: 100%; height: rem($buy__snb-height);
     li {
       display: table-cell;
       min-width: 20%; max-width: 33.333%; height: 100%;
@@ -166,10 +166,25 @@ body {
         & + li { margin-top: em(4, $font-size); }
       }
       &:last-child { padding-bottom: 0; }
+      &.no-blt {
+        li {
+          padding-left: 0;
+          &:before { display: none; }
+        }
+      }
     }
     td .notification-list {
       padding: 0;
+    }
+    td .notification-text + .notification-list,
+    td .notification-list + .notification-text,
+    td .notification-list + .notification-list,
+    td .notification-text + .notification-text { padding-top: rem($grid * 2) }
+    td .notification-list:not(.no-blt) {
       .notification-text, li { color: #5B5B5B; }
+    }
+    td .notification-list.no-blt {
+      .notification-text, li { color: $mono1; }
     }
   }
   table {

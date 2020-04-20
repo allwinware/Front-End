@@ -229,13 +229,21 @@ $(document).ready(function(){
         });
     })();
 
-    /* 팝업 */
+    /* 일반적인 팝업 */
     $(document).on("click", "[data-popup]", function(){
         var $pop = $($(this).attr("data-popup"));
         if($pop.attr("data-type") === 'alert'){
             popupShow($pop);
         } else if($pop.attr("data-type") === 'message'){
             messagePopShow($pop)
+        } else if($pop.attr("data-type") === 'drawer'){
+            if($pop.hasClass("active") === true){
+                $pop.css("height", "");
+                popupHide($pop)
+            } else {
+                popupShow($pop);
+                $pop.css("height", $win.innerHeight() - $("#ags-header").height());
+            }
         }
     });
 
@@ -245,18 +253,6 @@ $(document).ready(function(){
             popupHide($pop);
         } else if($pop.attr("data-type") === 'message'){
             messagePopHide($pop)
-        }
-    });
-
-    /*총 결제 금액 팝업 정의*/
-    $(document).on("click", "#btn_summary-drawer1, #btn_summary-drawer2, #btn_summary-drawer3", function(){
-        var $target = $("#passenger-summary");
-        if($target.hasClass("active") === true){
-            $target.css("height", "");
-            popupHide($target)
-        } else {
-            popupShow($target);
-            $target.css("height", $win.innerHeight() - $("#ags-header").height());
         }
     });
 
@@ -283,4 +279,19 @@ $(document).ready(function(){
             }).scroll()
         }
     })();
+
+    /* 앵커 태그를 이용해 타겟을 접고 펼치는 이벤트를 컨트롤합니다. */
+    (function(){
+        $(document).on("click", "a[data-foldable-target]", function(){
+            var $trigger = $(this),
+                $target = $($(this).attr("data-foldable-target"));
+            if($target.hasClass("active") === true){
+                $trigger.removeClass("active")
+                $target.removeClass("active")
+            } else {
+                $trigger.addClass("active")
+                $target.addClass("active")
+            }
+        });
+    })()
 });

@@ -16,7 +16,9 @@
 @mixin font($family: ko, $size: $font-root-size, $color: $mono1, $weight: 400, $spacing: -0.03){
   @if $family == en {
     font-family: $font-en-family
-  }
+  } @else if $family == ko {
+    font-family: $font-common-family
+}
   font-size: rem($size);
   font-weight: $weight;
   color: $color;
@@ -260,7 +262,8 @@
     width: 100%;
     th, td { vertical-align: middle; line-height: em(12, $font-size); }
     thead th,
-    tbody th[scope='colgroup'] {
+    tbody th[scope='colgroup'],
+    tbody th:first-child:last-child {
       padding: em(10, $font-size); min-height: em(32, $font-size);
       font-weight: 600; text-align: center; color: $mono10;
       background-color: $mono1;
@@ -306,6 +309,13 @@
       }
     }
   }
+}
+@mixin foldable-content($active-height: 5000px) {
+  @include clearfix;
+  transition: max-height 0.5s;
+  overflow: hidden;
+  max-height: 0;
+  &.active { max-height: $active-height; }
 }
 @mixin keyframe($animation_name) {
   @-webkit-keyframes #{$animation_name} {

@@ -298,24 +298,44 @@
       width: (130 / 343 * 100%);
       a { color: inherit; text-decoration: none; }
     }
-    dt + dd {
+    dt + dd:not(.count-bubble) {
       @include font($family: en, $size: 18, $color: $text-primary, $weight: 600, $spacing: -0.03);
       text-align: right;
     }
+    dd.count-bubble .ico {
+      $font-size: 15;
+      @include font($family: en, $size: $font-size, $color: $mono10, $weight: 500, $spacing: 0);
+      @include valign-middle();
+      overflow: hidden;
+      display: inline-block;
+      margin-left: em(-26, $font-size); padding: 0 em(9, $font-size); height: em(24, $font-size);
+      line-height: em(24, $font-size);
+      background: rgba(219,16,16,0.9); border: 1px solid #FF0000; border-radius: em(12, $font-size);
+    }
     dt + dd + dd { text-align: center; width: (103 / 343 * 100%); }
-    .btn_pay-imm {
+    .btn_pay-imm, .btn_resv-imm {
       @include form($size: 2, $role: normal, $type: button);
       margin: 0; width: auto;
       border-color: rgba(255,255,255,0.5); background-color: transparent; color: $mono10
     }
+    .btn_resv-imm { width: 91px; }
   }
 }
-.passenger-summary {
-  transition: 0.75s all;
+[data-type='drawer'] {
+  transition: 0.75s bottom, 1s height;
   transition-delay: 0.25s;
   position: fixed; bottom: rem(-142); left: 0; right: 0;
-  padding: rem(108) 0 rem(34) rem($grid * 2); height: 0;
-  background-color: $mono10; border-radius: 16px 16px 0 0;
+  padding: rem(108) 0 rem(34) 0; height: 0;
+  background-color: $mono10; border-radius: rem(16) rem(16) 0 0;
+  .summary-title {
+    @include font($size: 16, $color: $mono1, $weight: 800, $spacing: -0.03);
+    position: absolute; left: rem($grid * 2); top: rem(50);
+  }
+  .inner-wrap { overflow: auto; padding-bottom: rem(50); width: 100%; height: 100%; }
+  .title {
+    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
+    display: inline-block;
+  }
   .btn_drawer {
     @include background($file: 'common/btn_ags-summary-close', $type: png, $width: rem(20), $height: rem(20));
     -webkit-transform: translate(0,0);
@@ -329,15 +349,13 @@
     text-indent: -999em;
     .ico { display: none; }
   }
-  .summary-title {
-    @include font($size: 16, $color: $mono1, $weight: 800, $spacing: -0.03);
-    position: absolute; left: rem($grid * 2); top: rem(50);
-  }
-  .inner-wrap { overflow: auto; padding-bottom: rem(50); width: 100%; height: 100%; }
-  .title {
-    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
-    display: inline-block;
-  }
+}
+[data-type='drawer'].active {
+  display: block;
+  top: auto; bottom: 0;
+}
+.passenger-summary {
+  padding-left: rem($grid * 2);
   .flight-num {
     display: inline-block;
     margin: 0 0 rem(12) rem(4);
@@ -379,9 +397,338 @@
     & + .title { margin-top: rem($grid * 10); }
   }
 }
-.passenger-summary.active {
-  display: block;
-  top: auto; bottom: 0;
+.dfs-product-detail {
+  .inner-wrap { margin-top: rem(-58); }
+  .info-area + .info-area { padding-top: rem(12) }
+  .content-title {
+    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
+    position: relative;
+    padding: rem($grid * 2); height: rem(48);
+    .btn_content-fold {
+      overflow: hidden;
+      position: absolute; top: 0; right: 0; left: 0; bottom: 0;
+      display: block;
+      text-indent: -999em;
+      &:before {
+        content: "";
+        @include background($file: 'dfs/ico_foldable', $type: png, $width: rem(12), $height: auto);
+        display: inline-block;
+        position: absolute; right: rem($grid * 2); bottom: rem(12);
+        width: rem(24); height: rem(24);
+        background-position: 50% 50%;
+        transition: all 0.5s; transform: rotate(0);
+      }
+      &.active:before { transform: rotate(180deg); }
+    }
+  }
+  .product-info:first-of-type { padding-left: rem($grid * 2) }
+  .product-info { @include clearfix; z-index: 0; position: relative; }
+  .product-info dt { @include sr-only }
+  .product-info dd {  }
+  .product-info .product-tag + dd { float: left; margin-top: rem(2); padding-right: rem(8); }
+  .product-info .product-tag + dd .sale,
+  .product-info .product-tag + dd .new {
+    $font-size: 9;
+    @include font($family: en, $size: $font-size, $color: $mono10, $weight: 500, $spacing: -0.03);
+    float: left;
+    padding: 0 rem(5); height: em(16, $font-size);
+    line-height: em(16, $font-size); text-transform: uppercase;
+  }
+  .product-info .product-tag + dd .sale { background-color: $bg-primary }
+  .product-info .product-tag + dd .new { background-color: $mono1 }
+  .product-info .brand + dd { $font-size: 16; float: left; font-size: rem($font-size); font-weight: 800; line-height: em(18, $font-size); vertical-align: top; color: $mono1 }
+  .product-info .product-name + dd { $font-size: 15; float: left; padding-top: rem(12); width: 100%; font-size: rem($font-size); font-weight: 600; line-height: em(17, $font-size) }
+  .product-info:first-of-type + .product-info { overflow: hidden; position: relative; padding: rem($grid * 2) 0 0 0; }
+  .product-info .thumbnail { padding-top: 100% !important; height: 0 !important; }
+  .product-info .thumbnail img { position: absolute; left: 0; top: 0; max-width: 100%; height: auto }
+  .swiper-container-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-custom, .swiper-pagination-fraction { bottom: 20px }
+  .swiper-pagination-bullet { background-color: $mono1 !important; opacity: 0.1; }
+  .swiper-pagination-bullet-active { background-color: $mono1 !important; opacity: 1; }
+  .product-info:first-of-type + .product-info + .product-info {
+    display: table;
+    padding-bottom: rem(16); width: 100%;
+    background-color: #f8f8f8; border: solid $mono8; border-width: 1px 0;
+    .price-compare {
+      display: table-cell; padding-top: rem(6); width: 50%; text-align: center;
+      dt {
+        @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+        position: relative;
+        overflow: visible;
+        padding: rem(8) 0 0; width: auto; height: auto;
+        clip: auto;
+      }
+    }
+    .price-usd { @include font($family: en, $size: 20, $color: $mono3, $weight: 500, $spacing: -0.03); display: block; line-height: 25px; padding: rem(8) 0 0; }
+    .price-usd:before { content: "$" }
+    .price-krw {
+      @include font($family: en, $size: 13, $color: $mono3, $weight: 400, $spacing: -0.03);
+      display: inline-block; padding-top: rem(5);
+      vertical-align: top; line-height: rem(17);
+    }
+    .sale {
+      @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03);
+      display: inline-block;
+      padding: rem(5) 0 0 rem(5);
+      vertical-align: top; line-height: rem(17);
+      .ico {
+        @include background($file: 'dfs/ico_sale', $type: png, $width: rem(7), $height: rem(9));
+        overflow: hidden;
+        display: inline-block;
+        width: rem(7); height: rem(9);
+        text-indent: -999em;
+      }
+    }
+  }
+  input[type='checkbox'] {
+    @include form($size: 1, $role: normal, $type: radio);
+    & + label {
+      z-index: 2;
+      overflow: hidden;
+      display: block;
+      position: absolute !important; right: rem(20); top: rem(20);
+      width: rem(16); height: rem(16);
+      text-indent: -999em; font-weight: 400;
+      .ico { position: absolute; right: 0; top: 0; margin: 0 }
+    }
+  }
+  .product-info2 {
+    @include clearfix;
+    $font-size: 13;
+    margin-left: rem($grid * 2); padding: rem($grid * 2) rem($grid * 2) rem($grid * 2) 0;
+    border-bottom: 1px solid $mono8;
+    dt, dd { float: left; line-height: em(24, $font-size); }
+    dt {
+      @include font($size: $font-size, $color: $mono3, $weight: 600, $spacing: -0.03);
+      width: rem(84);
+
+    }
+    dd { width: calc(100% - 84px); }
+  }
+  .product-notification {
+    $font-size: 12;
+    @include font($size: $font-size, $color: $mono1, $weight: 300, $spacing: -0.03);
+    padding: rem($grid * 2);
+    border-bottom: 1px solid $mono8;
+    li {
+      overflow: hidden;
+      position: relative; padding-left: rem($grid);
+      line-height: em(16, $font-size);
+      &:before {
+        content: "";
+        position: absolute; left: 0; top: em(6, $font-size);
+        display: inline-block;
+        width: 2px; height: 2px;
+        border-radius: 50%; background-color: $mono1;
+      }
+      & + li { margin-top: em(6, $font-size); }
+    }
+  }
+  .product-info-details {
+    @include foldable-content;
+    table { width: 100%; border-top: 1px solid $mono8; }
+    tbody th, tbody td {
+      @include font($size: 13, $color: #666, $weight: 400, $spacing: -0.03);
+      padding: rem(15) rem($grid); min-height: rem(48);
+      border-bottom: 1px solid $mono8;
+      line-height: rem(18)
+    }
+    tbody th { width: rem(64); font-weight: 600; text-align: left; }
+    tbody th:first-child { padding-left: rem($grid * 2); }
+    tbody td:last-child { padding-right: rem($grid * 2); }
+  }
+  .process-btn-wrap {
+    @include flex(flex-start stretch flex-start nowrap);
+    margin: 0 rem(-3); padding: rem($grid * 2) rem($grid * 2) 0;
+    background-color: $mono10;
+    [class^='btn_'] { margin: 0 rem(3) !important; }
+    .btn_select {
+      @include form($type: button, $size: 4, $role: submit);
+      flex: 1 auto;
+    }
+  }
+}
+.dfs-select-summary {
+  .inner-wrap { padding-bottom: rem(130) }
+  .product-area + .product-area { padding-top: rem(80); }
+  .selected-product {
+    position: relative;
+    padding-left: rem($grid * 2);
+    border-top: 1px solid $mono1;
+    .btn_more {
+      position: absolute; right: rem(20); top: rem(20);
+      &, &:active, &:visited {
+        @include font($size: 13, $color: #66B1FF, $weight: 500, $spacing: -0.03);
+      }
+    }
+  }
+  .product-info {
+    @include clearfix;
+    z-index: 0;
+    position: relative;
+    padding: rem(20) rem(20) rem(20) rem(93);
+    border-bottom: 1px solid $mono8;
+    dt { @include sr-only }
+    dd {  }
+    .product-tag + dd { float: left; padding-right: rem(5); }
+    .product-tag + dd .sale,
+    .product-tag + dd .new {
+      $font-size: 9;
+      @include font($family: en, $size: $font-size, $color: $mono10, $weight: 500, $spacing: -0.03);
+      float: left;
+      padding: 0 rem(5); height: em(16, $font-size);
+      line-height: em(16, $font-size); text-transform: uppercase;
+    }
+    .product-tag + dd .sale { background-color: $bg-primary }
+    .product-tag + dd .new { background-color: $mono1 }
+    .brand + dd { $font-size: 13; float: left; font-size: rem($font-size); line-height: em(16, $font-size); vertical-align: top; color: $mono3 }
+    .product-name + dd { $font-size: 13; float: left; padding-top: rem($grid); width: 100%; height: rem(40); font-size: rem($font-size); font-weight: 600; line-height: em(16, $font-size) }
+    .thumbnail + dd { overflow: hidden; position: absolute; left: 0; top: rem($grid * 2); width: rem(78); height: rem(78); border: 1px solid $mono8 }
+    .thumbnail + dd img { max-width: 100%; height: auto }
+    .price-usd,
+    .price-krw { @include sr-only }
+    .price-usd + dd,
+    .price-krw + dd { @include font($family: en, $size: 14, $color: $mono10, $weight: 400, $spacing: -0.03); display: inline-block; padding-top: rem(13) }
+    .price-usd + dd { color: $text-primary; font-weight: 500 }
+    .price-usd + dd .digits:before { content: "$" }
+    .price-krw + dd { padding-left: rem(7); color: $mono4 }
+  }
+  .dfs-resv-plan {
+    padding: 0 0 0 rem($grid * 2)
+  }
+  .passenger-name {
+    @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+    @include background($file: 'common/ico_ags-summary-passenger', $type: png, $width: rem(12), $height: rem(12));
+    @include text-uppercase;
+    position: relative;
+    margin: rem($grid * 2) 0 0; padding-left: rem(20);
+    &:after {
+      @include tagging-route;
+      position: absolute; right: rem($grid * 2); top: 0;
+    }
+    @at-root [data-page-id='buy__baggage'] .tab-panels .tab-panel:first-of-type .baggage-plan .passenger-name:after {
+      content: "가는 편";
+    }
+    @at-root [data-page-id='buy__baggage'] .tab-panels .tab-panel:nth-of-type(2) .baggage-plan .passenger-name:after {
+      content: "오는 편";
+    }
+  }
+  .table-wrap {
+  }
+  .charge-sheet {
+    @include table($style: type1, $mg-size: small);
+    th, td { padding: rem($grid * 2) rem($grid * 2) rem($grid * 2) 0 !important; height: rem(47); border-bottom: 1px solid $mono8; vertical-align: middle; }
+    tfoot th, tfoot td { background-color: transparent; }
+    tbody td:last-of-type { text-align: center; }
+    tfoot th {
+      @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
+      text-align: left;
+    }
+    tfoot td {
+      color: $text-primary; font-weight: 600;
+    }
+    tbody th[scope='row'] {
+      @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+      text-align: left;
+    }
+  }
+  .dfs-handler {
+    $size: 42;
+    position: relative;
+    margin-left: auto; width: rem(158);
+    dl {
+      width: 100%;
+    }
+    dt { @include sr-only }
+    .ea + dd .resv-ea {
+      @include font($size: 18, $color: $mono1, $weight: 800, $spacing: -0.03);
+      overflow: hidden;
+      display: block;
+      margin: 0 auto; padding: 0; width: rem($size); height: rem($size);
+      line-height: rem($size); text-align: center;
+      &.active { color: $text-primary }
+    }
+    [class*='btn_'] {
+      overflow: hidden;
+      position: absolute; top: 0;
+      display: inline-block;
+      width: rem($size); height: rem($size);
+      border: 1px solid $mono1; border-radius: 3px;
+      background-position: 50% 50%;
+      text-indent: -999em;
+    }
+    .btn_increase {
+      @include background($file: 'buy/ico_baggage-increase', $type: png, $width: rem(12), $height: rem(12));
+      right: 0;
+      &[disabled='disabled'] {
+        @include background($file: 'buy/ico_baggage-increase--w', $type: png, $width: rem(12), $height: rem(12));
+        background-color: $mono8;
+        border-color: $mono8;
+      }
+    }
+    .btn_decrease {
+      @include background($file: 'buy/ico_baggage-decrease', $type: png, $width: rem(12), $height: rem(2));
+      left: 0;
+      &[disabled='disabled'] {
+        @include background($file: 'buy/ico_baggage-decrease--w', $type: png, $width: rem(12), $height: rem(2));
+        background-color: $mono8;
+        border-color: $mono8;
+      }
+    }
+  }
+  .ind-total {
+    $font-size: 13;
+    @include font($size: $font-size, $color: $mono1, $weight: 500, $spacing: -0.03);
+    margin-top: -1px; padding: rem(16) rem(18); height: rem(50);
+    text-align: right;
+    background-color: #F8F8F8; border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
+    &:after { content: ''; display: table; clear: both; }
+    dt, dd { height: em(18, $font-size); line-height: em(18, $font-size); font-weight: 600; }
+    dd { display: inline-block; }
+    .ea, .ea + dd { float: left; }
+    .ea + dd { color: $text-primary; }
+    .ea:after { content: ":"; padding: 0 rem(2); }
+    .price-usd, .price-krw {
+      overflow: hidden;
+      position: absolute;
+      margin: 0; padding: 0; width: 0; height: 0;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    .price-usd + dd { color: $text-primary; }
+    .price-usd + dd .digits:before { content: "$"; }
+    .price-krw + dd { color: $mono1; }
+    .price-krw + dd:before { content: "/"; padding: 0 rem(3) 0 rem(2); }
+    .price-krw + dd .digits:before { content: "₩"; }
+  }
+  .ags-summary.dfs__list {
+    position: absolute;
+    .inner-wrap {
+      border-top: 1px solid $mono1;
+      background-color: $mono10;
+    }
+    .total {
+      width: 100%; height: rem(100);
+      dl { display: table; table-layout: fixed; padding: 0 rem(10); width: 100%; height: rem(60); }
+      dt, dd { display: table-cell; padding: 0 rem(6); white-space: nowrap; vertical-align: middle; }
+      dt {
+        @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03);
+      }
+      dt + dd:not(.count-bubble) {
+        @include font($family: ko, $size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03);
+        text-align: right;
+      }
+      dt + dd + dd { text-align: center; }
+      .btn_pay-imm {
+        @include form($size: 2, $role: submit, $type: button);
+        margin: 0;
+      }
+    }
+    &.active {
+      .btn_drawer { display: block; }
+      .inner-wrap { border-top-color: transparent; }
+    }
+  }
 }
 
 [data-page-id='popup'] {
