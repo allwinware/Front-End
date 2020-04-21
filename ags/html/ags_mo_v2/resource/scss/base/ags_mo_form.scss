@@ -31,10 +31,22 @@
       @include font($size: 14, $color: $mono1, $weight: 600);
     }
   }
+  @if $type == "text" or $type="textbox" {
+    &::-webkit-input-placeholder { /* Edge */
+      color: $mono4;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: $mono4;
+    }
+    &::placeholder {
+      color: $mono4;
+    }
+  }
   @if $type == "checkbox" or $type == "radio" {
     @include sr-only;
     & + label {
       position: relative;
+      display: inline-block;
       .ico {
         transition: all $trs-duration;
         /*transition-delay: $trs-delay;*/
@@ -56,7 +68,7 @@
       $check-size: 16;
       & + label {
         @include font($size: 11, $color: $mono1, $weight: 400);
-        height: $check-size#{px};
+        height: $check-size#{px}; line-height: $check-size#{px};
         .ico {
           margin-right: rem(5); width: $check-size#{px}; height: $check-size#{px};
           line-height: $check-size#{px};
@@ -70,7 +82,7 @@
       $check-size: 16;
       & + label {
         @include font($size: 13, $color: $mono1, $weight: 400);
-        height: $check-size#{px};
+        height: $check-size#{px}; line-height: $check-size#{px};
         .ico {
           margin-right: rem(8); width: $check-size#{px}; height: $check-size#{px};
           line-height: $check-size#{px};
@@ -180,7 +192,9 @@
   }
 }
 
-.ui-textbox { @include form($type: textbox) }
+.ui-textbox {
+  @include form($type: textbox);
+}
 .ui-select {
   @include form($type: select);
   background-color: $mono10;
