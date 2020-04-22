@@ -1045,6 +1045,10 @@ strong {
   padding-top: 2.14286rem;
 }
 
+[data-type='alert'] .alert-title:last-child {
+  padding-bottom: 1.14286rem;
+}
+
 [data-type='alert'] .alert-text {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
@@ -1199,6 +1203,78 @@ strong {
   line-height: 1.42857rem;
 }
 
+/*[data-type='message'] {
+  $pop-header-area: 77;
+  $pop-footer-area: 150;
+  overflow: hidden;
+  transition: 0.75s all; transition-delay: 0.25s;
+  max-height: 0;
+  border-radius: rem(12) rem(12) 0 0;
+  bottom: -100vh;
+  display: block;
+  &.active { max-height: 100vh; bottom: 0; }
+  .pop-wrap {
+    transition: none;
+    overflow: hidden;
+    padding: rem($pop-header-area) 0 rem($pop-footer-area); max-height: inherit;
+    background-color: $mono10;
+  }
+  .pop-header {
+    z-index: 1;
+    position: absolute; left: 0; top: 0; right: 0;
+    padding-bottom: rem($grid * 3);
+    background-color: $mono10;
+  }
+  .pop-title {
+    z-index: 0;
+    @include font($size: 16, $color: $mono1, $weight: 600, $spacing: 0);
+    @include text-ellipsis();
+    overflow: auto;
+    position: relative;
+    padding: 0 rem(52); width: 100%; height: rem(53);
+    line-height: rem(52);
+    text-align: center;
+    border-bottom: 1px solid $mono8;
+  }
+  .btn_close {
+    z-index: 1;
+    @include background($file: 'popup/ico_pop-close', $type: 'png', $width: 14px, $height: 14px);
+    position: absolute; left: 0; top: 0;
+    width: rem(52); height: rem(52);
+    background-position: 50% 50%; background-color: transparent;
+    text-indent: -999em;
+  }
+  .pop-container {
+    transition: none;
+    z-index: 0;
+    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: 0);
+    overflow: auto;
+    margin: rem(-$pop-header-area) 0 rem(-$pop-footer-area); padding: rem($pop-header-area) rem($grid * 2) rem($pop-footer-area); width: 100%; max-height: inherit;
+    .message-text > *:last-child { padding-bottom: 0; }
+  }
+  .pop-footer {
+    z-index: 1;
+    position: absolute; bottom: 0; right: 0; left: 0;
+    padding: rem($grid * 3) rem($grid * 2); min-height: rem(105);
+    background-color: $mono10;
+    input[type='checkbox'] { @include form($size: 4, $role: normal, $type: checkbox) }
+    .process-btn-wrap {
+      @include flex(flex-start stretch flex-start nowrap);
+      margin: 0 rem(-3); padding: rem($grid * 3) 0 0;
+      [class^='btn_'] { margin: 0 rem(3) !important; }
+      .btn_cancel {
+        @include form($type: button, $size: 4, $role: cancel);
+        width: auto; min-width: rem(90);
+      }
+      .btn_confirm {
+        @include form($type: button, $size: 4, $role: submit);
+        flex: 1 auto;
+      }
+    }
+  }
+  .row { padding-bottom: rem($grid * 2); line-height: rem(18); }
+  ol li { list-style: decimal; list-style-position: inside; line-height: rem(18); }
+}*/
 [data-type='message'] {
   overflow: hidden;
   transition: 0.75s all;
@@ -1217,7 +1293,7 @@ strong {
 [data-type='message'] .pop-wrap {
   transition: none;
   overflow: hidden;
-  padding: 5.5rem 0 10.71429rem;
+  padding: 5.85714rem 0 10.71429rem;
   max-height: inherit;
   background-color: #ffffff;
 }
@@ -1228,7 +1304,8 @@ strong {
   left: 0;
   top: 0;
   right: 0;
-  padding-bottom: 1.71429rem;
+  padding: 3.57143rem 1.14286rem 1.14286rem;
+  height: 5.85714rem;
   background-color: #ffffff;
 }
 
@@ -1246,24 +1323,23 @@ strong {
   vertical-align: middle;
   overflow: auto;
   position: relative;
-  padding: 0 3.71429rem;
+  padding: 0 2.85714rem 0 0;
   width: 100%;
-  height: 3.78571rem;
-  line-height: 3.71429rem;
-  text-align: center;
-  border-bottom: 1px solid #f0f0f0;
+  line-height: 1em;
+  text-align: left;
 }
 
 [data-type='message'] .btn_close {
   z-index: 1;
   background-image: url("../img/popup/ico_pop-close.png");
   background-repeat: no-repeat;
-  background-size: 14px 14px;
+  background-size: 20px 20px;
+  overflow: hidden;
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 3.71429rem;
-  height: 3.71429rem;
+  right: 1.14286rem;
+  top: 1.14286rem;
+  width: 1.71429rem;
+  height: 1.71429rem;
   background-position: 50% 50%;
   background-color: transparent;
   text-indent: -999em;
@@ -1290,14 +1366,18 @@ strong {
   color: #000;
   letter-spacing: 0em;
   overflow: auto;
-  margin: -5.5rem 0 -10.71429rem;
-  padding: 5.5rem 1.14286rem 10.71429rem;
+  margin: -5.85714rem 0 -10.71429rem;
+  padding: 5.85714rem 1.14286rem 10.71429rem;
   width: 100%;
   max-height: inherit;
 }
 
 [data-type='message'] .pop-container .message-text > *:last-child {
   padding-bottom: 0;
+}
+
+[data-type='message'] .pop-container .message-text.mg-b--min {
+  margin-bottom: -3.57143rem;
 }
 
 [data-type='message'] .pop-footer {
@@ -1489,6 +1569,10 @@ strong {
   color: #aaa;
 }
 
+[data-type='message'] .pop-footer .process-btn-wrap:first-child {
+  padding-top: 0;
+}
+
 [data-type='message'] .row {
   padding-bottom: 1.14286rem;
   line-height: 1.28571rem;
@@ -1511,15 +1595,24 @@ strong {
   left: calc(-375 / 375 * 100%);
   top: 0;
   bottom: 0;
-  padding: 4.57143rem 0 2.28571rem 1.14286rem;
+  padding: 3.57143rem 2.28571rem 2.28571rem 2.28571rem;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #000;
 }
 
 .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
   position: absolute;
   right: 1.14286rem;
   top: 1.14286rem;
+}
+
+.ags-header .gnb-wrap .gnb-2dp-wrap .welcome-msg {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.42857rem;
 }
 
 .ags-header .gnb-wrap .gnb-2dp-wrap li {
@@ -1537,21 +1630,79 @@ strong {
   bottom: 0;
 }
 
+.ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
+  z-index: 1;
+  background-image: url("../img/popup/ico_pop-close--w.png");
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  overflow: hidden;
+  position: absolute;
+  right: 1.14286rem;
+  top: 1rem;
+  width: 1.71429rem;
+  height: 1.71429rem;
+  background-position: 50% 50%;
+  background-color: transparent;
+  text-indent: -999em;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
+    background-image: url("../img/popup/ico_pop-close--w@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
+    background-image: url("../img/popup/ico_pop-close--w@3x.png");
+  }
+}
+
+.ags-header .gnb-wrap .gnb-2dp-wrap .depth1 {
+  padding-top: 3.57143rem;
+}
+
 .ags-header .gnb-wrap .gnb-2dp-wrap .depth1 > li {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 1.14286rem;
-  font-weight: 600;
-  color: #000;
+  font-size: 1.57143rem;
+  font-weight: 800;
+  color: #ffffff;
   letter-spacing: -0.03em;
-  border-bottom: 1px solid #f0f0f0;
-  min-height: 3.57143rem;
+  line-height: 2.27273em;
 }
 
 .ags-header .gnb-wrap .gnb-2dp-wrap .depth1 > li a {
   display: block;
-  padding: 1.14286rem 1.14286rem;
+  line-height: 2.27273em;
   color: inherit;
   text-decoration: none;
+}
+
+.ags-header .gnb-wrap .gnb-2dp-wrap .depth1 > li.active a {
+  color: #FEE700;
+}
+
+.ags-header .gnb-wrap .gnb-2dp-wrap .depth1 > li.new a {
+  padding-right: 2.45455em;
+}
+
+.ags-header .gnb-wrap .gnb-2dp-wrap .depth1 > li.new a:after {
+  content: "new";
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 1.07143rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  margin-left: 0.57143rem;
+  padding: 0 0.53333em;
+  height: 1.6em;
+  line-height: 1.6em;
+  background-color: rgba(219, 16, 16, 0.9);
+  border: 1px solid #FF0000;
+  border-radius: 0.86667em;
+  vertical-align: middle;
+  text-transform: uppercase;
 }
 
 .ags-header .gnb-wrap .gnb-2dp-wrap .depth2 {
@@ -1560,14 +1711,16 @@ strong {
 
 .ags-header .gnb-wrap .gnb-2dp-wrap .depth2 > li {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000;
+  font-size: 1.14286rem;
+  font-weight: 600;
+  color: #ffffff;
   letter-spacing: -0.03em;
 }
 
 .ags-header .gnb-wrap .gnb-2dp-wrap .depth2 > li a {
-  padding: 0.57143rem 1.14286rem 0.57143rem 1.71429rem;
+  display: block;
+  padding-left: 1em;
+  line-height: 2.25em;
 }
 
 /* 합계 팝업 */
@@ -1809,7 +1962,7 @@ strong {
 }
 
 [data-type='drawer'] .btn_drawer {
-  background-image: url("../img/common/btn_ags-summary-close.png");
+  background-image: url("../img/popup/btn_ags-summary-close.png");
   background-repeat: no-repeat;
   background-size: 1.42857rem 1.42857rem;
   -webkit-transform: translate(0, 0);
@@ -1828,13 +1981,13 @@ strong {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-type='drawer'] .btn_drawer {
-    background-image: url("../img/common/btn_ags-summary-close@2x.png");
+    background-image: url("../img/popup/btn_ags-summary-close@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-type='drawer'] .btn_drawer {
-    background-image: url("../img/common/btn_ags-summary-close@3x.png");
+    background-image: url("../img/popup/btn_ags-summary-close@3x.png");
   }
 }
 
@@ -1846,6 +1999,19 @@ strong {
   display: block;
   top: auto;
   bottom: 0;
+}
+
+/* 이메일 SMS 주문서 받기 & 여권번호 등록하기 */
+[data-type='message'] .dfs-email-wrap,
+[data-type='message'] .passport-wrap {
+  margin-right: -1.14286rem;
+}
+
+[data-type='message'] .dfs-email-wrap .passport-list + .notification-wrap,
+[data-type='message'] .dfs-email-wrap .dfs-info-list + .notification-wrap,
+[data-type='message'] .passport-wrap .passport-list + .notification-wrap,
+[data-type='message'] .passport-wrap .dfs-info-list + .notification-wrap {
+  padding: 0.71429rem 1.14286rem 0 0;
 }
 
 .passenger-summary {
@@ -2040,7 +2206,7 @@ strong {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
@@ -2050,13 +2216,13 @@ strong {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   .passenger-summary .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   .passenger-summary .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
@@ -2793,7 +2959,7 @@ strong {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
@@ -2804,13 +2970,13 @@ strong {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   .dfs-select-summary .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   .dfs-select-summary .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
@@ -3357,6 +3523,84 @@ body {
   vertical-align: middle;
 }
 
+.ags-header .btn_nav-shortcut {
+  position: relative;
+  padding-right: 1.42857rem;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ags-header .ico_nav-dropdown {
+  background-image: url("../img/common/ico_nav-dropdown.png");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.14286rem;
+  height: 1.14286rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .ags-header .ico_nav-dropdown {
+    background-image: url("../img/common/ico_nav-dropdown@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .ags-header .ico_nav-dropdown {
+    background-image: url("../img/common/ico_nav-dropdown@3x.png");
+  }
+}
+
+.ags-header .nav-shortcut {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 14.28571rem;
+  border-radius: 0.57143rem;
+  border: 1px solid #000;
+  background-color: #ffffff;
+  box-shadow: 0 16px 16px rgba(0, 0, 0, 0.32);
+}
+
+.ags-header .nav-shortcut.active {
+  display: block;
+}
+
+.ags-header .nav-shortcut li + li {
+  border-top: 1px solid #f0f0f0;
+}
+
+.ags-header .nav-shortcut li a {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: block;
+  height: 3.35714em;
+  line-height: 1em;
+  text-decoration: none;
+  text-align: center;
+}
+
+.ags-header .nav-shortcut li a:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.ags-header .nav-shortcut li.active a {
+  color: #FF4F24;
+}
+
 .ags-header .ags-gnb {
   padding: 1rem 0;
   height: 3.78571rem;
@@ -3731,6 +3975,105 @@ body {
 
 .process-btn-wrap .btn_confirm::placeholder {
   color: #aaa;
+}
+
+/*여권번호 등록 & 이메일 SMS 주문서 받기*/
+.passport-wrap .passport-list, .passport-wrap .dfs-info-list, .dfs-email-wrap .passport-list, .dfs-email-wrap .dfs-info-list {
+  border-top: 1px solid #000;
+}
+
+.passport-wrap .passport-list:after, .passport-wrap .dfs-info-list:after, .dfs-email-wrap .passport-list:after, .dfs-email-wrap .dfs-info-list:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.passport-wrap .passport-list dt, .passport-wrap .passport-list dd, .passport-wrap .dfs-info-list dt, .passport-wrap .dfs-info-list dd, .dfs-email-wrap .passport-list dt, .dfs-email-wrap .passport-list dd, .dfs-email-wrap .dfs-info-list dt, .dfs-email-wrap .dfs-info-list dd {
+  float: left;
+  padding: 0.57143rem 0;
+  height: 3.78571rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.passport-wrap .passport-list dt:before, .passport-wrap .passport-list dd:before, .passport-wrap .dfs-info-list dt:before, .passport-wrap .dfs-info-list dd:before, .dfs-email-wrap .passport-list dt:before, .dfs-email-wrap .passport-list dd:before, .dfs-email-wrap .dfs-info-list dt:before, .dfs-email-wrap .dfs-info-list dd:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.passport-wrap .passport-list dt, .passport-wrap .dfs-info-list dt, .dfs-email-wrap .passport-list dt, .dfs-email-wrap .dfs-info-list dt {
+  padding-right: 2.14286rem;
+  width: 7.14286rem;
+  font-weight: 600;
+}
+
+.passport-wrap .passport-list dd, .passport-wrap .dfs-info-list dd, .dfs-email-wrap .passport-list dd, .dfs-email-wrap .dfs-info-list dd {
+  padding-right: 1.14286rem;
+  width: calc(100% - 100px);
+}
+
+.passport-wrap .passport-list .passport-num, .passport-wrap .dfs-info-list .passport-num, .dfs-email-wrap .passport-list .passport-num, .dfs-email-wrap .dfs-info-list .passport-num {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.passport-wrap .passport-list label, .passport-wrap .dfs-info-list label, .dfs-email-wrap .passport-list label, .dfs-email-wrap .dfs-info-list label {
+  display: inline-block;
+  padding: 0.78571rem 0;
+  line-height: 1rem;
+}
+
+.passport-wrap .passport-list dt + dd input[type='text'], .passport-wrap .dfs-info-list dt + dd input[type='text'], .dfs-email-wrap .passport-list dt + dd input[type='text'], .dfs-email-wrap .dfs-info-list dt + dd input[type='text'] {
+  display: inline-block;
+  margin: 0 0 0.35714rem;
+  width: 100%;
+  border-radius: 3px;
+  white-space: nowrap;
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  width: 100%;
+  height: 100%;
+}
+
+.passport-wrap .passport-list dt + dd input[type='text']::-webkit-input-placeholder, .passport-wrap .dfs-info-list dt + dd input[type='text']::-webkit-input-placeholder, .dfs-email-wrap .passport-list dt + dd input[type='text']::-webkit-input-placeholder, .dfs-email-wrap .dfs-info-list dt + dd input[type='text']::-webkit-input-placeholder {
+  /* Edge */
+  color: #aaa;
+}
+
+.passport-wrap .passport-list dt + dd input[type='text']:-ms-input-placeholder, .passport-wrap .dfs-info-list dt + dd input[type='text']:-ms-input-placeholder, .dfs-email-wrap .passport-list dt + dd input[type='text']:-ms-input-placeholder, .dfs-email-wrap .dfs-info-list dt + dd input[type='text']:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #aaa;
+}
+
+.passport-wrap .passport-list dt + dd input[type='text']::placeholder, .passport-wrap .dfs-info-list dt + dd input[type='text']::placeholder, .dfs-email-wrap .passport-list dt + dd input[type='text']::placeholder, .dfs-email-wrap .dfs-info-list dt + dd input[type='text']::placeholder {
+  color: #aaa;
+}
+
+.passport-wrap .passport-list dt, .dfs-email-wrap .passport-list dt {
+  width: 10rem;
+}
+
+.passport-wrap .passport-list dd, .dfs-email-wrap .passport-list dd {
+  width: calc(100% - 140px);
+}
+
+.passport-wrap .notification-wrap, .dfs-email-wrap .notification-wrap {
+  padding: 0.42857rem 0 0 0;
+}
+
+.passport-wrap .notification-list, .dfs-email-wrap .notification-list {
+  font-size: 0.78571rem;
+  line-height: 1.27273em;
+  word-break: keep-all;
 }
 
 /* z-index */
@@ -4657,7 +5000,7 @@ body {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
@@ -4668,13 +5011,13 @@ body {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='buy__baggage'] .baggage-plan .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='buy__baggage'] .baggage-plan .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
@@ -5073,6 +5416,10 @@ body {
   color: #000;
   letter-spacing: -0.03em;
   padding-top: 2.14286rem;
+}
+
+[data-page-id='buy__meal'] .no-item .alert-title:last-child {
+  padding-bottom: 1.14286rem;
 }
 
 [data-page-id='buy__meal'] .no-item .alert-text {
@@ -6892,7 +7239,7 @@ body {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
@@ -6902,13 +7249,13 @@ body {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='dfs__resv-apply'] .resv-wrap .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='dfs__resv-apply'] .resv-wrap .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
@@ -7111,87 +7458,6 @@ body {
 
 [data-page-id='dfs__resv-apply'] .passport-wrap .title + .input-wrap input[type='checkbox']:checked + label .ico:before {
   border-color: #ffffff;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list {
-  border-top: 1px solid #000;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list dt, [data-page-id='dfs__resv-apply'] .passport-wrap .passport-list dd {
-  float: left;
-  padding: 0.57143rem 0;
-  height: 3.78571rem;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list dt {
-  padding-right: 2.14286rem;
-  width: 10rem;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list dd {
-  padding-right: 1.14286rem;
-  width: calc(100% - 140px);
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list .passport-num {
-  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #000;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list label {
-  display: block;
-  padding: 0.78571rem 0;
-  line-height: 1rem;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list .passport-num + dd input[type='text'] {
-  display: inline-block;
-  margin: 0 0 0.35714rem;
-  width: 100%;
-  border-radius: 3px;
-  white-space: nowrap;
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.92857rem;
-  font-weight: 600;
-  color: #000;
-  letter-spacing: -0.03em;
-  width: 100%;
-  height: 100%;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list .passport-num + dd input[type='text']::-webkit-input-placeholder {
-  /* Edge */
-  color: #aaa;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list .passport-num + dd input[type='text']:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #aaa;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .passport-list .passport-num + dd input[type='text']::placeholder {
-  color: #aaa;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .notification-wrap {
-  padding-top: 0.42857rem;
-}
-
-[data-page-id='dfs__resv-apply'] .passport-wrap .notification-list {
-  font-size: 0.78571rem;
-  line-height: 1.27273em;
-  word-break: keep-all;
 }
 
 [data-page-id='dfs__resv-apply'] .agreement-wrap {
@@ -7633,7 +7899,7 @@ body {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
@@ -7643,13 +7909,13 @@ body {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='dfs__resv-complete'] .receipt-wrap .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='dfs__resv-complete'] .receipt-wrap .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
@@ -7902,7 +8168,7 @@ body {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
@@ -7912,13 +8178,13 @@ body {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='dfs__resv-save'] .receipt-wrap .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='dfs__resv-save'] .receipt-wrap .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
@@ -9033,7 +9299,7 @@ body {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
@@ -9043,13 +9309,13 @@ body {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='pay__complete'] .receipt-wrap .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='pay__complete'] .receipt-wrap .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
@@ -9243,7 +9509,7 @@ body {
 
 [data-page-id='my__history-list'] {
   margin-bottom: -10.28571rem;
-  padding: 0 0 10.28571rem;
+  padding: 0 0 8rem;
   min-height: calc(100vh - 53px);
   background-color: #F8F8F8;
   /*function bar*/
@@ -9615,6 +9881,7 @@ body {
 [data-page-id='my__history-detail'] .ticket-wrap .resv-num, [data-page-id='my__history-detail'] .ticket-wrap .resv-num + dd {
   display: inline-block;
   margin-bottom: 1.71429rem;
+  vertical-align: middle;
 }
 
 [data-page-id='my__history-detail'] .ticket-wrap .purchase-state + dd {
@@ -9685,7 +9952,7 @@ body {
   margin-bottom: 1.42857rem;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_cancel {
+[data-page-id='my__history-detail'] .ticket-wrap .btn_email, [data-page-id='my__history-detail'] .ticket-wrap .btn_passport {
   display: inline-block;
   margin: 0 0 0.35714rem;
   width: 100%;
@@ -9706,6 +9973,44 @@ body {
   text-decoration: none;
   cursor: pointer;
   width: auto;
+  font-size: 0.85714rem;
+}
+
+[data-page-id='my__history-detail'] .ticket-wrap .btn_email::-webkit-input-placeholder, [data-page-id='my__history-detail'] .ticket-wrap .btn_passport::-webkit-input-placeholder {
+  /* Edge */
+  color: #aaa;
+}
+
+[data-page-id='my__history-detail'] .ticket-wrap .btn_email:-ms-input-placeholder, [data-page-id='my__history-detail'] .ticket-wrap .btn_passport:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #aaa;
+}
+
+[data-page-id='my__history-detail'] .ticket-wrap .btn_email::placeholder, [data-page-id='my__history-detail'] .ticket-wrap .btn_passport::placeholder {
+  color: #aaa;
+}
+
+[data-page-id='my__history-detail'] .ticket-wrap .btn_cancel {
+  display: inline-block;
+  margin: 0 0 0.35714rem;
+  width: 100%;
+  border-radius: 3px;
+  white-space: nowrap;
+  padding: 0 1.14286rem;
+  height: 2.85714rem;
+  line-height: 2.71429rem;
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  border: 1px solid #f0f0f0;
+  background-color: #f0f0f0;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  width: auto;
+  font-size: 0.85714rem;
 }
 
 [data-page-id='my__history-detail'] .ticket-wrap .btn_cancel::-webkit-input-placeholder {
@@ -9720,6 +10025,24 @@ body {
 
 [data-page-id='my__history-detail'] .ticket-wrap .btn_cancel::placeholder {
   color: #aaa;
+}
+
+[data-page-id='my__history-detail'] .ticket-wrap [class*='btn_'] + [class*='btn_'] {
+  margin-left: 0.14286rem;
+}
+
+[data-page-id='my__history-detail'] .ticket-wrap [class*='btn_'] + .notification-text {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.71429rem;
+  font-weight: 800;
+  color: #FF4F24;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  margin-left: 0.2em;
+  padding: 0.8em;
+  height: 4em;
+  vertical-align: top;
+  line-height: 1.2em;
 }
 
 [data-page-id='my__history-detail'] .help-wrap {
@@ -9908,12 +10231,17 @@ body {
 }
 
 [data-page-id='my__history-detail'] .charge-sheet th, [data-page-id='my__history-detail'] .charge-sheet td {
-  padding: 0.57143rem 1.14286rem 0.57143rem 0 !important;
-  vertical-align: middle;
+  padding: 0.57143rem 0;
 }
 
 [data-page-id='my__history-detail'] .charge-sheet thead th, [data-page-id='my__history-detail'] .charge-sheet tbody th, [data-page-id='my__history-detail'] .charge-sheet tbody td, [data-page-id='my__history-detail'] .charge-sheet tfoot th, [data-page-id='my__history-detail'] .charge-sheet tfoot td {
+  padding: 0.35714rem 0;
   border-bottom: 0;
+  vertical-align: top;
+}
+
+[data-page-id='my__history-detail'] .charge-sheet tbody th, [data-page-id='my__history-detail'] .charge-sheet tbody td {
+  line-height: 1.28571rem;
 }
 
 [data-page-id='my__history-detail'] .charge-sheet tbody td:last-of-type {
@@ -9944,28 +10272,22 @@ body {
 [data-page-id='my__history-detail'] .charge-sheet tbody th[scope='row'] {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
-  font-weight: 800;
-  color: #000;
-  letter-spacing: -0.03em;
-  width: 5rem;
-  text-align: left;
-}
-
-[data-page-id='my__history-detail'] .charge-sheet tbody td:nth-of-type(2) {
-  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.92857rem;
   font-weight: 400;
   color: #000;
   letter-spacing: -0.03em;
-  text-align: right;
+  text-align: left;
+}
+
+[data-page-id='my__history-detail'] .charge-sheet tbody th[scope='row'] + td {
+  width: 5.5rem;
 }
 
 [data-page-id='my__history-detail'] .charge-sheet a, [data-page-id='my__history-detail'] .charge-sheet a:active, [data-page-id='my__history-detail'] .charge-sheet a:visited {
   color: #66B1FF;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tr.cancel th, [data-page-id='my__history-detail'] .charge-sheet tr.cancel td {
-  color: #aaa;
+[data-page-id='my__history-detail'] .charge-sheet .text-emphasis {
+  font-weight: 800;
 }
 
 [data-page-id='my__history-detail'] .passenger-name {
@@ -9974,23 +10296,23 @@ body {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
-  margin: 1.14286rem 0 0.57143rem;
+  margin: 1.14286rem 0 1rem;
   padding-left: 1.42857rem;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='my__history-detail'] .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='my__history-detail'] .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
@@ -10018,7 +10340,7 @@ body {
   font-weight: 600;
   color: #000;
   letter-spacing: -0.03em;
-  width: 8.57143rem;
+  width: 10rem;
 }
 
 [data-page-id='my__history-detail'] .total-wrap dd {
@@ -10027,12 +10349,12 @@ body {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  padding-right: 6.35714rem;
+  padding-right: 1.14286rem;
   text-align: right;
 }
 
 [data-page-id='my__history-detail'] .total-wrap + .title {
-  margin-top: 5.71429rem;
+  margin-top: 3.57143rem;
 }
 
 /*마이페이지 > 구매 내역/취소*/
@@ -10361,7 +10683,7 @@ body {
   font-weight: 500;
   color: #FF4F24;
   letter-spacing: -0.03em;
-  background-image: url("../img/common/ico_ags-summary-passenger.png");
+  background-image: url("../img/common/ico_passenger.png");
   background-repeat: no-repeat;
   background-size: 0.85714rem 0.85714rem;
   text-transform: uppercase;
@@ -10371,13 +10693,13 @@ body {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='my__refund'] .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@2x.png");
+    background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='my__refund'] .passenger-name {
-    background-image: url("../img/common/ico_ags-summary-passenger@3x.png");
+    background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 

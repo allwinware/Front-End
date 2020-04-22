@@ -77,6 +77,16 @@ $(document).ready(function(){
         $(".digits").digits();
     })();
 
+    /*.page-name에 단축 navigation 링크가 있을 경위*/
+    (function(){
+        $(document).on("click", "#btn_nav-shortcut", function(){
+            $($(this).attr("href")).toggleClass("active")
+        });
+        $(document).on("click", '#nav-shortcut a', function(){
+            $("#nav-shortcut").removeClass("active");
+        });
+    })();
+
     /* Tab(탭) */
     (function(tabHandler){
         $(".tab-wrap").each(function(){

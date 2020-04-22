@@ -18,7 +18,7 @@
   .tab-panel .dfs-products-wrap { padding: rem(50) 0 0 rem($grid * 2) }
 }
 [data-page-id='my__history-list'] {
-  margin-bottom: rem(-144); padding: 0 0 rem(144); min-height: calc(100vh - #{$gnb-height}px);
+  margin-bottom: rem(-144); padding: 0 0 rem(112); min-height: calc(100vh - #{$gnb-height}px);
   background-color: #F8F8F8;
   /*function bar*/
   .function-wrap {
@@ -69,7 +69,7 @@
     .resv-num {
       @include font($size: 10, $color: $mono1, $weight: 400, $spacing: -0.03);
       & + dd { @include font($size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03); }
-      &, & + dd { display: inline-block; margin-bottom: rem($grid * 3) }
+      &, & + dd { display: inline-block; margin-bottom: rem($grid * 3); }
     }
     .purchase-state + dd { @include font($size: 10, $color: $text-primary, $weight: 800, $spacing: -0.03); float: right; }
     .departure + dd, .arrival + dd {
@@ -115,7 +115,7 @@
     .resv-num {
       @include font($size: 10, $color: $mono1, $weight: 400, $spacing: -0.03);
       & + dd { @include font($size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03); }
-      &, & + dd { display: inline-block; margin-bottom: rem($grid * 3) }
+      &, & + dd { display: inline-block; margin-bottom: rem($grid * 3); vertical-align: middle; }
     }
     .purchase-state + dd { @include font($size: 10, $color: $text-primary, $weight: 800, $spacing: -0.03); float: right; }
     .departure + dd, .arrival + dd {
@@ -133,9 +133,21 @@
       @include background($file: 'my/ico_journey-type2', $type: png, $width: 17px, $height: auto);
     }
     .duration + dd { @include font($size: 11, $color: $mono4, $weight: 400, $spacing: -0.03); margin-bottom: rem(20) }
-    .btn_cancel {
+    .btn_email, .btn_passport {
       @include form($size: 3, $role: primary3, $type: button);
-      width: auto;
+      width: auto; font-size: rem(12)
+    }
+    .btn_cancel {
+      @include form($size: 3, $role: cancel, $type: button);
+      width: auto; font-size: rem(12)
+    }
+    [class*='btn_'] + [class*='btn_'] { margin-left: rem(2); }
+    [class*='btn_'] + .notification-text {
+      $font-size: 10;
+      @include font($size: $font-size, $color: $text-primary, $weight: 800, $spacing: -0.03);
+      display: inline-block;
+      margin-left: em(2,$font-size); padding: em(8,$font-size); height: em(40,$font-size);
+      vertical-align: top; line-height: em(12, $font-size)
     }
   }
   .help-wrap {
@@ -166,34 +178,35 @@
   }
   .charge-sheet {
     @include table($style: type1, $mg-size: small);
-    th, td { padding: rem($grid) rem($grid * 2) rem($grid) 0 !important; vertical-align: middle; }
-    thead th, tbody th, tbody td, tfoot th, tfoot td { border-bottom: 0; }
+    th, td { padding: rem($grid) 0;; }
+    thead th, tbody th, tbody td, tfoot th, tfoot td { padding: rem(5) 0; border-bottom: 0; vertical-align: top; }
+    tbody th, tbody td { line-height: rem(18); }
     tbody td:last-of-type { text-align: right; }
     tbody th, tbody td { height: rem(30); }
     tbody th:last-child, tbody td:last-child { @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03); padding-right: rem($grid * 2) }
     tbody th[scope='colgroup'] { text-align: left; }
     tbody tr + tr th[scope='colgroup'] { border-top: 1px solid $mono8 }
     tbody th[scope='row'] {
-      @include font($size: 13, $color: $mono1, $weight: 800, $spacing: -0.03);
-      width: rem(70); text-align: left;
+      @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
+      text-align: left;
     }
-    tbody td:nth-of-type(2) { @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03); text-align: right; }
+    tbody th[scope='row'] + td { width: rem(77); }
     a, a:active, a:visited { color: #66B1FF; }
-    tr.cancel th, tr.cancel td { color: $mono4; }
+    .text-emphasis { font-weight: 800; }
   }
   .passenger-name {
     @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
-    @include background($file: 'common/ico_ags-summary-passenger', $type: png, $width: rem(12), $height: rem(12));
+    @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
     @include text-uppercase;
-    margin: rem($grid * 2) 0 rem($grid); padding-left: rem(20);
+    margin: rem($grid * 2) 0 rem(14); padding-left: rem(20);
   }
   .total-wrap {
     height: rem(44);
     border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
     dl { display: table; table-layout: fixed; width: 100%; height: 100%; }
     dt, dd { display: table-cell; vertical-align: middle; }
-    dt { @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); width: rem(120) }
-    dd { @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03); padding-right: rem(89); text-align: right; }
-    & + .title { margin-top: rem($grid * 10); }
+    dt { @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); width: rem(140) }
+    dd { @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03); padding-right: rem($grid * 2); text-align: right; }
+    & + .title { margin-top: rem(50); }
   }
 }

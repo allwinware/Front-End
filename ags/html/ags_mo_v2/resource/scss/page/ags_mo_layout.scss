@@ -22,6 +22,34 @@ body {
     position: absolute; top: 0; left: rem(80); bottom: 0; right: rem(80); height: inherit;
     text-align: center;
   }
+  .btn_nav-shortcut { position: relative; padding-right: rem(20); display: inline-block; color: inherit; text-decoration: none; }
+  .ico_nav-dropdown {
+    @include background($file:'common/ico_nav-dropdown', $type: png, $width: 16px, $height: 16px);
+    display: inline-block;
+    position: absolute; right: 0; top: 0;
+    width: rem(16); height: rem(16)
+  }
+  .nav-shortcut {
+    display: none;
+    position: absolute; top: 0; left: 50%;
+    transform: translate(-50%, 0);
+    width: rem(200);
+    border-radius: rem(8); border: 1px solid $mono1; background-color: $mono10;
+    box-shadow: 0 16px 16px rgba(0,0,0,0.32);
+    &.active { display: block; }
+    li {
+      $font-size: 14;
+      & + li { border-top: 1px solid $mono8; }
+      a {
+        @include font($size: 14, $color: $mono1, $weight: 800);
+        @include valign-middle();
+        display: block;
+        height: em(47, $font-size);
+        line-height: em(14, $font-size); text-decoration: none; text-align: center;
+      }
+      &.active a { color: $text-primary }
+    }
+  }
   .ags-gnb {
     padding: rem(14) 0; height: rem($gnb-height);
   }
@@ -237,6 +265,29 @@ body {
     @include form($type: button, $size: 4, $role: submit);
     flex: 1 auto;
     &:not(:only-child) {  }
+  }
+}
+/*여권번호 등록 & 이메일 SMS 주문서 받기*/
+.passport-wrap, .dfs-email-wrap {
+  .passport-list, .dfs-info-list {
+    @include clearfix;
+    border-top: 1px solid $mono1;
+    dt, dd { @include valign-middle(); float: left; padding: rem($grid) 0; height: rem(53); border-bottom: 1px solid $mono8 }
+    dt { padding-right: rem(30); width: rem(100); font-weight: 600; }
+    dd { padding-right: rem($grid * 2); width: calc(100% - 100px) }
+    .passport-num { @include font($family: en, $size: 14, $color: $mono1, $weight: 500, $spacing: -0.03); text-transform: uppercase; }
+    label { display: inline-block; padding: rem(11) 0; line-height: rem(14); }
+    dt  + dd input[type='text'] {
+      @include form($size: 2, $role: normal, $type: text);
+      @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+      width: 100%; height: 100%;
+    }
+  }
+  .passport-list dt { width: rem(140); }
+  .passport-list dd { width: calc(100% - 140px) }
+  .notification-wrap { padding: rem(6) 0 0 0; }
+  .notification-list {
+    $font-size: 11; font-size: rem($font-size); line-height: em(14,$font-size); word-break: keep-all;
   }
 }
 

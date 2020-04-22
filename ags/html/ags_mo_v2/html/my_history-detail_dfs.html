@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <title>예약 내역 / 취소 - 기내면세 예약</title>
+    <link rel="stylesheet" href="../resource/css/ags_mo_tway.min.css">
+    <script src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script src="../resource/js/ags_mo.ui.js"></script>
+</head>
+<body>
+	<div id="ags-wrap" class="ags-wrap">
+        <h1 class="site-name">올윈에어</h1>
+
+        <!-- ags-header -->
+        <header id="ags-header" class="ags-header">
+            <h2 class="page-name">예약 내역 / 취소</h2>
+            <nav class="ags-gnb">
+                <h3 class="sr-only">전역메뉴</h3>
+                <ul class="gnb-wrap">
+                    <li><a href="my_history-list.html" target="_self" class="btn_back">뒤로가기</a></li>
+                    <li>
+                        <a href="#none" target="_self" id="btn_gnb" class="btn_gnb">메뉴</a>
+                        <!-- 200422 gnb 메뉴 수정 -->
+                        <div id="gnb-2dp" class="gnb-2dp-wrap">
+                            <a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>
+                            <p class="welcome-msg">
+                                안녕하세요!<br>
+                                <span class="customer-name">Bae, Sungjune</span>님
+                            </p>
+                            <ul class="depth1">
+                                <li><a href="#none" target="_self">항공 부가서비스 사전 신청</a></li>
+                                <li class="new active"><a href="#none" target="_self">기내 면세품 예약</a></li><!-- 활성화된 메뉴는 .active -->
+                                <li>
+                                    <a href="#none" target="_self">마이페이지</a>
+                                    <ul class="depth2">
+                                        <li><a href="#none" target="_self">부가서비스 신청내역</a></li>
+                                        <li><a href="#none" target="_self">기내 면세품 예약내역</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- //200422 gnb 메뉴 수정 -->
+                    </li>
+                    <li><a href="#none" target="_self" class="btn_close">화면 닫기</a></li>
+                </ul>
+            </nav>
+        </header>
+        <!-- //ags-header -->
+
+        <hr>
+
+        <!-- ags-container -->
+        <div class="ags-container">
+            <section class="ags-contents" data-page-id="my__history-detail">
+                <h3 class="sr-only">컨텐츠</h3>
+
+                <div class="content-wrap">
+
+                    <!-- 항공권 정보 영역 -->
+                    <div class="ticket-wrap">
+                        <h4 class="sr-only">항공권 정보</h4>
+                        <dl>
+                            <dt class="resv-num">여행사 예약번호</dt>
+                            <dd>123456</dd>
+                            <dt class="purchase-state">예약상태</dt>
+                            <dd>예약완료</dd><!-- 임시저장 상태일 경우 빈칸 -->
+                        </dl>
+
+                        <dl>
+                        <!--<dl class="one-way">--><!-- 편도 항공권일 경우 dl에 .one-way 삽입 -->
+                            <dt class="departure">출발 공항</dt>
+                            <dd>인천 ICN</dd>
+                            <dt class="arrival">도착 공항</dt>
+                            <dd>하노이 HAN</dd>
+                            <dt class="duration">여정 기간</dt>
+                            <dd>2019.09.30(월) - 2019.10.15(토)</dd>
+                        </dl>
+                        <!-- 예약완료 상태일 때 -->
+                        <!--<a href="#none" target="_self" class="btn_email">이메일/SNS 주문서 받기</a>
+                        <a href="#none" target="_self" class="btn_cancel">예약 취소/수정하기</a>-->
+                        <!-- 임시저장 상태일 때 -->
+                        <a href="#none" target="_self" class="btn_passport" data-popup="#pop01">여권정보 입력하기</a>
+                        <p class="notification-text">
+                            출발 48시간 전까지 여권정보를 입력해야<br>
+                            예약이 완료됩니다.
+                        </p>
+                    </div>
+                    <!-- //항공권 정보 영역 -->
+
+                    <!-- 고객센터 정보 영역 -->
+                    <dl class="help-wrap">
+                        <dt class="tel">고객센터</dt>
+                        <dd>1522-4148</dd>
+                        <dt class="time">운영시간</dt>
+                        <dd>(평일 9:30~17:00 / 점심시간 12:00~13:00)</dd>
+                    </dl>
+                    <!-- //고객센터 정보 영역 -->
+
+                    <!-- 가는 편 / 오는 편 예약내역 -->
+                    <div class="history-detail-wrap">
+                        <h5 class="title">가는 편 예약내역</h5>
+                        <dl class="flight-num">
+                            <dt>항공편명</dt>
+                            <dd>7C667</dd>
+                        </dl>
+                        <div class="table-wrap">
+                            <h6 class="passenger-name">Kim, Allwin</h6>
+                            <table class="charge-sheet">
+                                <caption>Kim, Allwin 예약 내역</caption>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">잭다니엘, American Whiskey Miniature Set (358,000) X <i class="text-emphasis">2</i></th>
+                                    <td><span class="digits">716000</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-wrap">
+                            <h6 class="passenger-name">Son, Seungwan</h6>
+                            <table class="charge-sheet">
+                                <caption>Son, Seungwan 예약 내역</caption>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">잭다니엘, American Whiskey Miniature Set (358,000) X <i class="text-emphasis">2</i></th>
+                                    <td><span class="digits">716000</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-wrap">
+                            <h6 class="passenger-name">Kim, Taehyeong</h6>
+                            <table class="charge-sheet">
+                                <caption>Kim, Taehyeong 예약 내역</caption>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">잭다니엘, American Whiskey Miniature Set (358,000) X <i class="text-emphasis">2</i></th>
+                                    <td><span class="digits">716000</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="total-wrap">
+                            <dl>
+                                <dt>가는 편 예약금액</dt>
+                                <dd><span class="digits">999000</span></dd>
+                            </dl>
+                        </div>
+
+                        <h5 class="title">오는 편 예약내역</h5>
+                        <dl class="flight-num">
+                            <dt>항공편명</dt>
+                            <dd>7C667</dd>
+                        </dl>
+                        <div class="table-wrap">
+                            <h6 class="passenger-name">Kim, Allwin</h6>
+                            <table class="charge-sheet">
+                                <caption>Kim, Allwin 예약 내역</caption>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">잭다니엘, American Whiskey Miniature Set (358,000) X <i class="text-emphasis">2</i></th>
+                                    <td><span class="digits">716000</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-wrap">
+                            <h6 class="passenger-name">Son, Seungwan</h6>
+                            <table class="charge-sheet">
+                                <caption>Son, Seungwan 예약 내역</caption>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">잭다니엘, American Whiskey Miniature Set (358,000) X <i class="text-emphasis">2</i></th>
+                                    <td><span class="digits">716000</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-wrap">
+                            <h6 class="passenger-name">Kim, Taehyeong</h6>
+                            <table class="charge-sheet">
+                                <caption>Kim, Taehyeong 예약 내역</caption>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">잭다니엘, American Whiskey Miniature Set (358,000) X <i class="text-emphasis">2</i></th>
+                                    <td><span class="digits">716000</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">에스티로더, 퓨어 컬러 엔비 립스틱 트리오 (79,600)</th>
+                                    <td><span class="digits">79600</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="total-wrap">
+                            <dl>
+                                <dt>가는 편 예약금액</dt>
+                                <dd><span class="digits">999000</span></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <!-- //가는 편 / 오는 편 구매내역 -->
+
+                </div>
+
+            </section>
+        </div>
+        <!-- //ags-container -->
+
+	</div>
+
+    <!-- 팝업 : 여권번호 등록하기 -->
+    <div id="pop01" class="pop-area" data-type="message">
+        <div class="pop-wrap">
+            <header class="pop-header">
+                <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
+                <h2 class="pop-title">여권번호 등록하기</h2>
+            </header>
+            <section class="pop-container">
+                <div class="message-text mg-b--min">
+                    <!-- 여권 번호 등록 -->
+                    <div class="passport-wrap">
+                        <dl class="passport-list">
+                            <dt class="passport-num"><label for="input-text01">Bae, Sungjune</label></dt>
+                            <dd><input type="text" id="input-text01" placeholder="여권번호를 입력하세요"></dd>
+                            <dt class="passport-num"><label for="input-text02">Son, Seungwan</label></dt>
+                            <dd><input type="text" id="input-text02" placeholder="여권번호를 입력하세요"></dd>
+                            <dt class="passport-num"><label for="input-text03">Kim, Taehyeong</label></dt>
+                            <dd><input type="text" id="input-text03" placeholder="여권번호를 입력하세요"></dd>
+                        </dl>
+                        <div class="notification-wrap">
+                            <ul class="notification-list">
+                                <li>여권번호가 없는 경우 예약하기 버튼 클릭 시 임시저장으로 연결됩니다.</li>
+                                <li>관세법상 여권번호가 실제 여권과 다른 경우, 관세법상 면세품을 받으실 수 없습니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- //여권 번호 등록 -->
+                </div>
+            </section>
+            <footer class="pop-footer">
+                <div class="process-btn-wrap">
+                    <button type="button" class="btn_confirm" data-role="close">확인</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
