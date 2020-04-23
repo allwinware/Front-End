@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="../resource/css/ags_mo_tway.min.css">
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
+    <script>
+        /* 주문서 취소/수정하기 > 선택 상품 취소 체크박스 컨트롤 */
+        (function(){
+            $(document).on("change", "#dfs-refund [name='check-group1']", function(){
+                var $target = $(this).parents(".product-area");
+                if($(this).is(":checked") === true){
+                    /*상품 취소 체크박스가 체크되면, 해당 상품영역(.product-area) 비활성화(.disabled)*/
+                    $target.addClass("disabled");
+                    /*해당 상품영역(.product-area) 내의 수량 높임/낮춤 버튼(.btn_decrease, .btn_increase)을 비활성화(.disabled)*/
+                    $target.find("[class*='btn_']:not('[disabled=disabled]')").attr("disabled", "disabled").addClass("add_disabled")
+                } else {
+                    /*상품 취소 체크박스가 체크해제되면, 해당 상품영역(.product-area) 활성화*/
+                    $target.removeClass("disabled");
+                    /*해당 상품영역(.product-area) 내의 수량 높임/낮춤 버튼(.btn_decrease, .btn_increase)을 활성화*/
+                    $target.find(".add_disabled").removeAttr("disabled").removeClass("add_disabled")
+                }
+            })
+        })();
+    </script>
 </head>
 <body>
 	<div id="ags-wrap" class="ags-wrap">
@@ -76,15 +95,17 @@
                             <dt class="duration">여정 기간</dt>
                             <dd>2019.09.30(월) - 2019.10.15(토)</dd>
                         </dl>
-                        <!-- 예약완료 상태일 때 -->
-                        <!--<a href="#none" target="_self" class="btn_email">이메일/SNS 주문서 받기</a>
-                        <a href="#none" target="_self" class="btn_cancel">예약 취소/수정하기</a>-->
+
                         <!-- 임시저장 상태일 때 -->
-                        <a href="#none" target="_self" class="btn_passport" data-popup="#pop01">여권정보 입력하기</a>
+                        <!--<a href="#none" target="_self" class="btn_passport" data-popup="#pop01">여권정보 입력하기</a>
                         <p class="notification-text">
                             출발 48시간 전까지 여권정보를 입력해야<br>
                             예약이 완료됩니다.
-                        </p>
+                        </p>-->
+
+                        <!-- 예약완료 상태일 때 -->
+                        <a href="#none" target="_self" class="btn_email" data-popup="#pop02">이메일/SNS 주문서 받기</a>
+                        <a href="#none" target="_self" class="btn_cancel" data-popup="#dfs-refund">예약 취소/수정하기</a>
                     </div>
                     <!-- //항공권 정보 영역 -->
 
@@ -312,6 +333,386 @@
                 </div>
             </footer>
         </div>
+    </div>
+
+    <!-- 팝업 : 이메일 SMS 주문서 받기 -->
+    <div id="pop02" class="pop-area" data-type="message">
+        <div class="pop-wrap">
+            <header class="pop-header">
+                <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
+                <h2 class="pop-title">이메일 SMS 주문서 받기</h2>
+            </header>
+            <section class="pop-container">
+                <div class="message-text mg-b--min">
+                    <!-- 이메일 SMS 정보 등록 -->
+                    <div class="dfs-email-wrap">
+                        <dl class="dfs-info-list">
+                            <dt>예약번호</dt>
+                            <dd>1912170801</dd>
+                            <dt><label for="input-text11">이메일</label></dt>
+                            <dd><input type="text" id="input-text11" placeholder="이메일을 입력하세요"></dd>
+                            <dt><label for="input-text12">휴대전화</label></dt>
+                            <dd><input type="text" id="input-text12" placeholder="숫자만 입력하세요 (-제외)"></dd>
+                        </dl>
+                        <div class="notification-wrap">
+                            <ul class="notification-list">
+                                <li>주문서 출력이 불가능한 경우에는 주문서 번호, 물품, 수량을 메모하셔서 상품 수령 시 제시해 주십시오.</li>
+                                <li>상품의 수량과 품명을 확인하시고, 이상이 있을 경우 기내 승무원에게 바로 통보하여 주시기 바랍니다. (출국 후 상품 분실에 대한 책임은 일체지지 않습니다)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- //이메일 SMS 정보 등록 -->
+                </div>
+            </section>
+            <footer class="pop-footer">
+                <div class="process-btn-wrap">
+                    <button type="button" class="btn_confirm" data-role="close">확인</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 팝업 : 주문서 취소/수정하기 -->
+    <div id="dfs-refund" class="dfs-refund" data-type="drawer">
+        <a href="#none" target="_self" class="btn_drawer" data-popup="#dfs-refund"><i class="ico"></i>주문서 취소/수정 슬라이드 열기/닫기</a>
+        <h4 class="summary-title">주문서 취소/수정하기</h4>
+        <div class="inner-wrap">
+            <div class="notification-wrap">
+                <ul class="notification-list">
+                    <li>출발 48시간 전까지 주문 취소 및 수정 가능합니다.</li>
+                    <li>수정은 수량 변경만 가능합니다.</li>
+                </ul>
+                <button type="button" class="btn_confirm">전체 취소하기</button>
+            </div>
+            <section class="product-area">
+                <div class="input-wrap">
+                    <input type="checkbox" id="input-check01" name="check-group1"><label for="input-check01"><i class="ico"></i>선택 상품 취소</label>
+                </div>
+                <div class="selected-product">
+                    <dl class="product-info">
+                        <dt class="product-tag">상품 태그</dt>
+                        <dd>
+                            <span class="sale">20% Sale</span>
+                            <span class="new">New</span>
+                        </dd>
+                        <dt class="brand">브랜드</dt>
+                        <dd>발렌타인</dd>
+                        <dt class="product-name">상품명</dt>
+                        <dd>발렌타인 23년</dd>
+                        <dt class="thumbnail">상품 이미지</dt>
+                        <dd><img src="../resource/img/dfs/2590000750909_OR.jpg" alt=""></dd>
+                        <dt class="price-usd">가격(USD, $)</dt>
+                        <dd><span class="digits">146</span></dd>
+                        <dt class="price-krw">가격(원, ₩)</dt>
+                        <dd><span class="digits">170800</span></dd>
+                    </dl>
+                    <a href="#none" class="btn_more">상품삭제</a>
+                </div>
+                <div class="dfs-resv-plan">
+                    <h6 class="passenger-name">Bae, Sungjune</h6>
+                    <div class="table-wrap">
+                        <table class="charge-sheet">
+                            <caption>Bae, Sungjune 예약 수량</caption>
+                            <colgroup>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <tfoot>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <th scope="row">가는 편 수량</th>
+                                <td>
+                                    <div class="dfs-handler">
+                                        <dl>
+                                            <dt class="ea">예약 수량</dt>
+                                            <dd><span class="resv-ea">0</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
+                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">오는 편 수량</th>
+                                <td>
+                                    <div class="dfs-handler">
+                                        <dl>
+                                            <dt class="ea">예약 수량</dt>
+                                            <dd><span class="resv-ea">0</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
+                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h6 class="passenger-name">Son, Seungwan</h6>
+                    <div class="table-wrap">
+                        <table class="charge-sheet">
+                            <caption>Son, Seungwan 예약 수량</caption>
+                            <colgroup>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <tfoot>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <th scope="row">가는 편 수량</th>
+                                <td>
+                                    <div class="dfs-handler">
+                                        <dl>
+                                            <dt class="ea">예약 수량</dt>
+                                            <dd><span class="resv-ea active">1</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
+                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">오는 편 수량</th>
+                                <td>
+                                    <div class="dfs-handler">
+                                        <dl>
+                                            <dt class="ea">예약 수량</dt>
+                                            <dd><span class="resv-ea active">3</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
+                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <h6 class="passenger-name">Kim, Taehyeong</h6>
+                        <div class="table-wrap">
+                            <table class="charge-sheet">
+                                <caption>Kim, Taehyeong 예약 수량</caption>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tfoot>
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">가는 편 수량</th>
+                                    <td>
+                                        <div class="dfs-handler">
+                                            <dl>
+                                                <dt class="ea">예약 수량</dt>
+                                                <dd><span class="resv-ea">0</span></dd>
+                                            </dl>
+                                            <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
+                                            <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">오는 편 수량</th>
+                                    <td>
+                                        <div class="dfs-handler">
+                                            <dl>
+                                                <dt class="ea">예약 수량</dt>
+                                                <dd><span class="resv-ea">0</span></dd>
+                                            </dl>
+                                            <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
+                                            <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <dl class="ind-total">
+                    <dt class="ea">수량<span class="sr-only">(개)</span></dt>
+                    <dd>3</dd>
+                    <dt class="price-usd">가격(USD, $)</dt>
+                    <dd><span class="digits">203</span></dd>
+                    <dt class="price-krw">가격(원, ₩)</dt>
+                    <dd><span class="digits">233800</span></dd>
+                </dl>
+            </section>
+            <section class="product-area">
+                <div class="input-wrap">
+                    <input type="checkbox" id="input-check02" name="check-group1"><label for="input-check02"><i class="ico"></i>선택 상품 취소</label>
+                </div>
+                <div class="selected-product">
+                    <dl class="product-info">
+                        <dt class="product-tag">상품 태그</dt>
+                        <dd>
+                            <span class="sale">20% Sale</span>
+                            <span class="new">New</span>
+                        </dd>
+                        <dt class="brand">브랜드</dt>
+                        <dd>발렌타인</dd>
+                        <dt class="product-name">상품명</dt>
+                        <dd>발렌타인 23년</dd>
+                        <dt class="thumbnail">상품 이미지</dt>
+                        <dd><img src="../resource/img/dfs/2590000750909_OR.jpg" alt=""></dd>
+                        <dt class="price-usd">가격(USD, $)</dt>
+                        <dd><span class="digits">146</span></dd>
+                        <dt class="price-krw">가격(원, ₩)</dt>
+                        <dd><span class="digits">170800</span></dd>
+                    </dl>
+                    <a href="#none" class="btn_more">상품삭제</a>
+                </div>
+                <div class="dfs-resv-plan">
+                    <h6 class="passenger-name">Bae, Sungjune</h6>
+                    <div class="table-wrap">
+                        <table class="charge-sheet">
+                            <caption>Bae, Sungjune 예약 수량</caption>
+                            <colgroup>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <tfoot>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <th scope="row">가는 편 수량</th>
+                                <td>
+                                    <div class="dfs-handler">
+                                        <dl>
+                                            <dt class="ea">예약 수량</dt>
+                                            <dd><span class="resv-ea">0</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
+                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">오는 편 수량</th>
+                                <td>
+                                    <div class="dfs-handler">
+                                        <dl>
+                                            <dt class="ea">예약 수량</dt>
+                                            <dd><span class="resv-ea">0</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
+                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h6 class="passenger-name">Son, Seungwan</h6>
+                    <div class="table-wrap">
+                        <table class="charge-sheet">
+                            <caption>Son, Seungwan 예약 수량</caption>
+                            <colgroup>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <tfoot>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <th scope="row">가는 편 수량</th>
+                                <td>
+                                    <div class="dfs-handler">
+                                        <dl>
+                                            <dt class="ea">예약 수량</dt>
+                                            <dd><span class="resv-ea active">1</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
+                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">오는 편 수량</th>
+                                <td>
+                                    <div class="dfs-handler">
+                                        <dl>
+                                            <dt class="ea">예약 수량</dt>
+                                            <dd><span class="resv-ea active">3</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
+                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <h6 class="passenger-name">Kim, Taehyeong</h6>
+                        <div class="table-wrap">
+                            <table class="charge-sheet">
+                                <caption>Kim, Taehyeong 예약 수량</caption>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tfoot>
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">가는 편 수량</th>
+                                    <td>
+                                        <div class="dfs-handler">
+                                            <dl>
+                                                <dt class="ea">예약 수량</dt>
+                                                <dd><span class="resv-ea">0</span></dd>
+                                            </dl>
+                                            <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
+                                            <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">오는 편 수량</th>
+                                    <td>
+                                        <div class="dfs-handler">
+                                            <dl>
+                                                <dt class="ea">예약 수량</dt>
+                                                <dd><span class="resv-ea">0</span></dd>
+                                            </dl>
+                                            <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
+                                            <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <dl class="ind-total">
+                    <dt class="ea">수량<span class="sr-only">(개)</span></dt>
+                    <dd>3</dd>
+                    <dt class="price-usd">가격(USD, $)</dt>
+                    <dd><span class="digits">203</span></dd>
+                    <dt class="price-krw">가격(원, ₩)</dt>
+                    <dd><span class="digits">233800</span></dd>
+                </dl>
+            </section>
+        </div>
+
+        <footer class="ags-summary dfs__list">
+            <h4 class="sr-only">선택상품 취소/수정하기</h4>
+            <div class="inner-wrap">
+                <div class="total">
+                    <h5 class="sr-only">총 결제 예정 금액</h5>
+                    <dl>
+                        <dt>총 결제 예정 금액</dt>
+                        <dd><span class="digits">999000</span></dd>
+                        <dd><button type="button" class="btn_pay-imm" onClick="location.href='my_history-list.html'">취소/수정 완료</button></dd>
+                    </dl>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

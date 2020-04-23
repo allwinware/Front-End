@@ -659,9 +659,40 @@
     }
   }
 }
-.dfs-select-summary {
-  .inner-wrap { padding-bottom: rem(130) }
+.dfs-select-summary, .dfs-refund {
+  & > .inner-wrap { padding-bottom: rem(130) }
+  .inner-wrap > .notification-wrap:first-child {
+    padding: 0 rem($grid * 2);
+    li { font-weight: 300; }
+    .btn_confirm {
+      @include form($size: 3, $role: primary3, $type: button);
+      margin-top: rem(4); width: auto; font-size: rem(12)
+    }
+    & + .product-area { margin-top: rem(50); }
+  }
+  .product-area {
+    &.disabled {
+      .product-info .product-name + dd,
+      .product-info .price-usd + dd,
+      .passenger-name,
+      .charge-sheet tbody th[scope='row'],
+      .dfs-handler .ea + dd .resv-ea,
+      .dfs-handler .ea + dd .resv-ea.active,
+      .ind-total .ea,
+      .ind-total .ea + dd,
+      .ind-total .price-usd + dd,
+      .ind-total .price-krw + dd { color: $mono4; }
+      .ind-total .price-usd + dd,
+      .ind-total .price-krw + dd { text-decoration: line-through }
+      .passenger-name { @include background($file: 'common/ico_passenger--g', $type: png, $width: rem(12), $height: rem(12)); }
+    }
+  }
   .product-area + .product-area { padding-top: rem(80); }
+  .product-area > .input-wrap {
+    padding: 0 rem($grid * 2) rem(12);
+    input[type='checkbox'] { @include form($size: 2, $role: normal, $type: checkbox) }
+    label { font-weight: 600 !important; }
+  }
   .selected-product {
     position: relative;
     padding-left: rem($grid * 2);
@@ -829,7 +860,7 @@
         @include font($family: ko, $size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03);
         text-align: right;
       }
-      dt + dd + dd { text-align: center; }
+      dt + dd + dd { text-align: center; width: auto; }
       .btn_pay-imm {
         @include form($size: 2, $role: submit, $type: button);
         margin: 0;
