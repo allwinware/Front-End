@@ -15,6 +15,19 @@
                 $(this).parent("li").toggleClass("active").siblings("li").removeClass("active")
             });
 
+            $(document).on("click", "#input-check21", function(){
+                var $target = $(this).parent().siblings(".passport-list").find("input[type='text']");
+                if($(this).is(":checked")){
+                    $target.attr({
+                        "disabled": "disabled",
+                        "placeholder": "나중에 등록합니다"
+                    })
+                } else {
+                    $target.removeAttr("disabled").attr({
+                        "placeholder": "여권번호를 입력하세요"
+                    })
+                }
+            });
         });
     </script>
 </head>

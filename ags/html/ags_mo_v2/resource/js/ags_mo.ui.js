@@ -79,11 +79,19 @@ $(document).ready(function(){
 
     /*.page-name에 단축 navigation 링크가 있을 경위*/
     (function(){
-        $(document).on("click", "#btn_nav-shortcut", function(){
-            $($(this).attr("href")).toggleClass("active")
+        var $nav = $("#nav-shortcut"),
+            $navItem = $nav.find("a");
+        $(document).on("click", "#btn_nav-shortcut", function(e){
+            $($(this).attr("href")).toggleClass("active");
+            e.stopPropagation();
         });
-        $(document).on("click", '#nav-shortcut a', function(){
-            $("#nav-shortcut").removeClass("active");
+        $(document).on("click", "body", function(){
+            if($nav.length > 0){
+                $nav.removeClass("active");
+            }
+        });
+        $(document).on("click", $navItem, function(){
+            $nav.removeClass("active");
         });
     })();
 
