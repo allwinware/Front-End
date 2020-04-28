@@ -410,9 +410,36 @@
       @include valign-middle();
       overflow: hidden;
       display: inline-block;
+      opacity: 0;
+      -webkit-transform: translate(0, 10px);
+      -ms-transform: translate(0, 10px);
+      transform: translate(0, 10px);
       margin-left: em(-26, $font-size); padding: 0 em(9, $font-size); height: em(24, $font-size);
       line-height: em(24, $font-size);
       background: rgba(219,16,16,0.9); border: 1px solid #FF0000; border-radius: em(12, $font-size);
+    }
+    dd.count-bubble.active .ico {
+      opacity: 1;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    dd.count-bubble.show .ico {
+      @include animation($delay: 0, $duration: 0.5s, $animation:count-bubble__show, $direction: forward, $fillmode: fowards); transition: all 0.5s;
+    }
+    dd.count-bubble.hide .ico {
+      @include animation($delay: 0, $duration: 0.5s, $animation:count-bubble__hide, $direction: forward, $fillmode: fowards); transition: all 0.5s;
+      opacity: 0;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    dd.count-bubble.add .ico {
+      @include animation($delay: 0.1s, $duration: 0.3s, $animation:count-bubble__add, $direction: forward, $fillmode: fowards); transition: all 0.5s;
+      opacity: 1;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
     }
     dt + dd + dd { text-align: center; width: (103 / 343 * 100%); }
     .btn_pay-imm, .btn_resv-imm {
@@ -421,6 +448,51 @@
       border-color: rgba(255,255,255,0.5); background-color: transparent; color: $mono10
     }
     .btn_resv-imm { width: 91px; }
+
+    @include keyframe($animation_name: count-bubble__show){
+      0% {
+        -webkit-transform: translate(0, 10px);
+        -ms-transform: translate(0, 10px);
+        transform: translate(0, 10px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+    }
+    @include keyframe($animation_name: count-bubble__hide){
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    @include keyframe($animation_name: count-bubble__add){
+      0% {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+      }
+      33% {
+        -webkit-transform: translate(0, -5px);
+        -ms-transform: translate(0, -5px);
+        transform: translate(0, -5px);
+      }
+      66% {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+      }
+      100% {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+      }
+    }
   }
 }
 [data-type='drawer'] {

@@ -19,6 +19,40 @@
                     el: '.swiper-pagination',
                 },
             });
+
+            /* 200428 추가 */
+            /* 선택한 상품 수량체크 애니메이션 핸들링 */
+            (function(){
+                $(".tabs_categories + .tab-panels input[type='checkbox']").on("change", function(){
+                    var count = $(".tabs_categories + .tab-panels input[type='checkbox']:checked").length,
+                        $target = $("#ags-summary .count-bubble");
+                    if(count === 0){
+                        /*선택된 상품이 0개일 때*/
+                        $target.addClass("hide")
+                        setTimeout(function(){
+                            $target.removeClass("hide active").children(".ico").text(count)
+                        }, 550)
+                    } else if(count === 1 && $target.hasClass("active") === true) {
+                        /*선택된 상품이 1개이며, 이미 활성화(show)된 이력이 있을 때*/
+                        $target.addClass("active add").children(".ico").text(count)
+                        setTimeout(function(){
+                            $target.removeClass("add")
+                        }, 350)
+                    } else if(count === 1 && $target.hasClass("active") === false) {
+                        /*선택된 상품이 1개이며, 활성화(show)된 이력이 없을 때*/
+                        $target.addClass("active show").children(".ico").text(count)
+                        setTimeout(function(){
+                            $target.removeClass("show")
+                        }, 550)
+                    } else if(count > 1) {
+                        /*선택된 상품이 2개 이상일 때*/
+                        $target.addClass("add").children(".ico").text(count)
+                        setTimeout(function(){
+                            $target.removeClass("add")
+                        }, 350)
+                    }
+                });
+            })();
         });
     </script>
 </head>
@@ -455,6 +489,15 @@
                     <h5 class="sr-only">선택 상품 기능</h5>
                     <dl>
                         <dt><a href="#none" target="_self" data-popup="#dfs-select-summary">선택한 상품</a></dt>
+                        <!--
+                            선택함에 상품이 담기거나 빠질 때 갯수를 표시하는 카운트 버블에 애니메이션을 줍니다.
+                            사용자 액션에 따라 클래스를 붙이거나 삭제합니다.
+                            1. 선택된 상품이 없을 때 dd class="count-bubble"
+                            2. 1의 상태에서 상품이 선택 되었을 때 dd class="count-bubble show"
+                            3. 2의 상태에서 상품이 추가 선택 되었을 때 dd class="count-bubble add"
+                            4. 1 또는 2의 상태에서 상품이 모두 선택해제 되어 선택함에 담긴 상품 갯수가 0이 되었을 때 dd class="count-bubble hide"
+                            show, add, hide는 애니메이션이 종료된 후(1s, 1000) 삭제됩니다.
+                        -->
                         <dd class="count-bubble"><span class="ico">5</span></dd>
                         <dd><button type="button" class="btn_resv-imm" data-popup="#dfs-select-summary">다음</button></dd>
                     </dl>
