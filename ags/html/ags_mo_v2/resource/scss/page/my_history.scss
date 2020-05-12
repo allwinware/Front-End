@@ -32,7 +32,7 @@
     }
     .text-emphasis { font-weight: 600; }
     label { @include sr-only }
-    select { @include form($size: 0, $role: minified, $type: select); margin: 0; color: #000 }
+    select { @include form($size: 0, $role: minified, $type: select); margin: 0; min-width: rem(62); color: #000 }
   }
   /*구매내역/취소 리스트*/
   .history-list-wrap {
@@ -170,10 +170,10 @@
     margin: 0 0 rem(12) rem(4);
     dt { @include sr-only }
     dd { @include tagging-route; width: auto; padding: 0 rem(4); }
-    & + .table-wrap { border-top: 1px solid $mono1; }
   }
   .table-wrap {
     padding-bottom: rem($grid * 2);
+    &:first-child { border-top: 1px solid $mono1; }
     & + .table-wrap { border-top: 1px solid $mono8; }
   }
   .charge-sheet {
@@ -207,6 +207,6 @@
     dt, dd { display: table-cell; vertical-align: middle; }
     dt { @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); width: rem(140) }
     dd { @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03); padding-right: rem($grid * 2); text-align: right; }
-    & + .title { margin-top: rem(50); }
   }
+  .table-group + .title { margin-top: rem(50); }
 }
