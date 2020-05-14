@@ -1,12 +1,17 @@
 /*배경 DIM 생성*/
-function createDim(){
-    $("#ags-wrap").append("<div class='page-dim active'></div>");
+function createDim(target){
+    console.log();
+    if(target.attr("data-type") === "drawer" || target.attr("data-type") === "message"){
+        $("#ags-wrap").append("<div class='page-dim " + target.attr("id") + " active'></div>");
+    } else {
+        target.prepend("<div class='page-dim " + target.attr("id") + " active'></div>");
+    }
     $("html, body").css("overflow", "hidden");
 }
 
 /*배경 DIM 제거*/
-function deleteDim(){
-    $(".page-dim.active").remove();
+function deleteDim(target){
+    $(".page-dim." + target.attr("id") + ".active").remove();
     $("html, body").css("overflow", "");
 }
 
@@ -45,13 +50,13 @@ function moveTabByClick(el, target, position, duration){
 
 /* 팝업 생성 기능 정의 */
 function popupShow(target){
-    createDim();
+    createDim(target);
     setTimeout(function(){ target.addClass("active") }, 250);
 }
 /* 팝업 삭제 기능 정의  */
 function popupHide(target){
     setTimeout(function(){ target.removeClass("active"); }, 250);
-    setTimeout(function(){ deleteDim() }, 1000)
+    setTimeout(function(){ deleteDim(target) }, 1000)
 }
 
 /* 메시지 팝업 기능 정의(하단에서 올라오는 팝업) */
