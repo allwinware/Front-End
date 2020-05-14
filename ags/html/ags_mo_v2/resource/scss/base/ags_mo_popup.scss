@@ -645,7 +645,7 @@
   .product-info .product-name + dd { $font-size: 15; float: left; padding-top: rem(12); width: 100%; font-size: rem($font-size); font-weight: 600; line-height: em(17, $font-size) }
   .product-info:first-of-type + .product-info { overflow: hidden; position: relative; padding: rem($grid * 2) 0 0 0; }
   .product-info .thumbnail { padding-top: 100% !important; height: 0 !important; }
-  .product-info .thumbnail img { position: absolute; left: 0; top: 0; max-width: 100%; height: auto }
+  .product-info .thumbnail img { @include align-center; max-width: 100%; height: auto }
   .swiper-container-horizontal > .swiper-pagination-bullets,
   .swiper-pagination-custom, .swiper-pagination-fraction { bottom: 20px }
   .swiper-pagination-bullet { background-color: $mono1 !important; opacity: 0.1; }
@@ -663,6 +663,7 @@
         padding: rem(8) 0 0; width: auto; height: auto;
         clip: auto;
       }
+      & + .price-compare .price-usd { color: $text-primary; }
     }
     .price-usd { @include font($family: en, $size: 20, $color: $mono3, $weight: 500, $spacing: -0.03); display: block; line-height: 25px; padding: rem(8) 0 0; }
     .price-usd:before { content: "$" }
