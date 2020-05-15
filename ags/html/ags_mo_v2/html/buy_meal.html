@@ -20,13 +20,13 @@
                     var $thisPanel = $(this),
                         $psgLists = $thisPanel.find("[data-select='passenger']"),
                         $selectMeals = $thisPanel.find("[data-select='meal']"),
-                        $target = $selectMeals.find("input[type='radio']");
-                    $psgLists.find("li:first-child input[type='radio']").prop("checked", true);
+                        $target = $selectMeals.find("input[type='radio'], input[type='checkbox']");
+                    $psgLists.find("li:first-child input[type='radio'], li:first-child input[type='checkbox']").prop("checked", true);
                     $target.on("click", function(){
                         var $this = $(this),
-                            $checkedPsg = $psgLists.find($("input[type='radio']:checked")),
-                            $psgLabel = $psgLists.find("input[type='radio'] ~ dl .selected-meal + dd"),
-                            $currentPsgLabel = $psgLists.find("input[type='radio']:checked ~ dl .selected-meal + dd"),
+                            $checkedPsg = $psgLists.find($("input[type='radio']:checked, input[type='checkbox']:checked")),
+                            $psgLabel = $psgLists.find("input[type='radio'] ~ dl .selected-meal + dd, input[type='checkbox'] ~ dl .selected-meal + dd"),
+                            $currentPsgLabel = $psgLists.find("input[type='radio']:checked ~ dl .selected-meal + dd, input[type='checkbox']:checked ~ dl .selected-meal + dd"),
                             $mealName = $this.siblings("dl").find(".meal-name + dd").text(),
                             $mealPrice = $this.siblings("dl").find(".meal-description + dd + .meal-price + dd").text();
                         if($thisPanel.find("input[data-all-psg='true']").prop("checked") === true){
@@ -281,7 +281,7 @@
                                     </div>
                                     <div class="meal-list" data-select="meal">
                                         <div class="item">
-                                            <input type="radio" id="input-radio01" name="meal-group">
+                                            <input type="checkbox" id="input-radio01" name="meal-group">
                                             <label for="input-radio01"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name new">제품명</dt>
@@ -307,7 +307,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio02" name="meal-group">
+                                            <input type="checkbox" id="input-radio02" name="meal-group">
                                             <label for="input-radio02"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name new">제품명</dt>
@@ -331,7 +331,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio03" name="meal-group">
+                                            <input type="checkbox" id="input-radio03" name="meal-group">
                                             <label for="input-radio03"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name best">제품명</dt>
@@ -354,7 +354,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio04" name="meal-group">
+                                            <input type="checkbox" id="input-radio04" name="meal-group">
                                             <label for="input-radio04"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -372,7 +372,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio05" name="meal-group">
+                                            <input type="checkbox" id="input-radio05" name="meal-group">
                                             <label for="input-radio05"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -397,7 +397,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio06" name="meal-group">
+                                            <input type="checkbox" id="input-radio06" name="meal-group">
                                             <label for="input-radio06"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -423,7 +423,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio07" name="meal-group">
+                                            <input type="checkbox" id="input-radio07" name="meal-group">
                                             <label for="input-radio07"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -448,7 +448,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio08" name="meal-group">
+                                            <input type="checkbox" id="input-radio08" name="meal-group">
                                             <label for="input-radio08"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -590,7 +590,7 @@
                                     </div>
                                     <div class="meal-list" data-select="meal">
                                         <div class="item">
-                                            <input type="radio" id="input-radio51" name="meal-group">
+                                            <input type="checkbox" id="input-radio51" name="meal-group">
                                             <label for="input-radio51"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name new">제품명</dt>
@@ -616,7 +616,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio52" name="meal-group">
+                                            <input type="checkbox" id="input-radio52" name="meal-group">
                                             <label for="input-radio52"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name new">제품명</dt>
@@ -640,7 +640,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio53" name="meal-group">
+                                            <input type="checkbox" id="input-radio53" name="meal-group">
                                             <label for="input-radio53"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name best">제품명</dt>
@@ -663,7 +663,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio54" name="meal-group">
+                                            <input type="checkbox" id="input-radio54" name="meal-group">
                                             <label for="input-radio54"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -681,7 +681,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio55" name="meal-group">
+                                            <input type="checkbox" id="input-radio55" name="meal-group">
                                             <label for="input-radio55"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -706,7 +706,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio56" name="meal-group">
+                                            <input type="checkbox" id="input-radio56" name="meal-group">
                                             <label for="input-radio56"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -732,7 +732,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio57" name="meal-group">
+                                            <input type="checkbox" id="input-radio57" name="meal-group">
                                             <label for="input-radio57"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
@@ -757,7 +757,7 @@
                                             </dl>
                                         </div>
                                         <div class="item">
-                                            <input type="radio" id="input-radio58" name="meal-group">
+                                            <input type="checkbox" id="input-radio58" name="meal-group">
                                             <label for="input-radio58"><i class="ico"></i> 선택하기</label>
                                             <dl>
                                                 <dt class="meal-name">제품명</dt>
