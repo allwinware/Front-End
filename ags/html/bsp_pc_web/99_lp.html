@@ -36,6 +36,7 @@
             <li><a class="popupBtn" id="pop_dfs-refund1">기내면세 취소/수정</a></li>
             <li><a class="popupBtn" id="pop_dfs-refund2">기내면세 취소/수정(예약건 없음)</a></li>
             <li><a class="popupBtn" id="pop_dfs-send-receipt">이메일/SMS로 주문서 받기</a></li>
+            <li><a class="popupBtn" id="pop_dfs-resv-denied">기내면세를 예약할 수 없습니다.</a></li>
 		</ul>
 	</div>
 	<!--	popup - 비상구 좌석 안내	-->
@@ -563,93 +564,53 @@
 	<!--	//	popup - 1:1 문의하기 취소 경고	-->
 
 
-
-    <!-- 오는편 가는편 부가서비스 미선택 시 추가구매 권유 팝업 텍스트 수정, 200211 최아율 -->
-
-        <!-- popup - 오는편 미선택 시 추가구매 권유 팝업 -->
-        <div class="popupContainer noServices1ConfirmPopup">
-            <div class="popupWrap">
-                <div class="popupTitleWrap">
-                    <p class="title">구매 전 확인하세요</p>
-                    <a class="close">close</a>
+    <!-- popup - 오는편 미선택 시 추가구매 권유 팝업 -->
+    <div class="popupContainer noServices1ConfirmPopup">
+        <div class="popupWrap">
+            <div class="popupTitleWrap">
+                <p class="title">구매 전 확인하세요</p>
+                <a class="close">close</a>
+            </div>
+            <div class="popupContentWrap">
+                <div class="popupContent">
+                    <div class="content">
+                        현재 오는편만 선택내역이 없습니다.<br>
+                        <strong class="text-emphasis">[오는편 선택하기]</strong>로 이동할까요?
+                    </div>
                 </div>
-                <div class="popupContentWrap">
-                    <div class="popupContent">
-                        <div class="content">
-                            현재 오는편만 선택내역이 없습니다.<br>
-                            <strong class="text-emphasis">[오는편 선택하기]</strong>로 이동할까요?
-                        </div>
-                    </div>
-                    <div class="popupBtnWrap double">
-                        <a class="close">가는편만 결제하기</a>
-                        <a class="confirm" href="#">네</a>
-                    </div>
+                <div class="popupBtnWrap double">
+                    <a class="close">가는편만 결제하기</a>
+                    <a class="confirm" href="#">네</a>
                 </div>
             </div>
-            <div class="popupDimmed"></div>
         </div>
-        <!-- //popup - 오는편 미선택 시 추가구매 권유 팝업 -->
-        <!-- popup - 가는편 미선택 시 추가구매 권유 팝업 -->
-        <div class="popupContainer noServices2ConfirmPopup">
-            <div class="popupWrap">
-                <div class="popupTitleWrap">
-                    <p class="title">구매 전 확인하세요</p>
-                    <a class="close">close</a>
+        <div class="popupDimmed"></div>
+    </div>
+
+    <!-- popup - 가는편 미선택 시 추가구매 권유 팝업 -->
+    <div class="popupContainer noServices2ConfirmPopup">
+        <div class="popupWrap">
+            <div class="popupTitleWrap">
+                <p class="title">구매 전 확인하세요</p>
+                <a class="close">close</a>
+            </div>
+            <div class="popupContentWrap">
+                <div class="popupContent">
+                    <div class="content">
+                        현재 가는편만 선택내역이 없습니다.<br>
+                        <strong class="text-emphasis">[가는편 선택하기]</strong>로 이동할까요?
+                    </div>
                 </div>
-                <div class="popupContentWrap">
-                    <div class="popupContent">
-                        <div class="content">
-                            현재 가는편만 선택내역이 없습니다.<br>
-                            <strong class="text-emphasis">[가는편 선택하기]</strong>로 이동할까요?
-                        </div>
-                    </div>
-                    <div class="popupBtnWrap double">
-                        <a class="close">오는편만 결제하기</a>
-                        <a class="confirm" href="#">네</a>
-                    </div>
+                <div class="popupBtnWrap double">
+                    <a class="close">오는편만 결제하기</a>
+                    <a class="confirm" href="#">네</a>
                 </div>
             </div>
-            <div class="popupDimmed"></div>
         </div>
-        <!-- //popup - 가는편 미선택 시 추가구매 권유 팝업 -->
+        <div class="popupDimmed"></div>
+    </div>
 
-        <!-- popup - 다구간 미선택 시 추가구매 권유 팝업 -->
-        <!--
-            다구간의 경우, 부가서비스가 선택되지 않은 모든 구간을 알럿을 띄워 물어보도록 합니다.
-            구간1~5 중 구간5만 부가서비스를 선택했다고 가정해봅니다
-            1. '@구간' 텍스트 자리에는 부가서비스를 선택한 '구간5'를 제외한 '구간1', '구간2', '구간3', '구간4'가 들어가는데
-            2. [네] 버튼을 클릭하면 해당 구간으로 이동합니다.
-            3. 팝업 상단의 [X(닫기)] 버튼을 누르면 그 다음 미선택 구간을 구매하라는 팝업이 뜹니다(구간1 닫으면 구간2)
-            4. ['@구간'만 결제하기] 버튼을 누르면 부가서비스를 선택한 구간만 곧바로 결제합니다.
-        -->
-        <div class="popupContainer noServices3ConfirmPopup">
-            <div class="popupWrap">
-                <div class="popupTitleWrap">
-                    <p class="title">구매 전 확인하세요</p>
-                    <a class="close">close</a>
-                </div>
-                <div class="popupContentWrap">
-                    <div class="popupContent">
-                        <div class="content">
-                            아직 '@구간'에 대한 구매내역이 없습니다.<br>
-                            '@구간'에 대한 구매를 진행하시겠습니까?
-                        </div>
-                    </div>
-                    <div class="popupBtnWrap double">
-                        <a class="close">'@구간'만 결제하기</a>
-                        <a class="confirm" href="#">네</a>
-                    </div>
-                </div>
-            </div>
-            <div class="popupDimmed"></div>
-        </div>
-    <!-- //popup - 다구간 미선택 시 추가구매 권유 팝업 -->
-
-    <!-- //오는편 가는편 부가서비스 미선택 시 추가구매 권유 팝업 텍스트 수정, 200211 최아율 -->
-
-
-
-    <!-- popup - 수동발권 시, 발권완료 후 재방문 유도 팝업 수정, 200218 최아율 -->
+    <!-- popup - 수동발권 시, 발권완료 후 재방문 유도 팝업 -->
     <div class="popupContainer beforeTicketing">
         <div class="popupWrap">
             <div class="popupTitleWrap">
@@ -674,7 +635,6 @@
         </div>
         <div class="popupDimmed preventClick"></div>
     </div>
-    <!-- //popup - 수동발권 시, 발권완료 후 재방문 유도 팝업 수정, 200218 최아율 -->
 
     <!-- popup - 주문서가 임시저장됩니다 -->
     <div class="popupContainer pop_dfs-save">
@@ -721,7 +681,7 @@
         <div class="popupDimmed"></div>
     </div>
 
-    <!-- popup - 기내면세 취소/수정(예약건 없음) -->
+    <!-- popup - 기내면세 취소/수정(예약건 없음), 200519 텍스트 수정 -->
     <div class="popupContainer pop_dfs-refund2">
         <div class="popupWrap">
             <div class="popupTitleWrap">
@@ -731,7 +691,9 @@
             <div class="popupContentWrap">
                 <div class="popupContent">
                     <div class="content">
-                        취소/수정 가능한 예약건 없습니다.
+                        기내면세를 예약할 수 없습니다.<br>
+                        국내 도착 53시간 이내에는 기내면세 사전 예약<br>
+                        서비스를 진행하실 수 없습니다.
                     </div>
                 </div>
                 <div class="popupBtnWrap">
@@ -774,6 +736,51 @@
                 </div>
                 <div class="popupBtnWrap">
                     <a class="close confirm">전송하기</a>
+                </div>
+            </div>
+        </div>
+        <div class="popupDimmed"></div>
+    </div>
+
+    <!-- popup - 기내면세를 예약할 수 없습니다 -->
+    <div class="popupContainer pop_dfs-resv-denied">
+        <div class="popupWrap">
+            <div class="popupTitleWrap">
+                <p class="title">기내면세 예약</p>
+                <a class="close">close</a>
+            </div>
+            <div class="popupContentWrap">
+                <div class="popupContent">
+                    <div class="content">
+                        기내면세를 예약할 수 없습니다.<br>
+                        국내 도착 53시간 이내에는 기내면세 사전 예약<br>
+                        서비스를 진행하실 수 없습니다.
+                    </div>
+                </div>
+                <div class="popupBtnWrap">
+                    <a class="close confirm">확인</a>
+                </div>
+            </div>
+        </div>
+        <div class="popupDimmed"></div>
+    </div>
+
+    <!-- popup - 기내면세를 예약할 수 없습니다(오는편만 가능한 경우) -->
+    <div class="popupContainer pop_dfs-resv-refund3">
+        <div class="popupWrap">
+            <div class="popupTitleWrap">
+                <p class="title">기내면세 취소/수정</p>
+                <a class="close">close</a>
+            </div>
+            <div class="popupContentWrap">
+                <div class="popupContent">
+                    <div class="content">
+                        가는편 항공기 출발이 임박하여<br>
+                        오는편 기내면세 사전예약 서비스만 가능합니다.
+                    </div>
+                </div>
+                <div class="popupBtnWrap">
+                    <a class="close confirm">확인</a>
                 </div>
             </div>
         </div>
