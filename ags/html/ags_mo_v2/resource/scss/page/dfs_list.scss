@@ -47,12 +47,18 @@
     .product-info .price-krw { @include sr-only }
     .product-info .price-usd + dd,
     .product-info .price-krw + dd {
-      @include font($family: en, $size: 14, $color: $mono10, $weight: 400, $spacing: -0.03); display: inline-block; padding-top: rem(13);
+      @include font($family: ko, $size: 14, $color: $mono10, $weight: 400, $spacing: -0.03);
+      display: inline-block;
       float: left;
     }
-    .product-info .price-usd + dd { color: $text-primary; font-weight: 500 }
+    .product-info .price-usd + dd { padding-top: rem(13); color: $text-primary; font-weight: 600 }
     .product-info .price-usd + dd .digits:before { content: "$" }
-    .product-info .price-krw + dd { padding-left: rem(7); color: $mono4 }
+    .product-info .price-krw + dd {
+      padding: rem(15) 0 0 rem(3); font-size: rem(12); color: $mono1;
+      &:before { content: "(" }
+      &:after { content: ")" }
+    }
+    .product-info .price-krw + dd .digits:before { content: "₩"; }
     .btn_more { z-index: 1; overflow: hidden; position: absolute; top: 0; left: 0; right: 0; bottom: 0; text-indent: -999em }
     input[type='checkbox'] {
       @include form($size: 1, $role: normal, $type: radio);
@@ -66,8 +72,17 @@
         .ico { position: absolute; right: 0; top: 0; margin: 0 }
       }
     }
-    /*.product-info .price-krw + dd:before { content: "/"; padding: 0 rem(3) 0 rem(2) }
-    .product-info .price-krw + dd .digits:before { content: "₩" }*/
+  }
+  .exchange {
+    padding: rem(40) rem($grid * 2) 0;
+    dl {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $text-primary, $weight: 600, $spacing: -0.03);
+      padding: em(14, $font-size); height: em(42, $font-size);
+      border: 1px solid $border-primary; border-radius: 3px;
+      text-align: center; line-height: em(12, $font-size);
+    }
+    dt, dd { display: inline; }
   }
   .notification-wrap {
     padding: rem(50) rem($grid * 2) 0;
