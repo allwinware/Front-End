@@ -180,6 +180,22 @@
       &:before { content: "(" }
       &:after { content: ")" }
     }
+  } @else if $type == inline {
+    display: inline;
+    .price-usd, .price-krw { @include sr-only }
+    .price-usd + dd,
+    .price-krw + dd {
+      @include font($family: ko, $size: 14, $color: $color1, $weight: 400, $spacing: -0.03);
+      display: inline;
+    }
+    .price-usd + dd { color: $color1; font-weight: 600 }
+    .price-usd + dd .digits:before { content: "$" }
+    .price-krw + dd {
+      font-size: rem(12); color: $color2;
+      &:before { content: "(" }
+      &:after { content: ")" }
+    }
+    .price-krw + dd .digits:before { content: "₩"; }
   }
 }
 @mixin bullet($type: circle, $size: 3px, $color: #D8D8D8, $el: before, $top: 5px){

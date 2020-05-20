@@ -177,6 +177,7 @@
     &.disabled {
       .product-info .product-name + dd,
       .product-info .price-usd + dd,
+      .product-info .price-krw + dd,
       .passenger-name,
       .charge-sheet tbody th[scope='row'],
       .dfs-handler .ea + dd .resv-ea,
@@ -185,8 +186,6 @@
       .ind-total .ea + dd,
       .ind-total .price-usd + dd,
       .ind-total .price-krw + dd { color: $mono4; }
-      .ind-total .price-usd + dd,
-      .ind-total .price-krw + dd { text-decoration: line-through }
       .passenger-name { @include background($file: 'common/ico_passenger--g', $type: png, $width: rem(12), $height: rem(12)); }
     }
   }
@@ -333,6 +332,8 @@
   .ind-total {
     $font-size: 13;
     @include font($size: $font-size, $color: $mono1, $weight: 500, $spacing: -0.03);
+    @include price($type: inline, $color1: $text-primary, $color2: $mono1);
+    display: block;
     margin-top: -1px; padding: rem(16) rem(18); height: rem(50);
     text-align: right;
     background-color: #F8F8F8; border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
@@ -342,18 +343,9 @@
     .ea, .ea + dd { float: left; }
     .ea + dd { color: $text-primary; }
     .ea:after { content: ":"; padding: 0 rem(2); }
-    .price-usd, .price-krw { @include sr-only }
-    .price-usd + dd { font-size: rem(14); color: $text-primary; }
-    .price-usd + dd .digits:before { content: "$"; }
-    .price-krw + dd {
-      font-size: rem(12); font-weight: 400; color: $mono1;
-      &:before { content: "(" }
-      &:after { content: ")" }
-    }
-    .price-krw + dd .digits:before { content: "₩"; }
   }
   .ags-summary.dfs__list {
-    position: absolute;
+    position: absolute !important;
     .inner-wrap {
       border-top: 1px solid $mono1;
       background-color: $mono10;
@@ -375,17 +367,7 @@
         margin: 0;
       }
     }
-    .price-info .price-usd, .price-krw { @include sr-only }
-    .price-info .price-usd + dd,
-    .price-info .price-krw + dd { @include font($family: ko, $size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); display: inline; }
-    .price-info .price-usd + dd { font-size: rem(14); font-weight: 600; color: $text-primary; }
-    .price-info .price-usd + dd .digits:before { content: "$"; }
-    .price-info .price-krw + dd {
-      font-size: rem(12); font-weight: 400; color: $mono1;
-      &:before { content: "(" }
-      &:after { content: ")" }
-    }
-    .price-info .price-krw + dd .digits:before { content: "₩"; }
+    .price-info { @include price($type: inline, $color1: $text-primary, $color2: $mono1) }
     &.active {
       .btn_drawer { display: block; }
       .inner-wrap { border-top-color: transparent; }

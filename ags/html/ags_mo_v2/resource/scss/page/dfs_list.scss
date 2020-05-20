@@ -19,9 +19,13 @@
     z-index: 0;
     position: relative;
     border-bottom: 1px solid $mono8;
-    .product-info { @include clearfix; z-index: 0; position: relative; padding: rem(20) rem(20) rem(20) rem(93) }
-    .product-info dt { @include sr-only }
-    .product-info dd {  }
+    .product-info {
+      @include clearfix; z-index: 0; position: relative; padding: rem(20) rem(20) rem(20) rem(93);
+      @include price($type: inline, $color1: $text-primary, $color2: $mono1);
+      display: block;
+    }
+    .product-info > dt { @include sr-only }
+    .product-info > dd {  }
     .product-info .product-tag + dd { float: left; padding-right: rem(5); }
     .product-info .product-tag + dd .sale,
     .product-info .product-tag + dd .new {
@@ -43,22 +47,10 @@
     }
     .product-info .thumbnail + dd { overflow: hidden; position: absolute; left: 0; top: rem($grid * 2); width: rem(78); height: rem(78); border: 1px solid $mono8 }
     .product-info .thumbnail + dd img { max-width: 100%; height: auto }
-    .product-info .price-usd,
-    .product-info .price-krw { @include sr-only }
     .product-info .price-usd + dd,
-    .product-info .price-krw + dd {
-      @include font($family: ko, $size: 14, $color: $mono10, $weight: 400, $spacing: -0.03);
-      display: inline-block;
-      float: left;
-    }
-    .product-info .price-usd + dd { padding-top: rem(13); color: $text-primary; font-weight: 600 }
-    .product-info .price-usd + dd .digits:before { content: "$" }
-    .product-info .price-krw + dd {
-      padding: rem(15) 0 0 rem(3); font-size: rem(12); color: $mono1;
-      &:before { content: "(" }
-      &:after { content: ")" }
-    }
-    .product-info .price-krw + dd .digits:before { content: "₩"; }
+    .product-info .price-krw + dd { float: left; }
+    .product-info .price-usd + dd { padding-top: rem(13); }
+    .product-info .price-krw + dd { padding: rem(15) 0 0 rem(3); }
     .btn_more { z-index: 1; overflow: hidden; position: absolute; top: 0; left: 0; right: 0; bottom: 0; text-indent: -999em }
     input[type='checkbox'] {
       @include form($size: 1, $role: normal, $type: radio);
