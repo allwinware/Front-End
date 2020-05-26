@@ -31,8 +31,28 @@
     .meal-name + dd {
       @include font($size: 14, $color: $mono1, $weight: 600, $spacing: -0.03);
       padding-top: rem($grid);
+      [class*='ico_'] {
+        $font-size: 9;
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        margin-right: 0.3em; width: em(32, $font-size); height: em(16, $font-size);
+        font-size: rem($font-size); color: #fff;
+        background-color: $mono10; vertical-align: middle; border-radius: 1px; border: 1px solid;
+        &:before {
+          content: "";
+          @include font($family: en, $size: $font-size, $color: $mono10, $weight: 500, $spacing: 0);
+          @include align-center;
+          max-width: 100%; max-height: 100%;
+          text-transform: uppercase; text-align: center; color: inherit;
+        }
+      }
+      .ico_hm { border-color: #FF7C7C; &:before { content: "Hot"; color: #FF7C7C } }/*hot meal*/
+      .ico_cm { border-color: #63B3CB; &:before { content: "Cold"; color: #63B3CB } }/*cold meal*/
+      .ico_am { border-color: #CD9BF0; &:before { content: "Adult"; color: #CD9BF0 } }/*adult meal*/
+      .ico_km { border-color: #7AB964; &:before { content: "Kids"; color: #7AB964 } }/*kids meal*/
     }
-    .meal-name.new + dd:before,
+    /*.meal-name.new + dd:before,
     .meal-name.best + dd:before {
       @include font($family: en, $size: 9, $color: $mono10, $weight: 500, $spacing: 0);
       @include text-uppercase;
@@ -42,7 +62,7 @@
       vertical-align: middle;
     }
     .meal-name.new + dd:before { content: "New"; background-color: #FF4378; }
-    .meal-name.best + dd:before { content: "Best"; background-color: #2A2167; }
+    .meal-name.best + dd:before { content: "Best"; background-color: #2A2167; }*/
     .meal-description + dd {
       padding-top: rem($grid);
       @include font($size: 12, $color: $mono4, $weight: 400, $spacing: -0.03);
