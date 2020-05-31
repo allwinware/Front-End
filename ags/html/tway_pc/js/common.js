@@ -121,8 +121,11 @@ $(document).ready(function () {
         $("html,body").css("overflow", "auto");
 	});
 	$(document).on('click', '.popupContainer .close', function() {
-		$('.popupContainer').hide();
-        $("html,body").css("overflow", "auto");
+	    /*200529 닫기 버튼이 disabled 상태일 때의 작동을 제외하기 위한 if문 추가*/
+	    if($(this).attr("disabled") !== "disabled"){
+            $('.popupContainer').hide();
+            $("html,body").css("overflow", "auto");
+        }
 	});
 
 	$(".popupContainer.buyHistory .popupContent > ul > li > p").click(function(){

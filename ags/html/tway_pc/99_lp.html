@@ -35,7 +35,7 @@
         <div class="popupWrap">
             <div class="popupTitleWrap">
                 <p class="title">비상구열 좌석 배정에 대한 안내</p>
-                <a class="close">close</a>
+                <a class="close">close</a><!-- 닫기 버튼으로 팝업을 닫으면, 고객이 선택한 좌석이 선택되지 않도록 처리합니다. -->
             </div>
             <div class="popupContentWrap">
                 <div class="popupContent">
@@ -53,15 +53,25 @@
                 </div>
                 <div class="popupBtnWrap">
                     <span class="inputWrap">
-                        <input type="checkbox" name="" id="exitSeatAgree" checked="checked">
+                        <input type="checkbox" name="" id="exitSeatAgree" data-bind="#exitSeatAgreeConfirm">
                         <label for="exitSeatAgree">비상구 좌석배정 내용을 확인하고 동의합니다.</label>
                     </span>
-                    <a class="close">확인</a>
+                    <a id="exitSeatAgreeConfirm" class="close" disabled="disabled">확인</a><!-- #exitSeatAgree가 :checked 상태일 때, disabled attribute를 삭제하여 활성화 시킵니다. 활성화 되지 않았을 때는 팝업이 닫히지 않습니다.(js 수정됨) -->
                 </div>
             </div>
         </div>
-        <div class="popupDimmed"></div>
+        <div class="popupDimmed preventClick"></div>
     </div>
+    <script>
+        //popup - 비상구열 좌석 배정에 대한 안내 정의
+        $(document).on("change", "#exitSeatAgree", function(){
+            if($("#exitSeatAgree").is(":checked")){
+                $($(this).attr("data-bind")).removeAttr("disabled")
+            } else {
+                $($(this).attr("data-bind")).attr("disabled", "disabled")
+            }
+        })
+    </script>
 
     <!-- popup - 항공기 좌석에 대한 안내 -->
     <div class="popupContainer seatInfoChildConfirmPopup">
@@ -159,7 +169,7 @@
                 <div class="popupContentWrap">
                     <div class="popupContent">
                         <div class="tableWrap">
-                            <h3 class="from-to-title">인천<span class="ico_airplane">에서</span> 하네다 <span class="flight-num">TW667</span></h3>
+                            <h3 class="from-to-title">[구간 1] 인천<span class="ico_airplane">에서</span> 하네다 <span class="flight-num">TW667</span></h3>
                             <table class="history">
                                 <caption class="blind">결제 정보</caption>
                                 <colgroup>
@@ -169,7 +179,7 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <th><span>탑승자 명</span></th>
+                                        <th><span>탑승객 명</span></th>
                                         <th><span>구매 내역</span></th>
                                         <th><span>결제 금액</span></th>
                                     </tr>
@@ -209,7 +219,7 @@
                             </table>
                         </div>
                         <div class="tableWrap">
-                            <h3 class="from-to-title">하네다<span class="ico_airplane">에서</span> 인천 <span class="flight-num">TW667</span></h3>
+                            <h3 class="from-to-title">[구간 2] 하네다<span class="ico_airplane">에서</span> 인천 <span class="flight-num">TW667</span></h3>
                             <table class="history">
                                 <caption class="blind">결제 정보</caption>
                                 <colgroup>
@@ -219,7 +229,7 @@
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th><span>탑승자 명</span></th>
+                                    <th><span>탑승객 명</span></th>
                                     <th><span>구매 내역</span></th>
                                     <th><span>결제 금액</span></th>
                                 </tr>
