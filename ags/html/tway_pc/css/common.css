@@ -41,6 +41,32 @@ nav, output, ruby, section, summary, time, mark, audio, video
 .right	{text-align:right !important;}
 .bold	{font-weight:bold !important;}
 .uppercase	{text-transform:uppercase;}
+
+
+ul.list-dot > li {
+    position: relative;
+    margin-bottom: 4px; padding-left: 12px;
+    font-size: 13px;
+}
+ul.list-dot > li:before {
+    content: "";
+    position: absolute; left: 0; top: 7px;
+    display: inline-block; width: 3px; height: 3px;
+    background-color: #000; border-radius: 50%;
+}
+ul.list-dot > li:last-child { margin-bottom: 0; }
+ul.list-bar { padding: 6px 0 10px; }
+ul.list-bar > li {
+    position: relative;
+    margin-bottom: 2px; padding-left: 12px;
+    font-size: 12px;
+}
+ul.list-bar > li:before {
+    content: "-";
+    position: absolute; left: 0; top: 0;
+}
+ul.list-bar > li:last-child { margin-bottom: 0; }
+
 /*	기본 레이아웃	*/
 .headerContainer	{width:100%; border-bottom: 1px solid #e7e7e7;}
 .headerWrap	{/*position:relative;*/ overflow:hidden;  /*border-bottom:1px solid #e7e7e7;*/}
@@ -952,7 +978,10 @@ table td	{vertical-align:middle; text-align:left; border-bottom:1px solid #e4e4e
 .popupContainer.exitSeatPopup .popupWrap	{width:460px; }
 .popupContainer.exitSeatPopup .popupContent	{border: 1px solid #e4e4e4; padding:14px 12px;}
 .popupContainer.exitSeatPopup .popupContent p	{margin-bottom:18px; font-size: 11px; line-height: 16px}
-.popupContainer.exitSeatPopup .popupContent ul	{margin-bottom:18px; font-size: 11px; line-height: 16px}
+.popupContainer.exitSeatPopup .popupContent ul	{margin-bottom:10px; font-size: 11px; line-height: 16px}
+.popupContainer.exitSeatPopup .popupContent li { font-size: 11px; }
+.popupContainer.exitSeatPopup .popupContent .list-dot > li:before { top: 6px }
+.popupContainer.exitSeatPopup .popupContent .list-bar { margin-bottom: 0; }
 .popupContainer.exitSeatPopup .popupContent span	{color: #ff4f24;}
 .popupContainer.exitSeatPopup  .popupBtnWrap	{margin-top:12px;}
 .popupContainer.exitSeatPopup  .popupBtnWrap label	{font-size: 11px;letter-spacing: -0.4px;}
@@ -2196,6 +2225,10 @@ display:none;
     font-size: 9px; font-weight: 800; letter-spacing: -0.51px; color: #2A2167;
     background-color: #fff; vertical-align: top;
 }
+.from-to-title .flight-way {
+    margin-right: 6px;
+}
+.from-to-title .flight-way:after { content: "|"; padding: 0 0 0 6px; color: rgba(255,255,255,0.3); font-weight: 400; }
 
 /*[class*='mypage'] .from-to-title { position:relative; padding-left: 16px; font-size: 14px; font-weight: 600; letter-spacing: -0.3px; color: #FF4F24; line-height:28px; text-align: left; }
 [class*='mypage'] .from-to-title:before { content:""; box-sizing: border-box; position:absolute; top:50%; left:0; transform: translate(0, -50%); width:10px; height:10px; border: 3px solid #ff4f24; border-radius: 50%; }
@@ -2622,6 +2655,13 @@ dl.notification-list dd:before {
     display: inline-block;
     width: 1px; height: 1px;
     border-radius: 50%; background-color: #5B5B5B;
+}
+.agreement-list dl dd li li { padding-left: 8px; }
+.agreement-list dl dd li li:before {
+    content: "-";
+    top: 0;
+    width: auto; height: auto;
+    border-radius: 0; background: transparent;
 }
 .agreement-list > li:last-of-type { border-top: 1px solid #000; }
 .agreement-list dl dd p + ul { padding-top: 8px }
