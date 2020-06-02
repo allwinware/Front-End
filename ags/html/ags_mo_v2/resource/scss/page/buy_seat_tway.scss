@@ -113,13 +113,19 @@
     }
   }
   .seat-num {
-    counter-reset: seat-row-numbering;
     padding: rem(53) 0 rem(44);
     li {
       @include clearfix;
       position: relative;
       padding: rem(6) rem(4);
-      &:not(.exit-row) {
+      & > * { float: left; }
+    }
+    /*비행기 행번호 수동입력용*/
+    .row-num { @include font($family: 'en', $size: 12, $color: $mono4, $weight: 600, $spacing: -0.03); @include align-center; display: inline-block; }
+    /*비행기 행번호 자동 입력용*/
+    &:not(.excluded-numbering) {
+      counter-reset: seat-row-numbering;
+      li:not(.exit-row) {
         counter-increment: seat-row-numbering;
         &:before {
           content: counter(seat-row-numbering);
@@ -128,7 +134,6 @@
           display: inline-block;
         }
       }
-      & > * { float: left; }
     }
     li.exit-row:first-child {
       margin-top: rem(-53);
@@ -189,5 +194,6 @@
       }
     }
     .hallway { margin: 0 rem(9); width: rem(28); height: rem(28); }
+    .empty { margin: 0 rem(6); width: rem(28); height: rem(28); }
   }
 }

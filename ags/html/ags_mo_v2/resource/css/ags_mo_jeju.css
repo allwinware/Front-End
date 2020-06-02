@@ -4165,8 +4165,9 @@ body {
 }
 
 [data-page-id='buy__seat'] .seat-num {
-  counter-reset: seat-row-numbering;
   padding: 3.78571rem 0 3.14286rem;
+  /*비행기 행번호 수동입력용*/
+  /*비행기 행번호 자동 입력용*/
 }
 
 [data-page-id='buy__seat'] .seat-num li {
@@ -4180,12 +4181,11 @@ body {
   clear: both;
 }
 
-[data-page-id='buy__seat'] .seat-num li:not(.exit-row) {
-  counter-increment: seat-row-numbering;
+[data-page-id='buy__seat'] .seat-num li > * {
+  float: left;
 }
 
-[data-page-id='buy__seat'] .seat-num li:not(.exit-row):before {
-  content: counter(seat-row-numbering);
+[data-page-id='buy__seat'] .seat-num .row-num {
   font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.85714rem;
   font-weight: 600;
@@ -4200,8 +4200,28 @@ body {
   display: inline-block;
 }
 
-[data-page-id='buy__seat'] .seat-num li > * {
-  float: left;
+[data-page-id='buy__seat'] .seat-num:not(.excluded-numbering) {
+  counter-reset: seat-row-numbering;
+}
+
+[data-page-id='buy__seat'] .seat-num:not(.excluded-numbering) li:not(.exit-row) {
+  counter-increment: seat-row-numbering;
+}
+
+[data-page-id='buy__seat'] .seat-num:not(.excluded-numbering) li:not(.exit-row):before {
+  content: counter(seat-row-numbering);
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.85714rem;
+  font-weight: 600;
+  color: #aaa;
+  letter-spacing: -0.03em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: inline-block;
 }
 
 [data-page-id='buy__seat'] .seat-num li.exit-row:first-child {
