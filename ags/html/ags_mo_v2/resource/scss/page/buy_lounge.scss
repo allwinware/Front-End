@@ -151,9 +151,17 @@
         display: inline-block;
         padding-right: .5em;
         @include font($family: en, $size: 11, $color: $mono1, $weight: 600, $spacing: -0.03);
+        .digits:before {
+          content: "￦";
+          font-size: rem(10); color: $mono1; font-weight: 800;
+        }
         & + dt + dd {
           font-weight: 400; color: $mono4;
           text-decoration: line-through;
+          .digits:before {
+            content: "￦";
+            font-size: rem(10); color: $mono4; font-weight: 400;
+          }
         }
       }
     }
@@ -180,6 +188,10 @@
       text-align: right;
       .digits {
         @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03);
+        &:before {
+          content: "￦";
+          font-size: rem(12); color: $text-primary; font-weight: 600;
+        }
       }
       dt { @include sr-only }
     }
@@ -196,8 +208,22 @@
       & + label .ico { vertical-align: top; }
     }
     dt { @include sr-only }
-    dd { @include font($family: en, $size: 12, $color: $text-primary, $weight: 500, $spacing: -0.03); display: inline-block; padding-left: 0.5em }
-    dd:first-of-type { color: $mono4; text-decoration: line-through; font-weight: 400; }
+    dd {
+      @include font($family: en, $size: 12, $color: $text-primary, $weight: 500, $spacing: -0.03);
+      display: inline-block;
+      padding-left: 0.5em;
+      &:before {
+        content: "￦";
+        font-size: rem(11); color: $text-primary; font-weight: 600;
+      }
+    }
+    dd:first-of-type {
+      color: $mono4; text-decoration: line-through; font-weight: 400;
+      &:before {
+        content: "￦";
+        font-size: rem(11); color: $mono4; font-weight: 500;
+      }
+    }
     tbody th:first-child label { font-size: rem(13) !important; font-weight: 600 !important; }
     tbody th + td { font-size: rem(13); }
   }

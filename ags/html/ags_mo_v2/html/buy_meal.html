@@ -31,14 +31,14 @@
                             $mealPrice = $this.siblings("dl").find(".meal-description + dd + .meal-price + dd").text();
                         if($thisPanel.find("input[data-all-psg='true']").prop("checked") === true){
                             /*동승자 메뉴 통일하기 체크박스를 선택한 상태라면*/
-                            $psgLabel.html("<span>" + $mealName + " / " + $mealPrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                            $psgLabel.html("<span>" + $mealName + " / ￦" + $mealPrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
                             setTimeout(function(){$this.prop("checked", false);}, 400);
                             $("html").animate({
                                 scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top
                             }, 1500);
                         } else{
                             /*동승자 메뉴 통일하기 체크박스를 선택하지 않은 상태라면*/
-                            $currentPsgLabel.html("<span>" + $mealName + " / " + $mealPrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                            $currentPsgLabel.html("<span>" + $mealName + " / ￦" + $mealPrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
                             setTimeout(function(){$this.prop("checked", false);}, 400);
                             /*if문 처리한 이후 다음 승객을 자동으로 넘어감*/
                             if($checkedPsg.parent("li").next("li").length > 0) {
@@ -118,7 +118,6 @@
                     <li><a href="#none" target="_self" class="btn_back">뒤로가기</a></li>
                     <li>
                         <a href="#none" target="_self" id="btn_gnb" class="btn_gnb">메뉴</a>
-                        <!-- 200422 gnb 메뉴 수정 -->
                         <div id="gnb-2dp" class="gnb-2dp-wrap">
                             <a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>
                             <p class="welcome-msg">
@@ -137,7 +136,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- //200422 gnb 메뉴 수정 -->
                     </li>
                     <li><a href="#none" target="_self" class="btn_close">화면 닫기</a></li>
                 </ul>
@@ -284,7 +282,6 @@
                                     </div>
                                     <div class="meal-list" data-select="meal">
                                         <!--
-                                            [200526 기내식 태그 변경]
                                             기내식 제목 앞에 'NEW', 'BEST'등의 태그가 붙었으나, 정책변경으로 NEW/BEST 태그를 삭제하였습니다.
                                             대신 사용자에게 꼭 전달해야하는 Hot Meal(.hm), Cold Meal(.cm), Adult Meal(.am), Kids Meal(.km) 태그를 각 아이템별 .ico에 옮겨 붙이게 되었습니다.
 
@@ -602,7 +599,6 @@
                                     </div>
                                     <div class="meal-list" data-select="meal">
                                         <!--
-                                            [200526 기내식 태그 변경]
                                             기내식 제목 앞에 'NEW', 'BEST'등의 태그가 붙었으나, 정책변경으로 NEW/BEST 태그를 삭제하였습니다.
                                             대신 사용자에게 꼭 전달해야하는 Hot Meal(.hm), Cold Meal(.cm), Adult Meal(.am), Kids Meal(.km) 태그를 각 아이템별 .ico에 옮겨 붙이게 되었습니다.
 
@@ -857,12 +853,12 @@
         <!-- ags-summary -->
         <footer id="ags-summary" class="ags-summary">
             <h4 class="sr-only">부가서비스 결제금액</h4>
-            <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a><!-- 200420 id 삭제 후 data-popup 추가-->
+            <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
             <div class="inner-wrap">
                 <div class="total">
                     <h5 class="sr-only">총 결제 금액</h5>
                     <dl>
-                        <dt><a href="#none" target="_self" data-popup="#passenger-summary">총 결제 금액 자세히 보기</a></dt><!-- 200420 id 삭제 후 data-popup 추가-->
+                        <dt><a href="#none" target="_self" data-popup="#passenger-summary">총 결제 금액 자세히 보기</a></dt>
                         <dd><span class="digits">30000</span></dd>
                         <dd><button type="button" class="btn_pay-imm" onClick="location.href='pay_payment.html'">바로 결제하기</button></dd>
                     </dl>

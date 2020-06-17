@@ -7,6 +7,7 @@
     @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03);
     padding: rem($grid * 4) rem($grid * 2);
     line-height: rem(16);
+    .digits:before { content: "￦" }
   }
   .baggage-plan {
     padding-left: rem($grid * 2);
@@ -48,7 +49,10 @@
         text-align: left;
       }
       tbody tr:nth-of-type(2) th[scope='row'] { vertical-align: top; }
-      .text-subscript { display: block; padding-top: rem(8); font-size: rem(12); font-weight: 600 }
+      .text-subscript {
+        display: block; padding-top: rem(8); font-size: rem(12); font-weight: 600;
+        .digits:before { content: "￦" }
+      }
     }
     .baggage-handler {
       $size: 42;
@@ -66,7 +70,11 @@
       }
       .price + dd {
         @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03);
-        padding-top: rem(10)
+        padding-top: rem(10);
+        .digits:before {
+          content: "￦";
+          font-size: rem(12); color: $text-primary; font-weight: 600;
+        }
       }
       [class*='btn_'] {
         overflow: hidden;

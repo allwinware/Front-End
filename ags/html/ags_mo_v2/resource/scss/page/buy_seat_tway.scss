@@ -27,8 +27,13 @@
       padding: rem($grid * 4.75) rem($grid * 2) rem($grid * 2);
       white-space: nowrap;
       .digits {
-        @include font($family: 'en', $size: 11, $color: $mono1, $weight: 600, $spacing: -0.03);
+        @include font($family: 'en', $size: 12, $color: $mono1, $weight: 600, $spacing: -0.03);
         display: block;
+        padding-top: rem($grid);
+        &:before {
+          content: "￦";
+          font-size: rem(11); color: $mono1; font-weight: 800;
+        }
       }
       &:before {
         content: "";
@@ -54,7 +59,6 @@
       border-bottom: 1px solid $mono8
     }
     li.active a { border-color: $mono1 !important }
-    .digits { padding-top: rem($grid) }
     /* 탭 활성화 상태에서의 좌석 범례 */
     @at-root .ui-fixed [data-page-id='buy__seat'] .tab-panel.active .seat-legend {
       z-index: 10;
