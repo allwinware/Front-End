@@ -1,0 +1,218 @@
+/*마이페이지 > 구매 내역/취소*/
+[data-page-id*='my__history']{
+  overflow: hidden;
+  width: 100%;
+  .content-header { padding-top: rem(50); }
+  .content-title {
+    @include font($size: 20, $color: $mono1, $weight: 600, $spacing: -0.03);
+    margin-bottom: rem(12); padding: 0 rem($grid * 2)
+  }
+  .content-description {
+    margin-bottom: rem(38); padding: 0 rem($grid * 2)
+  }
+  .tabs_categories {
+    @include tab(style1 nowrap);
+    & + .tab-panels { padding-top: rem(50); }
+    & + .tab-panels .align-horizontal { overflow: hidden; width: 100% }
+    &[style*='display'] + .tab-panels { padding-top: 0 !important; }
+  }
+  .tab-panel .dfs-products-wrap { padding: rem(50) 0 0 rem($grid * 2) }
+  .price-info {
+    @include price($type: inline, $color1: $text-primary, $color2: $mono1);
+  }
+}
+[data-page-id='my__history-list'] {
+  margin-bottom: rem(-144); padding: 0 0 rem(112); min-height: calc(100vh - #{$gnb-height}px);
+  background-color: #F8F8F8;
+  /*function bar*/
+  .function-wrap {
+    @include clearfix;
+    @include font($size: 10, $color: $mono1, $weight: 400, $spacing: -0.03);
+    padding: 0 rem($grid * 2);
+    .inner-box {
+      line-height: rem(18);
+      &:first-of-type { float: left; }
+      &:last-of-type { float: right; }
+    }
+    .text-emphasis { font-weight: 600; }
+    label { @include sr-only }
+    select { @include form($size: 0, $role: minified, $type: select); margin: 0; min-width: rem(62); color: #000 }
+  }
+  /*구매내역/취소 리스트*/
+  .history-list-wrap {
+    ul {
+      padding: 0 rem($grid * 2) rem($grid * 4);
+    }
+    li {
+      position: relative;
+      margin-top: rem($grid * 2); padding: rem($grid * 3) rem($grid * 2);
+      border-radius: rem(3);
+      background-color: $mono10;
+      box-shadow: 0 16px 16px rgba(0,0,0,0.16);
+      &:empty:before, &.empty { @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03); text-align: center; }
+      &:empty:before {
+        content: "부가서비스 신청내역이 없습니다.";
+        display: block; padding: rem(51) rem($grid * 2);
+      }
+      &.empty, &.refund {
+        .btn_more { display: none; }
+      }
+      &.empty { padding: rem(75) rem($grid * 2); }
+      &.refund {
+        dt, dd { color: $mono4 !important; }
+        .arrival + dd {
+          @include background($file: 'my/ico_journey-type1--refund', $type: png, $width: 20px, $height: auto);
+        }
+        .one-way .arrival + dd {
+          @include background($file: 'my/ico_journey-type2--refund', $type: png, $width: 17px, $height: auto);
+        }
+      }
+    }
+    dl { @include clearfix; }
+    .purchase-state, .departure, .arrival, .duration { @include sr-only; }
+    .resv-num {
+      @include font($size: 10, $color: $mono1, $weight: 400, $spacing: -0.03);
+      & + dd { @include font($size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03); }
+      &, & + dd { display: inline-block; margin-bottom: rem($grid * 3); }
+    }
+    .purchase-state + dd { @include font($size: 10, $color: $text-primary, $weight: 800, $spacing: -0.03); float: right; }
+    .departure + dd, .arrival + dd {
+      @include font($size: 20, $color: $mono1, $weight: 800, $spacing: -0.03);
+      display: inline-block;
+      margin-bottom: rem(12);
+    }
+    .arrival + dd {
+      @include background($file: 'my/ico_journey-type1', $type: png, $width: 20px, $height: auto);
+      display: inline-block;
+      margin-left: rem(12); padding-left: rem($grid * 4);
+      background-position: 0 50%;
+    }
+    .one-way .arrival + dd {
+      @include background($file: 'my/ico_journey-type2', $type: png, $width: 17px, $height: auto);
+    }
+    .duration + dd { @include font($size: 11, $color: $mono4, $weight: 400, $spacing: -0.03); margin-bottom: rem($grid * 2) }
+    .my-plan, .my-plan + dd { @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03); display: inline-block; margin-bottom: rem(6); }
+    .my-plan { font-weight: 600; }
+    .my-plan + dd {
+      position: relative;
+      margin-left: rem(4); padding-left: rem(10);
+      &:before { content: "";
+        display: inline-block;
+        position: absolute; left: 0; top: 50%;
+        -webkit-transform: translate(0, -50%); -moz-transform: translate(0, -50%); transform: translate(0, -50%);
+        width: 1px; height: rem(10); border-left: 1px solid $mono9
+      }
+    }
+    .btn_more {
+      overflow: hidden;
+      position: absolute; left: 0; top: 0; bottom: 0; right: 0;
+      width: 100%; height: 100%;
+      text-indent: -999em;
+    }
+  }
+}
+[data-page-id='my__history-detail'] {
+  .ticket-wrap {
+    padding: rem($grid * 3) rem($grid * 2);
+    dl { @include clearfix; position: relative; }
+    .purchase-state, .departure, .arrival, .duration { @include sr-only; }
+    .resv-num {
+      @include font($size: 10, $color: $mono1, $weight: 400, $spacing: -0.03);
+      & + dd { @include font($size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03); }
+      &, & + dd { display: inline-block; margin-bottom: rem($grid * 3); vertical-align: middle; }
+    }
+    .purchase-state + dd { @include font($size: 10, $color: $text-primary, $weight: 800, $spacing: -0.03); float: right; }
+    .departure + dd, .arrival + dd {
+      @include font($size: 20, $color: $mono1, $weight: 800, $spacing: -0.03);
+      display: inline-block;
+      margin-bottom: rem(12);
+    }
+    .arrival + dd {
+      @include background($file: 'my/ico_journey-type1', $type: png, $width: 20px, $height: auto);
+      display: inline-block;
+      margin-left: rem(12); padding-left: rem($grid * 4);
+      background-position: 0 50%;
+    }
+    .one-way .arrival + dd {
+      @include background($file: 'my/ico_journey-type2', $type: png, $width: 17px, $height: auto);
+    }
+    .duration + dd { @include font($size: 11, $color: $mono4, $weight: 400, $spacing: -0.03); margin-bottom: rem(20) }
+    .btn_email, .btn_passport {
+      @include form($size: 3, $role: primary3, $type: button);
+      width: auto; font-size: rem(12)
+    }
+    .btn_cancel {
+      @include form($size: 3, $role: cancel, $type: button);
+      width: auto; font-size: rem(12)
+    }
+    [class*='btn_'] + [class*='btn_'] { margin-left: rem(2); }
+    [class*='btn_'] + .notification-text {
+      $font-size: 10;
+      @include font($size: $font-size, $color: $text-primary, $weight: 800, $spacing: -0.03);
+      display: inline-block;
+      margin-left: em(2,$font-size); padding: em(8,$font-size); height: em(40,$font-size);
+      vertical-align: top; line-height: em(12, $font-size)
+    }
+  }
+  .help-wrap {
+    @include font($size: 11, $color: $mono3, $weight: 600, $spacing: -0.03);
+    padding: rem($grid * 2) rem($grid * 2) 0; border-top: 1px solid $mono8;
+    dt, dd { display: inline-block; }
+    dt:after { content: ":"; padding: 0 0.3em }
+    .tel + dd { color: $text-primary; }
+    .time { @include sr-only; }
+  }
+  .history-detail-wrap {
+    padding: rem(50) 0 0 rem($grid * 2)
+  }
+  .title {
+    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
+    display: inline-block;
+  }
+  .flight-num {
+    display: inline-block;
+    margin: 0 0 rem(12) rem(4);
+    dt { @include sr-only }
+    dd { @include tagging-route; width: auto; padding: 0 rem(4); }
+  }
+  .table-wrap {
+    padding-bottom: rem($grid * 2);
+    &:first-child { border-top: 1px solid $mono1; }
+    & + .table-wrap { border-top: 1px solid $mono8; }
+  }
+  .charge-sheet {
+    @include table($style: type1, $mg-size: small);
+    th, td { padding: rem($grid) 0;; }
+    thead th, tbody th, tbody td, tfoot th, tfoot td { padding: rem(5) 0; border-bottom: 0; vertical-align: top; }
+    tbody th, tbody td { line-height: rem(18); }
+    tbody td:last-of-type { text-align: right; }
+    tbody th, tbody td { height: rem(30); }
+    tbody th:last-child, tbody td:last-child { @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03); padding-right: rem($grid * 2) }
+    tbody th[scope='colgroup'] { text-align: left; }
+    tbody tr + tr th[scope='colgroup'] { border-top: 1px solid $mono8 }
+    tbody th[scope='row'] {
+      @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
+      text-align: left;
+    }
+    tbody th[scope='row'] + td { width: rem(77); }
+    tbody th[scope='row'] + td + td .digits:before { content: "￦" }
+    a, a:active, a:visited { color: #66B1FF; }
+    .text-emphasis { font-weight: 800; }
+  }
+  .passenger-name {
+    @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+    @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
+    @include text-uppercase;
+    margin: rem($grid * 2) 0 rem(14); padding-left: rem(20);
+  }
+  .total-wrap {
+    height: rem(44);
+    border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
+    & > dl { display: table; table-layout: fixed; width: 100%; height: 100%; }
+    & > dl > dt, & > dl > dd { display: table-cell; vertical-align: middle; }
+    & > dl > dt { @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); width: rem(140) }
+    & > dl > dd { padding-right: rem($grid * 2); text-align: right; }
+    .digits:before { content: "￦" }
+  }
+  .table-group + .title { margin-top: rem(50); }
+}

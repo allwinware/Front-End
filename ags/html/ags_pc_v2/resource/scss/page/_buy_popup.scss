@@ -1,0 +1,217 @@
+/* 합계 팝업 */
+.ags-summary {
+  overflow: hidden;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  margin-top: rem(-$summary-height); padding: rem(6) 0 0; height: rem($summary-height);
+  color: $mono10;
+  .btn_drawer {
+    z-index: 11;
+    @include background($file: 'buy/btn_summary-drawer', $type: png, $width: rem(40), $height: rem(11));
+    overflow: hidden;
+    position: absolute; left: 50%; top: 0;
+    -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    text-indent: -999em;
+    display: block;
+    width: rem(40); height: rem(16);
+    background-position: 50% 0;
+    .ico {
+      @include background($file: 'buy/ico_summary-drawer', $type: png, $width: rem(8), $height: rem(6));
+      display: block;
+      position: absolute; left: 50%; top: 0;
+      -webkit-transform: translate(-50%, 0) rotate(0);
+      -ms-transform: translate(-50%, 0) rotate(0);
+      transform: translate(-50%, 0) rotate(0);
+      transform-origin: 50% 50%;
+      width: rem(16); height: rem(16);
+      background-position: 50% 50%;
+      transition: all 0.2s;
+      transition-delay: 0.2s;
+    }
+  }
+  .inner-wrap {
+    overflow: auto;
+    height: 100%; background-color: $mono1;
+  }
+  .total {
+    width: 100%; height: rem(100);
+    & > dl { display: table; table-layout: fixed; padding: 0 rem(10); width: 100%; height: rem(60); }
+    & > dl > dt, & > dl > dd { display: table-cell; padding: 0 rem(6); white-space: nowrap; vertical-align: middle; }
+    & > dl > dt {
+      @include font($size: 12, $color: inherit, $weight: 500, $spacing: -0.03);
+      width: (85 / 343 * 100%);
+      a { color: inherit; text-decoration: none; }
+    }
+    & > dl > dt + dd:not(.count-bubble) {
+      @include font($family: en, $size: 16, $color: $text-primary, $weight: 800, $spacing: -0.03);
+      text-align: right;
+    }
+    dd.count-bubble .ico {
+      $font-size: 15;
+      @include font($family: en, $size: $font-size, $color: $mono10, $weight: 500, $spacing: 0);
+      @include valign-middle();
+      overflow: hidden;
+      display: inline-block;
+      opacity: 0;
+      -webkit-transform: translate(0, 10px);
+      -ms-transform: translate(0, 10px);
+      transform: translate(0, 10px);
+      margin-left: em(-26, $font-size); padding: 0 em(9, $font-size); height: em(24, $font-size);
+      line-height: em(24, $font-size);
+      background: rgba(219,16,16,0.9); border: 1px solid #FF0000; border-radius: em(12, $font-size);
+    }
+    dd.count-bubble.active .ico {
+      opacity: 1;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    dd.count-bubble.show .ico {
+      @include animation($delay: 0, $duration: 0.5s, $animation:count-bubble__show, $direction: forward, $fillmode: fowards); transition: all 0.5s;
+    }
+    dd.count-bubble.hide .ico {
+      @include animation($delay: 0, $duration: 0.5s, $animation:count-bubble__hide, $direction: forward, $fillmode: fowards); transition: all 0.5s;
+      opacity: 0;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    dd.count-bubble.add .ico {
+      @include animation($delay: 0.1s, $duration: 0.3s, $animation:count-bubble__add, $direction: forward, $fillmode: fowards); transition: all 0.5s;
+      opacity: 1;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    & > dl > dt + dd + dd { text-align: center; width: (103 / 343 * 100%); }
+    .btn_pay-imm, .btn_resv-imm, .btn_refund-imm {
+      @include form($size: 2, $role: normal, $type: button);
+      margin: 0; width: auto;
+      border-color: rgba(255,255,255,0.5); background-color: transparent; color: $mono10
+    }
+    .btn_pay-imm[disabled='disabled'] { color: rgba(255,255,255,0.6) }
+    .btn_resv-imm { width: 91px; }
+
+    @include keyframe($animation_name: count-bubble__show){
+      0% {
+        -webkit-transform: translate(0, 10px);
+        -ms-transform: translate(0, 10px);
+        transform: translate(0, 10px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+    }
+    @include keyframe($animation_name: count-bubble__hide){
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    @include keyframe($animation_name: count-bubble__add){
+      0% {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+      }
+      33% {
+        -webkit-transform: translate(0, -5px);
+        -ms-transform: translate(0, -5px);
+        transform: translate(0, -5px);
+      }
+      66% {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+      }
+      100% {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+      }
+    }
+  }
+  &:not(.dfs__list) {
+    .digits {
+      @include font($family: en, $size: 18, $color: $text-primary, $weight: 600, $spacing: -0.03);
+      &:before {
+        content: "￦";
+        font-size: rem(17); color: $text-primary; font-weight: 800;
+      }
+    }
+  }
+}
+
+/* 총 결제금액 팝업 */
+.passenger-summary {
+  padding-left: rem($grid * 2);
+  .flight-num {
+    display: inline-block;
+    margin: 0 0 rem(12) rem(4);
+    dt { @include sr-only }
+    dd { @include tagging-route; width: auto; padding: 0 rem(4); }
+    & + .table-wrap { border-top: 1px solid $mono1; }
+  }
+  .table-wrap {
+    padding-bottom: rem($grid * 2);
+  }
+  .charge-sheet {
+    @include table($style: type1, $mg-size: small);
+    th, td { padding: rem($grid) 0; vertical-align: middle; }
+    thead th, tbody th, tbody td, tfoot th, tfoot td { border-bottom: 0; }
+    tbody td:last-of-type { text-align: right; }
+    tbody th, tbody td { height: rem(30); }
+    tbody th:last-child, tbody td:last-child {
+      @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
+      padding-right: rem($grid * 2);
+      text-align: right;
+      .digits {
+        @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
+        &:before {
+          content: "￦";
+          font-size: rem(12); color: $mono1; font-weight: 500;
+        }
+      }
+    }
+    tbody th[scope='colgroup'] { text-align: left; }
+    tbody tr + tr th[scope='colgroup'] { border-top: 1px solid $mono8 }
+    tbody th[scope='row'] {
+      @include font($size: 13, $color: $mono1, $weight: 800, $spacing: -0.03);
+      width: rem(70); text-align: left;
+    }
+    a, a:active, a:visited { color: #66B1FF; }
+  }
+  .passenger-name {
+    @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+    @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
+    @include text-uppercase;
+    margin: rem($grid * 2) 0 rem($grid); padding-left: rem(20);
+  }
+  .total-wrap {
+    height: rem(44);
+    border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
+    dl { display: table; table-layout: fixed; width: 100%; height: 100%; }
+    dt, dd { display: table-cell; vertical-align: middle; }
+    dt { @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); width: rem(50) }
+    dd {
+      @include font($size: 12, $color: $text-primary, $weight: 600, $spacing: -0.03);
+      padding-right: rem($grid * 2);
+      text-align: right;
+      .digits {
+        @include font($family: en, $size: 13, $color: $mono1, $weight: 500, $spacing: -0.03);
+        &:before {
+          content: "￦";
+          font-size: rem(12); color: $mono1; font-weight: 600;
+        }
+      }
+    }
+    & + .title { margin-top: rem($grid * 10); }
+  }
+}

@@ -1,0 +1,235 @@
+/*부가서비스 구매 > 라운지*/
+[data-page-id='buy__lounge']{
+  overflow: hidden;
+  width: 100%;
+  .info-wrap {
+    @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
+    padding: rem(30) rem($grid * 2) rem($grid * 2);
+    line-height: rem(16);
+    .digits:before { content: "₩" }
+    ul {
+      padding-top: rem(12);
+      font-size: rem(11);
+      li {
+        position: relative;
+        &:before {
+          content: "";
+          display: inline-block;
+          margin-right: rem($grid / 2); width: rem(2); height: rem(2);
+          background-color: $mono6; border-radius: 50%;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .slide-wrap {
+    &, .swiper-container, .swiper-container li {
+      z-index: 0;
+      position: relative;
+    }
+    .swiper-container img { width: 100%; height: auto; vertical-align: middle; }
+    .swiper-container li:after {
+      z-index: 0;
+      content: "";
+      display: block;
+      position: absolute; left: 0; bottom: 0; right: 0;
+      height: 80px;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .slide-title {
+      z-index: 1;
+      overflow: hidden;
+      position: absolute; bottom: 16px; left: 20px;
+      font-size: 18px; font-weight: 600; color: #fff;
+      line-height: 22px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5)
+    }
+    .slide-controller {
+      z-index: 5;
+      -webkit-transform: translate(0, -50%); -ms-transform: translate(0, -50%); transform: translate(0, -50%);
+      position: absolute; top: 50%; left: 0; right: 0; bottom: initial;
+      height: 36px;
+    }
+    .slide-controller:after { content: ""; display: table; clear: both; }
+    .slide-prev {
+      overflow: hidden;
+      float: left;
+      width: 36px; height: 36px;
+      background: url(#{$img-path}/buy/btn_lounge-prev.png) no-repeat; background-size: 36px auto;
+      text-indent: -999em;
+    }
+    .slide-next { overflow: hidden; float: right; width: 36px; height: 36px; background: url(#{$img-path}/buy/btn_lounge-next.png) no-repeat; background-size: 36px auto; text-indent: -999em; }
+    .common-info {
+      z-index: 5;
+      .digits:before { content: "₩" }
+    }
+    .lounge-price,
+    .lounge-price-info { position: absolute; width: 0; height: 0; margin: 0; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0 }
+    .lounge-price + dd {
+      z-index: 1;
+      overflow: hidden;
+      position: absolute; bottom: 20px; right: 20px;
+      font-size: 20px; font-weight: 800; color: #fff;
+      white-space: nowrap;
+      text-align: right;
+    }
+    .lounge-price-info + dd {
+      z-index: 1;
+      overflow: hidden;
+      position: absolute; bottom: 46px; right: 20px;
+      font-size: 11px; font-weight: 400; color: #fff;
+      white-space: nowrap;
+      text-align: right;
+    }
+    .lounge-customer {
+      z-index: 1;
+      position: absolute; right: 10px; bottom: 29px;
+      font-size: 12px; color: #fff;
+    }
+    .lounge-food {
+      position: absolute; right: 7px; top: 16px;
+    }
+    .lounge-food ul:after { content: ""; display: table; clear: both; }
+    .lounge-food li {
+      overflow: visible;
+      position: relative;
+      float: left;
+      padding-top: 43px; width: 46px; height: 55px;
+      background-repeat: no-repeat;
+      background-position: center top;
+      font-size: 11px; font-weight: 600;
+      text-align: center; color: #fff;
+      word-break: keep-all;
+      background-size: 36px auto;
+    }
+    .lounge-food li:not(:first-child):before {
+      content: "";
+      z-index: 5;
+      position: absolute; left: -4px; top: 16px;
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: url(#{$img-path}/buy/ico_lounge-plus.png) no-repeat;
+      background-size: 7px auto;
+    }
+    .lounge-food li:nth-of-type(1) {
+      background-image: url(#{$img-path}/buy/bg_lounge-food1@2x.png);
+    }
+    .lounge-food li:nth-of-type(2) {
+      background-image: url(#{$img-path}/buy/bg_lounge-food2@2x.png);
+    }
+    .lounge-food li:nth-of-type(3) {
+      background-image: url(#{$img-path}/buy/bg_lounge-food3@2x.png);
+    }
+    .lounge-food li:nth-of-type(4) {
+      background-image: url(#{$img-path}/buy/bg_lounge-food4@2x.png);
+    }
+    .lounge-food li:nth-of-type(5) {
+      background-image: url(#{$img-path}/buy/bg_lounge-food5@2x.png);
+    }
+  }
+  .lounge-legend {
+    @include clearfix;
+    padding-bottom: rem(10);
+  }
+  .price-list {
+    display: table;
+    width: 100%;
+    li {
+      @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
+      position: relative;
+      display: table-cell;
+      padding: rem(34) rem(16) 0; width: 33.33%; height: rem(80);
+      border-bottom: 1px solid $mono8;
+      &:not(:first-child) { border-left: 1px solid $mono8 }
+      &:before {
+        content: "";
+        position: absolute; left: rem(16); top: rem(16);
+        display: inline-block;
+        width: 6px; height: 6px;
+        border-radius: 50%; background-color: $bg-primary;
+      }
+      dl { display: table; padding-top: rem(8); }
+      dt, dd { display: table-cell; }
+      dt { @include sr-only; }
+      dd {
+        display: inline-block;
+        padding-right: .5em;
+        @include font($family: en, $size: 11, $color: $mono1, $weight: 600, $spacing: -0.03);
+        .digits:before {
+          content: "￦";
+          font-size: rem(10); color: $mono1; font-weight: 800;
+        }
+        & + dt + dd {
+          font-weight: 400; color: $mono4;
+          text-decoration: line-through;
+          .digits:before {
+            content: "￦";
+            font-size: rem(10); color: $mono4; font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+  .function-wrap { padding-bottom: rem(16); }
+  .table-wrap {
+    margin-left: rem(16); padding: 0 0 rem(50);
+    border-top: 1px solid $mono1;
+    table { @include table($style: type1, $mg-size: none); }
+    th, td { padding: rem($grid) 0; vertical-align: middle; }
+    tfoot th, tfoot td { background-color: transparent; }
+    thead th, tbody th, tbody td, tfoot th, tfoot td { border-bottom: 0; }
+    tbody td:last-of-type { text-align: right; }
+    tbody td:nth-of-type(1) { text-align: center; }
+    tfoot tr:first-of-type > * {
+      border-top: 1px solid $mono1
+    }
+    tfoot tr > * { height: rem(44); border-bottom: 1px solid $mono8; }
+    tfoot th {
+      @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03);
+      padding: rem(12) 0 rem(12) rem(23) !important; text-align: left;
+    }
+    tfoot td {
+      text-align: right;
+      .digits {
+        @include font($family: en, $size: 13, $color: $text-primary, $weight: 500, $spacing: -0.03);
+        &:before {
+          content: "￦";
+          font-size: rem(12); color: $text-primary; font-weight: 600;
+        }
+      }
+      dt { @include sr-only }
+    }
+    tbody th, tbody td { height: rem(30); }
+    tbody th[scope='row'] {
+      @include font($family: en, $size: 14, $color: $mono1, $weight: 500, $spacing: -0.03);
+      @include text-uppercase;
+      text-align: left;
+    }
+    tbody td:last-child, tfoot td:last-child { padding-right: rem($grid * 2) !important; }
+    tbody tr:last-of-type th, tbody tr:last-of-type td { border-bottom-color: $mono1; }
+    input[type='checkbox'] {
+      @include form($size: 3, $role: normal, $type: checkbox);
+      & + label .ico { vertical-align: top; }
+    }
+    dt { @include sr-only }
+    dd, dd:first-of-type:last-of-type {
+      @include font($family: en, $size: 12, $color: $text-primary, $weight: 500, $spacing: -0.03);
+      display: inline-block;
+      padding-left: 0.5em;
+      text-decoration: none;
+      &:before {
+        content: "￦";
+        font-size: rem(11); color: $text-primary; font-weight: 600;
+      }
+    }
+    dd:first-of-type {
+      color: $mono4; text-decoration: line-through; font-weight: 400;
+      &:before {
+        content: "￦";
+        font-size: rem(11); color: $mono4; font-weight: 500;
+      }
+    }
+    tbody th:first-child label { font-size: rem(13) !important; font-weight: 600 !important; }
+    tbody th + td { font-size: rem(13); }
+  }
+}

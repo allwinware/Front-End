@@ -1,0 +1,144 @@
+/* layout */
+html { font-size: #{$font-root-size}px; }
+body {
+  font-family: $font-common-family;
+  @include font($size: $font-root-size, $color: $mono1, $weight: 400);
+}
+.ags-wrap {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.content-wrap { @include content-wrap }
+.site-name { @include sr-only }
+.ags-header {
+  overflow: hidden;
+  position: relative;
+  height: rem($gnb-height);
+  border-bottom: 1px solid $mono8;
+  .symbol-wrap {
+    float: left;
+    height: 100%;
+    dt { @include sr-only }
+    dd { display: inline-block; }
+    .symbol_agency + dd {
+      padding-left: 58px; height: rem($gnb-height);
+      @include background($file: 'common/header-logo_by', $type: jpg, $width: rem(18), $height: rem($gnb-height));
+      background-position: rem(20);
+    }
+  }
+  .gnb-wrap {
+    @include clearfix;
+    float: right;
+    height: 100%;
+  }
+  .gnb {
+    margin: 0 rem(-12);
+    li {
+      float: left;
+      padding: rem(25) rem($grid) 0;
+      &:last-of-type { float: right; }
+      a {
+        @include font($size: $font-root-size, $color: $mono1, $weight: 600);
+        overflow: hidden;
+        display: inline-block;
+        padding: rem($grid) rem($grid / 2);
+        vertical-align: middle; text-decoration: none;
+      }
+      &.active a { color: $text-primary }
+    }
+  }
+}
+.ags-container {
+  position: relative;
+  padding: rem($anc_lnb-height + 100) 0 rem($summary-height + 44);
+}
+.notification-title {
+  @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+  position: relative;
+  padding: rem(3) 0 rem(4) rem(22);
+  .ico {
+    @include background($file: 'common/ico_notice', $type: png, $width: rem(16), $height: rem(16));
+    position: absolute; left: 0; top: 0;
+    display: inline-block;
+    width: rem(16); height: rem(16);
+  }
+}
+.notification-list {
+  $font-size: 12;
+  $line-height: 16;
+  @include font($size: $font-size, $color: $mono1, $weight: 300, $spacing: -0.03);
+  position: relative;
+  padding-bottom: rem(20);
+  li {
+    position: relative;
+    margin-top: rem(6);
+    line-height: rem($line-height);
+  }
+  & > li {
+    padding-left: rem(9);
+    &:before {
+      $blt-size: 2;
+      content: "";
+      display: inline-block;
+      position: absolute; left: 0; top: rem(($line-height / 2) - $blt-size);
+      width: rem($blt-size); height: rem($blt-size);
+      background-color: $mono1; border-radius: 50%;
+    }
+  }
+  & > li > ul > li {
+    position: relative;
+    padding-left: rem($grid);
+    &:before { content: "-"; position: absolute; top: 0; left: 0; }
+  }
+}
+.content-wrap + .content-wrap {
+  border-top: 1px solid $mono8
+}
+/*여권번호 등록 & 이메일 SMS 주문서 받기*/
+.passport-wrap, .dfs-email-wrap {
+  .passport-list, .dfs-info-list {
+    @include clearfix;
+    border-top: 1px solid $mono1;
+    dt, dd { float: left; padding: rem($grid) 0; height: rem(53); line-height: rem(36); border-bottom: 1px solid $mono8 }
+    dt { padding-right: rem(30); width: rem(100); font-weight: 600; }
+    dd { padding-right: rem($grid * 2); width: calc(100% - 100px) }
+    .passport-num { @include font($family: en, $size: 14, $color: $mono1, $weight: 500); text-transform: uppercase; }
+    label { display: inline-block; padding: rem(11) 0; line-height: rem(14); }
+    dd input[type='text'] {
+      @include form($size: 2, $role: normal, $type: text);
+      @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+      width: 100%; height: 100%;
+    }
+    dd select {
+      @include form($size: 2, $role: normal, $type: select);
+      @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+      width: calc(100% - 10px); height: 100%;
+      border: 0;
+    }
+  }
+  .passport-list dt { width: rem(140); }
+  .passport-list dd { width: calc(100% - 140px) }
+  .notification-wrap { padding: rem(6) 0 0 0; }
+  .notification-list {
+    $font-size: 11; font-size: rem($font-size); line-height: em(14, $font-size); word-break: keep-all;
+  }
+}
+
+.ags-footer {
+  @include font($size: 11, $color: $mono10, $weight: 400);
+  background-color: $mono1;
+  .symbol_allwin {  }
+}
+
+/* z-index */
+.ags-header { z-index: 500 }
+.ags-footer { z-index: 100 }
+.ags-wrap {
+  z-index: 0;
+  &.gnb-active {
+    .ags-header { z-index: 1500 }
+    .ags-summary,
+    .ags-footer { z-index: 500 }
+  }
+}

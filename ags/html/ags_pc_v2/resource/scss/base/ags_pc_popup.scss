@@ -1,0 +1,375 @@
+/* z-index */
+.ags-summary { z-index: 500; &.active { z-index: 1500 } }
+.ags-wrap .page-dim { z-index: 1000 }
+.pop-area .page-dim { z-index: 0 }
+
+/* common */
+.page-dim {
+  transition: all 1s;
+  position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.25);
+}
+.page-loading {
+  display: block;
+  position: relative;
+  width: rem(80); height: rem(80);
+  background-color: $mono10;
+  border-radius: 50%;
+  .ico {
+    $size: 24;
+    @include align-center;
+    @include background($file: 'popup/ico_page-loading', $type: png, $width: rem($size), $height: rem($size));
+    @include animation($delay: 0, $duration: 1s, $animation: anm_page-loading, $direction: forward, $fillmode: fowards);
+    display: inline-block;
+    width: rem($size); height: rem($size);
+    animation-iteration-count: infinite;
+  }
+  .loading-message {
+    display: inline-block;
+    opacity: 1;
+    position: absolute; top: 50%; left: 50%;
+    -ms-transform: translate(-50%, -50%); -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
+    margin-top: -100px; padding: 16px; min-width: 240px; max-width: 280px; border: 2px solid #ff4f24; background-color: #ff4f24; border-radius: 5px;
+    font-size: 13px; line-height: 1.4em; font-weight: 600; text-align: center; color: #fff; white-space: nowrap;
+    box-shadow: 6px 6px 10px rgba(255,79,36,0.3);
+  }
+}
+@include keyframe($animation_name: anm_page-loading){
+  0% {
+    -webkit-transform: translate(-50%, -50%) rotate(0);
+    -ms-transform: translate(-50%, -50%) rotate(0);
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  70%, 100% {
+    -webkit-transform: translate(-50%, -50%) rotate(-360deg);
+    -ms-transform: translate(-50%, -50%) rotate(-360deg);
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+
+/* popup common layout */
+.pop-area {
+  overflow: auto;
+  display: none;
+  position: fixed; right: 0; bottom: 0; left: 0;
+  &.active { display: block; }
+}
+.pop-wrap {
+  ul.list-dot > li {
+    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: 0);
+    position: relative;
+    margin-bottom: rem(4); padding-left: rem($grid);
+    &:before {
+      content: "";
+      position: absolute; left: 0; top: 7px;
+      display: inline-block; width: 3px; height: 3px;
+      background-color: $mono1; border-radius: 50%;
+    }
+    &:last-child { margin-bottom: 0; }
+  }
+  ul.list-bar {
+    padding: rem(6) 0 rem(10);
+    & > li {
+      @include font($size: 12, $color: $mono1, $weight: 400, $spacing: 0);
+      position: relative;
+      margin-bottom: rem(2); padding-left: rem($grid);
+      &:before {
+        content: "-";
+        position: absolute; left: 0; top: 0;
+      }
+      &:last-child { margin-bottom: 0; }
+    }
+  }
+}
+
+/* data-type='modal' */
+
+/* alert common style */
+@mixin alert-style {
+  .ico-wrap {
+    padding-top: rem(30);
+    [class*='ico_alert'] {
+      $size: 48;
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+      width: rem($size); height: rem($size);
+      background-color: $mono9; border-radius: 50%;
+      text-indent: -999em;
+      &:before {
+        @include background($file: 'popup/ico_exclamation--w', $type: png, $width: rem(4), $height: rem(28));
+        @include align-center;
+        content: "";
+        display: inline-block;
+        width: rem(4); height: rem(28);
+      }
+    }
+    [class*='--primary'] {
+      background-color: $bg-primary;
+    }
+    & + .alert-title + .alert-text:last-of-type { padding-bottom: rem($grid * 2) }
+  }
+  .alert-title {
+    $font-size: 16;
+    @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: -0.03);
+    padding-top: rem(30);
+    line-height: em(22, $font-size);
+    &:last-child { padding-bottom: rem($grid * 2) }
+  }
+  .alert-text {
+    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
+    padding-top: rem($grid * 2);
+    line-height: em(18, 13);
+  }
+  .alert-text:first-child { padding-top: rem($grid * 3) }
+  dl.alert-text {
+    margin-left: rem($grid * 2); margin-right: rem($grid * 2);
+    & > dt {
+      @include font($size: 11, $color: $mono10, $weight: 600, $spacing: -0.03);
+      padding: rem(8) rem($grid * 2);height: rem($grid * 4);
+      background-color: $mono1;
+      text-align: center;
+    }
+    & > dd {
+      padding: rem(12) rem(10);
+      background-color: #F8F8F8; text-align: left;
+    }
+    dl dt, dl dd {
+      @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03);
+      display: inline;
+      line-height: rem(16);
+    }
+    dl dt { font-weight: 600; }
+    dl dd:before { content: ":"; padding: 0 0.3em 0 0.2em }
+    dl dd:after { content: ""; display: block; width: 100%; height: 0 }
+  }
+}
+/* data-type='alert' */
+[data-type='alert'] {
+  @include alert-style;
+  top: 0;
+  .pop-wrap {
+    @include align-center;
+    padding: rem(12); width: calc(327 / 375 * 100%); max-width: rem(327);
+    border-radius: rem(3);
+    background-color: $mono10;
+  }
+  .pop-header { margin: rem(-12) rem(-12) 0; height: rem(53); }
+  .pop-title {
+    @include font($size: 16, $color: $mono1, $weight: 600, $spacing: 0);
+    @include text-ellipsis();
+    overflow: auto;
+    position: relative;
+    padding: 0 rem($grid * 2); width: 100%; height: rem(53);
+    line-height: rem(52);
+    text-align: center;
+    border-bottom: 1px solid $mono8;
+  }
+  .pop-container { padding-bottom: rem(24); min-height: rem(80); text-align: center; }
+  .pop-header + .pop-container { padding-left: rem(4); padding-right: rem(4) }
+  .pop-footer {
+    @include flex(space-between stretch flex-start nowrap);
+    margin: 0 rem(-2);
+    [class^='btn_'] { margin: 0 rem(2) !important; }
+    .btn_cancel {
+      @include form($type: button, $size: 4, $role: cancel);
+      width: auto; min-width: rem(90);
+    }
+    .btn_confirm {
+      @include form($type: button, $size: 4, $role: submit);
+      flex: 1 auto;
+    }
+  }
+  ul.list-dot > li { text-align: left; line-height: rem(20) }
+}
+
+/* data-type='message' */
+[data-type='message'] {
+  $pop-header-area: 82;
+  $pop-footer-area: 150;
+  overflow: hidden;
+  transition: 0.75s all; transition-delay: 0.25s;
+  max-height: 0;
+  border-radius: rem(12) rem(12) 0 0;
+  bottom: -100vh;
+  display: block;
+  &.active { max-height: 100vh; bottom: 0; }
+  .pop-wrap {
+    transition: none;
+    overflow: hidden;
+    padding: rem(($pop-header-area)) 0 rem($pop-footer-area); max-height: inherit;
+    background-color: $mono10;
+  }
+  .pop-header {
+    z-index: 1;
+    position: absolute; left: 0; top: 0; right: 0;
+    padding: rem(50) rem($grid * 2) rem($grid * 2); height: rem($pop-header-area);
+    background-color: $mono10;
+  }
+  .pop-title {
+    $font-size: 16;
+    z-index: 0;
+    @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: 0);
+    @include text-ellipsis();
+    overflow: visible;
+    display: block;
+    position: relative;
+    padding: 0 rem((24 + $grid * 2)) 0 0; width: 100%;
+    line-height: em(16, $font-size); text-align: left;
+  }
+  .btn_close {
+    z-index: 1;
+    @include background($file: 'popup/ico_pop-close', $type: 'png', $width: 20px, $height: 20px);
+    overflow: hidden;
+    position: absolute; right: rem(16); top: rem(16);
+    width: rem(24); height: rem(24);
+    background-position: 50% 50%; background-color: transparent;
+    text-indent: -999em;
+  }
+  .pop-container {
+    transition: none;
+    z-index: 0;
+    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: 0);
+    overflow: auto;
+    margin: rem(-$pop-header-area) 0 rem(-$pop-footer-area); padding: rem($pop-header-area) rem($grid * 2) rem($pop-footer-area); width: 100%; max-height: inherit;
+    .message-text > *:last-child { padding-bottom: 0; }
+    .message-text.mg-b--min { margin-bottom: rem(-50) }
+  }
+  .pop-footer {
+    z-index: 1;
+    position: absolute; bottom: 0; right: 0; left: 0;
+    padding: rem($grid * 3) rem($grid * 2); min-height: rem(105);
+    background-color: $mono10;
+    input[type='checkbox'] { @include form($size: 4, $role: normal, $type: checkbox) }
+    .process-btn-wrap {
+      @include flex(flex-start stretch flex-start nowrap);
+      margin: 0 rem(-3); padding: rem($grid * 3) 0 0;
+      [class^='btn_'] { margin: 0 rem(3) !important; }
+      .btn_cancel {
+        @include form($type: button, $size: 4, $role: cancel);
+        width: auto; min-width: rem(90);
+      }
+      .btn_confirm {
+        @include form($type: button, $size: 4, $role: submit);
+        flex: 1 auto;
+      }
+      &:first-child { padding-top: 0; }
+    }
+  }
+  .row { padding-bottom: rem($grid * 2); line-height: rem(18); }
+  ol li { list-style: decimal; list-style-position: inside; line-height: rem(18); }
+}
+
+/* data-type='drawer' */
+[data-type='drawer'] {
+  transition: 0.75s bottom, 1s height;
+  transition-delay: 0.25s;
+  position: fixed; bottom: rem(-142); left: 0; right: 0;
+  padding: rem(108) 0 rem(34) 0; height: 0;
+  background-color: $mono10; border-radius: rem(16) rem(16) 0 0;
+  .summary-title {
+    @include font($size: 16, $color: $mono1, $weight: 800, $spacing: -0.03);
+    position: absolute; left: rem($grid * 2); top: rem(50);
+  }
+  .inner-wrap { overflow: auto; padding-bottom: rem(50); width: 100%; height: 100%; }
+  .title {
+    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
+    display: inline-block;
+  }
+  .btn_drawer {
+    @include background($file: 'popup/btn_ags-summary-close', $type: png, $width: rem(20), $height: rem(20));
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+    overflow: hidden;
+    position: absolute; right: rem(16); top: rem(16);
+    display: inline-block;
+    width: rem(24); height: rem(24);
+    background-position: 50% 50%;
+    text-indent: -999em;
+    .ico { display: none; }
+  }
+  &.active {
+    display: block;
+    top: auto; bottom: 0;
+  }
+}
+
+/* GNB 메뉴 팝업 */
+.ags-header .gnb-wrap .gnb-2dp-wrap {
+  transition: all $trs-duration;
+  transition-delay: $trs-delay;
+  opacity: 0; visibility: hidden;
+  overflow: auto;
+  position: fixed; left: calc(-375 / 375 * 100%); top: 0; bottom: 0;
+  padding: rem(50) rem($grid * 4) rem($grid * 4) rem($grid * 4); width: 100%;
+  background-color: $mono1;
+  .btn_close { position: absolute; right: rem($grid * 2); top: rem($grid * 2) }
+  .welcome-msg { @include font($size: 13, $color: $mono10, $weight: 600, $spacing: -0.03); line-height: rem(20) }
+  li { float: none !important; margin: 0 !important; }
+  &.active {
+    opacity: 1; visibility: visible;
+    position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+  }
+  .btn_close {
+    z-index: 1;
+    @include background($file: 'popup/ico_pop-close--w', $type: 'png', $width: 14px, $height: 14px);
+    overflow: hidden;
+    position: absolute; right: rem(16); top: rem(14);
+    width: rem(24); height: rem(24);
+    background-position: 50% 50%; background-color: transparent;
+    text-indent: -999em;
+  }
+  .depth1 { padding-top: rem(50); }
+  .depth1 > li {
+    $font-size: 22;
+    @include font($size: $font-size, $color: $mono10, $weight: 800, $spacing: -0.03);
+    line-height: em(50, $font-size);
+    a {
+      display: block;
+      line-height: em(50, $font-size);
+      color: inherit; text-decoration: none;
+    }
+    &.active a { color: $text-third }
+    &.new a {
+      padding-right: em(54, $font-size);
+      &:after {
+        content: "new";
+        $font-size: 15;
+        @include font($family: en, $size: $font-size, $color: $mono10, $weight: 500, $spacing: -0.03);
+        display: inline-block;
+        margin-left: rem($grid); padding: 0 em(8, $font-size); height: em(24, $font-size);
+        line-height: em(24, $font-size);
+        background-color: rgba(219,16,16,0.9);
+        border: 1px solid #FF0000; border-radius: em(13, $font-size);
+        vertical-align: middle; text-transform: uppercase;
+      }
+    }
+  }
+  .depth2 {
+    padding-bottom: rem($grid * 2);
+    & > li {
+      $font-size: 16;
+      @include font($size: $font-size, $color: $mono10, $weight: 600, $spacing: -0.03);
+      a { display: block; padding-left: em(16, $font-size); line-height: em(36, $font-size); }
+    }
+  }
+}
+
+
+
+/* popup.html을 위한 스타일시트 */
+[data-page-id='popup'] {
+  .list-wrap {
+    padding: rem($grid * 2) 0 0 rem($grid * 2);
+  }
+  .list-style1 {
+    li { border-bottom: 1px solid $mono8 }
+    a {
+      @include font($size: 14, $color: $mono1, $weight: 400, $spacing: -0.03);
+      display: block; padding: rem($grid* 2) rem($grid * 2);
+      text-decoration: none;
+    }
+  }
+}

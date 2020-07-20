@@ -105,14 +105,7 @@ $(document).ready(function(){
         $("[data-type='tab-group']").each(function(){
             var $thisTap = $(this),
                 $tabBtn = $thisTap.find("[role='tab']"),
-                $tabPan = $thisTap.find("[role='tabpanel']"),
-                $innerWrap = $thisTap.find(".align-horizontal");
-
-            // 탭의 갯수에 맞추어 .tab-wrap 사이즈 조정
-            if($innerWrap.length > 0){
-                $innerWrap.css("width", $tabPan.length * 100 + "%");
-                $tabPan.css("width", $win.innerWidth())
-            }
+                $tabPan = $thisTap.find("[role='tabpanel']");
 
             // 시각적으로 활성화 표기를 위한 클래스 추가
             $tabBtn.first().addClass("active").attr("tabindex", "0");
@@ -221,9 +214,6 @@ $(document).ready(function(){
                     .siblings("[role='tabpanel']")
                     .attr("tabindex", "-1")
                     .removeClass("active");
-
-                /* 탭 컨텐츠가 화면 중앙에 오도록 이동 */
-                $innerWrap.css("margin-left", "-" + $target.index() * 100 + "vw");
             });
 
         });
