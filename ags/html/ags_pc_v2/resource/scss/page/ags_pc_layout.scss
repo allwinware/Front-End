@@ -127,8 +127,42 @@ body {
 
 .ags-footer {
   @include font($size: 11, $color: $mono10, $weight: 400);
+  padding-top: rem(31); height: rem(170);
   background-color: $mono1;
-  .symbol_allwin {  }
+  .content-wrap { position: relative; }
+  .symbol_allwin {
+    @include background($file: 'common/footer-logo_allwinair', $type: 'png', $width: rem(136), $height: rem(20));
+    overflow: hidden;
+    margin-bottom: rem(25); width: rem(136); height: rem(20);
+    text-indent: -999em;
+  }
+  .fnb {
+    position: absolute; top: 0; right: rem($grid * 2);
+    ul { @include clearfix; }
+    li {
+      float: left;
+      & + li {
+        @include divide-line($direction: left, $el: before, $color: rgba(204,204,204,0.2), $size: 12, $mg: 10);
+        position: relative;
+      }
+    }
+    a { color: inherit; text-decoration: none; }
+  }
+  .service-info {
+    margin-bottom: rem(9);
+  }
+  .company-info {
+    @include clearfix;
+    margin-bottom: rem($grid * 2);
+    & > * { float: left; }
+    .address, .company-name { @include sr-only }
+    dd:not(:last-of-type) { @include divide-line($direction: right, $el: after, $color: rgba(204,204,204,0.2), $size: 12, $mg: 10); }
+    dt:not(.address):not(.company-name) + dd:before { content: ":"; padding: 0 rem(3) }
+  }
+  .copyright { text-transform: uppercase }
+  @media only screen and (min-width: 1440px) {
+    & { margin: 0 rem($grid * 2); }
+  }
 }
 
 /* z-index */

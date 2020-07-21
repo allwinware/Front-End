@@ -71,6 +71,24 @@ function messagePopHide(target){
     setTimeout(function(){ target.css("max-height", "") }, 750);
 }
 
+/* 엘리먼트가 특정 위치에서 Sticky되거나 unSticky되는 기능 정의 */
+function sticky(target, start, end){
+    var $target = target;
+    if($win.scrollTop() >= start){
+        $target.addClass("ui-fixed");
+        if ($win.scrollTop() >= end){
+            $target.removeClass("ui-fixed").addClass("ui-fixed---bottom");
+        } else if ($win.scrollTop() < end) {
+            $target.removeClass("ui-fixed---bottom").addClass("ui-fixed");
+        } else if (end === null) {
+            /* null = do nothing */
+            $target.removeClass("ui-fixed---bottom").addClass("ui-fixed");
+        }
+    } else {
+        $target.removeClass("ui-fixed");
+    }
+}
+
 $(document).ready(function(){
     /* variation */
     var $win = $(window),
