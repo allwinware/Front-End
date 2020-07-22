@@ -15,14 +15,6 @@ function deleteDim(target){
     $("html, body").css("overflow", "");
 }
 
-/*횡렬 아이템들 중 하나를 선택하면 선택된 아이템을 scrollLeft로 정렬*/
-function activeLinkScrollLeft(el, wrap, duration){
-    var thisLeft = $(el).offset().left,
-        elLeft = $(wrap).scrollLeft(),
-        myScrollPos = thisLeft + elLeft - 32;
-    $(wrap).animate({ scrollLeft: myScrollPos }, duration)
-}
-
 /*스크롤이 특정 위치를 지나갈 때 클래스 첨삭*/
 function compScroll(el, current, setPoint, className) {
     if (current > setPoint) {
@@ -38,15 +30,6 @@ $.fn.digits = function(){
         $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
     })
 };
-
-/* 버튼을 이용한 탭간 이동 기능 정의 */
-function moveTabByClick(el, target, position, duration){
-    $(el).on("click", function(){
-        $("html").animate({scrollTop: position}, duration, function(){
-            $(target).mousedown()
-        });
-    })
-}
 
 /* 팝업 생성 기능 정의 */
 function popupShow(target){
@@ -206,7 +189,7 @@ $(document).ready(function(){
                         .removeClass("active");
                 }
             });
-            $tabBtn.on("mousedown", function(){
+            $tabBtn.on("mousedown", function(e){
                 // 선택된 탭 활성화
                 var $this = $(this),
                     $target = $("#" + $this.attr("aria-controls"));
@@ -317,12 +300,78 @@ $(document).ready(function(){
             var $trigger = $(this),
                 $target = $($(this).attr("data-foldable-target"));
             if($target.hasClass("active") === true){
-                $trigger.removeClass("active")
+                $trigger.removeClass("active");
                 $target.removeClass("active")
             } else {
-                $trigger.addClass("active")
+                $trigger.addClass("active");
                 $target.addClass("active")
             }
         });
-    })()
+    })();
+
+    /* 스크롤 바를 미관상 보기 좋게 바꿔줍니다. */
+    (function(){
+        $("*[data-scrollbar='true']").mCustomScrollbar({
+            setWidth:false,
+            setHeight:false,
+            setTop:0,
+            setLeft:0,
+            axis:"y",
+            scrollbarPosition:"inside",
+            scrollInertia:200,
+            autoDraggerLength:true,
+            autoHideScrollbar:true,
+            autoExpandScrollbar:false,
+            alwaysShowScrollbar:false,
+            snapAmount:null,
+            snapOffset:0,
+            mouseWheel:{
+                enable:true,
+                scrollAmount:"auto",
+                axis:"y",
+                preventDefault:false,
+                deltaFactor:"auto",
+                normalizeDelta:false,
+                invert:false,
+                disableOver:["select","option","keygen","datalist","textarea"]
+            },
+            scrollButtons:{
+                enable:false,
+                scrollType:"stepless",
+                scrollAmount:"auto"
+            },
+            keyboard:{
+                enable:true,
+                scrollType:"stepless",
+                scrollAmount:"auto"
+            },
+            contentTouchScroll:25,
+            advanced:{
+                autoExpandHorizontalScroll:false,
+                autoScrollOnFocus:"input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
+                updateOnContentResize:true,
+                updateOnImageLoad:true,
+                updateOnSelectorChange:false,
+                releaseDraggableSelectors:false
+            },
+            theme:"light",
+            callbacks:{
+                onInit:false,
+                onScrollStart:false,
+                onScroll:false,
+                onTotalScroll:false,
+                onTotalScrollBack:false,
+                whileScrolling:false,
+                onTotalScrollOffset:0,
+                onTotalScrollBackOffset:0,
+                alwaysTriggerOffsets:true,
+                onOverflowY:false,
+                onOverflowX:false,
+                onOverflowYNone:false,
+                onOverflowXNone:false
+            },
+            live:false,
+            liveSelector:null
+        });
+    })();
 });

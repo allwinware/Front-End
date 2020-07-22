@@ -2866,6 +2866,10 @@ body {
   padding: 2.46154rem;
 }
 
+[data-page-id='anc_main'] .anc-service-wrap .anc-service .tabs [role='tab'] {
+  transition: background-color, border, color 0.5s;
+}
+
 [data-page-id='anc_main'] .anc-service-wrap.anc_seat .anc-service,
 [data-page-id='anc_main'] .anc-service-wrap.anc_meal .anc-service {
   padding-right: 32.61538rem;
@@ -3882,13 +3886,10 @@ body {
   padding-left: 0.61538rem;
 }
 
-[data-page-id='anc_main'] .anc-summary table tbody th ~ td.price-krw {
+[data-page-id='anc_main'] .anc-summary table tbody th ~ td:nth-of-type(2) {
+  /*@include price-unit(krw);*/
   width: 5.23077rem;
   text-align: right;
-}
-
-[data-page-id='anc_main'] .anc-summary table tbody th ~ td.price-krw .digits:before {
-  content: "₩";
 }
 
 [data-page-id='anc_main'] .anc-summary table tbody th ~ td:last-child {
@@ -3997,7 +3998,11 @@ body {
 [data-page-id='anc_main'] .anc-summary.ui-fixed {
   position: fixed;
   top: 4.69231rem;
-  bottom: 0;
+  max-height: calc(100vh - 61px);
+}
+
+[data-page-id='anc_main'] .anc-summary.ui-fixed .scroll-wrap {
+  max-height: calc(100vh - 61px - 80px - 24px - 135px);
 }
 
 [data-page-id='anc_main'] .anc-summary.ui-fixed---bottom {
@@ -4602,6 +4607,17 @@ body {
   text-decoration: none;
   border: 1px solid #f0f0f0;
   border-radius: 3px;
+}
+
+[data-page-id='anc_main'] .anc_baggage .baggage-plan li a:not(.disabled):hover {
+  border-color: #000;
+  color: #000;
+}
+
+[data-page-id='anc_main'] .anc_baggage .baggage-plan li a.disabled {
+  color: #ffffff;
+  background-color: #f0f0f0;
+  cursor: not-allowed;
 }
 
 [data-page-id='anc_main'] .anc_baggage .baggage-plan li.active a {

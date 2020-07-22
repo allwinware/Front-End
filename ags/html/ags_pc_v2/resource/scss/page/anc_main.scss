@@ -67,7 +67,6 @@
       .passenger-name { font-weight: 800; }
     }
   }
-
   .anc-service-wrap {
     padding-top: rem(100);
     .anc-header {
@@ -97,7 +96,12 @@
       position: relative;
       padding: 0; max-height: 60vh; border: 1px solid $mono8;
       @at-root .no-flexbox & { height: 60vh; }
-      .tabs { margin-bottom: rem(-4); padding: rem($grid * 4); }
+      .tabs {
+        margin-bottom: rem(-4); padding: rem($grid * 4);
+        [role='tab'] {
+          transition: background-color,border,color $trs-duration;
+        }
+      }
     }
     &.anc_seat .anc-service,
     &.anc_meal .anc-service {
@@ -269,7 +273,7 @@
     table tbody th + td { @include text-ellipsis(); display: table-cell; }
     table tbody th ~ td {
       padding-left: rem($grid);
-      &.price-krw { @include price-unit(krw); width: rem(68); text-align: right; }
+      &:nth-of-type(2) { /*@include price-unit(krw);*/ width: rem(68); text-align: right; }
       &:last-child { width: rem(22) }
     }
     .btn_delete { @include anc__btn_delete; margin-left: 0; }
@@ -286,7 +290,8 @@
       letter-spacing: rem(1);
     }
     &.ui-fixed {
-      position: fixed; top: rem($anc_lnb-height); bottom: 0;
+      position: fixed; top: rem($anc_lnb-height); max-height: calc(100vh - #{$anc_lnb-height}px);
+      .scroll-wrap { max-height: calc(100vh - 61px - 80px - 24px - 135px); }
     }
     &.ui-fixed---bottom {
       position: absolute; top: auto; bottom: rem(170)
