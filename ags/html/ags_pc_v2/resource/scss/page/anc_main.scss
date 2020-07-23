@@ -32,10 +32,10 @@
     &:before { content: ""; position: absolute; right: rem($anc-select-area-width); top: 0; bottom: 0; width: 1px; background-color: $mono8; }
   }
   .ticket-info {
+    $font-size: 30;
     margin: rem(-20) 0;
     dt, dd { float: left; }
     .airport {
-      $font-size: 30;
       @include clearfix;
       padding-bottom: rem(20);
       dt { @include sr-only; }
@@ -44,6 +44,7 @@
         padding-left: em(66, $font-size);
         @include background($file: 'common/ico_airplane', $type: png, $width: rem(23), $height: rem(23));
         background-position: em(20, $font-size) center;
+
       }
     }
     .detail-info {
@@ -65,6 +66,11 @@
         &:before { content: ""; @include valign-center; left: 0; width: 1px; height: rem(10); background-color: #999 }
       }
       .passenger-name { font-weight: 800; }
+    }
+    &.one-way {
+      .airport .arrival + dd {
+        @include background($file: 'common/ico_airplane_oneway', $type: png, $width: rem(22), $height: rem(16));
+      }
     }
   }
   .anc-service-wrap {
