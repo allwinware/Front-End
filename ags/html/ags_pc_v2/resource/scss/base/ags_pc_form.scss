@@ -20,22 +20,22 @@
       height: rem(36);
       line-height: rem(34);
     } @else if $size == 3 {
-      @include font($size: 13, $color: $mono1, $weight: 800);
+      @include font($size: 13, $color: $mono1, $weight: 600);
       padding: 0 rem(13);
       height: rem(42);
       line-height: rem(40);
     } @else if $size == 4 {
-      @include font($size: 14, $color: $mono1, $weight: 800);
+      @include font($size: 14, $color: $mono1, $weight: 600);
       padding: 0 rem($grid * 2);
-      height: rem(48);
-      line-height: rem(46);
+      height: rem(50);
+      line-height: rem(48);
     } @else if $size == 5 {
-      @include font($size: 15, $color: $mono1, $weight: 800);
+      @include font($size: 15, $color: $mono1, $weight: 600);
       padding: 0 rem($grid * 3);
       height: rem(56);
       line-height: rem(54);
     } @else if $size == 6 {
-      @include font($size: 16, $color: $mono1, $weight: 800);
+      @include font($size: 16, $color: $mono1, $weight: 600);
       padding: 0 rem($grid * 3);
       height: rem(62);
       line-height: rem(60);
@@ -148,7 +148,7 @@
     }
   }
 
-  @if $type == "button" or $type == "select" or $type == "textbox" or $type == "textarea" {
+  @if $type == "select" or $type == "textbox" or $type == "textarea" {
     @if $role == "normal" {
       border: 1px solid $mono6;
       background-color: $mono10;
@@ -172,6 +172,40 @@
       background-color: $mono9;
       color: $mono7;
       text-shadow: 1px 1px 0 rgba(255,255,255,1)
+    } @else if $role == "discard" {
+      border: 1px solid #eee;
+      background-color: #eee;
+      color: $mono1;
+    } @else if $role == "minified" {
+      border: none;
+      background-color: transparent;
+    } @else if $role == "primary3" {
+      border: 1px solid $bg-secondary;
+      background-color: $bg-secondary;
+      color: $mono10
+    }
+  }
+  @if $type == "button" {
+    @if $role == "normal" {
+      border: 1px solid $mono1;
+      background-color: $mono10;
+      color: $mono1;
+    } @else if $role == "submit" {
+      border: 1px solid $bg-submit;
+      background-color: $bg-submit;
+      color: $mono1;
+    } @else if $role == "primary1" {
+      border: 1px solid $border-primary;
+      background-color: $mono10;
+      color: $mono1;
+    } @else if $role == "primary2" {
+      border: 1px solid $border-primary;
+      background-color: $bg-primary;
+      color: $mono1;
+    } @else if $role == "disabled" {
+      border: 1px solid $border-primary;
+      background-color: $bg-primary;
+      color: $mono1;
     } @else if $role == "discard" {
       border: 1px solid #eee;
       background-color: #eee;

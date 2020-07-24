@@ -364,14 +364,26 @@
 }
 
 
-@mixin tagging-route {
-  @include font($size: 9, $color: $mono10, $weight: 800, $spacing: -0.03);
+@mixin tagging-route($type: style1) {
+  $font-size: 9;
+  @include font($size: $font-size, $color: $mono10, $weight: 800, $spacing: -0.03);
   display: inline-block;
-  width: rem(35); height: rem(16);
-  line-height: rem(16);
-  text-align: center; white-space: nowrap;
-  background-color: $mono1;
+  padding: 0 em(4, $font-size); /*width: em(35, $font-size);*/ height: em(16, $font-size);
+  border: 1px solid transparent; line-height: em(14, $font-size);
+  text-align: center; white-space: nowrap; vertical-align: top;
+  @if $type == style1 {
+    color: $mono10;
+    background-color: $mono1;
+  } @else if $type == style2 {
+    color: $mono1;
+    background-color: $mono10;
+    border: 1px solid $mono1;
+  }
 }
+.ico_tag {
+  @include tagging-route
+}
+
 @mixin btn_more--minified {
   @include font($size: 11, $color: $mono1, $weight: 600);
   padding: rem(5) rem(11) rem(5) rem(5); text-decoration: none; color: inherit;

@@ -7,7 +7,7 @@
 .page-dim {
   transition: all 1s;
   position: fixed; left: 0; top: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.25);
+  background-color: rgba(0,0,0,0.75);
 }
 .page-loading {
   display: block;
@@ -95,7 +95,7 @@
       position: relative;
       display: inline-block;
       width: rem($size); height: rem($size);
-      background-color: $mono9; border-radius: 50%;
+      background-color: $mono7; border-radius: 50%;
       text-indent: -999em;
       &:before {
         @include background($file: 'popup/ico_exclamation--w', $type: png, $width: rem(4), $height: rem(28));
@@ -179,6 +179,11 @@
     .btn_confirm {
       @include form($type: button, $size: 4, $role: submit);
       flex: 1 auto;
+    }
+    & + .text-btn-wrap {
+      padding: rem($grid * 2) 0;
+      text-align: center;
+      & > * { @include font($size: 12, $color: $mono3, $weight: 400); display: inline; background-color: transparent; }
     }
   }
   ul.list-dot > li { text-align: left; line-height: rem(20) }
