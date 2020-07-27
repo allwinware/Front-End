@@ -43,12 +43,13 @@
       }
       tfoot th, tfoot td { background-color: #F8F8F8; text-align: right; }
       tfoot .ico_tag {
-        margin-right: rem(24)
+        margin-right: rem($grid * 2)
       }
       tfoot td {
         @include font($size: 14, $color: $text-primary, $weight: 600);
         @include price-unit(krw);
-        padding-right: rem(213)
+        padding-right: rem(182);
+        .digits { display: inline-block; width: rem(82) }
       }
       thead th {
         @include font($size: $font-size, $color: $mono1, $weight: 800);
@@ -66,12 +67,12 @@
       tbody th:first-of-type { font-weight: 600; }
       tbody th, tbody td {  }
       tbody td { text-align: center; }
-      dl { @include clearfix; padding: rem($grid) 0; text-align: left; }
+      dl { @include clearfix; margin: 0 rem(-30); padding: rem($grid) 0; text-align: left; }
       dt, dd { float: left; padding: rem($grid) em(30, $font-size); min-height: em(34, $font-size); line-height: em(18, $font-size);  }
       dt { font-weight: 800; }
       dd { font-weight: 300; }
       dd.price { @include price-unit(krw); text-align: right; }
-      dd.status { text-align: center; }
+      dd.status { padding-right: rem(60); text-align: center; }
     }
   }
   .receipt-title {
@@ -88,9 +89,31 @@
   }
   .total-wrap {
     @include clearfix;
-    dl { padding: rem(17) rem(60); border: solid $mono1; border-width: 1px 0; }
-    dt.price, .price + dd, dt.fee, .fee + dd { float: left; }
-    dt.total, .total + dd { display: inline-block; }
-    dt { @include tagging-route($type: style2); }
+    dl { position: relative; padding: rem(17) rem(60); height: rem(52); border: solid $mono1; border-width: 1px 0; }
+    dt:not(.total-price) { @include tagging-route($type: style2); }
+    .total-price { @include tagging-route(); }
+    .price, .fee { position: relative; margin-right: rem($grid * 2); }
+    dd + .price, dd + .fee, .total-price {
+      margin-left: rem(66);
+      &:before, &:after {
+        content: "";
+        position: absolute; top: rem(-2); left: rem(-44);
+        display: block;
+        width: rem(18); height: rem(18);
+        border-radius: 50%;
+      }
+      &:before { background-color: $mono1; }
+    }
+    dd + .price:after { @include background($file: 'pay/ico_calc-plus', $type: 'png', $width: rem(18), $height: rem(18)); }
+    dd + .fee:after { @include background($file: 'pay/ico_calc-minus', $type: 'png', $width: rem(18), $height: rem(18)); }
+    .total-price:after { @include background($file: 'pay/ico_calc-equal', $type: 'png', $width: rem(18), $height: rem(18)); }
+    .price, .price + dd, .fee, .fee + dd { float: left; }
+    dd { @include price-unit(krw); }
+    .price + dd, .fee + dd { font-weight: 300; }
+    dd + .price:before {  }
+    .digits { height: rem(17); line-height: rem(17) }
+    .total-price, .total-price + dd { @include valign-center(); left: auto }
+    .total-price { right: rem(284); width: rem(82) }
+    .total-price + dd { @include font($size: 14, $color: $text-primary, $weight: 600); right: rem(182); }
   }
 }
