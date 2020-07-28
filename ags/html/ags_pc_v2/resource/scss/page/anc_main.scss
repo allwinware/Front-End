@@ -54,10 +54,13 @@
       padding-top: em(3, $font-size);
       .type { @include sr-only; }
       .type + dd {
-        @include font($size: $font-size, $color: $mono10, $weight: 800);
-        margin: em(-3, $font-size) em(12, $font-size) 0 0; width: em(32, $font-size); height: em(20, $font-size);
+        /*padding: 0 em(4, $font-size); min-width: em(32, $font-size);
         line-height: em(20, $font-size); text-align: center;
-        background-color: $mono1;
+        background-color: $mono1;*/
+        @include tagging-route();
+        @include font($size: $font-size, $color: $mono10, $weight: 800);
+        margin: em(-3, $font-size) em(12, $font-size) 0 0; height: em(20, $font-size);
+        line-height: em(18, $font-size);
       }
       dt, dd { display: inline; }
       dt:after { content: ":"; padding: 0 em(3, $font-size) }
@@ -305,5 +308,13 @@
     &.ui-fixed---bottom {
       position: absolute; top: auto; bottom: rem(120)
     }
+  }
+
+  .no-item {
+    padding: rem(50) rem($grid * 2) rem(80); height: 100%;
+    background-color: $mono9;
+    @include alert-style;
+    div.alert-text {  text-align: center; }
+    dl.alert-text { margin: 0 auto; width: rem(320) }
   }
 }

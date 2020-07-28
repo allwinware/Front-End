@@ -368,8 +368,9 @@
   $font-size: 9;
   @include font($size: $font-size, $color: $mono10, $weight: 800, $spacing: -0.03);
   display: inline-block;
-  padding: 0 em(4, $font-size); /*width: em(35, $font-size);*/ height: em(16, $font-size);
-  border: 1px solid transparent; line-height: em(14, $font-size);
+  padding: 0 em(4, $font-size); min-width: em(35, $font-size); height: em(16, $font-size);
+  line-height: em(14, $font-size);
+  border: 1px solid transparent;
   text-align: center; white-space: nowrap; vertical-align: top;
   @if $type == style1 {
     color: $mono10;
@@ -500,5 +501,77 @@
   }
   .btn_more {
     @include btn_more--minified
+  }
+}
+
+/* alert common style */
+@mixin alert-style {
+  .ico-wrap {
+    padding-top: rem(30);
+    [class*='ico_alert'] {
+      $size: 48;
+      overflow: hidden;
+      position: relative;
+      display: block;
+      margin: 0 auto; width: rem($size); height: rem($size);
+      background-color: $mono7; border-radius: 50%;
+      text-indent: -999em;
+      &:before {
+        @include background($file: 'popup/ico_exclamation--w', $type: png, $width: rem(4), $height: rem(28));
+        @include align-center;
+        content: "";
+        display: inline-block;
+        width: rem(4); height: rem(28);
+      }
+    }
+    [class*='--primary'] {
+      background-color: $bg-primary;
+    }
+  }
+  .alert-title {
+    $font-size: 14;
+    @include font($size: $font-size, $color: $mono1, $weight: 600);
+    padding-top: rem($grid * 4);
+    line-height: em(20, $font-size); text-align: center;
+    &:last-child { padding-bottom: rem($grid * 2) }
+  }
+  .alert-text {
+    $font-size: 12;
+    @include font($size: $font-size, $color: $mono1, $weight: 300);
+    padding: rem($grid * 2) 0;
+    line-height: em(18, $font-size);
+  }
+  .alert-text:first-child { padding-top: rem(12) }
+  dl.alert-text {
+    margin-left: rem($grid * 2); margin-right: rem($grid * 2);
+    & > dt {
+      @include font($size: 11, $color: $mono10, $weight: 600);
+      padding: rem(8) rem($grid * 2);height: rem($grid * 4);
+      background-color: $mono1;
+      text-align: center;
+    }
+    & > dd {
+      padding: rem(12) rem(10);
+      background-color: #F8F8F8; text-align: left;
+    }
+    dl dt, dl dd {
+      @include font($size: 11, $color: $mono1, $weight: 400);
+      display: inline;
+      line-height: rem(16);
+    }
+    dl dt { font-weight: 600; }
+    dl dd:before { content: ":"; padding: 0 0.3em 0 0.2em }
+    dl dd:after { content: ""; display: block; width: 100%; height: 0 }
+  }
+  .btn-wrap {
+    padding-top: rem($grid * 2);
+    text-align: center;
+    [class*='btn_'] {
+      $font-size: 13;
+      @include form($size: 4, $role: normal-rev, $type: button);
+      @include font($size: $font-size, $color: $mono10, $weight: 600, $spacing: em(0.81, $font-size));
+      width: auto;
+      letter-spacing: em(0.81, $font-size)
+    }
   }
 }
