@@ -7,7 +7,8 @@ body {
 .ags-wrap {
   overflow: hidden;
   position: relative;
-  width: 100%;
+  min-width: rem($content-width + $grid * 4); width: 100%;
+  .fit-layout & { min-height: inherit; }
 }
 .content-wrap { @include content-wrap }
 .site-name { @include sr-only }
@@ -50,8 +51,14 @@ body {
   }
 }
 .ags-container {
+  $pd-top: 80;
+  $pd-bottom: 140;
   position: relative;
-  padding: rem(80) 0 rem($summary-height + 44);
+  padding: rem($pd-top) 0 rem($pd-bottom);
+  .fit-layout & {
+    margin: rem(-$gnb-height) 0 rem(-$footer-height);
+    padding: rem($gnb-height + $pd-top) 0 rem($footer-height + $pd-bottom); min-height: inherit;
+  }
 }
 .notification-title {
   @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
@@ -127,7 +134,7 @@ body {
 
 .ags-footer {
   @include font($size: 11, $color: $mono10, $weight: 400);
-  padding-top: rem(31); height: rem(170);
+  padding-top: rem(31); height: rem($footer-height);
   background-color: $mono1;
   .content-wrap { position: relative; }
   .symbol_allwin {

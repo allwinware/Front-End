@@ -7,6 +7,8 @@
   text-indent: -999em; vertical-align: middle;
   z-index: 99;
 }
+
+/*mCustomScrollbar Overwrite*/
 .mCSB_scrollTools { margin: rem(4) 0; width: rem(8); }
 .mCSB_inside>.mCSB_container { margin-right: 0; padding-right: rem($grid * 2); }
 .mCSB_scrollTools .mCSB_draggerRail { width: rem(4); background-color: rgba(0,0,0,0) }
@@ -17,6 +19,23 @@
 .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar { background-color: rgba(0,0,0,0.5) }
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar { width: rem(4); }
 
+/*Process Button Style*/
+.process-btn-wrap {
+  margin: 0 rem(-$grid); padding-top: rem(40);
+  text-align: center;
+  & > a,
+  & > button {
+    display: inline-block;
+
+    &:not(:last-child) {
+      @include form($size: 5, $role: normal, $type: button);
+    }
+    &:last-child {
+      @include form($size: 5, $role: submit, $type: button);
+    }
+    &:not(:last-child), &:last-child { margin: 0 rem(4); min-width: rem(240); width: auto; }
+  }
+}
 
 .ags-header { z-index: 0; }
 .ags-container {

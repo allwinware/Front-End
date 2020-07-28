@@ -411,4 +411,15 @@ $(document).ready(function(){
             liveSelector:null
         });
     })();
+
+    /* 컨텐츠의 길이가 윈도우 세로 높이보다 짧을 때, 윈도우의 높이만큼 컨텐츠의 기본 높이를 잡아줍니다(내용이 짧을 때에도 Footer를 하단에 고정시키기 위한 스크립트) */
+    (function(){
+        $(window).on("resize", function(){
+            var $body = $("body"),
+                $winHgt = $(window).height();
+            if($body.height() < $winHgt){
+                $body.addClass("fit-layout").css("min-height", $winHgt);
+            }
+        }).resize()
+    })();
 });
