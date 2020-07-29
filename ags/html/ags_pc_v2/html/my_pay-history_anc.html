@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <title>부가서비스 신청 < AGS</title>
+    <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="../resource/css/ags_pc_7c.min.css"><!-- 제주항공일 때 -->
+    <!--<link rel="stylesheet" href="../resource/css/ags_pc_tw.min.css">--><!-- 티웨이항공일 때 -->
+    <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
+    <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resource/js/ags_pc.ui.js"></script>
+</head>
+<body>
+<main role="main" class="ags-wrap">
+    <h1 class="site-name">올윈에어 Ancillary Gateway Service</h1>
+    <!-- 서비스정보(include/ags-header.html) -->
+    <header id="ags-header" class="ags-header"></header>
+
+    <hr>
+
+    <section id="ags-container" class="ags-container" data-page-id="my_pay-history_anc">
+        <header class="my-lnb-wrap">
+            <div class="content-wrap">
+                <h2 class="sr-only">서브 네비게이션</h2>
+                <h3 class="page-name">마이페이지</h3>
+                <!-- .my-lnb-wrap의 .lnb는 기내면세 서비스가 오픈한 이후 노출합니다(CSS로 컨트롤) -->
+                <nav class="lnb">
+                    <ul>
+                        <li class="active"><a href="#none" target="_self">부가서비스 결제내역</a></li>
+                        <li><a href="#none" target="_self">기내면세 예약내역</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <hr>
+
+        <div class="content-wrap">
+            <h2 class="sr-only">컨텐츠 본문</h2>
+
+            <!-- 리스트 영역 -->
+            <article class="my-history-wrap">
+                <header class="my-header">
+                    <!-- 검색 영역 -->
+                    <div class="search-area">
+                        <div class="input-wrap">
+                            <input type="text" id="input-text01" placeholder="예약번호를 입력하세요">
+                            <label for="input-text01">예약번호</label>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-wrap">
+                                <select id="select01">
+                                    <option selected="selected">출발일 기준</option>
+                                    <option>구매일 기준</option>
+                                </select>
+                                <label for="select01">예약번호</label>
+                            </div>
+                            <div class="btn-wrap">
+                                <button type="button">3개월</button>
+                                <button type="button">6개월</button>
+                                <button type="button">1년</button>
+                            </div>
+                        </div>
+                        <div class="input-wrap calendar-wrap">
+                            <input type="text" id="input-text02" placeholder="출발일-도착일 선택">
+                            <label for="input-text02">출발일-도착일 선택</label>
+                            <button type="button" class="ico_calendar">캘린더 열기/접기</button>
+                        </div>
+                        <div class="input-wrap">
+                            <select id="select02" hidden="hidden" data-type="ui-select">
+                                <option selected="selected">결제 완료</option>
+                                <option>취소 완료</option>
+                                <option>부분 취소</option>
+                            </select>
+                            <label for="select01">상태</label>
+                        </div>
+                    </div>
+                    <i class="service-symbol"></i>
+                    <h3 class="service-title">위탁 수하물 추가하기</h3>
+                    <p class="service-description"><strong>가볍게 떠나요!</strong> 공항보다 최대 40%(제주항공) / 50%(티웨이항공) 저렴한 사전 위탁 수하물을 선택하세요.</p>
+                </header>
+
+                <div class="anc-service">
+                    <div class="tabs">
+                        <h4 class="sr-only">구간 선택</h4>
+                        <ul role="tablist">
+                            <li role="tab" aria-controls="tab-panel2-1">가는 편</li>
+                            <li role="tab" aria-controls="tab-panel2-2">오는 편</li>
+                        </ul>
+                    </div>
+                    <div class="tab-panels">
+                        <div id="tab-panel2-1" class="tab-panel" role="tabpanel">
+                            <h5 class="sr-only">가는 편</h5>
+                            <!-- 분기 : 수하물 서비스를 제공할 수 있을 때 -->
+                            <div class="scroll-wrap" data-scrollbar="true">
+                                <!-- 수하물 추가 안내 메시지 -->
+                                <div class="welcome-msg">
+                                    무료 위탁 수하물 15kg + 유아 10kg이 제공되는 운임입니다.<br>
+                                    <i class="text-emphasis">수하물 추가는 5kg당 <span class="digits">30000</span></i>입니다.
+                                </div>
+                                <!-- 탑승객 및 수하물 용량 선택 목록 -->
+                                <div class="passenger-list" data-select="passenger">
+                                    <ul>
+                                        <li>
+                                            <dl>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd>Bae, Sungjune</dd>
+                                                <dt class="selected-baggage">선택 수하물</dt>
+                                                <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            </dl>
+                                            <div class="baggage-plan">
+                                                <ul>
+                                                    <li>
+                                                        <a href="#none" target="_self">+5kg</a>
+                                                        <dl>
+                                                            <!--<dt class="price">공항가</dt>
+                                                            <dd><span class="digits">30000</span></dd>-->
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">30000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#none" target="_self">+10kg</a>
+                                                        <dl>
+                                                            <dt class="price">공항가</dt>
+                                                            <dd><span class="digits">60000</span></dd>
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">50000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#none" target="_self">+15kg</a>
+                                                        <dl>
+                                                            <dt class="price">공항가</dt>
+                                                            <dd><span class="digits">90000</span></dd>
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">70000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#none" target="_self">+20kg</a>
+                                                        <dl>
+                                                            <dt class="price">공항가</dt>
+                                                            <dd><span class="digits">120000</span></dd>
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">90000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#none" target="_self">+25kg</a>
+                                                        <dl>
+                                                            <dt class="price">공항가</dt>
+                                                            <dd><span class="digits">150000</span></dd>
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">110000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                </ul>
+                                                <p class="approach-comment">공항 구매 시 보다 <span class="digits">10000</span> SAVE!</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <dl>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd>Son, Seungwan</dd>
+                                                <dt class="selected-baggage">선택 수하물</dt>
+                                                <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            </dl>
+                                            <div class="baggage-plan">
+                                                <ul>
+                                                    <li>
+                                                        <a href="#none" target="_self">+5kg</a>
+                                                        <dl>
+                                                            <!--<dt class="price">공항가</dt>
+                                                            <dd><span class="digits">30000</span></dd>-->
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">30000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#none" target="_self">+10kg</a>
+                                                        <dl>
+                                                            <dt class="price">공항가</dt>
+                                                            <dd><span class="digits">60000</span></dd>
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">50000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#none" target="_self">+15kg</a>
+                                                        <dl>
+                                                            <dt class="price">공항가</dt>
+                                                            <dd><span class="digits">90000</span></dd>
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">70000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#none" target="_self">+20kg</a>
+                                                        <dl>
+                                                            <dt class="price">공항가</dt>
+                                                            <dd><span class="digits">120000</span></dd>
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">90000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#none" target="_self">+25kg</a>
+                                                        <dl>
+                                                            <dt class="price">공항가</dt>
+                                                            <dd><span class="digits">150000</span></dd>
+                                                            <dt class="sale">사전 신청 할인가</dt>
+                                                            <dd><span class="digits">110000</span></dd>
+                                                        </dl>
+                                                    </li>
+                                                </ul>
+                                                <p class="approach-comment">공항 구매 시 보다 <span class="digits">10000</span> SAVE!</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <dl>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd>Kim, Taehyeong</dd>
+                                                <dt class="selected-baggage">선택 수하물</dt>
+                                                <dd>선택 불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd><!-- 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 -->
+                                            </dl>
+                                            <div class="baggage-plan">
+                                                <ul>
+                                                    <li><a href="#none" target="_self" class="disabled">+5kg</a></li>
+                                                    <li><a href="#none" target="_self" class="disabled">+10kg</a></li>
+                                                    <li><a href="#none" target="_self" class="disabled">+15kg</a></li>
+                                                    <li><a href="#none" target="_self" class="disabled">+20kg</a></li>
+                                                    <li><a href="#none" target="_self" class="disabled">+25kg</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 분기 : 수하물 서비스를 제공할 수 없을 때(출발시간 임박) -->
+                            <!--<div class="no-item">
+                                <div class="ico-wrap">
+                                    <i class="ico_alert&#45;&#45;primary">!</i>
+                                </div>
+                                <h3 class="alert-title">
+                                    항공기 출발 시간이 임박하여<br>
+                                    해당 서비스를 구매할 수 없습니다.
+                                </h3>
+                                <dl class="alert-text">
+                                    <dt>구매 불가 알림</dt>
+                                    <dd>
+                                        <dl>
+                                            <dt>좌석 지정</dt>
+                                            <dd>항공기 <i class="text-emphasis">출발 24시간 내</i> 구매 불가</dd>
+                                            <dt>수하물</dt>
+                                            <dd>항공기 <i class="text-emphasis">출발 24시간 내</i> 구매 불가</dd>
+                                            <dt>기내식</dt>
+                                            <dd>
+                                                항공기 <i class="text-emphasis">출발 2일 전</i> 구매 불가<br>
+                                                (예: 8월 13일 출발일 승객은 8월 12일까지 구매 가능)
+                                            </dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                <div class="btn-wrap">
+                                    <a href="#none" target="_self" class="btn_go-arrival" aria-controls="tab-panel2-2">오는 편 선택하기</a>
+                                </div>
+                            </div>-->
+                        </div>
+
+                        <div id="tab-panel2-2" class="tab-panel" role="tabpanel">
+                            <h5 class="sr-only">오는 편</h5>
+                            <!-- 분기 : 수하물 서비스를 제공할 수 있을 때 -->
+                            <div class="scroll-wrap" data-scrollbar="true">
+                                <!-- 수하물 추가 안내 메시지 -->
+                                <div class="welcome-msg">
+                                    무료 위탁 수하물 15kg + 유아 10kg이 제공되는 운임입니다.<br>
+                                    <i class="text-emphasis">수하물 추가는 5kg당 <span class="digits">30000</span></i>입니다.
+                                </div>
+                                <!-- 탑승객 및 수하물 용량 선택 목록 -->
+                                <div class="passenger-list" data-select="passenger">
+                                <ul>
+                                    <li>
+                                        <dl>
+                                            <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                            <dd>Bae, Sungjune</dd>
+                                            <dt class="selected-baggage">선택 수하물</dt>
+                                            <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                        </dl>
+                                        <div class="baggage-plan">
+                                            <ul>
+                                                <li>
+                                                    <a href="#none" target="_self">+5kg</a>
+                                                    <dl>
+                                                        <!--<dt class="price">공항가</dt>
+                                                        <dd><span class="digits">30000</span></dd>-->
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">30000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+10kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">60000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">50000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+15kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">90000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">70000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+20kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">120000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">90000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+25kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">150000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">110000</span></dd>
+                                                    </dl>
+                                                </li>
+                                            </ul>
+                                            <p class="approach-comment">공항 구매 시 보다 <span class="digits">10000</span> SAVE!</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                            <dd>Son, Seungwan</dd>
+                                            <dt class="selected-baggage">선택 수하물</dt>
+                                            <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                        </dl>
+                                        <div class="baggage-plan">
+                                            <ul>
+                                                <li>
+                                                    <a href="#none" target="_self">+5kg</a>
+                                                    <dl>
+                                                        <!--<dt class="price">공항가</dt>
+                                                        <dd><span class="digits">30000</span></dd>-->
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">30000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+10kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">60000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">50000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+15kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">90000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">70000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+20kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">120000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">90000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+25kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">150000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">110000</span></dd>
+                                                    </dl>
+                                                </li>
+                                            </ul>
+                                            <p class="approach-comment">공항 구매 시 보다 <span class="digits">10000</span> SAVE!</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                            <dd>Kim, Taehyeong</dd>
+                                            <dt class="selected-baggage">선택 수하물</dt>
+                                            <dd>선택 불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd><!-- 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 -->
+                                        </dl>
+                                        <div class="baggage-plan">
+                                            <ul>
+                                                <li><a href="#none" target="_self" class="disabled">+5kg</a></li>
+                                                <li><a href="#none" target="_self" class="disabled">+10kg</a></li>
+                                                <li><a href="#none" target="_self" class="disabled">+15kg</a></li>
+                                                <li><a href="#none" target="_self" class="disabled">+20kg</a></li>
+                                                <li><a href="#none" target="_self" class="disabled">+25kg</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            </div>
+
+                            <!-- 분기 : 수하물 서비스를 제공할 수 없을 때 / 출발시간 임박 -->
+                            <!--<div class="no-item">
+                                <div class="ico-wrap">
+                                    <i class="ico_alert&#45;&#45;primary">!</i>
+                                </div>
+                                <h3 class="alert-title">
+                                    항공기 출발 시간이 임박하여<br>
+                                    해당 서비스를 구매할 수 없습니다.
+                                </h3>
+                                <dl class="alert-text">
+                                    <dt>구매 불가 알림</dt>
+                                    <dd>
+                                        <dl>
+                                            <dt>좌석 지정</dt>
+                                            <dd>항공기 <i class="text-emphasis">출발 24시간 내</i> 구매 불가</dd>
+                                            <dt>수하물</dt>
+                                            <dd>항공기 <i class="text-emphasis">출발 24시간 내</i> 구매 불가</dd>
+                                            <dt>기내식</dt>
+                                            <dd>
+                                                항공기 <i class="text-emphasis">출발 2일 전</i> 구매 불가<br>
+                                                (예: 8월 13일 출발일 승객은 8월 12일까지 구매 가능)
+                                            </dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                <div class="btn-wrap">
+                                    <a href="#none" target="_self" class="btn_go-arrival" aria-controls="tab-panel2-1">가는 편 선택하기</a>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="notification-wrap">
+                    <h4 class="notification-title"><i class="ico"></i>꼭 읽어보세요!</h4>
+                    <h5 class="sr-only">제주항공</h5>
+                    <ul class="notification-list">
+                        <li>제주항공용 안내 텍스트가 이 곳에 표시됩니다.</li>
+                        <li>제주항공용 안내 텍스트가 이 곳에 표시됩니다.</li>
+                        <li>제주항공용 안내 텍스트가 이 곳에 표시됩니다. 여러 줄에 걸쳐 표시될 때는 이런 형태로 표시됩니다. 안내 텍스트가 이 곳에 표시됩니다. 여러 줄에 걸쳐 표시될 때는 이런 형태로 표시됩니다.</li>
+                    </ul>
+                </footer>
+            </article>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- 회사정보(include/ags-footer.html) -->
+    <footer id="ags-footer" class="ags-footer"></footer>
+</main>
+</body>
+
+<script>
+    var $win = $(window),
+        $doc = $(document);
+
+    $("#ags-header").load("include/ags-header.html");
+    $("#ags-footer").load("include/ags-footer.html");
+
+    /*문서 구조가 모두 로드된 이후에*/
+    $win.on("load", function(){
+        /* GNB에서 마이페이지 메뉴 활성화 */
+        $("#ags-header").find(".gnb li:nth-of-type(3)").addClass("active").siblings().removeClass("active");
+    })
+</script>
+</html>
