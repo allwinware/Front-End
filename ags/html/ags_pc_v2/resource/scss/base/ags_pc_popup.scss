@@ -95,7 +95,7 @@
   }
   .pop-header { margin: rem(-12) rem(-12) 0; height: rem(53); }
   .pop-title {
-    @include font($size: 16, $color: $mono1, $weight: 600, $spacing: 0);
+    @include font($size: 16, $color: $mono1, $weight: 600);
     @include text-ellipsis();
     overflow: auto;
     position: relative;
@@ -122,6 +122,14 @@
       padding: rem($grid * 2) 0;
       text-align: center;
       & > * { @include font($size: 12, $color: $mono3, $weight: 400); display: inline; background-color: transparent; }
+    }
+    .no-flexbox & {
+      @include clearfix;
+      [class*='btn_'] { float: left; }
+      .btn_cancel { width: rem(92); }
+      .btn_confirm {
+        width: calc(100% - 92px - 6px)
+      }
     }
   }
   ul.list-dot > li { text-align: left; line-height: rem(20) }
