@@ -89,7 +89,7 @@
   top: 0;
   .pop-wrap {
     @include align-center;
-    padding: rem(12); width: calc(327 / 375 * 100%); max-width: rem(327);
+    padding: rem(12); width: rem(360);
     border-radius: rem(3);
     background-color: $mono10;
   }
@@ -128,7 +128,7 @@
 }
 
 /* data-type='message' */
-[data-type='message'] {
+/*[data-type='message'] {
   $pop-header-area: 82;
   $pop-footer-area: 150;
   overflow: hidden;
@@ -183,6 +183,77 @@
     z-index: 1;
     position: absolute; bottom: 0; right: 0; left: 0;
     padding: rem($grid * 3) rem($grid * 2); min-height: rem(105);
+    background-color: $mono10;
+    input[type='checkbox'] { @include form($size: 4, $role: normal, $type: checkbox) }
+    .process-btn-wrap {
+      @include flex(flex-start stretch flex-start nowrap);
+      margin: 0 rem(-3); padding: rem($grid * 3) 0 0;
+      [class^='btn_'] { margin: 0 rem(3) !important; }
+      .btn_cancel {
+        @include form($type: button, $size: 4, $role: cancel);
+        width: auto; min-width: rem(90);
+      }
+      .btn_confirm {
+        @include form($type: button, $size: 4, $role: submit);
+        flex: 1 auto;
+      }
+      &:first-child { padding-top: 0; }
+    }
+  }
+  .row { padding-bottom: rem($grid * 2); line-height: rem(18); }
+  ol li { list-style: decimal; list-style-position: inside; line-height: rem(18); }
+}*/
+[data-type='message'] {
+  $pop-header-area: 53;
+  $pop-footer-area: 150;
+  top: 0;
+  .pop-wrap {
+    @include align-center;
+    transition: none;
+    overflow: hidden;
+    padding: rem($pop-header-area + $grid * 3) 0 rem($pop-footer-area); min-width: rem(420); max-width: rem(480); max-height: 80vh;
+    border-radius: rem(3);
+    background-color: $mono10;
+  }
+  .pop-header {
+    z-index: 1;
+    position: absolute; left: 0; top: 0; right: 0;
+    padding: rem($grid * 2); height: rem($pop-header-area);
+    line-height: rem(20); border-bottom: 1px solid $mono8; background-color: $mono10;
+  }
+  .pop-title {
+    $font-size: 16;
+    z-index: 0;
+    @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: 0);
+    @include text-ellipsis();
+    overflow: visible;
+    display: block;
+    position: relative;
+    padding: 0 rem($grid * 5); width: 100%;
+    line-height: em(20, $font-size); text-align: center;
+  }
+  .btn_close {
+    z-index: 1;
+    @include background($file: 'popup/ico_pop-close', $type: 'png', $width: 24px, $height: 24px);
+    overflow: hidden;
+    position: absolute; right: rem($grid * 2); top: rem(15);
+    width: rem(24); height: rem(24);
+    background-position: 50% 50%; background-color: transparent;
+    text-indent: -999em;
+  }
+  .pop-container {
+    transition: none;
+    z-index: 0;
+    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: 0);
+    overflow: auto;
+    padding: 0 rem($grid * 2) 0; width: 100%; max-height: inherit;
+    .message-text > *:last-child { padding-bottom: 0; }
+    .message-text.mg-b--min { margin-bottom: rem(-50) }
+  }
+  .pop-footer {
+    z-index: 1;
+    position: absolute; bottom: 0; right: 0; left: 0;
+    padding: rem($grid * 3) rem($grid * 2) rem($grid * 2); min-height: rem(105);
     background-color: $mono10;
     input[type='checkbox'] { @include form($size: 4, $role: normal, $type: checkbox) }
     .process-btn-wrap {

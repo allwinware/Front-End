@@ -38,7 +38,8 @@ function includeHTML(callback) {
 /*배경 DIM 생성*/
 function createDim(target){
     console.log();
-    if(target.attr("data-type") === "drawer" || target.attr("data-type") === "message"){
+    /*if(target.attr("data-type") === "drawer" || target.attr("data-type") === "message"){*/
+    if(target.attr("data-type") === "drawer"){
         $("#ags-wrap").append("<div class='page-dim " + target.attr("id") + " active'></div>");
     } else {
         target.prepend("<div class='page-dim " + target.attr("id") + " active'></div>");
@@ -286,7 +287,8 @@ $(document).ready(function(){
         if($pop.attr("data-type") === 'alert'){
             popupShow($pop);
         } else if($pop.attr("data-type") === 'message'){
-            messagePopShow($pop)
+            /*messagePopShow($pop)*/
+            popupShow($pop);
         } else if($pop.attr("data-type") === 'drawer'){
             if($pop.hasClass("active") === true){
                 $pop.css("height", "");
@@ -303,7 +305,8 @@ $(document).ready(function(){
         if($pop.attr("data-type") === 'alert'){
             popupHide($pop);
         } else if($pop.attr("data-type") === 'message'){
-            messagePopHide($pop)
+            /*messagePopHide($pop)*/
+            popupHide($pop)
         }
     });
 
