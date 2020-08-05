@@ -102,6 +102,43 @@ body {
 .content-wrap + .content-wrap {
   border-top: 1px solid $mono8
 }
+/*Process Button Style*/
+.process-btn-wrap {
+  margin: 0 rem(-$grid); padding-top: rem(40);
+  text-align: center;
+  & > a,
+  & > button {
+    display: inline-block;
+    &:not(:last-child) {
+      @include form($size: 5, $role: normal, $type: button);
+    }
+    &:last-child {
+      @include form($size: 5, $role: submit, $type: button);
+    }
+    &[disabled='disabled'] {
+      @include form($size: 5, $role: disabled, $type: button);
+    }
+    &:not(:last-child), &:last-child { margin: 0 rem(4); min-width: rem(240); width: auto; }
+  }
+}
+/*약관동의*/
+[data-page-id^='anc_'] .agreement-wrap,
+[data-page-id^='my'] .agreement-wrap {
+  @include agreement-wrap;
+  .agreement-title { @include font($size: 18, $color: $mono1, $weight: 800); }
+  input[type='checkbox'] { @include form($size: 3, $role: normal, $type: checkbox); }
+  input[type='radio'] { @include form($size: 3, $role: normal, $type: radio); }
+  input[type='checkbox'] + label {
+    @include font($size: 13, $color: $mono1, $weight: 600);
+  }
+  tbody th,
+  tbody td {
+    text-align: center;
+    .notification-list,
+    .notification-text { text-align: left; }
+    .notification-list li { margin-top: rem(2) }
+  }
+}
 /*여권번호 등록 & 이메일 SMS 주문서 받기*/
 .passport-wrap, .dfs-email-wrap {
   .passport-list, .dfs-info-list {

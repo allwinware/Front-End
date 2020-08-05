@@ -234,6 +234,103 @@
 }
 
 /*마이페이지 > 나의 예약/결제 내역 > 상세*/
-[data-page-id='my_pay-history-detail_anc']{
-
+@mixin btn-beside-title {
+  $font-size: 11;
+  @include form($size: 1, $role: normal, $type: button);
+  position: absolute; right: 0; top: 0;
+  margin-top: rem(46); width: auto;
+  border-radius: 0; font-size: rem($font-size); font-weight: 800; line-height: em(24, $font-size)
+}
+[data-page-id='my_pay-history-detail_anc'],
+[data-page-id='my_refund_anc']{
+  .my-title-wrap {
+    .process-btn-wrap {
+      @include clearfix;
+      margin: 0 rem(-5); padding-top: rem(50); text-align: left;
+      .btn_refund { @include form($size: 5, $role: submit, $type: button); width: auto; }
+      .btn_inquiry { @include form($size: 5, $role: normal, $type: button); width: auto; }
+      [class^='btn_'] { float: left; margin: 0 rem(5) }
+    }
+  }
+  .page-name { @include font($size: 16, $color: $mono1, $weight: 800); }
+  .ticket-info {
+    @include ticket-info;
+  }
+  .my-history-detail-wrap {
+    @include pay-receipt;
+    margin-top: rem($grid * 10); padding-top: rem(100);
+    border-top: 1px solid $mono8;
+    .receipt-wrap { position: relative; }
+    .receipt-title {  }
+    .btn_view-seat {
+      @include btn-beside-title
+    }
+  }
+  .my-history-detail-wrap + .process-btn-wrap { padding-top: rem($grid * 10) }
+}
+[data-page-id='my_refund_anc']{
+  .notification-text {
+    $font-size: 13;
+    @include font($size: $font-size, $color: $mono1, $weight: 400);
+    padding-top: rem($grid * 4);
+    line-height: em(22, $font-size);
+    a { font-weight: 800; text-decoration: underline; color: inherit; }
+  }
+  .help-desk {
+    @include clearfix;
+    dt, dd { float: left; }
+    .tel + dd {
+      &:before { content: ":"; padding: 0 0.3em; }
+    }
+    .working-time {
+      @include sr-only;
+      & + dd {
+        padding-left: 0.3em;
+        &:before { content: "(" }
+        &:after { content: ")" }
+      }
+    }
+  }
+  input[type='checkbox'][data-checked='all'] + .btn_check-all {
+    @include btn-beside-title;
+    &:before {
+      content: "전체 선택 취소";
+      position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+      background-color: $mono1;
+      opacity: 0;
+    }
+  }
+  input[type='checkbox'][data-checked='all']:checked + .btn_check-all {
+    $font-size: 11;
+    @include form($size: 1, $role: normal-rev, $type: button);
+    overflow: hidden;
+    position: absolute; right: 0; top: 0;
+    margin-top: rem(46); width: auto;
+    border-radius: 0; font-size: rem($font-size); font-weight: 800; line-height: em(24, $font-size);
+    &:before {
+      opacity: 1;
+    }
+  }
+  table {
+    $font-size: 14;
+    input[type='checkbox'] {
+      @include form($size: 3, $role: normal, $type: checkbox);
+      & + label { font-weight: 800; }
+      & + label .ico { vertical-align: top; }
+    }
+    thead th:nth-of-type(1) { padding-left: em(60, $font-size) }
+    thead th:nth-of-type(1), tbody th:nth-of-type(1) { padding-left: em(60, $font-size) }
+    thead th:nth-of-type(1), tbody th:nth-of-type(1) { width: rem(250) }
+    thead th:nth-of-type(2), dt { width: rem(160) }
+    thead th:nth-of-type(2), dd.pay { width: calc(100% - 160px - 125px - 125px - 152px) !important }
+    thead th:nth-of-type(3), dd.refund { width: rem(125) }
+    thead th:nth-of-type(4), dd.price { width: rem(125) }
+    thead th:nth-of-type(5), dd.status { width: rem(152); }
+    thead th:nth-of-type(4) { padding-right: em(30, $font-size) !important; text-align: right; }
+    thead th:nth-of-type(5) { padding-right: em(60, $font-size) !important; }
+    dd.refund { text-align: center; }
+  }
+  .agreement-wrap {
+    padding-top: rem(100)
+  }
 }

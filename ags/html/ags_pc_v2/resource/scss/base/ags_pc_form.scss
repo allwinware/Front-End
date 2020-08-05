@@ -6,39 +6,46 @@
   white-space: nowrap;
   @if $type == "button" or $type == "select" or $type == "textbox" {
     @if $size == 0 {
-      @include font($size: 10, $color: $mono3);
-      height: rem(18);
-      line-height: rem(16);
+      $font-size: 11;
+      @include font($size: $font-size, $color: $mono3);
+      height: em(18, $font-size);
+      line-height: em(16, $font-size);
     } @else if $size == 1 {
-      @include font($size: 11, $color: $mono3);
-      padding: 0 rem(10);
-      height: rem(26);
-      line-height: rem(24);
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono3);
+      padding: 0 em(10, $font-size);
+      height: em(26, $font-size);
+      line-height: em(24, $font-size);
     } @else if $size == 2 {
-      @include font($size: 12, $color: $mono1, $weight: 600);
-      padding: 0 rem(13);
-      height: rem(36);
-      line-height: rem(34);
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(13, $font-size);
+      height: em(36, $font-size);
+      line-height: em(34, $font-size);
     } @else if $size == 3 {
-      @include font($size: 13, $color: $mono1, $weight: 600);
-      padding: 0 rem(13);
-      height: rem(42);
-      line-height: rem(40);
+      $font-size: 13;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(13, $font-size);
+      height: em(42, $font-size);
+      line-height: em(40, $font-size);
     } @else if $size == 4 {
-      @include font($size: 14, $color: $mono1, $weight: 600);
-      padding: 0 rem($grid * 2);
-      height: rem(50);
-      line-height: rem(48);
+      $font-size: 14;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(16, $font-size);
+      height: em(50, $font-size);
+      line-height: em(48, $font-size);
     } @else if $size == 5 {
-      @include font($size: 15, $color: $mono1, $weight: 600);
-      padding: 0 rem($grid * 3);
-      height: rem(56);
-      line-height: rem(54);
+      $font-size: 16;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(24, $font-size);
+      height: em(56, $font-size);
+      line-height: em(54, $font-size);
     } @else if $size == 6 {
-      @include font($size: 16, $color: $mono1, $weight: 600);
-      padding: 0 rem($grid * 3);
-      height: rem(62);
-      line-height: rem(60);
+      $font-size: 16;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(24, $font-size);
+      height: em(62, $font-size);
+      line-height: em(60, $font-size);
     }
   }
   @if $type == "text" or $type="textbox" {
@@ -145,6 +152,10 @@
         border: 1px solid $mono7; background-color: $mono9;
         &:before { border-color: $mono7; }
       }
+    }
+    &[disabled='disabled'] + label .ico {
+      border: 1px solid $mono7; background-color: $mono8;
+      &:before { border-color: $mono7; }
     }
   }
 

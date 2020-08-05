@@ -33,49 +33,10 @@
     &:before { content: ""; position: absolute; right: rem($anc-select-area-width); top: 0; bottom: 0; width: 1px; background-color: $mono8; }
   }
   .ticket-info {
-    $font-size: 30;
+    @include ticket-info;
     margin: 0 0 rem(-20);
-    dt, dd { float: left; }
-    .airport {
-      @include clearfix;
-      padding-bottom: rem(20);
-      dt { @include sr-only; }
-      dd { @include font($size: $font-size, $color: $mono1, $weight: 800); }
-      .arrival + dd {
-        padding-left: em(66, $font-size);
-        @include background($file: 'common/ico_airplane', $type: png, $width: rem(23), $height: rem(23));
-        background-position: em(20, $font-size) center;
-
-      }
-    }
-    .detail-info {
-      $font-size: 11;
-      @include clearfix;
-      padding-top: em(3, $font-size);
-      .type { @include sr-only; }
-      .type + dd {
-        /*padding: 0 em(4, $font-size); min-width: em(32, $font-size);
-        line-height: em(20, $font-size); text-align: center;
-        background-color: $mono1;*/
-        @include tagging-route();
-        @include font($size: $font-size, $color: $mono10, $weight: 800);
-        margin: em(-3, $font-size) em(12, $font-size) 0 0; height: em(20, $font-size);
-        line-height: em(18, $font-size);
-      }
-      dt, dd { display: inline; }
-      dt:after { content: ":"; padding: 0 em(3, $font-size) }
-      .schedule ~ dt {
-        position: relative;
-        margin-left: em(12, $font-size); padding-left: em(12, $font-size);
-        &:before { content: ""; @include valign-center; left: 0; width: 1px; height: rem(10); background-color: #999 }
-      }
-      .passenger-name { font-weight: 800; }
-    }
-    &.one-way {
-      .airport .arrival + dd {
-        @include background($file: 'common/ico_airplane_oneway', $type: png, $width: rem(22), $height: rem(16));
-      }
-    }
+    .btn_resv-cancel {}
+    .btn_inquiry {}
   }
   .anc-service-wrap {
     padding-top: rem(100);
@@ -237,24 +198,9 @@
     }
   }
   .agreement-wrap {
-    @include agreement-wrap;
     display: none;
-    .agreement-title { @include font($size: 18, $color: $mono1, $weight: 800); }
-    input[type='checkbox'] { @include form($size: 3, $role: normal, $type: checkbox); }
-    input[type='radio'] { @include form($size: 3, $role: normal, $type: radio); }
-    input[type='checkbox'] + label {
-      @include font($size: 13, $color: $mono1, $weight: 600);
-    }
-    tbody th,
-    tbody td {
-      text-align: center;
-      .notification-list,
-      .notification-text { text-align: left; }
-      .notification-list li { margin-top: rem(2) }
-    }
     &.active { display: block; }
   }
-
   .anc-summary {
     position: absolute; top: rem(281); left: calc(50% + 348px);
     padding: rem($grid * 10) rem($grid * 2) rem($grid * 3) 0; width: rem(267 + $grid * 2);
