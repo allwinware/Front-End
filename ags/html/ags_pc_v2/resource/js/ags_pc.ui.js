@@ -289,6 +289,9 @@ $(document).ready(function(){
         } else if($pop.attr("data-type") === 'message'){
             /*messagePopShow($pop)*/
             popupShow($pop);
+        } else if($pop.attr("data-type") === 'submission'){
+            /*messagePopShow($pop)*/
+            popupShow($pop);
         } else if($pop.attr("data-type") === 'drawer'){
             if($pop.hasClass("active") === true){
                 $pop.css("height", "");
@@ -453,3 +456,12 @@ $(document).ready(function(){
         }).resize()
     })();
 });
+
+$(window).on("load", function(){
+    /* selectric */
+    (function(){
+        if($(".selectric-select-wrap").length > 0){
+            $(".selectric-select-wrap select").selectric()
+        }
+    })();
+})

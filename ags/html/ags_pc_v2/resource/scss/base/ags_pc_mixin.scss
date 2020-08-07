@@ -714,149 +714,27 @@
     .total-price + dd { @include font($size: 14, $color: $text-primary, $weight: 600); right: rem(182); }
   }
 }
+/* 부가서비스 신청 (공통) */
+@mixin btn_delete {
+  @include background($file: 'anc/ico_delete-s', $type: png, $width: rem(12), $height: rem(12));
+  overflow: hidden;
+  display: inline-block;
+  margin-left: rem(5); width: rem(12); height: rem(12);
+  text-indent: -999em; vertical-align: middle;
+  z-index: 99;
+}
+
 @mixin board-page($lnb-wrap-class:null, $content-wrap-class:null, $list-class:null) {
   padding-top: rem(100);
   .search-area {
     @include clearfix;
     margin: 0 rem(-5) rem(80); padding: 0 0 rem($grid * 10);
     border-bottom: 1px solid $mono8;
-    input[type='text'] { @include form($size: 4, $role: normal, $type: textbox); }
-    /*기본 셀렉트일 떄*/
-    .select-wrap {
-      @include form($size: 4, $role: normal, $type: select);
-      padding: 0 !important;
-      z-index: 0;
-      select {
-        -webkit-appearance: none; -moz-appearance: none; -o-appearance: none; appearance: none;
-        &::-ms-expand { display: none; }
-        position: absolute; left: 0; top: 0; right: 0; bottom: 0;
-        padding: 0 0 0 rem(20); height: 100%;
-        background-color: transparent;
-        z-index: 1;
-      }
-      label { @include sr-only }
-      &:after {
-        content: "";
-        position: absolute; top: 50%; right: rem(20);
-        width: rem(8); height: rem(8);
-        border: solid $mono1; border-width: 0 2px 2px 0;
-        transform: rotate(45deg) translate(-50%, -50%);
-        z-index: 0;
-      }
-    }
-    /*selectric일 때*/
+    @include form-group-style;
+    label { @include sr-only }
     .selectric-select-wrap {
-      label { @include sr-only }
-      .selectric-wrapper {
-        position: absolute; left: 0; top: 0; right: 0; bottom: 0;
-        .selectric {
-          @include form($size: 4, $role: normal, $type: select);
-          .label {
-            @include valign-middle();
-            position: absolute; left: 0; top: 0; right: 0; bottom: 0;
-            margin: 0; padding: 0 rem($grid * 4) 0 rem($grid * 2); width: 100%; height: 100%;
-            font-size: inherit; color: inherit;
-          }
-          b.button {
-            overflow: hidden;
-            height: 100%;
-            text-indent: -999em;
-            background-color: transparent;
-            transition: transform 0.2s;
-            transform: rotate(-180deg);
-            transform-origin: 50% 50%;
-            &:after {
-              content: "";
-              position: absolute; top: 50%; right: rem(20);
-              width: rem(8); height: rem(8);
-              border: solid $mono1; border-width: 0 2px 2px 0;
-              transform: rotate(45deg) translate(-2px, -17px);
-              z-index: 0;
-            }
-          }
-        }
-        &.selectric-open {
-          b.button {
-            transform: rotate(0);
-            &:after { transform: rotate(45deg) translate(-2px, -15px) }
-          }
-        }
-      }
-      .selectric-items {
-        box-shadow: none;
-        margin-top: -1px;
-        border-color: #ddd; border-radius: rem(3);
-        background-color: #fff;
-        li {
-          $font-size: 14;
-          @include font($size: $font-size, $color: $mono1, $weight: 600);
-          padding: 0 em(16, $font-size);
-          height: em(48, $font-size);
-          line-height: em(46, $font-size);
-        }
-        li:hover,
-        .highlighted,
-        .selected,
-        .selected:hover,
-        .selected.highlighted { background-color: $bg-submit };
-      }
+      position: absolute; left: 0; top: 0; right: 0; bottom: 0;
     }
-    .btn-wrap {
-      input[type='radio'], input[type='checkbox'] { @include sr-only }
-      label, a, button, {
-        @include form($size: 4, $role: normal, $type: button);
-        float: left;
-        width: auto; height: 100%;
-      }
-      input[type='radio']:checked + label,
-      input[type='check']:checked + label {
-        @include form($size: 4, $role: primary3, $type: button);
-        width: auto;
-      }
-      label, a, button,
-      input[type='radio']:checked + label,
-      input[type='check']:checked + label {
-        &:not(:first-child):not(:last-child) { border-radius: 0; }
-        &:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
-        &:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; }
-        &:not(:first-child) { border-left-color: transparent; }
-      }
-    }
-    .calendar-wrap {
-      $ico-size: 48;
-      input[type='text'] { padding-right: rem($ico-size + $grid * 2); height: 100%; }
-      label {
-        @include background($file: 'my/ico_calendar', $type: png, $width: rem(24), $height: auto);
-        overflow: hidden;
-        position: absolute; right: 0; top: 0; bottom: 0;
-        display: block;
-        width: rem($ico-size); height: rem($ico-size);
-        text-indent: -999em;
-        background-position: 50% 50%;
-      }
-    }
-    .input-wrap, .input-group, .select-wrap, .calendar-wrap, .btn-wrap, .selectric-select-wrap { position: relative; float: left; margin: 0 rem(5) }
-    .input-group {
-      & > [class*='-wrap'] { margin: 0; }
-      & > [class*='-wrap']:first-child {
-        &.select-wrap,
-        &.selectric-select-wrap .selectric { border-top-right-radius: 0; border-bottom-right-radius: 0 }
-      }
-      & > [class*='-wrap']:not(:first-child) {
-        &.select-wrap,
-        &.selectric-select-wrap .selectric,
-        &.btn-wrap > *:first-child, &.input-wrap > *:first-child, &.calendar-wrap > *:first-child { border-top-left-radius: 0; border-bottom-left-radius: 0 }
-        &.input-wrap input[type='text'],
-        &.calendar-wrap input[type='text'] { border-left-color: transparent }
-      }
-    }
-    input[type='text'], .select-wrap, .selectric-select-wrap,
-    .btn-wrap > label, .btn-wrap > input[type='checkbox'] + label, input[type='radio'] + label,
-    .btn-wrap > button, .btn-wrap > a {
-      padding-left: rem(20); padding-right: rem(20); height: rem(48) !important;
-      line-height: rem(46) !important;
-    }
-    input[type='text'], .select-wrap, .selectric-select-wrap, .btn-wrap > * {  }
     .process-btn-wrap { float: left; width: 100%; }
   }
   @if $lnb-wrap-class != null {
