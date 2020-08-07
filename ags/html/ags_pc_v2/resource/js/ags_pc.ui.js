@@ -421,9 +421,24 @@ $(document).ready(function(){
         if($grid.length > 0){
             $($grid.find("a")).each(function(){
                 var $item = $(this);
-                $item.closest("tr").addClass("tr-anchor")
+                $item.closest("tr:not(.accordion-content)").addClass("tr-anchor")
                     .attr("onClick", "location.href='" + $item.attr("href") + "'")
             })
+        }
+    })();
+    /*아코디언 스타일 테이블 처리*/
+    (function(){
+        var $accordionWrap = $("[data-accordion='true']");
+        if($accordionWrap.attr("data-grid-type") === "board"){
+            $(".tr-anchor").on("click", function(e){
+                $(this).toggleClass("active").siblings("tr:not(.accordion-content)").removeClass("active");
+                e.preventDefault()
+            })
+        } else {
+            $($accordionWrap.find("a")).on("click", function(e){
+                $(this).closest("tr").toggleClass("active").siblings("tr:not(.accordion-content)").removeClass("active");
+                e.preventDefault()
+            });
         }
     })();
 

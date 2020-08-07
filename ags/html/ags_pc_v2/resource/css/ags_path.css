@@ -612,8 +612,8 @@ strong {
   color: #000;
   letter-spacing: -0.01231em;
   padding: 0 1.14286em;
-  height: 3.57143em;
-  line-height: 3.42857em;
+  height: 3.42857em;
+  line-height: 3.28571em;
   border: 1px solid #ddd;
   background-color: #ffffff;
   -webkit-appearance: none;
@@ -1227,8 +1227,8 @@ strong {
   color: #000;
   letter-spacing: -0.01231em;
   padding: 0 1.14286em;
-  height: 3.57143em;
-  line-height: 3.42857em;
+  height: 3.42857em;
+  line-height: 3.28571em;
   border: 1px solid #000;
   background-color: #000;
   color: #ffffff;
@@ -1239,7 +1239,7 @@ strong {
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
-  letter-spacing: 0.06231emem;
+  letter-spacing: -0.01231em;
   width: auto;
   letter-spacing: 0.06231em;
 }
@@ -1340,8 +1340,8 @@ strong {
   color: #000;
   letter-spacing: -0.01231em;
   padding: 0 1.14286em;
-  height: 3.57143em;
-  line-height: 3.42857em;
+  height: 3.42857em;
+  line-height: 3.28571em;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -1382,8 +1382,8 @@ strong {
   color: #000;
   letter-spacing: -0.01231em;
   padding: 0 1.14286em;
-  height: 3.57143em;
-  line-height: 3.42857em;
+  height: 3.42857em;
+  line-height: 3.28571em;
   border: 1px solid #FEE700;
   background-color: #FEE700;
   color: #000;
@@ -1772,8 +1772,8 @@ strong {
   color: #000;
   letter-spacing: -0.01231em;
   padding: 0 1.14286em;
-  height: 3.57143em;
-  line-height: 3.42857em;
+  height: 3.42857em;
+  line-height: 3.28571em;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -1814,8 +1814,8 @@ strong {
   color: #000;
   letter-spacing: -0.01231em;
   padding: 0 1.14286em;
-  height: 3.57143em;
-  line-height: 3.42857em;
+  height: 3.42857em;
+  line-height: 3.28571em;
   border: 1px solid #FEE700;
   background-color: #FEE700;
   color: #000;
@@ -2161,6 +2161,10 @@ body {
   height: 100%;
 }
 
+.ags-header .symbol-wrap dl {
+  float: left;
+}
+
 .ags-header .symbol-wrap dt {
   position: absolute;
   width: 0;
@@ -2177,8 +2181,11 @@ body {
 }
 
 .ags-header .symbol-wrap .symbol_agency + dd {
-  padding-left: 58px;
   height: 6.23077rem;
+}
+
+.ags-header .symbol-wrap .symbol_airline ~ .symbol_agency + dd {
+  padding-left: 4.46154rem;
   background-image: url("../img/common/header-logo_by.jpg");
   background-repeat: no-repeat;
   background-size: 1.38462rem 6.23077rem;
@@ -2186,15 +2193,29 @@ body {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .ags-header .symbol-wrap .symbol_agency + dd {
+  .ags-header .symbol-wrap .symbol_airline ~ .symbol_agency + dd {
     background-image: url("../img/common/header-logo_by@2x.jpg");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .ags-header .symbol-wrap .symbol_agency + dd {
+  .ags-header .symbol-wrap .symbol_airline ~ .symbol_agency + dd {
     background-image: url("../img/common/header-logo_by@3x.jpg");
   }
+}
+
+.ags-header .symbol-wrap .ico_tag {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92308rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.01231em;
+  float: left;
+  margin: 2.15385rem 0 0 1.23077rem;
+  padding: 0 1em;
+  height: 2em;
+  line-height: 2em;
+  background-color: #FEE700;
 }
 
 .ags-header .gnb-wrap {
@@ -3104,6 +3125,114 @@ body {
   margin-top: 0.15385rem;
 }
 
+/*페이지네이션*/
+.pagination {
+  padding-top: 3.84615rem;
+  text-align: center;
+}
+
+.pagination a {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 1.07692rem;
+  font-weight: 300;
+  color: #aaa;
+  letter-spacing: -0.01231em;
+  display: inline-block;
+  padding: 0.57143em;
+  min-width: 2.57143em;
+  height: 2.57143em;
+  border: 1px solid #cecece;
+  line-height: 1.42857em;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: top;
+}
+
+.pagination a.active {
+  border-color: #111;
+  color: #111;
+  font-weight: 500;
+}
+
+.pagination a[class^='btn_'] {
+  overflow: hidden;
+  width: 2.57143em;
+  text-indent: -999em;
+  background-position: center center;
+}
+
+.pagination a.btn_first {
+  background-image: url("../img/common/ico_pag-first.png");
+  background-repeat: no-repeat;
+  background-size: 2.76923rem 2.76923rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .pagination a.btn_first {
+    background-image: url("../img/common/ico_pag-first@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .pagination a.btn_first {
+    background-image: url("../img/common/ico_pag-first@3x.png");
+  }
+}
+
+.pagination a.btn_prev {
+  background-image: url("../img/common/ico_pag-prev.png");
+  background-repeat: no-repeat;
+  background-size: 2.76923rem 2.76923rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .pagination a.btn_prev {
+    background-image: url("../img/common/ico_pag-prev@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .pagination a.btn_prev {
+    background-image: url("../img/common/ico_pag-prev@3x.png");
+  }
+}
+
+.pagination a.btn_next {
+  background-image: url("../img/common/ico_pag-next.png");
+  background-repeat: no-repeat;
+  background-size: 2.76923rem 2.76923rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .pagination a.btn_next {
+    background-image: url("../img/common/ico_pag-next@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .pagination a.btn_next {
+    background-image: url("../img/common/ico_pag-next@3x.png");
+  }
+}
+
+.pagination a.btn_last {
+  background-image: url("../img/common/ico_pag-last.png");
+  background-repeat: no-repeat;
+  background-size: 2.76923rem 2.76923rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .pagination a.btn_last {
+    background-image: url("../img/common/ico_pag-last@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .pagination a.btn_last {
+    background-image: url("../img/common/ico_pag-last@3x.png");
+  }
+}
+
 /*여권번호 등록 & 이메일 SMS 주문서 받기*/
 .passport-wrap .passport-list, .passport-wrap .dfs-info-list, .dfs-email-wrap .passport-list, .dfs-email-wrap .dfs-info-list {
   border-top: 1px solid #000;
@@ -3407,6 +3536,67 @@ body {
 .ags-wrap.gnb-active .ags-summary,
 .ags-wrap.gnb-active .ags-footer {
   z-index: 500;
+}
+
+[data-grid-type='board'] .tr-anchor {
+  cursor: pointer;
+}
+
+[data-accordion="true"] .ico_more {
+  position: relative;
+  display: inline-block;
+  width: 1.92308rem;
+  height: 1.92308rem;
+}
+
+[data-accordion="true"] .ico_more:after {
+  content: "";
+  transition: all 0.3s;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-block;
+  width: 0.69231rem;
+  height: 0.69231rem;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  transform-origin: left top;
+  transform: rotate(-135deg) translate(-6.5px, -6.5px);
+}
+
+[data-accordion="true"] tbody th, [data-accordion="true"] tbody td {
+  padding-top: 2.46154rem;
+  padding-bottom: 2.46154rem;
+}
+
+[data-accordion="true"] tbody tr.accordion-content th,
+[data-accordion="true"] tbody tr.accordion-content td {
+  padding: 0 !important;
+  height: 0 !important;
+  font-size: 0;
+  line-height: 0;
+  border-bottom-width: 0 !important;
+  background-color: #f9f9f9;
+  font-weight: 300 !important;
+  text-align: left !important;
+}
+
+[data-accordion="true"] tbody tr.active .ico_more:after {
+  transform: rotate(45deg) translate(-50%, -50%);
+}
+
+[data-accordion="true"] tbody tr.active + tr.accordion-content th,
+[data-accordion="true"] tbody tr.active + tr.accordion-content td {
+  padding: 2.46154rem !important;
+  height: auto !important;
+  border-bottom-width: 1px !important;
+  font-size: inherit;
+  line-height: 1.6em;
+}
+
+[data-accordion="true"] tbody tr.active a {
+  font-weight: 800;
+  text-decoration: underline;
 }
 
 /* 부가서비스 신청 (공통) */

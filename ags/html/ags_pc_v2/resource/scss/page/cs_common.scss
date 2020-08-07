@@ -1,0 +1,93 @@
+/*고객센터 > 공통*/
+[data-page-id^='cs_']{
+  @include board-page($lnb-wrap-class:'.cs-lnb-wrap', $content-wrap-class:'.cs-notice-wrap, .cs-faq-wrap, cs-qna-wrap', $list-class:'.notice-list, .faq-list, .qna-list');
+  .search-area {
+    .sort-by-category { width: rem(200) }
+    .input-group.sort-by-date,
+    .input-group.sort-by-words {
+      width: rem(460);
+      .selectric-select-wrap,
+      .select-wrap { width: 40%; }
+      .input-wrap, .calendar-wrap {
+        width: 60%;
+      }
+    }
+    .sort-by-status { width: rem(200) }
+  }
+  [class*='-list']{
+    table a { @include text-ellipsis(block) }
+  }
+}
+[data-page-id='cs_notice'] {
+  .search-area .input-group.sort-by-words label,
+  .search-area .input-wrap.notice-title label { @include sr-only }
+  .notice-list {
+    table {
+      thead th:first-of-type { width: rem(100); }
+      thead th:nth-of-type(2) { width: rem(100); }
+      thead th:nth-of-type(3) {  }
+      thead th:nth-of-type(4) { width: rem(120); }
+      thead th:last-of-type { width: rem(48); }
+      tbody td:first-of-type { text-align: center; font-weight: 600; }
+      tbody td:nth-of-type(2) { text-align: center; }
+      tbody td:nth-of-type(3) {  }
+      tbody td:nth-of-type(4) { text-align: center; }
+      tbody td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    }
+  }
+}
+[data-page-id='cs_faq'] {
+  .faq-list {
+    table {
+      thead th:first-of-type { width: rem(150); }
+      thead th:nth-of-type(2) {  }
+      thead th:last-of-type { width: rem(48); }
+      tbody td:first-of-type { text-align: center; font-weight: 600; }
+      tbody td:nth-of-type(2) {  }
+      tbody td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    }
+  }
+}
+[data-page-id='cs_qna']{
+  tr + .accordion-content {
+    .post-info,
+    .post-attached { overflow: hidden; height: 0; }
+  }
+  tr.active + .accordion-content {
+    .post-info,
+    .post-attached {
+      padding: 0 rem($grid * 2); height: auto;
+      .writer, .date, .content { @include sr-only; }
+      .writer + dd { @include font($size: 14, $color: $mono1, $weight: 800); }
+      .writer + dd ~ dd { padding-left: rem(10) }
+      .date + dd { @include font($size: 12, $color: $mono4, $weight: 400); }
+      .content + dd { display: block; padding: rem($grid * 2) 0 0 0 !important; width: 100%; line-height: 1.8em }
+    }
+    .post-attached {
+      @include font($size: 13, $color: $mono1, $weight: 400);
+      margin-top: rem($grid * 2); padding: rem($grid * 2) rem($grid * 4);
+      background-color: #efefef;
+      dt, dd { display: inline; }
+      dt { padding-right: rem($grid * 2); font-weight: 600; }
+      a { display: inline; padding: 0 rem($grid); text-decoration: underline; }
+    }
+  }
+  .qna-list {
+    table {
+      thead th:first-of-type { width: rem(100); }
+      thead th:nth-of-type(2) { width: rem(140); }
+      thead th:nth-of-type(3) { width: rem(160); }
+      thead th:nth-of-type(4) {  }
+      thead th:nth-of-type(5) { width: rem(120); }
+      thead th:nth-of-type(6) { width: rem(120); }
+      thead th:last-of-type { width: rem(48); }
+      tbody td:first-of-type { text-align: center; font-weight: 600; }
+      tbody td:nth-of-type(2) { text-align: center; }
+      tbody td:nth-of-type(3) { text-align: center; }
+      tbody td:nth-of-type(4) {  }
+      tbody td:nth-of-type(5) { text-align: center; }
+      tbody td:nth-of-type(6) { text-align: center; }
+      tbody td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    }
+  }
+}

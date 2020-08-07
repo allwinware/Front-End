@@ -569,7 +569,7 @@
     [class*='btn_'] {
       $font-size: 13;
       @include form($size: 4, $role: normal-rev, $type: button);
-      @include font($size: $font-size, $color: $mono10, $weight: 600, $spacing: em(0.81, $font-size));
+      @include font($size: $font-size, $color: $mono10, $weight: 600);
       width: auto;
       letter-spacing: em(0.81, $font-size)
     }
@@ -651,14 +651,14 @@
         padding: em(17, $font-size) em(30, $font-size) em(18, $font-size);
         border-bottom: 1px solid $mono1;
       }
-      thead th:nth-of-type(1) { padding-left: em(60, $font-size) }
-      thead th:nth-of-type(1), tbody th:nth-of-type(1) { padding-left: em(60, $font-size) }
-      thead th:nth-of-type(1), tbody th:nth-of-type(1) { width: rem(250) }
+      thead th:first-of-type { padding-left: em(60, $font-size) }
+      thead th:first-of-type, tbody th:first-of-type { padding-left: em(60, $font-size) }
+      thead th:first-of-type, tbody th:first-of-type { width: rem(250) }
       thead th:nth-of-type(2), dt { width: rem(160) }
       thead th:nth-of-type(2), dd.pay { width: calc(100% - 160px - 125px - 152px)}
-      thead th:nth-of-type(4), dd.price { width: rem(125); text-align: right; }
-      thead th:nth-of-type(5), dd.status { width: rem(152); }
-      thead th:nth-of-type(4) { padding-right: em(60, $font-size); }
+      thead th:nth-of-type(3), dd.price { width: rem(125); text-align: right; }
+      thead th:nth-of-type(4), dd.status { width: rem(152); }
+      thead th:last-of-type { padding-right: em(60, $font-size); }
       tbody th:first-of-type { font-weight: 600; }
       tbody th, tbody td {  }
       tbody td { text-align: center; }
@@ -712,5 +712,213 @@
     .total-price, .total-price + dd { @include valign-center(); left: auto }
     .total-price { right: rem(284); width: rem(82) }
     .total-price + dd { @include font($size: 14, $color: $text-primary, $weight: 600); right: rem(182); }
+  }
+}
+@mixin board-page($lnb-wrap-class:null, $content-wrap-class:null, $list-class:null) {
+  padding-top: rem(100);
+  .search-area {
+    @include clearfix;
+    margin: 0 rem(-5) rem(80); padding: 0 0 rem($grid * 10);
+    border-bottom: 1px solid $mono8;
+    input[type='text'] { @include form($size: 4, $role: normal, $type: textbox); }
+    /*기본 셀렉트일 떄*/
+    .select-wrap {
+      @include form($size: 4, $role: normal, $type: select);
+      padding: 0 !important;
+      z-index: 0;
+      select {
+        -webkit-appearance: none; -moz-appearance: none; -o-appearance: none; appearance: none;
+        &::-ms-expand { display: none; }
+        position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+        padding: 0 0 0 rem(20); height: 100%;
+        background-color: transparent;
+        z-index: 1;
+      }
+      label { @include sr-only }
+      &:after {
+        content: "";
+        position: absolute; top: 50%; right: rem(20);
+        width: rem(8); height: rem(8);
+        border: solid $mono1; border-width: 0 2px 2px 0;
+        transform: rotate(45deg) translate(-50%, -50%);
+        z-index: 0;
+      }
+    }
+    /*selectric일 때*/
+    .selectric-select-wrap {
+      label { @include sr-only }
+      .selectric-wrapper {
+        position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+        .selectric {
+          @include form($size: 4, $role: normal, $type: select);
+          .label {
+            @include valign-middle();
+            position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+            margin: 0; padding: 0 rem($grid * 4) 0 rem($grid * 2); width: 100%; height: 100%;
+            font-size: inherit; color: inherit;
+          }
+          b.button {
+            overflow: hidden;
+            height: 100%;
+            text-indent: -999em;
+            background-color: transparent;
+            transition: transform 0.2s;
+            transform: rotate(-180deg);
+            transform-origin: 50% 50%;
+            &:after {
+              content: "";
+              position: absolute; top: 50%; right: rem(20);
+              width: rem(8); height: rem(8);
+              border: solid $mono1; border-width: 0 2px 2px 0;
+              transform: rotate(45deg) translate(-2px, -17px);
+              z-index: 0;
+            }
+          }
+        }
+        &.selectric-open {
+          b.button {
+            transform: rotate(0);
+            &:after { transform: rotate(45deg) translate(-2px, -15px) }
+          }
+        }
+      }
+      .selectric-items {
+        box-shadow: none;
+        margin-top: -1px;
+        border-color: #ddd; border-radius: rem(3);
+        background-color: #fff;
+        li {
+          $font-size: 14;
+          @include font($size: $font-size, $color: $mono1, $weight: 600);
+          padding: 0 em(16, $font-size);
+          height: em(48, $font-size);
+          line-height: em(46, $font-size);
+        }
+        li:hover,
+        .highlighted,
+        .selected,
+        .selected:hover,
+        .selected.highlighted { background-color: $bg-submit };
+      }
+    }
+    .btn-wrap {
+      input[type='radio'], input[type='checkbox'] { @include sr-only }
+      label, a, button, {
+        @include form($size: 4, $role: normal, $type: button);
+        float: left;
+        width: auto; height: 100%;
+      }
+      input[type='radio']:checked + label,
+      input[type='check']:checked + label {
+        @include form($size: 4, $role: primary3, $type: button);
+        width: auto;
+      }
+      label, a, button,
+      input[type='radio']:checked + label,
+      input[type='check']:checked + label {
+        &:not(:first-child):not(:last-child) { border-radius: 0; }
+        &:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+        &:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+        &:not(:first-child) { border-left-color: transparent; }
+      }
+    }
+    .calendar-wrap {
+      $ico-size: 48;
+      input[type='text'] { padding-right: rem($ico-size + $grid * 2); height: 100%; }
+      label {
+        @include background($file: 'my/ico_calendar', $type: png, $width: rem(24), $height: auto);
+        overflow: hidden;
+        position: absolute; right: 0; top: 0; bottom: 0;
+        display: block;
+        width: rem($ico-size); height: rem($ico-size);
+        text-indent: -999em;
+        background-position: 50% 50%;
+      }
+    }
+    .input-wrap, .input-group, .select-wrap, .calendar-wrap, .btn-wrap, .selectric-select-wrap { position: relative; float: left; margin: 0 rem(5) }
+    .input-group {
+      & > [class*='-wrap'] { margin: 0; }
+      & > [class*='-wrap']:first-child {
+        &.select-wrap,
+        &.selectric-select-wrap .selectric { border-top-right-radius: 0; border-bottom-right-radius: 0 }
+      }
+      & > [class*='-wrap']:not(:first-child) {
+        &.select-wrap,
+        &.selectric-select-wrap .selectric,
+        &.btn-wrap > *:first-child, &.input-wrap > *:first-child, &.calendar-wrap > *:first-child { border-top-left-radius: 0; border-bottom-left-radius: 0 }
+        &.input-wrap input[type='text'],
+        &.calendar-wrap input[type='text'] { border-left-color: transparent }
+      }
+    }
+    input[type='text'], .select-wrap, .selectric-select-wrap,
+    .btn-wrap > label, .btn-wrap > input[type='checkbox'] + label, input[type='radio'] + label,
+    .btn-wrap > button, .btn-wrap > a {
+      padding-left: rem(20); padding-right: rem(20); height: rem(48) !important;
+      line-height: rem(46) !important;
+    }
+    input[type='text'], .select-wrap, .selectric-select-wrap, .btn-wrap > * {  }
+    .process-btn-wrap { float: left; width: 100%; }
+  }
+  @if $lnb-wrap-class != null {
+    #{$lnb-wrap-class} .lnb {
+      @include clearfix;
+      margin: 0 rem(-12) rem($grid * 5);
+      li {
+        float: left;
+        margin: 0 rem(12);
+        a {
+          $font-size: 20;
+          @include font($size: 20, $color: $mono4, $weight: 400);
+          display: block;
+          padding: 0 0 em(5, $font-size);
+          text-decoration: none;
+          border-bottom: 2px solid transparent
+        }
+        &.active a { color: $mono1; font-weight: 800; border-bottom: 2px solid $mono1 }
+      }
+    }
+    .page-name { @include font($size: 32, $color: $mono1, $weight: 800); margin-bottom: rem($grid * 5) }
+  }
+  @if $content-wrap-class != null {
+    #{$content-wrap-class} .my-header {
+      padding-top: rem(20);
+    }
+  }
+  @if $list-class != null {
+    #{$list-class} {
+      .function-wrap {
+        @include clearfix;
+        padding: rem(20) 0 rem(50);
+        text-align: right;
+      }
+      dt, dd { display: inline-block; line-height: rem(20) }
+      .search-result, .search-result + dd {
+        @include font($size: 13, $color: $mono1, $weight: 600);
+        float: left;
+        .digits { font-size: rem(18) }
+      }
+      .search-result:after { content: ":"; padding: 0 0.3em; }
+      .search-result ~ dt { @include sr-only }
+      .sort-condition ~ dd input[type='radio'] {
+        @include sr-only;
+        & + label { margin-left: rem($grid); color: $mono4; font-weight: 600 }
+        &:checked + label { color: $mono1 }
+      }
+      table {
+        $font-size: 14;
+        @include font($size: $font-size, $color: $mono1, $weight: 300);
+        table-layout: fixed; width: 100%;
+        border-top: 1px solid $mono1;
+        thead th { padding: rem(15) rem($grid * 2); height: rem(51); line-height: rem(21); vertical-align: middle; font-weight: 800; border-bottom: 1px solid $mono1; }
+        tbody th, tbody td { padding: rem(17) rem($grid * 3); border-bottom: 1px solid $mono8; vertical-align: middle; }
+        tbody tr:hover th, tbody tr:hover td { background-color: $mono9 }
+        a { text-decoration: none; color: inherit; }
+        a:hover { text-decoration: underline }
+        .result-empty td {
+          padding-top: rem(120); padding-bottom: rem(120); text-align: center;
+          &:hover { background-color: transparent; }
+        }
+      }
+    }
   }
 }

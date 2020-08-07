@@ -1,235 +1,41 @@
 /*마이페이지 > 나의 예약/결제 내역*/
 [data-page-id='my_pay-history_anc']{
-  padding-top: rem(100);
-  .my-lnb-wrap .lnb {
-    @include clearfix;
-    margin: 0 rem(-12) rem($grid * 5);
-    li {
-      float: left;
-      margin: 0 rem(12);
-      a {
-        $font-size: 20;
-        @include font($size: 20, $color: $mono4, $weight: 400);
-        display: block;
-        padding: 0 0 em(5, $font-size);
-        text-decoration: none;
-        border-bottom: 2px solid transparent
-      }
-      &.active a { color: $mono1; font-weight: 800; border-bottom: 2px solid $mono1 }
-    }
-  }
-  .page-name { @include font($size: 32, $color: $mono1, $weight: 800); margin-bottom: rem($grid * 5) }
-  .my-history-wrap .my-header {
-    padding-top: rem(20);
-  }
-  .search-area {
-    @include clearfix;
-    margin: 0 rem(-5) rem(80); padding: 0 0 rem($grid * 10);
-    border-bottom: 1px solid $mono8;
-    input[type='text'] { @include form($size: 4, $role: normal, $type: textbox); }
-    .select-wrap {
-      @include form($size: 4, $role: normal, $type: select);
-      padding: 0 !important;
-      z-index: 0;
-      select {
-        -webkit-appearance: none; -moz-appearance: none; appearance: none;
-        &::-ms-expand { display: none; }
-        position: absolute; left: 0; top: 0; right: 0; bottom: 0;
-        padding: 0 0 0 rem(20);
-        background-color: transparent;
-        z-index: 1;
-      }
-      label { @include sr-only }
-      &:after {
-        content: "";
-        position: absolute; top: 50%; right: rem(20);
-        width: rem(8); height: rem(8);
-        border: solid $mono1; border-width: 0 2px 2px 0;
-        transform: rotate(45deg) translate(-50%, -50%);
-        z-index: 0;
-      }
-    }
-    .btn-wrap {
-      input[type='radio'], input[type='checkbox'] { @include sr-only }
-      label, a, button, {
-        @include form($size: 4, $role: normal, $type: button);
-        float: left;
-        width: auto;
-      }
-      input[type='radio']:checked + label,
-      input[type='check']:checked + label {
-        @include form($size: 4, $role: primary3, $type: button);
-        width: auto;
-      }
-      label, a, button,
-      input[type='radio']:checked + label,
-      input[type='check']:checked + label {
-        &:not(:first-child):not(:last-child) { border-radius: 0; }
-        &:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
-        &:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; }
-        &:not(:first-child) { border-left-color: transparent; }
-      }
-    }
-    .calendar-wrap {
-      $ico-size: 48;
-      input[type='text'] { padding-right: rem($ico-size + $grid * 2); }
-      label {
-        @include background($file: 'my/ico_calendar', $type: png, $width: rem(24), $height: auto);
-        overflow: hidden;
-        position: absolute; right: 0; top: 0; bottom: 0;
-        display: block;
-        width: rem($ico-size); height: rem($ico-size);
-        text-indent: -999em;
-        background-position: 50% 50%;
-      }
-    }
-    .input-wrap, .input-group, .select-wrap, .calendar-wrap, .btn-wrap { position: relative; float: left; margin: 0 rem(5) }
-    .input-group {
-      & > [class*='-wrap'] { margin: 0; }
-      & > [class*='-wrap']:first-child {
-        &.select-wrap { border-top-right-radius: 0; border-bottom-right-radius: 0 }
-      }
-      & > [class*='-wrap']:not(:first-child) {
-        &.select-wrap { border-top-left-radius: 0; border-bottom-left-radius: 0 }
-        &.btn-wrap > *:first-child, &.input-wrap > *:first-child { border-top-left-radius: 0; border-bottom-left-radius: 0 }
-      }
-    }
-    input[type='text'], .select-wrap,
-    .btn-wrap > label, .btn-wrap > input[type='checkbox'] + label, input[type='radio'] + label,
-    .btn-wrap > button, .btn-wrap > a {
-      padding-left: rem(20); padding-right: rem(20); height: rem(48) !important;
-      line-height: rem(46) !important;
-    }
-    input[type='text'], .select-wrap, .btn-wrap > * { margin-bottom: 0 !important; }
-    .input-wrap {
-      input[type='text'] {
-        width: rem(234);
-        & + label { @include sr-only }
-      }
-    }
-    .resv-num {
-      .select-wrap { width: rem(210); }
-    }
-    .sort {
-      width: rem(416);
-      .select-wrap { width: rem(209); }
-      .duration-controller {
-        width: rem(207);
-        label, a, button {
-          padding-left: 0; padding-right: 0; width: 33.3%;
-          border-color: $mono6 $mono6 $mono6 transparent; color: $mono4;
-        }
-        input[type='radio']:checked + label,
-        input[type='check']:checked + label {
-          padding-left: 0; padding-right: 0; width: 33.3%;
-        }
-      }
-    }
-    .duration {
-      width: rem(280);
-      input[type='text'] {
-        &::-webkit-input-placeholder { /* Edge */
-          color: $mono1;
-        }
-        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-          color: $mono1;
-        }
-        &::placeholder {
-          color: $mono1;
-        }
-      }
-    }
-    .status { width: rem(240); }
-    .process-btn-wrap { float: left; width: 100%; font-size: rem(16) }
-  }
-
+  @include board-page($lnb-wrap-class:'.my-lnb-wrap', $content-wrap-class:'.my-history-wrap', $list-class:'.history-list');
   .history-list {
-    .function-wrap {
-      @include clearfix;
-      padding: rem(20) 0 rem(50);
-      text-align: right;
-    }
-    dt, dd { display: inline-block; line-height: rem(20) }
-    .search-result, .search-result + dd {
-      @include font($size: 13, $color: $mono1, $weight: 600);
-      float: left;
-      .digits { font-size: rem(18) }
-    }
-    .search-result:after { content: ":"; padding: 0 0.3em; }
-    .search-result ~ dt { @include sr-only }
-    .sort-condition ~ dd input[type='radio'] {
-      @include sr-only;
-      & + label { margin-left: rem($grid); color: $mono4; font-weight: 600 }
-      &:checked + label { color: $mono1 }
-    }
-
     table {
-      $font-size: 14;
-      @include font($size: $font-size, $color: $mono1, $weight: 300);
-      table-layout: fixed; width: 100%;
-      border-top: 1px solid $mono1;
-      thead th { padding: rem(15) rem($grid * 2); height: rem(51); line-height: rem(21); vertical-align: middle; font-weight: 800; border-bottom: 1px solid $mono1; }
-      tbody th, tbody td { padding: rem(17) rem($grid * 3); border-bottom: 1px solid $mono8; vertical-align: middle; }
-      tbody tr:hover th, tbody tr:hover td { background-color: $mono9 }
-      a { text-decoration: none; color: inherit; }
-      a:hover { text-decoration: underline }
-      thead th:nth-of-type(1){ width: rem(150); }
-      thead th:nth-of-type(2){ width: rem(110); }
-      thead th:nth-of-type(3){  }
-      thead th:nth-of-type(4){ width: rem(185); }
-      thead th:nth-of-type(5){ width: rem(170); }
-      thead th:nth-of-type(6){ width: rem(130); }
-      thead th:nth-of-type(7){ width: rem(125); }
-      tbody td:nth-of-type(1){ text-align: center; font-weight: 600; }
-      tbody td:nth-of-type(2){ text-align: center; }
-      tbody td:nth-of-type(3){  }
-      tbody td:nth-of-type(4){ text-align: center; }
-      tbody td:nth-of-type(5){ text-align: center; }
-      tbody td:nth-of-type(6){ text-align: right; }
-      tbody td:nth-of-type(7){ text-align: center; }
-      .tr-anchor { cursor: pointer }
+      thead th:first-of-type { width: rem(150); }
+      thead th:nth-of-type(2) { width: rem(110); }
+      thead th:nth-of-type(3) {  }
+      thead th:nth-of-type(4) { width: rem(185); }
+      thead th:nth-of-type(5) { width: rem(170); }
+      thead th:nth-of-type(6) { width: rem(130); }
+      thead th:nth-of-type(7) { width: rem(125); }
+      tbody td:first-of-type { text-align: center; font-weight: 600; }
+      tbody td:nth-of-type(2) { text-align: center; }
+      tbody td:nth-of-type(3) {  }
+      tbody td:nth-of-type(4) { text-align: center; }
+      tbody td:nth-of-type(5) { text-align: center; }
+      tbody td:nth-of-type(6) { text-align: right; }
+      tbody td:nth-of-type(7) { text-align: center; }
       .price { @include price-unit(krw) }
     }
   }
-  .ticket-info { text-align: left; }
-  .ticket-info .departure,
-  .ticket-info .arrival { @include sr-only }
-  .ticket-info dt, .ticket-info dd { display: inline; }
-  .ticket-info .arrival + dd:before { content: "↔"; padding: 0 0.3em 0 0.1em; }
-  .ticket-info.one-way .arrival + dd:before { content: "→"; padding: 0 0.3em 0 0.1em; }
-  .ticket-info .iata-code {
-    &:before { content: "(" }
-    &:after { content: ")" }
-  }
-  .ticket-info .schedule:after { content: ":"; padding: 0 0.1em 0 0.3em }
-  .ticket-info .arrival + dd:after,
-  .ticket-info .schedule ~ dd:after{ content: ""; display: block; width: 100%; height: 0 }
-  .ticket-info .arrival + dd + .schedule:before { content: ""; display: block; width: 100%; height: rem(10); }
-  .schedule, .schedule + dd { @include font($size: 11, $color: $mono1, $weight: 300); }
-
-  .pagination {
-    $font-size: 14;
-    $btn-size: 36;
-    padding-top: rem(50);
-    text-align: center;
-    a {
-      @include font($family: en, $size: $font-size, $color: $mono4, $weight: 300);
-      display: inline-block;
-      padding: em($grid, $font-size); min-width: em($btn-size, $font-size); height: em($btn-size, $font-size);
-      border: 1px solid #cecece; line-height: em(20, $font-size);
-      text-decoration: none; text-align: center; vertical-align: top;
-      &.active { border-color: #111; color: #111; font-weight: 500; }
-      &[class^='btn_'] {
-        overflow: hidden;
-        width: em($btn-size, $font-size);
-        text-indent: -999em;
-        background-position: center center;
-      }
-      &.btn_first { @include background($file: 'common/ico_pag-first', $type: 'png', $width: rem($btn-size), $height: rem($btn-size)); }
-      &.btn_prev { @include background($file: 'common/ico_pag-prev', $type: 'png', $width: rem($btn-size), $height: rem($btn-size)); }
-      &.btn_next { @include background($file: 'common/ico_pag-next', $type: 'png', $width: rem($btn-size), $height: rem($btn-size)); }
-      &.btn_last { @include background($file: 'common/ico_pag-last', $type: 'png', $width: rem($btn-size), $height: rem($btn-size)); }
+  .ticket-info { 
+    text-align: left;
+    .departure,
+    .arrival { @include sr-only }
+    dt, dd { display: inline; }
+    .arrival + dd:before { content: "↔"; padding: 0 0.3em 0 0.1em; }
+    .ticket-info.one-way .arrival + dd:before { content: "→"; padding: 0 0.3em 0 0.1em; }
+    .iata-code {
+      &:before { content: "(" }
+      &:after { content: ")" }
     }
+    .schedule:after { content: ":"; padding: 0 0.1em 0 0.3em }
+    .arrival + dd:after,
+    .schedule ~ dd:after{ content: ""; display: block; width: 100%; height: 0 }
+    .arrival + dd + .schedule:before { content: ""; display: block; width: 100%; height: rem(10); }
+    .schedule, .schedule + dd { @include font($size: 11, $color: $mono1, $weight: 300); }
   }
 }
 
@@ -267,6 +73,9 @@
     }
   }
   .my-history-detail-wrap + .process-btn-wrap { padding-top: rem($grid * 10) }
+}
+[data-page-id='my_pay-history-detail_anc'] {
+
 }
 [data-page-id='my_refund_anc']{
   .notification-text {
@@ -318,16 +127,17 @@
       & + label { font-weight: 800; }
       & + label .ico { vertical-align: top; }
     }
-    thead th:nth-of-type(1) { padding-left: em(60, $font-size) }
-    thead th:nth-of-type(1), tbody th:nth-of-type(1) { padding-left: em(60, $font-size) }
-    thead th:nth-of-type(1), tbody th:nth-of-type(1) { width: rem(250) }
+    thead th:first-of-type { padding-left: em(60, $font-size) }
+    thead th:first-of-type, tbody th:first-of-type { padding-left: em(60, $font-size) }
+    thead th:first-of-type, tbody th:first-of-type { width: rem(250) }
     thead th:nth-of-type(2), dt { width: rem(160) }
     thead th:nth-of-type(2), dd.pay { width: calc(100% - 160px - 125px - 125px - 152px) !important }
     thead th:nth-of-type(3), dd.refund { width: rem(125) }
-    thead th:nth-of-type(4), dd.price { width: rem(125) }
+    thead th:nth-of-type(4), dd.price { width: rem(125) !important }
     thead th:nth-of-type(5), dd.status { width: rem(152); }
-    thead th:nth-of-type(4) { padding-right: em(30, $font-size) !important; text-align: right; }
-    thead th:nth-of-type(5) { padding-right: em(60, $font-size) !important; }
+    thead th:nth-of-type(3) { text-align: center !important; }
+    thead th:nth-of-type(4) { padding-right: em(30, $font-size); text-align: right; }
+    thead th:last-of-type { padding-right: em(60, $font-size) !important; }
     dd.refund { text-align: center; }
   }
   .agreement-wrap {

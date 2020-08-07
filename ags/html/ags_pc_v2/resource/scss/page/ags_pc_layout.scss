@@ -20,12 +20,24 @@ body {
   .symbol-wrap {
     float: left;
     height: 100%;
+    dl { float: left; }
     dt { @include sr-only }
     dd { display: inline-block; }
     .symbol_agency + dd {
-      padding-left: 58px; height: rem($gnb-height);
+      height: rem($gnb-height);
+    }
+    .symbol_airline ~ .symbol_agency + dd {
+      padding-left: rem(58);
       @include background($file: 'common/header-logo_by', $type: jpg, $width: rem(18), $height: rem($gnb-height));
       background-position: rem(20);
+    }
+    .ico_tag {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      float: left;
+      margin: rem(28) 0 0 rem($grid * 2); padding: 0 em(12, $font-size); height: em(24, $font-size);
+      line-height: em(24, $font-size);
+      background-color: $bg_submit;
     }
   }
   .gnb-wrap {
@@ -139,6 +151,31 @@ body {
     .notification-list li { margin-top: rem(2) }
   }
 }
+/*페이지네이션*/
+.pagination {
+  $font-size: 14;
+  $btn-size: 36;
+  padding-top: rem(50);
+  text-align: center;
+  a {
+    @include font($family: en, $size: $font-size, $color: $mono4, $weight: 300);
+    display: inline-block;
+    padding: em($grid, $font-size); min-width: em($btn-size, $font-size); height: em($btn-size, $font-size);
+    border: 1px solid #cecece; line-height: em(20, $font-size);
+    text-decoration: none; text-align: center; vertical-align: top;
+    &.active { border-color: #111; color: #111; font-weight: 500; }
+    &[class^='btn_'] {
+      overflow: hidden;
+      width: em($btn-size, $font-size);
+      text-indent: -999em;
+      background-position: center center;
+    }
+    &.btn_first { @include background($file: 'common/ico_pag-first', $type: 'png', $width: rem($btn-size), $height: rem($btn-size)); }
+    &.btn_prev { @include background($file: 'common/ico_pag-prev', $type: 'png', $width: rem($btn-size), $height: rem($btn-size)); }
+    &.btn_next { @include background($file: 'common/ico_pag-next', $type: 'png', $width: rem($btn-size), $height: rem($btn-size)); }
+    &.btn_last { @include background($file: 'common/ico_pag-last', $type: 'png', $width: rem($btn-size), $height: rem($btn-size)); }
+  }
+}
 /*여권번호 등록 & 이메일 SMS 주문서 받기*/
 .passport-wrap, .dfs-email-wrap {
   .passport-list, .dfs-info-list {
@@ -218,5 +255,43 @@ body {
     .ags-header { z-index: 1500 }
     .ags-summary,
     .ags-footer { z-index: 500 }
+  }
+}
+[data-grid-type='board']{
+  .tr-anchor { cursor: pointer }
+  .result-empty:hover td { }
+}
+[data-accordion="true"]{
+  .ico_more {
+    position: relative;
+    display: inline-block;
+    width: rem(25); height: rem(25);
+    &:after {
+      content: "";
+      transition: all 0.3s;
+      position: absolute; left: 50%; top: 50%;
+      display: inline-block;
+      width: rem(9); height: rem(9);
+      border: solid $mono1; border-width: 0 2px 2px 0;
+      transform-origin: left top;
+      transform: rotate(-135deg) translate(-6.5px, -6.5px)
+    }
+  }
+  tbody th, tbody td { padding-top: rem($grid * 4); padding-bottom: rem($grid * 4); }
+  tbody tr.accordion-content th,
+  tbody tr.accordion-content td {
+    padding: 0 !important; height: 0 !important;
+    font-size: 0; line-height: 0;
+    border-bottom-width: 0 !important;
+    background-color: #f9f9f9;
+    font-weight: 300 !important; text-align: left !important;
+  }
+  tbody tr.active {
+    .ico_more:after {
+      transform: rotate(45deg) translate(-50%, -50%)
+    }
+    & + tr.accordion-content th,
+    & + tr.accordion-content td { padding: rem($grid * 4) !important; height: auto !important; border-bottom-width: 1px !important; font-size: inherit; line-height: 1.6em }
+    a { font-weight: 800; text-decoration: underline }
   }
 }
