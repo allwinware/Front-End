@@ -50,7 +50,7 @@
 
 /* popup common layout */
 .pop-area {
-  overflow: auto;
+  overflow: hidden;
   display: none;
   position: fixed; right: 0; bottom: 0; left: 0;
   &.active { display: block; }
@@ -193,8 +193,7 @@ $ico_pop-close-size: 24;
     transition: none;
     z-index: 0;
     @include font($size: 13, $color: $mono1, $weight: 400, $spacing: 0);
-    overflow: auto;
-    padding: 0 rem($grid * 2) 0; width: 100%; max-height: inherit;
+    padding: 0 rem($grid * 2) 0; width: 100%; max-height: calc(80vh - #{$pop-header-area}px - #{$pop-footer-area}px);
     .message-text > *:last-child { padding-bottom: 0; }
     .message-text.mg-b--min { margin-bottom: rem(-50) }
   }
@@ -214,6 +213,8 @@ $ico_pop-close-size: 24;
     min-width: rem(420); max-width: rem(480);
   }
   .pop-header { background-color: $mono10; }
+  .pop-container {
+  }
   .btn_close { @include background($file: 'popup/ico_pop-close', $type: 'png', $width: rem($ico_pop-close-size), $height: rem($ico_pop-close-size)); }
 }
 [data-type='submission'] {

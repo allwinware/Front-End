@@ -1042,7 +1042,7 @@ strong {
 
 /* popup common layout */
 .pop-area {
-  overflow: auto;
+  overflow: hidden;
   display: none;
   position: fixed;
   right: 0;
@@ -1600,10 +1600,9 @@ strong {
   font-weight: 400;
   color: #000;
   letter-spacing: 0em;
-  overflow: auto;
   padding: 0 1.23077rem 0;
   width: 100%;
-  max-height: inherit;
+  max-height: calc(80vh - 53px - 150px);
 }
 
 [data-type='message'] .pop-container .message-text > *:last-child, [data-type='submission'] .pop-container .message-text > *:last-child {
@@ -5783,7 +5782,12 @@ body {
 }
 
 /* 부가서비스 신청 > 사전 좌석 선택 */
-[data-page-id='anc_main'] .anc_seat .seat-plan {
+.seat-plan {
+  overflow: hidden;
+  height: 0;
+}
+
+.flexbox .seat-plan {
   display: flex;
   display: -ms-flexbox;
   /*ie10*/
@@ -5791,12 +5795,304 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch;
-  overflow: hidden;
-  height: 0;
 }
 
 .tab-panel.active .seat-plan {
   height: 100%;
+}
+
+.seat-plan .seat-sheet {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  flex: 1;
+  background-color: #F8F8F8;
+}
+
+.seat-plan .seat-sheet .seat-code,
+.seat-plan .seat-sheet .seat-num {
+  margin: 0 auto;
+  width: 22.61538rem;
+}
+
+.seat-plan .seat-sheet.B73780001:before {
+  content: "";
+  background-image: url("../img/anc/bg_B73780001_seat-left.png");
+  background-repeat: no-repeat;
+  background-size: 1.23077rem 33.38462rem;
+  display: inline-block;
+  width: 1.23077rem;
+  height: 33.38462rem;
+  position: absolute;
+  left: 0;
+  top: 39.38462rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .seat-plan .seat-sheet.B73780001:before {
+    background-image: url("../img/anc/bg_B73780001_seat-left@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .seat-plan .seat-sheet.B73780001:before {
+    background-image: url("../img/anc/bg_B73780001_seat-left@3x.png");
+  }
+}
+
+.seat-plan .seat-sheet.B73780001:after {
+  content: "";
+  background-image: url("../img/anc/bg_B73780001_seat-right.png");
+  background-repeat: no-repeat;
+  background-size: 1.23077rem 33.38462rem;
+  display: inline-block;
+  width: 1.23077rem;
+  height: 33.38462rem;
+  position: absolute;
+  right: 0;
+  top: 39.38462rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .seat-plan .seat-sheet.B73780001:after {
+    background-image: url("../img/anc/bg_B73780001_seat-right@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .seat-plan .seat-sheet.B73780001:after {
+    background-image: url("../img/anc/bg_B73780001_seat-right@3x.png");
+  }
+}
+
+.seat-plan .seat-sheet.B73780001 li:nth-of-type(3) .seat-type1 {
+  margin-top: -0.61538rem;
+}
+
+.seat-plan .seat-sheet.B73780001 li:nth-of-type(3) .seat-disabled-lg {
+  margin-top: -0.61538rem;
+}
+
+.seat-plan .seat-sheet .seat-code {
+  position: absolute;
+  top: 9.23077rem;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  display: table;
+  table-layout: fixed;
+}
+
+.seat-plan .seat-sheet .seat-code span {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92308rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: table-cell;
+  text-align: center;
+}
+
+.seat-plan .seat-sheet .seat-code .hallway {
+  text-indent: -999em;
+}
+
+.seat-plan .seat-sheet .seat-num {
+  padding: 4.07692rem 0 3.38462rem;
+  /*비행기 행번호 수동입력용*/
+  /*비행기 행번호 자동 입력용*/
+}
+
+.seat-plan .seat-sheet .seat-num li {
+  position: relative;
+  padding: 0.46154rem 0.30769rem;
+}
+
+.seat-plan .seat-sheet .seat-num li:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.seat-plan .seat-sheet .seat-num li > * {
+  float: left;
+}
+
+.seat-plan .seat-sheet .seat-num .row-num {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92308rem;
+  font-weight: 600;
+  color: #aaa;
+  letter-spacing: -0.03em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: inline-block;
+}
+
+.seat-plan .seat-sheet .seat-num:not(.excluded-numbering) {
+  counter-reset: seat-row-numbering;
+}
+
+.seat-plan .seat-sheet .seat-num:not(.excluded-numbering) li:not(.exit-row) {
+  counter-increment: seat-row-numbering;
+}
+
+.seat-plan .seat-sheet .seat-num:not(.excluded-numbering) li:not(.exit-row):before {
+  content: counter(seat-row-numbering);
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92308rem;
+  font-weight: 600;
+  color: #aaa;
+  letter-spacing: -0.03em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: inline-block;
+}
+
+.seat-plan .seat-sheet .seat-num li.exit-row:first-child {
+  margin-top: -4.07692rem !important;
+}
+
+.seat-plan .seat-sheet .seat-num li.exit-row:first-child + li {
+  margin-top: 3.30769rem;
+}
+
+.seat-plan .seat-sheet .seat-num li.exit-row:first-of-type {
+  padding: 0;
+  height: 0.76923rem;
+}
+
+.seat-plan .seat-sheet .seat-num .exit_left,
+.seat-plan .seat-sheet .seat-num .exit_right {
+  margin: 0;
+}
+
+.seat-plan .seat-sheet .seat-num .exit_left {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.84615rem;
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: -0.03em;
+}
+
+.seat-plan .seat-sheet .seat-num .exit_right {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.84615rem;
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: -0.03em;
+  float: right;
+}
+
+.seat-plan .seat-sheet .seat-num .exit_left .ico,
+.seat-plan .seat-sheet .seat-num .exit_right .ico {
+  display: inline-block;
+  width: 12px;
+  height: 6px;
+  text-indent: -999em;
+  border-style: solid;
+  border-width: 3px 6px;
+  vertical-align: middle;
+}
+
+.seat-plan .seat-sheet .seat-num .exit_left .ico {
+  margin: 0 0.30769rem 0 -6px;
+  border-color: transparent #aaa transparent transparent;
+}
+
+.seat-plan .seat-sheet .seat-num .exit_right .ico {
+  margin: 0 -6px 0 0.30769rem;
+  border-color: transparent transparent transparent #aaa;
+}
+
+.seat-plan .seat-sheet .seat-num a[class^='seat-'] {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01231em;
+  overflow: hidden;
+  position: relative;
+  margin: 0 0.46154em;
+  width: 2.15385em;
+  height: 2.15385em;
+  text-align: center;
+  border: 2px solid;
+  background-color: #ffffff;
+  border-radius: 0.61538rem 0.61538rem 0.23077rem 0.23077rem;
+  transition: 0.5s all;
+  transition-delay: 0.2s;
+  text-decoration: none;
+}
+
+.seat-plan .seat-sheet .seat-num a[class^='seat-']:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.seat-plan .seat-sheet .seat-num a[class^='seat-'].active {
+  color: #ffffff;
+}
+
+.seat-plan .seat-sheet .seat-num a[class^='seat-'].seat-type1 {
+  height: 2.76923em !important;
+}
+
+.seat-plan .seat-sheet .seat-num a[class^='seat-']:after {
+  content: "";
+  display: inline-block;
+  opacity: 0.5;
+  position: absolute;
+  right: 0.30769em;
+  bottom: 0.30769em;
+  left: 0.30769em;
+  width: 1.23077em;
+  height: 0.15385em;
+  border-radius: 1px;
+}
+
+.seat-plan .seat-sheet .seat-num a[class^='seat-'][class^='seat-disabled'] {
+  border-color: #E4E4E4;
+  background-image: url("../img/anc/ico_seat-disabled.png");
+  background-repeat: no-repeat;
+  background-size: 0.92308em 0.92308em;
+  background-position: 50% 50%;
+  text-indent: -999em;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .seat-plan .seat-sheet .seat-num a[class^='seat-'][class^='seat-disabled'] {
+    background-image: url("../img/anc/ico_seat-disabled@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .seat-plan .seat-sheet .seat-num a[class^='seat-'][class^='seat-disabled'] {
+    background-image: url("../img/anc/ico_seat-disabled@3x.png");
+  }
+}
+
+.seat-plan .seat-sheet .seat-num a[class^='seat-'].seat-disabled-lg {
+  height: 2.76923em !important;
+}
+
+.seat-plan .seat-sheet .seat-num .hallway {
+  overflow: hidden;
+  margin: 0 0.69231rem;
+  width: 2.15385em;
+  height: 2.15385em;
 }
 
 [data-page-id='anc_main'] .anc_seat .seat-legend {
@@ -5941,300 +6237,6 @@ body {
   vertical-align: middle;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  flex: 1;
-  background-color: #F8F8F8;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-code,
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num {
-  margin: 0 auto;
-  width: 22.61538rem;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet.B73780001:before {
-  content: "";
-  background-image: url("../img/anc/bg_B73780001_seat-left.png");
-  background-repeat: no-repeat;
-  background-size: 1.23077rem 33.38462rem;
-  display: inline-block;
-  width: 1.23077rem;
-  height: 33.38462rem;
-  position: absolute;
-  left: 0;
-  top: 39.38462rem;
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='anc_main'] .anc_seat .seat-sheet.B73780001:before {
-    background-image: url("../img/anc/bg_B73780001_seat-left@2x.png");
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='anc_main'] .anc_seat .seat-sheet.B73780001:before {
-    background-image: url("../img/anc/bg_B73780001_seat-left@3x.png");
-  }
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet.B73780001:after {
-  content: "";
-  background-image: url("../img/anc/bg_B73780001_seat-right.png");
-  background-repeat: no-repeat;
-  background-size: 1.23077rem 33.38462rem;
-  display: inline-block;
-  width: 1.23077rem;
-  height: 33.38462rem;
-  position: absolute;
-  right: 0;
-  top: 39.38462rem;
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='anc_main'] .anc_seat .seat-sheet.B73780001:after {
-    background-image: url("../img/anc/bg_B73780001_seat-right@2x.png");
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='anc_main'] .anc_seat .seat-sheet.B73780001:after {
-    background-image: url("../img/anc/bg_B73780001_seat-right@3x.png");
-  }
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet.B73780001 li:nth-of-type(3) .seat-type1 {
-  margin-top: -0.61538rem;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet.B73780001 li:nth-of-type(3) .seat-disabled-lg {
-  margin-top: -0.61538rem;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-code {
-  position: absolute;
-  top: 9.23077rem;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0);
-  -ms-transform: translate(-50%, 0);
-  transform: translate(-50%, 0);
-  display: table;
-  table-layout: fixed;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-code span {
-  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.92308rem;
-  font-weight: 600;
-  color: #000;
-  letter-spacing: -0.03em;
-  display: table-cell;
-  text-align: center;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-code .hallway {
-  text-indent: -999em;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num {
-  padding: 4.07692rem 0 3.38462rem;
-  /*비행기 행번호 수동입력용*/
-  /*비행기 행번호 자동 입력용*/
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num li {
-  position: relative;
-  padding: 0.46154rem 0.30769rem;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num li:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num li > * {
-  float: left;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .row-num {
-  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.92308rem;
-  font-weight: 600;
-  color: #aaa;
-  letter-spacing: -0.03em;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  display: inline-block;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num:not(.excluded-numbering) {
-  counter-reset: seat-row-numbering;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num:not(.excluded-numbering) li:not(.exit-row) {
-  counter-increment: seat-row-numbering;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num:not(.excluded-numbering) li:not(.exit-row):before {
-  content: counter(seat-row-numbering);
-  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.92308rem;
-  font-weight: 600;
-  color: #aaa;
-  letter-spacing: -0.03em;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  display: inline-block;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num li.exit-row:first-child {
-  margin-top: -4.07692rem !important;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num li.exit-row:first-child + li {
-  margin-top: 3.30769rem;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num li.exit-row:first-of-type {
-  padding: 0;
-  height: 0.76923rem;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .exit_left,
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .exit_right {
-  margin: 0;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .exit_left {
-  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.84615rem;
-  font-weight: 500;
-  color: #aaa;
-  letter-spacing: -0.03em;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .exit_right {
-  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.84615rem;
-  font-weight: 500;
-  color: #aaa;
-  letter-spacing: -0.03em;
-  float: right;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .exit_left .ico,
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .exit_right .ico {
-  display: inline-block;
-  width: 12px;
-  height: 6px;
-  text-indent: -999em;
-  border-style: solid;
-  border-width: 3px 6px;
-  vertical-align: middle;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .exit_left .ico {
-  margin: 0 0.30769rem 0 -6px;
-  border-color: transparent #aaa transparent transparent;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .exit_right .ico {
-  margin: 0 -6px 0 0.30769rem;
-  border-color: transparent transparent transparent #aaa;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'] {
-  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: -0.01231em;
-  overflow: hidden;
-  position: relative;
-  margin: 0 0.46154em;
-  width: 2.15385em;
-  height: 2.15385em;
-  text-align: center;
-  border: 2px solid;
-  background-color: #ffffff;
-  border-radius: 0.61538rem 0.61538rem 0.23077rem 0.23077rem;
-  transition: 0.5s all;
-  transition-delay: 0.2s;
-  text-decoration: none;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-']:before {
-  content: "";
-  display: inline-block;
-  width: 0;
-  height: 100%;
-  vertical-align: middle;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].active {
-  color: #ffffff;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type1 {
-  height: 2.76923em !important;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-']:after {
-  content: "";
-  display: inline-block;
-  opacity: 0.5;
-  position: absolute;
-  right: 0.30769em;
-  bottom: 0.30769em;
-  left: 0.30769em;
-  width: 1.23077em;
-  height: 0.15385em;
-  border-radius: 1px;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'][class^='seat-disabled'] {
-  border-color: #E4E4E4;
-  background-image: url("../img/anc/ico_seat-disabled.png");
-  background-repeat: no-repeat;
-  background-size: 0.92308em 0.92308em;
-  background-position: 50% 50%;
-  text-indent: -999em;
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'][class^='seat-disabled'] {
-    background-image: url("../img/anc/ico_seat-disabled@2x.png");
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'][class^='seat-disabled'] {
-    background-image: url("../img/anc/ico_seat-disabled@3x.png");
-  }
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-disabled-lg {
-  height: 2.76923em !important;
-}
-
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num .hallway {
-  overflow: hidden;
-  margin: 0 0.69231rem;
-  width: 2.15385em;
-  height: 2.15385em;
-}
-
 /* 부가서비스 신청 > 사전 좌석 선택(제주항공) */
 [data-page-id='anc_main'] .anc_seat .seat-legend li.seat-type1:before {
   border-color: #FF4F24;
@@ -6268,69 +6270,69 @@ body {
   background-color: #8BC4AA;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type1 {
+.seat-sheet .seat-num a[class^='seat-'].seat-type1 {
   border-color: #FF4F24;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type1.active {
+.seat-sheet .seat-num a[class^='seat-'].seat-type1.active {
   background-color: #FF4F24;
   box-shadow: 0 4px 8px rgba(255, 79, 36, 0.5);
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type2 {
+.seat-sheet .seat-num a[class^='seat-'].seat-type2 {
   border-color: #2A2167;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type2.active {
+.seat-sheet .seat-num a[class^='seat-'].seat-type2.active {
   background-color: #2A2167;
   box-shadow: 0 4px 8px rgba(42, 33, 103, 0.5);
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type3 {
+.seat-sheet .seat-num a[class^='seat-'].seat-type3 {
   border-color: #AAC8E4;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type3.active {
+.seat-sheet .seat-num a[class^='seat-'].seat-type3.active {
   background-color: #AAC8E4;
   box-shadow: 0 4px 8px rgba(139, 196, 170, 0.5);
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type4 {
+.seat-sheet .seat-num a[class^='seat-'].seat-type4 {
   border-color: #AAC8E4;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type4.active {
+.seat-sheet .seat-num a[class^='seat-'].seat-type4.active {
   background-color: #AAC8E4;
   box-shadow: 0 4px 8px rgba(170, 200, 228, 0.5);
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type4:after {
+.seat-sheet .seat-num a[class^='seat-'].seat-type4:after {
   background-color: #AAC8E4;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type5 {
+.seat-sheet .seat-num a[class^='seat-'].seat-type5 {
   border-color: #8BC4AA;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type5.active {
+.seat-sheet .seat-num a[class^='seat-'].seat-type5.active {
   background-color: #8BC4AA;
   box-shadow: 0 4px 8px rgba(165, 160, 225, 0.5);
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type6 {
+.seat-sheet .seat-num a[class^='seat-'].seat-type6 {
   border-color: #8BC4AA;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type6.active {
+.seat-sheet .seat-num a[class^='seat-'].seat-type6.active {
   background-color: #8BC4AA;
   box-shadow: 0 4px 8px rgba(139, 196, 170, 0.5);
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type6:after {
+.seat-sheet .seat-num a[class^='seat-'].seat-type6:after {
   background-color: #8BC4AA;
 }
 
-[data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type4:after, [data-page-id='anc_main'] .anc_seat .seat-sheet .seat-num a[class^='seat-'].seat-type6:after {
+.seat-sheet .seat-num a[class^='seat-'].seat-type4:after, .seat-sheet .seat-num a[class^='seat-'].seat-type6:after {
   opacity: 0.5;
 }
 
@@ -15169,6 +15171,35 @@ body {
 
 [data-page-id='my__refund'] .process-btn-wrap {
   padding-bottom: 0;
+}
+
+/* 마이페이지 > 팝업 */
+.pop-wrap .seat-plan {
+  display: block !important;
+  margin: -1.92308rem -1.23077rem -11.53846rem;
+  max-height: inherit;
+  height: auto;
+}
+
+.pop-wrap .seat-plan .seat-sheet {
+  width: auto;
+  max-height: inherit;
+}
+
+.pop-wrap .seat-plan .seat-sheet .scroll-wrap {
+  max-height: inherit;
+}
+
+.pop-wrap .seat-plan .seat-sheet .mCSB_container {
+  padding-top: 5.38462rem;
+}
+
+.pop-wrap .seat-plan .seat-sheet .seat-code {
+  top: 7.38462rem;
+}
+
+.pop-wrap .seat-plan .seat-sheet .seat-num li.exit-row:first-child + li {
+  margin-top: 3.30769rem;
 }
 
 /*고객센터 > 공통*/
