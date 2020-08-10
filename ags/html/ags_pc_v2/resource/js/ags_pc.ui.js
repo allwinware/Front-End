@@ -108,6 +108,7 @@ function sticky(target, start, end){
     }
 }
 
+
 $(window).on("load", function(){
     /* variation */
     var $win = $(window),
@@ -360,6 +361,7 @@ $(window).on("load", function(){
             })
         }
     })();
+
     /*아코디언 스타일 테이블 처리*/
     (function(){
         var $accordionWrap = $("[data-accordion='true']");
@@ -387,76 +389,74 @@ $(window).on("load", function(){
 
     /* 스크롤 바를 미관상 보기 좋게 바꿔줍니다. */
     (function(){
-        $("[data-scrollbar='true']").mCustomScrollbar({
-            setWidth:false,
-            setHeight:false,
-            setTop:0,
-            setLeft:0,
-            axis:"y",
-            scrollbarPosition:"inside",
-            scrollInertia:200,
-            autoDraggerLength:true,
-            autoHideScrollbar:true,
-            autoExpandScrollbar:false,
-            alwaysShowScrollbar:false,
-            snapAmount:null,
-            snapOffset:0,
-            mouseWheel:{
-                enable:true,
-                scrollAmount:"auto",
-                axis:"y",
-                preventDefault:false,
-                deltaFactor:"auto",
-                normalizeDelta:false,
-                invert:false,
-                disableOver:["select","option","keygen","datalist","textarea"]
+        $("*[data-scrollbar='true']").mCustomScrollbar({
+            setWidth: false,
+            setHeight: false,
+            setTop: 0,
+            setLeft: 0,
+            axis: "y",
+            scrollbarPosition: "inside",
+            scrollInertia: 200,
+            autoDraggerLength: true,
+            autoHideScrollbar: true,
+            autoExpandScrollbar: false,
+            alwaysShowScrollbar: false,
+            snapAmount: null,
+            snapOffset: 0,
+            mouseWheel: {
+                enable: true,
+                scrollAmount: "auto",
+                axis: "y",
+                preventDefault: false,
+                deltaFactor: "auto",
+                normalizeDelta: false,
+                invert: false,
+                disableOver: ["select", "option", "keygen", "datalist", "textarea"]
             },
-            scrollButtons:{
-                enable:false,
-                scrollType:"stepless",
-                scrollAmount:"auto"
+            scrollButtons: {
+                enable: false,
+                scrollType: "stepless",
+                scrollAmount: "auto"
             },
-            keyboard:{
-                enable:true,
-                scrollType:"stepless",
-                scrollAmount:"auto"
+            keyboard: {
+                enable: true,
+                scrollType: "stepless",
+                scrollAmount: "auto"
             },
-            contentTouchScroll:25,
-            advanced:{
-                autoExpandHorizontalScroll:false,
-                autoScrollOnFocus:"input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
-                updateOnContentResize:true,
-                updateOnImageLoad:true,
-                updateOnSelectorChange:false,
-                releaseDraggableSelectors:false
+            contentTouchScroll: 25,
+            advanced: {
+                autoExpandHorizontalScroll: false,
+                autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
+                updateOnContentResize: true,
+                updateOnImageLoad: true,
+                updateOnSelectorChange: false,
+                releaseDraggableSelectors: false
             },
-            theme:"light",
-            callbacks:{
-                onInit:false,
-                onScrollStart:false,
-                onScroll:false,
-                onTotalScroll:false,
-                onTotalScrollBack:false,
-                whileScrolling:false,
-                onTotalScrollOffset:0,
-                onTotalScrollBackOffset:0,
-                alwaysTriggerOffsets:true,
-                onOverflowY:false,
-                onOverflowX:false,
-                onOverflowYNone:false,
-                onOverflowXNone:false
+            theme: "light",
+            callbacks: {
+                onInit: false,
+                onScrollStart: false,
+                onScroll: false,
+                onTotalScroll: false,
+                onTotalScrollBack: false,
+                whileScrolling: false,
+                onTotalScrollOffset: 0,
+                onTotalScrollBackOffset: 0,
+                alwaysTriggerOffsets: true,
+                onOverflowY: false,
+                onOverflowX: false,
+                onOverflowYNone: false,
+                onOverflowXNone: false
             },
-            live:false,
-            liveSelector:null
+            live: false,
+            liveSelector: null
         });
     })();
 
     $(window).on("resize", function(){
         /* 컨텐츠의 길이가 윈도우 세로 높이보다 짧을 때, 윈도우의 높이만큼 컨텐츠의 기본 높이를 잡아줍니다(내용이 짧을 때에도 Footer를 하단에 고정시키기 위한 스크립트) */
         (function(){
-            var $win = $(window),
-                $winHgt = $win.height(),
-                $body = $("body");
+            var $winHgt = $win.height();
             if($body.height() < $winHgt){
                 $body.addClass("fit-layout").css("min-height", $winHgt);
             }
