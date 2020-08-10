@@ -305,12 +305,11 @@ $(document).ready(function(){
 
     $(document).on("click", "[data-role='close']", function(){
         var $pop = $($("#" + $(this).parents(".pop-area").attr("id")));
-        if($pop.attr("data-type") === 'alert'){
+        if($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission'){
             popupHide($pop);
-        } else if($pop.attr("data-type") === 'message'){
-            /*messagePopHide($pop)*/
-            popupHide($pop)
-        }
+        }/* else if($pop.attr("data-type") === 'message'){
+            messagePopHide($pop)
+        }*/
     });
 
     /*gnb 팝업 정의*/
