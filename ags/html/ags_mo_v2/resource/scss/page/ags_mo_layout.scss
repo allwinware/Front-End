@@ -1,5 +1,16 @@
 /* layout */
-
+@mixin snb-menu() {
+  @include font($size: 11, $color: $mono1, $weight: 900, $spacing: -0.03);
+  display: block;
+  width: 100%; height: 100%;
+  padding-top: rem(45);
+  text-decoration: none;
+  background-repeat: no-repeat; background-position: 50% rem(12);
+  &.btn_seat { @include background($file: 'buy/ico_seat', $type: png, $width: 24px, $height: 24px); }
+  &.btn_baggage { @include background($file: 'buy/ico_baggage', $type: png, $width: 15px, $height: 25px); }
+  &.btn_meal { @include background($file: 'buy/ico_meal', $type: png, $width: 19px, $height: 24px); }
+  &.btn_lounge { @include background($file: 'buy/ico_lounge', $type: png, $width: 26px, $height: 26px); }
+}
 html { font-size: #{$font-root-size}px; }
 body {
   font-family: $font-common-family;
@@ -91,15 +102,7 @@ body {
       &:not(:first-of-type) { border-left: 1px solid $mono8 }
     }
     a {
-      @include font($size: 11, $color: $mono1, $weight: 900, $spacing: -0.03);
-      display: block; width: 100%; height: 100%;
-      padding-top: rem(45);
-      text-decoration: none;
-      background-repeat: no-repeat; background-position: 50% rem(12);
-      &.btn_seat { @include background($file: '../img/buy/ico_seat', $type: png, $width: 24px, $height: 24px); }
-      &.btn_baggage { @include background($file: '../img/buy/ico_baggage', $type: png, $width: 15px, $height: 25px); }
-      &.btn_meal { @include background($file: '../img/buy/ico_meal', $type: png, $width: 19px, $height: 24px); }
-      &.btn_lounge { @include background($file: '../img/buy/ico_lounge', $type: png, $width: 26px, $height: 26px); }
+      @include snb-menu;
     }
   }
   .content-wrap { position: relative; width: 100%; }
