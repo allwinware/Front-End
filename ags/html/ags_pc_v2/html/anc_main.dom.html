@@ -1868,14 +1868,14 @@
                     $psgLists = $thisPanel.find("[data-select='passenger']")/*승객 선택 체크박스 전체*/,
                     $selectSeats = $thisPanel.find("[data-select='seat']")/*좌석 선택 버튼 전체*/,
                     $target = $selectSeats.find("a[class*='seat-']:not([class*='disabled']")/*비활성화 되지 않은 좌석 선택 버튼 전체*/;
-
                 /*비활성화 되지 않은 좌석 선택 버튼을 클릭하면 다음 기능을 수행합니다*/
-                $target.on("click", function(){
+                $target.on("click", function(e){
                     var $this = $(this)/*클릭한 좌석 버튼*/,
                         $checkedPsg = $psgLists.find($("input[type='radio']:checked"))/*현재 선택된 승객*/,
                         $currentPsgLabel = $psgLists.find("input[type='radio']:checked ~ dl .selected-seat + dd")/*현재 선택된 승객의 좌석 텍스트*/,
                         $checkedPsgName = $checkedPsg.parent("li").find(".passenger-name").next("dd").text()/*현재 선택된 승객의 성명*/;
-
+                    /*좌석 클릭 시 scrollTop 되는 현상 해소*/
+                    e.preventDefault();
                     /*1. 승객의 좌석부여 상태별 IF 조건문*/
                     if($this.attr("data-psg") === undefined || $this.attr("data-psg") === "")
                         /*1-1. 해당 승객이 아무런 좌석을 부여받지 않은 상태일 때, 선택한 좌석을 부여합니다*/{
@@ -1943,7 +1943,7 @@
         /*좌석 범례 클릭 기능 정의*/
         (function(legendClickHandler) {
             var scrollCurrent = 0;
-            $doc.on("click", ".anc_seat .tab-panel.active .seat-legend a", function () {
+            $doc.on("click", ".anc_seat .tab-panel.active .seat-legend a", function() {
                 var $this = $(this)/*클릭된 범례 아이템*/,
                     $scrollEl = $(".anc_seat .tab-panel.active .seat-sheet .mCSB_container")/*스크롤을 움직일 엘리먼트*/,
                     $target = $(".anc_seat .tab-panel.active .seat-num ." + $this.attr("data-scrollTo") + ":first-of-type")/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템*/,
@@ -1957,23 +1957,26 @@
 
         /*수하물 선택 방식을 컨트롤 합니다.*/
         (function(baggageHandler){
-            var $baggage = $(".anc_baggage .tab-panel .baggage-plan a:not(.disabled)");
-            $baggage.on("click", function(){
+            var $baggage = $(".anc_baggage .tab-panel .baggage-plan a");
+            $baggage.on("click", function(e){
                 var $this = $(this)/*클릭한 수하물 용량 버튼*/,
                     price = $this.next("dl").find(".price").next("dd").text()/*클릭한 수하물 용량의 AGS 가격 정보*/,
                     salePrice = $this.next("dl").find(".sale").next("dd").text()/*클릭한 수하물 용량의 AGS 가격 정보*/,
                     $priceDp = $this.parents(".baggage-plan").siblings("dl").children(".selected-baggage + dd")/*수하물 가격 정보가 표기될 탑승객 명 하단의 dd 영역*/;
+                /*좌석 클릭 시 scrollTop 되는 현상 해소*/
+                e.preventDefault();
+                if($this.hasClass("disabled") === false){
+                    /*선택한 수하물 용량 버튼을 활성화합니다*/
+                    $this.parent("li").addClass("active").siblings("li").removeClass("active").parent("ul").siblings(".approach-comment").removeClass("active");
+                    /*탑승객 명 아래에 선택한 수하물의 가격 텍스트와 삭제 버튼을 추가합니다*/
+                    $priceDp.html("<span class='digits'>" + salePrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
 
-                /*선택한 수하물 용량 버튼을 활성화합니다*/
-                $this.parent("li").addClass("active").siblings("li").removeClass("active").parent("ul").siblings(".approach-comment").removeClass("active");
-                /*탑승객 명 아래에 선택한 수하물의 가격 텍스트와 삭제 버튼을 추가합니다*/
-                $priceDp.html("<span class='digits'>" + salePrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
-
-                var priceNum = parseInt(price.replace(/,/g, '')),
-                    salePriceNum = parseInt(salePrice.replace(/,/g, ''));
-                if(priceNum > salePriceNum){
-                    var calcPrice = priceNum - salePriceNum;
-                    $this.parents("ul").siblings(".approach-comment").addClass("active").find(".digits").text( calcPrice ).digits();
+                    var priceNum = parseInt(price.replace(/,/g, '')),
+                        salePriceNum = parseInt(salePrice.replace(/,/g, ''));
+                    if(priceNum > salePriceNum){
+                        var calcPrice = priceNum - salePriceNum;
+                        $this.parents("ul").siblings(".approach-comment").addClass("active").find(".digits").text( calcPrice ).digits();
+                    }
                 }
             });
 
@@ -2013,16 +2016,16 @@
                 var href = $(this).attr("href"),
                     id = href.substring(href.indexOf('#'));
                 offsetTop = href === "#" ? 0 : $(id).offset().top - lnbHeight + 1;
+                /*좌석 클릭 시 scrollTop 되는 현상 해소*/
+                e.preventDefault();
                 $("html, body").stop().animate({
                     scrollTop: offsetTop
                 }, 300);
-                e.preventDefault();
             });
 
             $win.on("scroll", function(){
                 /*스크롤이 발생하면 lnb가 상단에 고정되도록 합니다.*/
                 sticky($lnb, lnbScStart, lnbScEnd);
-
                 /*스크롤 위치에 따라 .anc-lnb-wrap 내부의 메뉴가 활성화/비활성화 되도록 합니다.*/
                 var fromTop = $(this).scrollTop()+lnbHeight;
                 var cur = scrollItems.map(function(){
@@ -2035,7 +2038,6 @@
                 if(id){
                     menuItems.parent().end().filter("[href*='#"+id+"']").parent().addClass("active");
                 }
-
             }).scroll()
         })();
 
