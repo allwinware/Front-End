@@ -3069,6 +3069,8 @@ body {
   margin-left: 0.35714rem;
   width: 0.85714rem;
   height: 0.85714rem;
+  font-size: 0;
+  line-height: 0;
   text-indent: -999em;
   vertical-align: middle;
   z-index: 99;
@@ -3626,7 +3628,7 @@ body {
   font-weight: 800;
 }
 
-/* 총 결제금액 팝업 */
+/* 총 결제 금액 팝업 */
 .passenger-summary {
   padding-left: 1.14286rem;
 }
@@ -3778,17 +3780,17 @@ body {
   height: 2.14286rem;
 }
 
-.passenger-summary .charge-sheet tbody th:last-child, .passenger-summary .charge-sheet tbody td:last-child {
+.passenger-summary .charge-sheet tbody td:nth-of-type(2) {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.85714rem;
   font-weight: 400;
   color: #000;
   letter-spacing: -0.03em;
-  padding-right: 1.14286rem;
+  padding-right: 0.85714rem;
   text-align: right;
 }
 
-.passenger-summary .charge-sheet tbody th:last-child .digits, .passenger-summary .charge-sheet tbody td:last-child .digits {
+.passenger-summary .charge-sheet tbody td:nth-of-type(2) .digits {
   font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 400;
@@ -3796,11 +3798,18 @@ body {
   letter-spacing: -0.03em;
 }
 
-.passenger-summary .charge-sheet tbody th:last-child .digits:before, .passenger-summary .charge-sheet tbody td:last-child .digits:before {
+.passenger-summary .charge-sheet tbody td:nth-of-type(2) .digits:before {
   content: "￦";
   font-size: 0.85714rem;
   color: #000;
   font-weight: 500;
+}
+
+.passenger-summary .charge-sheet tbody th:last-child, .passenger-summary .charge-sheet tbody td:last-child {
+  padding-left: 0;
+  padding-right: 1.14286rem;
+  width: 0.85714rem;
+  text-align: center;
 }
 
 .passenger-summary .charge-sheet tbody th[scope='colgroup'] {
@@ -3823,6 +3832,36 @@ body {
 
 .passenger-summary .charge-sheet a, .passenger-summary .charge-sheet a:active, .passenger-summary .charge-sheet a:visited {
   color: #66B1FF;
+}
+
+.passenger-summary .charge-sheet .btn_delete {
+  background-image: url("../img/common/ico_delete-s.png");
+  background-repeat: no-repeat;
+  background-size: 0.85714rem 0.85714rem;
+  overflow: hidden;
+  display: inline-block;
+  margin-left: 0.35714rem;
+  width: 0.85714rem;
+  height: 0.85714rem;
+  font-size: 0;
+  line-height: 0;
+  text-indent: -999em;
+  vertical-align: middle;
+  z-index: 99;
+  margin-left: 0;
+  vertical-align: top;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .passenger-summary .charge-sheet .btn_delete {
+    background-image: url("../img/common/ico_delete-s@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .passenger-summary .charge-sheet .btn_delete {
+    background-image: url("../img/common/ico_delete-s@3x.png");
+  }
 }
 
 .passenger-summary .passenger-name {
@@ -4688,6 +4727,14 @@ body {
   font-size: 0.85714rem;
   color: #FF4F24;
   font-weight: 600;
+}
+
+[data-page-id='buy__baggage'] .baggage-plan .baggage-handler .price + dd .approach-comment {
+  padding: 0;
+  position: absolute;
+  top: 4rem;
+  right: 4.57143rem;
+  white-space: nowrap;
 }
 
 [data-page-id='buy__baggage'] .baggage-plan .baggage-handler [class*='btn_'] {
@@ -6730,21 +6777,21 @@ body {
   text-indent: -999em;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap {
+[data-page-id^='my__history-detail'] .ticket-wrap {
   padding: 1.71429rem 1.14286rem;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap dl {
+[data-page-id^='my__history-detail'] .ticket-wrap dl {
   position: relative;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap dl:after {
+[data-page-id^='my__history-detail'] .ticket-wrap dl:after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .purchase-state, [data-page-id='my__history-detail'] .ticket-wrap .departure, [data-page-id='my__history-detail'] .ticket-wrap .arrival, [data-page-id='my__history-detail'] .ticket-wrap .duration {
+[data-page-id^='my__history-detail'] .ticket-wrap .purchase-state, [data-page-id^='my__history-detail'] .ticket-wrap .departure, [data-page-id^='my__history-detail'] .ticket-wrap .arrival, [data-page-id^='my__history-detail'] .ticket-wrap .duration {
   position: absolute;
   width: 0;
   height: 0;
@@ -6755,7 +6802,7 @@ body {
   border: 0;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .resv-num {
+[data-page-id^='my__history-detail'] .ticket-wrap .resv-num {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.71429rem;
   font-weight: 400;
@@ -6763,7 +6810,7 @@ body {
   letter-spacing: -0.03em;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .resv-num + dd {
+[data-page-id^='my__history-detail'] .ticket-wrap .resv-num + dd {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 800;
@@ -6771,13 +6818,13 @@ body {
   letter-spacing: -0.03em;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .resv-num, [data-page-id='my__history-detail'] .ticket-wrap .resv-num + dd {
+[data-page-id^='my__history-detail'] .ticket-wrap .resv-num, [data-page-id^='my__history-detail'] .ticket-wrap .resv-num + dd {
   display: inline-block;
   margin-bottom: 1.71429rem;
   vertical-align: middle;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .purchase-state + dd {
+[data-page-id^='my__history-detail'] .ticket-wrap .purchase-state + dd {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.71429rem;
   font-weight: 800;
@@ -6786,7 +6833,7 @@ body {
   float: right;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .departure + dd, [data-page-id='my__history-detail'] .ticket-wrap .arrival + dd {
+[data-page-id^='my__history-detail'] .ticket-wrap .departure + dd, [data-page-id^='my__history-detail'] .ticket-wrap .arrival + dd {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 1.42857rem;
   font-weight: 800;
@@ -6796,7 +6843,7 @@ body {
   margin-bottom: 0.85714rem;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .arrival + dd {
+[data-page-id^='my__history-detail'] .ticket-wrap .arrival + dd {
   background-image: url("../img/my/ico_journey-type1.png");
   background-repeat: no-repeat;
   background-size: 20px auto;
@@ -6807,36 +6854,36 @@ body {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='my__history-detail'] .ticket-wrap .arrival + dd {
+  [data-page-id^='my__history-detail'] .ticket-wrap .arrival + dd {
     background-image: url("../img/my/ico_journey-type1@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='my__history-detail'] .ticket-wrap .arrival + dd {
+  [data-page-id^='my__history-detail'] .ticket-wrap .arrival + dd {
     background-image: url("../img/my/ico_journey-type1@3x.png");
   }
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .one-way .arrival + dd {
+[data-page-id^='my__history-detail'] .ticket-wrap .one-way .arrival + dd {
   background-image: url("../img/my/ico_journey-type2.png");
   background-repeat: no-repeat;
   background-size: 17px auto;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='my__history-detail'] .ticket-wrap .one-way .arrival + dd {
+  [data-page-id^='my__history-detail'] .ticket-wrap .one-way .arrival + dd {
     background-image: url("../img/my/ico_journey-type2@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='my__history-detail'] .ticket-wrap .one-way .arrival + dd {
+  [data-page-id^='my__history-detail'] .ticket-wrap .one-way .arrival + dd {
     background-image: url("../img/my/ico_journey-type2@3x.png");
   }
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .duration + dd {
+[data-page-id^='my__history-detail'] .ticket-wrap .duration + dd {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.78571rem;
   font-weight: 400;
@@ -6845,7 +6892,7 @@ body {
   margin-bottom: 1.42857rem;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_email, [data-page-id='my__history-detail'] .ticket-wrap .btn_passport {
+[data-page-id^='my__history-detail'] .ticket-wrap .btn_email, [data-page-id^='my__history-detail'] .ticket-wrap .btn_passport {
   display: inline-block;
   margin: 0 0 0.35714rem;
   width: 100%;
@@ -6869,21 +6916,21 @@ body {
   font-size: 0.85714rem;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_email::-webkit-input-placeholder, [data-page-id='my__history-detail'] .ticket-wrap .btn_passport::-webkit-input-placeholder {
+[data-page-id^='my__history-detail'] .ticket-wrap .btn_email::-webkit-input-placeholder, [data-page-id^='my__history-detail'] .ticket-wrap .btn_passport::-webkit-input-placeholder {
   /* Edge */
   color: #aaa;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_email:-ms-input-placeholder, [data-page-id='my__history-detail'] .ticket-wrap .btn_passport:-ms-input-placeholder {
+[data-page-id^='my__history-detail'] .ticket-wrap .btn_email:-ms-input-placeholder, [data-page-id^='my__history-detail'] .ticket-wrap .btn_passport:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #aaa;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_email::placeholder, [data-page-id='my__history-detail'] .ticket-wrap .btn_passport::placeholder {
+[data-page-id^='my__history-detail'] .ticket-wrap .btn_email::placeholder, [data-page-id^='my__history-detail'] .ticket-wrap .btn_passport::placeholder {
   color: #aaa;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_cancel {
+[data-page-id^='my__history-detail'] .ticket-wrap .btn_cancel {
   display: inline-block;
   margin: 0 0 0.35714rem;
   width: 100%;
@@ -6906,25 +6953,25 @@ body {
   font-size: 0.85714rem;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_cancel::-webkit-input-placeholder {
+[data-page-id^='my__history-detail'] .ticket-wrap .btn_cancel::-webkit-input-placeholder {
   /* Edge */
   color: #aaa;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_cancel:-ms-input-placeholder {
+[data-page-id^='my__history-detail'] .ticket-wrap .btn_cancel:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #aaa;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap .btn_cancel::placeholder {
+[data-page-id^='my__history-detail'] .ticket-wrap .btn_cancel::placeholder {
   color: #aaa;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap [class*='btn_'] + [class*='btn_'] {
+[data-page-id^='my__history-detail'] .ticket-wrap [class*='btn_'] + [class*='btn_'] {
   margin-left: 0.14286rem;
 }
 
-[data-page-id='my__history-detail'] .ticket-wrap [class*='btn_'] + .notification-text {
+[data-page-id^='my__history-detail'] .ticket-wrap [class*='btn_'] + .notification-text {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.71429rem;
   font-weight: 800;
@@ -6938,7 +6985,7 @@ body {
   line-height: 1.2em;
 }
 
-[data-page-id='my__history-detail'] .help-wrap {
+[data-page-id^='my__history-detail'] .help-wrap {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.78571rem;
   font-weight: 600;
@@ -6948,20 +6995,20 @@ body {
   border-top: 1px solid #f0f0f0;
 }
 
-[data-page-id='my__history-detail'] .help-wrap dt, [data-page-id='my__history-detail'] .help-wrap dd {
+[data-page-id^='my__history-detail'] .help-wrap dt, [data-page-id^='my__history-detail'] .help-wrap dd {
   display: inline-block;
 }
 
-[data-page-id='my__history-detail'] .help-wrap dt:after {
+[data-page-id^='my__history-detail'] .help-wrap dt:after {
   content: ":";
   padding: 0 0.3em;
 }
 
-[data-page-id='my__history-detail'] .help-wrap .tel + dd {
+[data-page-id^='my__history-detail'] .help-wrap .tel + dd {
   color: #FF4F24;
 }
 
-[data-page-id='my__history-detail'] .help-wrap .time {
+[data-page-id^='my__history-detail'] .help-wrap .time {
   position: absolute;
   width: 0;
   height: 0;
@@ -6972,11 +7019,11 @@ body {
   border: 0;
 }
 
-[data-page-id='my__history-detail'] .history-detail-wrap {
+[data-page-id^='my__history-detail'] .history-detail-wrap {
   padding: 3.57143rem 0 0 1.14286rem;
 }
 
-[data-page-id='my__history-detail'] .title {
+[data-page-id^='my__history-detail'] .title {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 1rem;
   font-weight: 800;
@@ -6985,12 +7032,12 @@ body {
   display: inline-block;
 }
 
-[data-page-id='my__history-detail'] .flight-num {
+[data-page-id^='my__history-detail'] .flight-num {
   display: inline-block;
   margin: 0 0 0.85714rem 0.28571rem;
 }
 
-[data-page-id='my__history-detail'] .flight-num dt {
+[data-page-id^='my__history-detail'] .flight-num dt {
   position: absolute;
   width: 0;
   height: 0;
@@ -7001,7 +7048,7 @@ body {
   border: 0;
 }
 
-[data-page-id='my__history-detail'] .flight-num dd {
+[data-page-id^='my__history-detail'] .flight-num dd {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.64286rem;
   font-weight: 800;
@@ -7018,34 +7065,34 @@ body {
   padding: 0 0.28571rem;
 }
 
-[data-page-id='my__history-detail'] .table-wrap {
+[data-page-id^='my__history-detail'] .table-wrap {
   padding-bottom: 1.14286rem;
 }
 
-[data-page-id='my__history-detail'] .table-wrap:first-child {
+[data-page-id^='my__history-detail'] .table-wrap:first-child {
   border-top: 1px solid #000;
 }
 
-[data-page-id='my__history-detail'] .table-wrap + .table-wrap {
+[data-page-id^='my__history-detail'] .table-wrap + .table-wrap {
   border-top: 1px solid #f0f0f0;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet {
+[data-page-id^='my__history-detail'] .charge-sheet {
   width: 100%;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet a, [data-page-id='my__history-detail'] .charge-sheet button, [data-page-id='my__history-detail'] .charge-sheet input, [data-page-id='my__history-detail'] .charge-sheet textarea, [data-page-id='my__history-detail'] .charge-sheet select {
+[data-page-id^='my__history-detail'] .charge-sheet a, [data-page-id^='my__history-detail'] .charge-sheet button, [data-page-id^='my__history-detail'] .charge-sheet input, [data-page-id^='my__history-detail'] .charge-sheet textarea, [data-page-id^='my__history-detail'] .charge-sheet select {
   margin-bottom: 0 !important;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet caption {
+[data-page-id^='my__history-detail'] .charge-sheet caption {
   overflow: hidden;
   height: 0;
   text-indent: -999em;
   font-size: 0;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet thead th {
+[data-page-id^='my__history-detail'] .charge-sheet thead th {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 600;
@@ -7058,8 +7105,8 @@ body {
   border-bottom: 1px solid #f0f0f0;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th, [data-page-id='my__history-detail'] .charge-sheet tbody td,
-[data-page-id='my__history-detail'] .charge-sheet tfoot th, [data-page-id='my__history-detail'] .charge-sheet tfoot td {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th, [data-page-id^='my__history-detail'] .charge-sheet tbody td,
+[data-page-id^='my__history-detail'] .charge-sheet tfoot th, [data-page-id^='my__history-detail'] .charge-sheet tfoot td {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 400;
@@ -7072,11 +7119,11 @@ body {
   border-bottom: 1px solid #f0f0f0;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th {
   font-weight: 600;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tfoot th, [data-page-id='my__history-detail'] .charge-sheet tfoot td {
+[data-page-id^='my__history-detail'] .charge-sheet tfoot th, [data-page-id^='my__history-detail'] .charge-sheet tfoot td {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 600;
@@ -7085,63 +7132,63 @@ body {
   background-color: #ffffff;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet thead th {
+[data-page-id^='my__history-detail'] .charge-sheet thead th {
   padding-left: 1.14286rem;
   padding-right: 1.14286rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody td {
+[data-page-id^='my__history-detail'] .charge-sheet tbody td {
   padding-left: 1.14286rem;
   padding-right: 1.14286rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet thead th:first-child {
+[data-page-id^='my__history-detail'] .charge-sheet thead th:first-child {
   padding-left: 2.28571rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody td:first-child {
+[data-page-id^='my__history-detail'] .charge-sheet tbody td:first-child {
   padding-left: 2.28571rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet thead th:last-child {
+[data-page-id^='my__history-detail'] .charge-sheet thead th:last-child {
   padding-right: 2.28571rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody td:last-child {
+[data-page-id^='my__history-detail'] .charge-sheet tbody td:last-child {
   padding-right: 2.28571rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tfoot th:first-child {
+[data-page-id^='my__history-detail'] .charge-sheet tfoot th:first-child {
   padding-left: 2.28571rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tfoot td:last-child {
+[data-page-id^='my__history-detail'] .charge-sheet tfoot td:last-child {
   padding-right: 2.28571rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet th, [data-page-id='my__history-detail'] .charge-sheet td {
+[data-page-id^='my__history-detail'] .charge-sheet th, [data-page-id^='my__history-detail'] .charge-sheet td {
   padding: 0.57143rem 0;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet thead th, [data-page-id='my__history-detail'] .charge-sheet tbody th, [data-page-id='my__history-detail'] .charge-sheet tbody td, [data-page-id='my__history-detail'] .charge-sheet tfoot th, [data-page-id='my__history-detail'] .charge-sheet tfoot td {
+[data-page-id^='my__history-detail'] .charge-sheet thead th, [data-page-id^='my__history-detail'] .charge-sheet tbody th, [data-page-id^='my__history-detail'] .charge-sheet tbody td, [data-page-id^='my__history-detail'] .charge-sheet tfoot th, [data-page-id^='my__history-detail'] .charge-sheet tfoot td {
   padding: 0.35714rem 0;
   border-bottom: 0;
   vertical-align: top;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th, [data-page-id='my__history-detail'] .charge-sheet tbody td {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th, [data-page-id^='my__history-detail'] .charge-sheet tbody td {
   line-height: 1.28571rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody td:last-of-type {
+[data-page-id^='my__history-detail'] .charge-sheet tbody td:last-of-type {
   text-align: right;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th, [data-page-id='my__history-detail'] .charge-sheet tbody td {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th, [data-page-id^='my__history-detail'] .charge-sheet tbody td {
   height: 2.14286rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th:last-child, [data-page-id='my__history-detail'] .charge-sheet tbody td:last-child {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th:last-child, [data-page-id^='my__history-detail'] .charge-sheet tbody td:last-child {
   font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 400;
@@ -7150,15 +7197,15 @@ body {
   padding-right: 1.14286rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th[scope='colgroup'] {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th[scope='colgroup'] {
   text-align: left;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody tr + tr th[scope='colgroup'] {
+[data-page-id^='my__history-detail'] .charge-sheet tbody tr + tr th[scope='colgroup'] {
   border-top: 1px solid #f0f0f0;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th[scope='row'] {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th[scope='row'] {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 400;
@@ -7167,23 +7214,23 @@ body {
   text-align: left;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th[scope='row'] + td {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th[scope='row'] + td {
   width: 5.5rem;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet tbody th[scope='row'] + td + td .digits:before {
+[data-page-id^='my__history-detail'] .charge-sheet tbody th[scope='row'] + td + td .digits:before {
   content: "￦";
 }
 
-[data-page-id='my__history-detail'] .charge-sheet a, [data-page-id='my__history-detail'] .charge-sheet a:active, [data-page-id='my__history-detail'] .charge-sheet a:visited {
+[data-page-id^='my__history-detail'] .charge-sheet a, [data-page-id^='my__history-detail'] .charge-sheet a:active, [data-page-id^='my__history-detail'] .charge-sheet a:visited {
   color: #66B1FF;
 }
 
-[data-page-id='my__history-detail'] .charge-sheet .text-emphasis {
+[data-page-id^='my__history-detail'] .charge-sheet .text-emphasis {
   font-weight: 800;
 }
 
-[data-page-id='my__history-detail'] .passenger-name {
+[data-page-id^='my__history-detail'] .passenger-name {
   font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 1rem;
   font-weight: 500;
@@ -7198,36 +7245,36 @@ body {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='my__history-detail'] .passenger-name {
+  [data-page-id^='my__history-detail'] .passenger-name {
     background-image: url("../img/common/ico_passenger@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='my__history-detail'] .passenger-name {
+  [data-page-id^='my__history-detail'] .passenger-name {
     background-image: url("../img/common/ico_passenger@3x.png");
   }
 }
 
-[data-page-id='my__history-detail'] .total-wrap {
+[data-page-id^='my__history-detail'] .total-wrap {
   height: 3.14286rem;
   border-top: 1px solid #000;
   border-bottom: 1px solid #f0f0f0;
 }
 
-[data-page-id='my__history-detail'] .total-wrap > dl {
+[data-page-id^='my__history-detail'] .total-wrap > dl {
   display: table;
   table-layout: fixed;
   width: 100%;
   height: 100%;
 }
 
-[data-page-id='my__history-detail'] .total-wrap > dl > dt, [data-page-id='my__history-detail'] .total-wrap > dl > dd {
+[data-page-id^='my__history-detail'] .total-wrap > dl > dt, [data-page-id^='my__history-detail'] .total-wrap > dl > dd {
   display: table-cell;
   vertical-align: middle;
 }
 
-[data-page-id='my__history-detail'] .total-wrap > dl > dt {
+[data-page-id^='my__history-detail'] .total-wrap > dl > dt {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.85714rem;
   font-weight: 600;
@@ -7236,17 +7283,29 @@ body {
   width: 10rem;
 }
 
-[data-page-id='my__history-detail'] .total-wrap > dl > dd {
+[data-page-id^='my__history-detail'] .total-wrap > dl > dd {
   padding-right: 1.14286rem;
   text-align: right;
 }
 
-[data-page-id='my__history-detail'] .total-wrap .digits:before {
+[data-page-id^='my__history-detail'] .total-wrap .digits:before {
   content: "￦";
 }
 
-[data-page-id='my__history-detail'] .table-group + .title {
+[data-page-id^='my__history-detail'] .table-group + .title {
   margin-top: 3.57143rem;
+}
+
+[data-page-id='my__history-detail_anc'] .charge-sheet tbody th:first-child {
+  font-weight: 800;
+}
+
+[data-page-id='my__history-detail_anc'] .charge-sheet tbody th[scope='row'] + td {
+  width: auto;
+}
+
+[data-page-id='my__history-detail_anc'] .charge-sheet tbody td:nth-of-type(2) {
+  text-align: right;
 }
 
 /*마이페이지 > 구매 내역/취소*/

@@ -149,7 +149,7 @@
   }
 }
 
-/* 총 결제금액 팝업 */
+/* 총 결제 금액 팝업 */
 .passenger-summary {
   padding-left: rem($grid * 2);
   .flight-num {
@@ -168,10 +168,9 @@
     thead th, tbody th, tbody td, tfoot th, tfoot td { border-bottom: 0; }
     tbody td:last-of-type { text-align: right; }
     tbody th, tbody td { height: rem(30); }
-    tbody th:last-child, tbody td:last-child {
+    tbody td:nth-of-type(2) {
       @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
-      padding-right: rem($grid * 2);
-      text-align: right;
+      padding-right: rem(12); text-align: right;
       .digits {
         @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
         &:before {
@@ -180,6 +179,10 @@
         }
       }
     }
+    tbody th:last-child, tbody td:last-child {
+      padding-left: 0; padding-right: rem($grid * 2); width: rem(12);
+      text-align: center;
+    }
     tbody th[scope='colgroup'] { text-align: left; }
     tbody tr + tr th[scope='colgroup'] { border-top: 1px solid $mono8 }
     tbody th[scope='row'] {
@@ -187,6 +190,7 @@
       width: rem(70); text-align: left;
     }
     a, a:active, a:visited { color: #66B1FF; }
+    .btn_delete { @include btn_delete-small; margin-left: 0; vertical-align: top }
   }
   .passenger-name {
     @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);

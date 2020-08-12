@@ -165,21 +165,21 @@
     }
   }
   /* 좌석 선택 */
-  .approach-comment {
-    $font-size: 11;
-    @include font($size: $font-size, $color: $text-primary, $weight: 600, $spacing: -0.03);
-    padding: rem(25) 0 rem(48);
-    text-align: center;
-    p {
-      @include valign-middle();
-      display: inline-block;
-      padding: 0 em(12, $font-size); width: auto; height: 18px;
-      border: 1px solid $border-primary; border-radius: rem(9);
-    }
-  }
   .seat-sheet {
     position: relative;
     margin-top: rem($buy__psg-wrap-height + $seat-legend-height);
+    .approach-comment {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $text-primary, $weight: 600, $spacing: -0.03);
+      padding: rem(25) 0 rem(48);
+      text-align: center;
+      p {
+        @include valign-middle();
+        display: inline-block;
+        padding: 0 em(12, $font-size); width: auto; height: 18px;
+        border: 1px solid $border-primary; border-radius: rem(9);
+      }
+    }
     .seat-code,
     .seat-num { margin: 0 auto; width: rem(294); }
     &.B73780001 {
@@ -476,6 +476,22 @@
         .digits:before {
           content: "￦";
           font-size: rem(12); color: $text-primary; font-weight: 600;
+        }
+        .approach-comment {
+          position: absolute; top: rem(51); right: rem(64);
+          padding: rem(3) rem(8);
+          font-size: rem(10); color: $mono10; line-height: rem(10);
+          white-space: nowrap;
+          background-color: $bg-primary; border-radius: rem(2);
+          &:after {
+            content: ""; position: absolute; right: rem(-3); top: 50%;
+            transform: rotate(45deg) translate(rem(-1), rem(-5));
+            transform-origin: left top;
+            display: inline-block;
+            width: rem(6); height: rem(6);
+            background-color: $bg-primary
+          }
+          .digits:before { font-size: inherit; color: inherit; }
         }
       }
       [class*='btn_'] {
