@@ -1337,7 +1337,7 @@ strong {
 [data-type='message'] .pop-wrap {
   transition: none;
   overflow: hidden;
-  padding: 5.85714rem 0 10.71429rem;
+  padding: 3.78571rem 0 10.71429rem;
   max-height: inherit;
   background-color: #ffffff;
 }
@@ -1348,9 +1348,10 @@ strong {
   left: 0;
   top: 0;
   right: 0;
-  padding: 3.57143rem 1.14286rem 1.14286rem;
-  height: 5.85714rem;
+  padding: 1.28571rem 1.14286rem 1.14286rem;
+  height: 3.78571rem;
   background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 [data-type='message'] .pop-title {
@@ -1368,20 +1369,20 @@ strong {
   overflow: visible;
   display: block;
   position: relative;
-  padding: 0 2.85714rem 0 0;
+  padding: 0 1.14286rem;
   width: 100%;
   line-height: 1em;
-  text-align: left;
+  text-align: center;
 }
 
 [data-type='message'] .btn_close {
   z-index: 1;
-  background-image: url("../img/popup/ico_pop-close.png");
+  background-image: url("../img/popup/ico_pop-close-b.png");
   background-repeat: no-repeat;
-  background-size: 20px 20px;
+  background-size: 1.71429rem 1.71429rem;
   overflow: hidden;
   position: absolute;
-  right: 1.14286rem;
+  left: 1.14286rem;
   top: 1.14286rem;
   width: 1.71429rem;
   height: 1.71429rem;
@@ -1392,13 +1393,13 @@ strong {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-type='message'] .btn_close {
-    background-image: url("../img/popup/ico_pop-close@2x.png");
+    background-image: url("../img/popup/ico_pop-close-b@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-type='message'] .btn_close {
-    background-image: url("../img/popup/ico_pop-close@3x.png");
+    background-image: url("../img/popup/ico_pop-close-b@3x.png");
   }
 }
 
@@ -1411,10 +1412,14 @@ strong {
   color: #000;
   letter-spacing: 0em;
   overflow: auto;
-  margin: -5.85714rem 0 -10.71429rem;
-  padding: 5.85714rem 1.14286rem 10.71429rem;
+  margin: -3.78571rem 0 -10.71429rem;
+  padding: 3.78571rem 1.14286rem 10.71429rem;
   width: 100%;
   max-height: inherit;
+}
+
+[data-type='message'] .pop-container .message-text:first-child {
+  padding-top: 1.71429rem;
 }
 
 [data-type='message'] .pop-container .message-text > *:last-child {
@@ -1758,7 +1763,7 @@ strong {
 
 .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
   z-index: 1;
-  background-image: url("../img/popup/ico_pop-close--w.png");
+  background-image: url("../img/popup/ico_pop-close-b--w.png");
   background-repeat: no-repeat;
   background-size: 14px 14px;
   overflow: hidden;
@@ -1774,13 +1779,13 @@ strong {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
-    background-image: url("../img/popup/ico_pop-close--w@2x.png");
+    background-image: url("../img/popup/ico_pop-close-b--w@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
-    background-image: url("../img/popup/ico_pop-close--w@3x.png");
+    background-image: url("../img/popup/ico_pop-close-b--w@3x.png");
   }
 }
 
@@ -3092,6 +3097,12 @@ body {
   }
 }
 
+[data-page-id^='buy__'] .passenger-list .selected-seat + dd .btn_delete.disabled,
+[data-page-id^='buy__'] .passenger-list .selected-baggage + dd .btn_delete.disabled,
+[data-page-id^='buy__'] .passenger-list .selected-meal + dd .btn_delete.disabled {
+  opacity: 0.2;
+}
+
 [data-page-id^='buy__'] .passenger-list .selected-seat + dd:empty:before,
 [data-page-id^='buy__'] .passenger-list .selected-baggage + dd:empty:before,
 [data-page-id^='buy__'] .passenger-list .selected-meal + dd:empty:before {
@@ -3633,12 +3644,22 @@ body {
   padding-left: 1.14286rem;
 }
 
-.passenger-summary .flight-num {
-  display: inline-block;
+.passenger-summary [class$='-header'] {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.passenger-summary .title {
+  margin-bottom: 0.85714rem;
+  font-weight: 800;
+}
+
+.passenger-summary dl.flight-num, .passenger-summary dl.flight-info {
   margin: 0 0 0.85714rem 0.28571rem;
 }
 
-.passenger-summary .flight-num dt {
+.passenger-summary dl.flight-num dt, .passenger-summary dl.flight-info dt {
   position: absolute;
   width: 0;
   height: 0;
@@ -3649,7 +3670,19 @@ body {
   border: 0;
 }
 
-.passenger-summary .flight-num dd {
+.passenger-summary dl.flight-num dd, .passenger-summary dl.flight-info dd {
+  vertical-align: middle;
+}
+
+.passenger-summary dl.flight-num + .table-wrap, .passenger-summary dl.flight-info + .table-wrap {
+  border-top: 1px solid #000;
+}
+
+.passenger-summary dl.flight-num, .passenger-summary dl.flight-num > * {
+  display: inline-block;
+}
+
+.passenger-summary dl.flight-num dd {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.64286rem;
   font-weight: 800;
@@ -3666,8 +3699,95 @@ body {
   padding: 0 0.28571rem;
 }
 
-.passenger-summary .flight-num + .table-wrap {
-  border-top: 1px solid #000;
+.passenger-summary dl.flight-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1 auto;
+  padding-right: 1.14286rem;
+}
+
+.passenger-summary dl.flight-info dd:nth-of-type(1) ~ dd {
+  margin-left: 0.28571rem;
+}
+
+.passenger-summary dl.flight-info .airline + dd {
+  height: 1.14286rem;
+}
+
+.passenger-summary dl.flight-info .airline + dd [class^='ico_'] {
+  overflow: hidden;
+  display: block;
+  height: 100%;
+  background-position: 0 50%;
+  text-indent: -999em;
+}
+
+.passenger-summary dl.flight-info .airline + dd .ico_7c {
+  background-image: url("../img/common/symbol_flight-way_7c_dom.png");
+  background-repeat: no-repeat;
+  background-size: 4.42857rem 0.85714rem;
+  width: 4.42857rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .passenger-summary dl.flight-info .airline + dd .ico_7c {
+    background-image: url("../img/common/symbol_flight-way_7c_dom@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .passenger-summary dl.flight-info .airline + dd .ico_7c {
+    background-image: url("../img/common/symbol_flight-way_7c_dom@3x.png");
+  }
+}
+
+.passenger-summary dl.flight-info .airline + dd .ico_tw {
+  background-image: url("../img/common/symbol_flight-way_tw_dom.png");
+  background-repeat: no-repeat;
+  background-size: 2.71429rem 1.14286rem;
+  width: 2.71429rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  .passenger-summary dl.flight-info .airline + dd .ico_tw {
+    background-image: url("../img/common/symbol_flight-way_tw_dom@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .passenger-summary dl.flight-info .airline + dd .ico_tw {
+    background-image: url("../img/common/symbol_flight-way_tw_dom@3x.png");
+  }
+}
+
+.passenger-summary dl.flight-info .flight-num + dd {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.64286rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.14286rem;
+  line-height: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #000;
+  width: auto;
+  padding: 0 0.28571rem;
+}
+
+.passenger-summary dl.flight-info .view-seat + dd {
+  margin-left: auto !important;
+}
+
+.passenger-summary dl.flight-info .view-seat + dd a {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 400;
+  color: #66B1FF;
+  letter-spacing: -0.03em;
 }
 
 .passenger-summary .table-wrap {
@@ -3864,6 +3984,10 @@ body {
   }
 }
 
+.passenger-summary .charge-sheet .btn_delete.disabled {
+  opacity: 0.2;
+}
+
 .passenger-summary .passenger-name {
   font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 1rem;
@@ -3931,14 +4055,13 @@ body {
   font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 500;
-  color: #000;
+  color: inherit;
   letter-spacing: -0.03em;
 }
 
 .passenger-summary .total-wrap dd .digits:before {
   content: "￦";
   font-size: 0.85714rem;
-  color: #000;
   font-weight: 600;
 }
 
@@ -4127,21 +4250,21 @@ body {
   vertical-align: middle;
 }
 
-[data-page-id='buy__seat'] .seat-sheet {
+.seat-sheet {
   position: relative;
 }
 
-[data-page-id='buy__seat'] .seat-sheet .seat-code,
-[data-page-id='buy__seat'] .seat-sheet .seat-num {
+.seat-sheet .seat-code,
+.seat-sheet .seat-num {
   margin: 0 auto;
   width: 21rem;
 }
 
-[data-page-id='buy__seat'] .seat-sheet.B73780001 {
+.seat-sheet.B73780001 {
   min-height: 67.5rem;
 }
 
-[data-page-id='buy__seat'] .seat-sheet.B73780001:before {
+.seat-sheet.B73780001:before {
   content: "";
   background-image: url("../img/buy/bg_B73780001_seat-left.png");
   background-repeat: no-repeat;
@@ -4155,18 +4278,18 @@ body {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='buy__seat'] .seat-sheet.B73780001:before {
+  .seat-sheet.B73780001:before {
     background-image: url("../img/buy/bg_B73780001_seat-left@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='buy__seat'] .seat-sheet.B73780001:before {
+  .seat-sheet.B73780001:before {
     background-image: url("../img/buy/bg_B73780001_seat-left@3x.png");
   }
 }
 
-[data-page-id='buy__seat'] .seat-sheet.B73780001:after {
+.seat-sheet.B73780001:after {
   content: "";
   background-image: url("../img/buy/bg_B73780001_seat-right.png");
   background-repeat: no-repeat;
@@ -4180,22 +4303,22 @@ body {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='buy__seat'] .seat-sheet.B73780001:after {
+  .seat-sheet.B73780001:after {
     background-image: url("../img/buy/bg_B73780001_seat-right@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='buy__seat'] .seat-sheet.B73780001:after {
+  .seat-sheet.B73780001:after {
     background-image: url("../img/buy/bg_B73780001_seat-right@3x.png");
   }
 }
 
-[data-page-id='buy__seat'] .seat-sheet.B73780001 li:nth-of-type(3) .seat-type1 {
+.seat-sheet.B73780001 li:nth-of-type(3) .seat-type1 {
   margin-top: -0.57143rem;
 }
 
-[data-page-id='buy__seat'] .seat-sheet.B73780001 li:nth-of-type(3) .seat-disabled-lg {
+.seat-sheet.B73780001 li:nth-of-type(3) .seat-disabled-lg {
   margin-top: -0.57143rem;
 }
 
@@ -6144,7 +6267,7 @@ body {
   color: #aaa;
 }
 
-[data-page-id='pay__complete'] .process-btn-wrap .btn_mypage {
+[data-page-id='pay__complete'] .process-btn-wrap .btn_mypage, [data-page-id='pay__complete'] .process-btn-wrap .btn_buy {
   display: inline-block;
   margin: 0 0 0.35714rem;
   width: 100%;
@@ -6166,17 +6289,17 @@ body {
   flex: 1 auto;
 }
 
-[data-page-id='pay__complete'] .process-btn-wrap .btn_mypage::-webkit-input-placeholder {
+[data-page-id='pay__complete'] .process-btn-wrap .btn_mypage::-webkit-input-placeholder, [data-page-id='pay__complete'] .process-btn-wrap .btn_buy::-webkit-input-placeholder {
   /* Edge */
   color: #aaa;
 }
 
-[data-page-id='pay__complete'] .process-btn-wrap .btn_mypage:-ms-input-placeholder {
+[data-page-id='pay__complete'] .process-btn-wrap .btn_mypage:-ms-input-placeholder, [data-page-id='pay__complete'] .process-btn-wrap .btn_buy:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #aaa;
 }
 
-[data-page-id='pay__complete'] .process-btn-wrap .btn_mypage::placeholder {
+[data-page-id='pay__complete'] .process-btn-wrap .btn_mypage::placeholder, [data-page-id='pay__complete'] .process-btn-wrap .btn_buy::placeholder {
   color: #aaa;
 }
 
@@ -6460,6 +6583,152 @@ body {
 
 [data-page-id*='my__history'] .price-info .price-krw + dd .digits:before {
   content: "₩";
+}
+
+[data-page-id*='my__history'] [class$='-header'] {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+[data-page-id*='my__history'] .title {
+  margin-bottom: 0.85714rem;
+  font-weight: 800;
+}
+
+[data-page-id*='my__history'] dl.flight-num, [data-page-id*='my__history'] dl.flight-info {
+  margin: 0 0 0.85714rem 0.28571rem;
+}
+
+[data-page-id*='my__history'] dl.flight-num dt, [data-page-id*='my__history'] dl.flight-info dt {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+[data-page-id*='my__history'] dl.flight-num dd, [data-page-id*='my__history'] dl.flight-info dd {
+  vertical-align: middle;
+}
+
+[data-page-id*='my__history'] dl.flight-num + .table-wrap, [data-page-id*='my__history'] dl.flight-info + .table-wrap {
+  border-top: 1px solid #000;
+}
+
+[data-page-id*='my__history'] dl.flight-num, [data-page-id*='my__history'] dl.flight-num > * {
+  display: inline-block;
+}
+
+[data-page-id*='my__history'] dl.flight-num dd {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.64286rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.14286rem;
+  line-height: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #000;
+  width: auto;
+  padding: 0 0.28571rem;
+}
+
+[data-page-id*='my__history'] dl.flight-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1 auto;
+  padding-right: 1.14286rem;
+}
+
+[data-page-id*='my__history'] dl.flight-info dd:nth-of-type(1) ~ dd {
+  margin-left: 0.28571rem;
+}
+
+[data-page-id*='my__history'] dl.flight-info .airline + dd {
+  height: 1.14286rem;
+}
+
+[data-page-id*='my__history'] dl.flight-info .airline + dd [class^='ico_'] {
+  overflow: hidden;
+  display: block;
+  height: 100%;
+  background-position: 0 50%;
+  text-indent: -999em;
+}
+
+[data-page-id*='my__history'] dl.flight-info .airline + dd .ico_7c {
+  background-image: url("../img/common/symbol_flight-way_7c_dom.png");
+  background-repeat: no-repeat;
+  background-size: 4.42857rem 0.85714rem;
+  width: 4.42857rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  [data-page-id*='my__history'] dl.flight-info .airline + dd .ico_7c {
+    background-image: url("../img/common/symbol_flight-way_7c_dom@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  [data-page-id*='my__history'] dl.flight-info .airline + dd .ico_7c {
+    background-image: url("../img/common/symbol_flight-way_7c_dom@3x.png");
+  }
+}
+
+[data-page-id*='my__history'] dl.flight-info .airline + dd .ico_tw {
+  background-image: url("../img/common/symbol_flight-way_tw_dom.png");
+  background-repeat: no-repeat;
+  background-size: 2.71429rem 1.14286rem;
+  width: 2.71429rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  [data-page-id*='my__history'] dl.flight-info .airline + dd .ico_tw {
+    background-image: url("../img/common/symbol_flight-way_tw_dom@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  [data-page-id*='my__history'] dl.flight-info .airline + dd .ico_tw {
+    background-image: url("../img/common/symbol_flight-way_tw_dom@3x.png");
+  }
+}
+
+[data-page-id*='my__history'] dl.flight-info .flight-num + dd {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.64286rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.14286rem;
+  line-height: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #000;
+  width: auto;
+  padding: 0 0.28571rem;
+}
+
+[data-page-id*='my__history'] dl.flight-info .view-seat + dd {
+  margin-left: auto !important;
+}
+
+[data-page-id*='my__history'] dl.flight-info .view-seat + dd a {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 400;
+  color: #66B1FF;
+  letter-spacing: -0.03em;
 }
 
 [data-page-id='my__history-list'] {
@@ -6967,8 +7236,9 @@ body {
   font-weight: 600;
   color: #000;
   letter-spacing: -0.03em;
-  border: 1px solid #f0f0f0;
-  background-color: #f0f0f0;
+  border: 1px solid #2A2167;
+  background-color: #2A2167;
+  color: #ffffff;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -7046,21 +7316,22 @@ body {
   padding: 3.57143rem 0 0 1.14286rem;
 }
 
-[data-page-id^='my__history-detail'] .title {
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #000;
-  letter-spacing: -0.03em;
-  display: inline-block;
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header [class$='-header'] {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-[data-page-id^='my__history-detail'] .flight-num {
-  display: inline-block;
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header .title {
+  margin-bottom: 0.85714rem;
+  font-weight: 800;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-num, [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info {
   margin: 0 0 0.85714rem 0.28571rem;
 }
 
-[data-page-id^='my__history-detail'] .flight-num dt {
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-num dt, [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info dt {
   position: absolute;
   width: 0;
   height: 0;
@@ -7071,7 +7342,19 @@ body {
   border: 0;
 }
 
-[data-page-id^='my__history-detail'] .flight-num dd {
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-num dd, [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info dd {
+  vertical-align: middle;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-num + .table-wrap, [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info + .table-wrap {
+  border-top: 1px solid #000;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-num, [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-num > * {
+  display: inline-block;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-num dd {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.64286rem;
   font-weight: 800;
@@ -7086,6 +7369,101 @@ body {
   border: 1px solid #000;
   width: auto;
   padding: 0 0.28571rem;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1 auto;
+  padding-right: 1.14286rem;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info dd:nth-of-type(1) ~ dd {
+  margin-left: 0.28571rem;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .airline + dd {
+  height: 1.14286rem;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .airline + dd [class^='ico_'] {
+  overflow: hidden;
+  display: block;
+  height: 100%;
+  background-position: 0 50%;
+  text-indent: -999em;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .airline + dd .ico_7c {
+  background-image: url("../img/common/symbol_flight-way_7c_dom.png");
+  background-repeat: no-repeat;
+  background-size: 4.42857rem 0.85714rem;
+  width: 4.42857rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .airline + dd .ico_7c {
+    background-image: url("../img/common/symbol_flight-way_7c_dom@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .airline + dd .ico_7c {
+    background-image: url("../img/common/symbol_flight-way_7c_dom@3x.png");
+  }
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .airline + dd .ico_tw {
+  background-image: url("../img/common/symbol_flight-way_tw_dom.png");
+  background-repeat: no-repeat;
+  background-size: 2.71429rem 1.14286rem;
+  width: 2.71429rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .airline + dd .ico_tw {
+    background-image: url("../img/common/symbol_flight-way_tw_dom@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  [data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .airline + dd .ico_tw {
+    background-image: url("../img/common/symbol_flight-way_tw_dom@3x.png");
+  }
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .flight-num + dd {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.64286rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.14286rem;
+  line-height: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #000;
+  width: auto;
+  padding: 0 0.28571rem;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .view-seat + dd {
+  margin-left: auto !important;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .detail-header dl.flight-info .view-seat + dd a {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 400;
+  color: #66B1FF;
+  letter-spacing: -0.03em;
+}
+
+[data-page-id^='my__history-detail'] .history-detail-wrap .table-group + .detail-header {
+  margin-top: 5.71429rem;
 }
 
 [data-page-id^='my__history-detail'] .table-wrap {
@@ -7242,7 +7620,19 @@ body {
 }
 
 [data-page-id^='my__history-detail'] .charge-sheet tbody th[scope='row'] + td + td .digits:before {
-  content: "￦";
+  content: "₩";
+}
+
+[data-page-id^='my__history-detail'] .charge-sheet .digits {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: 0em;
+}
+
+[data-page-id^='my__history-detail'] .charge-sheet .digits:before {
+  font-size: 0.92857rem;
 }
 
 [data-page-id^='my__history-detail'] .charge-sheet a, [data-page-id^='my__history-detail'] .charge-sheet a:active, [data-page-id^='my__history-detail'] .charge-sheet a:visited {
@@ -7307,12 +7697,24 @@ body {
 }
 
 [data-page-id^='my__history-detail'] .total-wrap > dl > dd {
-  padding-right: 1.14286rem;
+  padding-right: 5.28571rem;
   text-align: right;
 }
 
+[data-page-id^='my__history-detail'] .total-wrap > dl > dd .digits:before {
+  content: "₩";
+}
+
+[data-page-id^='my__history-detail'] .total-wrap .digits {
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #FF4F24;
+  letter-spacing: 0em;
+}
+
 [data-page-id^='my__history-detail'] .total-wrap .digits:before {
-  content: "￦";
+  font-size: 0.92857rem;
 }
 
 [data-page-id^='my__history-detail'] .table-group + .title {
@@ -7436,29 +7838,22 @@ body {
   padding: 3.57143rem 0 0 1.14286rem;
 }
 
-[data-page-id='my__refund'] .inner-wrap header {
-  position: relative;
+[data-page-id='my__refund'] .inner-wrap [class$='-header'] {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-[data-page-id='my__refund'] .inner-wrap:not([style*='display']) + .inner-wrap {
-  padding-top: 5.71429rem;
-}
-
-[data-page-id='my__refund'] .title {
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 1rem;
+[data-page-id='my__refund'] .inner-wrap .title {
+  margin-bottom: 0.85714rem;
   font-weight: 800;
-  color: #000;
-  letter-spacing: -0.03em;
-  display: inline-block;
 }
 
-[data-page-id='my__refund'] .flight-num {
-  display: inline-block;
+[data-page-id='my__refund'] .inner-wrap dl.flight-num, [data-page-id='my__refund'] .inner-wrap dl.flight-info {
   margin: 0 0 0.85714rem 0.28571rem;
 }
 
-[data-page-id='my__refund'] .flight-num dt {
+[data-page-id='my__refund'] .inner-wrap dl.flight-num dt, [data-page-id='my__refund'] .inner-wrap dl.flight-info dt {
   position: absolute;
   width: 0;
   height: 0;
@@ -7469,7 +7864,19 @@ body {
   border: 0;
 }
 
-[data-page-id='my__refund'] .flight-num dd {
+[data-page-id='my__refund'] .inner-wrap dl.flight-num dd, [data-page-id='my__refund'] .inner-wrap dl.flight-info dd {
+  vertical-align: middle;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-num + .table-wrap, [data-page-id='my__refund'] .inner-wrap dl.flight-info + .table-wrap {
+  border-top: 1px solid #000;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-num, [data-page-id='my__refund'] .inner-wrap dl.flight-num > * {
+  display: inline-block;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-num dd {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.64286rem;
   font-weight: 800;
@@ -7484,6 +7891,109 @@ body {
   border: 1px solid #000;
   width: auto;
   padding: 0 0.28571rem;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1 auto;
+  padding-right: 1.14286rem;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info dd:nth-of-type(1) ~ dd {
+  margin-left: 0.28571rem;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info .airline + dd {
+  height: 1.14286rem;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info .airline + dd [class^='ico_'] {
+  overflow: hidden;
+  display: block;
+  height: 100%;
+  background-position: 0 50%;
+  text-indent: -999em;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info .airline + dd .ico_7c {
+  background-image: url("../img/common/symbol_flight-way_7c_dom.png");
+  background-repeat: no-repeat;
+  background-size: 4.42857rem 0.85714rem;
+  width: 4.42857rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  [data-page-id='my__refund'] .inner-wrap dl.flight-info .airline + dd .ico_7c {
+    background-image: url("../img/common/symbol_flight-way_7c_dom@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  [data-page-id='my__refund'] .inner-wrap dl.flight-info .airline + dd .ico_7c {
+    background-image: url("../img/common/symbol_flight-way_7c_dom@3x.png");
+  }
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info .airline + dd .ico_tw {
+  background-image: url("../img/common/symbol_flight-way_tw_dom.png");
+  background-repeat: no-repeat;
+  background-size: 2.71429rem 1.14286rem;
+  width: 2.71429rem;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  [data-page-id='my__refund'] .inner-wrap dl.flight-info .airline + dd .ico_tw {
+    background-image: url("../img/common/symbol_flight-way_tw_dom@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  [data-page-id='my__refund'] .inner-wrap dl.flight-info .airline + dd .ico_tw {
+    background-image: url("../img/common/symbol_flight-way_tw_dom@3x.png");
+  }
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info .flight-num + dd {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.64286rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.14286rem;
+  line-height: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #000;
+  width: auto;
+  padding: 0 0.28571rem;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info .view-seat + dd {
+  margin-left: auto !important;
+}
+
+[data-page-id='my__refund'] .inner-wrap dl.flight-info .view-seat + dd a {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92857rem;
+  font-weight: 400;
+  color: #66B1FF;
+  letter-spacing: -0.03em;
+}
+
+[data-page-id='my__refund'] .inner-wrap header {
+  position: relative;
+}
+
+[data-page-id='my__refund'] .inner-wrap:not([style*='display']) + .inner-wrap {
+  padding-top: 5.71429rem;
+}
+
+[data-page-id='my__refund'] .table-group + .refund-header {
+  margin-top: 5.71429rem;
 }
 
 [data-page-id='my__refund'] .check-all-wrap {
@@ -8002,4 +8512,38 @@ body {
 
 [data-page-id='my__refund'] .process-btn-wrap {
   padding-bottom: 0;
+}
+
+/* 마이페이지 > 팝업 */
+.pop-wrap .seat-plan {
+  display: block !important;
+  margin: 0 -1.14286rem;
+  max-height: inherit;
+  height: auto;
+}
+
+.pop-wrap .seat-plan .seat-sheet {
+  width: auto;
+  max-height: inherit;
+}
+
+.pop-wrap .seat-plan .seat-sheet .scroll-wrap {
+  padding-top: 5rem;
+  max-height: inherit;
+}
+
+.pop-wrap .seat-plan .seat-sheet .mCSB_container {
+  padding-top: 5rem;
+}
+
+.pop-wrap .seat-plan .seat-sheet .seat-code {
+  top: 6.85714rem;
+}
+
+.pop-wrap .seat-plan .seat-sheet .seat-code .hallway {
+  text-indent: -999em;
+}
+
+.pop-wrap .seat-plan .seat-sheet .seat-num li.exit-row:first-child + li {
+  margin-top: 3.07143rem;
 }

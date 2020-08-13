@@ -148,17 +148,10 @@
     }
   }
 }
-
 /* 총 결제 금액 팝업 */
 .passenger-summary {
   padding-left: rem($grid * 2);
-  .flight-num {
-    display: inline-block;
-    margin: 0 0 rem(12) rem(4);
-    dt { @include sr-only }
-    dd { @include tagging-route; width: auto; padding: 0 rem(4); }
-    & + .table-wrap { border-top: 1px solid $mono1; }
-  }
+  @include flight-info;
   .table-wrap {
     padding-bottom: rem($grid * 2);
   }
@@ -209,10 +202,10 @@
       padding-right: rem($grid * 2);
       text-align: right;
       .digits {
-        @include font($family: en, $size: 13, $color: $mono1, $weight: 500, $spacing: -0.03);
+        @include font($family: en, $size: 13, $color: inherit, $weight: 500, $spacing: -0.03);
         &:before {
           content: "￦";
-          font-size: rem(12); color: $mono1; font-weight: 600;
+          font-size: rem(12); font-weight: 600;
         }
       }
     }

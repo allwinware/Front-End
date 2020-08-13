@@ -88,11 +88,13 @@
                             <li><a href="#none" target="_self" data-popup="#pop20">[Alert] 주문서 발송 완료</a></li>
                             <li><a href="#none" target="_self" data-popup="#pop21">[Alert] 비상구 좌석배정 안내</a></li>
                             <li><a href="#none" target="_self" data-popup="#pop22">[Alert] 구매 불가 좌석(동일 열 내 유아 동반 탑승객 존재 시)</a></li>
+                            <li><a href="#none" target="_self" data-popup="#pop23">[Alert] 결제 실패 안내</a></li>
                             <li><a href="#none" target="_self" data-popup="#pop09">[Message] 여권번호 등록하기</a></li>
                             <li><a href="#none" target="_self" data-popup="#pop10">[Message] 이메일 SMS 주문서 받기</a></li>
                             <li><a href="#none" target="_self" data-popup="#pop03">[Message] 비상구 좌석 배정 제한 규정(티웨이항공용)</a></li>
                             <li><a href="#none" target="_self" data-popup="#pop15">[Message] 비상구 좌석 안내(제주항공용)</a></li>
                             <li><a href="#none" target="_self" data-popup="#pop04">[Message] 항공기 좌석 안내</a></li><!-- 제주항공용 안내 팝업 -->
+                            <li><a href="#none" target="_self" data-popup="#pop_view-seat">[Message] 좌석 현황 보기</a></li>
                             <li><a href="#none" target="_self" data-popup="#passenger-summary">[Drawer] 총 결제 금액 자세히보기</a></li>
                             <li><a href="#none" target="_self" data-popup="#dfs-select-summary">[Drawer] 선택 상품 자세히보기 / 수량 선택</a></li>
                             <li><a href="#none" target="_self" data-popup="#dfs-product-detail">[Drawer] 상품 상세 팝업</a></li>
@@ -186,10 +188,20 @@
         <h4 class="summary-title">총 결제 금액 자세히보기</h4>
         <div class="inner-wrap">
             <h5 class="title">가는 편</h5>
-            <dl class="flight-num">
-                <dt>항공편명</dt>
-                <dd>TW667</dd>
+            <!-- 분기 : 국제선일 때 -->
+            <!--<dl class="flight-info">
+                <dt class="flight-num">항공편명</dt>
+                <dd>7C4602</dd>
+            </dl>-->
+            <!-- //분기 : 국제선일 때 -->
+            <!-- 분기 : 국내선일 때 -->
+            <dl class="flight-info">
+                <dt class="airline">항공사명</dt>
+                <dd><i class="ico_7c">제주항공</i></dd>
+                <dt class="flight-num">항공편명</dt>
+                <dd>7C4602</dd>
             </dl>
+            <!-- //분기 : 국내선일 때 -->
             <div class="table-wrap">
                 <h6 class="passenger-name">Kim, Allwin</h6>
                 <table class="charge-sheet">
@@ -209,20 +221,8 @@
                     </tr>
                     <tr>
                         <th scope="row">수하물 추가</th>
-                        <td>30kg</td>
-                        <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
-                        <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
+                        <td>14kg</td>
+                        <td><span class="digits">30000</span></td>
                         <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                     </tr>
                     </tbody>
@@ -241,26 +241,14 @@
                     <tbody>
                     <tr>
                         <th scope="row">좌석 지정</th>
-                        <td>D4</td>
-                        <td><span class="digits">10000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                        <td><span class="text-grayscale">구매불가</span></td>
+                        <td>0</td>
+                        <td><a href="#none" target="_self" class="btn_delete" data-disabled="true">삭제</a></td>
                     </tr>
                     <tr>
                         <th scope="row">수하물 추가</th>
-                        <td>30kg</td>
-                        <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
-                        <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
+                        <td>14kg</td>
+                        <td><span class="digits">30000</span></td>
                         <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                     </tr>
                     </tbody>
@@ -279,27 +267,15 @@
                     <tbody>
                     <tr>
                         <th scope="row">좌석 지정</th>
-                        <td>D4</td>
+                        <td><span class="text-grayscale">구매불가(타사구매)</span></td>
                         <td><span class="digits">10000</span></td>
                         <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                     </tr>
                     <tr>
                         <th scope="row">수하물 추가</th>
-                        <td>30kg</td>
-                        <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
                         <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                        <td>0</td>
+                        <td><a href="#none" target="_self" class="btn_delete" data-disabled="true">삭제</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -312,10 +288,20 @@
             </div>
 
             <h5 class="title">오는 편</h5>
-            <dl class="flight-num">
-                <dt>항공편명</dt>
-                <dd>TW667</dd>
+            <!-- 분기 : 국제선일 때 -->
+            <!--<dl class="flight-info">
+                <dt class="flight-num">항공편명</dt>
+                <dd>7C4602</dd>
+            </dl>-->
+            <!-- //분기 : 국제선일 때 -->
+            <!-- 분기 : 국내선일 때 -->
+            <dl class="flight-info">
+                <dt class="airline">항공사명</dt>
+                <dd><i class="ico_7c">제주항공</i></dd>
+                <dt class="flight-num">항공편명</dt>
+                <dd>7C4602</dd>
             </dl>
+            <!-- //분기 : 국내선일 때 -->
             <div class="table-wrap">
                 <h6 class="passenger-name">Kim, Allwin</h6>
                 <table class="charge-sheet">
@@ -335,20 +321,8 @@
                     </tr>
                     <tr>
                         <th scope="row">수하물 추가</th>
-                        <td>30kg</td>
-                        <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
-                        <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
+                        <td>14kg</td>
+                        <td><span class="digits">30000</span></td>
                         <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                     </tr>
                     </tbody>
@@ -367,26 +341,14 @@
                     <tbody>
                     <tr>
                         <th scope="row">좌석 지정</th>
-                        <td>D4</td>
-                        <td><span class="digits">10000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                        <td><span class="text-grayscale">구매불가(타사구매)</span></td>
+                        <td>0</td>
+                        <td><a href="#none" target="_self" class="btn_delete" data-disabled="true">삭제</a></td>
                     </tr>
                     <tr>
                         <th scope="row">수하물 추가</th>
-                        <td>30kg</td>
-                        <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
-                        <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
+                        <td>14kg</td>
+                        <td><span class="digits">30000</span></td>
                         <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                     </tr>
                     </tbody>
@@ -405,27 +367,15 @@
                     <tbody>
                     <tr>
                         <th scope="row">좌석 지정</th>
-                        <td>D4</td>
+                        <td>D6</td>
                         <td><span class="digits">10000</span></td>
                         <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                     </tr>
                     <tr>
                         <th scope="row">수하물 추가</th>
-                        <td>30kg</td>
-                        <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
                         <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                        <td>0</td>
+                        <td><a href="#none" target="_self" class="btn_delete" data-disabled="true">삭제</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -1483,6 +1433,705 @@
                     <span class="text-emphasis">* ABC 또는 DEF 열 당 1명의 유아만 선택 가능합니다.</span><br>
                     예) 10A 유아 동반 승객이 좌석을 선점했을 경우,<br>
                     10B와 10C는 유아 동반 승객 선택 불가
+                </div>
+            </section>
+            <footer class="pop-footer">
+                <button type="button" class="btn_confirm" data-role="close">확인</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 팝업 : 좌석 현황 보기 -->
+    <div id="pop_view-seat" class="pop-area" data-type="message">
+        <div class="pop-wrap">
+            <header class="pop-header">
+                <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
+                <h2 class="pop-title">좌석 현황 보기</h2>
+            </header>
+            <section class="pop-container">
+                <!--<div class="seat-plan seat-7c">--><!-- 제주항공일 떄 -->
+                <div class="seat-plan seat-tw"><!-- 티웨이항공일 떄 -->
+                    <div class="seat-sheet B73780001">
+                        <div class="scroll-wrap" data-scrollbar="true">
+                            <div class="seat-code">
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span class="hallway">통로</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                            </div>
+
+                            <!-- 분기 : 티웨이항공일 때 -->
+                            <!--<ul class="seat-num" data-select="seat">
+                                <li class="exit-row">
+                                    <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
+                                </li>
+                                <li>
+                                    <a class="seat-type1">A1<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">B1<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">C1<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type1">D2<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">E2<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">F2<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">B3<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B3<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C3<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2 active">B3<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2 active">B3<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2 active">B3<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A6<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">B6<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">C6<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D6<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">E6<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">F6<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A7<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">B7<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">C7<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D7<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">E7<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">F7<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A8<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">B8<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">C8<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D8<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">E8<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">F8<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A9<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">B9<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">C9<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D9<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">E9<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">F9<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A10<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">B10<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">C10<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D10<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">E10<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">F10<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A11<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">B11<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">C11<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D11<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">E11<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type3">F11<span class="sr-only">(프론트 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A12<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B12<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C12<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D12<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E12<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F12<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A13<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B13<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C13<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D13<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E13<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F13<span class="sr-only">(프론트 존) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-disabled" disabled="disabled">A14<span class="sr-only">(선택 불가)</span></a>
+                                    <a class="seat-disabled" disabled="disabled">B14<span class="sr-only">(선택 불가)</span></a>
+                                    <a class="seat-disabled" disabled="disabled">C14<span class="sr-only">(선택 불가)</span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-disabled" disabled="disabled">D14<span class="sr-only">(선택 불가)</span></a>
+                                    <a class="seat-disabled" disabled="disabled">E14<span class="sr-only">(선택 불가)</span></a>
+                                    <a class="seat-disabled" disabled="disabled">F14<span class="sr-only">(선택 불가)</span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type1">A15<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">B15<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">C15<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type1">D15<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">E15<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">F15<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                </li>
+                                <li class="exit-row">
+                                    <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
+                                    <span class="exit_right">EXIT<i class="ico">&gt;&gt;</i></span>
+                                </li>
+                                <li>
+                                    <a class="seat-type1">A16<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">B16<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">C16<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type1">D16<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">E16<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">F16<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A17<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B17<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C17<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D17<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E17<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F17<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A18<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B18<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C18<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D18<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E18<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F18<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A19<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B19<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C19<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D19<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E19<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F19<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A20<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B20<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C20<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D20<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E20<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F20<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A21<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B21<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C21<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D21<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E21<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F21<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A22<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B22<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C22<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D22<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E22<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F22<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A23<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B23<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C23<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D23<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E23<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F23<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A24<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B24<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C24<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D24<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E24<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F24<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A25<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B25<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C25<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D25<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E25<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F25<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A26<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B26<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C26<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D26<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E26<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F26<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A27<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B27<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C27<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D27<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E27<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F27<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A28<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B28<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C28<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D28<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E28<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F28<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A29<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B29<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C29<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D29<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E29<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F29<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A30<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B30<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C30<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D30<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E30<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F30<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A31<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">B31<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">C31<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D31<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">E31<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type4">F31<span class="sr-only">(스탠다드 존) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-disabled" disabled="disabled">A32<span class="sr-only">(선택 불가)</span></a>
+                                    <a class="seat-disabled" disabled="disabled">B32<span class="sr-only">(선택 불가)</span></a>
+                                    <a class="seat-disabled" disabled="disabled">C32<span class="sr-only">(선택 불가)</span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-disabled" disabled="disabled">D32<span class="sr-only">(선택 불가)</span></a>
+                                    <a class="seat-disabled" disabled="disabled">E32<span class="sr-only">(선택 불가)</span></a>
+                                    <a class="seat-disabled" disabled="disabled">F32<span class="sr-only">(선택 불가)</span></a>
+                                </li>
+                            </ul>-->
+
+                            <!-- 분기 : 제주항공일 때 -->
+                            <ul class="seat-num" data-select="seat">
+                                <li class="exit-row">
+                                    <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
+                                </li>
+                                <li>
+                                    <a class="seat-type1">A1<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">B1<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">C1<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A2<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B2<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-disabled" disabled="disabled">C2<span class="sr-only">(선택불가)</span></a><!-- C2(일반 좌석모양) 선택할 수 없는 상태일 때 -->
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type1">D2<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">E2<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-disabled-lg" disabled="disabled">F2<span class="sr-only">(선택불가)</span></a><!-- F2(큰 좌석모양) 선택할 수 없는 상태일 때 -->
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A3<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B3<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C3<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2 active">D3<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2 active">E3<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2 active">F3<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A4<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B4<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C4<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D4<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E4<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F4<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A5<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B5<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C5<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D5<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E5<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F5<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A6<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B6<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C6<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D6<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E6<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F6<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A7<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B7<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C7<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D7<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E7<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F7<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A8<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B8<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C8<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D8<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E8<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F8<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A9<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B9<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C9<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D9<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E9<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F9<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A10<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B10<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C10<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D10<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E10<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F10<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type2">A11<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B11<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C11<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D11<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E11<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F11<span class="sr-only">(A구역) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A12<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B12<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C12<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D12<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E12<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F12<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A13<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B13<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C13<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D13<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E13<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F13<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type4">A14<span class="sr-only">(B구역 등받이 고정좌석) / <i class="digit">￦2,000</i></span></a>
+                                    <a class="seat-type4">B14<span class="sr-only">(B구역 등받이 고정좌석) / <i class="digit">￦2,000</i></span></a>
+                                    <a class="seat-type4">C14<span class="sr-only">(B구역 등받이 고정좌석) / <i class="digit">￦2,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type4">D14<span class="sr-only">(B구역 등받이 고정좌석) / <i class="digit">￦2,000</i></span></a>
+                                    <a class="seat-type4">E14<span class="sr-only">(B구역 등받이 고정좌석) / <i class="digit">￦2,000</i></span></a>
+                                    <a class="seat-type4">F14<span class="sr-only">(B구역 등받이 고정좌석) / <i class="digit">￦2,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type1">A15<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">B15<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">C15<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type1">D15<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">E15<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">F15<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                </li>
+                                <li class="exit-row">
+                                    <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
+                                    <span class="exit_right">EXIT<i class="ico">&gt;&gt;</i></span>
+                                </li>
+                                <li>
+                                    <a class="seat-type1">A16<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">B16<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">C16<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type1">D16<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">E16<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">F16<span class="sr-only">(앞 좌석 / 비상구석) / <i class="digit">￦15,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A17<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B17<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C17<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D17<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E17<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F17<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A18<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B18<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C18<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D18<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E18<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F18<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A19<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B19<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C19<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D19<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E19<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F19<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A20<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B20<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C20<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D20<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E20<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F20<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A21<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B21<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C21<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D21<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E21<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F21<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A22<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B22<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C22<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D22<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E22<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F22<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type3">A23<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">B23<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">C23<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type3">D23<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">E23<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                    <a class="seat-type3">F23<span class="sr-only">(B구역) / <i class="digit">￦5,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type5">A24<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">B24<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">C24<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type5">D24<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">E24<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">F24<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type5">A25<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">B25<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">C25<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type5">D25<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">E25<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">F25<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type5">A26<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">B26<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">C26<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type5">D26<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">E26<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">F26<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type5">A27<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">B27<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">C27<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type5">D27<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">E27<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">F27<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type5">A28<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">B28<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">C28<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type5">D28<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">E28<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">F28<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type5">A29<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">B29<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">C29<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type5">D29<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">E29<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">F29<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type5">A30<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">B30<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">C30<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type5">D30<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">E30<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">F30<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type5">A31<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">B31<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">C31<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type5">D31<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">E31<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                    <a class="seat-type5">F31<span class="sr-only">(C구역) / <i class="digit">￦3,000</i></span></a>
+                                </li>
+                                <li>
+                                    <a class="seat-type6">A32<span class="sr-only">(C구역 등받이 고정좌석) / <i class="digit">￦1,000</i></span></a>
+                                    <a class="seat-type6">B32<span class="sr-only">(C구역 등받이 고정좌석) / <i class="digit">￦1,000</i></span></a>
+                                    <a class="seat-type6">C32<span class="sr-only">(C구역 등받이 고정좌석) / <i class="digit">￦1,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type6">D32<span class="sr-only">(C구역 등받이 고정좌석) / <i class="digit">￦1,000</i></span></a>
+                                    <a class="seat-type6">E32<span class="sr-only">(C구역 등받이 고정좌석) / <i class="digit">￦1,000</i></span></a>
+                                    <a class="seat-type6">F32<span class="sr-only">(C구역 등받이 고정좌석) / <i class="digit">￦1,000</i></span></a>
+                                </li>
+                            </ul>
+
+                            <!-- 행번호를 API에서 받아와 입력하는 경우(예시) -->
+                            <!--<ul class="seat-num excluded-numbering" data-select="seat">
+                                <li class="exit-row">
+                                    <span class="exit_left"><i class="ico">&lt;&lt;</i>EXIT</span>
+                                </li>
+                                <li>
+                                    <h6 class="row-num">1<span class="sr-only">열</span></h6>
+                                    <a class="seat-type1">A1<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">B1<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">C1<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <span class="empty"></span>
+                                    <span class="empty"></span>
+                                    <span class="empty"></span>
+                                </li>
+                                <li>
+                                    <h6 class="row-num">2<span class="sr-only">열</span></h6>
+                                    <a class="seat-type2">A2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type1">D2<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">E2<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                    <a class="seat-type1">F2<span class="sr-only">(프리미엄 존) / <i class="digit">￦15,000</i></span></a>
+                                </li>
+                                <li>
+                                    <h6 class="row-num">3<span class="sr-only">열</span></h6>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C3<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B2<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <h6 class="row-num">4<span class="sr-only">열</span></h6>
+                                    <a class="seat-type2">A4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F4<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                                <li>
+                                    <h6 class="row-num">5<span class="sr-only">열</span></h6>
+                                    <a class="seat-type2">A5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">B5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">C5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <span class="hallway"><span class="sr-only">통로</span></span>
+                                    <a class="seat-type2">D5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">E5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                    <a class="seat-type2">F5<span class="sr-only">(세미 프리미엄 존) / <i class="digit">￦10,000</i></span></a>
+                                </li>
+                            </ul>-->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- 팝업 : 결제 실패 안내 -->
+    <div id="pop23" class="pop-area" data-type="alert">
+        <div class="pop-wrap">
+            <section class="pop-container">
+                <div class="ico-wrap">
+                    <i class="ico_alert--primary">!</i>
+                </div>
+                <h3 class="alert-title">
+                    결제 실패 상세 정보 확인이 어렵습니다.<br>
+                    고객센터로 문의 부탁드립니다.
+                </h3>
+                <div class="alert-text">
+                    고객센터 1522-4148<br>
+                    (평일 09:30 ~ 17:00 / 점심시간 : 12:00 ~ 13:00)
                 </div>
             </section>
             <footer class="pop-footer">

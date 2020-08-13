@@ -32,7 +32,6 @@
                             $checkedPsg = $psgLists.find($("input[type='radio']:checked"))/*현재 선택된 승객*/,
                             $currentPsgLabel = $psgLists.find("input[type='radio']:checked ~ dl .selected-seat + dd")/*현재 선택된 승객의 좌석 텍스트*/,
                             $checkedPsgName = $checkedPsg.parent("li").find(".passenger-name").next("dd").text()/*현재 선택된 승객의 성명*/;
-
                         /*1. 승객의 좌석부여 상태별 IF 조건문*/
                         if($this.attr("data-psg") === undefined || $this.attr("data-psg") === "")
                         /*1-1. 해당 승객이 아무런 좌석을 부여받지 않은 상태일 때, 선택한 좌석을 부여합니다*/{
@@ -90,7 +89,6 @@
                         }
                     });
 
-
                     /*승객에게 좌석을 부여한 뒤, 좌석 텍스트 뒤에 붙는 삭제(X)버튼의 기능을 정의합니다*/
                     $doc.on("click", ".btn_delete", function(){
                         var $this = $(this)/*클릭한 삭제버튼*/;
@@ -115,27 +113,24 @@
                 /*가는 편 탭의 .btn_confirm 버튼을 누르면 오는 편 탭으로 이동합니다*/
                 moveTabByClick("#tab-panel1-1 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel1-2']", 0, 800);
                 moveTabByClick("#tab-panel1-2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel1-1']", 0, 800);
-                moveTabByClick("#tab-panel1-2 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel2']", 0, 800);
 
                 /*오는 편 탭의 .btn_cancel 버튼을 누르면 가는 편 탭으로 이동합니다*/
-                moveTabByClick("#tab-panel2-1 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel1']", 0, 800);
                 moveTabByClick("#tab-panel2-1 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel2-2']", 0, 800);
                 moveTabByClick("#tab-panel2-2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel2-1']", 0, 800);
             })();
 
             /*좌석 범례 클릭 기능 정의*/
             (function(legendClickHandler) {
-                $doc.on("click", ".tab-panel.active .seat-legend li a", function () {
+                $doc.on("click", ".tab-panel.active .seat-legend li a", function() {
                     var $this = $(this)/*클릭된 범례 아이템*/,
                         $target = $(".tab-panel.active .seat-num a[class='" + $this.attr("data-scrollTo") + "']:first-of-type")/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템*/,
-                        position = $target.offset().top - parseInt($(".tab-panel.active").css("padding-top")) - 7/*클릭된 범례 아이템과 일치하는 좌석 중 첫번째의 화면 위치*/;
-
+                        position = $target.offset().top - $(".passenger-wrap").height() - 7; /*클릭된 범례 아이템과 일치하는 좌석 중 첫번째의 화면 위치*/
                     /*활성화된 범례 아이템과 일치하는 좌석 중 첫번째가 위치한 곳으로 화면을 이동합니다*/
                     $("html").animate({scrollTop: position}, 800);
                 });
             })();
 
-            /*좌석 범례 스크롤 기능 정의*/
+
             (function(legendScrollHandler){
                 var $html = $("html"),
                     $seats = $(".seat-num"),
@@ -864,7 +859,7 @@
                                                 <!-- 프로세스 버튼 그룹 -->
                                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
                                                     <button type="button" class="btn_cancel">이전</button>
-                                                    <button type="button" class="btn_confirm">오는 편 좌석 지정하러 가기</button>
+                                                    <button type="button" class="btn_confirm">결제하기</button>
                                                 </div>
                                                 <!-- 수하물 서비스 관련 안내문 -->
                                                 <div class="notification-wrap">
@@ -1306,7 +1301,6 @@
                                                 </div>
                                                 <!-- 프로세스 버튼 그룹 -->
                                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
-                                                    <button type="button" class="btn_cancel">이전</button>
                                                     <button type="button" class="btn_confirm">오는 편 수하물 지정하러 가기</button>
                                                 </div>
                                                 <!-- 좌석 지정 서비스 관련 안내문 -->
@@ -1748,18 +1742,6 @@
                         <th scope="row">수하물 추가</th>
                         <td>30kg</td>
                         <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
-                        <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
                         <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                     </tr>
                     </tbody>

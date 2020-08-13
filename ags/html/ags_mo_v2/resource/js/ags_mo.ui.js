@@ -318,3 +318,17 @@ $(document).ready(function(){
         });
     })()
 });
+
+$(window).on("load", function(){
+
+
+    /* 앵커 태그 비활성화 시키기 */
+    (function(){
+        $("a[data-disabled='true']").each(function(){
+            $(this).addClass("disabled");
+
+        }).on("click", function(){
+            return false;
+        })
+    })()
+})

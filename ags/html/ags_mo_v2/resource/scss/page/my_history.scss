@@ -20,6 +20,7 @@
   .price-info {
     @include price($type: inline, $color1: $text-primary, $color2: $mono1);
   }
+  @include flight-info;
 }
 [data-page-id='my__history-list'] {
   margin-bottom: rem(-144); padding: 0 0 rem(112); min-height: calc(100vh - #{$gnb-height}px);
@@ -142,7 +143,7 @@
       width: auto; font-size: rem(12)
     }
     .btn_cancel {
-      @include form($size: 3, $role: cancel, $type: button);
+      @include form($size: 3, $role: primary3, $type: button);
       width: auto; font-size: rem(12)
     }
     [class*='btn_'] + [class*='btn_'] { margin-left: rem(2); }
@@ -163,17 +164,11 @@
     .time { @include sr-only; }
   }
   .history-detail-wrap {
-    padding: rem(50) 0 0 rem($grid * 2)
-  }
-  .title {
-    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
-    display: inline-block;
-  }
-  .flight-num {
-    display: inline-block;
-    margin: 0 0 rem(12) rem(4);
-    dt { @include sr-only }
-    dd { @include tagging-route; width: auto; padding: 0 rem(4); }
+    padding: rem(50) 0 0 rem($grid * 2);
+    .detail-header {
+      @include flight-info;
+    }
+    .table-group + .detail-header { margin-top: rem($grid * 10) }
   }
   .table-wrap {
     padding-bottom: rem($grid * 2);
@@ -195,7 +190,11 @@
       text-align: left;
     }
     tbody th[scope='row'] + td { width: rem(77); }
-    tbody th[scope='row'] + td + td .digits:before { content: "￦" }
+    tbody th[scope='row'] + td + td { @include price-unit(krw); }
+    .digits {
+      @include font($family: en, $size: 14, $color: $mono1, $weight: 400, $spacing: 0);
+      &:before { font-size: rem(13) }
+    }
     a, a:active, a:visited { color: #66B1FF; }
     .text-emphasis { font-weight: 800; }
   }
@@ -211,8 +210,15 @@
     & > dl { display: table; table-layout: fixed; width: 100%; height: 100%; }
     & > dl > dt, & > dl > dd { display: table-cell; vertical-align: middle; }
     & > dl > dt { @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); width: rem(140) }
-    & > dl > dd { padding-right: rem($grid * 2); text-align: right; }
-    .digits:before { content: "￦" }
+    & > dl > dd {
+      @include price-unit(krw);
+      padding-right: rem(74);
+      text-align: right;
+    }
+    .digits {
+      @include font($family: en, $size: 14, $color: $text-primary, $weight: 400, $spacing: 0);
+      &:before { font-size: rem(13) }
+    }
   }
   .table-group + .title { margin-top: rem(50); }
 }
