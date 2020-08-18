@@ -1,0 +1,38 @@
+/*결제 > 결제완료*/
+[data-page-id='pay__failed']{
+  @include valign-center;
+  overflow: hidden;
+  margin-top: rem(-$gnb-height / 2); width: 100%;
+  .error-message {
+    text-align: center;
+    .ico {
+      @include ico(alert);
+      margin-bottom: rem(30)
+    }
+    .title {
+      $font-size: 16;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      margin-bottom: rem($grid * 2);
+      line-height: em(20, $font-size);
+    }
+    .description {
+      $font-size: 13;
+      @include font($size: $font-size, $color: $mono1, $weight: 400);
+      line-height: em(18, $font-size)
+    }
+  }
+  .process-btn-wrap {
+    @include flex(flex-start stretch flex-start nowrap);
+    margin: 0 rem(-3); padding: rem($grid * 3) rem($grid * 2) 0;
+    [class^='btn_'] { margin: 0 rem(3) !important; }
+    .btn_home {
+      @include form($type: button, $size: 4, $role: cancel);
+      width: auto; min-width: rem(90);
+    }
+    .btn_mypage {
+      @include form($type: button, $size: 4, $role: submit);
+      flex: 1 auto;
+    }
+    &:first-child { padding-top: 0; }
+  }
+}

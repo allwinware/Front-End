@@ -320,7 +320,8 @@ $(document).ready(function(){
 });
 
 $(window).on("load", function(){
-
+    /*본문 최소 높이를 화면 높이에 맞춤*/
+    $("body").css("min-height", $(window).innerHeight());
 
     /* 앵커 태그 비활성화 시키기 */
     (function(){
