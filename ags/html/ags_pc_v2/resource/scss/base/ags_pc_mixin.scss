@@ -503,26 +503,30 @@
     @include btn_more--minified
   }
 }
-
+@mixin ico($type: 'alert') {
+  overflow: hidden;
+  position: relative;
+  @if type == alert {
+    $size: 48;
+    display: block;
+    margin: 0 auto; width: rem($size); height: rem($size);
+    background-color: $mono7; border-radius: 50%;
+    text-indent: -999em;
+    &:before {
+      @include background($file: 'popup/ico_exclamation--w', $type: png, $width: rem(4), $height: rem(28));
+      @include align-center;
+      content: "";
+      display: inline-block;
+      width: rem(4); height: rem(28);
+    }
+  }
+}
 /* alert common style */
 @mixin alert-style {
   .ico-wrap {
     padding-top: rem(30);
     [class*='ico_alert'] {
-      $size: 48;
-      overflow: hidden;
-      position: relative;
-      display: block;
-      margin: 0 auto; width: rem($size); height: rem($size);
-      background-color: $mono7; border-radius: 50%;
-      text-indent: -999em;
-      &:before {
-        @include background($file: 'popup/ico_exclamation--w', $type: png, $width: rem(4), $height: rem(28));
-        @include align-center;
-        content: "";
-        display: inline-block;
-        width: rem(4); height: rem(28);
-      }
+      @include ico($type: 'alert');
     }
     [class*='--primary'] {
       background-color: $bg-primary;
