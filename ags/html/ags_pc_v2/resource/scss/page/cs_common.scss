@@ -22,6 +22,29 @@
   [class*='-list']{
     table a { @include text-ellipsis(block) }
   }
+  tr + .accordion-content {
+    .post-info,
+    .post-attached { overflow: hidden; height: 0; }
+  }
+  tr.active + .accordion-content {
+    .post-info,
+    .post-attached {
+      padding: 0 rem($grid * 2); height: auto;
+      .writer, .date, .content { @include sr-only; }
+      .writer + dd { @include font($size: 14, $color: $mono1, $weight: 800); }
+      .writer + dd ~ dd { padding-left: rem(10) }
+      .date + dd { @include font($size: 12, $color: $mono4, $weight: 400); }
+      .content + dd { display: block; padding: rem($grid * 2) 0 0 0 !important; width: 100%; line-height: 1.8em }
+    }
+    .post-attached {
+      @include font($size: 13, $color: $mono1, $weight: 400);
+      margin-top: rem($grid * 2); padding: rem($grid * 2) rem($grid * 4);
+      background-color: #efefef;
+      dt, dd { display: inline; }
+      dt { padding-right: rem($grid * 2); font-weight: 600; }
+      a { display: inline; padding: 0 rem($grid); text-decoration: underline; }
+    }
+  }
 }
 [data-page-id='cs_notice'] {
   .search-area .input-group.sort-by-words label,
@@ -54,29 +77,6 @@
   }
 }
 [data-page-id='cs_qna']{
-  tr + .accordion-content {
-    .post-info,
-    .post-attached { overflow: hidden; height: 0; }
-  }
-  tr.active + .accordion-content {
-    .post-info,
-    .post-attached {
-      padding: 0 rem($grid * 2); height: auto;
-      .writer, .date, .content { @include sr-only; }
-      .writer + dd { @include font($size: 14, $color: $mono1, $weight: 800); }
-      .writer + dd ~ dd { padding-left: rem(10) }
-      .date + dd { @include font($size: 12, $color: $mono4, $weight: 400); }
-      .content + dd { display: block; padding: rem($grid * 2) 0 0 0 !important; width: 100%; line-height: 1.8em }
-    }
-    .post-attached {
-      @include font($size: 13, $color: $mono1, $weight: 400);
-      margin-top: rem($grid * 2); padding: rem($grid * 2) rem($grid * 4);
-      background-color: #efefef;
-      dt, dd { display: inline; }
-      dt { padding-right: rem($grid * 2); font-weight: 600; }
-      a { display: inline; padding: 0 rem($grid); text-decoration: underline; }
-    }
-  }
   .qna-list {
     table {
       thead th:first-of-type { width: rem(100); }
