@@ -20,13 +20,14 @@
     }
   }
   [class*='-list']{
-    table a { @include text-ellipsis(block) }
+    table[data-grid-type='board'] > tbody > tr > th > a,
+    table[data-grid-type='board'] > tbody > tr > td > a { @include text-ellipsis(block) }
   }
-  tr + .accordion-content {
+  table[data-grid-type='board'] > tbody > tr + .accordion-content {
     .post-info,
     .post-attached { overflow: hidden; height: 0; }
   }
-  tr.active + .accordion-content {
+  table[data-grid-type='board'] > tbody > tr.active + .accordion-content {
     .post-info,
     .post-attached {
       padding: 0 rem($grid * 2); height: auto;
@@ -50,49 +51,49 @@
   .search-area .input-group.sort-by-words label,
   .search-area .input-wrap.notice-title label { @include sr-only }
   .notice-list {
-    table {
-      thead th:first-of-type { width: rem(100); }
-      thead th:nth-of-type(2) { width: rem(100); }
-      thead th:nth-of-type(3) {  }
-      thead th:nth-of-type(4) { width: rem(120); }
-      thead th:last-of-type { width: rem(48); }
-      tbody td:first-of-type { text-align: center; font-weight: 600; }
-      tbody td:nth-of-type(2) { text-align: center; }
-      tbody td:nth-of-type(3) {  }
-      tbody td:nth-of-type(4) { text-align: center; }
-      tbody td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    table[data-grid-type='board'] {
+      & > thead > tr > th:first-of-type { width: rem(100); }
+      & > thead > tr > th:nth-of-type(2) { width: rem(100); }
+      & > thead > tr > th:nth-of-type(3) {  }
+      & > thead > tr > th:nth-of-type(4) { width: rem(120); }
+      & > thead > tr > th:last-of-type { width: rem(48); }
+      & > tbody > tr > td:first-of-type { text-align: center; font-weight: 600; }
+      & > tbody > tr > td:nth-of-type(2) { text-align: center; }
+      & > tbody > tr > td:nth-of-type(3) {  }
+      & > tbody > tr > td:nth-of-type(4) { text-align: center; }
+      & > tbody > tr > td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
     }
   }
 }
 [data-page-id='cs_faq'] {
   .faq-list {
-    table {
-      thead th:first-of-type { width: rem(150); }
-      thead th:nth-of-type(2) {  }
-      thead th:last-of-type { width: rem(48); }
-      tbody td:first-of-type { text-align: center; font-weight: 600; }
-      tbody td:nth-of-type(2) {  }
-      tbody td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    table[data-grid-type='board'] {
+      & > thead > tr > th:first-of-type { width: rem(150); }
+      & > thead > tr > th:nth-of-type(2) {  }
+      & > thead > tr > th:last-of-type { padding-left: 0; padding-right: 0; width: rem(48); }
+      & > tbody > tr > td:first-of-type { text-align: center; font-weight: 600; }
+      & > tbody > tr > td:nth-of-type(2) {  }
+      & > tbody > tr > td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
     }
   }
 }
 [data-page-id='cs_qna']{
   .qna-list {
-    table {
-      thead th:first-of-type { width: rem(100); }
-      thead th:nth-of-type(2) { width: rem(140); }
-      thead th:nth-of-type(3) { width: rem(160); }
-      thead th:nth-of-type(4) {  }
-      thead th:nth-of-type(5) { width: rem(120); }
-      thead th:nth-of-type(6) { width: rem(120); }
-      thead th:last-of-type { width: rem(48); }
-      tbody td:first-of-type { text-align: center; font-weight: 600; }
-      tbody td:nth-of-type(2) { text-align: center; }
-      tbody td:nth-of-type(3) { text-align: center; }
-      tbody td:nth-of-type(4) {  }
-      tbody td:nth-of-type(5) { text-align: center; }
-      tbody td:nth-of-type(6) { text-align: center; }
-      tbody td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    table[data-grid-type='board'] {
+      & > thead > tr > th:first-of-type { width: rem(100); }
+      & > thead > tr > th:nth-of-type(2) { width: rem(140); }
+      & > thead > tr > th:nth-of-type(3) { width: rem(160); }
+      & > thead > tr > th:nth-of-type(4) {  }
+      & > thead > tr > th:nth-of-type(5) { width: rem(120); }
+      & > thead > tr > th:nth-of-type(6) { width: rem(120); }
+      & > thead > tr > th:last-of-type { padding-left: 0; padding-right: 0; width: rem(48); }
+      & > tbody > tr > td:first-of-type { text-align: center; font-weight: 600; }
+      & > tbody > tr > td:nth-of-type(2) { text-align: center; }
+      & > tbody > tr > td:nth-of-type(3) { text-align: center; }
+      & > tbody > tr > td:nth-of-type(4) {  }
+      & > tbody > tr > td:nth-of-type(5) { text-align: center; }
+      & > tbody > tr > td:nth-of-type(6) { text-align: center; }
+      & > tbody > tr > td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
     }
   }
 }
