@@ -72,10 +72,16 @@ function popupShow(target){
     createDim(target);
     setTimeout(function(){ target.addClass("active") }, 250);
 }
+function popupShow_NoDim(target){
+    setTimeout(function(){ target.addClass("active") }, 250);
+}
 /* 팝업 삭제 기능 정의  */
 function popupHide(target){
     setTimeout(function(){ target.removeClass("active"); }, 250);
     setTimeout(function(){ deleteDim(target) }, 1000)
+}
+function popupHide_NoDim(target){
+    setTimeout(function(){ target.removeClass("active"); }, 250);
 }
 
 /* 메시지 팝업 기능 정의(하단에서 올라오는 팝업) */
@@ -283,9 +289,11 @@ $(window).on("load", function(){
     /* 일반적인 팝업 */
     $doc.on("click", "[data-popup]", function(){
         var $pop = $($(this).attr("data-popup"));
-        if($pop.attr("data-type") === 'alert'){
+        if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim-clear") === undefined){
             popupShow($pop);
-        } else if($pop.attr("data-type") === 'message'){
+        } else if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim-clear") === 'true'){
+            popupShow_NoDim($pop);
+        } if($pop.attr("data-type") === 'message'){
             /*messagePopShow($pop)*/
             popupShow($pop);
         } else if($pop.attr("data-type") === 'submission'){
