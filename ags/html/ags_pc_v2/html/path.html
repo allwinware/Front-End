@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>페이지 맵 < AGS PC v2.0</title>
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-cache">
     <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
-    <link rel="stylesheet" href="../resource/css/ags_path.min.css">
+    <link rel="stylesheet" href="../resource/css/ags_pc_path.min.css">
     <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
     <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
@@ -35,7 +38,7 @@
 
     <hr>
 
-    <section id="ags-container" class="ags-container" data-page-id="anc_path">
+    <section id="ags-container" class="ags-container" data-page-id="path">
         <header class="lnb-wrap">
             <div class="content-wrap">
                 <h2 class="sr-only">서브 네비게이션</h2>
@@ -187,14 +190,15 @@
 
             <hr>
 
+            <!-- 팝업 -->
             <article id="ags_popup" class="ags_content">
                 <h3 class="ags_content-title">팝업</h3>
                 <table class="page-map">
                     <colgroup>
-                        <col><!--1Depth-->
-                        <col><!--2Depth-->
-                        <col><!--3Depth-->
-                        <col><!--비고-->
+                        <col><!--분류-->
+                        <col><!--표시화면-->
+                        <col><!--팝업명-->
+                        <col><!--Element ID(Type)-->
                     </colgroup>
                     <thead>
                     <tr>
@@ -224,7 +228,25 @@
                         <td>pop_req02(Alert)</td><!--비고-->
                     </tr>
                     <tr>
-                        <td rowspan="11">국제/국내선 공통</td><!--분류-->
+                        <td rowspan="14">국제/국내선 공통</td><!--분류-->
+                        <td>전체</td><!--표시화면-->
+                        <td><a href="#none" target="_self" data-popup="#pop_loading">로딩</a></td><!--팝업명-->
+                        <td>pop_loading(Alert)</td><!--비고-->
+                    </tr>
+                    <tr>
+                        <!--<td>국제/국내선 공통</td>--><!--분류-->
+                        <td>전체</td><!--표시화면-->
+                        <td><a href="#none" target="_self" data-popup="#pop_loading-msg01">여정 정보 로딩 중</a></td><!--팝업명-->
+                        <td>pop_loading-msg01(Alert)</td><!--비고-->
+                    </tr>
+                    <tr>
+                        <!--<td>국제/국내선 공통</td>--><!--분류-->
+                        <td>전체</td><!--표시화면-->
+                        <td><a href="#none" target="_self" data-popup="#pop_loading-msg02">부가서비스 취소 중</a></td><!--팝업명-->
+                        <td>pop_loading-msg02(Alert)</td><!--비고-->
+                    </tr>
+                    <tr>
+                        <!--<td>국제/국내선 공통</td>--><!--분류-->
                         <td rowspan="2">
                             [국제] 항공 부가서비스 신청하기<br>
                             [국내] 부가서비스 구매완료
@@ -307,7 +329,7 @@
             <hr>
 
             <!-- 시스템 페이지 -->
-            <article id="ags_system">
+            <article id="ags_system" class="ags_content">
                 <h3 class="ags_content-title">시스템 페이지</h3>
                 <table class="page-map">
                     <colgroup>
@@ -323,6 +345,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <tr>
                         <td>요청하신 페이지를 찾을 수 없습니다.</td><!--1Depth-->
                         <td><a href="system404.html" target="_blank">system_404.html</a></td><!--URL-->
                         <td></td><!--비고-->
@@ -332,24 +355,57 @@
                         <td><a href="system408.html" target="_blank">system_408.html</a></td><!--URL-->
                         <td></td><!--비고-->
                     </tr>
-                        <tr>
-                            <td>일시적인 오류가 발생했습니다</td><!--1Depth-->
-                            <td><a href="system500.html" target="_blank">system_500.html</a></td><!--URL-->
-                            <td></td><!--비고-->
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>시스템 점검 안내</td><!--1Depth-->
-                            <td><a href="system_maintenance.html" target="_blank">system__maintenance.html</a></td><!--URL-->
-                            <td></td><!--비고-->
-                        </tr>
-                        <tr>
+                    <tr>
+                        <td>일시적인 오류가 발생했습니다</td><!--1Depth-->
+                        <td><a href="system500.html" target="_blank">system_500.html</a></td><!--URL-->
+                        <td></td><!--비고-->
+                    </tr>
+                    <tr>
+                        <td>시스템 점검 안내</td><!--1Depth-->
+                        <td><a href="system_maintenance.html" target="_blank">system__maintenance.html</a></td><!--URL-->
+                        <td></td><!--비고-->
+                    </tr>
                     </tbody>
                 </table>
             </article>
         </div>
     </section>
 </main>
+
+<!-- 팝업 : 페이지 로딩 -->
+<div id="pop_loading" class="pop-area" data-type="alert">
+    <div class="align-center">
+        <div class="page-loading">
+            <i class="ico"></i>
+        </div>
+    </div>
+</div>
+
+<!-- 팝업 : 여정 정보 로딩 중 -->
+<div id="pop_loading-msg01" class="pop-area" data-type="alert">
+    <div class="align-center">
+        <div class="page-loading">
+            <i class="ico"></i>
+            <div class="loading-message">
+                고객님의 여정 정보를 불러오는 중입니다.<br>
+                완료될 때까지 잠시만 기다려주세요.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 팝업 : 페이지 로딩 -->
+<div id="pop_loading-msg02" class="pop-area" data-type="alert">
+    <div class="align-center">
+        <div class="page-loading">
+            <i class="ico"></i>
+            <div class="loading-message">
+                부가서비스를 취소하는 중입니다.<br>
+                완료될 때까지 잠시만 기다려주세요.
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- 팝업 : 가는 편 결제를 완료해주세요. -->
 <div id="pop_req01" class="pop-area" data-type="alert">
