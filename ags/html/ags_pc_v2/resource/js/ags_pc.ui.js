@@ -80,9 +80,6 @@ function popupHide(target){
     setTimeout(function(){ target.removeClass("active"); }, 250);
     setTimeout(function(){ deleteDim(target) }, 1000)
 }
-function popupHide_NoDim(target){
-    setTimeout(function(){ target.removeClass("active"); }, 250);
-}
 
 /* 메시지 팝업 기능 정의(하단에서 올라오는 팝업) */
 function messagePopShow(target){
@@ -314,9 +311,7 @@ $(window).on("load", function(){
         var $pop = $($("#" + $(this).parents(".pop-area").attr("id")));
         if($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission'){
             popupHide($pop);
-        }/* else if($pop.attr("data-type") === 'message'){
-            messagePopHide($pop)
-        }*/
+        }
     });
 
     /*gnb 팝업 정의*/
