@@ -61,6 +61,7 @@ function popupHide(target){
 
 /* 메시지 팝업 기능 정의(하단에서 올라오는 팝업) */
 function messagePopShow(target){
+    createDim(target);
     popupShow(target);
     target.css({
         "max-height": $(window).innerHeight()
@@ -69,6 +70,7 @@ function messagePopShow(target){
 function messagePopHide(target){
     popupHide(target)
     setTimeout(function(){ target.css("max-height", "") }, 750);
+    setTimeout(function(){ deleteDim(target) }, 1000)
 }
 
 $(document).ready(function(){
