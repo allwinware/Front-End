@@ -24,18 +24,17 @@
     table[data-grid-type='board'] > tbody > tr > td > a { @include text-ellipsis(block) }
   }
   table[data-grid-type='board'] > tbody > tr + .accordion-content {
-    .post-info,
-    .post-attached { overflow: hidden; height: 0; }
+    .post-wrap { overflow: hidden; height: 0; }
   }
   table[data-grid-type='board'] > tbody > tr.active + .accordion-content {
-    .post-info,
-    .post-attached {
-      padding: 0 rem($grid * 2); height: auto;
+    .post-wrap { overflow: visible; height: auto; }
+    .post-info {
+      padding: 0 rem($grid * 2);
       .writer, .date, .content { @include sr-only; }
-      .writer + dd { @include font($size: 14, $color: $mono1, $weight: 800); }
+      .writer + dd { @include font($size: 14, $color: $mono1, $weight: 800); margin-bottom: rem($grid * 2);  }
       .writer + dd ~ dd { padding-left: rem(10) }
-      .date + dd { @include font($size: 12, $color: $mono4, $weight: 400); }
-      .content + dd { display: block; padding: rem($grid * 2) 0 0 0 !important; width: 100%; line-height: 1.8em }
+      .date + dd { @include font($size: 12, $color: $mono4, $weight: 400); margin-bottom: rem($grid * 2); }
+      .content + dd { display: block; width: 100%; line-height: 1.8em; padding-left: 0 !important; }
     }
     .post-attached {
       @include font($size: 13, $color: $mono1, $weight: 400);
