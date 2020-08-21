@@ -1,0 +1,526 @@
+/* form */
+@mixin form($size: 1, $role: normal, $type: button) {
+  display: inline-block;
+  margin: 0 0 grid-mg(1); width: 100%;
+  border-radius: $border-common-radius;
+  white-space: nowrap;
+  @if $type == "button" or $type == "select" or $type == "textbox" {
+    @if $size == 0 {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $mono3);
+      height: em(18, $font-size);
+      line-height: em(16, $font-size);
+    } @else if $size == 1 {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono3);
+      padding: 0 em(10, $font-size);
+      height: em(26, $font-size);
+      line-height: em(24, $font-size);
+    } @else if $size == 2 {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(13, $font-size);
+      height: em(36, $font-size);
+      line-height: em(34, $font-size);
+    } @else if $size == 3 {
+      $font-size: 13;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(13, $font-size);
+      height: em(42, $font-size);
+      line-height: em(40, $font-size);
+    } @else if $size == 4 {
+      $font-size: 14;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(16, $font-size);
+      height: em(48, $font-size);
+      line-height: em(46, $font-size);
+    } @else if $size == 5 {
+      $font-size: 16;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(24, $font-size);
+      height: em(56, $font-size);
+      line-height: em(54, $font-size);
+    } @else if $size == 6 {
+      $font-size: 16;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(24, $font-size);
+      height: em(62, $font-size);
+      line-height: em(60, $font-size);
+    }
+  }
+  @if $type == "textarea" {
+    @if $size == 0 {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $mono3);
+      height: em(18 * 3, $font-size);
+      line-height: em(14, $font-size);
+    } @else if $size == 1 {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono3);
+      padding: 1em em(10, $font-size);
+      height: em(26 * 3, $font-size);
+      line-height: em(16, $font-size);
+    } @else if $size == 2 {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 1em em(13, $font-size);
+      height: em(36 * 3, $font-size);
+      line-height: em(16, $font-size);
+    } @else if $size == 3 {
+      $font-size: 13;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 1em em(13, $font-size);
+      height: em(42 * 3, $font-size);
+      line-height: em(16, $font-size);
+    } @else if $size == 4 {
+      $font-size: 14;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 1em em(16, $font-size);
+      height: em(48 * 3, $font-size);
+      line-height: em(20, $font-size);
+    } @else if $size == 5 {
+      $font-size: 16;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 1em em(24, $font-size);
+      height: em(56 * 3, $font-size);
+      line-height: em(20, $font-size);
+    } @else if $size == 6 {
+      $font-size: 16;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 1em em(24, $font-size);
+      height: em(62 * 3, $font-size);
+      line-height: em(28, $font-size);
+    }
+  }
+  @if $type == "text" or $type="textbox" {
+    &::-webkit-input-placeholder { /* Edge */
+      font-size: inherit; color: $mono4;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      font-size: inherit; color: $mono4;
+    }
+    &::placeholder {
+      font-size: inherit; color: $mono4;
+    }
+  }
+  @if $type == "checkbox" or $type == "radio" {
+    @include sr-only;
+    & + label {
+      position: relative;
+      display: inline-block;
+      .ico {
+        transition: all $trs-duration;
+        /*transition-delay: $trs-delay;*/
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 50%;
+        &:before {
+          content: "";
+          transition: border-color $trs-duration;
+          transition-delay: $trs-delay;
+          position: absolute; left: 0; top: 0;
+          border: solid $mono7; border-width: 0 0 1px 1px;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+    @if $size == 1 {
+      $check-size: 16;
+      & + label {
+        @include font($size: 11, $color: $mono1, $weight: 400);
+        height: $check-size#{px}; line-height: $check-size#{px};
+        .ico {
+          margin-right: rem(5); width: $check-size#{px}; height: $check-size#{px};
+          line-height: $check-size#{px};
+          &:before {
+            left: ($check-size / 4 - 1)#{px}; top: ($check-size / 4)#{px};
+            width: ($check-size / 2)#{px}; height: ($check-size / 4)#{px};
+          }
+        }
+      }
+    } @else if $size == 2 {
+      $check-size: 16;
+      & + label {
+        @include font($size: 13, $color: $mono1, $weight: 400);
+        height: $check-size#{px}; line-height: $check-size#{px};
+        .ico {
+          margin-right: rem(8); width: $check-size#{px}; height: $check-size#{px};
+          line-height: $check-size#{px};
+          &:before {
+            left: ($check-size / 4 - 1)#{px}; top: ($check-size / 4)#{px};
+            width: ($check-size / 2)#{px}; height: ($check-size / 4)#{px};
+          }
+        }
+      }
+    } @else if $size == 3 {
+      $check-size: 16;
+      height: $check-size#{px};
+      & + label {
+        @include font($size: 14, $color: $mono1, $weight: 500);
+        .ico {
+          margin-right: ($check-size / 2)#{px}; width: $check-size#{px}; height: $check-size#{px};
+          line-height: $check-size#{px};
+          &:before {
+            left: ($check-size / 4 - 1)#{px}; top: ($check-size / 4)#{px};
+            width: ($check-size / 2)#{px}; height: ($check-size / 4)#{px};
+          }
+        }
+      }
+    } @else if $size == 4 {
+      $check-size: 22;
+      height: $check-size#{px};
+      & + label {
+        @include font($size: 12, $color: $mono1, $weight: 600);
+        .ico {
+          margin-right: ($check-size / 2)#{px}; width: $check-size#{px}; height: $check-size#{px};
+          line-height: $check-size#{px};
+          &:before {
+            left: ($check-size / 4 - 1.5)#{px}; top: ($check-size / 4 - 0.5)#{px};
+            width: ($check-size / 2)#{px}; height: ($check-size / 4)#{px};
+          }
+        }
+      }
+    }
+    @if $role == "normal" {
+      & + label .ico {
+        border: 1px solid $mono7; background-color: $mono10;
+        &:before {  }
+      }
+      &:checked + label .ico {
+        border: 1px solid $border-primary; background-color: $bg-primary;
+        &:before { border-color: $mono10 }
+      }
+    } @else if $role == "disabled" {
+      & + label .ico {
+        border: 1px solid $mono7; background-color: $mono9;
+        &:before { border-color: $mono7; }
+      }
+    }
+    &[disabled='disabled'] + label .ico {
+      border: 1px solid $mono7; background-color: $mono8;
+      &:before { border-color: $mono7; }
+    }
+  }
+
+  @if $type == "select" or $type == "textbox" or $type == "textarea" {
+    @if $role == "normal" {
+      border: 1px solid $mono6;
+      background-color: $mono10;
+    } @else if $role == "cancel" {
+      border: 1px solid $mono8;
+      background-color: $mono8;
+    } @else if $role == "submit" {
+      border: 1px solid $bg-submit;
+      background-color: $bg-submit;
+    } @else if $role == "primary1" {
+      border: 1px solid $border-primary;
+      background-color: $mono10;
+      @if $type == "button" {
+        color: $text-primary
+      }
+    } @else if $role == "primary2" {
+      border: 1px solid $bg-primary;
+      background-color: $bg-primary;
+    } @else if $role == "disabled" {
+      border: 1px solid $mono7;
+      background-color: $mono9;
+      color: $mono7;
+      text-shadow: 1px 1px 0 rgba(255,255,255,1)
+    } @else if $role == "discard" {
+      border: 1px solid #eee;
+      background-color: #eee;
+      color: $mono1;
+    } @else if $role == "minified" {
+      border: none;
+      background-color: transparent;
+    } @else if $role == "primary3" {
+      border: 1px solid $bg-secondary;
+      background-color: $bg-secondary;
+      color: $mono10
+    }
+  }
+  @if $type == "button" {
+    @if $role == "normal" {
+      border: 1px solid $mono1;
+      background-color: $mono10;
+      color: $mono1;
+    } @else if $role == "submit" {
+      border: 1px solid $bg-submit;
+      background-color: $bg-submit;
+      color: $mono1;
+    } @else if $role == "primary1" {
+      border: 1px solid $border-primary;
+      background-color: $mono10;
+      color: $mono1;
+    } @else if $role == "primary2" {
+      border: 1px solid $border-primary;
+      background-color: $bg-primary;
+      color: $mono1;
+    } @else if $role == "discard" {
+      border: 1px solid #eee;
+      background-color: #eee;
+      color: $mono1;
+    } @else if $role == "minified" {
+      border: none;
+      background-color: transparent;
+    } @else if $role == "primary3" {
+      border: 1px solid $bg-secondary;
+      background-color: $bg-secondary;
+      color: $mono10
+    } @else if $role == "normal-rev" {
+      border: 1px solid $mono1;
+      background-color: $mono1;
+      color: $mono10
+    }
+    &[disabled='disabled'] {
+      border: 1px solid $mono8;
+      background-color: $mono8;
+      color: $mono4;
+      text-shadow: 1px 1px 1px rgba(255,255,255,0.3)
+    }
+  }
+  @if $type == "button" {
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  } @else if $type == "select" {
+    -webkit-appearance: none; -moz-appearance: none; appearance: none;
+    &::-ms-expand { display: none; }
+    background-color: transparent;
+    padding: 0 rem(20) 0 0;
+  } @else if $type == "textbox" {
+
+  } @else if $type == "textarea" {
+
+  } @else if $type == "checkbox" {
+
+  }
+}
+
+.ui-textbox {
+  @include form($type: textbox);
+}
+.ui-select {
+  @include form($type: select);
+  background-color: $mono10;
+  &.size1 { @include form($size: 1, $role: normal, $type: select) }
+  &.size2 { @include form($size: 2, $role: normal, $type: select) }
+  &.size3 { @include form($size: 3, $role: normal, $type: select) }
+  &.size4 { @include form($size: 4, $role: normal, $type: select) }
+  &.size5 { @include form($size: 5, $role: normal, $type: select) }
+}
+.ui-button { @include form($type: button) }
+.ui-checkbox {
+  @include form($size: 1, $role: normal, $type: checkbox)
+}
+
+
+.select-wrap {
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  select { width: 100%; }
+}
+
+
+@mixin form-group-style($form-size: 4) {
+  input[type='text'], input[type='file'] { @include form($size: $form-size, $role: normal, $type: textbox); }
+  textarea { @include form($size: $form-size, $role: normal, $type: textarea); line-height: 1.8em }
+  /*기본 셀렉트일 떄*/
+  .select-wrap {
+    @include form($size: $form-size, $role: normal, $type: select);
+    padding: 0 !important;
+    z-index: 0;
+    select {
+      -webkit-appearance: none; -moz-appearance: none; -o-appearance: none; appearance: none;
+      &::-ms-expand { display: none; }
+      position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+      /*padding: 0 0 0 rem(20);*/ height: 100%;
+      background-color: transparent;
+      z-index: 1;
+    }
+    label { @include sr-only }
+    &:after {
+      content: "";
+      position: absolute; top: 50%; right: rem(20);
+      width: rem(8); height: rem(8);
+      border: solid $mono1; border-width: 0 2px 2px 0;
+      transform: rotate(45deg) translate(-50%, -50%);
+      z-index: 0;
+    }
+  }
+  /*selectric일 때*/
+  .selectric-select-wrap {
+    label { line-height: 1; }
+    .selectric-wrapper {
+      .selectric {
+        @include form($size: $form-size, $role: normal, $type: select);
+        height: 100%;
+        .label {
+          @include valign-middle();
+          position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+          margin: 0; padding: 0 rem($grid * 4) 0 1em; width: 100%; height: 100%;
+          font-size: inherit; color: inherit;
+        }
+        b.button {
+          overflow: hidden;
+          height: 100%;
+          text-indent: -999em;
+          background-color: transparent;
+          transition: transform 0.2s;
+          transform: rotate(-180deg);
+          transform-origin: 50% 50%;
+          &:after {
+            content: "";
+            position: absolute; top: 50%; right: rem(20);
+            width: rem(8); height: rem(8);
+            border: solid $mono1; border-width: 0 2px 2px 0;
+            transform: rotate(45deg) translate(-2px, -17px);
+            z-index: 0;
+          }
+        }
+      }
+      &.selectric-open {
+        b.button {
+          transform: rotate(0);
+          &:after { transform: rotate(45deg) translate(-2px, -15px) }
+        }
+      }
+    }
+    .selectric-items {
+      box-shadow: none;
+      margin-top: -1px;
+      border-color: #ddd; border-radius: rem(3);
+      background-color: #fff;
+      li:hover,
+      .highlighted,
+      .selected,
+      .selected:hover,
+      .selected.highlighted { background-color: $bg-submit };
+    }
+  }
+  .btn-wrap {
+    input[type='radio'], input[type='checkbox'] { @include sr-only }
+    label, a, button, {
+      @include form($size: $form-size, $role: normal, $type: button);
+      float: left;
+      width: auto;
+    }
+    input[type='radio']:checked + label,
+    input[type='check']:checked + label {
+      @include form($size: $form-size, $role: primary3, $type: button);
+      width: auto;
+    }
+    label, a, button,
+    input[type='radio']:checked + label,
+    input[type='check']:checked + label {
+      &:not(:first-child):not(:last-child) { border-radius: 0; }
+      &:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+      &:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+      &:not(:first-child) { border-left-color: transparent; }
+    }
+  }
+  .calendar-wrap {
+    $ico-size: 48;
+    input[type='text'] { height: 100%; }
+    label {
+      @include background($file: 'my/ico_calendar', $type: png, $width: rem(24), $height: auto);
+      overflow: hidden;
+      position: absolute; right: 0; top: 0; bottom: 0;
+      display: block;
+      text-indent: -999em;
+      background-position: 50% 50%;
+    }
+  }
+  .file-wrap {
+    input[type='text'] { background-color: #F8F8F8; cursor: default; }
+    input[type='text'] + label {
+      @include form($size: $form-size, $role: normal-rev, $type: button);
+      @include valign-middle();
+      margin-left: rem(3); width: rem(90);
+      vertical-align: top; font-size: rem(12); font-weight: 600;
+    }
+  }
+  @if $form-size == 3 {
+    $font-size: 13;
+    $fotm-size: 42;
+    .selectric-select-wrap .selectric-wrapper { height: em(42, $font-size); }
+    .selectric-select-wrap .selectric-items li {
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(13, $font-size);
+      height: em($fotm-size, $font-size);
+      line-height: em($fotm-size - 2, $font-size);
+    }
+    input[type='text'], .select-wrap,
+    .btn-wrap > label, .btn-wrap > input[type='checkbox'] + label, input[type='radio'] + label,
+    .btn-wrap > button, .btn-wrap > a {
+      height: rem($fotm-size) !important;
+      line-height: rem($fotm-size - 2) !important;
+    }
+    .calendar-wrap {
+      $ico-size: $fotm-size - 2;
+      input[type='text'] { padding-right: rem($ico-size + $grid * 2); }
+      label {
+        width: rem($ico-size); height: rem($ico-size);
+      }
+    }
+    .file-wrap {
+      input[type='text'] + label {
+        height: rem($fotm-size);
+      }
+      .attached-file {
+        padding-top: rem(12);
+        ul { @include clearfix; }
+        li { float: left; margin-right: rem($grid * 2) }
+        .btn_delete { @include btn_delete; }
+      }
+    }
+  }
+  @if $form-size == 4 {
+    $font-size: 14;
+    $fotm-size: 48;
+    .selectric-select-wrap .selectric-wrapper {
+      height: em($fotm-size, $font-size);
+    }
+    .selectric-select-wrap .selectric-items li {
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding: 0 em(16, $font-size);
+      height: em($fotm-size, $font-size);
+      line-height: em($fotm-size - 2, $font-size);
+    }
+    input[type='text'], .select-wrap,
+    .btn-wrap > label, .btn-wrap > input[type='checkbox'] + label, input[type='radio'] + label,
+    .btn-wrap > button, .btn-wrap > a {
+      height: rem($fotm-size) !important;
+      line-height: rem($fotm-size - 2) !important;
+    }
+    .calendar-wrap {
+      $ico-size: $fotm-size;
+      input[type='text'] { padding-right: rem($ico-size + $grid * 2); }
+      label {
+        width: rem($ico-size); height: rem($ico-size);
+      }
+    }
+    .file-wrap {
+      input[type='text'] + label {
+        height: rem($fotm-size);
+      }
+    }
+  }
+  .input-wrap, .input-group, .select-wrap, .calendar-wrap, .btn-wrap, .selectric-select-wrap { position: relative; float: left; margin: 0 rem(5) }
+  .input-group {
+    & > [class*='-wrap'] { margin: 0; }
+    & > [class*='-wrap']:first-child {
+      &.select-wrap,
+      &.selectric-select-wrap .selectric { border-top-right-radius: 0; border-bottom-right-radius: 0 }
+    }
+    & > [class*='-wrap']:not(:first-child) {
+      &.select-wrap,
+      &.selectric-select-wrap .selectric,
+      &.btn-wrap > *:first-child, &.input-wrap > *:first-child, &.calendar-wrap > *:first-child { border-top-left-radius: 0; border-bottom-left-radius: 0 }
+      &.input-wrap input[type='text'],
+      &.calendar-wrap input[type='text'] { border-left-color: transparent }
+    }
+  }
+}

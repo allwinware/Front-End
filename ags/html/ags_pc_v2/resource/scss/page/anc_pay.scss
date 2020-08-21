@@ -1,0 +1,38 @@
+/* 부가서비스 신청 > 구매완료 */
+[data-page-id='anc_pay-complete']{
+  .thanks-message {
+    @include background($file: 'pay/bg_pay-complete', $type: 'png', $width: rem(200), $height: rem(159));
+    margin: rem(-50) 0 0; padding: rem(50) 0 0;
+    background-position: right rem(167) top 0;
+    text-align: center;
+    .title { @include font($size: 24, $color: #111, $weight: 800); }
+    .description { $font-size: 14; @include font($size: $font-size, $color: #111, $weight: 400); padding-top: rem($grid * 2); line-height: em(20,$font-size); }
+  }
+  .anc_pay-wrap {
+    margin-top: rem(80); padding-top: rem(100);
+    border-top: 1px solid $mono8;
+  }
+  @include pay-receipt;
+}
+/* 부가서비스 신청 > 구매실패 */
+[data-page-id='anc_pay-failed']{
+  .error-message {
+    text-align: center;
+    .title {
+      @include font($size: 24, $color: $mono1, $weight: 800);
+      .ico {
+        $ico-size: 60;
+        @include background($file: 'common/ico_exclamation--w', $type: 'png', $width: rem(48), $height: rem(48));
+        display: block;
+        margin: 0 auto rem($grid * 4); width: rem($ico-size); height: rem($ico-size);
+        background-position: center center; background-color: $mono7; border-radius: 50%;
+      }
+    }
+    .description {
+      $font-size: 14;
+      @include font($size: $font-size, $color: $mono3, $weight: 400);
+      padding-top: rem($grid * 2);
+      line-height: em(20, $font-size)
+    }
+  }
+}

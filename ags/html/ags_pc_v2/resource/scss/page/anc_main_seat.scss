@@ -1,0 +1,191 @@
+/* 부가서비스 신청 > 사전 좌석 선택 */
+[data-page-id='anc_main'] .anc_seat {
+  $legend-height: 85;
+  $seat-disabled: #E4E4E4;
+  @at-root .seat-plan {
+    overflow: hidden;
+    height: 0;
+    .flexbox & { @include flex(column stretch flex-start wrap); }
+    .no-flexbox & {  }
+    @at-root .tab-panel.active .seat-plan { height: 100%; }
+    .seat-sheet {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      flex: 1;
+      background-color: $mono9;
+      .seat-code,
+      .seat-num { margin: 0 auto; width: rem(294); }
+      &.B73780001 {
+        $bg-width: 16;
+        $bg-height: 434;
+        &:before {
+          content: "";
+          @include background($file: 'anc/bg_B73780001_seat-left', $type: png, $width: rem($bg-width), $height: rem($bg-height));
+          display: inline-block; width: rem($bg-width); height: rem($bg-height);
+          position: absolute; left: 0; top: rem(512);
+        }
+        &:after {
+          content: "";
+          @include background($file: 'anc/bg_B73780001_seat-right', $type: png, $width: rem($bg-width), $height: rem($bg-height));
+          display: inline-block; width: rem($bg-width); height: rem($bg-height);
+          position: absolute; right: 0; top: rem(512);
+        }
+        li:nth-of-type(3) .seat-type1 { margin-top: rem(-$grid); }
+        li:nth-of-type(3) .seat-disabled-lg { margin-top: rem(-$grid); }
+      }
+      .seat-code {
+        position: absolute; top: rem(120); left: 50%;
+        -webkit-transform: translate(-50%,0);
+        -ms-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+        display: table; table-layout: fixed;
+        span {
+          @include font($family: 'en', $size: 12, $color: $mono1, $weight: 600, $spacing: -0.03);
+          display: table-cell;
+          text-align: center;
+        }
+        .hallway { text-indent: -999em; }
+      }
+      .seat-num {
+        padding: rem(53) 0 rem(44);
+        li {
+          @include clearfix;
+          position: relative;
+          padding: rem(6) rem(4);
+          & > * { float: left; }
+        }
+        /*비행기 행번호 수동입력용*/
+        .row-num { @include font($family: 'en', $size: 12, $color: $mono4, $weight: 600, $spacing: -0.03); @include align-center; display: inline-block; }
+        /*비행기 행번호 자동 입력용*/
+        &:not(.excluded-numbering) {
+          counter-reset: seat-row-numbering;
+          li:not(.exit-row) {
+            counter-increment: seat-row-numbering;
+            &:before {
+              content: counter(seat-row-numbering);
+              @include font($family: 'en', $size: 12, $color: $mono4, $weight: 600, $spacing: -0.03);
+              @include align-center;
+              display: inline-block;
+            }
+          }
+        }
+        li.exit-row:first-child {
+          margin-top: rem(-53) !important;
+          & + li { margin-top: rem(43) }
+        }
+        li.exit-row:first-of-type {
+          padding: 0; height: rem(10);
+          & > [class*='exit'] {  }
+        }
+        .exit_left,
+        .exit_right { margin: 0; }
+        .exit_left { @include font($family: 'en', $size: 11, $color: $mono4, $weight: 500, $spacing: -0.03); }
+        .exit_right { @include font($family: 'en', $size: 11, $color: $mono4, $weight: 500, $spacing: -0.03); float: right; }
+        .exit_left .ico,
+        .exit_right .ico {
+          display: inline-block;
+          width: 12px; height: 6px;
+          text-indent: -999em;
+          border-style: solid; border-width: 3px 6px;
+          vertical-align: middle;
+        }
+        .exit_left .ico { margin: 0 rem($grid / 2) 0 -6px; border-color: transparent $mono4 transparent transparent; }
+        .exit_right .ico { margin: 0 -6px 0 rem($grid / 2); border-color: transparent transparent transparent $mono4; }
+        a[class^='seat-'] {
+          $font-size: 13;
+          @include valign-middle();
+          @include font($family: 'en', $size: $font-size, $color: $mono10, $weight: 600);
+          overflow: hidden;
+          position: relative;
+          margin: 0 em(6, $font-size); width: em(28, $font-size); height: em(28, $font-size);
+          text-align: center;
+          border: 2px solid; background-color: $mono10; border-radius: rem($grid) rem($grid) rem(3) rem(3);
+          transition: $trs-duration all; transition-delay: $trs-delay;
+          text-decoration: none;
+          &.active { color: $mono10; }
+          &.seat-type1 {
+            height: em(36, $font-size) !important;
+          }
+          &:after {
+            content: "";
+            display: inline-block;
+            opacity: 0.5;
+            position: absolute; right: em(4, $font-size); bottom: em(4, $font-size); left: em(4, $font-size);
+            width: em(16, $font-size); height: em(2, $font-size); border-radius: 1px;
+          }
+          &[class^='seat-disabled'] {
+            border-color: $seat-disabled;
+            @include background($file: 'anc/ico_seat-disabled', $type: png, $width: em(12, $font-size), $height: em(12, $font-size));
+            background-position: 50% 50%; text-indent: -999em;
+          }
+          &.seat-disabled-lg {
+            height: em(36, $font-size) !important;
+          }
+        }
+        .hallway { $font-size: 13; overflow: hidden; margin: 0 rem(9); width: em(28, $font-size); height: em(28, $font-size); }
+      }
+    }
+  }
+  .seat-legend {
+    z-index: 0;
+    width: 100%;
+    &:after { z-index: 0; content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; border-bottom: 1px solid $mono8 }
+    ul {
+      @include clearfix;
+      z-index: 1;
+      padding: rem(12) rem($grid);
+      border-bottom: 1px solid $mono8;
+    }
+    li {
+      $font-size: 11;
+      @include font($size: 11, $color: $mono1, $weight: 600);
+      z-index: 1;
+      position: relative;
+      float: left;
+      padding: rem($grid); width: 50%; height: em(30, $font-size);
+      white-space: nowrap; line-height: em(14, $font-size);
+      .digits {
+        padding: em(6, $font-size);
+        &:before { content: "￦"; }
+      }
+      &:before {
+        content: "";
+        display: inline-block;
+        margin-right: em(6, $font-size); width: em(14, $font-size); height: em(14, $font-size);
+        vertical-align: middle;
+        border-radius: 5px 5px 2px 2px; border: 2px solid;
+      }
+      &:after {
+        content: "";
+        display: inline-block;
+        opacity: 0.5;
+        position: absolute; bottom: 11px; left: 11px;
+        width: em(7, $font-size); height: em(2, $font-size); border-radius: 1px;
+      }
+      &.seat-disabled:before { border-color: $seat-disabled; @include background($file: 'anc/ico_seat-legend_seat-disabled', $type: png, $width: rem(6), $height: rem(6)); background-position: 50% 50%; }
+    }
+    a {
+      transition: all $trs-duration;
+      transition-delay: $trs-delay;
+      overflow: hidden;
+      position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+      display: block;
+      margin-bottom: -1px;
+      text-indent: -999em; text-decoration: none; color: inherit;
+    }
+    .digits { padding-top: rem($grid) }
+  }
+  .approach-comment {
+    $font-size: 11;
+    @include font($size: $font-size, $color: $text-primary, $weight: 600, $spacing: -0.03);
+    padding: rem(25) 0 rem(48);
+    text-align: center;
+    p {
+      @include valign-middle();
+      display: inline-block;
+      padding: 0 em(12, $font-size); width: auto; height: rem(24);
+      border: 1px solid $border-primary; border-radius: rem(2);
+    }
+  }
+}

@@ -1,0 +1,170 @@
+/*부가서비스 결제 > 결제정보 확인하기*/
+[data-page-id='pay__payment']{
+  overflow: hidden;
+  width: 100%;
+  input[type='checkbox'] { @include form($size: 3, $role: normal, $type: checkbox); }
+  input[type='radio'] { @include form($size: 3, $role: normal, $type: radio); }
+  .ticket-wrap {
+    position: relative;
+    height: rem(72);
+    border-bottom: 1px solid $mono8;
+    dt { @include sr-only }
+    .departure + dd,
+    .arrival + dd {
+      @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03);
+      -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+      -o-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+      position: absolute; top: 50%;
+      width: rem(128);
+      text-align: center;
+      span {
+        display: block;
+        padding-bottom: rem(6);
+        font-size: rem(18); font-weight: 800; text-align: center;
+      }
+    }
+    .departure + dd { right: calc(50% + 36px); }
+    .arrival + dd { left: calc(50% + 36px); }
+    .journey + dd {
+      @include font($size: 9, $color: $mono10, $weight: 600, $spacing: -0.03);
+      @include valign-middle();
+      -webkit-transform: translate(-50%, rem(-17));
+      -ms-transform: translate(-50%, rem(-17));
+      -o-transform: translate(-50%, rem(-17));
+      transform: translate(-50%, rem(-17));
+      position: absolute; left: 50%; top: 50%;
+      display: inline-block;
+      width: rem(24); height: rem(16);
+      background-color: $mono1;
+      text-align: center;
+    }
+    .dep-date + dd {
+      @include font($size: 9, $color: $mono4, $weight: 600, $spacing: -0.03);
+      -webkit-transform: translate(-50%, rem(8));
+      -ms-transform: translate(-50%, rem(8));
+      -o-transform: translate(-50%, rem(8));
+      transform: translate(-50%, rem(8));
+      position: absolute; left: 50%; top: 50%;
+      text-align: center;
+      &:after { content: "출국"; padding-left: 0.3em; }
+    }
+  }
+  .receipt-wrap {
+    position: relative;
+    padding: rem(50) 0 0 rem($grid * 2);
+    h5 { @include font($size: 16, $color: $mono1, $weight: 800, $spacing: -0.03); padding-bottom: rem(47); }
+    .by-route {
+      position: absolute; right: rem($grid * 2); top: rem(50);
+      width: rem(105);
+      dt, dd { float: left; margin-bottom: rem(16); }
+      dt {
+        @include tagging-route
+      }
+      dd {
+        @include font($family: en, $size: 14, $color: $mono1, $weight: 400, $spacing: -0.03);
+        @include valign-middle();
+        width: rem(70); height: rem(16); text-align: right;
+        .digits:before {
+          content: "￦";
+          @include font($size: 13, $color: $mono1, $weight: 500, $spacing: -0.03);
+        }
+      }
+    }
+    .total {
+      position: relative;
+      padding-right: rem($grid * 2); height: rem(50);
+      border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
+      .btn_more {
+        @include btn-more--minified;
+        float: left;
+        margin: rem(14) 0 0 rem(-5);
+      }
+      dl {
+        float: right;
+        padding-top: rem(15);
+        dt, dd { @include valign-middle(); float: left; height: rem(16); }
+        dt { @include font($size: 9, $color: $mono10, $weight: 600, $spacing: -0.03); @include text-uppercase; width: rem(35); background-color: $bg-primary; text-align: center; }
+        dd {
+          @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+          width: rem(70);
+          text-align: right;
+          .digits:before {
+            content: "￦";
+            font-size: rem(13); color: $text-primary; font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+  .payment-wrap,
+  .agreement-wrap {
+    padding: rem(80) 0 0 rem($grid * 2);
+    h5 { @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03); margin-bottom: rem(12); }
+    [class*='-list']:not(.notification-list){
+      border-top: 1px solid $mono1;
+      & > li {
+        @include valign-middle();
+        position: relative; height: rem(50);
+        border-bottom: 1px solid $mono8;
+        label {
+          @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+          padding: rem(17) 0 0;
+        }
+      }
+    }
+  }
+  .payment-wrap {
+    .payment-list {
+      label {
+        right: 0;
+      }
+    }
+    .notification-wrap {
+      padding-top: rem(8);
+      .notification-list li { font-size: rem(11); }
+    }
+  }
+  .agreement-wrap {
+    @include agreement-wrap;
+    padding-right: rem($grid * 2);
+    tbody th,
+    tbody td {
+      text-align: center;
+      .notification-list,
+      .notification-text { text-align: left; }
+      .notification-list li { margin-top: rem(2) }
+    }
+  }
+}
+
+.ags-summary.pay__payment {
+  .inner-wrap {
+    border-top: 1px solid $mono1;
+    background-color: $mono10;
+  }
+  .btn_drawer { display: none; }
+  .total {
+    width: 100%; height: rem(100);
+    dl { display: table; table-layout: fixed; padding: 0 rem(10); width: 100%; height: rem(60); }
+    dt, dd { display: table-cell; padding: 0 rem(6); white-space: nowrap; vertical-align: middle; }
+    dt {
+      @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03);
+      width: (130 / 343 * 100%);
+    }
+    dt + dd {
+      @include font($family: en, $size: 13, $color: $text-primary, $weight: 600, $spacing: -0.03);
+      text-align: right;
+    }
+    dt + dd + dd { text-align: center; width: (94 / 343 * 100%); }
+    .btn_pay-imm {
+      @include form($size: 2, $role: submit, $type: button);
+      margin: 0;
+    }
+  }
+  &.active {
+    .btn_drawer { display: block; }
+    .inner-wrap { border-top-color: transparent; }
+  }
+}

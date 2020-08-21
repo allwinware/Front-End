@@ -1,0 +1,98 @@
+/*고객센터 > 공통*/
+[data-page-id^='cs_']{
+  @include board-page($lnb-wrap-class:'.cs-lnb-wrap', $content-wrap-class:'.cs-notice-wrap, .cs-faq-wrap, cs-qna-wrap', $list-class:'.notice-list, .faq-list, .qna-list');
+  .search-area {
+    .sort-by-category { width: rem(200) }
+    .input-group.sort-by-date,
+    .input-group.sort-by-words {
+      width: rem(460);
+      .selectric-select-wrap,
+      .select-wrap { width: 40%; }
+      .input-wrap, .calendar-wrap {
+        width: 60%;
+      }
+    }
+    .sort-by-status { width: rem(200) }
+    input[type='text'], .select-wrap,
+    .btn-wrap > label, .btn-wrap > input[type='checkbox'] + label, input[type='radio'] + label,
+    .btn-wrap > button, .btn-wrap > a {
+      padding-left: rem(20); padding-right: rem(20);
+    }
+  }
+  [class*='-list']{
+    table[data-grid-type='board'] > tbody > tr > th > a,
+    table[data-grid-type='board'] > tbody > tr > td > a { @include text-ellipsis(block) }
+  }
+  table[data-grid-type='board'] > tbody > tr + .accordion-content {
+    .post-wrap { overflow: hidden; height: 0; }
+  }
+  table[data-grid-type='board'] > tbody > tr.active + .accordion-content {
+    .post-wrap { overflow: visible; height: auto; }
+    .post-info {
+      padding: 0 rem($grid * 2);
+      .writer, .date, .content { @include sr-only; }
+      .writer + dd { @include font($size: 14, $color: $mono1, $weight: 800); margin-bottom: rem($grid * 2);  }
+      .writer + dd ~ dd { padding-left: rem(10) }
+      .date + dd { @include font($size: 12, $color: $mono4, $weight: 400); margin-bottom: rem($grid * 2); }
+      .content + dd { display: block; width: 100%; line-height: 1.8em; padding-left: 0 !important; }
+    }
+    .post-attached {
+      @include font($size: 13, $color: $mono1, $weight: 400);
+      margin-top: rem($grid * 2); padding: rem($grid * 2) rem($grid * 4);
+      background-color: #efefef;
+      dt, dd { display: inline; }
+      dt { padding-right: rem($grid * 2); font-weight: 600; }
+      a { display: inline; padding: 0 rem($grid); text-decoration: underline; }
+    }
+  }
+}
+[data-page-id='cs_notice'] {
+  .search-area .input-group.sort-by-words label,
+  .search-area .input-wrap.notice-title label { @include sr-only }
+  .notice-list {
+    table[data-grid-type='board'] {
+      & > thead > tr > th:first-of-type { width: rem(100); }
+      & > thead > tr > th:nth-of-type(2) { width: rem(100); }
+      & > thead > tr > th:nth-of-type(3) {  }
+      & > thead > tr > th:nth-of-type(4) { width: rem(120); }
+      & > thead > tr > th:last-of-type { width: rem(48); }
+      & > tbody > tr > td:first-of-type { text-align: center; font-weight: 600; }
+      & > tbody > tr > td:nth-of-type(2) { text-align: center; }
+      & > tbody > tr > td:nth-of-type(3) {  }
+      & > tbody > tr > td:nth-of-type(4) { text-align: center; }
+      & > tbody > tr > td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    }
+  }
+}
+[data-page-id='cs_faq'] {
+  .faq-list {
+    table[data-grid-type='board'] {
+      & > thead > tr > th:first-of-type { width: rem(150); }
+      & > thead > tr > th:nth-of-type(2) {  }
+      & > thead > tr > th:last-of-type { padding-left: 0; padding-right: 0; width: rem(48); }
+      & > tbody > tr > td:first-of-type { text-align: center; font-weight: 600; }
+      & > tbody > tr > td:nth-of-type(2) {  }
+      & > tbody > tr > td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    }
+  }
+}
+[data-page-id='cs_qna']{
+  .qna-list {
+    table[data-grid-type='board'] {
+      & > thead > tr > th:first-of-type { width: rem(100); }
+      & > thead > tr > th:nth-of-type(2) { width: rem(140); }
+      & > thead > tr > th:nth-of-type(3) { width: rem(160); }
+      & > thead > tr > th:nth-of-type(4) {  }
+      & > thead > tr > th:nth-of-type(5) { width: rem(120); }
+      & > thead > tr > th:nth-of-type(6) { width: rem(120); }
+      & > thead > tr > th:last-of-type { padding-left: 0; padding-right: 0; width: rem(48); }
+      & > tbody > tr > td:first-of-type { text-align: center; font-weight: 600; }
+      & > tbody > tr > td:nth-of-type(2) { text-align: center; }
+      & > tbody > tr > td:nth-of-type(3) { text-align: center; }
+      & > tbody > tr > td:nth-of-type(4) {  }
+      & > tbody > tr > td:nth-of-type(5) { text-align: center; }
+      & > tbody > tr > td:nth-of-type(6) { text-align: center; }
+      & > tbody > tr > td:last-of-type { padding-left: 0; padding-right: 0; text-align: center; }
+    }
+  }
+}

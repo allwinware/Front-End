@@ -1,0 +1,806 @@
+/* function */
+@function rem($value) {
+  $rem-size: ($value / $font-root-size);
+  @return $rem-size#{rem};
+}
+@function em($value1, $value2) {
+  $em-size: ($value1 / $value2);
+  @return $em-size#{em};
+}
+@function grid-mg($value: 1) {
+  $mg-size: rem(($value * 5));
+  @return $mg-size;
+}
+
+/* mixin */
+@mixin font($family: ko, $size: $font-root-size, $color: $mono1, $weight: 400, $spacing: -0.012307){
+  @if $family == en {
+    font-family: $font-en-family
+  } @else if $family == ko {
+    font-family: $font-common-family
+}
+  font-size: rem($size);
+  font-weight: $weight;
+  color: $color;
+  letter-spacing: #{$spacing}em;
+}
+@mixin border-radius($radius: $border-common-radius){
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+@mixin background($file, $type, $width, $height) {
+  $img-path: '../img/';
+  background-image: url($img-path + $file + '.' + $type);
+  background-repeat: no-repeat;
+  background-size: $width $height;
+
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+    & {
+      background-image: url($img-path + $file + '@2x.' + $type);
+    }
+  }
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+    & {
+      background-image: url($img-path + $file + '@3x.' + $type);
+    }
+  }
+}
+@mixin content-wrap {
+  @include clearfix; margin: 0 auto; padding: 0 rem($grid * 2); width: #{$content-width + ($grid * 4)}px;
+}
+@mixin flex($params: null) {
+  display: flex;
+  display: -ms-flexbox;/*ie10*/
+  $justify-content: null;
+  $align-items: null;
+  @each $value in $params {
+    @if $value == "wrap" {
+      flex-wrap: wrap;
+    } @else if $value == "column" {
+      flex-direction: column;
+    } @else if index(space-between space-around, $value) {
+      $justify-content: $value;
+    } @else if index(baseline stretch, $value) {
+      $align-items: $value;
+    } @else if index(flex-start center flex-end, $value) {
+      @if $justify-content {
+        $align-items: $value;
+      } @else {
+        $justify-content: $value;
+        @if not $align-items {
+          $align-items: $value;
+        }
+      }
+    }
+  }
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+@mixin no-flex($params: null){
+  html.no-flexbox & {
+    @each $value in $params {
+      @if $value == "clearfix" {
+        @include clearfix;
+      } @else if index(float-left, $value) {
+        float: left;
+      } @else if index(float-right, $value) {
+        float: right;
+      }
+    }
+  }//for ie9
+}
+@mixin placeholder(){
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    @content;
+  };
+  &::-moz-placeholder { /* Firefox 19+ */
+    @content;
+  };
+  &:-ms-input-placeholder { /* IE 10+ */
+    @content;
+  };
+  &:-moz-placeholder { /* Firefox 18- */
+    @content;
+  };
+}
+@mixin sr-only {
+  position: absolute; width: 0; height: 0; margin: 0; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0
+}
+@mixin clearfix {
+  &:after { content: ''; display: table; clear: both; }
+}
+@mixin valign-middle($value: before) {
+  &:#{$value} { content: ""; display: inline-block; width: 0; height: 100%; vertical-align: middle; }
+}
+@mixin align-center(){
+  position: absolute; left: 50%; top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+@mixin valign-center(){
+  position: absolute; left: 0; top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+@mixin text-uppercase {
+  text-transform: uppercase;
+}
+@mixin text-ellipsis($value: inline-block) {
+  overflow: hidden;
+  display: $value;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle
+}
+@mixin divide-line($direction: left, $el: before, $color: $mono7, $size: 12, $mg: 10){
+  position: relative;
+  padding-#{$direction}: ($mg * 2)#{px};
+  &:#{$el} {
+    content: "";
+    position: absolute; #{$direction}: #{$mg}px; top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    display: inline-block;
+    width: 1px; height: #{$size}px;
+    background-color: $color;
+  }
+};
+@mixin price-unit($type: 'usd'){
+  @content;
+  @if $type == 'usd' {
+    .digits:before { content: "$"; }
+  } @else if $type =='krw' {
+    .digits:before { content: "₩"; }
+  }
+}
+@mixin price($type: normal, $color1: $mono1, $color2: $mono3){
+  @if $type == normal {
+    dl, dt, dd { display: inline-block; }
+    dt { @include sr-only }
+    .price-usd + dd {
+      @include font($size: 14, $color: $color1, $weight: 400);
+      @include price-unit($type: 'usd');
+    }
+    .price-krw + dd {
+      @include font($size: 14, $color: $color2, $weight: 400);
+      @include price-unit($type: 'krw');
+      &:before { content: "(" }
+      &:after { content: ")" }
+    }
+  } @else if $type == total {
+    @include font($size: 16, $color: $color1, $weight: 800);
+    dl, dt, dd { display: inline-block; }
+    dt { @include sr-only }
+    .price-usd + dd {
+      @include price-unit($type: 'usd');
+    }
+    .price-krw + dd {
+      @include font($size: 14, $color: $color2, $weight: 400);
+      @include price-unit($type: 'krw');
+      &:before { content: "(" }
+      &:after { content: ")" }
+    }
+  } @else if $type == inline {
+    display: inline;
+    .price-usd, .price-krw { @include sr-only }
+    .price-usd + dd,
+    .price-krw + dd {
+      @include font($family: ko, $size: 14, $color: $color1, $weight: 400, $spacing: -0.03);
+      display: inline;
+    }
+    .price-usd + dd { color: $color1; font-weight: 600 }
+    .price-usd + dd .digits:before { content: "$" }
+    .price-krw + dd {
+      font-size: rem(12); color: $color2;
+      &:before { content: "(" }
+      &:after { content: ")" }
+    }
+    .price-krw + dd .digits:before { content: "₩"; }
+  }
+}
+@mixin bullet($type: circle, $size: 3px, $color: #D8D8D8, $el: before, $top: 5px){
+  position: relative;
+  padding-left: ($size * 3);
+  &:#{$el} {
+    content: "";
+    position: absolute; left: 0;
+    display: inline-block;
+    @if $type == circle {
+      top: $top;
+      width: $size; height: $size;
+      background-color: $color;
+      border-radius: 50%;
+    } @else if $type == dash {
+      width: $size; height: 1px;
+      background-color: $color;
+    }
+  }
+}
+@mixin table($style: type1, $font-size: 13, $mg-size: normal){
+  a, button, input, textarea, select { margin-bottom: 0 !important; }
+  width: 100%;
+  @if $style == type1 {
+    $font-size-thead: $font-size;
+    $font-size-tbody: $font-size;
+    caption { overflow: hidden; height: 0; text-indent: -999em; font-size: 0; }
+    th, td {  }
+    thead th {
+      @include font($size: $font-size-thead, $weight: 600);
+      padding: rem(11) 0; height: em(43, $font-size-thead);
+      line-height: em(14, $font-size-thead); vertical-align: middle;
+      border-bottom: 1px solid $mono8
+    }
+    tbody th, tbody td,
+    tfoot th, tfoot td {
+      @include font($size: $font-size-tbody);
+      padding: rem(10) 0; vertical-align: middle;
+      height: em(56, $font-size-tbody);
+      line-height: em(16, $font-size-tbody);
+      border-bottom: 1px solid $mono8
+    }
+    tbody th { font-weight: 600; }
+    tfoot th, tfoot td {
+      @include font($size: $font-size-tbody, $weight: 600);
+      background-color: $mono10
+    }
+    @if $mg-size == normal {
+      thead th { padding-left: rem(30); padding-right: rem(30); }
+      tbody th,
+      tbody td,
+      tfoot th,
+      tfoot td { padding-left: rem(30); padding-right: rem(30); }
+    } @else if $mg-size == small {
+      thead th { padding-left: rem($grid * 2); padding-right: rem($grid * 2); }
+      tbody td { padding-left: rem($grid * 2); padding-right: rem($grid * 2); }
+      thead th:first-child { padding-left: rem($grid * 4); }
+      tbody td:first-child { padding-left: rem($grid * 4); }
+      thead th:last-child { padding-right: rem($grid * 4); }
+      tbody td:last-child { padding-right: rem($grid * 4); }
+      tfoot th:first-child { padding-left: rem($grid * 4); }
+      tfoot td:last-child { padding-right: rem($grid * 4); }
+    } @else if $mg-size == xsmall {
+      thead th,
+      tbody td { padding: rem(10); }
+    } @else if $mg-size == none {
+      thead th,
+      tbody td,
+      thead th:first-child,
+      tbody td:first-child,
+      thead th:last-child,
+      tbody td:last-child,
+      tfoot th:first-child,
+      tfoot td:last-child { padding-left: 0; padding-right: 0; }
+    }
+  }
+  @if $style == type2 {
+    $font-size: 11;
+    @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: 0);
+    width: 100%;
+    th, td { vertical-align: middle; line-height: em(12, $font-size); }
+    thead th,
+    tbody th[scope='colgroup'],
+    tbody th:first-child:last-child {
+      padding: em(10, $font-size); min-height: em(32, $font-size);
+      font-weight: 600; text-align: center; color: $mono10;
+      background-color: $mono1;
+      & + th { border-left: 1px solid $mono10 }
+    }
+    tbody th,
+    tbody td {
+      padding: em(16, $font-size) em(10, $font-size);
+      background-color: $mono10;
+      border-bottom: 1px solid #ddd;
+      & + * { border-left: 1px solid #ddd; }
+    }
+  }
+}
+@mixin foldable-content($active-height: 5000px) {
+  @include clearfix;
+  transition: max-height 0.5s;
+  overflow: hidden;
+  max-height: 0;
+  &.active { max-height: $active-height; }
+}
+@mixin keyframe($animation_name) {
+  @-webkit-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @-o-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @keyframes #{$animation_name} {
+    @content;
+  }
+}
+@mixin animation($delay, $duration, $animation, $direction: forward, $fillmode: fowards) {
+  -webkit-animation-delay: $delay;
+  -webkit-animation-duration: $duration;
+  -webkit-animation-name: $animation;
+  -webkit-animation-fill-mode: $fillmode;
+  -webkit-animation-direction: $direction;
+
+  -moz-animation-delay: $delay;
+  -moz-animation-duration: $duration;
+  -moz-animation-name: $animation;
+  -moz-animation-fill-mode: $fillmode;
+  -moz-animation-direction: $direction;
+
+  animation-delay: $delay;
+  animation-duration: $duration;
+  animation-name: $animation;
+  animation-fill-mode: $fillmode;
+  animation-direction: $direction;
+}
+.anm_r-to-l {
+  @include keyframe($animation_name: anm_r-to-l){
+    0% {
+      -webkit-transform: translate(100%, 0);
+      -ms-transform: translate(100%, 0);
+      transform: translate(100%, 0);
+    }
+    100% {
+
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+  }
+  @include animation($delay: 0.2s, $duration: 0.5s, $animation: anm_r-to-l, $direction: forward, $fillmode: fowards);
+  transition: all 0.5s;
+  transition-delay: 0.5s;
+}
+.anm_l-to-r {
+  @include animation($delay: 0.2s, $duration: 0.5s, $animation: anm_l-to-r, $direction: forward, $fillmode: fowards);
+}
+
+
+@mixin tagging-route($type: style1) {
+  $font-size: 9;
+  @include font($size: $font-size, $color: $mono10, $weight: 800, $spacing: -0.03);
+  display: inline-block;
+  padding: 0 em(4, $font-size); min-width: em(35, $font-size); height: em(16, $font-size);
+  line-height: em(14, $font-size);
+  border: 1px solid transparent;
+  text-align: center; white-space: nowrap; vertical-align: top;
+  @if $type == style1 {
+    color: $mono10;
+    background-color: $mono1;
+  } @else if $type == style2 {
+    color: $mono1;
+    background-color: $mono10;
+    border: 1px solid $mono1;
+  }
+}
+.ico_tag {
+  @include tagging-route
+}
+
+@mixin btn_more--minified {
+  @include font($size: 11, $color: $mono1, $weight: 600);
+  padding: rem(5) rem(11) rem(5) rem(5); text-decoration: none; color: inherit;
+  .ico {
+    -webkit-transform: rotate(-45deg) translate(4px, 2px);
+    -ms-transform: rotate(-45deg) translate(4px, 2px);
+    -o-transform: rotate(-45deg) translate(4px, 2px);
+    transform: rotate(-45deg) translate(4px, 2px);
+    transform-origin: center;
+    display: inline-block;
+    width: rem(4); height: rem(4); border: solid $border-primary; border-width: 0 0 1px 1px;
+  }
+  @at-root .active .btn_more .ico {
+    -webkit-transform: rotate(135deg) translate(-4px, -3px) !important;
+    -ms-transform: rotate(135deg) translate(-4px, -3px) !important;
+    -o-transform: rotate(135deg) translate(-4px, -3px) !important;
+    transform: rotate(135deg) translate(-4px, -3px) !important;
+  }
+}
+@mixin agreement-wrap {
+  padding: rem(80) 0 0 0;
+  .agreement-title { @include font($size: 18, $color: $mono1, $weight: 800); margin-bottom: rem(14); }
+  .agreement-list {
+    border-top: 1px solid $mono1;
+    & > li {
+      @include valign-middle();
+      @include font($size: 13, $color: $mono1, $weight: 600);
+      overflow: hidden;
+      position: relative; height: rem(50);
+      border-bottom: 1px solid $mono8;
+      label {
+        @include text-ellipsis();
+        padding: rem(17) rem($grid * 2) 0 0; width: rem(calc(100% - 90px)); height: rem(50);
+      }
+      &.active { overflow: auto; height: auto; }
+    }
+    .btn_more { position: absolute; right: rem($grid * 2); top: rem(15); margin-right: rem(-5) }
+  }
+  .table-wrap { padding-bottom: 0; }
+  .notification-wrap {
+    padding: rem($grid * 4) rem($grid * 2) rem($grid * 4);
+    background-color: #F8F8F8;
+    .notification-list {
+      padding: rem($grid) 0 rem(20);
+      & > li {
+        $font-size: 11;
+        @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: -0.03);
+        position: relative;
+        padding-left: em(6, $font-size);
+        line-height: em(16, $font-size); letter-spacing: -0.03em;
+        &:before {
+          content: "";
+          position: absolute; left: 0; top: em(6, $font-size);
+          display: inline-block;
+          width: 2px; height: 2px;
+          border-radius: 50%; background-color: #5B5B5B;
+        }
+        & + li { margin-top: em(4, $font-size); }
+      }
+      &:last-child { padding-bottom: 0; }
+      &.no-blt {
+        li {
+          padding-left: 0;
+          &:before { display: none; }
+        }
+      }
+    }
+    td .notification-list {
+      padding: 0;
+    }
+    td .notification-text + .notification-list,
+    td .notification-list + .notification-text,
+    td .notification-list + .notification-list,
+    td .notification-text + .notification-text { padding-top: rem($grid * 2) }
+    td .notification-list:not(.no-blt) {
+      .notification-text, li { color: #5B5B5B; }
+    }
+    td .notification-list.no-blt {
+      .notification-text, li { color: $mono1; }
+    }
+  }
+  table {
+    @include table($style: type2, $mg-size: xsmall);
+    p { line-height: rem(16); }
+    p + ul { padding-top: rem(12); }
+    p + ul + p { padding-top: rem(12); }
+    tbody tr:last-of-type th,
+    tbody tr:last-of-type td { border-bottom: 0; }
+  }
+  .agreement-all-list {
+    position: relative;
+    margin: -1px 0 rem(50); height: rem(50);
+    border-top: 1px solid $mono1; border-bottom: 1px solid $mono8;
+    label {
+      @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+      position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+      padding: rem(17) 0 0;
+    }
+  }
+  dl {
+    $font-size: 11;
+    @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: 0);
+    dt {
+      padding: em(10, $font-size); min-height: em(32, $font-size);
+      font-weight: 600; text-align: center; color: $mono10;
+      background-color: $mono1;
+      & + th { border-left: 1px solid $mono10 }
+    }
+    dd {
+      padding: em(16, $font-size) em(10, $font-size);
+      background-color: $mono10;
+      border-bottom: 1px solid #ddd;
+    }
+  }
+  .btn_more {
+    @include btn_more--minified
+  }
+}
+@mixin ico($type: 'alert') {
+  overflow: hidden;
+  position: relative;
+  @if type == alert {
+    $size: 48;
+    display: block;
+    margin: 0 auto; width: rem($size); height: rem($size);
+    background-color: $mono7; border-radius: 50%;
+    text-indent: -999em;
+    &:before {
+      @include background($file: 'popup/ico_exclamation--w', $type: png, $width: rem(4), $height: rem(28));
+      @include align-center;
+      content: "";
+      display: inline-block;
+      width: rem(4); height: rem(28);
+    }
+  }
+}
+/* alert common style */
+@mixin alert-style {
+  .ico-wrap {
+    padding-top: rem(30);
+    [class*='ico_alert'] {
+      @include ico($type: 'alert');
+    }
+    [class*='--primary'] {
+      background-color: $bg-primary;
+    }
+  }
+  .alert-title {
+    $font-size: 16;
+    @include font($size: $font-size, $color: $mono1, $weight: 600);
+    padding-top: rem($grid * 4);
+    line-height: em(20, $font-size); text-align: center;
+    &:last-child { padding-bottom: rem($grid * 2) }
+  }
+  .alert-text {
+    $font-size: 13;
+    @include font($size: $font-size, $color: $mono1, $weight: 300);
+    padding: rem($grid * 2) 0;
+    line-height: em(18, $font-size);
+  }
+  .alert-text:first-child { padding-top: rem(12) }
+  dl.alert-text {
+    margin-left: rem($grid * 2); margin-right: rem($grid * 2);
+    & > dt {
+      @include font($size: 11, $color: $mono10, $weight: 600);
+      padding: rem(8) rem($grid * 2);height: rem($grid * 4);
+      background-color: $mono1;
+      text-align: center;
+    }
+    & > dd {
+      padding: rem(12) rem(10);
+      background-color: #F8F8F8; text-align: left;
+    }
+    dl dt, dl dd {
+      @include font($size: 11, $color: $mono1, $weight: 400);
+      display: inline;
+      line-height: rem(16);
+    }
+    dl dt { font-weight: 600; }
+    dl dd:before { content: ":"; padding: 0 0.3em 0 0.2em }
+    dl dd:after { content: ""; display: block; width: 100%; height: 0 }
+  }
+  .btn-wrap {
+    padding-top: rem($grid * 2);
+    text-align: center;
+    [class*='btn_'] {
+      $font-size: 13;
+      @include form($size: 4, $role: normal-rev, $type: button);
+      @include font($size: $font-size, $color: $mono10, $weight: 600);
+      width: auto;
+      letter-spacing: em(0.81, $font-size)
+    }
+  }
+}
+@mixin ticket-info {
+  $font-size: 30;
+  @include clearfix;
+  padding-top: rem(50);
+  .airport {
+    @include clearfix;
+    padding-bottom: rem(20);
+    & > dt, & > dd { float: left; }
+    dt { @include sr-only; }
+    dd { @include font($size: $font-size, $color: $mono1, $weight: 800); }
+    .arrival + dd {
+      padding-left: em(66, $font-size);
+      @include background($file: 'common/ico_airplane', $type: png, $width: rem(23), $height: rem(23));
+      background-position: em(20, $font-size) center;
+
+    }
+  }
+  .detail-info {
+    $font-size: 11;
+    @include clearfix;
+    padding-top: em(3, $font-size);
+    .type { @include sr-only; }
+    .type + dd {
+      @include tagging-route();
+      @include font($size: $font-size, $color: $mono10, $weight: 800);
+      margin: em(-3, $font-size) em(12, $font-size) 0 0; padding: 0 em(4, $font-size); min-width: em(32, $font-size); height: em(20, $font-size);
+      line-height: em(18, $font-size);
+    }
+    dt, dd { display: inline; }
+    dt:after { content: ":"; padding: 0 em(3, $font-size) }
+    .schedule ~ dt,
+    .resv-num ~ dt {
+      position: relative;
+      margin-left: em(12, $font-size); padding-left: em(12, $font-size);
+      &:before { content: ""; @include valign-center; left: 0; width: 1px; height: rem(10); background-color: #999 }
+    }
+    .resv-num + dd { font-weight: 800 }
+    .price + dd { @include price-unit(krw) }
+    .price + dd .digits { font-weight: 800; color: $text-primary; }
+    .passenger-name { font-weight: 800 }
+  }
+  &.one-way {
+    .airport .arrival + dd {
+      @include background($file: 'common/ico_airplane_oneway', $type: png, $width: rem(22), $height: rem(16));
+    }
+  }
+}
+@mixin pay-receipt {
+  [class*='_pay-title'] { @include font($size: 20, $color: $mono1, $weight: 800); }
+  .receipt-wrap, .total-wrap { padding-top: rem(50); }
+  .receipt-wrap {
+    table {
+      $font-size: 14;
+      table-layout: fixed; width: 100%;
+      border-top: 1px solid $mono1;
+      th, td { height: em(50, $font-size); vertical-align: middle; }
+      tfoot th, tfoot td, tbody th, tbody td {
+        @include font($size: $font-size, $color: $mono1, $weight: 300);
+        padding: em($grid, $font-size) em(30, $font-size);
+        border-bottom: 1px solid $mono8
+      }
+      tfoot th, tfoot td { background-color: #F8F8F8; text-align: right; }
+      tfoot .ico_tag {
+        margin-right: rem($grid * 2)
+      }
+      tfoot td {
+        @include font($size: 14, $color: $text-primary, $weight: 600);
+        @include price-unit(krw);
+        padding-right: rem(182);
+        .digits { display: inline-block; width: rem(82) }
+      }
+      thead th {
+        @include font($size: $font-size, $color: $mono1, $weight: 800);
+        padding: em(17, $font-size) em(30, $font-size) em(18, $font-size);
+        border-bottom: 1px solid $mono1;
+      }
+      thead th:first-of-type { padding-left: em(60, $font-size) }
+      thead th:first-of-type, tbody th:first-of-type { padding-left: em(60, $font-size) }
+      thead th:first-of-type, tbody th:first-of-type { width: rem(250) }
+      thead th:nth-of-type(2), dt { width: rem(160) }
+      thead th:nth-of-type(2), dd.pay { width: calc(100% - 160px - 125px - 152px)}
+      thead th:nth-of-type(3), dd.price { width: rem(125); text-align: right; }
+      thead th:nth-of-type(4), dd.status { width: rem(152); }
+      thead th:last-of-type { padding-right: em(60, $font-size); }
+      tbody th:first-of-type { font-weight: 600; }
+      tbody th, tbody td {  }
+      tbody td { text-align: center; }
+      dl { @include clearfix; margin: 0 rem(-30); padding: rem($grid) 0; text-align: left; }
+      dt, dd { float: left; padding: rem($grid) em(30, $font-size); min-height: em(34, $font-size); line-height: em(18, $font-size);  }
+      dt { font-weight: 800; }
+      dd { font-weight: 300; }
+      dd.refund { text-align: center; }
+      dd.price { @include price-unit(krw); }
+      dd.status { padding-right: rem(60); text-align: center; }
+    }
+  }
+  .receipt-title {
+    @include font($size: 16, $color: $mono1, $weight: 600);
+    padding-bottom: rem($grid * 2);
+    .ico_airplane {
+      @include background($file: 'pay/ico_airplane', $type: 'png', $width: rem(12), $height: rem(10));
+      overflow: hidden;
+      display: inline-block;
+      padding: 0 rem(10); width: rem(32); height: rem(10);
+      text-indent: -999em;
+      background-position: center center;
+      & + .ico_tag { margin-left: rem(4) }
+    }
+  }
+  .total-wrap {
+    @include clearfix;
+    dl { position: relative; padding: rem(17) rem(60); height: rem(52); border: solid $mono1; border-width: 1px 0; }
+    dt:not(.total-price) { @include tagging-route($type: style2); }
+    .total-price { @include tagging-route(); }
+    .price, .fee { position: relative; margin-right: rem($grid * 2); }
+    dd + .price, dd + .fee, .total-price {
+      margin-left: rem(66);
+      &:before, &:after {
+        content: "";
+        position: absolute; top: rem(-2); left: rem(-44);
+        display: block;
+        width: rem(18); height: rem(18);
+        border-radius: 50%;
+      }
+      &:before { background-color: $mono1; }
+    }
+    dd + .fee:before { background-color: $bg-primary }
+    dd + .price:after { @include background($file: 'pay/ico_calc-plus', $type: 'png', $width: rem(18), $height: rem(18)); }
+    dd + .fee:after { @include background($file: 'pay/ico_calc-minus', $type: 'png', $width: rem(18), $height: rem(18)); }
+    .total-price:after { @include background($file: 'pay/ico_calc-equal', $type: 'png', $width: rem(18), $height: rem(18)); }
+    .price, .price + dd, .fee, .fee + dd { float: left; }
+    dd { @include price-unit(krw); }
+    .price + dd, .fee + dd { font-weight: 300; }
+    .digits { height: rem(17); line-height: rem(17) }
+    .total-price, .total-price + dd { @include valign-center(); left: auto }
+    .total-price { right: rem(284); width: rem(82) }
+    .total-price + dd { @include font($size: 14, $color: $text-primary, $weight: 600); right: rem(182); }
+  }
+}
+/* 부가서비스 신청 (공통) */
+@mixin btn_delete {
+  @include background($file: 'anc/ico_delete-s', $type: png, $width: rem(12), $height: rem(12));
+  overflow: hidden;
+  display: inline-block;
+  margin-left: rem(5); width: rem(12); height: rem(12);
+  text-indent: -999em; vertical-align: middle;
+  z-index: 99;
+}
+
+@mixin board-page($lnb-wrap-class:null, $content-wrap-class:null, $list-class:null) {
+  padding-top: rem(100);
+  .search-area {
+    @include clearfix;
+    margin: 0 rem(-5) rem(80); padding: 0 0 rem($grid * 10);
+    border-bottom: 1px solid $mono8;
+    @include form-group-style;
+    label { @include sr-only }
+    .selectric-select-wrap {
+      position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    }
+    .process-btn-wrap { float: left; width: 100%; }
+  }
+  @if $lnb-wrap-class != null {
+    #{$lnb-wrap-class} .lnb {
+      @include clearfix;
+      margin: 0 rem(-12) rem($grid * 5);
+      li {
+        float: left;
+        margin: 0 rem(12);
+        a {
+          $font-size: 20;
+          @include font($size: 20, $color: $mono4, $weight: 400);
+          display: block;
+          padding: 0 0 em(5, $font-size);
+          text-decoration: none;
+          border-bottom: 2px solid transparent
+        }
+        &.active a { color: $mono1; font-weight: 800; border-bottom: 2px solid $mono1 }
+      }
+    }
+    .page-name { @include font($size: 32, $color: $mono1, $weight: 800); margin-bottom: rem($grid * 5) }
+  }
+  @if $content-wrap-class != null {
+    #{$content-wrap-class} .my-header {
+      padding-top: rem(20);
+    }
+  }
+  @if $list-class != null {
+    #{$list-class} {
+      .function-wrap {
+        @include clearfix;
+        padding: rem(20) 0 rem(50);
+        text-align: right;
+      }
+      dt, dd { display: inline-block; line-height: rem(20) }
+      .search-result, .search-result + dd {
+        @include font($size: 13, $color: $mono1, $weight: 600);
+        float: left;
+        .digits { font-size: rem(18) }
+      }
+      .search-result:after { content: ":"; padding: 0 0.3em; }
+      .search-result ~ dt { @include sr-only }
+      .sort-condition ~ dd input[type='radio'] {
+        @include sr-only;
+        & + label { margin-left: rem($grid); color: $mono4; font-weight: 600 }
+        &:checked + label { color: $mono1 }
+      }
+      & > table[data-grid-type='board'] {
+        $font-size: 14;
+        @include font($size: $font-size, $color: $mono1, $weight: 300);
+        table-layout: fixed; width: 100%;
+        border-top: 1px solid $mono1;
+        & > thead > tr > th { padding: rem(15) rem($grid * 2); height: rem(51); line-height: rem(21); vertical-align: middle; font-weight: 800; border-bottom: 1px solid $mono1; }
+        & > tbody > tr > th, & > tbody > tr > td { padding: rem(17) rem($grid * 3); border-bottom: 1px solid $mono8; vertical-align: middle; }
+        & > tbody > tr:hover > th, & > tbody > tr:hover > td { background-color: $mono9 }
+        & > tbody > tr.result-empty > td {
+          padding-top: rem(120); padding-bottom: rem(120); text-align: center;
+          &:hover { background-color: transparent; }
+        }
+        a { text-decoration: none; color: inherit; }
+        a:hover { text-decoration: underline }
+      }
+    }
+  }
+}
