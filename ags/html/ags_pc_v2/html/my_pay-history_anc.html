@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <title>부가서비스 결제내역(목록) < 마이페이지 < AGS</title>
+    <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
+    <link rel="stylesheet" href="../resource/css/ags_pc_7c.min.css"><!-- 제주항공일 때 -->
+    <!--<link rel="stylesheet" href="../resource/css/ags_pc_tw.min.css">--><!-- 티웨이항공일 때 -->
+    <!--<link rel="stylesheet" href="../resource/css/ags_pc.dom.min.css">--><!-- 국내선일 때 -->
+    <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
+    <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resource/js/selectric/jquery.selectric.min.js"></script>
+    <script type="text/javascript" src="../resource/js/ags_pc.ui.js"></script>
+</head>
+<body>
+<main role="main" class="ags-wrap">
+    <h1 class="site-name">올윈에어 Ancillary Gateway Service</h1>
+    <!-- 서비스정보(include/ags-header.html) -->
+    <header id="ags-header" class="ags-header"></header>
+
+    <hr>
+
+    <section id="ags-container" class="ags-container" data-page-id="my_pay-history_anc">
+        <header class="my-lnb-wrap">
+            <div class="content-wrap">
+                <h2 class="sr-only">서브 네비게이션</h2>
+                <h3 class="page-name">마이페이지</h3>
+                <nav class="lnb">
+                    <ul>
+                        <li class="active"><a href="#none" target="_self">부가서비스 결제내역</a></li>
+                        <li><a href="#none" target="_self">기내면세 예약내역</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <hr>
+
+        <div class="content-wrap">
+            <h2 class="sr-only">컨텐츠 본문</h2>
+
+            <!-- 리스트 영역 -->
+            <article class="my-history-wrap">
+                <!-- 검색 영역(개발보류) -->
+                <!--<header class="my-header">
+                    <div class="search-area">
+                        <div class="input-wrap resv-num">
+                            <input type="text" id="input-text01" placeholder="예약번호를 입력하세요">
+                            <label for="input-text01">예약번호</label>
+                        </div>
+                        <div class="input-group sort">
+                            <div class="select-wrap">
+                                <select id="sort-select01">
+                                    <option selected="selected">출발일 기준</option>
+                                    <option>구매일 기준</option>
+                                </select>
+                                <label for="sort-select01">검색기준</label>
+                            </div>
+                            <div class="btn-wrap duration-controller">
+                                <input type="radio" id="sort-radio1" name="sort-radio-group1"><label for="sort-radio1">3개월</label>
+                                <input type="radio" id="sort-radio2" name="sort-radio-group1"><label for="sort-radio2">6개월</label>
+                                <input type="radio" id="sort-radio3" name="sort-radio-group1"><label for="sort-radio3">1년</label>
+                            </div>
+                        </div>
+                        <div class="calendar-wrap duration">
+                            <input type="text" id="input-text02" placeholder="출발일 - 도착일 선택" data-type="daterangepicker">
+                            <label for="input-text02">출발일 - 도착일 선택</label>
+                        </div>
+                        <div class="calendar-wrap">
+                            <div class="mc-layer__cals">
+                                <input id="matching-datapicker__input" type="hidden" value="">
+                                <div class="matching&#45;&#45;datapicker__view"></div>
+                            </div>
+                        </div>
+                        <div class="select-wrap status">
+                            <select id="sort-select02">
+                                <option selected="selected">상태</option>
+                                <option>결제 완료</option>
+                                <option>취소 완료</option>
+                                <option>부분 취소</option>
+                            </select>
+                            <label for="sort-select02">상태</label>
+                        </div>
+                        <div class="process-btn-wrap">
+                            <button type="button" class="btn_search">조회하기</button>
+                        </div>
+                    </div>
+                </header>-->
+
+                <div class="history-list">
+                    <dl class="function-wrap">
+                        <dt class="search-result">검색결과</dt>
+                        <dd>총 <span class="digits">51</span>건</dd>
+                        <dt class="sort-condition">정렬조건</dt>
+                        <dd><input type="radio" id="sort1" name="fnc-radio-group1" checked="checked"><label for="sort1">출발일 순</label></dd>
+                        <dd><input type="radio" id="sort2" name="fnc-radio-group1"><label for="sort2">구매일 순</label></dd>
+                    </dl>
+
+                    <table data-grid-type="board">
+                        <colgroup>
+                            <col><!-- 예약번호 -->
+                            <col><!-- 항공사 -->
+                            <col><!-- 여정 -->
+                            <col><!-- 구매 항목 -->
+                            <col><!-- 구매일 -->
+                            <col><!-- 총 결제 금액 -->
+                            <col><!-- 결제 상태 -->
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th scope="col">예약번호</th>
+                            <th scope="col">항공사</th>
+                            <th scope="col">여정</th>
+                            <th scope="col">구매 항목</th>
+                            <th scope="col">구매일</th>
+                            <th scope="col">총 결제 금액</th>
+                            <th scope="col">결제 상태</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">오는 편</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">여정1</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">여정2</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                    <dt class="schedule">여정3</dt>
+                                    <dd>2020.11.28(화)</dd>
+                                    <dt class="schedule">여정4</dt>
+                                    <dd>2020.12.04(수)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">오는 편</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td>JP2RMT</td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">오는 편</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">오는 편</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">오는 편</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">오는 편</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">오는 편</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        <tr>
+                            <td><a href="#none" target="_self" data-linked="tr">JP2RMT</a></td><!-- 예약번호 -->
+                            <td>티웨이</td><!-- 항공사 -->
+                            <td>
+                                <dl class="ticket-info">
+                                    <dt class="departure">출발지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dt class="schedule">가는 편</dt>
+                                    <dd>2020.11.11(월)</dd>
+                                    <dt class="schedule">오는 편</dt>
+                                    <dd>2020.11.16(목)</dd>
+                                </dl>
+                            </td><!-- 여정 -->
+                            <td>사전 좌석 구매 외 3건</td><!-- 구매 항목 -->
+                            <td>2020.11.16, 18:20</td><!-- 구매일 -->
+                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제 금액 -->
+                            <td>결제 완료</td><!-- 결제 상태 -->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <a href="#none" target="_self" class="btn_first">첫 페이지</a>
+                    <a href="#none" target="_self" class="btn_prev">이전 페이지</a>
+                    <a href="#none" target="_self" class="active">1</a>
+                    <a href="#none" target="_self">2</a>
+                    <a href="#none" target="_self">3</a>
+                    <a href="#none" target="_self">4</a>
+                    <a href="#none" target="_self">5</a>
+                    <a href="#none" target="_self">6</a>
+                    <a href="#none" target="_self">7</a>
+                    <a href="#none" target="_self">8</a>
+                    <a href="#none" target="_self">9</a>
+                    <a href="#none" target="_self">10</a>
+                    <a href="#none" target="_self" class="btn_next">다음 페이지</a>
+                    <a href="#none" target="_self" class="btn_last">마지막 페이지</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- 회사정보(include/ags-footer.html) -->
+    <footer id="ags-footer" class="ags-footer"></footer>
+</main>
+
+<script>
+    var $win = $(window),
+        $doc = $(document);
+
+    $("#ags-header").load("include/ags-header.html");
+    $("#ags-footer").load("include/ags-footer.html");
+
+    /*문서 구조가 모두 로드된 이후에*/
+    $win.on("load", function(){
+        /* GNB에서 마이페이지 메뉴 활성화 */
+        $("#ags-header").find(".gnb li:nth-of-type(3)").addClass("active").siblings().removeClass("active");
+    })
+</script>
+</body>
+</html>
