@@ -506,7 +506,7 @@
 @mixin ico($type: 'alert') {
   overflow: hidden;
   position: relative;
-  @if type == alert {
+  @if $type == alert {
     $size: 48;
     display: block;
     margin: 0 auto; width: rem($size); height: rem($size);
@@ -525,10 +525,10 @@
 @mixin alert-style {
   .ico-wrap {
     padding-top: rem(30);
-    [class*='ico_alert'] {
+    [class^='ico_alert'] {
       @include ico($type: 'alert');
     }
-    [class*='--primary'] {
+    [class$='--primary'] {
       background-color: $bg-primary;
     }
   }

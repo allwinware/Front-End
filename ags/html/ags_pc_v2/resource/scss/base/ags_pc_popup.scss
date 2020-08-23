@@ -82,66 +82,6 @@
     }
   }
 }
-/* alert common style */
-@mixin alert-style {
-  .ico-wrap {
-    padding-top: rem(30);
-    [class*='ico_alert'] {
-      $size: 48;
-      overflow: hidden;
-      position: relative;
-      display: inline-block;
-      width: rem($size); height: rem($size);
-      background-color: $mono9; border-radius: 50%;
-      text-indent: -999em;
-      &:before {
-        @include background($file: 'popup/ico_exclamation--w', $type: png, $width: rem(4), $height: rem(28));
-        @include align-center;
-        content: "";
-        display: inline-block;
-        width: rem(4); height: rem(28);
-      }
-    }
-    [class*='--primary'] {
-      background-color: $bg-primary;
-    }
-    & + .alert-title + .alert-text:last-of-type { padding-bottom: rem($grid * 2) }
-  }
-  .alert-title {
-    $font-size: 16;
-    @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: -0.03);
-    padding-top: rem(30);
-    line-height: em(22, $font-size);
-    &:last-child { padding-bottom: rem($grid * 2) }
-  }
-  .alert-text {
-    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
-    padding-top: rem($grid * 2);
-    line-height: em(18, 13);
-  }
-  .alert-text:first-child { padding-top: rem($grid * 3) }
-  dl.alert-text {
-    margin-left: rem($grid * 2); margin-right: rem($grid * 2);
-    & > dt {
-      @include font($size: 11, $color: $mono10, $weight: 600, $spacing: -0.03);
-      padding: rem(8) rem($grid * 2);height: rem($grid * 4);
-      background-color: $mono1;
-      text-align: center;
-    }
-    & > dd {
-      padding: rem(12) rem(10);
-      background-color: #F8F8F8; text-align: left;
-    }
-    dl dt, dl dd {
-      @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03);
-      display: inline;
-      line-height: rem(16);
-    }
-    dl dt { font-weight: 600; }
-    dl dd:before { content: ":"; padding: 0 0.3em 0 0.2em }
-    dl dd:after { content: ""; display: block; width: 100%; height: 0 }
-  }
-}
 [data-type='alert'], [data-type='message'] {
   .pop-footer {
     .agreement { padding: 0 rem(6); }
@@ -185,7 +125,6 @@
 
 /* data-type='alert' */
 [data-type='alert'] {
-  @include alert-style;
   top: 0;
   .pop-wrap {
     @include align-center;
@@ -204,7 +143,11 @@
     text-align: center;
     border-bottom: 1px solid $mono8;
   }
-  .pop-container { padding-bottom: rem(24); min-height: rem(80); text-align: center; }
+  .pop-container {
+    padding-bottom: rem(24); min-height: rem(80);
+    text-align: center;
+    @include alert-style;
+  }
   .pop-header + .pop-container { padding-left: rem(4); padding-right: rem(4) }
   ul.list-dot > li { text-align: left; line-height: rem(20) }
 }
