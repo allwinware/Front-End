@@ -104,9 +104,9 @@ $(document).ready(function(){
     (function(tabHandler){
         $(".tab-wrap").each(function(){
             var $thisTap = $(this),
-                $tabBtn = $thisTap.find("[role='tab']"),
-                $tabPan = $thisTap.find("[role='tabpanel']"),
-                $innerWrap = $thisTap.find(".align-horizontal");
+                $tabBtn = $thisTap.children(".tabs").children("[role='tablist']").children("[role='tab']"),
+                $innerWrap = $thisTap.children(".tab-panels").children(".align-horizontal"),
+                $tabPan = $innerWrap.children("[role='tabpanel']");
 
             // 탭의 갯수에 맞추어 .tab-wrap 사이즈 조정
             if($innerWrap.length > 0){
