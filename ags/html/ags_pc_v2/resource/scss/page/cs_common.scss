@@ -27,7 +27,15 @@
     .post-wrap { overflow: hidden; height: 0; }
   }
   table[data-grid-type='board'] > tbody > tr.active + .accordion-content {
-    .post-wrap { overflow: visible; height: auto; }
+    .post-wrap {
+      overflow: visible; height: auto;
+      & + .post-wrap {
+        position: relative;
+        margin: rem($grid * 5) 0 0; padding: rem($grid * 5) 0 0; /*border-top: 1px solid #F0F0F0;*/
+        @include divide-line($direction: top, $el: before, $color: $mono9, $size: 100%, $mg: 40);
+        box-shadow: 0 1px 0 $mono10
+      }
+    }
     .post-info {
       padding: 0 rem($grid * 2);
       .writer, .date, .content { @include sr-only; }
@@ -43,6 +51,15 @@
       dt, dd { display: inline; }
       dt { padding-right: rem($grid * 2); font-weight: 600; }
       a { display: inline; padding: 0 rem($grid); text-decoration: underline; }
+    }
+    .textarea_write { @include form($size: 4, $role: normal, $type: textarea); font-weight: 300; resize: vertical; }
+    .btn-wrap {
+      @include clearfix;
+      margin: 0 rem(-$grid / 2); padding-top: rem($grid * 4);
+      .btn_write { @include form($size: 3, $role: primary3, $type: button) }
+      .btn_modify { @include form($size: 3, $role: submit, $type: button) }
+      .btn_delete { @include form($size: 3, $role: normal, $type: button) }
+      [class^='btn_'] { margin: 0 rem($grid / 2); width: auto; min-width: em(105, 13); letter-spacing: 0.05em }
     }
   }
 }
