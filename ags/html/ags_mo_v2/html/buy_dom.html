@@ -90,7 +90,7 @@
                     });
 
                     /*승객에게 좌석을 부여한 뒤, 좌석 텍스트 뒤에 붙는 삭제(X)버튼의 기능을 정의합니다*/
-                    $doc.on("click", ".btn_delete", function(){
+                    $thisPanel.on("click", ".btn_delete", function(){
                         var $this = $(this)/*클릭한 삭제버튼*/;
                             owner = $this.parents("dl").find(".passenger-name + dd").text()/*클릭한 삭제버튼이 작동할 승객의 성명*/;
 
@@ -98,11 +98,11 @@
                         $(".tab-panel.active .seat-num a.active[data-psg='" + owner + "']").attr("data-psg", "").removeClass("active");
 
                         /*해당 승객에게 포커스를 맞춰줍니다*/
-                        $(this).closest("dl").siblings("input[type='radio']").prop("checked", true);
-                        activeLinkScrollLeft($(this).closest("li"), $psgLists.parent(".passenger-wrap"), 800);
+                        $this.closest("dl").siblings("input[type='radio']").prop("checked", true);
+                        activeLinkScrollLeft($this.closest("li"), $psgLists.parent(".passenger-wrap"), 800);
 
                         /*승객의 좌석 텍스트를 삭제합니다*/
-                        $(this).parent("dd").html("")
+                        $this.parent("dd").html("")
                     });
                 });
             })();
@@ -727,16 +727,6 @@
                                                                 <col>
                                                                 <col>
                                                             </colgroup>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                                <th scope="row">총 수하물</th>
-                                                                <td><span class="total-weight">30</span>kg</td>
-                                                                <!-- 추가 구매시(제주항공용) -->
-                                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
-                                                                <td><span class="total-weight">30</span>kg</td>-->
-                                                            </tr>
-                                                            </tfoot>
                                                             <tbody>
                                                             <tr>
                                                                 <th scope="row">기본 제공</th>
@@ -777,16 +767,6 @@
                                                                 <col>
                                                                 <col>
                                                             </colgroup>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                                <th scope="row">총 수하물</th>
-                                                                <td><span class="total-weight">20</span>kg</td>
-                                                                <!-- 추가 구매시(제주항공용) -->
-                                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 20kg 포함)</i></th>
-                                                                <td><span class="total-weight">20</span>kg</td>-->
-                                                            </tr>
-                                                            </tfoot>
                                                             <tbody>
                                                             <tr>
                                                                 <th scope="row">기본 제공</th>
@@ -823,16 +803,6 @@
                                                                 <col>
                                                                 <col>
                                                             </colgroup>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                                <th scope="row">총 수하물</th>
-                                                                <td><span class="total-weight">0</span>kg</td>
-                                                                <!-- 추가 구매시(제주항공용) -->
-                                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
-                                                                <td><span class="total-weight">30</span>kg</td>-->
-                                                            </tr>
-                                                            </tfoot>
                                                             <tbody>
                                                             <tr>
                                                                 <th scope="row">기본 제공</th>
@@ -1411,16 +1381,6 @@
                                                                 <col>
                                                                 <col>
                                                             </colgroup>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                                <th scope="row">총 수하물</th>
-                                                                <td><span class="total-weight">30</span>kg</td>
-                                                                <!-- 추가 구매시(제주항공용) -->
-                                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
-                                                                <td><span class="total-weight">30</span>kg</td>-->
-                                                            </tr>
-                                                            </tfoot>
                                                             <tbody>
                                                             <tr>
                                                                 <th scope="row">기본 제공</th>
@@ -1461,16 +1421,6 @@
                                                                 <col>
                                                                 <col>
                                                             </colgroup>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                                <th scope="row">총 수하물</th>
-                                                                <td><span class="total-weight">25</span>kg</td>
-                                                                <!-- 추가 구매시(제주항공용) -->
-                                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
-                                                                <td><span class="total-weight">30</span>kg</td>-->
-                                                            </tr>
-                                                            </tfoot>
                                                             <tbody>
                                                             <tr>
                                                                 <th scope="row">기본 제공</th>
@@ -1507,16 +1457,6 @@
                                                                 <col>
                                                                 <col>
                                                             </colgroup>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                                <th scope="row">총 수하물</th>
-                                                                <td><span class="total-weight">0</span>kg</td>
-                                                                <!-- 추가 구매시(제주항공용) -->
-                                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
-                                                                <td><span class="total-weight">10</span>kg</td>-->
-                                                            </tr>
-                                                            </tfoot>
                                                             <tbody>
                                                             <tr>
                                                                 <th scope="row">기본 제공</th>
