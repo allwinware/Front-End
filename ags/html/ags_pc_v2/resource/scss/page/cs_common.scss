@@ -24,42 +24,46 @@
     table[data-grid-type='board'] > tbody > tr > td > a { @include text-ellipsis(block) }
   }
   table[data-grid-type='board'] > tbody > tr + .accordion-content {
+    & > td { padding-left: 0 !important; padding-right: 0 !important; }
     .post-wrap { overflow: hidden; height: 0; }
   }
   table[data-grid-type='board'] > tbody > tr.active + .accordion-content {
     .post-wrap {
-      overflow: visible; height: auto;
+      overflow: visible;
+      padding: 0 rem($grid * 5) rem($grid); height: auto;
       & + .post-wrap {
+        @include divide-line($direction: top, $el: before, $color: $mono8, $size: 1, $mg: 40);
         position: relative;
-        margin: rem($grid * 5) 0 0; padding: rem($grid * 5) 0 0; /*border-top: 1px solid #F0F0F0;*/
-        @include divide-line($direction: top, $el: before, $color: $mono9, $size: 100%, $mg: 40);
-        box-shadow: 0 1px 0 $mono10
+        margin: rem($grid * 5) 0 0; padding: rem($grid * 5) rem($grid * 5) rem($grid); /*border-top: 1px solid #F0F0F0;*/
+        &:before { box-shadow: 0 1px 0 $mono10; left: 0; right: 0; }
       }
     }
     .post-info {
-      padding: 0 rem($grid * 2);
+      padding: 0;
       .writer, .date, .content { @include sr-only; }
-      .writer + dd { @include font($size: 14, $color: $mono1, $weight: 800); margin-bottom: rem($grid * 2);  }
+      .writer + dd { @include font($size: 13, $color: $mono1, $weight: 600); margin-bottom: rem($grid * 3);  }
       .writer + dd ~ dd { padding-left: rem(10) }
-      .date + dd { @include font($size: 12, $color: $mono4, $weight: 400); margin-bottom: rem($grid * 2); }
+      .date + dd { @include font($size: 11, $color: $mono3, $weight: 400); margin-bottom: rem($grid * 3); }
       .content + dd { display: block; width: 100%; line-height: 1.8em; padding-left: 0 !important; }
+      .ico_manager { @include tagging-route(); margin-right: rem(4); vertical-align: middle; }
     }
     .post-attached {
       @include font($size: 13, $color: $mono1, $weight: 400);
-      margin-top: rem($grid * 2); padding: rem($grid * 2) rem($grid * 4);
+      margin-top: rem($grid * 4); padding: rem($grid * 2) rem(20);
       background-color: #efefef;
       dt, dd { display: inline; }
       dt { padding-right: rem($grid * 2); font-weight: 600; }
       a { display: inline; padding: 0 rem($grid); text-decoration: underline; }
     }
-    .textarea_write { @include form($size: 4, $role: normal, $type: textarea); font-weight: 300; resize: vertical; }
+    .textarea_write { @include form($size: 4, $role: normal, $type: textarea); margin-bottom: rem(-20); font-weight: 300; resize: vertical; }
     .btn-wrap {
       @include clearfix;
       margin: 0 rem(-$grid / 2); padding-top: rem($grid * 4);
-      .btn_write { @include form($size: 3, $role: primary3, $type: button) }
-      .btn_modify { @include form($size: 3, $role: submit, $type: button) }
+      &:first-child { padding-top: 0; }
+      .btn_write { @include form($size: 3, $role: submit, $type: button) }
+      .btn_modify { @include form($size: 3, $role: normal, $type: button) }
       .btn_delete { @include form($size: 3, $role: normal, $type: button) }
-      [class^='btn_'] { margin: 0 rem($grid / 2); width: auto; min-width: em(105, 13); letter-spacing: 0.05em }
+      [class^='btn_'] { margin: 0 rem($grid / 2) rem($grid * 2); width: auto; min-width: em(112, 13); letter-spacing: 0.05em }
     }
   }
 }

@@ -138,15 +138,28 @@
 @mixin divide-line($direction: left, $el: before, $color: $mono7, $size: 12, $mg: 10){
   position: relative;
   padding-#{$direction}: ($mg * 2)#{px};
-  &:#{$el} {
-    content: "";
-    position: absolute; #{$direction}: #{$mg}px; top: 50%;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    display: inline-block;
-    width: 1px; height: #{$size}px;
-    background-color: $color;
+  @if $direction == left or $direction == right {
+    &:#{$el} {
+      content: "";
+      position: absolute; #{$direction}: #{$mg}px; top: 50%;
+      -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+      display: inline-block;
+      width: 1px; height: #{$size}px;
+      background-color: $color;
+    }
+  } @else {
+    &:#{$el} {
+      content: "";
+      position: absolute; #{$direction}: #{$mg}px; #{$direction}: 0;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+      display: inline-block;
+      width: 100%; height: #{$size}px;
+      background-color: $color;
+    }
   }
 };
 @mixin price-unit($type: 'usd'){
@@ -796,7 +809,10 @@
         table-layout: fixed; width: 100%;
         border-top: 1px solid $mono1;
         & > thead > tr > th { padding: rem(15) rem($grid * 2); height: rem(51); line-height: rem(21); vertical-align: middle; font-weight: 800; border-bottom: 1px solid $mono1; }
-        & > tbody > tr > th, & > tbody > tr > td { padding: rem(17) rem($grid * 3); border-bottom: 1px solid $mono8; vertical-align: middle; }
+        & > tbody > tr > th, & > tbody > tr > td { padding: rem(27) rem($grid * 3); border-bottom: 1px solid $mono8; vertical-align: middle; }
+
+        & > tbody > tr.active > th,
+        & > tbody > tr.active > td { border-bottom-color: transparent }
         & > tbody > tr:hover > th, & > tbody > tr:hover > td { background-color: $mono9 }
         & > tbody > tr.result-empty > td {
           padding-top: rem(120); padding-bottom: rem(120); text-align: center;
