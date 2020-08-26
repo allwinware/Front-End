@@ -5,9 +5,9 @@
     <title>부가서비스 취소 / 환불 < 마이페이지 < AGS</title>
     <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
-    <link rel="stylesheet" href="../resource/css/ags_pc_7c.min.css"><!-- 제주항공일 때 -->
+    <!--<link rel="stylesheet" href="../resource/css/ags_pc_7c.min.css">--><!-- 제주항공일 때 -->
     <!--<link rel="stylesheet" href="../resource/css/ags_pc_tw.min.css">--><!-- 티웨이항공일 때 -->
-    <!--<link rel="stylesheet" href="../resource/css/ags_pc.dom.min.css">--><!-- 국내선일 때 -->
+    <link rel="stylesheet" href="../resource/css/ags_pc.dom.min.css"><!-- 국내선일 때 -->
     <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
     <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
@@ -27,7 +27,30 @@
             <div class="content-wrap">
                 <h2 class="sr-only">서브 네비게이션</h2>
                 <h3 class="page-name">부가서비스 취소 / 환불</h3>
+                <!-- 분기 : 국내선일 때 -->
                 <div class="ticket-info">
+                    <h3 class="sr-only">티켓 정보</h3>
+                    <dl class="airport">
+                        <dt class="departure">출발지</dt>
+                        <dd>서울(김포) <span class="iata-code">GMP</span></dd>
+                        <dt class="arrival">도착지</dt>
+                        <dd>부산 <span class="iata-code">PUS</span></dd>
+                    </dl>
+                    <dl class="detail-info">
+                        <dt class="resv-num">예약번호</dt>
+                        <dd>JR2RMT</dd>
+                        <dt class="price">총 요금</dt>
+                        <dd><span class="digits">124000</span></dd>
+                        <dt class="airline">항공사</dt>
+                        <dd>제주항공</dd>
+                        <dt class="schedule">여정</dt>
+                        <dd>2020.11.16(월)</dd>
+                        <dt class="pay-dnt">결제일시</dt>
+                        <dd>2020.10.03(수) 16:10</dd>
+                    </dl>
+                </div>
+                <!-- 분기 : 국제선일 때 -->
+                <!--<div class="ticket-info">
                     <h3 class="sr-only">티켓 정보</h3>
                     <dl class="airport">
                         <dt class="departure">출발지</dt>
@@ -51,7 +74,7 @@
                         <dt class="pay-dnt">결제일시</dt>
                         <dd>2020.10.03(수) 16:10</dd>
                     </dl>
-                </div>
+                </div>-->
                 <div class="process-btn-wrap">
                     <a href="#none" target="_self" class="btn_resv-cancel">전체 취소하기</a>
                 </div>
@@ -76,7 +99,8 @@
             <article class="my-history-detail-wrap">
                 <h3 class="my_pay-title">탑승객별 부가서비스 구매 내역</h3>
                 <div class="receipt-wrap">
-                    <h4 class="receipt-title">서울(김포)<i class="ico_airplane">&rarr;</i>부산 <i class="ico_tag">가는 편</i></h4>
+                    <!-- 분기 : 국내선일 때 --><h4 class="receipt-title">서울(김포)<i class="ico_airplane">&rarr;</i>부산 <i class="ico_tag">7C522</i></h4>
+                    <!-- 분기 : 국제선일 때 --><!--<h4 class="receipt-title">인천<i class="ico_airplane">&rarr;</i>하네다 <i class="ico_tag">7C522</i></h4>-->
                     <input type="checkbox" name="check-group1" id="check-all1" class="sr-only" data-checked="all">
                     <label for="check-all1" class="btn_check-all">가는 편 전체 선택</label>
                     <table>
@@ -89,7 +113,8 @@
                         </colgroup>
                         <tfoot>
                         <tr>
-                            <td colspan="5"><i class="ico_tag">가는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>
+                            <!-- 분기 : 국내선일 때 --><td colspan="5"><i class="ico_tag">총 환불 예정금액</i> <span class="digits">999000</span></td>
+                            <!-- 분기 : 국제선일 때 --><!--<td colspan="5"><i class="ico_tag">가는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>-->
                         </tr>
                         </tfoot>
                         <thead>
@@ -168,9 +193,11 @@
                     </table>
                 </div>
                 <div class="receipt-wrap">
-                    <h4 class="receipt-title">부산<i class="ico_airplane">&rarr;</i>서울(김포) <i class="ico_tag">오는 편</i></h4>
+                    <!-- 분기 : 국내선일 때 --><h4 class="receipt-title">부산<i class="ico_airplane">&rarr;</i>서울(김포) <i class="ico_tag">TW703</i></h4>
+                    <!-- 분기 : 국제선일 때 --><!--<h4 class="receipt-title">하네다<i class="ico_airplane">&rarr;</i>인천 <i class="ico_tag">TW703</i></h4>-->
                     <input type="checkbox" name="check-group2" id="check-all2" class="sr-only" data-checked="all">
-                    <label for="check-all2" class="btn_check-all">오는 편 전체 선택</label>
+                    <!-- 분기 : 국내선일 때 --><label for="check-all2" class="btn_check-all">전체 선택</label>
+                    <!-- 분기 : 국제선일 때 --><!--<label for="check-all2" class="btn_check-all">오는 편 전체 선택</label>-->
                     <table>
                         <colgroup>
                             <col>
@@ -181,7 +208,8 @@
                         </colgroup>
                         <tfoot>
                         <tr>
-                            <td colspan="5"><i class="ico_tag">오는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>
+                            <!-- 분기 : 국내선일 때 --><td colspan="5"><i class="ico_tag">총 환불 예정금액</i> <span class="digits">999000</span></td>
+                            <!-- 분기 : 국제선일 때 --><!--<td colspan="5"><i class="ico_tag">오는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>-->
                         </tr>
                         </tfoot>
                         <thead>
@@ -259,7 +287,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="total-wrap">
+                <!-- 분기 : 국제선일 떄 .total-wrap 노출 -->
+                <!--<div class="total-wrap">
                     <h4 class="receipt-title">TOTAL</h4>
                     <dl>
                         <dt class="price">가는 편 환불금액</dt>
@@ -271,7 +300,7 @@
                         <dt class="total-price">TOTAL 환불금액</dt>
                         <dd><span class="digits">999000</span></dd>
                     </dl>
-                </div>
+                </div>-->
             </article>
 
             <!-- 부가서비스 취소 / 환불 동의 -->

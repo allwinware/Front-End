@@ -357,7 +357,6 @@
     .selectric-wrapper {
       .selectric {
         @include form($size: $form-size, $role: normal, $type: select);
-        height: 100%;
         .label {
           @include valign-middle();
           position: absolute; left: 0; top: 0; right: 0; bottom: 0;
@@ -370,7 +369,8 @@
           text-indent: -999em;
           background-color: transparent;
           transition: transform 0.2s;
-          transform: rotate(-180deg);
+          /*transform: rotate(-180deg);*/
+          transform: rotate(0);
           transform-origin: 50% 50%;
           &:after {
             content: "";
@@ -385,13 +385,13 @@
       &.selectric-open {
         b.button {
           transform: rotate(0);
-          &:after { transform: rotate(45deg) translate(-2px, -15px) }
+          &:after { /*transform: rotate(45deg) translate(-2px, -15px)*/ }
         }
       }
     }
     .selectric-items {
       box-shadow: none;
-      margin-top: -1px;
+      margin-top: -9px;
       border-color: #ddd; border-radius: rem(3);
       background-color: #fff;
       li:hover,
@@ -446,7 +446,7 @@
   @if $form-size == 3 {
     $font-size: 13;
     $fotm-size: 42;
-    .selectric-select-wrap .selectric-wrapper { height: em(42, $font-size); }
+    .selectric-select-wrap .selectric-wrapper {  }
     .selectric-select-wrap .selectric-items li {
       @include font($size: $font-size, $color: $mono1, $weight: 600);
       padding: 0 em(13, $font-size);
@@ -482,7 +482,6 @@
     $font-size: 14;
     $fotm-size: 48;
     .selectric-select-wrap .selectric-wrapper {
-      height: em($fotm-size, $font-size);
     }
     .selectric-select-wrap .selectric-items li {
       @include font($size: $font-size, $color: $mono1, $weight: 600);
