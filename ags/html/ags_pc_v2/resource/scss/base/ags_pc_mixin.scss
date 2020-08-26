@@ -398,23 +398,25 @@
   @include tagging-route
 }
 
-@mixin btn_more--minified {
+@mixin btn_more--minified($activeEl: null) {
   @include font($size: 11, $color: $mono1, $weight: 600);
   padding: rem(5) rem(11) rem(5) rem(5); text-decoration: none; color: inherit;
   .ico {
-    -webkit-transform: rotate(-45deg) translate(4px, 2px);
-    -ms-transform: rotate(-45deg) translate(4px, 2px);
-    -o-transform: rotate(-45deg) translate(4px, 2px);
-    transform: rotate(-45deg) translate(4px, 2px);
+    -webkit-transform: rotate(-45deg) translate(5px, 1.5px);
+    -ms-transform: rotate(-45deg) translate(5px, 1.5px);
+    -o-transform: rotate(-45deg) translate(5px, 1.5px);
+    transform: rotate(-45deg) translate(5px, 1.5px);
     transform-origin: center;
     display: inline-block;
     width: rem(4); height: rem(4); border: solid $border-primary; border-width: 0 0 1px 1px;
   }
-  @at-root .active .btn_more .ico {
-    -webkit-transform: rotate(135deg) translate(-4px, -3px) !important;
-    -ms-transform: rotate(135deg) translate(-4px, -3px) !important;
-    -o-transform: rotate(135deg) translate(-4px, -3px) !important;
-    transform: rotate(135deg) translate(-4px, -3px) !important;
+  @if $activeEl != null {
+    @at-root #{$activeEl}.active .btn_more .ico {
+      -webkit-transform: rotate(135deg) translate(-4px, -3px) !important;
+      -ms-transform: rotate(135deg) translate(-4px, -3px) !important;
+      -o-transform: rotate(135deg) translate(-4px, -3px) !important;
+      transform: rotate(135deg) translate(-4px, -3px) !important;
+    }
   }
 }
 @mixin agreement-wrap {
@@ -434,7 +436,7 @@
       }
       &.active { overflow: auto; height: auto; }
     }
-    .btn_more { position: absolute; right: rem($grid * 2); top: rem(15); margin-right: rem(-5) }
+    .btn_more { @include btn_more--minified($activeEl: '.agreement-list > li'); position: absolute; right: rem($grid * 2); top: rem(15); margin-right: rem(-5) }
   }
   .table-wrap { padding-bottom: 0; }
   .notification-wrap {
@@ -515,9 +517,6 @@
       background-color: $mono10;
       border-bottom: 1px solid #ddd;
     }
-  }
-  .btn_more {
-    @include btn_more--minified
   }
 }
 @mixin ico($type: 'alert') {
