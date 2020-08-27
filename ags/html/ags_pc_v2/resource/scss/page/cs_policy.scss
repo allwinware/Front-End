@@ -1,0 +1,74 @@
+/*고객센터 > 공통*/
+[data-page-id='cs_policy']{
+  $font-size: 13;
+  @include font($size: $font-size, $color: $mono3, $weight: 400);
+  counter-reset: policy-title;
+  line-height: em(21, $font-size);
+  .ags_content-title { padding-bottom: rem($grid * 5); font-size: em(30, $font-size); font-weight: 800; color: $mono1 }
+  .policy-title {
+    position: relative;
+    margin: rem($grid * 4) 0 0; padding-left: rem($grid * 2);
+    font-weight: 600; color: $mono1;
+    &:before {
+      counter-increment: policy-title 1; content: counter(policy-title) ". ";
+      position: absolute; left: 0; top: 0; line-height: inherit;
+    }
+  }
+  .policy-title,
+  .list-decimal,
+  .policy-title + p,
+  .list-decimal + p { padding-bottom: rem($grid) }
+  .list-decimal {
+    counter-reset: list-decimal;
+    & > li {
+      position: relative;
+      padding: 0 0 0 rem($grid * 2);
+      &:before {
+        counter-increment: list-decimal 1; content: counter(list-decimal) ". ";
+        position: absolute; left: 0; top: 0;
+        line-height: inherit;
+      }
+    }
+  }
+  .list-hyphen,
+  .list-circle-decimal { padding: rem($grid / 2) 0 }
+  .list-hyphen {
+    & > li {
+      position: relative;
+      padding-left: 1em;
+      &:before { content: "-"; position: absolute; left: 0; top: 0; line-height: inherit; }
+    }
+  }
+  .list-triangle {
+    & > li {
+      position: relative;
+      padding: rem($grid) 0 0 1em;
+      &:before { content: "▶"; position: absolute; left: 0; top: rem($grid); line-height: inherit; font-size: 0.8em }
+    }
+  }
+  .list-circle-decimal {
+    counter-reset: policy-circle-decimal;
+    $size: 13;
+    & > li {
+      position: relative;
+      padding-left: em($size + 4, $font-size);
+      &:before {
+        $font-size: 10;
+        counter-increment: policy-circle-decimal 1; content: counter(policy-circle-decimal) " ";
+        position: absolute; left: 0; top: rem(3);
+        display: inline-block;
+        width: rem($size); height: rem($size);
+        text-align: center; font-size: rem($font-size); line-height: rem($size + 2);
+      }
+      &:after { content: ""; position: absolute; left: 0; top: rem(3); width: rem($size); height: rem($size); display: inline-block; border-radius: 50%; border: 1px solid $mono3 }
+    }
+  }
+  table {
+    margin: rem($grid * 2) 0;
+    th, td { padding: rem($grid / 2) rem($grid); height: rem($grid * 3); border: solid 1px #e0e0e0; text-align: center; color: $mono3 }
+    thead th {
+      background-color: #efefef;
+      text-align: center;
+    }
+  }
+}
