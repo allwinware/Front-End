@@ -171,6 +171,7 @@ html.hidden {
   animation-direction: forward;
 }
 
+/* alert common style */
 @font-face {
   font-family: 'NanumSquare';
   font-weight: 300;
@@ -1043,8 +1044,6 @@ strong {
   margin-bottom: 0;
 }
 
-/* data-type='modal' */
-/* alert common style */
 /* data-type='alert' */
 [data-type='alert'] {
   top: 0;
@@ -1158,17 +1157,28 @@ strong {
   font-weight: 400;
   color: #000;
   letter-spacing: -0.03em;
-  display: inline;
+  /*display: inline;*/
+  float: left;
   line-height: 1.14286rem;
 }
 
 [data-type='alert'] dl.alert-text dl dt {
+  width: 4.5em;
   font-weight: 600;
+}
+
+[data-type='alert'] dl.alert-text dl dd {
+  position: relative;
+  padding-left: 1em;
+  width: calc(100% - 5em);
 }
 
 [data-type='alert'] dl.alert-text dl dd:before {
   content: ":";
-  padding: 0 0.3em 0 0.2em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: inherit;
 }
 
 [data-type='alert'] dl.alert-text dl dd:after {
@@ -1313,21 +1323,6 @@ strong {
   color: #aaa;
 }
 
-[data-type='alert'] .pop-footer + .text-btn-wrap {
-  padding: 1.14286rem 0;
-  text-align: center;
-}
-
-[data-type='alert'] .pop-footer + .text-btn-wrap > * {
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.85714rem;
-  font-weight: 400;
-  color: #888;
-  letter-spacing: -0.03em;
-  display: inline;
-  background-color: transparent;
-}
-
 [data-type='alert'] ul.list-dot > li {
   text-align: left;
   line-height: 1.42857rem;
@@ -1352,7 +1347,7 @@ strong {
 [data-type='message'] .pop-wrap {
   transition: none;
   overflow: hidden;
-  padding: 3.78571rem 0 10.71429rem;
+  padding: 5.85714rem 0 10.71429rem;
   max-height: inherit;
   background-color: #ffffff;
 }
@@ -1363,10 +1358,9 @@ strong {
   left: 0;
   top: 0;
   right: 0;
-  padding: 1.28571rem 1.14286rem 1.14286rem;
-  height: 3.78571rem;
+  padding: 3.57143rem 1.14286rem 1.14286rem;
+  height: 5.85714rem;
   background-color: #ffffff;
-  border-bottom: 1px solid #f0f0f0;
 }
 
 [data-type='message'] .pop-title {
@@ -1381,23 +1375,22 @@ strong {
   white-space: nowrap;
   text-overflow: ellipsis;
   vertical-align: middle;
-  overflow: visible;
-  display: block;
+  overflow: auto;
   position: relative;
-  padding: 0 1.14286rem;
+  padding: 0 2.85714rem 0 0;
   width: 100%;
   line-height: 1em;
-  text-align: center;
+  text-align: left;
 }
 
 [data-type='message'] .btn_close {
   z-index: 1;
-  background-image: url("../img/popup/ico_pop-close-b.png");
+  background-image: url("../img/popup/ico_pop-close.png");
   background-repeat: no-repeat;
-  background-size: 1.71429rem 1.71429rem;
+  background-size: 20px 20px;
   overflow: hidden;
   position: absolute;
-  left: 1.14286rem;
+  right: 1.14286rem;
   top: 1.14286rem;
   width: 1.71429rem;
   height: 1.71429rem;
@@ -1408,13 +1401,13 @@ strong {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-type='message'] .btn_close {
-    background-image: url("../img/popup/ico_pop-close-b@2x.png");
+    background-image: url("../img/popup/ico_pop-close@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-type='message'] .btn_close {
-    background-image: url("../img/popup/ico_pop-close-b@3x.png");
+    background-image: url("../img/popup/ico_pop-close@3x.png");
   }
 }
 
@@ -1427,14 +1420,10 @@ strong {
   color: #000;
   letter-spacing: 0em;
   overflow: auto;
-  margin: -3.78571rem 0 -10.71429rem;
-  padding: 3.78571rem 1.14286rem 10.71429rem;
+  margin: -5.85714rem 0 -10.71429rem;
+  padding: 5.85714rem 1.14286rem 10.71429rem;
   width: 100%;
   max-height: inherit;
-}
-
-[data-type='message'] .pop-container .message-text:first-child {
-  padding-top: 1.71429rem;
 }
 
 [data-type='message'] .pop-container .message-text > *:last-child {
@@ -1778,7 +1767,7 @@ strong {
 
 .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
   z-index: 1;
-  background-image: url("../img/popup/ico_pop-close-b--w.png");
+  background-image: url("../img/popup/ico_pop-close--w.png");
   background-repeat: no-repeat;
   background-size: 14px 14px;
   overflow: hidden;
@@ -1794,13 +1783,13 @@ strong {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
-    background-image: url("../img/popup/ico_pop-close-b--w@2x.png");
+    background-image: url("../img/popup/ico_pop-close--w@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   .ags-header .gnb-wrap .gnb-2dp-wrap .btn_close {
-    background-image: url("../img/popup/ico_pop-close-b--w@3x.png");
+    background-image: url("../img/popup/ico_pop-close--w@3x.png");
   }
 }
 
@@ -2146,6 +2135,18 @@ body {
   max-width: 33.333%;
   height: 100%;
   text-align: center;
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.78571rem;
+  font-weight: 900;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding-top: 3.21429rem;
+  text-decoration: none;
+  background-repeat: no-repeat;
+  background-position: 50% 0.85714rem;
 }
 
 .ags-container .snb-wrap li.active {
@@ -2166,89 +2167,74 @@ body {
   border-left: 1px solid #f0f0f0;
 }
 
-.ags-container .snb-wrap a {
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.78571rem;
-  font-weight: 900;
-  color: #000;
-  letter-spacing: -0.03em;
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding-top: 3.21429rem;
-  text-decoration: none;
-  background-repeat: no-repeat;
-  background-position: 50% 0.85714rem;
-}
-
-.ags-container .snb-wrap a.btn_seat {
+.ags-container .snb-wrap li.btn_seat {
   background-image: url("../img/buy/ico_seat.png");
   background-repeat: no-repeat;
   background-size: 24px 24px;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .ags-container .snb-wrap a.btn_seat {
+  .ags-container .snb-wrap li.btn_seat {
     background-image: url("../img/buy/ico_seat@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .ags-container .snb-wrap a.btn_seat {
+  .ags-container .snb-wrap li.btn_seat {
     background-image: url("../img/buy/ico_seat@3x.png");
   }
 }
 
-.ags-container .snb-wrap a.btn_baggage {
+.ags-container .snb-wrap li.btn_baggage {
   background-image: url("../img/buy/ico_baggage.png");
   background-repeat: no-repeat;
   background-size: 15px 25px;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .ags-container .snb-wrap a.btn_baggage {
+  .ags-container .snb-wrap li.btn_baggage {
     background-image: url("../img/buy/ico_baggage@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .ags-container .snb-wrap a.btn_baggage {
+  .ags-container .snb-wrap li.btn_baggage {
     background-image: url("../img/buy/ico_baggage@3x.png");
   }
 }
 
-.ags-container .snb-wrap a.btn_meal {
+.ags-container .snb-wrap li.btn_meal {
   background-image: url("../img/buy/ico_meal.png");
   background-repeat: no-repeat;
   background-size: 19px 24px;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .ags-container .snb-wrap a.btn_meal {
+  .ags-container .snb-wrap li.btn_meal {
     background-image: url("../img/buy/ico_meal@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .ags-container .snb-wrap a.btn_meal {
+  .ags-container .snb-wrap li.btn_meal {
     background-image: url("../img/buy/ico_meal@3x.png");
   }
 }
 
-.ags-container .snb-wrap a.btn_lounge {
+.ags-container .snb-wrap li.btn_lounge {
   background-image: url("../img/buy/ico_lounge.png");
   background-repeat: no-repeat;
   background-size: 26px 26px;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .ags-container .snb-wrap a.btn_lounge {
+  .ags-container .snb-wrap li.btn_lounge {
     background-image: url("../img/buy/ico_lounge@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .ags-container .snb-wrap a.btn_lounge {
+  .ags-container .snb-wrap li.btn_lounge {
     background-image: url("../img/buy/ico_lounge@3x.png");
   }
 }
@@ -2617,7 +2603,7 @@ body {
   /* 안내 영역 */
 }
 
-[data-page-id^='buy__']:not([data-page-id$='__dom']) .tabs_route {
+[data-page-id^='buy__'] .tabs_route {
   overflow: auto;
   width: 100%;
   overflow: auto;
@@ -2625,17 +2611,17 @@ body {
   padding-top: 2.14286rem;
 }
 
-[data-page-id^='buy__']:not([data-page-id$='__dom']) .tabs_route [role='tablist'] {
+[data-page-id^='buy__'] .tabs_route [role='tablist'] {
   display: table;
   overflow: visible;
   min-width: 100%;
 }
 
-[data-page-id^='buy__']:not([data-page-id$='__dom']) .tabs_route [role='tablist'] [role='tab'] {
+[data-page-id^='buy__'] .tabs_route [role='tablist'] [role='tab'] {
   display: table-cell;
 }
 
-[data-page-id^='buy__']:not([data-page-id$='__dom']) .tabs_route [role='tab'] {
+[data-page-id^='buy__'] .tabs_route [role='tab'] {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -2651,22 +2637,22 @@ body {
   border-bottom: 1px solid #f0f0f0;
 }
 
-[data-page-id^='buy__']:not([data-page-id$='__dom']) .tabs_route [role='tab'].active {
+[data-page-id^='buy__'] .tabs_route [role='tab'].active {
   border-color: #000;
   color: #000;
 }
 
-[data-page-id^='buy__']:not([data-page-id$='__dom']) .tabs_route [role='tablist'] {
+[data-page-id^='buy__'] .tabs_route [role='tablist'] {
   display: table;
   overflow: visible;
   min-width: 100%;
 }
 
-[data-page-id^='buy__']:not([data-page-id$='__dom']) .tabs_route [role='tablist'] [role='tab'] {
+[data-page-id^='buy__'] .tabs_route [role='tablist'] [role='tab'] {
   display: table-cell;
 }
 
-[data-page-id^='buy__']:not([data-page-id$='__dom']) .tabs_route + .tab-panels .align-horizontal {
+[data-page-id^='buy__'] .tabs_route + .tab-panels .align-horizontal {
   width: 200%;
 }
 
@@ -2911,17 +2897,28 @@ body {
   font-weight: 400;
   color: #000;
   letter-spacing: -0.03em;
-  display: inline;
+  /*display: inline;*/
+  float: left;
   line-height: 1.14286rem;
 }
 
 [data-page-id^='buy__'] .no-item dl.alert-text dl dt {
+  width: 4.5em;
   font-weight: 600;
+}
+
+[data-page-id^='buy__'] .no-item dl.alert-text dl dd {
+  position: relative;
+  padding-left: 1em;
+  width: calc(100% - 5em);
 }
 
 [data-page-id^='buy__'] .no-item dl.alert-text dl dd:before {
   content: ":";
-  padding: 0 0.3em 0 0.2em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: inherit;
 }
 
 [data-page-id^='buy__'] .no-item dl.alert-text dl dd:after {
@@ -3093,8 +3090,6 @@ body {
   margin-left: 0.35714rem;
   width: 0.85714rem;
   height: 0.85714rem;
-  font-size: 0;
-  line-height: 0;
   text-indent: -999em;
   vertical-align: middle;
   z-index: 99;
@@ -3114,12 +3109,6 @@ body {
   [data-page-id^='buy__'] .passenger-list .selected-meal + dd .btn_delete {
     background-image: url("../img/common/ico_delete-s@3x.png");
   }
-}
-
-[data-page-id^='buy__'] .passenger-list .selected-seat + dd .btn_delete.disabled,
-[data-page-id^='buy__'] .passenger-list .selected-baggage + dd .btn_delete.disabled,
-[data-page-id^='buy__'] .passenger-list .selected-meal + dd .btn_delete.disabled {
-  opacity: 0.2;
 }
 
 [data-page-id^='buy__'] .passenger-list .selected-seat + dd:empty:before,
@@ -3890,21 +3879,21 @@ body {
   vertical-align: middle;
 }
 
-.seat-sheet {
+[data-page-id='buy__seat'] .seat-sheet {
   position: relative;
 }
 
-.seat-sheet .seat-code,
-.seat-sheet .seat-num {
+[data-page-id='buy__seat'] .seat-sheet .seat-code,
+[data-page-id='buy__seat'] .seat-sheet .seat-num {
   margin: 0 auto;
   width: 21rem;
 }
 
-.seat-sheet.B73780001 {
+[data-page-id='buy__seat'] .seat-sheet.B73780001 {
   min-height: 67.5rem;
 }
 
-.seat-sheet.B73780001:before {
+[data-page-id='buy__seat'] .seat-sheet.B73780001:before {
   content: "";
   background-image: url("../img/buy/bg_B73780001_seat-left.png");
   background-repeat: no-repeat;
@@ -3918,18 +3907,18 @@ body {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .seat-sheet.B73780001:before {
+  [data-page-id='buy__seat'] .seat-sheet.B73780001:before {
     background-image: url("../img/buy/bg_B73780001_seat-left@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .seat-sheet.B73780001:before {
+  [data-page-id='buy__seat'] .seat-sheet.B73780001:before {
     background-image: url("../img/buy/bg_B73780001_seat-left@3x.png");
   }
 }
 
-.seat-sheet.B73780001:after {
+[data-page-id='buy__seat'] .seat-sheet.B73780001:after {
   content: "";
   background-image: url("../img/buy/bg_B73780001_seat-right.png");
   background-repeat: no-repeat;
@@ -3943,22 +3932,22 @@ body {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .seat-sheet.B73780001:after {
+  [data-page-id='buy__seat'] .seat-sheet.B73780001:after {
     background-image: url("../img/buy/bg_B73780001_seat-right@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .seat-sheet.B73780001:after {
+  [data-page-id='buy__seat'] .seat-sheet.B73780001:after {
     background-image: url("../img/buy/bg_B73780001_seat-right@3x.png");
   }
 }
 
-.seat-sheet.B73780001 li:nth-of-type(3) .seat-type1 {
+[data-page-id='buy__seat'] .seat-sheet.B73780001 li:nth-of-type(3) .seat-type1 {
   margin-top: -0.57143rem;
 }
 
-.seat-sheet.B73780001 li:nth-of-type(3) .seat-disabled-lg {
+[data-page-id='buy__seat'] .seat-sheet.B73780001 li:nth-of-type(3) .seat-disabled-lg {
   margin-top: -0.57143rem;
 }
 
@@ -4845,27 +4834,17 @@ body {
   font-weight: 800;
 }
 
-/* 총 결제 금액 팝업 */
+/* 총 결제금액 팝업 */
 .passenger-summary {
   padding-left: 1.14286rem;
 }
 
-.passenger-summary [class$='-header'] {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.passenger-summary .title {
-  margin-bottom: 0.85714rem;
-  font-weight: 800;
-}
-
-.passenger-summary dl.flight-num, .passenger-summary dl.flight-info {
+.passenger-summary .flight-num {
+  display: inline-block;
   margin: 0 0 0.85714rem 0.28571rem;
 }
 
-.passenger-summary dl.flight-num dt, .passenger-summary dl.flight-info dt {
+.passenger-summary .flight-num dt {
   position: absolute;
   width: 0;
   height: 0;
@@ -4876,125 +4855,25 @@ body {
   border: 0;
 }
 
-.passenger-summary dl.flight-num dd, .passenger-summary dl.flight-info dd {
-  vertical-align: middle;
+.passenger-summary .flight-num dd {
+  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.64286rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.14286rem;
+  line-height: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #000;
+  width: auto;
+  padding: 0 0.28571rem;
 }
 
-.passenger-summary dl.flight-num + .table-wrap, .passenger-summary dl.flight-info + .table-wrap {
+.passenger-summary .flight-num + .table-wrap {
   border-top: 1px solid #000;
-}
-
-.passenger-summary dl.flight-num, .passenger-summary dl.flight-num > * {
-  display: inline-block;
-}
-
-.passenger-summary dl.flight-num dd {
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.64286rem;
-  font-weight: 800;
-  color: #000;
-  letter-spacing: -0.03em;
-  display: inline-block;
-  width: 2.5rem;
-  height: 1.14286rem;
-  line-height: 1rem;
-  text-align: center;
-  white-space: nowrap;
-  border: 1px solid #000;
-  width: auto;
-  padding: 0 0.28571rem;
-}
-
-.passenger-summary dl.flight-info {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  display: inline-flex;
-  flex: 1 auto;
-  padding-right: 1.14286rem;
-}
-
-.passenger-summary dl.flight-info dd:nth-of-type(1) ~ dd {
-  margin-left: 0.28571rem;
-}
-
-.passenger-summary dl.flight-info .airline + dd {
-  height: 1.14286rem;
-}
-
-.passenger-summary dl.flight-info .airline + dd [class^='ico_'] {
-  overflow: hidden;
-  display: block;
-  height: 100%;
-  background-position: 0 50%;
-  text-indent: -999em;
-}
-
-.passenger-summary dl.flight-info .airline + dd .ico_7c {
-  background-image: url("../img/common/symbol_flight-way_7c_dom.png");
-  background-repeat: no-repeat;
-  background-size: 4.42857rem 0.85714rem;
-  width: 4.42857rem;
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .passenger-summary dl.flight-info .airline + dd .ico_7c {
-    background-image: url("../img/common/symbol_flight-way_7c_dom@2x.png");
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .passenger-summary dl.flight-info .airline + dd .ico_7c {
-    background-image: url("../img/common/symbol_flight-way_7c_dom@3x.png");
-  }
-}
-
-.passenger-summary dl.flight-info .airline + dd .ico_tw {
-  background-image: url("../img/common/symbol_flight-way_tw_dom.png");
-  background-repeat: no-repeat;
-  background-size: 2.71429rem 1.14286rem;
-  width: 2.71429rem;
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .passenger-summary dl.flight-info .airline + dd .ico_tw {
-    background-image: url("../img/common/symbol_flight-way_tw_dom@2x.png");
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .passenger-summary dl.flight-info .airline + dd .ico_tw {
-    background-image: url("../img/common/symbol_flight-way_tw_dom@3x.png");
-  }
-}
-
-.passenger-summary dl.flight-info .flight-num + dd {
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.64286rem;
-  font-weight: 800;
-  color: #000;
-  letter-spacing: -0.03em;
-  display: inline-block;
-  width: 2.5rem;
-  height: 1.14286rem;
-  line-height: 1rem;
-  text-align: center;
-  white-space: nowrap;
-  border: 1px solid #000;
-  width: auto;
-  padding: 0 0.28571rem;
-}
-
-.passenger-summary dl.flight-info .view-seat + dd {
-  margin-left: auto !important;
-}
-
-.passenger-summary dl.flight-info .view-seat + dd a {
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
-  font-size: 0.92857rem;
-  font-weight: 400;
-  color: #66B1FF;
-  letter-spacing: -0.03em;
 }
 
 .passenger-summary .table-wrap {
@@ -5107,17 +4986,17 @@ body {
   height: 2.14286rem;
 }
 
-.passenger-summary .charge-sheet tbody td:nth-of-type(2) {
+.passenger-summary .charge-sheet tbody th:last-child, .passenger-summary .charge-sheet tbody td:last-child {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.85714rem;
   font-weight: 400;
   color: #000;
   letter-spacing: -0.03em;
-  padding-right: 0.85714rem;
+  padding-right: 1.14286rem;
   text-align: right;
 }
 
-.passenger-summary .charge-sheet tbody td:nth-of-type(2) .digits {
+.passenger-summary .charge-sheet tbody th:last-child .digits, .passenger-summary .charge-sheet tbody td:last-child .digits {
   font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 400;
@@ -5125,18 +5004,11 @@ body {
   letter-spacing: -0.03em;
 }
 
-.passenger-summary .charge-sheet tbody td:nth-of-type(2) .digits:before {
+.passenger-summary .charge-sheet tbody th:last-child .digits:before, .passenger-summary .charge-sheet tbody td:last-child .digits:before {
   content: "￦";
   font-size: 0.85714rem;
   color: #000;
   font-weight: 500;
-}
-
-.passenger-summary .charge-sheet tbody th:last-child, .passenger-summary .charge-sheet tbody td:last-child {
-  padding-left: 0;
-  padding-right: 1.14286rem;
-  width: 0.85714rem;
-  text-align: center;
 }
 
 .passenger-summary .charge-sheet tbody th[scope='colgroup'] {
@@ -5159,40 +5031,6 @@ body {
 
 .passenger-summary .charge-sheet a, .passenger-summary .charge-sheet a:active, .passenger-summary .charge-sheet a:visited {
   color: #66B1FF;
-}
-
-.passenger-summary .charge-sheet .btn_delete {
-  background-image: url("../img/common/ico_delete-s.png");
-  background-repeat: no-repeat;
-  background-size: 0.85714rem 0.85714rem;
-  overflow: hidden;
-  display: inline-block;
-  margin-left: 0.35714rem;
-  width: 0.85714rem;
-  height: 0.85714rem;
-  font-size: 0;
-  line-height: 0;
-  text-indent: -999em;
-  vertical-align: middle;
-  z-index: 99;
-  margin-left: 0;
-  vertical-align: top;
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  .passenger-summary .charge-sheet .btn_delete {
-    background-image: url("../img/common/ico_delete-s@2x.png");
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  .passenger-summary .charge-sheet .btn_delete {
-    background-image: url("../img/common/ico_delete-s@3x.png");
-  }
-}
-
-.passenger-summary .charge-sheet .btn_delete.disabled {
-  opacity: 0.2;
 }
 
 .passenger-summary .passenger-name {
@@ -5262,13 +5100,14 @@ body {
   font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 500;
-  color: inherit;
+  color: #000;
   letter-spacing: -0.03em;
 }
 
 .passenger-summary .total-wrap dd .digits:before {
   content: "￦";
   font-size: 0.85714rem;
+  color: #000;
   font-weight: 600;
 }
 
@@ -6799,7 +6638,7 @@ body {
 [data-page-id='path'] .content-wrap {
   margin: 0 auto;
   padding: 0 1.14286rem;
-  width: 85.71429rem;
+  width: calc(100% + 32px);
 }
 
 [data-page-id='path'] .content-wrap:after {
@@ -6944,7 +6783,7 @@ body {
 [data-page-id='path'] .lnb-wrap .content-wrap {
   margin: 0 auto;
   padding: 0 1.14286rem;
-  width: 85.71429rem;
+  width: calc(100% + 32px);
   height: 100%;
 }
 
@@ -7021,7 +6860,7 @@ body {
 [data-page-id='path'] .ags-container .content-wrap {
   margin: 0 auto;
   padding: 0 1.14286rem;
-  width: 85.71429rem;
+  width: calc(100% + 32px);
 }
 
 [data-page-id='path'] .ags-container .content-wrap:after {
