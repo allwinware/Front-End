@@ -167,6 +167,7 @@
                 });
             })();*/
 
+            /*가는 편/오는 편 스와이프 탭 기능 정의*/
             (function(){
                 var swiper = new Swiper('.tabs_route', {
                     navigation: {
@@ -179,9 +180,15 @@
                     loop: false
                 });
                 swiper.on('slideChangeTransitionStart', function() {
-                    $($(".tabs_route").find("li")[swiper.realIndex]).mousedown();
+                    $(".tab-panel.active").removeClass("active");
+                    $($(".tabs_route").find("li")[swiper.realIndex])
+                        .mousedown()
+                        .parents(".tabs_route").siblings(".tab-panels").find(".tab-panel.active .ags-snb li[role='tab']").first().mousedown();
                 });
             })();
+
+            /*진입 시 첫번째 탭에 포커스*/
+            $(".tabs_route + .tab-panels .ags-snb li[role='tab']").first().mousedown();
         });
     </script>
 </head>
@@ -295,7 +302,7 @@
                                     <div class="tabs ags-snb">
                                         <h4 class="sr-only">서브메뉴</h4>
                                         <ul class="tablist snb-wrap" role="tablist">
-                                            <li role="tab" aria-controls="tab-panel1-1" class="btn_seat active">좌석 지정</li><!-- 현재 활성화 된 메뉴일 경우 .active -->
+                                            <li role="tab" aria-controls="tab-panel1-1" class="btn_seat">좌석 지정</li><!-- 현재 활성화 된 메뉴일 경우 .active -->
                                             <li role="tab" aria-controls="tab-panel1-2" class="btn_baggage">수하물</li>
                                         </ul>
                                     </div>
@@ -305,43 +312,8 @@
                                             <!-- 가는 편 좌석지정 탭 컨텐츠 -->
                                             <div id="tab-panel1-1" class="tab-panel" role="tabpanel">
                                                 <h5 class="sr-only">좌석지정</h5>
-                                                <!-- 분기 : 제주항공 / 좌석 서비스를 제공할 수 없을 때(출발시간 임박) -->
-                                                <!--<div class="no-item">
-                                                    <div class="ico-wrap">
-                                                        <i class="ico_alert--primary">!</i>
-                                                    </div>
-                                                    <h3 class="alert-title">
-                                                        항공기 출발 시간이 임박하여<br>
-                                                        해당 서비스를 구매할 수 없습니다.
-                                                    </h3>
-                                                    <dl class="alert-text">
-                                                        <dt>구매 불가 알림</dt>
-                                                        <dd>
-                                                            <dl>
-                                                                <dt>좌석 지정</dt>
-                                                                <dd>항공기 <i class="text-emphasis">출발 24시간전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 오전 10시 출발인 경우 5월 4일 오전 10시 이 전까지 구매 가능)
-                                                                </dd>
-                                                                <dt>수하물</dt>
-                                                                <dd>항공기 <i class="text-emphasis">출발 24시간전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 오전 10시 출발인 경우 5월 4일 오전 10시 이 전까지 구매 가능)
-                                                                </dd>
-                                                                <dt>기내식</dt>
-                                                                <dd>
-                                                                    항공기 <i class="text-emphasis">출발 3일 전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발인 경우 5월 2일까지 구매 가능)
-                                                                </dd>
-                                                                <dt>라운지</dt>
-                                                                <dd>
-                                                                    항공기 <i class="text-emphasis">출발 1일 전 23시 50분까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발인 경우 5월 4일 23시 50분까지 구매 가능)
-                                                                </dd>
-                                                            </dl>
-                                                        </dd>
-                                                    </dl>
-                                                </div>-->
 
-                                                <!-- 분기 : 제주항공 / 좌석 서비스를 제공할 수 있을 때 -->
+                                            <!-- **** 분기 : 제주항공 / 좌석 서비스를 제공할 수 있을 때 **** -->
                                                 <!-- 승객 선택 -->
                                                 <div class="passenger-wrap" data-ui="fixed selected-centered">
                                                     <ul class="passenger-list" data-select="passenger">
@@ -714,52 +686,33 @@
                                                         </ul>
                                                     </div>
                                                 </div>
+
+                                            <!-- **** 분기 : 제주항공 / 좌석 서비스를 제공할 수 없을 때 **** -->
+                                                <div class="no-item">
+                                                    <div class="ico-wrap">
+                                                        <i class="ico_alert--primary">!</i>
+                                                    </div>
+                                                    <h3 class="alert-title">
+                                                        항공기 출발 시간이 임박하여<br>
+                                                        사전 좌석을 구매할 수 없습니다.
+                                                    </h3>
+                                                    <div class="alert-text">
+                                                        사전좌석은 항공기 출발 24시간 전까지 구매 가능합니다.
+                                                    </div>
+                                                </div>
+                                                <!-- 프로세스 버튼 그룹 -->
+                                                <div class="process-btn-wrap" data-role="process-btn-wrap">
+                                                    <button type="button" class="btn_confirm">오는 편 선택하기</button>
+                                                </div>
                                             </div>
                                             <!-- //가는 편 좌석지정 탭 컨텐츠 -->
 
                                             <!-- 가는 편 수하물 탭 컨텐츠 -->
                                             <div id="tab-panel1-2" class="tab-panel" role="tabpanel">
                                                 <h5 class="sr-only">수하물</h5>
-                                                <!-- 항공기 출발 시간이 임박하여 구매할 수 없을 경우 -->
-                                                <!--<div class="no-item">
-                                                    <div class="ico-wrap">
-                                                        <i class="ico_alert--primary">!</i>
-                                                    </div>
-                                                    <h3 class="alert-title">
-                                                        항공기 출발 시간이 임박하여<br>
-                                                        해당 서비스를 구매할 수 없습니다.
-                                                    </h3>
-                                                    <dl class="alert-text">
-                                                        <dt>구매 불가 알림</dt>
-                                                        <dd>
-                                                            <dl>
-                                                                <dt>좌석 지정</dt>
-                                                                <dd>항공기 <i class="text-emphasis">출발 24시간전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 오전 10시 출발인 경우 5월 4일 오전 10시 이 전까지 구매 가능)
-                                                                </dd>
-                                                                <dt>수하물</dt>
-                                                                <dd>항공기 <i class="text-emphasis">출발 24시간전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 오전 10시 출발인 경우 5월 4일 오전 10시 이 전까지 구매 가능)
-                                                                </dd>
-                                                                <dt>기내식</dt>
-                                                                <dd>
-                                                                    항공기 <i class="text-emphasis">출발 3일 전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발인 경우 5월 2일까지 구매 가능)
-                                                                </dd>
-                                                                <dt>라운지</dt>
-                                                                <dd>
-                                                                    항공기 <i class="text-emphasis">출발 1일 전 23시 50분까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발인 경우 5월 4일 23시 50분까지 구매 가능)
-                                                                </dd>
-                                                            </dl>
-                                                        </dd>
-                                                    </dl>
-                                                </div>-->
 
-                                                <!-- 제공할 수 있는 수하물 서비스가 있을 경우 -->
-
+                                            <!-- **** 분기 : 제주항공 / 제공할 수 있는 수하물 서비스가 있을 경우 **** -->
                                                 <!-- 수하물 추가 안내 메시지 -->
-                                                <!-- 수하물 안내 메시지 관련 스프레드시트(https://docs.google.com/spreadsheets/d/1wKiNbbNfjEB8Ea2M9J5wG7e-vMXclgRL18eZMg_Ct7w/edit#gid=1575651303) 참조 -->
                                                 <div class="welcome-msg">
                                                     무료 위탁 수하물 15kg + 유아 10kg이 제공되는 운임입니다.<br>
                                                     수하물 추가는 5kg당 <span class="digits">30000</span>입니다.
@@ -899,6 +852,25 @@
                                                         <li>환불 시 시스템사용료 부과 / 인당, 편도 구간당 <span class="digits">1000</span></li>
                                                     </ul>
                                                 </div>
+
+                                            <!-- **** 분기 : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
+                                                <!-- 출발시간 임박으로 인한 서비스 구매불가 안내 -->
+                                                <div class="no-item">
+                                                    <div class="ico-wrap">
+                                                        <i class="ico_alert--primary">!</i>
+                                                    </div>
+                                                    <h3 class="alert-title">
+                                                        항공기 출발 시간이 임박하여<br>
+                                                        사전 수하물을 구매할 수 없습니다.
+                                                    </h3>
+                                                    <div class="alert-text">
+                                                        사전좌석은 항공기 출발 24시간 전까지 구매 가능합니다.
+                                                    </div>
+                                                </div>
+                                                <!-- 프로세스 버튼 그룹 -->
+                                                <div class="process-btn-wrap" data-role="process-btn-wrap">
+                                                    <button type="button" class="btn_confirm">오는 편 선택하기</button>
+                                                </div>
                                             </div>
                                             <!-- //가는 편 수하물 탭 컨텐츠 -->
                                         </div>
@@ -913,7 +885,7 @@
                                     <div class="tabs ags-snb">
                                         <h4 class="sr-only">서브메뉴</h4>
                                         <ul class="tablist snb-wrap"  role="tablist">
-                                            <li role="tab" aria-controls="tab-panel2-1" class="btn_seat active">좌석 지정</li><!-- 현재 활성화 된 메뉴일 경우 .active -->
+                                            <li role="tab" aria-controls="tab-panel2-1" class="btn_seat">좌석 지정</li><!-- 현재 활성화 된 메뉴일 경우 .active -->
                                             <li role="tab" aria-controls="tab-panel2-2" class="btn_baggage">수하물</li>
                                         </ul>
                                     </div>
@@ -923,38 +895,8 @@
                                             <!-- 오는 편 좌석지정 탭 컨텐츠 -->
                                             <div id="tab-panel2-1" class="tab-panel" role="tabpanel">
                                                 <h5 class="sr-only">좌석지정</h5>
-                                                <!-- 분기 : 티웨이항공 / 좌석 서비스를 제공할 수 없을 때(출발시간 임박) -->
-                                                <!--<div class="no-item">
-                                                    <div class="ico-wrap">
-                                                        <i class="ico_alert--primary">!</i>
-                                                    </div>
-                                                    <h3 class="alert-title">
-                                                        항공기 출발 시간이 임박하여<br>
-                                                        해당 서비스를 구매할 수 없습니다.
-                                                    </h3>
-                                                    <dl class="alert-text">
-                                                        <dt>구매 불가 알림</dt>
-                                                        <dd>
-                                                            <dl>
-                                                                <dt>좌석 지정</dt>
-                                                                <dd>항공기 <i class="text-emphasis">출발 2일 전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발일 승객은 5월 3일까지 구매 가능)
-                                                                </dd>
-                                                                <dt>수하물</dt>
-                                                                <dd>항공기 <i class="text-emphasis">출발 2일 전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발일 승객은 5월 3일까지 구매 가능)
-                                                                </dd>
-                                                                <dt>기내식</dt>
-                                                                <dd>
-                                                                    항공기 <i class="text-emphasis">출발 3일 전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발일 승객은 5월 2일까지 구매 가능)
-                                                                </dd>
-                                                            </dl>
-                                                        </dd>
-                                                    </dl>
-                                                </div>-->
 
-                                                <!-- 분기 : 티웨이항공 / 좌석 서비스를 제공할 수 있을 때 -->
+                                            <!-- **** 분기 : 티웨이항공 / 좌석 서비스를 제공할 수 있을 때 **** -->
                                                 <!-- 승객 선택 -->
                                                 <div class="passenger-wrap" data-ui="fixed selected-centered">
                                                     <ul class="passenger-list" data-select="passenger">
@@ -987,7 +929,6 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-
                                                 <!-- 티웨이항공 좌석 선택 -->
                                                 <div class="seat-plan seat-tw"><!-- 제주항공(.seat-plan.seat-7c) / 티웨이항공이면 (.seat-plan.seat-tw) -->
                                                     <!-- 좌석 범례 -->
@@ -1377,6 +1318,22 @@
                                                         </ul>
                                                     </div>
                                                 </div>
+
+                                            <!-- **** 분기 : 티웨이항공 / 좌석 서비스를 제공할 수 없을 때 **** -->
+                                                <!-- 출발시간 임박으로 인한 서비스 구매불가 안내 -->
+                                                <div class="no-item">
+                                                    <div class="ico-wrap">
+                                                        <i class="ico_alert--primary">!</i>
+                                                    </div>
+                                                    <h3 class="alert-title">
+                                                        항공기 출발 시간이 임박하여<br>
+                                                        사전 좌석을 구매할 수 없습니다.
+                                                    </h3>
+                                                    <div class="alert-text">
+                                                        사전 좌석은 항공기 출발 2일전까지만 구매 가능합니다.<br>
+                                                        (예 : 5월 5일 출발인 경우 5월 3일까지 구매 가능)
+                                                    </div>
+                                                </div>
                                             </div>
                                             <!-- //오는 편 좌석지정 탭 컨텐츠 -->
 
@@ -1384,48 +1341,13 @@
                                             <!-- 오는 편 수하물 탭 컨텐츠 -->
                                             <div id="tab-panel2-2" class="tab-panel" role="tabpanel">
                                                 <h5 class="sr-only">수하물</h5>
-                                                <!-- 승객 선택 -->
-                                                <!-- 분기 : 티웨이항공 / 수하물 서비스를 제공할 수 없을 때(출발시간 임박) -->
-                                                <!--<div class="no-item">
-                                                    <div class="ico-wrap">
-                                                        <i class="ico_alert--primary">!</i>
-                                                    </div>
-                                                    <h3 class="alert-title">
-                                                        항공기 출발 시간이 임박하여<br>
-                                                        해당 서비스를 구매할 수 없습니다.
-                                                    </h3>
-                                                    <dl class="alert-text">
-                                                        <dt>구매 불가 알림</dt>
-                                                        <dd>
-                                                            <dl>
-                                                                <dt>좌석 지정</dt>
-                                                                <dd>항공기 <i class="text-emphasis">출발 2일 전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발일 승객은 5월 3일까지 구매 가능)
-                                                                </dd>
-                                                                <dt>수하물</dt>
-                                                                <dd>항공기 <i class="text-emphasis">출발 2일 전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발일 승객은 5월 3일까지 구매 가능)
-                                                                </dd>
-                                                                <dt>기내식</dt>
-                                                                <dd>
-                                                                    항공기 <i class="text-emphasis">출발 3일 전까지만</i> 구매 가능<br>
-                                                                    (예: 5월 5일 출발일 승객은 5월 2일까지 구매 가능)
-                                                                </dd>
-                                                            </dl>
-                                                        </dd>
-                                                    </dl>
-                                                </div>-->
 
-
-                                                <!-- 분기 : 티웨이항공 / 제공할 수 있는 수하물 서비스가 있을 경우 -->
-
+                                            <!-- **** 분기 : 티웨이항공 / 제공할 수 있는 수하물 서비스가 있을 경우 **** -->
                                                 <!-- 수하물 추가 안내 메시지 -->
                                                 <div class="welcome-msg">
                                                     무료 위탁 수하물 15kg가 제공되는 운임입니다.<br>
                                                     <i class="text-emphasis">수하물 추가는 5kg당 <span class="digits">30000</span></i>입니다.
                                                 </div>
-                                                <!-- //수하물 추가 안내 메시지 -->
-
                                                 <!-- 승객별 수하물 선택 표 -->
                                                 <div class="baggage-plan">
                                                     <h6 class="passenger-name">Bae, Sungjune</h6>
@@ -1541,14 +1463,11 @@
                                                         </table>
                                                     </div>
                                                 </div>
-                                                <!-- //승객별 수하물 선택 표 -->
-
                                                 <!-- 프로세스 버튼 그룹 -->
                                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
                                                     <button type="button" class="btn_cancel">이전</button>
                                                     <button type="button" class="btn_confirm">결제하기</button>
                                                 </div>
-                                                <!-- //프로세스 버튼 그룹 -->
                                                 <!-- 수하물 서비스 관련 안내문(티웨이항공용) -->
                                                 <div class="notification-wrap">
                                                     <h4 class="notification-title"><i class="ico"></i>꼭 읽어보세요!</h4>
@@ -1558,6 +1477,21 @@
                                                         <li>항공권 취소 시, 구매하신 수하물은 자동 취소 및 환불되며, 여정 변경시에는 구매하신 수하물을 취소하신 후 다시 구매하셔야 합니다. (단, 출발일 1일 전부터 수하물 취소 및 환불이 불가합니다.)</li>
                                                         <li>위탁 수하물 1개 무게는 32Kg을 초과할 수 없으며, 초과시 분리 포장해주셔야 합니다.</li>
                                                     </ul>
+                                                </div>
+
+                                            <!-- **** 분기 : 티웨이항공 / 좌석 서비스를 제공할 수 없을 때 **** -->
+                                                <div class="no-item">
+                                                    <div class="ico-wrap">
+                                                        <i class="ico_alert--primary">!</i>
+                                                    </div>
+                                                    <h3 class="alert-title">
+                                                        항공기 출발 시간이 임박하여<br>
+                                                        사전 수하물을 구매할 수 없습니다.
+                                                    </h3>
+                                                    <div class="alert-text">
+                                                        사전 좌석은 항공기 출발 2일전까지만 구매 가능합니다.<br>
+                                                        (예 : 5월 5일 출발인 경우 5월 3일까지 구매 가능)
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- //오는 편 수하물 탭 컨텐츠 -->

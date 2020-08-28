@@ -420,9 +420,9 @@
 /* alert common style */
 @mixin alert-style {
   .ico-wrap {
-    padding-top: rem(30);
+    $size: 48;
+    padding-top: rem(50); height: rem(50 + $size);
     [class*='ico_alert'] {
-      $size: 48;
       overflow: hidden;
       position: relative;
       display: inline-block;
@@ -450,33 +450,41 @@
     &:last-child { padding-bottom: rem($grid * 2) }
   }
   .alert-text {
-    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
+    $font-size: 13;
+    @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: -0.03);
     padding-top: rem($grid * 2);
-    line-height: em(18, 13);
+    line-height: em(18, $font-size);
   }
   .alert-text:first-child { padding-top: rem($grid * 3) }
   dl.alert-text {
-    margin-left: rem($grid * 2); margin-right: rem($grid * 2);
+    $font-size: 11;
+    @include clearfix;
+    @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: -0.03);
+    margin-left: rem($grid * 2); margin-right: rem($grid * 2); padding-top: 0;
+    border-top: 1px solid $mono1;
+    line-height: em(16, $font-size);
+    & > * { float: left; border-bottom: 1px solid $mono8; min-height: rem(42); }
     & > dt {
-      @include font($size: 11, $color: $mono10, $weight: 600, $spacing: -0.03);
-      padding: rem(8) rem($grid * 2); height: rem($grid * 4);
-      background-color: $mono1;
-      text-align: center;
+      padding: rem($grid * 2) rem($grid * 2); width: 70px;
+      text-align: center; font-weight: 800;
     }
     & > dd {
-      padding: rem(12) rem(10);
-      background-color: #F8F8F8; text-align: left;
+      padding: rem($grid * 2) 0; width: calc(100% - 70px);
+      text-align: left;
     }
-    dl dt, dl dd {
-      @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03);
-      /*display: inline;*/
-      float: left;
-      line-height: rem(16);
+  }
+  ul.alert-text {
+    $font-size: 11;
+    @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: -0.03);
+    margin: rem($grid * 4) rem($grid * 3) 0 rem($grid * 3); padding: 0 !important;
+    border-top: 1px solid $mono1;
+    line-height: em(16, $font-size); text-align: left;
+    & > * { position: relative; padding: rem($grid * 2) rem($grid * 2) rem($grid * 2) rem(70); border-bottom: 1px solid $mono8; min-height: rem(42); }
+    .alert-text-title {
+      @include valign-center; left: 0;
+      padding: rem($grid * 2) rem($grid * 2); width: 70px;
+      text-align: center; font-weight: 800 !important;
     }
-    dl dt { width: 4.5em; font-weight: 600; }
-    dl dd { position: relative; padding-left: 1em; width: calc(100% - 5em); }
-    dl dd:before { content: ":"; position: absolute; left: 0; top: 0; line-height: inherit; }
-    dl dd:after { content: ""; display: block; width: 100%; height: 0 }
   }
 }
 @mixin content-wrap {

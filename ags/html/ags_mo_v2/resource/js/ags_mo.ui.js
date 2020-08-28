@@ -109,14 +109,10 @@ $(document).ready(function(){
                 $tabPan = $innerWrap.children("[role='tabpanel']");
 
             // 탭의 갯수에 맞추어 .tab-wrap 사이즈 조정
-            if($innerWrap.length > 0){
+            if($thisTap.find(".tab-wrap").length === 0){
                 $innerWrap.css("width", $tabPan.length * 100 + "%");
                 $tabPan.css("width", $win.innerWidth())
             }
-
-            // 시각적으로 활성화 표기를 위한 클래스 추가
-            $tabBtn.first().addClass("active").attr("tabindex", "0");
-            $tabPan.first().addClass("active").attr("tabindex", "0");
 
             // 의미적으로 활성화 표기를 위해 true로 설정된 aria-selected 속성 추가
             $tabBtn.attr("aria-selected", "true");
@@ -292,14 +288,17 @@ $(document).ready(function(){
     });
 
     /* 스크롤 이벤트의 작동을 컨트롤 합니다. */
+    function uiFixed(target){
+        var $item = $(target).find("[data-ui*='fixed']"),
+            mainSetPoint = $item.offset().top;
+        $win.on("scroll", function(){
+            var currentScrollTop = $doc.scrollTop();
+            compScroll($body, currentScrollTop, mainSetPoint, "ui-fixed");
+        }).scroll()
+    }
     (function(scrollHandler){
         if($("[data-ui*='fixed']").length > 0){
-            var $trg = $(".tab-panel.active [data-ui*='fixed']"),
-                mainSetPoint = $trg.offset().top;
-            $win.on("scroll", function(){
-                var currentScrollTop = $doc.scrollTop();
-                compScroll($body, currentScrollTop, mainSetPoint, "ui-fixed");
-            }).scroll()
+            uiFixed("body")
         }
     })();
 
@@ -317,4 +316,15 @@ $(document).ready(function(){
             }
         });
     })()
+});
+
+
+$(window).on("load", function(){
+    (function(){
+        /*페이지 로드 시 가는 편 탭 열기*/
+        var $routeTap = $(".tabs_route");
+        if($routeTap.length > 0){
+            $routeTap.find("[role='tab']").first().mousedown();
+        }
+    })();
 });

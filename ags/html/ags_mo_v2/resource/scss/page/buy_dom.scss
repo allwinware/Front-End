@@ -97,6 +97,7 @@
   .snb-wrap {
     margin-top: rem($grid * 3);
     & > li {
+      @include snb-menu;
       display: table-cell; max-width: 50%;
       border-bottom: 1px solid $mono8;
       &:not(:first-of-type) { border-left: 0; }
@@ -157,12 +158,6 @@
     }
     li.active a { border-color: $mono1 !important }
     .digits { padding-top: rem($grid) }
-    /* 탭 활성화 상태에서의 좌석 범례 */
-    @at-root .ui-fixed [data-page-id='buy__dom'] .tab-panel.active .seat-legend {
-      z-index: 10;
-      position: fixed; top: rem($buy__psg-wrap-height); left: 0; right: 0;
-      background-color: $mono10;
-    }
   }
   /* 좌석 선택 */
   .seat-sheet {
@@ -529,5 +524,21 @@
   }
   .process-btn-wrap {
     padding-top: rem(50);
+  }
+
+
+
+  /* 탭 활성화 상태에서의 좌석 범례 */
+  @at-root .ui-fixed & {
+    .tab-panel.active > .passenger-wrap[data-ui*='fixed']{
+      z-index: 10;
+      position: fixed; top: 0; left: 0; right: 0;
+      background-color: $mono10;
+    }
+    .tab-panel.active > .seat-plan > .seat-legend[data-ui*='fixed']{
+      z-index: 10;
+      position: fixed; top: rem($buy__psg-wrap-height); left: 0; right: 0;
+      background-color: $mono10;
+    }
   }
 }
