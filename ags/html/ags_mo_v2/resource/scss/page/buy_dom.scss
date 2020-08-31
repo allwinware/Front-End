@@ -13,17 +13,18 @@
   width: 100%;
   .align-horizontal { transition: margin-left 0.5s; }
   .tabs_route {
+    overflow: hidden;
     position: relative;
+    width: initial;
     & > [role='tablist'] {
       @include clearfix;
-      display: block;
-      width: 200%;
+      display: flex;
+      min-width: auto;
     }
     & > [role='tablist'] > li[role='tab'] {
       position: relative;
-      float: left;
       display: block;
-      padding-top: 0; width: 50% !important; max-width: 50%;
+      padding-top: 0; max-width: initial;
       text-align: center;
       .ico_tag {
         @include tagging-route;
@@ -63,7 +64,6 @@
       }
     }
     &.swiper-container {
-      position: relative;
       .swiper-pagination-bullet { width: rem(6); height: rem(6); border-radius: 50%; background-color: #ddd; opacity: 1; }
       .swiper-pagination-bullet-active { background-color: $bg-primary }
       .swiper-slide { height: rem(134); border-bottom: 1px solid $mono8; }
@@ -76,6 +76,11 @@
           transform: rotate(45deg);
           width: rem(8); height: rem(8);
           opacity: 1;
+        }
+        &:after {
+          content: "" !important;
+          display: none !important;
+          font-size: 0;
         }
       }
       .swiper-button-prev {
