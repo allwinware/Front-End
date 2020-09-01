@@ -1,0 +1,79 @@
+/*고객센터 > 개인정보취급방침*/
+[data-page-id='cs__privacy-policy']{
+  $font-size: 12;
+  @include font($size: $font-size, $color: $mono3, $weight: 400);
+  .policy-wrap { padding: rem($grid * 4) rem($grid *2) 0; }
+  counter-reset: policy-title;
+  line-height: em(21, $font-size);
+  .ags_content-title { @include sr-only }
+  .policy-title {
+    position: relative;
+    margin: rem($grid * 4) 0 0; padding-left: 1em;
+    font-weight: 600; color: $mono1;
+    &:before {
+      counter-increment: policy-title 1; content: counter(policy-title) ". ";
+      position: absolute; left: 0; top: 0; line-height: inherit;
+    }
+  }
+  /*.policy-title,
+  .list-decimal,
+  .policy-title + p,
+  .list-decimal + p { padding-bottom: rem($grid) }*/
+  .list-decimal {
+    counter-reset: list-decimal;
+    & > li {
+      position: relative;
+      /*padding: 0 0 0 1em;*/
+      &:before {
+        counter-increment: list-decimal 1; content: counter(list-decimal) ". ";
+        /*position: absolute; left: 0; top: 0;*/
+        line-height: inherit;
+      }
+    }
+  }
+  .list-hyphen,
+  .list-circle-decimal { padding: rem($grid / 2) 0 }
+  .list-hyphen {
+    & > li {
+      position: relative;
+      /*padding-left: 1em;*/
+      &:before { content: "-"; /*position: absolute; left: 0; top: 0;*/ margin-right: 0.3em; line-height: inherit; }
+    }
+  }
+  .list-triangle {
+    & > li {
+      position: relative;
+      /*padding: rem($grid) 0 0 1em;*/
+      padding-top: rem($grid * 4);
+      &:before { content: "▶"; /*position: absolute; left: 0; top: rem($grid);*/ line-height: inherit; font-size: 0.8em }
+    }
+  }
+  .list-circle-decimal {
+    $size: 12;
+    counter-reset: policy-circle-decimal;
+    padding-left: 1em;
+    & > li {
+      position: relative;
+      padding-left: em($size + 4, $font-size);
+      &:before {
+        $font-size: 8;
+        counter-increment: policy-circle-decimal 1; content: counter(policy-circle-decimal) " ";
+        position: absolute; left: 0; top: rem(3);
+        display: inline-block;
+        width: rem($size); height: rem($size);
+        text-align: center; font-size: rem($font-size); line-height: rem($size + 2);
+      }
+      &:after { content: ""; position: absolute; left: 0; top: rem(3); width: rem($size); height: rem($size); display: inline-block; border-radius: 50%; border: 1px solid $mono3 }
+    }
+  }
+  table {
+    $font-size: 11;
+    margin: rem($grid * 2) 0 rem($grid * 4); width: 100%;
+    border-top: 1px solid $mono1;
+    font-size: rem($font-size);
+    th, td { padding: rem(13) rem(12); height: rem(42); line-height: em(16, $font-size); border-bottom: solid 1px $mono8; background-color: $mono10; text-align: left; color: $mono1 }
+    tbody th {
+      font-weight: 800;
+    }
+  }
+}

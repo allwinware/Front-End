@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
-    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <title>(국내선)부가서비스 구매하기</title>
     <link rel="stylesheet" href="../resource/css/swiper.min.css">
     <link rel="stylesheet" href="../resource/css/ags_mo.dom.min.css"><!-- 국내선일 경우 -->
@@ -11,41 +11,43 @@
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
         $(document).ready(function(){
-
-            /*[data-role='process-btn-wrap'] 버튼의 탭 전환 기능 정의*/
-            (function(nextTab){
-
-                /*가는 편 탭의 .btn_confirm 버튼을 누르면 오는 편 탭으로 이동합니다*/
-                moveTabByClick("#tab-panel1-1 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel1-2']", 0, 800);
-                moveTabByClick("#tab-panel1-2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel1-1']", 0, 800);
-
-                /*오는 편 탭의 .btn_cancel 버튼을 누르면 가는 편 탭으로 이동합니다*/
-                moveTabByClick("#tab-panel2-1 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel2-2']", 0, 800);
-                moveTabByClick("#tab-panel2-2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel2-1']", 0, 800);
+            (function(){
+                /*페이지 로드 시 가는 편 탭 열기*/
+                var $routeTap = $(".tabs_route");
+                console.log("eeeee")
+                if($routeTap.length > 0){
+                    console.log("fffff")
+                    console.log($routeTap.length)
+                    $routeTap.find("[role='tab']").first().mousedown();
+                }
             })();
+        });
 
+        $(window).on("load", function(){
             (function(){
                 var swiper = new Swiper('.tabs_route', {
+                    observer: true,
+                    observeParents: true,
+                    loop: false,
                     navigation: {
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev',
                     },
                     pagination: {
                         el: '.swiper-pagination',
+                        clickable: true
                     },
-                    loop: false
                 });
-                swiper.on('slideChangeTransitionStart', function() {
+                swiper.on('slideChangeTransitionStart', function(){
                     $(".tab-panel.active").removeClass("active");
                     $($(".tabs_route").find("li")[swiper.realIndex])
                         .mousedown()
                         .parents(".tabs_route").siblings(".tab-panels").find(".tab-panel.active .ags-snb li[role='tab']").first().mousedown();
                 });
 
-                /*진입 시 첫번째 탭에 포커스*/
-                $(".tabs_route + .tab-panels .ags-snb li[role='tab']").first().mousedown();
             })();
-        });
+
+        })
     </script>
 </head>
 <body>
@@ -88,6 +90,9 @@
                                         <li><a href="#none" target="_self">기내 면세품 예약내역</a></li>
                                     </ul>
                                 </li>
+                            </ul>
+                            <ul class="fnb">
+                                <li><a href="#none" target="_self">개인정보취급방침</a></li>
                             </ul>
                         </div>
                     </li>

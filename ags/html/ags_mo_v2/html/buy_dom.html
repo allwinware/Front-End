@@ -176,14 +176,19 @@
                     },
                     pagination: {
                         el: '.swiper-pagination',
+                        clickable: true,
                     },
-                    loop: false
+                    slidesPerView: 1,
+                    loop: false,
+                    observer: true,
+                    observeParents: true,
                 });
                 swiper.on('slideChangeTransitionStart', function() {
                     $(".tab-panel.active").removeClass("active");
                     $($(".tabs_route").find("li")[swiper.realIndex])
                         .mousedown()
                         .parents(".tabs_route").siblings(".tab-panels").find(".tab-panel.active .ags-snb li[role='tab']").first().mousedown();
+                    $win.resize();
                 });
             })();
 
@@ -232,6 +237,9 @@
                                         <li><a href="#none" target="_self">기내 면세품 예약내역</a></li>
                                     </ul>
                                 </li>
+                            </ul>
+                            <ul class="fnb">
+                                <li><a href="#none" target="_self">개인정보취급방침</a></li>
                             </ul>
                         </div>
                     </li>

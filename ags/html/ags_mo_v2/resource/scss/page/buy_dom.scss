@@ -15,6 +15,57 @@
   .tabs_route {
     overflow: hidden;
     position: relative;
+    width: 100%;
+    & > [role='tablist'] {
+      @include clearfix;
+      display: flex;
+      min-width: auto;
+      width: 100%;
+    }
+    & > [role='tablist'] > li[role='tab']{
+      position: relative;
+      display: block;
+      padding-top: 0; max-width: 100vw;
+      text-align: center;
+      .ico_tag {
+        @include tagging-route;
+        @include font($size: 11, $color: $mono10, $weight: 600);
+        display: inline-block;
+        margin: 0 auto; padding: rem(5) rem(6); width: auto; height: auto;
+        line-height: 1em;
+      }
+      &:nth-of-type(1) .ico_tag { background-color: $bg-secondary; border-color: $bg-secondary; }
+      &:nth-of-type(2) .ico_tag { background-color: #FF4378; border-color: #FF4378; }
+      .ticket-info  {
+        position: relative; margin-top: rem(-5);
+        .airport { @include background($file: 'buy/bg_flight-way_dom', $type: png, $width: rem(120), $height: rem(15)); background-position: 50% 34px }
+        .departure, .arrival, .airline, .schedule { @include sr-only; }
+        .departure + dd,
+        .arrival + dd {
+          @include font($size: 12, $color: $mono1, $weight: 600);
+          @include text-ellipsis();
+          display: inline-block;
+          padding-top: rem($grid * 3);
+          width: rem(104); height: rem(84);
+          vertical-align: top;
+          .iata-code { @include font($size: 20, $color: $mono1, $weight: 800); display: block; margin-bottom: rem(6) }
+        }
+        .departure + dd { margin-right: rem(52); }
+        .arrival + dd { margin-left: rem(52); }
+        .airline + dd [class^='ico_'] {
+          @include align-center;
+          top: rem(25);
+          overflow: hidden;
+          display: block;
+          text-indent: -999em
+        }
+        .ico_7c { @include background($file: 'common/symbol_flight-way_7c_dom', $type: png, $width: rem(62), $height: rem(12)); width: rem(62); height: rem(12) }
+        .ico_tw { @include background($file: 'common/symbol_flight-way_tw_dom', $type: png, $width: rem(38), $height: rem(16)); width: rem(38); height: rem(16) }
+        .schedule + dd { @include font($size: 11, $color: $mono1, $weight: 400); @include align-center; top: rem(57); }
+      }
+    }
+    /*overflow: hidden;
+    position: relative;
     width: initial;
     & > [role='tablist'] {
       @include clearfix;
@@ -62,7 +113,7 @@
         .ico_tw { @include background($file: 'common/symbol_flight-way_tw_dom', $type: png, $width: rem(38), $height: rem(16)); width: rem(38); height: rem(16) }
         .schedule + dd { @include font($size: 11, $color: $mono1, $weight: 400); @include align-center; top: rem(57); }
       }
-    }
+    }*/
     &.swiper-container {
       .swiper-pagination-bullet { width: rem(6); height: rem(6); border-radius: 50%; background-color: #ddd; opacity: 1; }
       .swiper-pagination-bullet-active { background-color: $bg-primary }

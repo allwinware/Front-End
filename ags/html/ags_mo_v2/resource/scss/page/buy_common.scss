@@ -111,6 +111,8 @@ $buy__psg-wrap-height: 107;
   /* 안내 영역 */
   .notification-wrap { padding: 0 rem($grid * 2); }
 
+
+  /* 번들 관련 */
   .floating-banner {
     $font-size: 11;
     @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: -0.03);
@@ -120,6 +122,41 @@ $buy__psg-wrap-height: 107;
       padding: rem($grid * 2) rem($grid); width: em(54, $font-size); height: em(54, $font-size);
       background-color: $mono1; border-radius: 50%;
       line-height: em(14, $font-size); text-decoration: none; text-align: center; color: $mono10;
+    }
+  }
+
+  [class*='bundle-type'] + dd {
+    margin-top: rem(-10);
+    .ico {
+      @include font($size: 9, $color: $mono4, $weight: 800, $spacing: -0.03);
+      display: inline-block;
+      margin-bottom: rem(10); padding: rem(2) rem($grid / 2);
+      border: 1px solid;
+    }
+  }
+  .bundle-type1 {
+    & + dd {
+      .ico { color: #7C756E; border-color: #7C756E }
+    }
+  }
+  .bundle-type2 {
+    & + dd {
+      .ico { color: #8EB454; border-color: #8EB454 }
+    }
+    & ~ .selected-seat + dd {
+      &:empty:before {
+        content: "(프리미엄 제외 좌석) 선택하세요";
+      }
+    }
+  }
+  .bundle-type3 {
+    & + dd {
+      .ico { color: #D22C27; border-color: #D22C27 }
+    }
+    & ~ .selected-seat + dd {
+      &:empty:before {
+        content: "(전좌석) 선택하세요";
+      }
     }
   }
 }
