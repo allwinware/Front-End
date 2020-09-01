@@ -217,9 +217,26 @@
 
 /*번들 선택*/
 .bundle-summary {
+  &.active {  }
+  .inner-wrap { overflow-x: hidden; overflow-y: auto; margin-top: rem(-58) }
+  [role='tabpanel'] { height: auto; }
+  .summary-title { @include sr-only }
+  .summary-approach {
+    $font-size: 16;
+    @include font($size: $font-size, $color: $mono1, $weight: 300, $spacing: -0.03);
+    padding: 0 rem($grid * 2) rem($grid);
+    line-height: em(24, $font-size);
+    strong { display: block; font-weight: 600; }
+  }
+  .summary-description {
+    $font-size: 11;
+    @include font($size: $font-size, $color: $text-primary, $weight: 400, $spacing: -0.03);
+    padding: 0 rem($grid * 2);
+    line-height: em(16, $font-size);
+  }
   .tabs_route {
     @include tab(style1 nowrap);
-    padding-top: rem(30);
+    padding-top: rem($grid * 5);
   }
   .align-horizontal {
     transition: all $trs-duration;
@@ -228,5 +245,131 @@
   .tab-panel {
     transition: none;
     position: relative;
+  }
+  .scroll-wrap {
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+  .bundle-info {
+    @include flex(flex-start stretch flex-start nowrap);
+    padding: rem($grid * 4) rem($grid); width: rem(814);
+    white-space: nowrap;
+    [class^='bundle-type'] { width: calc(250 / 375 * 100vw); }
+  }
+  [class^='bundle-type'] {
+    overflow: hidden;
+    margin: 0 rem($grid); border-radius: $border-common-radius;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    .inner-wrap { overflow-y: auto; overflow-x: hidden; }
+    .bundle-name + dd { $font-size: 14; display: inline-block; padding: em(5, $font-size) 0; line-height: em(11, $font-size); }
+    .bundle-sale + dd {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $mono10, $weight: 600, $spacing: -0.03);
+      float: left;
+      margin-right: rem($grid); padding: em(5, $font-size) em(5, $font-size); line-height: em(11, $font-size);
+      border-radius: rem(1);
+      &:after { content: " SALE" }
+    }
+    .bundle-price + dd {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $mono10, $weight: 800, $spacing: -0.03);
+      @include price-unit(krw);
+      float: right;
+      padding: em(5, $font-size) 0; line-height: em(11, $font-size);
+    }
+    &.bundle-type1 {
+      .info-title { background-color: #EDE5D9 }
+      .bundle-name + dd { color: #817A73 }
+      .bundle-sale + dd { background-color: #7C756E }
+      .bundle-price + dd { color: #817A73 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2),
+      .info-detail dt:nth-of-type(3) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd,
+      .info-detail dt:nth-of-type(3) + dd { color: $text-primary; font-weight: 600; }
+    }
+    &.bundle-type2 {
+      .info-title { background-color: #E0EFCA }
+      .bundle-name + dd { color: #8EB454 }
+      .bundle-sale + dd { background-color: #8EB454 }
+      .bundle-price + dd { color: #8EB454 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2),
+      .info-detail dt:nth-of-type(3) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd,
+      .info-detail dt:nth-of-type(3) + dd { color: $text-primary; font-weight: 600; }
+    }
+    &.bundle-type3 {
+      .info-title { background-color: #FBE3E1 }
+      .bundle-name + dd { color: #D22C27 }
+      .bundle-sale + dd { background-color: #D22C27 }
+      .bundle-price + dd { color: #D22C27 }
+      .info-detail dt { color: $mono1 }
+      .info-detail dd { color: $text-primary; font-weight: 600; }
+    }
+  }
+  .info-title {
+    @include clearfix;
+    overflow: hidden;
+    position: relative;
+    padding: rem(13) rem($grid * 2); height: rem(46);
+    dt { @include sr-only }
+    dd { font-weight: 600; }
+  }
+  .info-detail {
+    $font-size: 12;
+    @include font($size: $font-size, $color: $mono4, $weight: 600, $spacing: -0.03);
+    @include clearfix;
+    padding: rem($grid * 2) 0; background-color: $mono10;
+    dt, dd {
+      float: left; padding: 0 rem($grid * 2);
+      line-height: em(22, $font-size);
+    }
+    dt { width: 110px; }
+    dd { width: calc(100% - 110px); text-align: right; font-weight: 400; }
+  }
+  .passenger-wrap {
+    padding: rem($grid) rem($grid * 2) 0;
+    dl { position: relative; }
+    dt { @include sr-only }
+    .passenger-name + dd {
+      @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+      @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
+      @include text-uppercase;
+      margin: 0 0 rem(12); padding-left: rem(20);
+    }
+    .bundle-price + dd {
+      @include font($size: 13, $color: $text-primary, $weight: 600, $spacing: 0);
+      @include price-unit(krw);
+      position: absolute; right: 0; top: 0;
+    }
+    .selected-bundle + dd {
+      @include flex(flex-start stretch flex-start nowrap);
+      margin: 0 rem(-$grid / 2);
+      input[type='radio'] { @include sr-only }
+      input[type='radio'] + .btn_select-bundle {
+        @include form($size: 3, $role: normal, $type: button);
+        flex: 1 auto;
+        margin: 0 rem($grid / 2); width: auto;
+        font-size: rem(12); color: $mono4;
+        transition: all $trs-duration;
+      }
+      input[type='radio']:checked + .btn_select-bundle {
+        border-color: $mono1; background-color: $mono1; color: $mono10;
+      }
+    }
+    .passenger-list > li + li { padding-top: rem($grid * 4) }
+  }
+  .process-btn-wrap {
+    @include flex(flex-start stretch flex-start nowrap);
+    margin: 0 rem(-3); padding: rem($grid * 2) rem($grid * 2) 0;
+    background-color: $mono10;
+    [class^='btn_'] { margin: 0 rem(3) !important; }
+    .btn_select {
+      @include form($type: button, $size: 4, $role: submit);
+      flex: 1 auto;
+    }
   }
 }
