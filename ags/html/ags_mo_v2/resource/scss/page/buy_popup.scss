@@ -154,14 +154,58 @@
   @include flight-info;
   .flight-info { display: inline-flex !important; }
   .table-wrap {
+    position: relative;
     padding-bottom: rem($grid * 2);
   }
+  [class*='bundle-type'] {
+    @include clearfix;
+    position: relative;
+    margin: 0 rem($grid * 2) 0 0;
+    .info-title { padding: rem($grid) 0; }
+    dt { @include sr-only }
+    dd { display: inline-block; }
+    .bundle-name + dd {
+      @include font($size: 9, $color: $mono1, $weight: 800, $spacing: 0);
+      margin-right: rem(4); padding: 0 rem(4); min-width: rem(40); height: rem(16);
+      line-height: rem(14); border: 1px solid;
+      white-space: nowrap;
+    }
+    .bundle-sale + dd {
+      @include font($size: 9, $color: $mono1, $weight: 800, $spacing: 0);
+      &:after { content: " SALE" }
+    }
+    .bundle-price + dd {
+      @include font($size: 13, $color: $mono1, $weight: 400);
+      @include price-unit(krw);
+      float: right;
+      padding: rem(2) rem(24) 0; text-align: right;
+    }
+    &.bundle-type1 {
+      &, .bundle-name { border-color: #7C756E }
+      .bundle-name + dd,
+      .bundle-sale + dd { color: #817A73 }
+    }
+    &.bundle-type2 {
+      &, .bundle-name { border-color: #8EB454; }
+      .bundle-name + dd,
+      .bundle-sale + dd { color: #8EB454 }
+    }
+    &.bundle-type3 {
+      &, .bundle-name { border-color: #D22C27 }
+      .bundle-name + dd,
+      .bundle-sale + dd { color: #D22C27 }
+    }
+    .charge-sheet {
+      tbody td:last-child { padding-right: 0; }
+    }
+  }
+  .btn_delete { @include btn_delete-small; position: absolute; right: 0; top: rem(10); }
   .charge-sheet {
     @include table($style: type1, $mg-size: small);
     th, td { padding: rem($grid) 0; vertical-align: middle; }
     thead th, tbody th, tbody td, tfoot th, tfoot td { border-bottom: 0; }
-    tbody td:last-of-type { text-align: right; }
-    tbody th, tbody td { height: rem(30); }
+    tbody td:nth-of-type(3) { text-align: right; }
+    tbody th, tbody td { padding-top: rem(7); padding-bottom: rem(7); height: rem(30); }
     tbody td:nth-of-type(2) {
       @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
       padding-right: rem(12); text-align: right;
@@ -173,7 +217,7 @@
         }
       }
     }
-    tbody th:last-child, tbody td:last-child {
+    tbody th:nth-of-type(3), tbody td:nth-of-type(3) {
       padding-left: 0; padding-right: rem($grid * 2); width: rem(12);
       text-align: center;
     }
@@ -181,16 +225,20 @@
     tbody tr + tr th[scope='colgroup'] { border-top: 1px solid $mono8 }
     tbody th[scope='row'] {
       @include font($size: 13, $color: $mono1, $weight: 800, $spacing: -0.03);
-      width: rem(70); text-align: left;
+      width: rem(85); text-align: left;
     }
     a, a:active, a:visited { color: #66B1FF; }
-    .btn_delete { @include btn_delete-small; margin-left: 0; vertical-align: top }
+    .btn_delete { position: relative; right: initial; top: initial; margin-left: 0; vertical-align: top }
+  }
+  .table-wrap {
+    padding-top: rem($grid * 2);
+    & + .table-wrap { border-top: 1px solid $mono8 }
   }
   .passenger-name {
     @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
     @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
     @include text-uppercase;
-    margin: rem($grid * 2) 0 rem($grid); padding-left: rem(20);
+    margin: 0 0 rem($grid); padding-left: rem(20);
   }
   .total-wrap {
     height: rem(44);
