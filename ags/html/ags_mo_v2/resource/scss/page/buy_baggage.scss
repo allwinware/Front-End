@@ -20,13 +20,20 @@
       &:first-of-type { margin-top: 0; }
       &:after {
         @include tagging-route;
-        position: absolute; right: rem($grid * 2); top: 0;
+        position: absolute; right: rem($grid * 2); top: rem(-2);
       }
       @at-root [data-page-id='buy__baggage'] .tab-panels .tab-panel:first-of-type .baggage-plan .passenger-name:after {
         content: "가는 편";
       }
       @at-root [data-page-id='buy__baggage'] .tab-panels .tab-panel:nth-of-type(2) .baggage-plan .passenger-name:after {
         content: "오는 편";
+      }
+      @include dundle-flag($ico-class: "[class*='ico_bundle-type']");
+      @include dundle-flag-type($airline: tw, $type: 1, $ico-class: '.ico_bundle-type1');
+      @include dundle-flag-type($airline: tw, $type: 2, $ico-class: '.ico_bundle-type2');
+      @include dundle-flag-type($airline: tw, $type: 3, $ico-class: '.ico_bundle-type3');
+      [class*='ico_bundle-type']{
+        margin: rem(-2) 0 0 rem(4); vertical-align: top;
       }
     }
     .table-wrap {
@@ -48,7 +55,7 @@
         @include font($size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
         text-align: left;
       }
-      tbody tr:nth-of-type(2) th[scope='row'] { vertical-align: top; }
+      tbody tr:nth-of-type(2) th[scope='row'] { /*vertical-align: top;*/ }
       .text-subscript {
         display: block; padding-top: rem(8); font-size: rem(12); font-weight: 600;
         .digits:before { content: "￦" }
@@ -75,6 +82,24 @@
           content: "￦";
           font-size: rem(12); color: $text-primary; font-weight: 600;
         }
+      }
+      .approach-comment {
+        @include price-unit(krw);
+        position: absolute; top: rem(51); right: rem(64);
+        padding: rem(3) rem(8);
+        font-size: rem(10); color: $mono10; line-height: rem(10);
+        white-space: nowrap;
+        background-color: $bg-primary; border-radius: rem(2);
+        &:after {
+          content: ""; position: absolute; right: rem(-3); top: 50%;
+          transform: rotate(45deg) translate(rem(-1), rem(-5));
+          transform-origin: left top;
+          display: inline-block;
+          width: rem(6); height: rem(6);
+          background-color: $bg-primary
+        }
+        .digits { padding: 0 0.2em }
+        .digits:before { font-size: 0.9em !important; color: inherit !important; }
       }
       [class*='btn_'] {
         overflow: hidden;

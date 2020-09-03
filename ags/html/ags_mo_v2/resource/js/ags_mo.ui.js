@@ -109,9 +109,10 @@ $(document).ready(function(){
                 $tabPan = $innerWrap.children("[role='tabpanel']");
 
             // 탭의 갯수에 맞추어 .tab-wrap 사이즈 조정
-            if($thisTap.find(".tab-wrap").length === 0){
+            if($innerWrap.length > 0){
                 $innerWrap.css("width", $tabPan.length * 100 + "%");
-                $tabPan.css("width", $win.innerWidth())
+                $tabPan.css("width", $win.innerWidth());
+                $thisTap.children(".tabs").children("[role='tablist']").children("[role='tab'].active").mousedown();
             }
 
             // 의미적으로 활성화 표기를 위해 true로 설정된 aria-selected 속성 추가
@@ -320,6 +321,11 @@ $(document).ready(function(){
 
 
 $(window).on("load", function(){
+    /* variation */
+    var $win = $(window),
+        $doc = $(document),
+        $body = $("body");
+
     (function(){
         /*페이지 로드 시 가는 편 탭 열기*/
         var $routeTap = $(".tabs_route");

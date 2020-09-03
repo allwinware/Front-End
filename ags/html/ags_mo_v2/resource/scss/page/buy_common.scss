@@ -24,7 +24,7 @@ $buy__psg-wrap-height: 107;
     position: relative;
   }
   .align-horizontal {
-    transition: all $trs-duration;
+    transition: margin-left $trs-duration;
     transition-delay: $trs-delay;
   }
   .no-item {
@@ -126,22 +126,21 @@ $buy__psg-wrap-height: 107;
   }
 
   [class*='bundle-type'] + dd {
+    @include dundle-flag($ico-class: '.ico');
     margin-top: rem(-10);
-    .ico {
-      @include font($size: 9, $color: $mono4, $weight: 800, $spacing: -0.03);
-      display: inline-block;
-      margin-bottom: rem(10); padding: rem(2) rem($grid / 2);
-      border: 1px solid;
-    }
+    .ico { margin-bottom: rem(10); }
   }
+  @include dundle-flag-type($airline: tw, $type: 1, $ico-class: '.bundle-type1 + dd .ico');
+  @include dundle-flag-type($airline: tw, $type: 2, $ico-class: '.bundle-type2 + dd .ico');
+  @include dundle-flag-type($airline: tw, $type: 3, $ico-class: '.bundle-type3 + dd .ico');
   .bundle-type1 {
     & + dd {
-      .ico { color: #7C756E; border-color: #7C756E }
+      .ico {  }
     }
   }
   .bundle-type2 {
     & + dd {
-      .ico { color: #8EB454; border-color: #8EB454 }
+      .ico {  }
     }
     & ~ .selected-seat + dd {
       &:empty:before {
@@ -151,7 +150,7 @@ $buy__psg-wrap-height: 107;
   }
   .bundle-type3 {
     & + dd {
-      .ico { color: #D22C27; border-color: #D22C27 }
+      .ico {  }
     }
     & ~ .selected-seat + dd {
       &:empty:before {
