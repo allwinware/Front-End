@@ -29,8 +29,10 @@ $buy__psg-wrap-height: 107;
   }
   .no-item {
     @include alert-style;
+    padding-bottom: rem(80);
     text-align: center;
     .text-small { font-size: 0.9em; color: $mono4; }
+    & + .process-btn-wrap { margin-top: rem(-80); padding-top: 0; }
   }
   .passenger-wrap {
     overflow: auto; overflow-x: auto; overflow-y: hidden;
@@ -126,13 +128,14 @@ $buy__psg-wrap-height: 107;
   }
 
   [class*='bundle-type'] + dd {
-    @include dundle-flag($ico-class: '.ico');
+    @include bundle-flag($ico-class: '.ico');
     margin-top: rem(-10);
     .ico { margin-bottom: rem(10); }
   }
-  @include dundle-flag-type($airline: tw, $type: 1, $ico-class: '.bundle-type1 + dd .ico');
-  @include dundle-flag-type($airline: tw, $type: 2, $ico-class: '.bundle-type2 + dd .ico');
-  @include dundle-flag-type($airline: tw, $type: 3, $ico-class: '.bundle-type3 + dd .ico');
+  @include bundle-flag-type($airline: tw, $type: 0, $ico-class: '.bundle-type0 + dd .ico');
+  @include bundle-flag-type($airline: tw, $type: 1, $ico-class: '.bundle-type1 + dd .ico');
+  @include bundle-flag-type($airline: tw, $type: 2, $ico-class: '.bundle-type2 + dd .ico');
+  @include bundle-flag-type($airline: tw, $type: 3, $ico-class: '.bundle-type3 + dd .ico');
   .bundle-type1 {
     & + dd {
       .ico {  }

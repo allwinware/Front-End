@@ -20,6 +20,7 @@
   .price-info {
     @include price($type: inline, $color1: $text-primary, $color2: $mono1);
   }
+  @include flight-info;
 }
 [data-page-id='my__history-list'] {
   margin-bottom: rem(-144); padding: 0 0 rem(112); min-height: calc(100vh - #{$gnb-height}px);
@@ -111,7 +112,7 @@
     }
   }
 }
-[data-page-id='my__history-detail'] {
+[data-page-id^='my__history-detail'] {
   .ticket-wrap {
     padding: rem($grid * 3) rem($grid * 2);
     dl { @include clearfix; position: relative; }
@@ -163,18 +164,30 @@
     .time { @include sr-only; }
   }
   .history-detail-wrap {
-    padding: rem(50) 0 0 rem($grid * 2)
+    padding: rem(50) 0 0 rem($grid * 2);
+    .detail-header {
+      @include flight-info;
+      position: relative;
+      .flight-info {
+        -ms-display: inline-flex !important; -webkit-display: inline-flex !important; display: inline-flex !important;
+      }
+    }
+    .table-group + .detail-header { margin-top: rem($grid * 10) }
+    .inner-wrap + .inner-wrap { margin-top: rem($grid * 10) }
+    .view-seat + dd {
+      position: absolute; right: rem($grid * 2); top: 0;
+    }
   }
   .title {
     @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
     display: inline-block;
   }
-  .flight-num {
+  /*.flight-num {
     display: inline-block;
     margin: 0 0 rem(12) rem(4);
     dt { @include sr-only }
     dd { @include tagging-route; width: auto; padding: 0 rem(4); }
-  }
+  }*/
   .table-wrap {
     padding-bottom: rem($grid * 2);
     &:first-child { border-top: 1px solid $mono1; }
@@ -195,7 +208,11 @@
       text-align: left;
     }
     tbody th[scope='row'] + td { width: rem(77); }
-    tbody th[scope='row'] + td + td .digits:before { content: "￦" }
+    tbody th[scope='row'] + td + td { @include price-unit(krw); }
+    .digits {
+      @include font($family: en, $size: 14, $color: $mono1, $weight: 400, $spacing: 0);
+      &:before { font-size: rem(13) }
+    }
     a, a:active, a:visited { color: #66B1FF; }
     .text-emphasis { font-weight: 800; }
   }
@@ -211,8 +228,22 @@
     & > dl { display: table; table-layout: fixed; width: 100%; height: 100%; }
     & > dl > dt, & > dl > dd { display: table-cell; vertical-align: middle; }
     & > dl > dt { @include font($size: 12, $color: $mono1, $weight: 600, $spacing: -0.03); width: rem(140) }
-    & > dl > dd { padding-right: rem($grid * 2); text-align: right; }
-    .digits:before { content: "￦" }
+    & > dl > dd {
+      @include price-unit(krw);
+      padding-right: rem(74);
+      text-align: right;
+    }
+    .digits {
+      @include font($family: en, $size: 14, $color: $text-primary, $weight: 400, $spacing: 0);
+      &:before { font-size: rem(13) }
+    }
   }
   .table-group + .title { margin-top: rem(50); }
+}
+[data-page-id='my__history-detail_anc'] {
+  .charge-sheet {
+    tbody th:first-child { font-weight: 800; }
+    tbody th[scope='row'] + td { width: auto; }
+    tbody td:nth-of-type(2) { text-align: right; }
+  }
 }
