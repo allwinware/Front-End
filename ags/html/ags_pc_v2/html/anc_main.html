@@ -5,12 +5,14 @@
     <title>부가서비스 신청 < AGS</title>
     <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
+    <link rel="stylesheet" href="../resource/css/swiper.min.css">
     <link rel="stylesheet" href="../resource/css/ags_pc_7c.min.css"><!-- 제주항공일 때 -->
     <!--<link rel="stylesheet" href="../resource/css/ags_pc_tw.min.css">--><!-- 티웨이항공일 때 -->
     <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
     <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
     <script type="text/javascript" src="../resource/js/selectric/jquery.selectric.min.js"></script>
+    <script type="text/javascript" src="../resource/js/swiper.min.js"></script>
     <script type="text/javascript" src="../resource/js/ags_pc.ui.js"></script>
 </head>
 <body>
@@ -2642,6 +2644,243 @@
                 </footer>
             </article>
 
+            <!-- 사전 기내식 구매하기 -->
+            <article id="anc_lounge" class="anc-service-wrap anc_lounge" data-type="tab-group">
+                <header class="anc-header">
+                    <i class="service-symbol"></i>
+                    <h3 class="service-title">JJ 라운지 이용권 구매하기</h3>
+                    <p class="service-description"><strong>여유롭게 떠나요!</strong> JJ 라운지에서 맛있는 음식과 함꼐 편안한 휴식을 경험하세요.</p>
+                </header>
+
+                <div class="anc-service">
+                    <div class="tabs">
+                        <h4 class="sr-only">구간 선택</h4>
+                        <ul role="tablist">
+                            <li role="tab" aria-controls="tab-panel4-1">가는 편</li>
+                        </ul>
+                    </div>
+                    <div class="tab-panels">
+                        <div id="tab-panel4-1" class="tab-panel" role="tabpanel">
+                            <h5 class="sr-only">가는 편</h5>
+                            <!-- 탑승객 목록 -->
+                            <div class="passenger-list" data-select="passenger">
+                                <div class="approach-comment">JJ 라운지 이용권은 가는 편만 구매 가능합니다.</div>
+                                <!-- 라운지 가격정보 -->
+                                <div class="lounge-legend">
+                                    <h6 class="sr-only">가격정보 확인</h6>
+                                    <table class="price-list">
+                                        <colgroup>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">성인 (만 12세 이상)</th>
+                                            <td>
+                                                <dl class="price-info">
+                                                    <dt class="price">정가</dt>
+                                                    <dd><span class="digits">25000</span></dd>
+                                                    <dt class="sale-price">할인가</dt>
+                                                    <dd><span class="digits">16900</span></dd>
+                                                </dl>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">소아 (만 12세 이하)</th>
+                                            <td>
+                                                <dl class="price-info">
+                                                    <dt class="price">정가</dt>
+                                                    <dd><span class="digits">15000</span></dd>
+                                                    <dt class="sale-price">할인가</dt>
+                                                    <dd><span class="digits">9900</span></dd>
+                                                </dl>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">유아 (2세 미만)</th>
+                                            <td>
+                                                <dl class="price-info">
+                                                    <dt class="price">정가</dt>
+                                                    <dd>무료</dd>
+                                                </dl>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="scroll-wrap" data-scrollbar="true">
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox" id="radio-psg804" name="psg-group3" data-checked="all">
+                                            <dl>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd><label for="radio-psg804">탑승객 모두 선택하기</label></dd>
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="radio-psg801" name="psg-group3">
+                                            <dl>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd><label for="radio-psg801">Bae, Sungjune</label></dd>
+                                                <dt class="selected-meal">라운지 이용권 가격</dt>
+                                                <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="radio-psg802" name="psg-group3">
+                                            <dl>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd><label for="radio-psg802">Son, Seungwan</label></dd>
+                                                <dt class="selected-meal">라운지 이용권 가격</dt>
+                                                <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="radio-psg803" name="psg-group3">
+                                            <dl>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd><label for="radio-psg803">Kim, Taehyeong</label></dd>
+                                                <dt class="selected-meal">라운지 이용권 가격</dt>
+                                                <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            </dl>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 기내식 선택 -->
+                            <div class="lounge-plan">
+                                <!-- 분기 : 기내식 서비스를 제공할 수 있을 때 -->
+                                <div class="scroll-wrap" data-scrollbar="true">
+                                    <div class="lounge-info">
+                                        <div class="function-wrap">
+                                            <h6 class="info-title">제주항공 JJ 라운지란?</h6>
+                                            <div class="btn-wrap">
+                                                <a class="btn_lounge-location" data-popup="#">라운지 위치 보기</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- 라운지 슬라이드 갤러리 -->
+                                        <div class="slide-wrap">
+                                            <h6 class="sr-only">라운지 소개</h6>
+                                            <div id="lounge-slide" class="swiper-container">
+                                                <ul class="swiper-wrapper">
+                                                    <li class="swiper-slide">
+                                                        <div class="text-wrap">
+                                                            <h6 class="slide-title">
+                                                                라운지 가성비 성지 [JJ라운지]
+                                                            </h6>
+                                                            <p class="slide-description">
+                                                                탑승동 셔틀트레인 1분 거리,<br>
+                                                                세상에 없던 놀라운 게스트룸 JJ라운지
+                                                            </p>
+                                                        </div>
+                                                        <img src="../resource/img/anc/img_lounge_7c01.jpg" alt="라운지 입구 전경">
+                                                    </li>
+                                                    <li class="swiper-slide">
+                                                        <div class="text-wrap">
+                                                            <h6 class="slide-title">
+                                                                맛있는 음식 천국 [푸드존]
+                                                            </h6>
+                                                            <p class="slide-description">
+                                                                제주 식재료를 이용한 시그니처 메뉴부터<br>
+                                                                비빔밥, 샐러드, 라면에 음료까지 무제한
+                                                            </p>
+                                                        </div>
+                                                        <img src="../resource/img/anc/img_lounge_7c02.jpg" alt="JJ 라운지 내 뷔페">
+                                                    </li>
+                                                    <li class="swiper-slide">
+                                                        <div class="text-wrap">
+                                                            <h6 class="slide-title">
+                                                                편안한 휴식 공간 [리빙룸]
+                                                            </h6>
+                                                            <p class="slide-description">
+                                                                공항이 주는 스트레스를 벗어나<br>
+                                                                안락하고 넓은 공간에서 릴렉스 타임
+                                                            </p>
+                                                        </div>
+                                                        <img src="../resource/img/anc/img_lounge_7c03.jpg" alt="JJ 라운지 휴게공간1">
+                                                    </li>
+                                                    <li class="swiper-slide">
+                                                        <div class="text-wrap">
+                                                            <h6 class="slide-title">
+                                                                편안한 휴식 공간 [리빙룸]
+                                                            </h6>
+                                                            <p class="slide-description">
+                                                                무료 Wi-Fi는 물론 어떤 기기도 충전할 수 있는<br>
+                                                                멀티 어댑터로 걱정 끝
+                                                            </p>
+                                                        </div>
+                                                        <img src="../resource/img/anc/img_lounge_7c04.jpg" alt="JJ 라운지 휴게공간2">
+                                                    </li>
+                                                    <li class="swiper-slide">
+                                                        <div class="text-wrap">
+                                                            <h6 class="slide-title">
+                                                                가족 전용 공간 [패밀리 부스]
+                                                            </h6>
+                                                            <p class="slide-description">
+                                                                우리 가족끼리만 도란도란<br>
+                                                                프라이빗한 공간에서 즐기는 여유
+                                                            </p>
+                                                        </div>
+                                                        <img src="../resource/img/anc/img_lounge_7c05.jpg" alt="JJ 라운지 패밀리 부스">
+                                                    </li>
+                                                    <li class="swiper-slide">
+                                                        <div class="text-wrap">
+                                                            <h6 class="slide-title">
+                                                                블링블링 셀카 맛집 [파우더룸]
+                                                            </h6>
+                                                            <p class="slide-description">
+                                                                여행 전 인생샷을 위한<br>
+                                                                마지막 체크!
+                                                            </p>
+                                                        </div>
+                                                        <img src="../resource/img/anc/img_lounge_7c06.jpg" alt="JJ 라운지 파우더룸">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="slide-controller">
+                                                <a href="#none" class="slide-prev">이전</a>
+                                                <a href="#none" class="slide-next">다음</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- 라운지 이용권 소개글 -->
+                                        <div class="info-wrap">
+                                            <p>
+                                                여행고수들이 찾는 인천공항 JJ라운지!<br>
+                                                <strong class="text-emphasis">주방장특식 + 빵/샐러드 + 디저트 + 커피/음료 + 무제한 맥주</strong>를<br>
+                                                JJ라운지 오픈 기념가 <span class="digits">16900</span>으로 즐겨보세요.<!-- 실시간 성인 고객 구매 가격으로 표기 -->
+                                            </p>
+                                            <ul>
+                                                <li>구매채널 : 온라인 사전구매만(현장구매 불가)</li>
+                                                <li>이용가능일 : 2020년 3월 20일(탑승일)</li><!-- 고객의 실제 탑승일로 표기 -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 분기 : 제주항공 / 기내식 서비스를 제공할 수 없을 때(출발시간 임박) -->
+                                <!--<div class="no-item">
+                                    <div class="ico-wrap">
+                                        <i class="ico_alert--primary">!</i>
+                                    </div>
+                                    <h3 class="alert-title">
+                                        항공기 출발 시간이 임박하여<br>
+                                        라운지 이용권을 구매할 수 없습니다.
+                                    </h3>
+                                    <div class="alert-text">
+                                        라운지 이용권은 <i class="text-emphasis">항공기 출발 1일 전 23시 50분까지만</i> 구매 가능합니다.<br>
+                                        <span class="text-subscript">(예: 5월 5일 출발인 경우 5월 4일 23시 50분까지 구매 가능)</span>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+
             <!-- 요금규정 및 약관동의 -->
             <div class="agreement-wrap">
                 <h5 class="agreement-title">요금규정 및 약관동의</h5>
@@ -3362,6 +3601,16 @@
 
     /*문서 구조가 모두 로드된 이후에*/
     $win.on("load", function(){
+        /* 라운지 슬라이드 갤러리 기능 정의 */
+        var swiper = new Swiper('#lounge-slide', {
+            navigation: {
+                nextEl: '.slide-next',
+                prevEl: '.slide-prev',
+            },
+            pagination: false,
+            loop: true
+        });
+
         /*로드 시 좌석 선택 & 기내식 선택 영역의 가는편/오는편 탭 컨텐츠에서 첫번째 승객을 선택한 상태로 만듭니다..*/
         (function(){
             $(".anc-service-wrap.anc_seat .tab-panel, .anc-service-wrap.anc_meal .tab-panel").each(function(){

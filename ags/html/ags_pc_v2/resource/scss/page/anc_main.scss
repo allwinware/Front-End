@@ -75,7 +75,8 @@
       }
     }
     &.anc_seat .anc-service,
-    &.anc_meal .anc-service {
+    &.anc_meal .anc-service,
+    &.anc_lounge .anc-service {
       padding-right: rem($right-tp-size);
       .tab-panels { height: 100%; }
       .passenger-list {
@@ -84,7 +85,8 @@
         .mCSB_container { padding: 0 rem($grid * 4) rem($grid * 4); }
       }
       .seat-plan,
-      .meal-plan {
+      .meal-plan,
+      .lounge-plan {
         position: absolute; top: 0; right: 0; bottom: 0;
         width: rem($right-tp-size);
         border-left: 1px solid $mono8;
@@ -92,7 +94,8 @@
       }
       @at-root .no-flexbox & {
         .seat-plan,
-        .meal-plan {
+        .meal-plan,
+        .lounge-plan {
           @include clearfix;
           & > * { float: left; width: 100%; };
         }
@@ -120,7 +123,8 @@
       padding: em(20, $font-size) 0;
       text-align: center;
     }
-    input[type='radio'] { @include sr-only; }
+    input[type='radio'],
+    input[type='checkbox'] { @include sr-only; }
     dt { @include sr-only }
     dd {
       transition-duration: $trs-duration;
@@ -151,7 +155,8 @@
     }
     .selected-seat + dd,
     .selected-baggage + dd,
-    .selected-meal + dd {
+    .selected-meal + dd,
+    .selected-lounge + dd {
       @include font($size: 10, $color: $text-primary, $weight: 600);
       padding-top: rem($grid);
       line-height: rem(12);
@@ -161,10 +166,12 @@
         content: "선택하세요";
       }
     }
-    input[type='radio']:checked ~ dl {
+    input[type='radio']:checked ~ dl,
+    input[type='checkbox']:checked ~ dl {
       .selected-seat + dd,
       .selected-baggage + dd,
-      .selected-meal + dd { color: $text-primary; }
+      .selected-meal + dd,
+      .selected-lounge + dd { color: $text-primary; }
       dd, dd:before { transition: all $trs-duration; transition-delay: $trs-delay; }
       dd, dd:empty:before { color: $mono1 }
       .ico_baby { color: $mono1; }
