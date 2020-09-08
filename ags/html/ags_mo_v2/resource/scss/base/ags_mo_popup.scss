@@ -128,7 +128,7 @@
 
 /* data-type='message' */
 [data-type='message'] {
-  $pop-header-area: 82;
+  $pop-header-area: 53;
   $pop-footer-area: 150;
   overflow: hidden;
   transition: 0.75s all; transition-delay: 0.25s;
@@ -146,8 +146,8 @@
   .pop-header {
     z-index: 1;
     position: absolute; left: 0; top: 0; right: 0;
-    padding: rem(50) rem($grid * 2) rem($grid * 2); height: rem($pop-header-area);
-    background-color: $mono10;
+    padding: 0 rem($grid * 2) rem($grid * 2); height: rem($pop-header-area);
+    background-color: $mono10; border-bottom: 1px solid $mono8
   }
   .pop-title {
     $font-size: 16;
@@ -156,26 +156,27 @@
     @include text-ellipsis();
     overflow: auto;
     position: relative;
-    padding: 0 rem((24 + $grid * 2)) 0 0; width: 100%;
-    line-height: em(16, $font-size); text-align: left;
+    padding: rem(18) rem($grid * 3); width: 100%; height: rem($pop-header-area);
+    line-height: em(16, $font-size); text-align: center;
   }
   .btn_close {
     z-index: 1;
-    @include background($file: 'popup/ico_pop-close', $type: 'png', $width: 20px, $height: 20px);
+    @include background($file:'../img/common/ico_header-close', $type: png, $width: 14px, $height: 14px);
     overflow: hidden;
-    position: absolute; right: rem(16); top: rem(16);
+    position: absolute; left: rem($grid * 2); top: rem($grid * 2);
     width: rem(24); height: rem(24);
     background-position: 50% 50%; background-color: transparent;
     text-indent: -999em;
   }
   .pop-container {
+    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: 0);
     transition: none;
     z-index: 0;
-    @include font($size: 13, $color: $mono1, $weight: 400, $spacing: 0);
     overflow: auto;
-    margin: rem(-$pop-header-area) 0 rem(-$pop-footer-area); padding: rem($pop-header-area) rem($grid * 2) rem($pop-footer-area); width: 100%; max-height: inherit;
+    margin: rem(-$pop-header-area) 0 rem(-$pop-footer-area); padding: rem($pop-header-area + 24) rem($grid * 2) rem($pop-footer-area); width: 100%; max-height: inherit;
     .message-text > *:last-child { padding-bottom: 0; }
     .message-text.mg-b--min { margin-bottom: rem(-50) }
+    &:last-child { padding-bottom: rem(74); }
   }
   .pop-footer {
     z-index: 1;

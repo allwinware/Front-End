@@ -1,48 +1,31 @@
 /*부가서비스 구매 > 라운지*/
 [data-page-id='buy__lounge']{
+  $font-size: 11;
   overflow: hidden;
   width: 100%;
   .info-wrap {
-    @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
-    padding: rem(30) rem($grid * 2) rem($grid * 2);
-    line-height: rem(16);
-    ul {
-      padding-top: rem(12);
-      font-size: rem(11);
-      li {
-        position: relative;
-        &:before {
-          content: "";
-          display: inline-block;
-          margin-right: rem($grid / 2); width: rem(2); height: rem(2);
-          background-color: $mono6; border-radius: 50%;
-          vertical-align: middle;
-        }
-      }
-    }
+    @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: -0.03);
+    @include price-unit(krw);
+    line-height: em(16, $font-size);
   }
   .slide-wrap {
+    position: relative;
     &, .swiper-container, .swiper-container li {
       z-index: 0;
       position: relative;
     }
     .swiper-container img { width: 100%; height: auto; vertical-align: middle; }
-    .swiper-container li:after {
-      z-index: 0;
-      content: "";
-      display: block;
-      position: absolute; left: 0; bottom: 0; right: 0;
-      height: 80px;
-      background-color: rgba(0,0,0,0.4);
+    .text-wrap {
+      position: absolute; left: 0; bottom: 0; right: 0; width: 100%; height: rem(90); background-color: rgba(0,0,0,0.5); z-index: 0
     }
-    .slide-title {
-      z-index: 1;
-      overflow: hidden;
-      position: absolute; bottom: 16px; left: 20px;
-      font-size: 18px; font-weight: 600; color: #fff;
-      line-height: 22px;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5)
+    .slide-title,
+    .slide-description {
+      position: absolute; left: rem($grid * 3);
+      color: $mono10; text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+      z-index: 1
     }
+    .slide-title { top: rem(14); font-size: rem(16); font-weight: 800 }
+    .slide-description { $font-size: 12; top: rem(43); font-size: rem($font-size); line-height: em(16, $font-size) }
     .slide-controller {
       z-index: 5;
       -webkit-transform: translate(0, -50%); -ms-transform: translate(0, -50%); transform: translate(0, -50%);
@@ -82,45 +65,24 @@
       position: absolute; right: 10px; bottom: 29px;
       font-size: 12px; color: #fff;
     }
-    .lounge-food {
-      position: absolute; right: 7px; top: 16px;
+    .swiper-pagination {
+      @include font($family: en, $size: 12, $color: $mono10, $weight: 500, $spacing: 0.1em);
+      position: absolute; right: rem($grid * 2); bottom: rem($grid * 2); top: initial; left: initial;
+      width: auto;
     }
-    .lounge-food ul:after { content: ""; display: table; clear: both; }
-    .lounge-food li {
-      overflow: visible;
-      position: relative;
+  }
+  .btn-wrap {
+    position: absolute; left: rem($grid * 2); top: rem($grid * 2);
+    z-index: 1;
+    & > [class^='btn_'] {
+      $font-size: 11;
+      @include form($size: 1, $role: discard, $type: button);
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
       float: left;
-      padding-top: 43px; width: 46px; height: 55px;
-      background-repeat: no-repeat;
-      background-position: center top;
-      font-size: 11px; font-weight: 600;
-      text-align: center; color: #fff;
-      word-break: keep-all;
-      background-size: 36px auto;
-    }
-    .lounge-food li:not(:first-child):before {
-      content: "";
-      z-index: 5;
-      position: absolute; left: -4px; top: 16px;
-      display: inline-block;
-      width: 7px; height: 7px;
-      background: url(#{$img-path}/buy/ico_lounge-plus.png) no-repeat;
-      background-size: 7px auto;
-    }
-    .lounge-food li:nth-of-type(1) {
-      background-image: url(#{$img-path}/buy/bg_lounge-food1@2x.png);
-    }
-    .lounge-food li:nth-of-type(2) {
-      background-image: url(#{$img-path}/buy/bg_lounge-food2@2x.png);
-    }
-    .lounge-food li:nth-of-type(3) {
-      background-image: url(#{$img-path}/buy/bg_lounge-food3@2x.png);
-    }
-    .lounge-food li:nth-of-type(4) {
-      background-image: url(#{$img-path}/buy/bg_lounge-food4@2x.png);
-    }
-    .lounge-food li:nth-of-type(5) {
-      background-image: url(#{$img-path}/buy/bg_lounge-food5@2x.png);
+      margin-bottom: 0; padding: 0 rem(7); height: rem(24);
+      line-height: em(24, $font-size);
+      border-radius: 2px; border-color: $mono1;
+      font-size: rem(10);
     }
   }
   .lounge-legend {
@@ -166,7 +128,7 @@
       }
     }
   }
-  .function-wrap { padding-bottom: rem(16); }
+  .function-wrap { -webkit-align-items: flex-end; align-items: flex-end; padding-bottom: rem(16); }
   .table-wrap {
     margin-left: rem(16); padding: 0 0 rem(50);
     border-top: 1px solid $mono1;
@@ -224,7 +186,7 @@
         font-size: rem(11); color: $mono4; font-weight: 500;
       }
     }
-    tbody th:first-child label { font-size: rem(13) !important; font-weight: 600 !important; }
+    tbody th:first-child label { font-family: $font-en-family; font-size: rem(14) !important; font-weight: 500 !important; }
     tbody th + td { font-size: rem(13); }
   }
 }
