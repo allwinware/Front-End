@@ -1,11 +1,11 @@
 /* function */
 @function rem($value) {
   $rem-size: ($value / $font-root-size);
-  @return $rem-size#{rem};
+  @return #{$rem-size}rem;
 }
 @function em($value1, $value2) {
   $em-size: ($value1 / $value2);
-  @return $em-size#{em};
+  @return #{$em-size}em;
 }
 @function grid-mg($value: 1) {
   $mg-size: rem(($value * 5));
@@ -293,18 +293,19 @@
     $font-size: 11;
     @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: 0);
     width: 100%;
-    th, td { vertical-align: middle; line-height: em(12, $font-size); }
+    th, td { vertical-align: middle; line-height: em(18, $font-size); }
+    thead th { height: em(42, $font-size); }
     thead th,
     tbody th[scope='colgroup'],
     tbody th:first-child:last-child {
-      padding: em(10, $font-size); min-height: em(32, $font-size);
+      padding: em(12, $font-size); height: em(42, $font-size);
       font-weight: 600; text-align: center; color: $mono10;
-      background-color: $mono1;
+      background-color: $bg-secondary;
       & + th { border-left: 1px solid $mono10 }
     }
     tbody th,
     tbody td {
-      padding: em(16, $font-size) em(10, $font-size);
+      padding: em(12, $font-size) em(10, $font-size);
       background-color: $mono10;
       border-bottom: 1px solid #ddd;
       & + * { border-left: 1px solid #ddd; }

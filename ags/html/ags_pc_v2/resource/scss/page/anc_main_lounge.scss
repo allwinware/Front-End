@@ -13,6 +13,43 @@
     .scroll-wrap {
       height: calc(60vh - 93px - 142px) !important;
     }
+    ul { padding-top: rem(20); }
+    input[type='checkbox'] + dl label,
+    input[type='radio'] + dl label {
+      $check-size: 16;
+      &.select-all {
+        @include font($size: 15, $color: $mono1, $weight: 800);
+      }
+      &:not(.select-all) {
+        @include font($family: en, $size: 16, $color: $mono1, $weight: 600);
+      }
+      height: ($check-size + 2)#{px};
+      .ico {
+        transition: all $trs-duration;
+        /*transition-delay: $trs-delay;*/
+        position: relative;
+        display: inline-block;
+        margin-right: ($check-size / 2)#{px}; width: $check-size#{px}; height: $check-size#{px};
+        line-height: $check-size#{px};
+        vertical-align: top;
+        border-radius: 50%; border: 1px solid $mono7; background-color: $mono10;
+        &:before {
+          content: "";
+          transition: border-color $trs-duration;
+          transition-delay: $trs-delay;
+          position: absolute; left: ($check-size / 4 - 1)#{px}; top: ($check-size / 4 - 0.5)#{px};
+          width: ($check-size / 2)#{px}; height: ($check-size / 4)#{px};
+          border: solid $mono7; border-width: 0 0 1px 1px;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+    input[type='checkbox']:checked + dl label .ico,
+    input[type='radio']:checked + dl label .ico {
+      border: 1px solid $border-primary; background-color: $bg-primary;
+      &:before { border-color: $mono10 }
+    }
+    .selected-lounge + dd { padding-left: rem(24); }
   }
   .approach-comment {
     @include font($size: 11, $color: $text-primary, $weight: 400, $spacing: 0);
@@ -40,7 +77,7 @@
     }
   }
   .lounge-info {
-    .function-wrap { position: relative; }
+    .function-wrap { position: relative; justify-content: flex-start; }
     .info-title {
       $font-size: 14;
       @include font($size: $font-size, $color: $mono1, $weight: 800);
@@ -56,12 +93,22 @@
         @include form($size: 1, $role: normal, $type: button);
         @include font($size: $font-size, $color: $mono1, $weight: 600);
         float: left;
+        margin-bottom: 0;
         line-height: em(24, $font-size)
       }
     }
+    .info-wrap {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono1, $weight: 400);
+      padding: rem($grid * 3) rem($grid * 4) 0;
+      line-height: em(20, $font-size);
+      p { padding-bottom: rem($grid * 2) }
+      .text-emphasis { text-decoration: underline; }
+      li { color: $text-primary }
+    }
   }
   .slide-wrap {
-    padding: 0 rem($grid *4);
+    padding: rem($grid * 2) rem($grid * 4) 0;
     img { width: 100%; height: auto; vertical-align: top; }
   }
   .swiper-slide {
@@ -71,7 +118,11 @@
     }
   }
   .slide-title,
-  .slide-description { position: absolute; left: rem($grid * 3); color: $mono10; z-index: 1 }
+  .slide-description {
+    position: absolute; left: rem($grid * 3);
+    color: $mono10; text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    z-index: 1
+  }
   .slide-title { top: rem(14); font-size: rem(16); font-weight: 800 }
   .slide-description { $font-size: 12; top: rem(43); font-size: rem($font-size); line-height: em(16, $font-size) }
   .slide-controller {
