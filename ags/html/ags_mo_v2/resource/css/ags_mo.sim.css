@@ -3107,6 +3107,7 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   content: "(전좌석) 선택하세요";
 }
 
+/*부가서비스 구매 공통*/
 /*부가서비스 구매 > 좌석지정*/
 [data-page-id='buy__seat'] {
   overflow: hidden;
@@ -3243,7 +3244,7 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   padding-top: 0.57143rem;
 }
 
-.ui-fixed [data-page-id='buy__seat'] .tab-panel.active .seat-legend {
+.ui-fixed [data-page-id*='buy__seat'] .tab-panel.active .seat-legend {
   z-index: 10;
   position: fixed;
   top: 7.64286rem;
@@ -3556,12 +3557,63 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
 }
 
 /* 부가서비스 신청 > 사전 좌석 선택 */
+.ui-fixed [data-page-id^='buy__'] .tab-panel.active > .passenger-wrap {
+  z-index: 10;
+  position: fixed;
+  background-color: #ffffff;
+}
+
+.ui-fixed [data-page-id^='buy__'] .tab-panel.active > .passenger-wrap ul {
+  padding-top: 0;
+}
+
+.ui-fixed [data-page-id^='buy__'] .tab-panel.active > .passenger-wrap .seat-legend {
+  position: fixed;
+  top: 7.64286rem;
+}
+
 [data-page-id='buy__seat_sim'] .seat-plan {
   padding-top: 13.78571rem;
+  /*@at-root .ui-fixed [data-page-id='buy__seat_sim'] {
+      .seat-legend { position: fixed; top: rem($buy__psg-wrap-height); }
+    }*/
+}
+
+[data-page-id='buy__seat_sim'] .seat-plan .seat-legend {
+  background-color: #ffffff;
 }
 
 .seat-plan.seat-7c {
   /*제주항공*/
+}
+
+.seat-plan.seat-7c .seat-legend li[class^='seat-type'],
+.seat-plan.seat-7c .seat-num a[class^='seat-type'] {
+  position: relative;
+}
+
+.seat-plan.seat-7c .seat-legend li[class^='seat-type']:after,
+.seat-plan.seat-7c .seat-num a[class^='seat-type']:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  border-radius: 1px;
+  background-color: transparent;
+  opacity: 0.5;
+}
+
+.seat-plan.seat-7c .seat-legend li[class^='seat-type']:after {
+  left: 1.42857rem;
+  top: 1.78571rem;
+  width: 0.42857rem;
+  height: 2px;
+}
+
+.seat-plan.seat-7c .seat-num a[class^='seat-type']:after {
+  left: 0.21429rem;
+  right: 0.21429rem;
+  bottom: 0.21429rem;
+  height: 3px;
 }
 
 .seat-plan.seat-7c .seat-legend li.seat-type1:before {
@@ -3627,13 +3679,13 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   border-color: #AAC8E4;
 }
 
+.seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type4:after {
+  background-color: #AAC8E4;
+}
+
 .seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type4.active {
   background-color: #AAC8E4;
   box-shadow: 0 4px 8px rgba(170, 200, 228, 0.5);
-}
-
-.seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type4:after {
-  background-color: #AAC8E4;
 }
 
 .seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type5 {
@@ -3649,13 +3701,13 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   border-color: #8BC4AA;
 }
 
+.seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type6:after {
+  background-color: #8BC4AA;
+}
+
 .seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type6.active {
   background-color: #8BC4AA;
   box-shadow: 0 4px 8px rgba(139, 196, 170, 0.5);
-}
-
-.seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type6:after {
-  background-color: #8BC4AA;
 }
 
 .seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type4:after, .seat-plan.seat-7c .seat-sheet .seat-num a[class^='seat-'].seat-type6:after {

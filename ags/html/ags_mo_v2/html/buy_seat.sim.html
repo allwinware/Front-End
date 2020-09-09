@@ -8,6 +8,9 @@
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
+        var $win = $(window),
+            $doc = $(document),
+            $body = $("body");
         $(document).ready(function(){
             var $win = $(window),
                 $doc = $(document),
@@ -117,30 +120,30 @@
                 moveTabByClick("#tab-panel2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel1']", 0, 800);
             })();
 
-            /*좌석 범례 클릭 기능 정의*/
-            (function(legendClickHandler) {
-                $doc.on("click", ".tab-panel.active .seat-legend li a", function () {
-                    var $this = $(this)/*클릭된 범례 아이템*/,
-                        $target = $(".tab-panel.active .seat-num a[class='" + $this.attr("data-scrollTo") + "']:first-of-type")/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템*/,
-                        position = $target.offset().top - parseInt($(".tab-panel.active").css("padding-top")) - 7/*클릭된 범례 아이템과 일치하는 좌석 중 첫번째의 화면 위치*/;
+        });
 
-                    /*활성화된 범례 아이템과 일치하는 좌석 중 첫번째가 위치한 곳으로 화면을 이동합니다*/
-                    $("html").animate({scrollTop: position}, 800);
-                });
-            })();
+        $win.on("load", function(){
+            var $win = $(window),
+                $doc = $(document),
+                $body = $("body");
 
             /*좌석 범례 스크롤 기능 정의*/
             (function(legendScrollHandler){
                 var $html = $("html"),
-                    $seats = $(".seat-num"),
-                    tabPanelPdTop = parseInt($(".tab-panel.active .seat-plan").css("padding-top")) + 8,
-                    seatType2Pos = $seats.find(".seat-type2:first-of-type").offset().top - $(".passenger-wrap").height(),
-                    seatType3Pos = $seats.find(".seat-type3:first-of-type").offset().top - $(".passenger-wrap").height(),
-                    seatType4Pos = $seats.find(".seat-type4:first-of-type").offset().top - $(".passenger-wrap").height();
-                var $target1 = $(".seat-legend li.seat-type1"),
-                    $target2 = $(".seat-legend li.seat-type2"),
-                    $target3 = $(".seat-legend li.seat-type3"),
-                    $target4 = $(".seat-legend li.seat-type4");
+                    $tab = $(".tab-panel.active"),
+                    $seats = $tab.find(".seat-num"),
+                    tabPanelPdTop = $tab.find(".passenger-wrap").height() + $tab.find(".seat-legend").height() + 8,
+                    seatType2Pos = $seats.find(".seat-type2:first-of-type").offset().top - tabPanelPdTop,
+                    seatType3Pos = $seats.find(".seat-type3:first-of-type").offset().top - tabPanelPdTop,
+                    seatType4Pos = $seats.find(".seat-type4:first-of-type").offset().top - tabPanelPdTop,
+                    seatType5Pos = $seats.find(".seat-type5:first-of-type").offset().top - tabPanelPdTop,
+                    seatType6Pos = $seats.find(".seat-type6:first-of-type").offset().top - tabPanelPdTop;
+                var $target1 = $tab.find(".seat-legend").find("li.seat-type1"),
+                    $target2 = $tab.find(".seat-legend").find("li.seat-type2"),
+                    $target3 = $tab.find(".seat-legend").find("li.seat-type3"),
+                    $target4 = $tab.find(".seat-legend").find("li.seat-type4"),
+                    $target5 = $tab.find(".seat-legend").find("li.seat-type5"),
+                    $target6 = $tab.find(".seat-legend").find("li.seat-type6");
                 $win.on("scroll", function(){
                     if(seatType2Pos >= $html.scrollTop()){
                         /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
@@ -157,15 +160,37 @@
                         $target3.addClass("active").siblings().removeClass("active");
                         /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
                         activeLinkScrollLeft($target3, ".tab-panel.active .seat-legend", 10)
-                    } else if($html.scrollTop() >= seatType4Pos){
+                    } else if($html.scrollTop() >= seatType4Pos && seatType5Pos > $html.scrollTop()){
                         /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
                         $target4.addClass("active").siblings().removeClass("active");
                         /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
                         activeLinkScrollLeft($target4, ".tab-panel.active .seat-legend", 10)
+                    } else if($html.scrollTop() >= seatType5Pos && seatType6Pos > $html.scrollTop()){
+                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
+                        $target4.addClass("active").siblings().removeClass("active");
+                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
+                        activeLinkScrollLeft($target5, ".tab-panel.active .seat-legend", 10)
+                    } else if($html.scrollTop() >= seatType6Pos){
+                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
+                        $target4.addClass("active").siblings().removeClass("active");
+                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
+                        activeLinkScrollLeft($target6, ".tab-panel.active .seat-legend", 10)
                     }
                 });
             })();
-        });
+
+            /*좌석 범례 클릭 기능 정의*/
+            (function(legendClickHandler) {
+                $body.on("click", ".seat-legend a", function () {
+                    var $this = $(this)/*클릭된 범례 아이템*/,
+                        $target = $(".tab-panel.active .seat-num a[class='" + $this.attr("data-scrollTo") + "']:first-of-type")/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템*/,
+                        position = $target.offset().top - $(".tab-panel.active .passenger-wrap").height() - $(".tab-panel.active .seat-legend").height() - 7/*클릭된 범례 아이템과 일치하는 좌석 중 첫번째의 화면 위치*/;
+
+                    /*활성화된 범례 아이템과 일치하는 좌석 중 첫번째가 위치한 곳으로 화면을 이동합니다*/
+                    $("html").animate({scrollTop: position}, 800);
+                });
+            })();
+        })
     </script>
 </head>
 <body>
