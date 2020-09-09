@@ -15,67 +15,67 @@
 @import "page/dfs_popup";
 @import "page/my_popup";
 
+$path-content-width: 1200;
+.content-wrap { @include content-wrap; @include clearfix; width: rem($path-content-width + $grid * 4) !important; }
 .ags-wrap {
   overflow: auto !important;
   position: relative;
   .fit-layout & { min-height: inherit; }
 }
-[data-page-id='path']{
-  $path-content-width: 1200;
-  .content-wrap { @include content-wrap; width: rem($path-content-width + $grid * 4); }
-  .site-name { @include sr-only }
-  .ags-header {
-    overflow: hidden;
-    position: relative;
-    height: rem(80);
-    border-bottom: 1px solid $mono8;
-    .symbol-wrap {
+.site-name { @include sr-only }
+.ags-header {
+  overflow: hidden;
+  position: relative;
+  height: rem(80);
+  border-bottom: 1px solid $mono8;
+  .content-wrap { height: 100%; }
+  .symbol-wrap {
+    float: left;
+    height: 100%;
+    dl { float: left; }
+    dt { @include sr-only }
+    dd { display: inline-block; }
+    .symbol_agency + dd {
+      height: rem($gnb-height);
+    }
+    .symbol_airline ~ .symbol_agency + dd {
+      padding-left: rem(58);
+      @include background($file: 'common/header-logo_by', $type: jpg, $width: rem(18), $height: rem($gnb-height));
+      background-position: rem(20);
+    }
+    .ico_tag {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
       float: left;
-      height: 100%;
-      dl { float: left; }
-      dt { @include sr-only }
-      dd { display: inline-block; }
-      .symbol_agency + dd {
-        height: rem($gnb-height);
-      }
-      .symbol_airline ~ .symbol_agency + dd {
-        padding-left: rem(58);
-        @include background($file: 'common/header-logo_by', $type: jpg, $width: rem(18), $height: rem($gnb-height));
-        background-position: rem(20);
-      }
-      .ico_tag {
-        $font-size: 12;
-        @include font($size: $font-size, $color: $mono1, $weight: 600);
-        float: left;
-        margin: rem(28) 0 0 rem($grid * 2); padding: 0 em(12, $font-size); height: em(24, $font-size);
-        line-height: em(24, $font-size);
-        background-color: $bg_submit;
-      }
-    }
-    .gnb-wrap {
-      @include clearfix;
-      float: right;
-      height: 100%;
-    }
-    .gnb {
-      margin: 0 rem(-12);
-      li {
-        float: left;
-        padding: rem(25) rem($grid) 0;
-        &:last-of-type { float: right; }
-        a {
-          @include font($size: $font-root-size, $color: $mono1, $weight: 600);
-          overflow: hidden;
-          display: inline-block;
-          padding: rem($grid) rem($grid / 2);
-          vertical-align: middle; text-decoration: none;
-        }
-        &.active a { color: $text-primary }
-      }
+      margin: rem(28) 0 0 rem($grid * 2); padding: 0 em(12, $font-size); height: em(24, $font-size);
+      line-height: em(24, $font-size);
+      background-color: $bg_submit;
     }
   }
+  .gnb-wrap {
+    float: right;
+    height: 100%;
+  }
+  .gnb {
+    margin: 0 rem(-12);
+    li {
+      float: left;
+      padding: rem(25) rem($grid) 0;
+      &:last-of-type { float: right; }
+      a {
+        @include font($size: $font-root-size, $color: $mono1, $weight: 600);
+        overflow: hidden;
+        display: inline-block;
+        padding: rem($grid) rem($grid / 2);
+        vertical-align: middle; text-decoration: none;
+      }
+      &.active a { color: $text-primary }
+    }
+  }
+}
+[data-page-id='path']{
   .lnb-wrap {
-    position: absolute; left: 0; top: 0; right: 0;
+    position: absolute; left: 0; top: rem($gnb-height); right: 0;
     width: 100%; height: rem(61);
     border-bottom: 1px solid $mono8;
     background-color: #F8F8F8;
@@ -96,7 +96,7 @@
       &.active a { color: $mono1; }
     }
     &.ui-fixed, &.ui-fixed---bottom {
-      position: fixed;
+      position: fixed; top: 0;
       li a { color: $mono4; }
       li.active a { color: $mono1; }
     }
