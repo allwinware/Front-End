@@ -1,4 +1,63 @@
-/* 부가서비스 신청 > 사전 좌석 선택 */
+/* (동시구매)부가서비스 신청 > 승객별 수하물 / 기내식 / JJ라운지 선택 */
 [data-page-id='buy__anc-etc_sim'] {
-
+  .anc-etc-plan {
+    padding: rem($grid * 5) 0 0 rem($grid * 2);
+    .passenger-name {
+      @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+      @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
+      @include text-uppercase;
+      position: relative;
+      margin: rem(40) 0 rem(12); padding-left: rem(20);
+      &:first-of-type { margin-top: 0; }
+      &:after {
+        @include tagging-route;
+        position: absolute; right: rem($grid * 2); top: rem(-2);
+      }
+      @at-root [data-page-id='buy__anc-etc_sim'] .tab-panels .tab-panel:first-of-type .anc-etc-plan .passenger-name:after {
+        content: "가는 편";
+      }
+      @at-root [data-page-id='buy__anc-etc_sim'] .tab-panels .tab-panel:nth-of-type(2) .anc-etc-plan .passenger-name:after {
+        content: "오는 편";
+      }
+      @include bundle-flag($ico-class: "[class*='ico_bundle-type']");
+      @include bundle-flag-type($airline: tw, $type: 1, $ico-class: '.ico_bundle-type1');
+      @include bundle-flag-type($airline: tw, $type: 2, $ico-class: '.ico_bundle-type2');
+      @include bundle-flag-type($airline: tw, $type: 3, $ico-class: '.ico_bundle-type3');
+      [class*='ico_bundle-type']{
+        margin: rem(-2) 0 0 rem(4); vertical-align: top;
+      }
+    }
+    .plan-list {
+      padding: rem($grid) 0 0 0;
+      border-top: 1px solid $mono1;
+      .list-item {
+        position: relative;
+        margin: rem($grid) rem($grid * 2) 0 0; padding: 0 0 0 rem(110); height: rem($grid * 6);
+        border: 1px solid $mono8
+      }
+      label {
+        @include valign-center();
+        @include text-ellipsis();
+        @include font($size: 13, $color: $mono1, $weight: 800);
+        left: rem(10);
+        max-width: rem(100);
+      }
+      .select-wrap { display: block; padding: rem($grid / 2) rem($grid) rem($grid / 2) 0; width: 100%; height: 100%; }
+      select {
+        @include form($size: 3, $role: normal, $type: select);
+        @include background($file: 'common/ico_select-arrow--primary', $type: png, $width: 9px, $height: auto);
+        margin-bottom: 0; padding-right: rem(20); width: 100%;
+        border-width: 0;
+        text-align-last: right; font-weight: 400; color: $mono4;
+        option { direction: rtl; }
+        .price {
+          @include price-unit(krw);
+          &:before { content: "(" }
+          &:after { content: ")" }
+        }
+        &.active { color: $text-primary; }
+      }
+    }
+  }
+  .process-btn-wrap { padding-top: rem(50); }
 }

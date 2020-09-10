@@ -21,7 +21,43 @@
   @include font($size: 11, $color: $mono4, $weight: 800, $spacing: 0);
   position: absolute; top: rem(20); right: rem($grid * 3);
 }
-
 [data-page-id^='buy__'] .tabs_route {
   padding-top: rem($grid * 5)
+}
+.notification-wrap {
+
+  .btn_content-fold {
+    @include btn-more--minified;
+    $font-size: 12;
+    @include font($size: $font-size, $color: $mono1, $weight: 300, $spacing: 0);
+    position: relative;
+    display: inline-block;
+    margin: rem(6) 0 rem(10); padding-left: rem(10);
+    line-height: em(16, $font-size); text-decoration: none;
+    i { color: #66B1FF; font-weight: 600; text-decoration: underline }
+    .ico {
+      -webkit-transform: rotate(-45deg) translate(4px, 0);
+      -ms-transform: rotate(-45deg) translate(4px, 0);
+      -o-transform: rotate(-45deg) translate(4px, 0);
+      transform: rotate(-45deg) translate(4px, 0);
+      margin-left: rem($grid);
+    }
+    &:before {
+      content: "";
+      @include valign-center; left: 0;
+      width: 2px; height: 2px;
+      border-radius: 50%; background-color: $mono1
+    }
+  }
+  .notification-list {
+
+    table {
+      $font-size: 11;
+      border-top: 1px solid $mono1;
+      @include table($style: type2, $font-size: $font-size, $mg-size: normal);
+      th, td { padding-left: 0 !important; border-left-width: 0 !important; line-height: em(16, $font-size) }
+      th { width: rem(120); font-weight: 800; text-align: left; }
+      td {  }
+    }
+  }
 }
