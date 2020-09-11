@@ -32,7 +32,12 @@
                         $(this).removeClass("active");
                     }
                 });
-            })
+            });
+
+            $(".btn_content-fold").on("click", function(){
+                $(this).toggleClass("active");
+                $($(this).attr("data-target")).toggleClass("active");
+            });
         });
     </script>
 </head>
@@ -363,8 +368,8 @@
             <div class="notification-wrap">
                 <!-- 기내식 알러지 유의사항 -->
                 <h4 class="notification-title"><i class="ico"></i>기내식 알러지 유의사항</h4>
-                <a href="#none" target="_self" class="btn_content-fold" data-target="#content-alergy">기내식마다 <i>알러지 유의사항</i>을 확인하세요.<i class="ico"></i></a>
-                <div id="content-alergy" class="notification-list">
+                <a href="#none" target="_self" class="btn_content-fold" data-target="#content-allergy">기내식마다 <i>알러지 유의사항</i>을 확인하세요.<i class="ico"></i></a>
+                <div id="content-allergy" class="notification-list content-fold-target">
                     <table>
                         <colgroup>
                             <col>
@@ -395,19 +400,34 @@
                     </table>
                 </div>
                 <!-- 티웨이항공용 안내 텍스트 -->
-                <h4 class="notification-title"><i class="ico"></i>꼭 읽어보세요!</h4>
+                <!--<h4 class="notification-title"><i class="ico"></i>꼭 읽어보세요!</h4>
                 <ul class="notification-list">
-                    <li>출발 2일 전까지 사전 좌석 환불 가능합니다. 단, 출발 1일 전부터는 비행편의 취소 시에는 환불되지 않습니다.</li>
-                    <li>항공권 취소 시, 구매하신 사전좌석은 자동 취소 및 환불됩니다. (단, 출발일 1일 전부터 환불 불가)</li>
-                    <li>비상구열 좌석 선택시 탑승수속 과정에서 위 조건에 맞지 않는 경우, 좌석선택이 취소되며 환불 되지 않습니다.</li>
-                </ul>
+                    &lt;!&ndash; 수하물 안내 &ndash;&gt;
+                    <li>출발 2일 전까지 사전수하물 환불 가능합니다. 단, 출발 1일 전부터 취소 시에는 환불되지 않습니다.</li>
+                    <li>위탁수하물 구매는 1인당 1회 가능합니다. (무게 변경을 원하실 경우 출발 2일 전까지 취소 후 재구매 하셔야 합니다.)</li>
+                    <li>항공권 취소 시, 구매하신 수하물은 자동 취소 및 환불되며, 여정 변경시에는 구매하신 수하물을 취소하신 후 다시 구매하셔야 합니다. (단, 출발일 1일 전부터 수하물 취소 및 환불이 불가합니다.)</li>
+                    <li>위탁 수하물 1개 무게는 32Kg을 초과할 수 없으며, 초과시 분리 포장해주셔야 합니다.</li>
+                    &lt;!&ndash; 기내식 안내 &ndash;&gt;
+                    <li>기내식 사전 주문은 출발일 기준 3일 전까지 환불이 가능하며, 출발일 2일 전부터 환불 불가능합니다.</li>
+                    <li>항공권 취소 시, 구매하신 기내식은 자동 취소 및 환불되며 마이페이지에서 재 구매 가능합니다. (단, 출발일 2일 전부터 환불 불가)</li>
+                </ul>-->
                 <!-- 제주항공용 안내 텍스트 -->
                 <h4 class="notification-title"><i class="ico"></i>꼭 읽어보세요!</h4>
                 <ul class="notification-list">
+                    <!-- 수하물 안내 -->
                     <li>출발 24시간 전 까지만 구매 가능합니다.</li>
                     <li>최초 출발 시간 기준 24시간 전부터 환불이 불가합니다.</li>
                     <li>취소시 건당 시스템 사용료 1,000원이 부과됩니다. (취소 가능 기간 이후, 구매 금액 전체 징수)</li>
                     <li>이미 구매한 경우 변경이 불가합니다. 변경을 원할 경우 취소 후 재구매 해주시기 바랍니다.</li>
+                    <!-- 기내식 안내 -->
+                    <li>최소 출발 3일 전까지 구매 가능합니다</li>
+                    <li>최초 출발 2일 전부터 환불이 불가합니다.</li>
+                    <li>취소시 건당 시스템 사용료 1,000원이 부과됩니다. (취소 가능 기간 이후, 구매 금액 전체 징수)</li>
+                    <li>이미 구매한 경우 변경이 불가합니다. 변경을 원할 경우 취소 후 재구매 해주시기 바랍니다.</li>
+                    <!-- 라운지 안내 -->
+                    <li>JJ라운지 이용권은 이용일 전일 23시 50분까지 구매 가능합니다.</li>
+                    <li>이용일 전일 23시 50분 이후로는 환불이 불가합니다.</li>
+                    <li>JJ라운지 이용권은 탑승일에만 이용하실 수 있습니다. </li>
                 </ul>
             </div>
             <!-- //기타 부가서비스 관련 안내문 -->
@@ -442,7 +462,7 @@
         <h5 class="title">가는 편</h5>
         <dl class="flight-num">
             <dt>항공편명</dt>
-            <dd>TW667</dd>
+            <dd>7C4602</dd>
         </dl>
         <div class="table-wrap">
             <h6 class="passenger-name">Kim, Allwin</h6>
@@ -471,7 +491,7 @@
                     <th scope="row">기내식</th>
                     <td><a href="#none" target="_self">구매하기</a></td>
                     <td><span class="digits">0</span></td>
-                    <td></td>
+                    <td><span class="btn_delete disabled">삭제</span></td><!-- 결제 금액이 없을 때는 삭제버튼의 href, target 어트리뷰트 제거 후 span으로 교체(개발 상황에 따라 a 태그 유지해도 무방), .disabled 클래스를 붙입니다. -->
                 </tr>
                 <tr>
                     <th scope="row">라운지</th>
@@ -509,7 +529,7 @@
                     <th scope="row">기내식</th>
                     <td><a href="#none" target="_self">구매하기</a></td>
                     <td><span class="digits">0</span></td>
-                    <td></td>
+                    <td><span class="btn_delete disabled">삭제</span></td><!-- 결제 금액이 없을 때는 삭제버튼의 href, target 어트리뷰트 제거 후 span으로 교체(개발 상황에 따라 a 태그 유지해도 무방), .disabled 클래스를 붙입니다. -->
                 </tr>
                 <tr>
                     <th scope="row">라운지</th>
@@ -547,7 +567,7 @@
                     <th scope="row">기내식</th>
                     <td><a href="#none" target="_self">구매하기</a></td>
                     <td><span class="digits">0</span></td>
-                    <td></td>
+                    <td><span class="btn_delete disabled">삭제</span></td><!-- 결제 금액이 없을 때는 삭제버튼의 href, target 어트리뷰트 제거 후 span으로 교체(개발 상황에 따라 a 태그 유지해도 무방), .disabled 클래스를 붙입니다. -->
                 </tr>
                 <tr>
                     <th scope="row">라운지</th>
@@ -568,7 +588,7 @@
         <h5 class="title">오는 편</h5>
         <dl class="flight-num">
             <dt>항공편명</dt>
-            <dd>TW667</dd>
+            <dd>7C4602</dd>
         </dl>
         <div class="table-wrap">
             <h6 class="passenger-name">Kim, Allwin</h6>
@@ -597,7 +617,7 @@
                     <th scope="row">기내식</th>
                     <td><a href="#none" target="_self">구매하기</a></td>
                     <td><span class="digits">0</span></td>
-                    <td></td>
+                    <td><span class="btn_delete disabled">삭제</span></td><!-- 결제 금액이 없을 때는 삭제버튼의 href, target 어트리뷰트 제거 후 span으로 교체(개발 상황에 따라 a 태그 유지해도 무방), .disabled 클래스를 붙입니다. -->
                 </tr>
                 <tr>
                     <th scope="row">라운지</th>
@@ -635,7 +655,7 @@
                     <th scope="row">기내식</th>
                     <td><a href="#none" target="_self">구매하기</a></td>
                     <td><span class="digits">0</span></td>
-                    <td></td>
+                    <td><span class="btn_delete disabled">삭제</span></td><!-- 결제 금액이 없을 때는 삭제버튼의 href, target 어트리뷰트 제거 후 span으로 교체(개발 상황에 따라 a 태그 유지해도 무방), .disabled 클래스를 붙입니다. -->
                 </tr>
                 <tr>
                     <th scope="row">라운지</th>
@@ -673,7 +693,7 @@
                     <th scope="row">기내식</th>
                     <td><a href="#none" target="_self">구매하기</a></td>
                     <td><span class="digits">0</span></td>
-                    <td></td>
+                    <td><span class="btn_delete disabled">삭제</span></td><!-- 결제 금액이 없을 때는 삭제버튼의 href, target 어트리뷰트 제거 후 span으로 교체(개발 상황에 따라 a 태그 유지해도 무방), .disabled 클래스를 붙입니다. -->
                 </tr>
                 <tr>
                     <th scope="row">라운지</th>
