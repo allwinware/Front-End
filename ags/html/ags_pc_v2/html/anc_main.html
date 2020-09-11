@@ -2402,15 +2402,15 @@
                             <!-- 기내식 선택 -->
                             <div class="meal-plan">
                                 <!-- 분기 : 기내식 서비스를 제공할 수 있을 때 -->
-                                <!--<div class="scroll-wrap" data-scrollbar="true">
+                                <div class="scroll-wrap" data-scrollbar="true">
                                     <div class="function-wrap">
                                         <div class="notification-text">
-                                            &lt;!&ndash; 티웨이항공용 안내문구 &ndash;&gt;
-                                            &lt;!&ndash;<p class="notice-msg">
+                                            <!-- 티웨이항공용 안내문구 -->
+                                            <!--<p class="notice-msg">
                                                 기내식을 선택하세요.<br>
                                                 <span class="text-emphasis">출발 3일 전</span>까지 구매하실 수 있습니다.
-                                            </p>&ndash;&gt;
-                                            &lt;!&ndash; 제주항공용 안내문구 &ndash;&gt;
+                                            </p>-->
+                                            <!-- 제주항공용 안내문구 -->
                                             <p class="notice-msg">
                                                 기내식을 선택하세요.<br>
                                                 <span class="text-emphasis">출발 4일 전</span>까지 구매하실 수 있습니다.
@@ -2422,10 +2422,10 @@
                                         </div>
                                     </div>
                                     <div class="meal-list" data-select="meal">
-                                        &lt;!&ndash;
+                                        <!--
                                             - .meal-name .ico_hm, .meal-name .ico_cm, .meal-name .ico_am, .meal-name .ico_km 사용
                                             - 기내식 메뉴에는 한 개의 태그만 붙음
-                                        &ndash;&gt;
+                                        -->
                                         <div class="item">
                                             <dl>
                                                 <dt class="meal-name new">제품명</dt>
@@ -2571,7 +2571,7 @@
                                             <label for="input-radio78"><i class="ico"></i> 선택하기</label>
                                         </div>
                                     </div>
-                                </div>-->
+                                </div>
 
                                 <!-- 분기 : 기내식 서비스를 제공할 수 없을 때(기내식 서비스 구매 불가 노선) -->
                                 <!--<div class="no-item">
@@ -3739,11 +3739,12 @@
         /*좌석 범례 클릭 기능 정의*/
         (function(legendClickHandler) {
             var scrollCurrent = 0;
-            $doc.on("click", ".anc_seat .tab-panel.active .seat-legend a", function () {
+            $doc.on("click", ".anc_seat .tab-panel.active .seat-legend a", function (e) {
                 var $this = $(this)/*클릭된 범례 아이템*/,
                     $scrollEl = $(".anc_seat .tab-panel.active .seat-sheet .mCSB_container")/*스크롤을 움직일 엘리먼트*/,
                     $target = $(".anc_seat .tab-panel.active .seat-num ." + $this.attr("data-scrollTo") + ":first-of-type")/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템*/,
                     position = ((parseInt($target.offset().top - $scrollEl.offset().top) - 7) * -1)/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템의 스크롤 위치*/;
+                e.preventDefault();
                 /*활성화된 범례 아이템과 일치하는 좌석 중 첫번째가 위치한 곳으로 화면을 이동합니다*/
                 $scrollEl.animate({top: scrollCurrent + position }, 800, function(){
                     return scrollCurrent = $scrollEl.scrollTop();
@@ -3828,7 +3829,8 @@
 
         /*약관 자세히보기 버튼을 컨트롤 합니다.*/
         (function(){
-            $("body").on("click", ".agreement-list .btn_more", function(){
+            $("body").on("click", ".agreement-list .btn_more", function(e){
+                e.preventDefault();
                 $(this).parent("li").toggleClass("active").siblings("li").removeClass("active")
             });
         })();

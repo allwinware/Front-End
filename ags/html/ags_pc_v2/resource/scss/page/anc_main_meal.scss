@@ -35,15 +35,18 @@
     }
     dt { @include sr-only }
     .meal-name + dd {
-      @include font($size: 14, $color: $mono1, $weight: 600, $spacing: -0.03);
-      padding-top: rem($grid);
+      $font-size: 14;
+      @include font($size: 14, $color: $mono1, $weight: 600);
+      position: relative;
+      padding: rem($grid) 0 0 rem(42); width: rem(190);
+      line-height: em(18, $font-size);
       [class*='ico_'] {
         $font-size: 9;
-        position: relative;
         overflow: hidden;
+        position: absolute; left: 0; top: rem($grid);
         display: inline-block;
         margin-right: 0.3em; width: em(32, $font-size); height: em(16, $font-size);
-        font-size: rem($font-size); color: #fff;
+        font-size: rem($font-size); line-height: em(14, $font-size); color: #fff;
         background-color: $mono10; vertical-align: middle; border-radius: 1px; border: 1px solid;
         &:before {
           content: "";
@@ -71,11 +74,11 @@
     .meal-name.best + dd:before { content: "Best"; background-color: #2A2167; }*/
     .meal-description + dd {
       padding-top: rem($grid);
-      @include font($size: 12, $color: $mono4, $weight: 400, $spacing: -0.03);
+      @include font($size: 12, $color: $mono4, $weight: 400);
       line-height: rem(16);
     }
     .meal-price + dd {
-      @include font($family: en, $size: 14, $color: $mono4, $weight: 400, $spacing: -0.03);
+      @include font($family: en, $size: 14, $color: $mono4, $weight: 400);
       display: inline-block;
       padding-top: rem(12);
       text-decoration: line-through;
@@ -87,7 +90,7 @@
     .meal-description + dd + .meal-price + dd {
       padding-right: rem(6); color: $text-primary; font-weight: 500; text-decoration: none;
       .digits:before {
-        @include font($size: 13, $color: $text-primary, $weight: 600, $spacing: -0.03);
+        @include font($size: 12, $color: $text-primary, $weight: 600);
       }
     }
     .meal-thumbnail + dd { overflow: hidden; position: absolute; left: 0; top: rem($grid * 2); width: rem(78); height: rem(78); border-radius: 50%; border: 1px solid $mono8; }

@@ -13,16 +13,17 @@
 }
 
 /* mixin */
-@mixin font($family: ko, $size: $font-root-size, $color: $mono1, $weight: 400, $spacing: -0.012307){
-  @if $family == en {
-    font-family: $font-en-family
-  } @else if $family == ko {
-    font-family: $font-common-family
-}
+@mixin font($family: ko, $size: $font-root-size, $color: $mono1, $weight: 400, $spacing: -0.08){
   font-size: rem($size);
   font-weight: $weight;
   color: $color;
   letter-spacing: #{$spacing}em;
+  @if $family == en {
+    font-family: $font-en-family;
+    letter-spacing: calc(#{$spacing} / 2 * 1em);
+  } @else if $family == ko {
+    font-family: $font-common-family
+  }
 }
 @mixin border-radius($radius: $border-common-radius){
   -moz-border-radius: $radius;
@@ -636,6 +637,8 @@
     .price + dd { @include price-unit(krw) }
     .price + dd .digits { font-weight: 800; color: $text-primary; }
     .passenger-name { font-weight: 800 }
+    .schedule + dd,
+    .passenger-name { letter-spacing: -0.03em; }
   }
   &.one-way {
     .airport .arrival + dd {
