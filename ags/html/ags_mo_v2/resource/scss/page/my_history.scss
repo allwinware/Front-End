@@ -1,4 +1,53 @@
 /*마이페이지 > 구매 내역/취소*/
+[data-page-id*='my__']{
+  [class*='bundle-type'] {
+    padding: 0 0 rem($grid) 0;
+    text-align: right;
+    dt { @include sr-only }
+    dd { display: inline-block; vertical-align: top; }
+    .select-item + dd {
+      float: left;
+      margin-right: rem(4);
+      .ico { margin: rem(-1) rem(12) 0 0; }
+    }
+    .bundle-name + dd {
+      @include font($size: 9, $color: $mono1, $weight: 800, $spacing: 0);
+      float: left;
+      margin-right: rem(4); padding: 0 rem(4); min-width: rem(40); height: rem(16);
+      line-height: rem(14); border: 1px solid; text-align: center;
+      white-space: nowrap;
+    }
+    .bundle-price + dd {
+      @include price-unit(krw);
+      @include font($family: en, $size: 14, $color: $mono1, $weight: 400, $spacing: 0);
+      padding: rem(2) 0 0; width: rem(80);
+      text-align: right;
+    }
+    .status + dd {
+      @include font($size: 13, $color: $mono1, $weight: 400);
+      padding: rem(2) 0 0; width: rem(74);
+    }
+    &.bundle-type1 {
+      &, .bundle-name { border-color: #7C756E }
+      .bundle-name + dd,
+      .bundle-sale + dd { color: #817A73 }
+    }
+    &.bundle-type2 {
+      &, .bundle-name { border-color: #8EB454; }
+      .bundle-name + dd,
+      .bundle-sale + dd { color: #8EB454 }
+    }
+    &.bundle-type3 {
+      &, .bundle-name { border-color: #D22C27 }
+      .bundle-name + dd,
+      .bundle-sale + dd { color: #D22C27 }
+    }
+    & + .charge-sheet {
+      tbody td:last-child { text-align: inherit; }
+    }
+    dd:last-of-type { padding-right: rem($grid * 2) }
+  }
+}
 [data-page-id*='my__history']{
   overflow: hidden;
   width: 100%;
@@ -251,6 +300,12 @@
   }
 }
 [data-page-id='my__refund'] {
-
   @include flight-info;
+  [class*='bundle-type'] {
+    padding: rem($grid) 0;
+    .bundle-price + dd .digits,
+    .status + dd { font-size: rem(13); }
+  }
+  .notification-wrap { margin-top: rem($grid * 4); padding-top: rem($grid * 2) !important; }
+  .notification-wrap .table-wrap:first-of-type { border-top: 0; }
 }
