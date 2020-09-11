@@ -633,12 +633,14 @@
       margin-left: em(12, $font-size); padding-left: em(12, $font-size);
       &:before { content: ""; @include valign-center; left: 0; width: 1px; height: rem(10); background-color: #999 }
     }
-    .resv-num + dd { font-weight: 800 }
+    .resv-num + dd { font-weight: 800; letter-spacing: 0 }
     .price + dd { @include price-unit(krw) }
-    .price + dd .digits { font-weight: 800; color: $text-primary; }
+    .price + dd .digits { font-weight: 800; color: $text-primary }
     .passenger-name { font-weight: 800 }
+    .price + dd .digits,
     .schedule + dd,
-    .passenger-name { letter-spacing: -0.03em; }
+    .passenger-name,
+    .pay-dnt + dd { letter-spacing: -0.03em; }
   }
   &.one-way {
     .airport .arrival + dd {
@@ -668,7 +670,7 @@
         @include font($size: 14, $color: $text-primary, $weight: 600);
         @include price-unit(krw);
         padding-right: rem(182);
-        .digits { display: inline-block; width: rem(82) }
+        .digits { display: inline-block; width: rem(82); letter-spacing: 0 }
       }
       thead th {
         @include font($size: $font-size, $color: $mono1, $weight: 800);
@@ -691,7 +693,7 @@
       dt { font-weight: 800; }
       dd { font-weight: 300; }
       dd.refund { text-align: center; }
-      dd.price { @include price-unit(krw); }
+      dd.price { @include price-unit(krw); letter-spacing: 0 }
       dd.status { padding-right: rem(60); text-align: center; }
     }
   }
