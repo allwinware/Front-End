@@ -49,8 +49,8 @@ $buy__psg-wrap-height: 107;
   .passenger-list {
     @include tab(style2 nowrap);
     display: table;
-    overflow: auto; width: auto;
-    min-width: 100%;
+    overflow: auto;
+    width: auto; min-width: 100%;
     li {
       $font-size: 16;
       position: relative;
@@ -136,12 +136,12 @@ $buy__psg-wrap-height: 107;
   @include bundle-flag-type($airline: tw, $type: 1, $ico-class: '.bundle-type1 + dd .ico');
   @include bundle-flag-type($airline: tw, $type: 2, $ico-class: '.bundle-type2 + dd .ico');
   @include bundle-flag-type($airline: tw, $type: 3, $ico-class: '.bundle-type3 + dd .ico');
-  .bundle-type1 {
+  .bundle-inter1 .bundle-type1 {
     & + dd {
       .ico {  }
     }
   }
-  .bundle-type2 {
+  .bundle-inter1 .bundle-type2 {
     & + dd {
       .ico {  }
     }
@@ -151,7 +151,47 @@ $buy__psg-wrap-height: 107;
       }
     }
   }
-  .bundle-type3 {
+  .bundle-inter1 .bundle-type3 {
+    & + dd {
+      .ico {  }
+    }
+    & ~ .selected-seat + dd {
+      &:empty:before {
+        content: "(전좌석) 선택하세요";
+      }
+    }
+  }
+  .bundle-inter2 .bundle-type1 {
+    & + dd {
+      .ico {  }
+    }
+    & ~ .selected-seat + dd {
+      &:empty:before {
+        content: "(프리미엄 제외 좌석) 선택하세요";
+      }
+    }
+  }
+  .bundle-inter2 .bundle-type2 {
+    & + dd {
+      .ico {  }
+    }
+    & ~ .selected-seat + dd {
+      &:empty:before {
+        content: "(전좌석) 선택하세요";
+      }
+    }
+  }
+  .bundle-dom1 .bundle-type1 {
+    & + dd {
+      .ico {  }
+    }
+    & ~ .selected-seat + dd {
+      &:empty:before {
+        content: "(프리미엄 제외 좌석) 선택하세요";
+      }
+    }
+  }
+  .bundle-dom1 .bundle-type2 {
     & + dd {
       .ico {  }
     }

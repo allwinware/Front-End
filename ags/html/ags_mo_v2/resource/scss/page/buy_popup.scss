@@ -299,16 +299,18 @@
   .scroll-wrap {
     overflow-y: hidden;
     overflow-x: auto;
+    padding: rem($grid * 2) 0 rem($grid * 3);
   }
   .bundle-info {
-    @include flex(flex-start stretch flex-start nowrap);
-    padding: rem($grid * 4) rem($grid); width: rem(814);
+    display: table;
+    border-collapse: separate; border-spacing: rem($grid * 2);
     white-space: nowrap;
-    [class^='bundle-type'] { width: calc(250 / 375 * 100vw); }
   }
   [class^='bundle-type'] {
     overflow: hidden;
-    margin: 0 rem($grid); border-radius: $border-common-radius;
+    display: table-cell;
+    min-width: rem(250); max-width: rem(250);
+    border-radius: $border-common-radius;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     .inner-wrap { overflow-y: auto; overflow-x: hidden; }
     .bundle-name + dd { $font-size: 14; display: inline-block; padding: em(5, $font-size) 0; line-height: em(11, $font-size); }
@@ -327,7 +329,7 @@
       float: right;
       padding: em(5, $font-size) 0; line-height: em(11, $font-size);
     }
-    &.bundle-type1 {
+    @at-root .bundle-summary .bundle-inter1 .bundle-type1 {
       .info-title { background-color: #EDE5D9 }
       .bundle-name + dd { color: #817A73 }
       .bundle-sale + dd { background-color: #7C756E }
@@ -339,7 +341,7 @@
       .info-detail dt:nth-of-type(2) + dd,
       .info-detail dt:nth-of-type(3) + dd { color: $text-primary; font-weight: 600; }
     }
-    &.bundle-type2 {
+    @at-root .bundle-summary .bundle-inter1 .bundle-type2 {
       .info-title { background-color: #E0EFCA }
       .bundle-name + dd { color: #8EB454 }
       .bundle-sale + dd { background-color: #8EB454 }
@@ -351,13 +353,61 @@
       .info-detail dt:nth-of-type(2) + dd,
       .info-detail dt:nth-of-type(3) + dd { color: $text-primary; font-weight: 600; }
     }
-    &.bundle-type3 {
+    @at-root .bundle-summary .bundle-inter1 .bundle-type3 {
       .info-title { background-color: #FBE3E1 }
       .bundle-name + dd { color: #D22C27 }
       .bundle-sale + dd { background-color: #D22C27 }
       .bundle-price + dd { color: #D22C27 }
       .info-detail dt { color: $mono1 }
       .info-detail dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root .bundle-summary .bundle-inter2 .bundle-type1 {
+      .info-title { background-color: #EDE5D9 }
+      .bundle-name + dd { color: #817A73 }
+      .bundle-sale + dd { background-color: #7C756E }
+      .bundle-price + dd { color: #817A73 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root .bundle-summary .bundle-inter2 .bundle-type2 {
+      .info-title { background-color: #E0EFCA }
+      .bundle-name + dd { color: #8EB454 }
+      .bundle-sale + dd { background-color: #8EB454 }
+      .bundle-price + dd { color: #8EB454 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2),
+      .info-detail dt:nth-of-type(3),
+      .info-detail dt:nth-of-type(4) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd,
+      .info-detail dt:nth-of-type(3) + dd,
+      .info-detail dt:nth-of-type(4) + dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root .bundle-summary .bundle-dom1 .bundle-type1 {
+      .info-title { background-color: #EDE5D9 }
+      .bundle-name + dd { color: #817A73 }
+      .bundle-sale + dd { background-color: #7C756E }
+      .bundle-price + dd { color: #817A73 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root .bundle-summary .bundle-dom1 .bundle-type2 {
+      .info-title { background-color: #E0EFCA }
+      .bundle-name + dd { color: #8EB454 }
+      .bundle-sale + dd { background-color: #8EB454 }
+      .bundle-price + dd { color: #8EB454 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2),
+      .info-detail dt:nth-of-type(3),
+      .info-detail dt:nth-of-type(4) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd,
+      .info-detail dt:nth-of-type(3) + dd,
+      .info-detail dt:nth-of-type(4) + dd { color: $text-primary; font-weight: 600; }
     }
   }
   .info-title {
@@ -372,13 +422,14 @@
     $font-size: 12;
     @include font($size: $font-size, $color: $mono4, $weight: 600, $spacing: -0.03);
     @include clearfix;
-    padding: rem($grid * 2) 0; background-color: $mono10;
+    padding: rem($grid * 2) 0; height: rem(146);
+    background-color: $mono10;
     dt, dd {
       float: left; padding: 0 rem($grid * 2);
       line-height: em(22, $font-size);
     }
-    dt { width: 110px; }
-    dd { width: calc(100% - 110px); text-align: right; font-weight: 400; }
+    dt { padding: 0 0 0 rem($grid * 2); width: rem(94); }
+    dd { padding: 0 rem($grid * 2); width: calc(100% - 94px); text-align: right; font-weight: 400; }
   }
   .passenger-wrap {
     padding: rem($grid) rem($grid * 2) 0;
