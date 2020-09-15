@@ -2,7 +2,7 @@
 .ags-summary {
   overflow: hidden;
   position: fixed; bottom: 0; left: 0; right: 0;
-  margin-top: rem(-$summary-height); padding: rem(6) 0 0; height: rem($summary-height);
+  margin-top: rem(-$summary-height); padding: rem(6) 0 0 !important; height: rem($summary-height);
   color: $mono10;
   .btn_drawer {
     z-index: 11;
@@ -150,7 +150,7 @@
 }
 /* 총 결제 금액 팝업 */
 .passenger-summary {
-  padding-left: rem($grid * 2);
+  padding-left: rem($grid * 2) !important;
   @include flight-info;
   .flight-info { display: inline-flex !important; }
   .table-wrap {
@@ -231,6 +231,7 @@
     }
     a, a:active, a:visited { color: #66B1FF; }
     .btn_delete { position: relative; right: initial; top: initial; margin-left: 0; vertical-align: top }
+    tbody tr.inactive th[scope='row'] + td { color: $mono4; }
   }
   .table-wrap {
     padding-top: rem($grid * 2);
@@ -419,10 +420,10 @@
     dd { font-weight: 600; }
   }
   .info-detail {
+    @include clearfix;
     $font-size: 12;
     @include font($size: $font-size, $color: $mono4, $weight: 600, $spacing: -0.03);
-    @include clearfix;
-    padding: rem($grid * 2) 0; height: rem(146);
+    padding: rem($grid * 2) 0;
     background-color: $mono10;
     dt, dd {
       float: left; padding: 0 rem($grid * 2);
@@ -430,6 +431,7 @@
     }
     dt { padding: 0 0 0 rem($grid * 2); width: rem(94); }
     dd { padding: 0 rem($grid * 2); width: calc(100% - 94px); text-align: right; font-weight: 400; }
+    &:after { padding: 0 !important; height: 0 !important; border-spacing: 0; }
   }
   .passenger-wrap {
     padding: rem($grid) rem($grid * 2) 0;

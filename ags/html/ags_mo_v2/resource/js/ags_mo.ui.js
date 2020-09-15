@@ -59,6 +59,15 @@ function popupHide(target){
     setTimeout(function(){ deleteDim(target) }, 1000)
 }
 
+/* 팝업 생성 기능 정의 */
+function popupShow_noDim(target){
+    setTimeout(function(){ target.addClass("active") }, 250);
+}
+/* 팝업 삭제 기능 정의  */
+function popupHide_noDim(target){
+    setTimeout(function(){ target.removeClass("active"); }, 250);
+}
+
 /* 메시지 팝업 기능 정의(하단에서 올라오는 팝업) */
 function messagePopShow(target){
     popupShow(target);
@@ -108,8 +117,7 @@ $(document).ready(function(){
                 $innerWrap = $thisTap.children(".tab-panels").children(".align-horizontal"),
                 $tabPan = $innerWrap.children("[role='tabpanel']");
 
-            // 탭의 갯수에 맞추어 .tab-wrap 사이즈 조정
-            if($innerWrap.length > 0){
+            if($thisTap.find(".align-horizontal").length > 0){
                 $innerWrap.css("width", $tabPan.length * 100 + "%");
                 $tabPan.css("width", $win.innerWidth());
                 $thisTap.children(".tabs").children("[role='tablist']").children("[role='tab'].active").mousedown();
@@ -157,6 +165,7 @@ $(document).ready(function(){
                         break;
                     case 32:    // Space
                     case 13:    // Enter
+
                         // 선택된 탭 활성화
                         $(this)
                             .addClass("active")
@@ -226,6 +235,13 @@ $(document).ready(function(){
         });
     })();
 
+    (function(){
+        /*$(".tabs_route").find("[role='tab']").first();
+        if($(".tab-wrap").attr("data-tab-name") !== undefined){
+
+        }*/
+    })();
+
     /* 전체 선택 Checkbox */
     (function(checkAllHandler){
         $("input[data-checked='all']").each(function(){
@@ -252,14 +268,16 @@ $(document).ready(function(){
     /* 일반적인 팝업 */
     $(document).on("click", "[data-popup]", function(){
         var $pop = $($(this).attr("data-popup"));
-        if($pop.attr("data-type") === 'alert'){
+        if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === undefined){
             popupShow($pop);
+        } else if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === 'false'){
+            popupShow_noDim($pop);
         } else if($pop.attr("data-type") === 'message'){
             messagePopShow($pop)
         } else if($pop.attr("data-type") === 'drawer'){
             if($pop.hasClass("active") === true){
                 $pop.css("height", "");
-                popupHide($pop)
+                popupHide($pop);
             } else {
                 popupShow($pop);
                 $pop.css("height", $win.innerHeight() - $("#ags-header").height());
@@ -274,6 +292,11 @@ $(document).ready(function(){
         } else if($pop.attr("data-type") === 'message'){
             messagePopHide($pop)
         }
+    });
+
+    $(document).on("click", ".pop-area[data-dim='false']", function(){
+        var $pop = $($("#" + $(this).attr("id")));
+        popupHide($pop);
     });
 
     /*gnb 팝업 정의*/
