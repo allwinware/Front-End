@@ -192,7 +192,7 @@
       width: auto; font-size: rem(12)
     }
     .btn_cancel {
-      @include form($size: 3, $role: cancel, $type: button);
+      @include form($size: 3, $role: primary3, $type: button);
       width: auto; font-size: rem(12)
     }
     [class*='btn_'] + [class*='btn_'] { margin-left: rem(2); }
@@ -237,10 +237,37 @@
     dt { @include sr-only }
     dd { @include tagging-route; width: auto; padding: 0 rem(4); }
   }*/
-  .table-wrap {
+  .table-wrap, .total-calc-wrap {
     padding-bottom: rem($grid * 2);
     &:first-child { border-top: 1px solid $mono1; }
     & + .table-wrap { border-top: 1px solid $mono8; }
+  }
+  .total-calc-wrap {
+    .ico_flag { @include tagging-route(); padding: 0 rem($grid / 2); width: rem(76);  }
+    .charge-sheet {
+      border-top: 1px solid $mono1;
+      th, td { height: rem(53); border-bottom: 1px solid $mono8; vertical-align: middle; }
+      td:last-child {
+        @include price-unit(krw);
+        @include font($family: en, $size: 13, $color: $mono1, $weight: 400);
+        text-align: right;
+        .digits { font-weight: inherit; color: inherit; }
+        .digits:before { font-size: inherit; font-weight: 500; color: inherit; }
+      }
+      tfoot th, tfoot td { border-top: 1px solid $mono1 }
+      tfoot th {
+        text-align: left;
+        .ico_flag { background-color: $mono1; color: $mono10; text-transform: uppercase }
+        &:first-child { padding-left: 0; }
+      }
+      tfoot td {
+        &:last-child {
+          padding-right: rem($grid * 2);
+          font-weight: 500; color: $text-primary;
+          .digits:before { font-weight: 600; }
+        }
+      }
+    }
   }
   .charge-sheet {
     @include table($style: type1, $mg-size: small);
@@ -283,8 +310,8 @@
       text-align: right;
     }
     .digits {
-      @include font($family: en, $size: 14, $color: $text-primary, $weight: 400, $spacing: 0);
-      &:before { font-size: rem(13) }
+      @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: 0);
+      &:before { font-size: rem(13); font-weight: 600 }
     }
     .price-krw + dd {
       &:before, &:after { color: $text-primary; }
