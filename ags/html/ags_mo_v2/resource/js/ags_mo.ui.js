@@ -79,6 +79,14 @@ function messagePopHide(target){
     popupHide(target)
     setTimeout(function(){ target.css("max-height", "") }, 750);
 }
+function drawerPopHide(target){
+    target.css("bottom", "-100vh");
+    setTimeout(function(){
+        target.css("height", "");
+        target.css("bottom", "");
+        popupHide(target);
+    }, 1000)
+}
 
 $(document).ready(function(){
     /* variation */
@@ -235,13 +243,6 @@ $(document).ready(function(){
         });
     })();
 
-    (function(){
-        /*$(".tabs_route").find("[role='tab']").first();
-        if($(".tab-wrap").attr("data-tab-name") !== undefined){
-
-        }*/
-    })();
-
     /* 전체 선택 Checkbox */
     (function(checkAllHandler){
         $("input[data-checked='all']").each(function(){
@@ -272,12 +273,23 @@ $(document).ready(function(){
             popupShow($pop);
         } else if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === 'false'){
             popupShow_noDim($pop);
+            if($win.height() > $pop.height()){
+                $pop.css({
+                    "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
+                })
+            } else {
+                $pop.css("top", $doc.scrollTop())
+            }
+            $(document).on("click", function(e){
+                if($pop.hasClass("active") && !$pop.has(e.target).length){
+                    popupHide($pop);
+                }
+            });
         } else if($pop.attr("data-type") === 'message'){
             messagePopShow($pop)
         } else if($pop.attr("data-type") === 'drawer'){
             if($pop.hasClass("active") === true){
-                $pop.css("height", "");
-                popupHide($pop);
+                drawerPopHide($pop);
             } else {
                 popupShow($pop);
                 $pop.css("height", $win.innerHeight() - $("#ags-header").height());
@@ -285,18 +297,15 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on("click", "[data-role='close']", function(){
-        var $pop = $($("#" + $(this).parents(".pop-area").attr("id")));
+    $(document).on("click", "[data-role='close']", function(e){
+        var $pop = $(e.target).parents("[data-type]");
         if($pop.attr("data-type") === 'alert'){
             popupHide($pop);
         } else if($pop.attr("data-type") === 'message'){
             messagePopHide($pop)
+        } else if($pop.attr("data-type") === 'drawer'){
+            drawerPopHide($pop);
         }
-    });
-
-    $(document).on("click", ".pop-area[data-dim='false']", function(){
-        var $pop = $($("#" + $(this).attr("id")));
-        popupHide($pop);
     });
 
     /*gnb 팝업 정의*/

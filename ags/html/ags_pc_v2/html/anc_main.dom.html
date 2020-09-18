@@ -1757,6 +1757,13 @@
 
         <hr>
 
+        <!-- 티웨이 전용 : 번들 서비스를 제공할 경우 -->
+        <div class="floating-banner" data-id="arrival">
+            <a href="#none" target="_self" class="btn_bundle" data-popup="#bundle-summary2">번들<br>선택</a>
+        </div>
+
+        <hr>
+
         <!-- 총 결제금액 -->
         <footer class="anc-summary">
             <h2 class="sr-only">선택한 부가서비스 내역</h2>
@@ -1934,9 +1941,227 @@
     <!-- 회사정보(include/ags-footer.html) -->
     <footer id="ags-footer" class="ags-footer"></footer>
 </main>
+
+<!-- 팝업 : 번들 선택 - 국제선 대양주 운임 && 국내선 운임 -->
+<div id="bundle-summary2" class="pop-area" data-type="guidance" data-dim="false">
+    <div class="pop-wrap">
+        <header class="pop-header">
+            <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
+            <h1 class="sr-only">번들 선택</h1><!-- 타이틀을 표시할때는 .sr-only 삭제 후 .pop-title 추가 -->
+        </header>
+        <section class="pop-container">
+            <div class="pop-content" data-pop-id="pop_bundle-summary">
+                <p class="summary-approach">개별 구매 시보다 더 실속 있는<br><strong>부가서비스 번들을 이용해보세요!</strong></p>
+
+
+                <h2 class="sr-only">번들 선택</h2>
+                <div class="bundle-wrap">
+                    <!-- 분기 1 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
+                    <!--<div class="bundle-info bundle-inter2">
+                        <div class="bundle-type1">
+                            <dl class="info-title">
+                                <dt class="bundle-name">번들명</dt>
+                                <dd>더블팩</dd>
+                                <dt class="bundle-sale">할인율</dt>
+                                <dd>28%</dd>
+                                <dt class="bundle-price">금액</dt>
+                                <dd><span class="digits">20000</span></dd>
+                            </dl>
+                            <dl class="info-detail">
+                                <dt>위탁수하물</dt>
+                                <dd>23kg * 1</dd>
+                                <dt>사전좌석지정</dt>
+                                <dd>프리미엄 존 제외 전좌석</dd>
+                                <dt>기내식</dt>
+                                <dd>제공</dd>
+                                <dt>수하물우선처리</dt>
+                                <dd>제공안함</dd>
+                            </dl>
+                        </div>
+                        <div class="bundle-type2">
+                            <dl class="info-title">
+                                <dt class="bundle-name">번들명</dt>
+                                <dd>트리플팩</dd>
+                                <dt class="bundle-sale">할인율</dt>
+                                <dd>29%</dd>
+                                <dt class="bundle-price">금액</dt>
+                                <dd><span class="digits">46000</span></dd>
+                            </dl>
+                            <dl class="info-detail">
+                                <dt>위탁수하물</dt>
+                                <dd>23kg * 2</dd>
+                                <dt>사전좌석지정</dt>
+                                <dd>전좌석</dd>
+                                <dt>기내식</dt>
+                                <dd>제공</dd>
+                                <dt>수하물우선처리</dt>
+                                <dd>제공</dd>
+                            </dl>
+                        </div>
+                    </div>-->
+                    <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
+                    <div class="bundle-info bundle-dom1">
+                        <div class="bundle-type1">
+                            <dl class="info-title">
+                                <dt class="bundle-name">번들명</dt>
+                                <dd>더블팩</dd>
+                                <dt class="bundle-sale">할인율</dt>
+                                <dd>28%</dd>
+                                <dt class="bundle-price">금액</dt>
+                                <dd><span class="digits">9000</span></dd>
+                            </dl>
+                            <dl class="info-detail">
+                                <dt>위탁수하물</dt>
+                                <dd>20kg</dd>
+                                <dt>사전좌석지정</dt>
+                                <dd>프리미엄 존 제외 전좌석</dd>
+                                <dt>수하물우선처리</dt>
+                                <dd>제공안함</dd>
+                                <dt>전용카운터</dt>
+                                <dd>제공안함</dd>
+                            </dl>
+                        </div>
+                        <div class="bundle-type2">
+                                <dl class="info-title">
+                                    <dt class="bundle-name">번들명</dt>
+                                    <dd>트리플팩</dd>
+                                    <dt class="bundle-sale">할인율</dt>
+                                    <dd>29%</dd>
+                                    <dt class="bundle-price">금액</dt>
+                                    <dd><span class="digits">17000</span></dd>
+                                </dl>
+                                <dl class="info-detail">
+                                    <dt>위탁수하물</dt>
+                                    <dd>25kg</dd>
+                                    <dt>사전좌석지정</dt>
+                                    <dd>전좌석</dd>
+                                    <dt>수하물우선처리</dt>
+                                    <dd>제공</dd>
+                                    <dt>전용카운터</dt>
+                                    <dd>제공(대구출발노선 제외)</dd>
+                                </dl>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="passenger-wrap">
+                    <!-- 승객 리스트 -->
+                    <h3 class="sr-only">승객별 번들 선택</h3>
+                    <!-- 분기 1 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
+                    <!--<ul class="passenger-list">
+                        <li>
+                            <dl>
+                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                <dd>Bae, Sungjune</dd>
+                                <dt class="selected-bundle">번들 선택</dt>
+                                <dd>
+                                    <h4 class="bundle-way">가는 편</h4>
+                                    <input type="radio" id="radio1101" name="radio-group11" checked="checked"><label for="radio1101" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1102" name="radio-group11"><label for="radio1102" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1103" name="radio-group11"><label for="radio1103" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                                <dd>
+                                    <h4 class="bundle-way">오는 편</h4>
+                                    <input type="radio" id="radio1201" name="radio-group12" checked="checked"><label for="radio1201" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1202" name="radio-group12"><label for="radio1202" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1203" name="radio-group12"><label for="radio1203" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                <dd>Son, Seungwan</dd>
+                                <dt class="selected-bundle">번들 선택</dt>
+                                <dd>
+                                    <h4 class="bundle-way">가는 편</h4>
+                                    <input type="radio" id="radio1301" name="radio-group13" checked="checked"><label for="radio1301" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1302" name="radio-group13"><label for="radio1302" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1303" name="radio-group13"><label for="radio1303" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                                <dd>
+                                    <h4 class="bundle-way">오는 편</h4>
+                                    <input type="radio" id="radio1401" name="radio-group14" checked="checked"><label for="radio1401" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1402" name="radio-group14"><label for="radio1402" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1403" name="radio-group14"><label for="radio1403" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                <dd>Kim, Taehyeong</dd>
+                                <dt class="selected-bundle">번들 선택</dt>
+                                <dd>
+                                    <h4 class="bundle-way">가는 편</h4>
+                                    <input type="radio" id="radio1501" name="radio-group15" checked="checked"><label for="radio1501" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1502" name="radio-group15"><label for="radio1502" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1503" name="radio-group15"><label for="radio1503" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                                <dd>
+                                    <h4 class="bundle-way">오는 편</h4>
+                                    <input type="radio" id="radio1601" name="radio-group16" checked="checked"><label for="radio1601" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1602" name="radio-group16"><label for="radio1602" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1603" name="radio-group16"><label for="radio1603" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                            </dl>
+                        </li>
+                    </ul>-->
+                    <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
+                    <ul class="passenger-list">
+                        <li>
+                            <dl>
+                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                <dd>배성준</dd>
+                                <dt class="selected-bundle">번들 선택</dt>
+                                <dd>
+                                    <input type="radio" id="radio1101" name="radio-group11" checked="checked"><label for="radio1101" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1102" name="radio-group11"><label for="radio1102" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1103" name="radio-group11"><label for="radio1103" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                <dd>손승완</dd>
+                                <dt class="selected-bundle">번들 선택</dt>
+                                <dd>
+                                    <input type="radio" id="radio1201" name="radio-group12" checked="checked"><label for="radio1201" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1202" name="radio-group12"><label for="radio1202" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1203" name="radio-group12"><label for="radio1203" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                <dd>김태형</dd>
+                                <dt class="selected-bundle">번들 선택</dt>
+                                <dd>
+                                    <input type="radio" id="radio1301" name="radio-group13" checked="checked"><label for="radio1301" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1302" name="radio-group13"><label for="radio1302" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1303" name="radio-group13"><label for="radio1303" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                </dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <div class="process-btn-wrap">
+                <button type="button" class="btn_cancel" data-role="close">취소</button>
+                <button type="button" class="btn_confirm" data-role="close">확인</button>
+            </div>
+        </footer>
+    </div>
+</div>
+
 <script>
     var $win = $(window),
         $doc = $(document),
+        $html = $("html"),
         $body = $("body");
 
     $("#ags-header").load("include/ags-header.dom.html");
@@ -1970,13 +2195,15 @@
         function flightWayLink(target){
             var margin = 32;
             var $this =  $(target);
+            var currnetScrollTop = $html.scrollTop();
             $this.parent("li").addClass("active").siblings().removeClass("active");
             if ($this.attr("data-target") === "departure"){
                 viewDeparture()
             } else if($this.attr("data-target") === "arrival"){
                 viewArrival()
             }
-            $html.scrollTop($this.offset().top - $(".anc-lnb-wrap").height() - margin);
+            /*$html.scrollTop($this.offset().top - $(".anc-lnb-wrap").height() - margin);*/
+            $html.scrollTop(currnetScrollTop);
         }
         (function(){
             $body.on("click", ".flight-way-selector a", function(e){
@@ -2196,6 +2423,17 @@
                     heightStd = $seatPlan.parents(".anc-service").height();
                 $seatPlan.css("height", heightStd).children(".seat-sheet").css("height", heightStd - $seatPlan.children(".seat-legend").height())
             });
+        })();
+
+        /*번들선택*/
+        (function(){
+            $(window).on("scroll", function(){
+                if ($(window).scrollTop() > 100){
+                    $(".floating-banner").css("opacity", "0")
+                } else {
+                    $(".floating-banner").css("opacity", 1 - ($(window).scrollTop() * 0.01))
+                }
+            }).scroll();
         })();
     })
 </script>

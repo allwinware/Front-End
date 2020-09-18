@@ -4,3 +4,206 @@
   text-align: center;
   img { max-width: 100%; height: auto !important; }
 }
+
+[data-pop-id='pop_bundle-summary'] {
+  .summary-approach {
+    $font-size: 20;
+    @include font($size: 20, $color: $mono1, $weight: 400);
+    margin-bottom: rem(10); padding-left: rem($grid); padding-right: rem($grid);
+    line-height: em(28, $font-size);
+  }
+  .summary-description {
+    $font-size: 11;
+    @include font($size: $font-size, $color: $text-primary, $weight: 400);
+    margin-bottom: rem($grid * 5); padding-left: rem($grid); padding-right: rem($grid);
+    line-height: em(16, $font-size);
+  }
+  .tabs_route {
+    @include tab(style1 nowrap);
+    margin-bottom: rem($grid * 2); padding-left: rem($grid); padding-right: rem($grid);
+    [role='tab'] {
+      transition: background-color,border,color $trs-duration;
+    }
+  }
+  .tab-panel { margin: 0 rem(-$grid * 2); padding: 0 rem($grid * 2); width: auto; }
+  .bundle-wrap { margin: 0 rem(-$grid) }
+  .bundle-info {
+    display: table;
+    border-collapse: separate; border-spacing: rem($grid * 2);
+    white-space: nowrap;
+  }
+  [class^='bundle-type'] {
+    overflow: hidden;
+    display: table-cell;
+    min-width: rem(250); max-width: rem(250);
+    border-radius: $border-common-radius;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    .inner-wrap { overflow-y: auto; overflow-x: hidden; }
+    .bundle-name + dd { $font-size: 14; display: inline-block; padding: em(5, $font-size) 0; line-height: em(11, $font-size); color: $mono10 }
+    .bundle-sale + dd {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $mono10, $weight: 600, $spacing: -0.03);
+      float: left;
+      margin-right: rem($grid); padding: em(5, $font-size) em(5, $font-size); line-height: em(11, $font-size);
+      border-radius: rem(1);
+      &:after { content: " SALE" }
+    }
+    .bundle-price + dd {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $mono10, $weight: 800, $spacing: -0.03);
+      @include price-unit(krw);
+      float: right;
+      padding: em(5, $font-size) 0; line-height: em(11, $font-size);
+    }
+    @at-root [data-pop-id='pop_bundle-summary'] .bundle-inter1 .bundle-type1 {
+      .info-title { background-color: $bg_bundle-type1 }
+      .bundle-sale + dd { background-color: #524940 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2),
+      .info-detail dt:nth-of-type(3) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd,
+      .info-detail dt:nth-of-type(3) + dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root [data-pop-id='pop_bundle-summary'] .bundle-inter1 .bundle-type2 {
+      .info-title { background-color: $bg_bundle-type2 }
+      .bundle-sale + dd { background-color: #587729 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2),
+      .info-detail dt:nth-of-type(3) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd,
+      .info-detail dt:nth-of-type(3) + dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root [data-pop-id='pop_bundle-summary'] .bundle-inter1 .bundle-type3 {
+      .info-title { background-color: $bg_bundle-type3 }
+      .bundle-sale + dd { background-color: #9D1713 }
+      .info-detail dt { color: $mono1 }
+      .info-detail dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root [data-pop-id='pop_bundle-summary'] .bundle-inter2 .bundle-type1 {
+      .info-title { background-color: $bg_bundle-type1 }
+      .bundle-sale + dd { background-color: #524940 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root [data-pop-id='pop_bundle-summary'] .bundle-inter2 .bundle-type2 {
+      .info-title { background-color: $bg_bundle-type2 }
+      .bundle-sale + dd { background-color: #587729 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2),
+      .info-detail dt:nth-of-type(3),
+      .info-detail dt:nth-of-type(4) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd,
+      .info-detail dt:nth-of-type(3) + dd,
+      .info-detail dt:nth-of-type(4) + dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root [data-pop-id='pop_bundle-summary'] .bundle-dom1 .bundle-type1 {
+      .info-title { background-color: $bg_bundle-type1 }
+      .bundle-sale + dd { background-color: #524940 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd { color: $text-primary; font-weight: 600; }
+    }
+    @at-root [data-pop-id='pop_bundle-summary'] .bundle-dom1 .bundle-type2 {
+      .info-title { background-color: $bg_bundle-type2 }
+      .bundle-sale + dd { background-color: #587729 }
+      .info-detail dt:nth-of-type(1),
+      .info-detail dt:nth-of-type(2),
+      .info-detail dt:nth-of-type(3),
+      .info-detail dt:nth-of-type(4) { color: $mono1 }
+      .info-detail dt:nth-of-type(1) + dd,
+      .info-detail dt:nth-of-type(2) + dd,
+      .info-detail dt:nth-of-type(3) + dd,
+      .info-detail dt:nth-of-type(4) + dd { color: $text-primary; font-weight: 600; }
+    }
+  }
+  .info-title {
+    @include clearfix;
+    overflow: hidden;
+    position: relative;
+    padding: rem(13) rem($grid * 2); height: rem(46);
+    dt { @include sr-only }
+    dd { font-weight: 600; }
+  }
+  .info-detail {
+    @include clearfix;
+    $font-size: 12;
+    @include font($size: $font-size, $color: $mono4, $weight: 600, $spacing: -0.03);
+    padding: rem($grid * 2) 0;
+    background-color: $mono10;
+    dt, dd {
+      float: left; padding: 0 rem($grid * 2);
+      line-height: em(22, $font-size);
+    }
+    dt { padding: 0 0 0 rem($grid * 2); width: rem(94); }
+    dd { padding: 0 rem($grid * 2) 0 rem($grid); width: calc(100% - 94px); text-align: right; font-weight: 400; }
+    &:after { padding: 0 !important; height: 0 !important; border-spacing: 0; }
+  }
+  .passenger-wrap {
+    padding: rem($grid * 4) rem($grid * 2) rem(27);
+    .bundle-select-title {
+      @include font($size: 16, $color: $mono1, $weight: 800);
+      margin: 0 rem(-$grid) rem($grid * 4); padding-bottom: rem(12);
+      border-bottom: 1px solid $mono1
+    }
+    dl { position: relative; }
+    dt { @include sr-only }
+    .passenger-name + dd {
+      @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
+      @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
+      @include text-uppercase;
+      margin: 0 0 rem(12); padding-left: rem(20);
+    }
+    .bundle-price + dd {
+      @include font($size: 13, $color: $text-primary, $weight: 600, $spacing: 0);
+      @include price-unit(krw);
+      position: absolute; right: 0; top: 0;
+    }
+    .bundle-way { @include font($size: 13, $color: $mono1, $weight: 800); float: left; margin: rem(5) rem($grid / 2); padding-right: rem(12); height: rem(42); @include valign-middle; }
+    .selected-bundle + dd,
+    .selected-bundle + dd + dd {
+      @include clearfix;
+      margin: 0 rem(-$grid / 2);
+      input[type='radio'] { @include sr-only }
+      input[type='radio'] + .btn_select-bundle {
+        @include form($size: 3, $role: normal, $type: button);
+        float: left;
+        margin: rem(5) rem($grid / 2); width: rem(100);
+        color: $mono4; border-color: #ddd;
+        transition: all $trs-duration;
+      }
+      input[type='radio']:checked + .btn_select-bundle.bundle-type0 {
+        border-color: $mono1; background-color: $mono10; color: $mono1;
+      }
+      input[type='radio']:checked + .btn_select-bundle.bundle-type1 {
+        border-color: $bg_bundle-type1; background-color: $bg_bundle-type1; color: $mono10;
+      }
+      input[type='radio']:checked + .btn_select-bundle.bundle-type2 {
+        border-color: $bg_bundle-type2; background-color: $bg_bundle-type2; color: $mono10;
+      }
+      input[type='radio']:checked + .btn_select-bundle.bundle-type3 {
+        border-color: $bg_bundle-type3; background-color: $bg_bundle-type3; color: $mono10;
+      }
+    }
+    .selected-bundle + dd { margin-top: rem(-5) }
+    .passenger-list {
+      margin: 0 rem(-$grid)
+    }
+    .passenger-list > li + li { padding-top: rem($grid * 4 - 5) }
+  }
+  .process-btn-wrap {
+    @include flex(flex-start stretch flex-start nowrap);
+    margin: 0 rem(-3); padding: rem($grid * 2) rem($grid * 2) 0;
+    background-color: $mono10;
+    [class^='btn_'] { margin: 0 rem(3) !important; }
+    .btn_select {
+      @include form($type: button, $size: 4, $role: submit);
+      flex: 1 auto;
+    }
+  }
+}

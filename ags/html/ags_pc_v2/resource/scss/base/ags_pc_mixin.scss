@@ -833,3 +833,22 @@
   -moz-box-shadow: $value;
   box-shadow: $value;
 }
+@mixin bundle-flag($ico-class: '.ico'){
+  #{$ico-class} {
+    @include font($size: 9, $color: $mono4, $weight: 800, $spacing: -0.03);
+    display: inline-block;
+    padding: rem(2) rem($grid / 2);
+    border: 1px solid; text-align: center;
+  }
+}
+@mixin bundle-flag-type($airline: tw, $type: 1, $ico-class: '.ico'){
+  @if $airline == tw and $type == 0 {
+    #{$ico-class} { color: transparent; border-color: transparent }
+  } @else if $airline == tw and $type == 1 {
+    #{$ico-class} { color: #7C756E; border-color: #7C756E }
+  } @else if $airline == tw and $type == 2 {
+    #{$ico-class} { color: #8EB454; border-color: #8EB454 }
+  } @else if $airline == tw and $type == 3 {
+    #{$ico-class} { color: #D22C27; border-color: #D22C27 }
+  }
+}

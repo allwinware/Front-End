@@ -100,6 +100,82 @@
           & > * { float: left; width: 100%; };
         }
       }
+
+
+      [class*='bundle-type'] + dd {
+        @include bundle-flag($ico-class: '.ico');
+        margin-top: rem(-10);
+        .ico { margin-bottom: rem(10); }
+      }
+      @include bundle-flag-type($airline: tw, $type: 0, $ico-class: '.bundle-type0 + dd .ico');
+      @include bundle-flag-type($airline: tw, $type: 1, $ico-class: '.bundle-type1 + dd .ico');
+      @include bundle-flag-type($airline: tw, $type: 2, $ico-class: '.bundle-type2 + dd .ico');
+      @include bundle-flag-type($airline: tw, $type: 3, $ico-class: '.bundle-type3 + dd .ico');
+      .bundle-inter1 .bundle-type1 {
+        & + dd {
+          .ico {  }
+        }
+      }
+      .bundle-inter1 .bundle-type2 {
+        & + dd {
+          .ico {  }
+        }
+        & ~ .selected-seat + dd {
+          &:empty:before {
+            content: "(프리미엄 제외 좌석) 선택하세요";
+          }
+        }
+      }
+      .bundle-inter1 .bundle-type3 {
+        & + dd {
+          .ico {  }
+        }
+        & ~ .selected-seat + dd {
+          &:empty:before {
+            content: "(전좌석) 선택하세요";
+          }
+        }
+      }
+      .bundle-inter2 .bundle-type1 {
+        & + dd {
+          .ico {  }
+        }
+        & ~ .selected-seat + dd {
+          &:empty:before {
+            content: "(프리미엄 제외 좌석) 선택하세요";
+          }
+        }
+      }
+      .bundle-inter2 .bundle-type2 {
+        & + dd {
+          .ico {  }
+        }
+        & ~ .selected-seat + dd {
+          &:empty:before {
+            content: "(전좌석) 선택하세요";
+          }
+        }
+      }
+      .bundle-dom1 .bundle-type1 {
+        & + dd {
+          .ico {  }
+        }
+        & ~ .selected-seat + dd {
+          &:empty:before {
+            content: "(프리미엄 제외 좌석) 선택하세요";
+          }
+        }
+      }
+      .bundle-dom1 .bundle-type2 {
+        & + dd {
+          .ico {  }
+        }
+        & ~ .selected-seat + dd {
+          &:empty:before {
+            content: "(전좌석) 선택하세요";
+          }
+        }
+      }
     }
     & + .anc-service-wrap { margin-top: rem(100); border-top: 1px solid $mono1; }
   }
@@ -203,6 +279,7 @@
     }
   }
   .anc-summary {
+    z-index: 0;
     position: absolute; top: rem(281); left: calc(50% + 348px);
     padding: rem($grid * 10) rem($grid * 2) rem($grid * 3) 0; width: rem(267 + $grid * 2);
     .scroll-wrap {
@@ -272,5 +349,21 @@
     @include alert-style;
     div.alert-text {  text-align: center; }
     dl.alert-text { margin: 0 auto; width: rem(320) }
+  }
+
+  /* 번들 관련 */
+  .floating-banner {
+    z-index: 1;
+    $font-size: 11;
+    $icon-size: 54;
+    @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: -0.03);
+    position: fixed; right: calc(50% - #{$content-width / 2}px); top: rem(376);
+    width: em(54, $font-size); height: em(54, $font-size);
+    .btn_bundle {
+      display: inline-block;
+      padding: rem(13) rem($grid); width: em(54, $font-size); height: em(54, $font-size);
+      background-color: $mono1; border-radius: 50%;
+      line-height: em(14, $font-size); text-decoration: none; text-align: center; color: $mono10;
+    }
   }
 }

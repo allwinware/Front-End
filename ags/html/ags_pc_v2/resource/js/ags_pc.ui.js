@@ -286,10 +286,22 @@ $(window).on("load", function(){
     /* 일반적인 팝업 */
     $doc.on("click", "[data-popup]", function(){
         var $pop = $($(this).attr("data-popup"));
-        if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim-clear") === undefined){
+        if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === undefined){
             popupShow($pop);
-        } else if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim-clear") === 'true'){
+        } else if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === 'false'){
             popupShow_NoDim($pop);
+            if($win.height() > $pop.height()){
+                $pop.css({
+                    "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
+                })
+            } else {
+                $pop.css("top", $doc.scrollTop())
+            }
+            $(document).on("click", function(e){
+                if($pop.hasClass("active") && !$pop.has(e.target).length){
+                    popupHide($pop);
+                }
+            });
         } if($pop.attr("data-type") === 'message'){
             /*messagePopShow($pop)*/
             popupShow($pop);
@@ -304,12 +316,28 @@ $(window).on("load", function(){
                 popupShow($pop);
                 $pop.css("height", $win.innerHeight() - $("#ags-header").height());
             }
+        } else if($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === undefined){
+            popupShow($pop);
+        } else if($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === 'false'){
+            popupShow_NoDim($pop);
+            if($win.height() > $pop.height()){
+                $pop.css({
+                    "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
+                })
+            } else {
+                $pop.css("top", $doc.scrollTop())
+            }
+            $(document).on("click", function(e){
+                if($pop.hasClass("active") && !$pop.has(e.target).length){
+                    popupHide($pop);
+                }
+            });
         }
     });
 
     $doc.on("click", "[data-role='close']", function(){
         var $pop = $($("#" + $(this).parents(".pop-area").attr("id")));
-        if($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission'){
+        if($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission' || $pop.attr("data-type") === 'guidance'){
             popupHide($pop);
         }
     });

@@ -54,8 +54,24 @@
   display: none;
   position: fixed; right: 0; bottom: 0; left: 0;
   &.active { display: block; }
+  &[data-dim='false']{
+    position: absolute; bottom: initial;
+    padding: rem($grid * 4) 0;
+    text-align: center;
+    .pop-wrap {
+      position: relative; left: initial; top: initial;
+      display: inline-block;
+      -webkit-transform: translate(0, 0); -ms-transform: translate(0, 0); transform: translate(0, 0);
+      -moz-box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      -o-box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      -webkit-box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      text-align: left;
+    }
+  }
 }
 .pop-wrap {
+  cursor: default;
   ul.list-dot > li {
     @include font($size: 13, $color: $mono1, $weight: 400, $spacing: 0);
     position: relative;
@@ -121,14 +137,6 @@
       padding: rem($grid * 2) 0;
       text-align: center;
       & > * { @include font($size: 12, $color: $mono3, $weight: 400); display: inline; background-color: transparent; }
-    }
-  }
-  &[data-dim='false']{
-    .pop-wrap {
-      -moz-box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-      -o-box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-      -webkit-box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
     }
   }
   ul.list-dot > li { text-align: left; line-height: rem(20) }
