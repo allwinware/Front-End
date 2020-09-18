@@ -100,82 +100,6 @@
           & > * { float: left; width: 100%; };
         }
       }
-
-
-      [class*='bundle-type'] + dd {
-        @include bundle-flag($ico-class: '.ico');
-        margin-top: rem(-10);
-        .ico { margin-bottom: rem(10); }
-      }
-      @include bundle-flag-type($airline: tw, $type: 0, $ico-class: '.bundle-type0 + dd .ico');
-      @include bundle-flag-type($airline: tw, $type: 1, $ico-class: '.bundle-type1 + dd .ico');
-      @include bundle-flag-type($airline: tw, $type: 2, $ico-class: '.bundle-type2 + dd .ico');
-      @include bundle-flag-type($airline: tw, $type: 3, $ico-class: '.bundle-type3 + dd .ico');
-      .bundle-inter1 .bundle-type1 {
-        & + dd {
-          .ico {  }
-        }
-      }
-      .bundle-inter1 .bundle-type2 {
-        & + dd {
-          .ico {  }
-        }
-        & ~ .selected-seat + dd {
-          &:empty:before {
-            content: "(프리미엄 제외 좌석) 선택하세요";
-          }
-        }
-      }
-      .bundle-inter1 .bundle-type3 {
-        & + dd {
-          .ico {  }
-        }
-        & ~ .selected-seat + dd {
-          &:empty:before {
-            content: "(전좌석) 선택하세요";
-          }
-        }
-      }
-      .bundle-inter2 .bundle-type1 {
-        & + dd {
-          .ico {  }
-        }
-        & ~ .selected-seat + dd {
-          &:empty:before {
-            content: "(프리미엄 제외 좌석) 선택하세요";
-          }
-        }
-      }
-      .bundle-inter2 .bundle-type2 {
-        & + dd {
-          .ico {  }
-        }
-        & ~ .selected-seat + dd {
-          &:empty:before {
-            content: "(전좌석) 선택하세요";
-          }
-        }
-      }
-      .bundle-dom1 .bundle-type1 {
-        & + dd {
-          .ico {  }
-        }
-        & ~ .selected-seat + dd {
-          &:empty:before {
-            content: "(프리미엄 제외 좌석) 선택하세요";
-          }
-        }
-      }
-      .bundle-dom1 .bundle-type2 {
-        & + dd {
-          .ico {  }
-        }
-        & ~ .selected-seat + dd {
-          &:empty:before {
-            content: "(전좌석) 선택하세요";
-          }
-        }
-      }
     }
     & + .anc-service-wrap { margin-top: rem(100); border-top: 1px solid $mono1; }
   }
@@ -252,6 +176,83 @@
       dd, dd:empty:before { color: $mono1 }
       .ico_baby { color: $mono1; }
     }
+
+
+    [class*='bundle-type'] + dd {
+      @include bundle-flag($ico-class: '.ico');
+      .ico { margin-bottom: rem(10); }
+    }
+    @include bundle-flag-type($airline: tw, $type: 0, $ico-class: '.bundle-type0 + dd .ico');
+    @include bundle-flag-type($airline: tw, $type: 1, $ico-class: '.bundle-type1 + dd .ico');
+    @include bundle-flag-type($airline: tw, $type: 2, $ico-class: '.bundle-type2 + dd .ico');
+    @include bundle-flag-type($airline: tw, $type: 3, $ico-class: '.bundle-type3 + dd .ico');
+    .bundle-type0 + dd { @include sr-only }
+    [class*='bundle-type']:not(.bundle-type0) { margin-top: rem(-30); }
+    .bundle-inter1 .bundle-type1 {
+      & + dd {
+        .ico {  }
+      }
+    }
+    .bundle-inter1 .bundle-type2 {
+      & + dd {
+        .ico {  }
+      }
+      & ~ .selected-seat + dd {
+        &:empty:before {
+          content: "(프리미엄 제외 좌석) 선택하세요";
+        }
+      }
+    }
+    .bundle-inter1 .bundle-type3 {
+      & + dd {
+        .ico {  }
+      }
+      & ~ .selected-seat + dd {
+        &:empty:before {
+          content: "(전좌석) 선택하세요";
+        }
+      }
+    }
+    .bundle-inter2 .bundle-type1 {
+      & + dd {
+        .ico {  }
+      }
+      & ~ .selected-seat + dd {
+        &:empty:before {
+          content: "(프리미엄 제외 좌석) 선택하세요";
+        }
+      }
+    }
+    .bundle-inter2 .bundle-type2 {
+      & + dd {
+        .ico {  }
+      }
+      & ~ .selected-seat + dd {
+        &:empty:before {
+          content: "(전좌석) 선택하세요";
+        }
+      }
+    }
+    .bundle-dom1 .bundle-type1 {
+      & + dd {
+        .ico {  }
+      }
+      & ~ .selected-seat + dd {
+        &:empty:before {
+          content: "(프리미엄 제외 좌석) 선택하세요";
+        }
+      }
+    }
+    .bundle-dom1 .bundle-type2 {
+      & + dd {
+        .ico {  }
+      }
+      & ~ .selected-seat + dd {
+        &:empty:before {
+          content: "(전좌석) 선택하세요";
+        }
+      }
+    }
   }
   .passenger-list:last-child {
     & > ul > li { @include clearfix; padding: rem(20) rem($grid * 4); width: 100%; }
@@ -262,7 +263,7 @@
     margin-left: rem(3); width: rem(12); height: rem(12);
     @include background($file: 'anc/ico_help', $type: png, $width: rem(12), $height: rem(12));
     background-position: center center;
-    text-indent: -999em; vertical-align: middle;
+    text-indent: -999em; vertical-align: top;
   }
   .function-wrap {
     @include flex(space-between stretch flex-start nowrap);
