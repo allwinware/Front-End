@@ -6157,10 +6157,14 @@
                 $("body").on("click", ".anc_meal .tab-panel.active .btn_delete", function(e){
                     e.preventDefault();
                     var $this = $(this)/*클릭한 삭제버튼*/,
+                        $checkedPsg = $this.parent("dd").html("").parent("dl").siblings("input[type='radio']"),
                         owner = $this.parent("dl").find(".passenger-name + dd").text()/*클릭한 삭제 버튼이 작동할 승객의 성명*/;
 
                     /*해당 승객에게 포커스를 맞춰줍니다*/
-                    $this.parent("dd").html("").parent("dl").siblings("input[type='radio']").click();
+                    $checkedPsg.click();
+
+                    /*승객의 좌석 텍스트를 삭제합니다*/
+                    $checkedPsg.attr("data-bind", "");
                     $target.prop("checked", false)
                 });
             });
