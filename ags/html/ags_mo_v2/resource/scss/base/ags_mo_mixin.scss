@@ -106,20 +106,21 @@
 @mixin clearfix {
   &:after { content: ''; display: table; clear: both; }
 }
+@mixin transform($value) {
+  -webkit-transform: $value;
+  -ms-transform: $value;
+  transform: $value;
+}
 @mixin valign-middle($value: before) {
   &:#{$value} { content: ""; display: inline-block; width: 0; height: 100%; vertical-align: middle; }
 }
 @mixin align-center(){
   position: absolute; left: 50%; top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  @include transform(translate(-50%, -50%));
 }
 @mixin valign-center(){
   position: absolute; left: 0; top: 50%;
-  -webkit-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  transform: translate(0, -50%);
+  @include transform(translate(0, -50%));
 }
 @mixin text-uppercase {
   text-transform: uppercase;
@@ -137,9 +138,7 @@
   &:#{$el} {
     content: "";
     position: absolute; left: #{$mg}px; top: 50%;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
+    @include transform(translate(0, -50%));
     display: inline-block;
     width: 1px; height: #{$size}px;
     background-color: $color;
@@ -372,15 +371,10 @@
 .anm_r-to-l {
   @include keyframe($animation_name: anm_r-to-l){
     0% {
-      -webkit-transform: translate(100%, 0);
-      -ms-transform: translate(100%, 0);
-      transform: translate(100%, 0);
+      @include transform(translate(100%, 0));
     }
     100% {
-
-      -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-      transform: translate(0, 0);
+      @include transform(translate(0, 0));
     }
   }
   @include animation($delay: 0.2s, $duration: 0.5s, $animation: anm_r-to-l, $direction: forward, $fillmode: fowards);

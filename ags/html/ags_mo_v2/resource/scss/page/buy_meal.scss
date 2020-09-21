@@ -6,14 +6,35 @@
   .tab-panel {
     padding-top: rem($buy__psg-wrap-height);
   }
+  .function-wrap { padding-top: rem(26) }
   .meal-list {
-    padding: rem(12) 0 rem(50) rem($grid * 2);
+    $thumb-size: 78;
+    margin: rem(12) 0 0 rem($grid * 2); padding: 0 0 rem(50) 0;
+    border-top: 1px solid $mono1;
     .item {
       position: relative;
-      padding: rem(20) rem($grid * 2) rem(20) rem(94);
+      padding: rem(20) rem($grid * 2) rem(20) rem(94); min-height: rem(133);
       border-bottom: 1px solid $mono8;
-      &:first-of-type {
-        border-top: 1px solid $mono1;
+      &.active {
+        animation: meal-item 0.4s;
+        display: block;
+        opacity: 1;
+        padding: rem(20) rem($grid * 2) rem(20) rem(94); min-height: rem(134);
+        @include keyframe($animation_name: meal-item){
+          0%, 40% { display: block; opacity: 0; @include transform(translate(0, -30px)) }
+          50% { opacity: 0; }
+          100% {
+            opacity: 1;
+            @include transform(translate(0, 0))
+          }
+        }
+      }
+      &.inactive {
+        display: none;
+        opacity: 0;
+        padding: 0; min-height: 0;
+        animation: meal-item 0.4s;
+        animation-direction: reverse;
       }
     }
     input[type='radio'], input[type='checkbox'] {
@@ -21,8 +42,8 @@
       & + label {
         overflow: hidden;
         display: block;
-        position: absolute !important; left: 0; top: 0; right: 0; bottom: 0;
-        width: 100%; height: 100%;
+        position: absolute !important; left: rem(97); top: 0; right: 0; bottom: 0;
+        height: 100%;
         text-indent: -999em; font-weight: 400;
         .ico { position: absolute; right: rem($grid * 2); top: rem($grid * 2) }
       }
@@ -84,7 +105,8 @@
         @include font($size: 13, $color: $text-primary, $weight: 600, $spacing: -0.03);
       }
     }
-    .meal-thumbnail + dd { overflow: hidden; position: absolute; left: 0; top: rem($grid * 2); width: rem(78); height: rem(78); border-radius: 50%; border: 1px solid $mono8; }
+    .meal-thumbnail + dd { overflow: hidden; position: absolute; left: 0; top: rem($grid * 2); width: rem($thumb-size); height: rem($thumb-size); border-radius: 50%; border: 1px solid $mono8; }
     .meal-thumbnail + dd img { @include align-center; max-width: 100%; height: auto; }
+    .btn_allergy { @include text-ellipsis(); position: absolute; top: rem(102); left: 0; width: rem($thumb-size); height: 1.4em; font-size: rem(11); text-align: center; font-weight: 600; text-decoration: underline; color: #66b1ff; }
   }
 }

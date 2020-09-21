@@ -20,58 +20,116 @@
                     var $thisPanel = $(this),
                         $psgLists = $thisPanel.find("[data-select='passenger']"),
                         $selectMeals = $thisPanel.find("[data-select='meal']"),
-                        $target = $selectMeals.find("input[type='radio'], input[type='checkbox']");
-                    $psgLists.find("li:first-child input[type='radio'], li:first-child input[type='checkbox']").prop("checked", true);
-                    $target.on("click", function(){
+                        $target = $selectMeals.find("input[type='radio']");
+
+                    $psgLists.find("li:first-child input[type='radio'], li:first-child input[type='radio']").prop("checked", true);
+
+                    /*탑승객이 번들 상품을 선택했을 때와 선택하지 않았을 때의 기내식 리스트 표시 정의 & 선택한 기내식 표시 정의*/
+                    function psgAction(e){
+                        var $this = $(e.target);
+                        if($this.siblings("dl").find("dt[class*='bundle-type']:not('.bundle-type0')").length !== 0){
+                            /*탑승객이 선택되었고 선택된 승객이 번들 상품을 선택하였을 떄의 기내식 리스트를 표현합니다*/
+                            setTimeout(function(){
+                                $selectMeals.find("div:not([data-id='bundle-item'])").addClass("inactive").removeClass("active");
+                                $selectMeals.find("div[data-id='bundle-item']").addClass("active").removeClass("inactive");
+                            }, 400);
+                        } else {
+                            /*탑승객이 선택되었고 선택된 승객이 번들 상품을 선택하지 않았을 때의 기내식 리스트를 표현합니다*/
+                            setTimeout(function(){
+                                $selectMeals.find("div[data-id='bundle-item']").addClass("inactive").removeClass("active");
+                                $selectMeals.find("div:not([data-id='bundle-item'])").addClass("active").removeClass("inactive");
+                            }, 400);
+                        }
+                    }
+                    /*탑승객을 선택했을 때의 화면동작 정의*/
+                    $psgLists.find("input[type='radio'], input[type='radio']").on("change", function(e){
+                        if($(this).is(":checked")){
+
+                            activeLinkScrollLeft($(this).closest("li"), $psgLists.parent(".passenger-wrap"), 800);
+
+                            /*탑승객을 선택했을 때 (탑승객이 번들 상품을 선택했을 때와 선택하지 않았을 때의 기내식 리스트 표시 정의)*/
+                            psgAction(e);
+
+                            if($(this).attr("data-bind") !== "" && $(this).attr("data-bind") !== undefined){
+                                /*선택된 승객이 이미 기내식을 선택했을 경우*/
+                                $target.prop("checked", false);
+                                $($(this).attr("data-bind")).prop("checked", true)
+                            } else {
+                                /*선택된 승객이 기내식을 선택하지 않은 경우*/
+                                $target.prop("checked", false);
+                            }
+                        }
+                    }).change();
+                    
+                    $target.on("change", function(){
                         var $this = $(this),
-                            $checkedPsg = $psgLists.find($("input[type='radio']:checked, input[type='checkbox']:checked")),
-                            $psgLabel = $psgLists.find("input[type='radio'] ~ dl .selected-meal + dd, input[type='checkbox'] ~ dl .selected-meal + dd"),
-                            $currentPsgLabel = $psgLists.find("input[type='radio']:checked ~ dl .selected-meal + dd, input[type='checkbox']:checked ~ dl .selected-meal + dd"),
+                            $checkedPsg = $psgLists.find($("input[type='radio']:checked, input[type='radio']:checked")),
+                            $psgLabel = $psgLists.find("input[type='radio'] ~ dl .selected-meal + dd, input[type='radio'] ~ dl .selected-meal + dd"),
+                            $currentPsgLabel = $psgLists.find("input[type='radio']:checked ~ dl .selected-meal + dd, input[type='radio']:checked ~ dl .selected-meal + dd"),
                             $mealName = $this.siblings("dl").find(".meal-name + dd").text(),
                             $mealPrice = $this.siblings("dl").find(".meal-description + dd + .meal-price + dd").text();
-                        if($thisPanel.find("input[data-all-psg='true']").prop("checked") === true){
-                            /*동승자 메뉴 통일하기 체크박스를 선택한 상태라면*/
-                            $psgLabel.html("<span>" + $mealName + " / ￦" + $mealPrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
-                            setTimeout(function(){$this.prop("checked", false);}, 400);
-                            $("html").animate({
-                                scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top
-                            }, 1500);
-                        } else{
-                            /*동승자 메뉴 통일하기 체크박스를 선택하지 않은 상태라면*/
-                            $currentPsgLabel.html("<span>" + $mealName + " / ￦" + $mealPrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
-                            setTimeout(function(){$this.prop("checked", false);}, 400);
-                            /*if문 처리한 이후 다음 승객을 자동으로 넘어감*/
-                            if($checkedPsg.parent("li").next("li").length > 0) {
-                                setTimeout(function(){
+
+                        if($this.is(":checked")) {
+                            if ($thisPanel.find("input[data-all-psg='true']").length > 0 && $thisPanel.find("input[data-all-psg='true']").prop("checked") === true) {
+                                /*탑승객 메뉴 통일하기 체크박스를 선택한 상태고*/
+                                if ($this.siblings("dl").find(".meal-description + dd + .meal-price + dd").length !== 0) {
+                                    /*가격정보가 존재한다면*/
+                                    $psgLabel.html("<span>" + $mealName + " / ￦" + $mealPrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                                } else {
+                                    /*가격정보가 존재하지 않는다면*/
+                                    $psgLabel.html("<span>" + $mealName + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                                }
+                                $checkedPsg.attr("data-bind", "#" + $this.attr("id"));
+                                $("html").animate({
+                                    scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top
+                                }, 1500);
+                            } else {
+                                /*탑승객 메뉴 통일하기 체크박스를 선택하지 않은 상태고*/
+                                if ($this.siblings("dl").find(".meal-description + dd + .meal-price + dd").length !== 0) {
+                                    /*가격정보가 존재한다면*/
+                                    $currentPsgLabel.html("<span>" + $mealName + " / ￦" + $mealPrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                                } else {
+                                    /*가격정보가 존재하지 않는다면*/
+                                    $currentPsgLabel.html("<span>" + $mealName + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                                }
+                                $checkedPsg.attr("data-bind", "#" + $this.attr("id"));
+
+                                /*if문 처리한 이후 다음 승객을 자동으로 넘어감*/
+                                if ($checkedPsg.parent("li").next("li").length > 0) {
                                     /*다음 승객이 있으면 다음 승객으로 넘어가기*/
-                                    $checkedPsg.parent("li").next("li").find("input[type='radio']").prop("checked", true);
-                                    activeLinkScrollLeft($checkedPsg.parent("li").next("li"), $psgLists.parent(".passenger-wrap"), 800);
-                                }, 1000);
-                            } else if ($checkedPsg.parent("li").next("li").length === 0) {
-                                /*다음 승객이 없고 다음 탭이 있을 경우 하단 버튼영역으로 포커스 내려주기*/
-                                setTimeout(function() {
-                                    $("html").animate({
-                                        scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top
-                                    }, 1500);
-                                }, 1000);
+                                    setTimeout(function () {
+                                        $checkedPsg.parent("li").next("li").find("input[type='radio']").click()
+                                        activeLinkScrollLeft($checkedPsg.parent("li").next("li"), $psgLists.parent(".passenger-wrap"), 800);
+                                    }, 1000);
+                                } else if ($checkedPsg.parent("li").next("li").length === 0) {
+                                    /*다음 승객이 없고 다음 탭이 있을 경우, 다음 탭으로 이동합니다.*/
+                                    setTimeout(function () {
+                                        $("html").animate({
+                                            scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top
+                                        }, 1500);
+                                    }, 1000);
+                                }
                             }
                         }
                     });
 
                     /*승객에게 좌석을 부여한 뒤, 좌석 텍스트 뒤에 붙는 삭제(X)버튼의 기능을 정의합니다*/
-                    $doc.on("click", ".btn_delete", function(){
-                        var $this = $(this)/*클릭한 삭제버튼*/;
-                        owner = $this.parents("dl").find(".passenger-name + dd").text()/*클릭한 삭제버튼이 작동할 승객의 성명*/;
-
-                        /*승객의 성명으로 마킹된 좌석을 찾아 마킹을 지워줍니다*/
-                        $(".tab-panel.active .seat-num a.active[data-psg='" + owner + "']").attr("data-psg", "").removeClass("active");
-
-                        /*해당 승객에게 포커스를 맞춰줍니다*/
-                        $(this).closest("dl").siblings("input[type='radio']").prop("checked", true);
-                        activeLinkScrollLeft($(this).closest("li"), $psgLists.parent(".passenger-wrap"), 800);
+                    $("body").on("click", ".tab-panel.active .btn_delete", function(){
+                        var $this = $(this)/*클릭한 삭제버튼*/,
+                            $checkedPsg = $this.parents("dl").siblings("input[type='radio'], input[type='radio']"),
+                            owner = $this.parents("dl").find(".passenger-name + dd").text()/*클릭한 삭제버튼이 작동할 승객의 성명*/;
 
                         /*승객의 좌석 텍스트를 삭제합니다*/
-                        $(this).parent("dd").html("")
+                        $this.parent("dd").html("");
+                        /*승객의 성명에 달린 기내식 마킹을 지워줍니다*/
+                        $checkedPsg.attr("data-bind", "");
+                        $target.prop("checked", false);
+
+                        /*해당 승객에게 포커스를 맞춰줍니다*/
+                        $checkedPsg.click();
+                        activeLinkScrollLeft($this.closest("li"), $psgLists.parent(".passenger-wrap"), 800);
+
+
                     });
                 });
             })();
@@ -213,7 +271,7 @@
                                         <dl>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-1">Bae, Sungjune</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -222,7 +280,7 @@
                                         <dl>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-2">Son, Seungwan</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -231,7 +289,7 @@
                                         <dl>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-3">Kim, Taehyung</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -254,7 +312,7 @@
                                             <dd><span class="ico">트리플팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-1">Bae, Sungjune</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -265,7 +323,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-2">Son, Seungwan</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -276,7 +334,7 @@
                                             <dd><span class="ico">멀티팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-3">Kim, Taehyung</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -290,7 +348,7 @@
                                             <dd><span class="ico">트리플팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-1">Bae, Sungjune</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -301,7 +359,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-2">Son, Seungwan</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -312,7 +370,7 @@
                                             <dd><span class="ico">더블팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-3">Kim, Taehyung</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -326,7 +384,7 @@
                                             <dd><span class="ico">트리플팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-1">Bae, Sungjune</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -337,7 +395,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-2">Son, Seungwan</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -348,7 +406,7 @@
                                             <dd><span class="ico">더블팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger1-3">Kim, Taehyung</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -357,10 +415,13 @@
                             <!-- //승객 선택 -->
 
                             <!-- 기내식 목록 -->
-                            <div class="meal-plan">
+                            <!-- 분기 1 : 기내식 서비스를 제공할 수 있을 때 -->
+
+                            <!-- 분기 1-1 : 승객 중 누구도 번들팩을 추가하지 않았을 때 -->
+                            <!--<div class="meal-plan">
                                 <h6 class="sr-only">기내식 목록</h6>
 
-                                <!-- 제공할 수 있는 기내식이 있을 경우 -->
+                                &lt;!&ndash; 제공할 수 있는 기내식이 있을 경우 &ndash;&gt;
                                 <div class="function-wrap">
                                     <div class="notification-text">
                                         <p class="notice-msg">
@@ -369,22 +430,17 @@
                                         </p>
                                     </div>
                                     <div class="btn-group">
-                                        <input type="checkbox" id="input-check01" name="check-group" data-all-psg="true">
+                                        <input type="radio" id="input-check01" name="check-group" data-all-psg="true">
                                         <label for="input-check01"><i class="ico"></i> 동승자 메뉴 통일하기</label>
                                     </div>
                                 </div>
                                 <div class="meal-list" data-select="meal">
-                                    <!--
-                                        기내식 제목 앞에 'NEW', 'BEST'등의 태그가 붙었으나, 정책변경으로 NEW/BEST 태그를 삭제하였습니다.
-                                        대신 사용자에게 꼭 전달해야하는 Hot Meal(.hm), Cold Meal(.cm), Adult Meal(.am), Kids Meal(.km) 태그를 각 아이템별 .ico에 옮겨 붙이게 되었습니다.
-
-                                        * 정리 *
-                                        - .meal-name.new, .meal-name.best 사용하지 않음
-                                        - .meal-name .ico_hm, .meal-name .ico_cm, .meal-name .ico_am, .meal-name .ico_km 사용
-                                        - 기내식 메뉴에는 한 개의 태그만 붙음
-                                    -->
+                                    &lt;!&ndash;
+                                        - .meal-name .ico_hm, .meal-name .ico_cm, .meal-name .ico_am, .meal-name .ico_km 태그를 사용하여 기내식의 속성을 전달합니다.
+                                        - 기내식 메뉴에는 한 개의 태그만 붙습니다.
+                                    &ndash;&gt;
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio01" name="meal-group">
+                                        <input type="radio" id="input-radio01" name="meal-group">
                                         <label for="input-radio01"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
@@ -399,23 +455,18 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">16000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@구름 위의 샌드위치@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@구름 위의 샌드위치@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio02" name="meal-group">
+                                        <input type="radio" id="input-radio02" name="meal-group">
                                         <label for="input-radio02"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_hm">[핫밀]</i> 풍밥</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 김풍 작가 제주항공 기내식을 부탁해<br>
                                                 구매 고객께 메리앤콩 아메리카노 증정
@@ -423,46 +474,36 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@풍밥@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@풍밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio03" name="meal-group">
+                                        <input type="radio" id="input-radio03" name="meal-group">
                                         <label for="input-radio03"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name best">제품명</dt>
                                             <dd><i class="ico_km">[키즈밀]</i> 패밀리 세트</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 온 가족이 다 함께 즐기는 패밀리 세트 출시
                                             </dd>
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">29000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@패밀리 세트@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@패밀리 세트@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio04" name="meal-group">
+                                        <input type="radio" id="input-radio04" name="meal-group">
                                         <label for="input-radio04"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_am">[어덜트밀]</i> 생선요리와 화이트와인</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 온 가족이 다 함께 즐기는 패밀리 세트 출시
                                             </dd>
@@ -472,15 +513,17 @@
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
                                             <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@생선요리와 화이트와인@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio05" name="meal-group">
+                                        <input type="radio" id="input-radio05" name="meal-group">
                                         <label for="input-radio05"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_hm">[핫밀]</i> 오색 비빔밥</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 한국인의 대표적인 음식 오색 비빔밥
                                             </dd>
@@ -489,23 +532,18 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@오색 비빔밥@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@오색 비빔밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio06" name="meal-group">
+                                        <input type="radio" id="input-radio06" name="meal-group">
                                         <label for="input-radio06"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_cm">[콜드밀]</i> PILOT 기내식</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 PILOT 기내식 실제 기내식 메뉴<br>
                                                 (메인메뉴 + 반찬)
@@ -515,23 +553,18 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@PILOT 기내식@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@PILOT 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio07" name="meal-group">
+                                        <input type="radio" id="input-radio07" name="meal-group">
                                         <label for="input-radio07"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_hm">[핫밀]</i> 흑돼지 덮밥</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 제주산 흑돼지로 만든 매콤달콤한 제육덮밥
                                             </dd>
@@ -540,23 +573,18 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@흑돼지 덮밥@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@흑돼지 덮밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio08" name="meal-group">
+                                        <input type="radio" id="input-radio08" name="meal-group">
                                         <label for="input-radio08"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_cm">[콜드밀]</i> 스튜어디스/스튜어드 기내식</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 객실승무원 실제 기내식 메뉴<br>
                                                 (메인메뉴 + 반찬)
@@ -566,15 +594,289 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">18000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@스튜어디스/스튜어드 기내식@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 햄치즈 샌드위치</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                햄치즈 샌드위치
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@햄치즈 샌드위치"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio59" name="meal-group1">
+                                        <label for="input-radio59"><i class="ico"></i> 선택하기</label>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 불고기 또띠아</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                불고기 또띠아
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio60" name="meal-group1">
+                                        <label for="input-radio60"><i class="ico"></i> 선택하기</label>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 닭가슴살 샐러드와 소프트롤</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                닭가슴살 샐러드, 발사믹 드레싱, 소프트롤, 버터
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@닭가슴살 샐러드와 소프트롤@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio61" name="meal-group1">
+                                        <label for="input-radio61"><i class="ico"></i> 선택하기</label>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <!-- 분기 1-2 : 승객 중 한 사람 이상이 번들팩을 추가했을 때 -->
+                            <div class="meal-plan">
+                                <h6 class="sr-only">기내식 목록</h6>
+
+                                <!-- 제공할 수 있는 기내식이 있을 경우 -->
+                                <div class="function-wrap">
+                                    <div class="notification-text">
+                                        <p class="notice-msg">
+                                            기내식을 선택하세요.<br>
+                                            <span class="text-emphasis">출발 3일 전</span>까지 구매하실 수 있습니다.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="meal-list" data-select="meal">
+                                    <!--
+                                        - .meal-name .ico_hm, .meal-name .ico_cm, .meal-name .ico_am, .meal-name .ico_km 태그를 사용하여 기내식의 속성을 전달합니다.
+                                        - 기내식 메뉴에는 한 개의 태그만 붙습니다.
+                                        - .item(data-id 없음)은 번들을 선택하지 않은 고객에게 나타나는 메뉴, .item[data-id='bundle-item']은 번들 선택 고객에게 표시될 메뉴입니다.
+                                        - 고객의 번들 선택 여부에 따라, .item, .item[data-id='bundle-item']에 '.active(활성화)', '.inactive(비활성화)' 클래스를 부여해 보이거나 감춥니다. ( * function(mealHandler) 을 검색하여 기내식 표시 정의를 확인해주세요) )
+                                        - 실제 API가 어떻게 수신되는지, 또 번들 별로 제공되는 기내식이 서로 다른지 여부는 알 수 없어서 보이기/감추기 수준으로 단순하게 처리하였는데, 개발 중 구현이 이와 같이 이루어지기 어렵다면 말씀해주세요... :)
+                                    -->
+                                    <div class="item">
+                                        <input type="radio" id="input-radio01" name="meal-group">
+                                        <label for="input-radio01"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 구름 위의 샌드위치</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                구름 위에서 즐기는 햄치즈/참치마요<br>
+                                                닭가슴살 클럽 샌드위치
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">9000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">16000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@구름 위의 샌드위치@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio02" name="meal-group">
+                                        <label for="input-radio02"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_hm">[핫밀]</i> 풍밥</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                김풍 작가 제주항공 기내식을 부탁해<br>
+                                                구매 고객께 메리앤콩 아메리카노 증정
+                                            </dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@풍밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio03" name="meal-group">
+                                        <label for="input-radio03"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name best">제품명</dt>
+                                            <dd><i class="ico_km">[키즈밀]</i> 패밀리 세트</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                온 가족이 다 함께 즐기는 패밀리 세트 출시
+                                            </dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">29000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@패밀리 세트@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio04" name="meal-group">
+                                        <label for="input-radio04"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_am">[어덜트밀]</i> 생선요리와 화이트와인</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                온 가족이 다 함께 즐기는 패밀리 세트 출시
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@생선요리와 화이트와인@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio05" name="meal-group">
+                                        <label for="input-radio05"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_hm">[핫밀]</i> 오색 비빔밥</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                한국인의 대표적인 음식 오색 비빔밥
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@오색 비빔밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio06" name="meal-group">
+                                        <label for="input-radio06"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> PILOT 기내식</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                PILOT 기내식 실제 기내식 메뉴<br>
+                                                (메인메뉴 + 반찬)
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@PILOT 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio07" name="meal-group">
+                                        <label for="input-radio07"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_hm">[핫밀]</i> 흑돼지 덮밥</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                제주산 흑돼지로 만든 매콤달콤한 제육덮밥
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@흑돼지 덮밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio08" name="meal-group">
+                                        <label for="input-radio08"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 스튜어디스/스튜어드 기내식</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                객실승무원 실제 기내식 메뉴<br>
+                                                (메인메뉴 + 반찬)
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">18000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 햄치즈 샌드위치</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                햄치즈 샌드위치
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@햄치즈 샌드위치"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio59" name="meal-group1">
+                                        <label for="input-radio59"><i class="ico"></i> 선택하기</label>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 불고기 또띠아</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                불고기 또띠아
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio60" name="meal-group1">
+                                        <label for="input-radio60"><i class="ico"></i> 선택하기</label>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 닭가슴살 샐러드와 소프트롤</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                닭가슴살 샐러드, 발사믹 드레싱, 소프트롤, 버터
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@닭가슴살 샐러드와 소프트롤@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio61" name="meal-group1">
+                                        <label for="input-radio61"><i class="ico"></i> 선택하기</label>
                                     </div>
                                 </div>
                             </div>
@@ -653,7 +955,7 @@
                                         <dl>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-1">Bae, Sungjune</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -662,7 +964,7 @@
                                         <dl>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-2">Son, Seungwan</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -671,7 +973,7 @@
                                         <dl>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-3">Kim, Taehyung</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -694,7 +996,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-1">Bae, Sungjune</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -705,7 +1007,7 @@
                                             <dd><span class="ico">더블팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-2">Son, Seungwan</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -716,7 +1018,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-3">Kim, Taehyung</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -730,7 +1032,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-1">Bae, Sungjune</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -741,7 +1043,7 @@
                                             <dd><span class="ico">더블팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-2">Son, Seungwan</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -752,7 +1054,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-3">Kim, Taehyung</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -766,7 +1068,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-1">Bae, Sungjune</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -777,7 +1079,7 @@
                                             <dd><span class="ico">더블팩</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-2">Son, Seungwan</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -788,7 +1090,7 @@
                                             <dd><span class="ico">없음</span></dd>
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio_passenger2-3">Kim, Taehyung</label></dd>
-                                            <dt class="selected-seat">선택한 좌석</dt>
+                                            <dt class="selected-meal">선택한 좌석</dt>
                                             <dd></dd>
                                         </dl>
                                     </li>
@@ -797,7 +1099,10 @@
                             <!-- //승객 선택 -->
 
                             <!-- 기내식 목록 -->
-                            <div class="meal-plan">
+                            <!-- 분기 1 : 기내식 서비스를 제공할 수 있을 때 -->
+
+                            <!-- 분기 1-1 : 승객 중 누구도 번들팩을 추가하지 않았을 때 -->
+                            <!--<div class="meal-plan">
                                 <h6 class="sr-only">기내식 목록</h6>
 
                                 <div class="function-wrap">
@@ -808,22 +1113,17 @@
                                         </p>
                                     </div>
                                     <div class="btn-group">
-                                        <input type="checkbox" id="input-check51" class="" name="check-group" data-all-psg="true">
+                                        <input type="radio" id="input-check51" class="" name="check-group" data-all-psg="true">
                                         <label for="input-check51"><i class="ico"></i> 동승자 메뉴 통일하기</label>
                                     </div>
                                 </div>
                                 <div class="meal-list" data-select="meal">
-                                    <!--
-                                        기내식 제목 앞에 'NEW', 'BEST'등의 태그가 붙었으나, 정책변경으로 NEW/BEST 태그를 삭제하였습니다.
-                                        대신 사용자에게 꼭 전달해야하는 Hot Meal(.hm), Cold Meal(.cm), Adult Meal(.am), Kids Meal(.km) 태그를 각 아이템별 .ico에 옮겨 붙이게 되었습니다.
-
-                                        * 정리 *
-                                        - .meal-name.new, .meal-name.best 사용하지 않음
-                                        - .meal-name .ico_hm, .meal-name .ico_cm, .meal-name .ico_am, .meal-name .ico_km 사용
-                                        - 기내식 메뉴에는 한 개의 태그만 붙음
-                                    -->
+                                    &lt;!&ndash;
+                                        - .meal-name .ico_hm, .meal-name .ico_cm, .meal-name .ico_am, .meal-name .ico_km 태그를 사용하여 기내식의 속성을 전달합니다.
+                                        - 기내식 메뉴에는 한 개의 태그만 붙습니다.
+                                    &ndash;&gt;
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio51" name="meal-group">
+                                        <input type="radio" id="input-radio51" name="meal-group">
                                         <label for="input-radio51"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name new">제품명</dt>
@@ -838,23 +1138,18 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">16000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@구름 위의 샌드위치@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@구름 위의 샌드위치@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio52" name="meal-group">
+                                        <input type="radio" id="input-radio52" name="meal-group">
                                         <label for="input-radio52"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name new">제품명</dt>
                                             <dd><i class="ico_hm">[핫밀]</i> 풍밥</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 김풍 작가 제주항공 기내식을 부탁해<br>
                                                 구매 고객께 메리앤콩 아메리카노 증정
@@ -862,46 +1157,36 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@풍밥@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@풍밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio53" name="meal-group">
+                                        <input type="radio" id="input-radio53" name="meal-group">
                                         <label for="input-radio53"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name best">제품명</dt>
                                             <dd><i class="ico_hm">[핫밀]</i> 패밀리 세트</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 온 가족이 다 함께 즐기는 패밀리 세트 출시
                                             </dd>
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">29000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@패밀리 세트@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@패밀리 세트@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio54" name="meal-group">
+                                        <input type="radio" id="input-radio54" name="meal-group">
                                         <label for="input-radio54"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_am">[어덜트밀]</i> 생선요리와 화이트와인</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 온 가족이 다 함께 즐기는 패밀리 세트 출시
                                             </dd>
@@ -911,15 +1196,17 @@
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
                                             <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@생선요리와 화이트와인@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio55" name="meal-group">
+                                        <input type="radio" id="input-radio55" name="meal-group">
                                         <label for="input-radio55"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_hm">[핫밀]</i> 오색 비빔밥</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 한국인의 대표적인 음식 오색 비빔밥
                                             </dd>
@@ -928,23 +1215,18 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@오색 비빔밥@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@오색 비빔밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio56" name="meal-group">
+                                        <input type="radio" id="input-radio56" name="meal-group">
                                         <label for="input-radio56"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_cm">[콜드밀]</i> PILOT 기내식</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 PILOT 기내식 실제 기내식 메뉴<br>
                                                 (메인메뉴 + 반찬)
@@ -954,23 +1236,18 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@PILOT 기내식@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@PILOT 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio57" name="meal-group">
+                                        <input type="radio" id="input-radio57" name="meal-group">
                                         <label for="input-radio57"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_hm">[핫밀]</i> 흑돼지 덮밥</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 제주산 흑돼지로 만든 매콤달콤한 제육덮밥
                                             </dd>
@@ -979,23 +1256,18 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">15000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@흑돼지 덮밥@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@흑돼지 덮밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
                                     </div>
                                     <div class="item">
-                                        <input type="checkbox" id="input-radio58" name="meal-group">
+                                        <input type="radio" id="input-radio58" name="meal-group">
                                         <label for="input-radio58"><i class="ico"></i> 선택하기</label>
                                         <dl>
                                             <dt class="meal-name">제품명</dt>
                                             <dd><i class="ico_cm">[콜드밀]</i> 스튜어디스/스튜어드 기내식</dd>
-                                            <dt class="meal-description">제품명</dt>
+                                            <dt class="meal-description">제품설명</dt>
                                             <dd>
                                                 객실승무원 실제 기내식 메뉴<br>
                                                 (메인메뉴 + 반찬)
@@ -1005,15 +1277,242 @@
                                             <dt class="meal-price">정가</dt>
                                             <dd><span class="digits">18000</span></dd>
                                             <dt class="meal-thumbnail">상품 이미지</dt>
-                                            <dd><img
-                                                src="../resource/img/buy/img_meal-sample.jpg"
-                                                srcset="
-                                                        ../resource/img/buy/img_meal-sample.jpg 1x,
-                                                        ../resource/img/buy/img_meal-sample@2x.jpg 2x,
-                                                        ../resource/img/buy/img_meal-sample@3x.jpg 3x"
-                                                alt="@스튜어디스/스튜어드 기내식@ 이미지">
-                                            </dd>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
                                         </dl>
+                                    </div>
+                                </div>
+
+                            </div>-->
+
+                            <!-- 분기 1-2 : 승객 중 한 사람 이상이 번들팩을 추가했을 때 -->
+                            <div class="meal-plan">
+                                <h6 class="sr-only">기내식 목록</h6>
+
+                                <div class="function-wrap">
+                                    <div class="notification-text">
+                                        <p class="notice-msg">
+                                            기내식을 선택하세요.<br>
+                                            <span class="text-emphasis">출발 3일 전</span>까지 구매하실 수 있습니다.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="meal-list" data-select="meal">
+                                    <!--
+                                        - .meal-name .ico_hm, .meal-name .ico_cm, .meal-name .ico_am, .meal-name .ico_km 태그를 사용하여 기내식의 속성을 전달합니다.
+                                        - 기내식 메뉴에는 한 개의 태그만 붙습니다.
+                                        - .item은 번들을 선택하지 않은 고객에게 나타나는 메뉴, .item[data-id='bundle-item']은 번들 선택 고객에게 표시될 메뉴입니다.
+                                        - 고객의 번들 선택 여부에 따라, .item, .item[data-id='bundle-item']에 '.active(활성화)', '.inactive(비활성화)' 클래스를 부여해 보이거나 감춥니다. ( * function(mealHandler) 을 검색하여 기내식 표시 정의를 확인해주세요) )
+                                        - 실제 API가 어떻게 수신되는지, 또 번들 별로 제공되는 기내식이 서로 다른지 여부는 알 수 없어서 보이기/감추기 수준으로 단순하게 처리하였는데, 개발 중 구현이 이와 같이 이루어지기 어렵다면 말씀해주세요... :)
+                                    -->
+                                    <div class="item">
+                                        <input type="radio" id="input-radio51" name="meal-group">
+                                        <label for="input-radio51"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name new">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 구름 위의 샌드위치</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                구름 위에서 즐기는 햄치즈/참치마요<br>
+                                                닭가슴살 클럽 샌드위치
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">9000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">16000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@구름 위의 샌드위치@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio52" name="meal-group">
+                                        <label for="input-radio52"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name new">제품명</dt>
+                                            <dd><i class="ico_hm">[핫밀]</i> 풍밥</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                김풍 작가 제주항공 기내식을 부탁해<br>
+                                                구매 고객께 메리앤콩 아메리카노 증정
+                                            </dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@풍밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio53" name="meal-group">
+                                        <label for="input-radio53"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name best">제품명</dt>
+                                            <dd><i class="ico_hm">[핫밀]</i> 패밀리 세트</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                온 가족이 다 함께 즐기는 패밀리 세트 출시
+                                            </dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">29000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@패밀리 세트@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio54" name="meal-group">
+                                        <label for="input-radio54"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_am">[어덜트밀]</i> 생선요리와 화이트와인</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                온 가족이 다 함께 즐기는 패밀리 세트 출시
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@생선요리와 화이트와인@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio55" name="meal-group">
+                                        <label for="input-radio55"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_hm">[핫밀]</i> 오색 비빔밥</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                한국인의 대표적인 음식 오색 비빔밥
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@오색 비빔밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio56" name="meal-group">
+                                        <label for="input-radio56"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> PILOT 기내식</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                PILOT 기내식 실제 기내식 메뉴<br>
+                                                (메인메뉴 + 반찬)
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@PILOT 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio57" name="meal-group">
+                                        <label for="input-radio57"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_hm">[핫밀]</i> 흑돼지 덮밥</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                제주산 흑돼지로 만든 매콤달콤한 제육덮밥
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">15000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@흑돼지 덮밥@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="item">
+                                        <input type="radio" id="input-radio58" name="meal-group">
+                                        <label for="input-radio58"><i class="ico"></i> 선택하기</label>
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 스튜어디스/스튜어드 기내식</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                객실승무원 실제 기내식 메뉴<br>
+                                                (메인메뉴 + 반찬)
+                                            </dd>
+                                            <dt class="meal-price">할인가</dt>
+                                            <dd><span class="digits">11000</span></dd>
+                                            <dt class="meal-price">정가</dt>
+                                            <dd><span class="digits">18000</span></dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 햄치즈 샌드위치</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                햄치즈 샌드위치
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@햄치즈 샌드위치"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio79" name="meal-group1">
+                                        <label for="input-radio79"><i class="ico"></i> 선택하기</label>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 불고기 또띠아</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                불고기 또띠아
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio80" name="meal-group1">
+                                        <label for="input-radio80"><i class="ico"></i> 선택하기</label>
+                                    </div>
+                                    <div data-id="bundle-item" class="item">
+                                        <dl>
+                                            <dt class="meal-name">제품명</dt>
+                                            <dd><i class="ico_cm">[콜드밀]</i> 닭가슴살 샐러드와 소프트롤</dd>
+                                            <dt class="meal-description">제품설명</dt>
+                                            <dd>
+                                                닭가슴살 샐러드, 발사믹 드레싱, 소프트롤, 버터
+                                            </dd>
+                                            <dt class="meal-thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@닭가슴살 샐러드와 소프트롤@ 이미지"></dd>
+                                            <dt class="meal-etc">기타정보</dt>
+                                            <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                        </dl>
+                                        <input type="radio" id="input-radio81" name="meal-group1">
+                                        <label for="input-radio81"><i class="ico"></i> 선택하기</label>
                                     </div>
                                 </div>
 
@@ -2040,6 +2539,27 @@
     <div class="process-btn-wrap" data-role="process-btn-wrap">
         <a href="#none" target="_self" class="btn_cancel" data-role="close">취소</a>
         <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+    </div>
+</div>
+
+<!-- 팝업 : 알레르기 정보 -->
+<div id="pop35" class="pop-area" data-type="alert" data-dim="false">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert--primary">!</i>
+            </div>
+            <h3 class="alert-title">
+                알레르기 정보
+            </h3>
+            <div class="alert-text">
+                알류(가금류), 계란, 우유,<br>
+                대두, 밀, 돼지고기, 토마토
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+        </footer>
     </div>
 </div>
 </body>

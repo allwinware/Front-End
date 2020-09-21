@@ -3125,27 +3125,33 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   border-color: #D22C27;
 }
 
-[data-page-id^='buy__'] .bundle-inter1 .bundle-type2 ~ .selected-seat + dd:empty:before {
+[data-page-id^='buy__'] .bundle-inter1 .bundle-type2 ~ .selected-seat + dd:empty:before,
+[data-page-id^='buy__'] .bundle-inter1 .bundle-type2 ~ .selected-meal + dd:empty:before {
   content: "(프리미엄 제외 좌석) 선택하세요";
 }
 
-[data-page-id^='buy__'] .bundle-inter1 .bundle-type3 ~ .selected-seat + dd:empty:before {
+[data-page-id^='buy__'] .bundle-inter1 .bundle-type3 ~ .selected-seat + dd:empty:before,
+[data-page-id^='buy__'] .bundle-inter1 .bundle-type3 ~ .selected-meal + dd:empty:before {
   content: "(전좌석) 선택하세요";
 }
 
-[data-page-id^='buy__'] .bundle-inter2 .bundle-type1 ~ .selected-seat + dd:empty:before {
+[data-page-id^='buy__'] .bundle-inter2 .bundle-type1 ~ .selected-seat + dd:empty:before,
+[data-page-id^='buy__'] .bundle-inter2 .bundle-type1 ~ .selected-meal + dd:empty:before {
   content: "(프리미엄 제외 좌석) 선택하세요";
 }
 
-[data-page-id^='buy__'] .bundle-inter2 .bundle-type2 ~ .selected-seat + dd:empty:before {
+[data-page-id^='buy__'] .bundle-inter2 .bundle-type2 ~ .selected-seat + dd:empty:before,
+[data-page-id^='buy__'] .bundle-inter2 .bundle-type2 ~ .selected-meal + dd:empty:before {
   content: "(전좌석) 선택하세요";
 }
 
-[data-page-id^='buy__'] .bundle-dom1 .bundle-type1 ~ .selected-seat + dd:empty:before {
+[data-page-id^='buy__'] .bundle-dom1 .bundle-type1 ~ .selected-seat + dd:empty:before,
+[data-page-id^='buy__'] .bundle-dom1 .bundle-type1 ~ .selected-meal + dd:empty:before {
   content: "(프리미엄 제외 좌석) 선택하세요";
 }
 
-[data-page-id^='buy__'] .bundle-dom1 .bundle-type2 ~ .selected-seat + dd:empty:before {
+[data-page-id^='buy__'] .bundle-dom1 .bundle-type2 ~ .selected-seat + dd:empty:before,
+[data-page-id^='buy__'] .bundle-dom1 .bundle-type2 ~ .selected-meal + dd:empty:before {
   content: "(전좌석) 선택하세요";
 }
 
@@ -3834,7 +3840,7 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
 }
 
 .passenger-summary [class*='bundle-type'] .bundle-price + dd {
-  font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
+  font-family: Geogrotesque, NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.92857rem;
   font-weight: 400;
   color: #000;
@@ -6210,8 +6216,14 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   padding-top: 7.64286rem;
 }
 
+[data-page-id='buy__meal'] .function-wrap {
+  padding-top: 1.85714rem;
+}
+
 [data-page-id='buy__meal'] .meal-list {
-  padding: 0.85714rem 0 3.57143rem 1.14286rem;
+  margin: 0.85714rem 0 0 1.14286rem;
+  padding: 0 0 3.57143rem 0;
+  border-top: 1px solid #000;
   /*.meal-name.new + dd:before,
     .meal-name.best + dd:before {
       @include font($family: en, $size: 9, $color: $mono10, $weight: 500, $spacing: 0);
@@ -6228,11 +6240,101 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
 [data-page-id='buy__meal'] .meal-list .item {
   position: relative;
   padding: 1.42857rem 1.14286rem 1.42857rem 6.71429rem;
+  min-height: 9.5rem;
   border-bottom: 1px solid #f0f0f0;
 }
 
-[data-page-id='buy__meal'] .meal-list .item:first-of-type {
-  border-top: 1px solid #000;
+[data-page-id='buy__meal'] .meal-list .item.active {
+  animation: meal-item 0.4s;
+  display: block;
+  opacity: 1;
+  padding: 1.42857rem 1.14286rem 1.42857rem 6.71429rem;
+  min-height: 9.57143rem;
+}
+
+@-webkit-keyframes meal-item {
+  0%, 40% {
+    display: block;
+    opacity: 0;
+    -webkit-transform: translate(0, -30px);
+    -ms-transform: translate(0, -30px);
+    transform: translate(0, -30px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+
+@-moz-keyframes meal-item {
+  0%, 40% {
+    display: block;
+    opacity: 0;
+    -webkit-transform: translate(0, -30px);
+    -ms-transform: translate(0, -30px);
+    transform: translate(0, -30px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+
+@-o-keyframes meal-item {
+  0%, 40% {
+    display: block;
+    opacity: 0;
+    -webkit-transform: translate(0, -30px);
+    -ms-transform: translate(0, -30px);
+    transform: translate(0, -30px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes meal-item {
+  0%, 40% {
+    display: block;
+    opacity: 0;
+    -webkit-transform: translate(0, -30px);
+    -ms-transform: translate(0, -30px);
+    transform: translate(0, -30px);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+
+[data-page-id='buy__meal'] .meal-list .item.inactive {
+  display: none;
+  opacity: 0;
+  padding: 0;
+  min-height: 0;
+  animation: meal-item 0.4s;
+  animation-direction: reverse;
 }
 
 [data-page-id='buy__meal'] .meal-list input[type='radio'], [data-page-id='buy__meal'] .meal-list input[type='checkbox'] {
@@ -6319,11 +6421,10 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   overflow: hidden;
   display: block;
   position: absolute !important;
-  left: 0;
+  left: 6.92857rem;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 100%;
   height: 100%;
   text-indent: -999em;
   font-weight: 400;
@@ -6493,6 +6594,24 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   transform: translate(-50%, -50%);
   max-width: 100%;
   height: auto;
+}
+
+[data-page-id='buy__meal'] .meal-list .btn_allergy {
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  position: absolute;
+  top: 7.28571rem;
+  left: 0;
+  width: 5.57143rem;
+  height: 1.4em;
+  font-size: 0.78571rem;
+  text-align: center;
+  font-weight: 600;
+  text-decoration: underline;
+  color: #66b1ff;
 }
 
 /*부가서비스 결제 > 결제정보 확인하기*/
