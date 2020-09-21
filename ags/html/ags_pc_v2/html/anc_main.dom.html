@@ -121,7 +121,6 @@
                     <div class="tab-panels">
                         <div id="tab-panel1-1" class="tab-panel" role="tabpanel">
                             <h5 class="sr-only">가는 편</h5>
-                            <!-- 탑승객 목록 -->
                             <div class="passenger-list" data-select="passenger">
                                 <div class="scroll-wrap" data-scrollbar="true">
                                     <ul>
@@ -558,8 +557,10 @@
 
                         <div id="tab-panel1-2" class="tab-panel" role="tabpanel">
                             <h5 class="sr-only">오는 편</h5>
+
                             <!-- 탑승객 목록 -->
-                            <div class="passenger-list" data-select="passenger">
+                            <!-- 분기 1 : 승객 중 누구도 번들팩을 추가하지 않았을 때 -->
+                            <!--<div class="passenger-list" data-select="passenger">
                                 <div class="scroll-wrap" data-scrollbar="true">
                                     <ul>
                                     <li>
@@ -568,7 +569,7 @@
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio-psg104">Bae, Sungjune <span class="sr-only">유아동반승객</span></label></dd>
                                             <dt class="selected-seat">선택한 좌석</dt>
-                                            <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            <dd></dd>&lt;!&ndash; 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. &ndash;&gt;
                                         </dl>
                                     </li>
                                     <li>
@@ -586,10 +587,58 @@
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd><label for="radio-psg106">Kim, Taehyeong</label></dd>
                                             <dt class="selected-seat">선택한 좌석</dt>
-                                            <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            <dd></dd>&lt;!&ndash; 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. &ndash;&gt;
                                         </dl>
                                     </li>
                                 </ul>
+                                </div>
+                            </div>-->
+
+                            <!-- 분기 2 : 승객 중 한 사람 이상이 번들팩을 추가했을 때 -->
+                            <!--
+                                .passenger-list.bundle-inter1(국제선 일반/스마트/이벤트 운임), .passenger-list.bundle-inter2(국제선 대양주 운임), .passenger-list.bundle-dom1(국내선)
+                                dt.bundle-type0(선택없음),  dt.bundle-type1(더블팩), dt.bundle-type2(트리플팩), dt.bundle-type3(멀티팩)
+                            -->
+                            <!-- 분기 2-1 : 운임에 따른 번들 정보 - 국제선 일반/스마트/이벤트 운임 -->
+                            <!-- 분기 2-2 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
+                            <!-- 분기 2-3 : 운임에 따른 번들 정보 - 국내선 -->
+                            <div class="passenger-list" data-select="passenger">
+                                <div class="scroll-wrap" data-scrollbar="true">
+                                    <ul>
+                                        <li>
+                                            <input type="radio" id="radio-psg104" name="psg-group2">
+                                            <dl>
+                                                <dt class="bundle-type0">선택한 번들팩</dt>
+                                                <dd><span class="ico">없음</span></dd>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd><label for="radio-psg104">Bae, Sungjune <span class="sr-only">유아동반승객</span></label></dd>
+                                                <dt class="selected-seat">선택한 좌석</dt>
+                                                <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="radio-psg105" name="psg-group2">
+                                            <dl>
+                                                <dt class="bundle-type1">선택한 번들팩</dt>
+                                                <dd><span class="ico">더블팩</span></dd>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd><label for="radio-psg105">Son, Seungwan</label></dd>
+                                                <dt class="selected-seat">선택한 좌석</dt>
+                                                <dd></dd>
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="radio-psg106" name="psg-group2">
+                                            <dl>
+                                                <dt class="bundle-type0">선택한 번들팩</dt>
+                                                <dd><span class="ico">없음</span></dd>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd><label for="radio-psg106">Kim, Taehyeong</label></dd>
+                                                <dt class="selected-seat">선택한 좌석</dt>
+                                                <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            </dl>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -1229,18 +1278,168 @@
 
                         <div id="tab-panel2-2" class="tab-panel" role="tabpanel">
                             <h5 class="sr-only">오는 편</h5>
+
                             <!-- 분기 : 티웨이항공 / 수하물 서비스를 제공할 수 있을 때 -->
                             <div class="scroll-wrap" data-scrollbar="true">
-                                <!-- 수하물 추가 안내 메시지 -->
+                                <!-- 수하물 추가 안내 메시지(각 항공사/운임에 맞는 메시지가 노출되어야 합니다 - https://docs.google.com/spreadsheets/d/1wKiNbbNfjEB8Ea2M9J5wG7e-vMXclgRL18eZMg_Ct7w/edit#gid=1575651303) -->
                                 <div class="welcome-msg">
                                     무료 위탁 수하물 15kg가 제공되는 운임입니다.<br>
                                     <i class="text-emphasis">수하물 추가는 5kg당 <span class="digits">30000</span></i>입니다.
                                 </div>
+
                                 <!-- 탑승객 및 수하물 용량 선택 목록 -->
-                                <div class="passenger-list" data-select="passenger">
+                                <!-- 분기 1 : 승객 중 누구도 번들팩을 추가하지 않았을 때 -->
+                                <!--<div class="passenger-list" data-select="passenger">
+                                <ul>
+                                    <li>
+                                        <dl>
+                                            <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                            <dd>Bae, Sungjune</dd>
+                                            <dt class="selected-baggage">선택 수하물</dt>
+                                            <dd></dd>&lt;!&ndash; 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. &ndash;&gt;
+                                        </dl>
+                                        <div class="baggage-plan">
+                                            <ul>
+                                                <li>
+                                                    <a href="#none" target="_self">+5kg</a>
+                                                    <dl>
+                                                        &lt;!&ndash;<dt class="price">공항가</dt>
+                                                        <dd><span class="digits">30000</span></dd>&ndash;&gt;
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">30000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+10kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">60000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">50000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+15kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">90000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">70000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+20kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">120000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">90000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+25kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">150000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">110000</span></dd>
+                                                    </dl>
+                                                </li>
+                                            </ul>
+                                            <p class="approach-comment">공항 구매 시 보다 <span class="digits">10000</span> SAVE!</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                            <dd>Son, Seungwan</dd>
+                                            <dt class="selected-baggage">선택 수하물</dt>
+                                            <dd></dd>&lt;!&ndash; 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. &ndash;&gt;
+                                        </dl>
+                                        <div class="baggage-plan">
+                                            <ul>
+                                                <li>
+                                                    <a href="#none" target="_self">+5kg</a>
+                                                    <dl>
+                                                        &lt;!&ndash;<dt class="price">공항가</dt>
+                                                        <dd><span class="digits">30000</span></dd>&ndash;&gt;
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">30000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+10kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">60000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">50000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+15kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">90000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">70000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+20kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">120000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">90000</span></dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <a href="#none" target="_self">+25kg</a>
+                                                    <dl>
+                                                        <dt class="price">공항가</dt>
+                                                        <dd><span class="digits">150000</span></dd>
+                                                        <dt class="sale">사전 신청 할인가</dt>
+                                                        <dd><span class="digits">110000</span></dd>
+                                                    </dl>
+                                                </li>
+                                            </ul>
+                                            <p class="approach-comment">공항 구매 시 보다 <span class="digits">10000</span> SAVE!</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                            <dd>Kim, Taehyeong</dd>
+                                            <dt class="selected-baggage">선택 수하물</dt>
+                                            <dd>선택 불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>&lt;!&ndash; 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 &ndash;&gt;
+                                        </dl>
+                                        <div class="baggage-plan">
+                                            <ul>
+                                                <li><a href="#none" target="_self" class="disabled">+5kg</a></li>
+                                                <li><a href="#none" target="_self" class="disabled">+10kg</a></li>
+                                                <li><a href="#none" target="_self" class="disabled">+15kg</a></li>
+                                                <li><a href="#none" target="_self" class="disabled">+20kg</a></li>
+                                                <li><a href="#none" target="_self" class="disabled">+25kg</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>-->
+                                <!-- 분기 2 : 승객 중 한 사람 이상이 번들팩을 추가했을 때 -->
+                                <!--
+                                    .passenger-list.bundle-inter1(국제선 일반/스마트/이벤트 운임), .passenger-list.bundle-inter2(국제선 대양주 운임), .passenger-list.bundle-dom1(국내선)
+                                    dt.bundle-type0(선택없음),  dt.bundle-type1(더블팩), dt.bundle-type2(트리플팩), dt.bundle-type3(멀티팩)
+                                -->
+                                <!-- 분기 2-1 : 운임에 따른 번들 정보 - 국제선 일반/스마트/이벤트 운임 -->
+                                <!-- 분기 2-2 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
+                                <!-- 분기 2-3 : 운임에 따른 번들 정보 - 국내선 -->
+                                <div class="passenger-list bundle-dom1" data-select="passenger">
                                     <ul>
                                         <li>
                                             <dl>
+                                                <dt class="bundle-type0">선택한 번들팩</dt>
+                                                <dd><span class="ico">없음</span></dd>
                                                 <dt class="passenger-name">탑승객 성명(영문)</dt>
                                                 <dd>Bae, Sungjune</dd>
                                                 <dt class="selected-baggage">선택 수하물</dt>
@@ -1299,10 +1498,29 @@
                                         </li>
                                         <li>
                                             <dl>
+                                                <dt class="bundle-type1">선택한 번들팩</dt>
+                                                <dd><span class="ico">더블팩</span></dd>
                                                 <dt class="passenger-name">탑승객 성명(영문)</dt>
                                                 <dd>Son, Seungwan</dd>
                                                 <dt class="selected-baggage">선택 수하물</dt>
-                                                <dd></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                                <dd>더블팩 기본 제공 20kg</dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                            </dl>
+                                            <div class="baggage-plan">
+                                                <ul>
+                                                    <li class="active">
+                                                        <a href="#none" target="_self">20kg</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <dl>
+                                                <dt class="bundle-type0">선택한 번들팩</dt>
+                                                <dd><span class="ico">없음</span></dd>
+                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                                <dd>Kim, Taehyeong</dd>
+                                                <dt class="selected-baggage">선택 수하물</dt>
+                                                <dd>선택불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd><!-- 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 -->
                                             </dl>
                                             <div class="baggage-plan">
                                                 <ul>
@@ -1353,23 +1571,6 @@
                                                     </li>
                                                 </ul>
                                                 <p class="approach-comment">공항 구매 시 보다 <span class="digits">10000</span> SAVE!</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <dl>
-                                                <dt class="passenger-name">탑승객 성명(영문)</dt>
-                                                <dd>Kim, Taehyeong</dd>
-                                                <dt class="selected-baggage">선택 수하물</dt>
-                                                <dd>선택 불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd><!-- 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 -->
-                                            </dl>
-                                            <div class="baggage-plan">
-                                                <ul>
-                                                    <li><a href="#none" target="_self" class="disabled">+5kg</a></li>
-                                                    <li><a href="#none" target="_self" class="disabled">+10kg</a></li>
-                                                    <li><a href="#none" target="_self" class="disabled">+15kg</a></li>
-                                                    <li><a href="#none" target="_self" class="disabled">+20kg</a></li>
-                                                    <li><a href="#none" target="_self" class="disabled">+25kg</a></li>
-                                                </ul>
                                             </div>
                                         </li>
                                     </ul>
@@ -1835,13 +2036,15 @@
                 </div>
                 <div data-id="arrival" class="arrival">
                     <h3 class="flight-way">오는 편</h3>
-                    <!-- 선택한 부가서비스가 없을 때 -->
-                    <p class="summary-empty">
+                    <!-- 분기 1 : 선택한 부가서비스가 없을 때 -->
+                    <!--<p class="summary-empty">
                         선택한 부가서비스 내역이 없습니다.<br>
                         부가서비스를 추가해보세요.
-                    </p>
-                    <!-- 선택한 부가서비스가 있을 때 -->
-                    <dl>
+                    </p>-->
+
+                    <!-- 분기 2 : 선택한 부가서비스가 있을 때 -->
+                    <!-- 분기 2-1 : 승객 중 누구도 번들팩을 추가하지 않았을 때 -->
+                    <!--<dl>
                         <dt class="passenger-name">탑승객명</dt>
                         <dd>Bae, Sungjune</dd>
                         <dt class="item-list">선택 내역</dt>
@@ -1864,6 +2067,18 @@
                                     <th scope="row">수하물</th>
                                     <td>30kg</td>
                                     <td><span class="digits">60000</span></td>
+                                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">기내식</th>
+                                    <td>돌솥비빔밥</td>
+                                    <td><span class="digits">12000</span></td>
+                                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">라운지</th>
+                                    <td>이용권</td>
+                                    <td><span class="digits">14000</span></td>
                                     <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                                 </tr>
                                 </tbody>
@@ -1923,6 +2138,70 @@
                                 </tbody>
                             </table>
                         </dd>
+                    </dl>-->
+                    <!-- 분기 2-2 : 승객 중 한 사람 이상이 번들팩을 추가했을 때 -->
+                    <dl>
+                        <dt class="passenger-name">탑승객명</dt>
+                        <dd>Bae, Sungjune</dd>
+                        <dt class="item-list">선택 내역</dt>
+                        <dd>
+                            <table>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">좌석</th>
+                                    <td>4D(A구역)</td>
+                                    <td><span class="digits">10000</span></td>
+                                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">수하물</th>
+                                    <td>30kg</td>
+                                    <td><span class="digits">60000</span></td>
+                                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+
+                        <dt class="passenger-name">탑승객명</dt>
+                        <dd>Son, Seungwan</dd>
+                        <dt class="bundle-type1">선택된 번들</dt>
+                        <dd>
+                            <dl class="info-title">
+                                <dt class="bundle-name">번들명</dt>
+                                <dd>더블팩</dd>
+                                <dt class="bundle-sale">할인율</dt>
+                                <dd>28%</dd>
+                                <dt class="bundle-price">금액</dt>
+                                <dd><span class="digits">17000</span></dd>
+                            </dl>
+                            <a href="#none" target="_self" class="btn_delete">삭제</a>
+                        </dd>
+                        <dt class="item-list">선택 내역</dt>
+                        <dd>
+                            <table>
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">좌석</th>
+                                    <td>E4(A구역)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">수하물</th>
+                                    <td>20kg</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </dd>
                     </dl>
                 </div>
             </div>
@@ -1957,48 +2236,6 @@
                 <h2 class="sr-only">번들 선택</h2>
                 <div class="bundle-wrap">
                     <!-- 분기 1 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
-                    <!--<div class="bundle-info bundle-inter2">
-                        <div class="bundle-type1">
-                            <dl class="info-title">
-                                <dt class="bundle-name">번들명</dt>
-                                <dd>더블팩</dd>
-                                <dt class="bundle-sale">할인율</dt>
-                                <dd>28%</dd>
-                                <dt class="bundle-price">금액</dt>
-                                <dd><span class="digits">20000</span></dd>
-                            </dl>
-                            <dl class="info-detail">
-                                <dt>위탁수하물</dt>
-                                <dd>23kg * 1</dd>
-                                <dt>사전좌석지정</dt>
-                                <dd>프리미엄 존 제외 전좌석</dd>
-                                <dt>기내식</dt>
-                                <dd>제공</dd>
-                                <dt>수하물우선처리</dt>
-                                <dd>제공안함</dd>
-                            </dl>
-                        </div>
-                        <div class="bundle-type2">
-                            <dl class="info-title">
-                                <dt class="bundle-name">번들명</dt>
-                                <dd>트리플팩</dd>
-                                <dt class="bundle-sale">할인율</dt>
-                                <dd>29%</dd>
-                                <dt class="bundle-price">금액</dt>
-                                <dd><span class="digits">46000</span></dd>
-                            </dl>
-                            <dl class="info-detail">
-                                <dt>위탁수하물</dt>
-                                <dd>23kg * 2</dd>
-                                <dt>사전좌석지정</dt>
-                                <dd>전좌석</dd>
-                                <dt>기내식</dt>
-                                <dd>제공</dd>
-                                <dt>수하물우선처리</dt>
-                                <dd>제공</dd>
-                            </dl>
-                        </div>
-                    </div>-->
                     <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
                     <div class="bundle-info bundle-dom1">
                         <div class="bundle-type1">
@@ -2048,65 +2285,6 @@
                     <!-- 승객 리스트 -->
                     <h3 class="sr-only">승객별 번들 선택</h3>
                     <!-- 분기 1 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
-                    <!--<ul class="passenger-list">
-                        <li>
-                            <dl>
-                                <dt class="passenger-name">탑승객 성명(영문)</dt>
-                                <dd>Bae, Sungjune</dd>
-                                <dt class="selected-bundle">번들 선택</dt>
-                                <dd>
-                                    <h4 class="bundle-way">가는 편</h4>
-                                    <input type="radio" id="radio1101" name="radio-group11" checked="checked"><label for="radio1101" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1102" name="radio-group11"><label for="radio1102" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1103" name="radio-group11"><label for="radio1103" class="btn_select-bundle bundle-type2">트리플팩</label>
-                                </dd>
-                                <dd>
-                                    <h4 class="bundle-way">오는 편</h4>
-                                    <input type="radio" id="radio1201" name="radio-group12" checked="checked"><label for="radio1201" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1202" name="radio-group12"><label for="radio1202" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1203" name="radio-group12"><label for="radio1203" class="btn_select-bundle bundle-type2">트리플팩</label>
-                                </dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt class="passenger-name">탑승객 성명(영문)</dt>
-                                <dd>Son, Seungwan</dd>
-                                <dt class="selected-bundle">번들 선택</dt>
-                                <dd>
-                                    <h4 class="bundle-way">가는 편</h4>
-                                    <input type="radio" id="radio1301" name="radio-group13" checked="checked"><label for="radio1301" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1302" name="radio-group13"><label for="radio1302" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1303" name="radio-group13"><label for="radio1303" class="btn_select-bundle bundle-type2">트리플팩</label>
-                                </dd>
-                                <dd>
-                                    <h4 class="bundle-way">오는 편</h4>
-                                    <input type="radio" id="radio1401" name="radio-group14" checked="checked"><label for="radio1401" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1402" name="radio-group14"><label for="radio1402" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1403" name="radio-group14"><label for="radio1403" class="btn_select-bundle bundle-type2">트리플팩</label>
-                                </dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt class="passenger-name">탑승객 성명(영문)</dt>
-                                <dd>Kim, Taehyeong</dd>
-                                <dt class="selected-bundle">번들 선택</dt>
-                                <dd>
-                                    <h4 class="bundle-way">가는 편</h4>
-                                    <input type="radio" id="radio1501" name="radio-group15" checked="checked"><label for="radio1501" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1502" name="radio-group15"><label for="radio1502" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1503" name="radio-group15"><label for="radio1503" class="btn_select-bundle bundle-type2">트리플팩</label>
-                                </dd>
-                                <dd>
-                                    <h4 class="bundle-way">오는 편</h4>
-                                    <input type="radio" id="radio1601" name="radio-group16" checked="checked"><label for="radio1601" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1602" name="radio-group16"><label for="radio1602" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1603" name="radio-group16"><label for="radio1603" class="btn_select-bundle bundle-type2">트리플팩</label>
-                                </dd>
-                            </dl>
-                        </li>
-                    </ul>-->
                     <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
                     <ul class="passenger-list">
                         <li>
@@ -2238,8 +2416,15 @@
                         $selectSeats.find("a[data-psg='" + $checkedPsgName + "']").attr("data-psg", "").removeClass("active");
                         /*선택한 좌석버튼을 활성화하고 data-psg 값에 현재 체크된 승객명을 구분자로 부여합니다*/
                         $this.addClass("active").attr("data-psg", $checkedPsgName);
-                        /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석 텍스트로 입력한 후 '삭제'버튼을 추가합니다*/
-                        $currentPsgLabel.html("<span>" + $this.text() + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                        if($checkedPsg.siblings("dl").find("[class*='bundle-type']:not(.bundle-type0)").length !== 0){
+                            /*번들 고객이라면*/
+                            /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석정보를 입력한 후 '삭제'버튼을 추가합니다*/
+                            $currentPsgLabel.html("<span>" + $this.text().split("/")[0] + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                        } else {
+                            /*번들 고객이 아니라면*/
+                            /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석정보 + 가격정보를 입력한 후 '삭제'버튼을 추가합니다*/
+                            $currentPsgLabel.html("<span>" + $this.text() + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                        }
                     } else if($this.attr("data-psg") === $checkedPsgName)
                         /*1-2. 선택한 좌석이 해당 승객에게 이미 부여된 상태일 때, 좌석 부여를 취소합니다*/{
                         /*선택한 좌석과 동일한 좌석 텍스트를 삭제합니다*/

@@ -14,12 +14,36 @@
   }
   .meal-list {
     $thumb-size: 78;
-    margin: 0 rem($grid * 4); padding: rem(12) 0 rem(50) 0;
+    margin: 0 rem($grid * 4); padding: 0 0 rem(50) 0;
     border-top: 1px solid $mono1;
     .item {
       position: relative;
-      padding: rem(20) rem($grid * 2) rem(20) rem(94); min-height: rem(134);
+      display: none;
+      opacity: 0;
+      padding: 0; min-height: 0;
       border-bottom: 1px solid $mono8;
+      transition: opacity 0.2s;
+      &.active {
+        animation: meal-item 0.4s;
+        display: block;
+        opacity: 1;
+        padding: rem(20) rem($grid * 2) rem(20) rem(94); min-height: rem(134);
+        @include keyframe($animation_name: meal-item){
+          0%, 40% { display: block; opacity: 0; @include transform(translate(0, -30px)) }
+          50% { opacity: 0; }
+          100% {
+            opacity: 1;
+            @include transform(translate(0, 0))
+          }
+        }
+      }
+      &.inactive {
+        display: none;
+        opacity: 0;
+        padding: 0; min-height: 0;
+        animation: meal-item 0.4s;
+        animation-direction: reverse;
+      }
     }
     input[type='radio'], input[type='checkbox'] {
       @include form($size: 1, $role: normal, $type: radio);
@@ -39,9 +63,10 @@
     dt { @include sr-only }
     .meal-name + dd {
       $font-size: 14;
+      @include text-ellipsis();
       @include font($size: 14, $color: $mono1, $weight: 600);
       position: relative;
-      padding: rem($grid) 0 0 0; width: rem(190);
+      padding: rem($grid) 0 0 0;
       line-height: em(18, $font-size);
       [class*='ico_'] {
         $font-size: 9;
@@ -77,8 +102,9 @@
     .meal-name.best + dd:before { content: "Best"; background-color: #2A2167; }*/
     .meal-description + dd {
       padding-top: rem($grid);
-      @include font($size: 12, $color: $mono4, $weight: 400);
+      @include font($size: 12, $color: $mono3, $weight: 400);
       line-height: rem(16);
+      &:before { content: "메뉴구성"; display: block; padding: rem($grid) 0 rem(6); font-size: rem(11); font-weight: 800; color: $mono1 }
     }
     .meal-price + dd {
       @include font($family: en, $size: 14, $color: $mono4, $weight: 400);
@@ -98,6 +124,6 @@
     }
     .meal-thumbnail + dd { overflow: hidden; position: absolute; left: 0; top: rem($grid * 2); width: rem($thumb-size); height: rem($thumb-size); border-radius: 50%; border: 1px solid $mono8; }
     .meal-thumbnail + dd img { @include align-center; max-width: 100%; height: auto; }
-    .btn_allergy { @include text-ellipsis(); position: absolute; top: rem(102); left: 0; width: rem($thumb-size); font-size: rem(11); text-align: center; font-weight: 600; color: #66b1ff; }
+    .btn_allergy { @include text-ellipsis(); position: absolute; top: rem(102); left: 0; width: rem($thumb-size); height: 1.4em; font-size: rem(11); text-align: center; font-weight: 600; text-decoration: underline; color: #66b1ff; }
   }
 }

@@ -1,4 +1,5 @@
 /* 부가서비스 신청 */
+$anc-select-area-width: 267;
 [data-page-id='anc_main'] {
   &.ags-container { padding-top: rem($anc_lnb-height + 80); }
   .anc-lnb-wrap {
@@ -28,9 +29,8 @@
     }
   }
   & > .content-wrap {
-    $anc-select-area-width: 300;
-    position: relative; padding-right: rem($anc-select-area-width + ($grid * 4));
-    &:before { content: ""; position: absolute; right: rem($anc-select-area-width); top: 0; bottom: 0; width: 1px; background-color: $mono8; }
+    position: relative; padding-right: rem(($grid * 4) + 1 + ($grid * 4) + $anc-select-area-width + ($grid * 2));
+    &:before { content: ""; position: absolute; left: calc(50% + 301px); top: 0; bottom: 0; width: 1px; background-color: $mono8; }
   }
   .ticket-info {
     @include ticket-info;
@@ -281,11 +281,12 @@
   }
   .anc-summary {
     z-index: 0;
-    position: absolute; top: rem(281); left: calc(50% + 348px);
-    padding: rem($grid * 10) rem($grid * 2) rem($grid * 3) 0; width: rem(267 + $grid * 2);
+    position: absolute; top: rem(281); left: calc(50% + 333px);
+    padding: rem($grid * 10) 0 rem($grid * 3) 0; width: rem(267);
     .scroll-wrap {
       overflow: auto; margin-right: rem(-$grid * 2); max-height: calc(100% - 152px);
       @at-root .no-flexbox & { height: calc(100% - 152px) }
+      .mCSB_container { margin-right: rem($grid * 2); }
     }
     .flight-way { @include tagging-route }
     .departure, .arrival { padding: rem($grid * 3) 0 rem($grid * 2); border-top: 1px solid $mono1; }
@@ -308,13 +309,14 @@
     }
     table { table-layout: fixed; width: 100%; }
     table tbody th, table tbody td { @include font($size: 12, $color: $mono1, $weight: 400); vertical-align: middle; }
-    table tbody th { width: rem(38); text-align: left; font-weight: 800; white-space: nowrap }
+    table tbody th { width: rem(94); text-align: left; font-weight: 800; white-space: nowrap }
     table tbody th + td { @include text-ellipsis(); display: table-cell; }
     table tbody th ~ td {
       padding-left: rem($grid);
       &:nth-of-type(1) { letter-spacing: -0.03em }
       &:nth-of-type(2) { /*@include price-unit(krw);*/ width: rem(68); text-align: right; }
-      &:last-child { width: rem(22) }
+      &:nth-of-type(3) { width: rem(22) }
+      a { color: #66B1FF; text-decoration: underline; letter-spacing: -0.08em }
     }
     .btn_delete { @include btn_delete; margin-left: 0; }
     .total-sum {
@@ -326,7 +328,6 @@
     }
     .btn_pay {
       @include form($size: 6, $role: submit, $type: button);
-      margin-bottom: 0;
       letter-spacing: rem(1);
     }
     .digits { letter-spacing: 0; }
@@ -336,6 +337,56 @@
     }
     &.ui-fixed---bottom {
       position: absolute; top: auto; bottom: rem(120)
+    }
+    [class*='bundle-type'] {
+      @include sr-only;
+      & + dd {
+        @include clearfix;
+        position: relative;
+        padding: rem($grid) 0; ;
+        .info-title { float: left; padding-right: rem($grid); width: calc(100% - 15px) }
+        dt { @include sr-only }
+        dd { float: left; }
+        .bundle-name + dd {
+          $font-size: 9;
+          @include font($size: 9, $color: $mono1, $weight: 800);
+          margin-right: rem($grid); padding: 0 rem(4); min-width: rem(40); height: rem(16);
+          line-height: rem(14); border: 1px solid;
+          white-space: nowrap;
+        }
+        .bundle-sale + dd {
+          @include valign-middle();
+          @include font($size: 9, $color: $mono1, $weight: 800, $spacing: 0);
+          height: rem(16); line-height: rem(16);
+          &:after { content: " SALE" }
+        }
+        .bundle-price + dd {
+          @include valign-middle();
+          @include font($size: 12, $color: $mono1, $weight: 400);
+          @include price-unit(krw);
+          float: right;
+          padding: rem(2) 0 0; height: rem(16);
+          text-align: right;
+        }
+      }
+      &.bundle-type1 + dd {
+        &, .bundle-name { border-color: #7C756E }
+        .bundle-name + dd,
+        .bundle-sale + dd { color: #817A73 }
+      }
+      &.bundle-type2 + dd {
+        &, .bundle-name { border-color: #8EB454; }
+        .bundle-name + dd,
+        .bundle-sale + dd { color: #8EB454 }
+      }
+      &.bundle-type3 + dd {
+        &, .bundle-name { border-color: #D22C27 }
+        .bundle-name + dd,
+        .bundle-sale + dd { color: #D22C27 }
+      }
+      &  + dd .charge-sheet {
+        tbody td:last-child { padding-right: 0; }
+      }
     }
   }
   .no-item-wrap {
@@ -358,13 +409,14 @@
     $font-size: 11;
     $icon-size: 54;
     @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: -0.03);
-    position: fixed; right: calc(50% - #{$content-width / 2}px); top: rem(376);
-    width: em(54, $font-size); height: em(54, $font-size);
+    display: none;
+    position: absolute; left: calc(50% + 546px); top: rem(296);
     .btn_bundle {
       display: inline-block;
-      padding: rem(13) rem($grid); width: em(54, $font-size); height: em(54, $font-size);
+      padding: rem(13) rem($grid); width: em($icon-size, $font-size); height: em($icon-size, $font-size);
       background-color: $mono1; border-radius: 50%;
       line-height: em(14, $font-size); text-decoration: none; text-align: center; color: $mono10;
     }
+    &.active { display: block; }
   }
 }

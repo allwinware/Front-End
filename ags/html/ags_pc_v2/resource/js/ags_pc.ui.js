@@ -266,7 +266,7 @@ $(window).on("load", function(){
             var $trigger = $(this),
                 $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this));
             $trigger.on("change", function(){
-                if($(this).is(":checked") === true){
+                if($(this).is(":checked")){
                     $family.prop("checked", true);
                 } else {
                     $family.prop("checked", false);
@@ -284,7 +284,8 @@ $(window).on("load", function(){
     })();
 
     /* 일반적인 팝업 */
-    $doc.on("click", "[data-popup]", function(){
+    $doc.on("click", "[data-popup]", function(e){
+        e.preventDefault();
         var $pop = $($(this).attr("data-popup"));
         if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === undefined){
             popupShow($pop);
@@ -335,23 +336,12 @@ $(window).on("load", function(){
         }
     });
 
-    $doc.on("click", "[data-role='close']", function(){
+    $doc.on("click", "[data-role='close']", function(e){
+        e.preventDefault();
         var $pop = $($("#" + $(this).parents(".pop-area").attr("id")));
         if($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission' || $pop.attr("data-type") === 'guidance'){
             popupHide($pop);
         }
-    });
-
-    /*gnb 팝업 정의*/
-    $doc.on("click", "#btn_gnb", function(){
-        $("#ags-wrap").addClass("gnb-active");
-        $("#gnb-2dp").addClass("active");
-        $("html, body").css("overflow", "hidden");
-    });
-    $doc.on("click", "#btn_gnb-close", function(){
-        $("#gnb-2dp").removeClass("active");
-        setTimeout(function(){$("#ags-wrap").removeClass("gnb-active");}, 1000);
-        $("html, body").css("overflow", "");
     });
 
     /* 스크롤 이벤트의 작동을 컨트롤 합니다. */
@@ -493,4 +483,18 @@ $(window).on("load", function(){
             }
         })();
     }).resize();
+
+    /*anchor 태그로 컨텐츠 이동 시 smooth한 scroll 처리*/
+    (function(){
+        /*아이템 클릭 시 컨텐츠로 스크롤*/
+        $(".btn_go-content").on("click", function(e){
+            e.preventDefault();
+            var href = $(this).attr("href"),
+                id = href.substring(href.indexOf('#'));
+            offsetTop = href === "#" ? 0 : $(id).offset().top;
+            $("html, body").stop().animate({
+                scrollTop: offsetTop
+            }, 300);
+        });
+    })();
 });
