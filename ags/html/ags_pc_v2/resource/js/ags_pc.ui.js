@@ -264,7 +264,7 @@ $(window).on("load", function(){
     (function(checkAllHandler){
         $("input[data-checked='all']").each(function(){
             var $trigger = $(this),
-                $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this));
+                $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this)).not(":disabled");
             $trigger.on("change", function(){
                 if($(this).is(":checked")){
                     $family.prop("checked", true);

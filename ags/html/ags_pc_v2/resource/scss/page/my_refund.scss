@@ -13,7 +13,7 @@
     &:not([style*='display']) + .inner-wrap { padding-top: rem($grid * 10) }
   }
   .title {
-    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
+    @include font($size: 14, $color: $mono1, $weight: 800);
     display: inline-block;
   }
   .flight-num {
@@ -32,27 +32,9 @@
     &:first-of-type { border-top: 1px solid $mono1; }
     & + .table-wrap { border-top: 1px solid $mono8; }
   }
-  .charge-sheet {
-    @include table($style: type1, $mg-size: small);
-    th, td { padding: rem($grid) rem($grid * 2) rem($grid) 0 !important; vertical-align: middle; }
-    thead th, tbody th, tbody td, tfoot th, tfoot td { border-bottom: 0; }
-    tbody td:last-of-type { text-align: right; }
-    tbody th, tbody td { height: rem(30); }
-    tbody th:last-child, tbody td:last-child { @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03); padding-right: rem($grid * 2) }
-    tbody th[scope='row'] {
-      @include font($size: 13, $color: $mono1, $weight: 800, $spacing: -0.03);
-      width: rem(70);
-      text-align: left;
-      label { font-weight: inherit; }
-    }
-    tbody td:nth-of-type(2) { @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03); text-align: right; }
-    .digits:before { content: "￦"; font-size: rem(12); color: $mono1; font-weight: 500; }
-  }
   .passenger-name {
-    @include font($family: en, $size: 14, $color: $text-primary, $weight: 500, $spacing: -0.03);
-    @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
+    @include font($size: 14, $color: $mono1, $weight: 800, $spacing: -0.03);
     @include text-uppercase;
-    margin: rem($grid * 2) 0 rem($grid); padding-left: rem(20);
   }
   .total-wrap {
     height: rem(44);
@@ -69,11 +51,95 @@
   }
   .agreement-wrap {
     @include agreement-wrap;
-    padding-right: rem($grid * 2);
+    padding: rem(100) rem($grid * 2) 0 0;
+    input[type='checkbox'] + label .ico { vertical-align: top; }
     tbody th,
     tbody td { text-align: center; }
+    .table-wrap { border-top: 0; }
   }
   .process-btn-wrap {
     padding-bottom: 0;
   }
+  .notification-text {
+    $font-size: 13;
+    @include font($size: $font-size, $color: $mono1, $weight: 400);
+    padding-top: rem($grid * 4);
+    line-height: em(22, $font-size);
+    a { font-weight: 800; text-decoration: underline; color: inherit; }
+  }
+  .help-desk {
+    @include clearfix;
+    dt, dd { float: left; }
+    .tel + dd {
+      letter-spacing: -0.03em;
+      &:before { content: ":"; padding: 0 0.3em; }
+    }
+    .working-time {
+      @include sr-only;
+      & + dd {
+        padding-left: 0.3em;
+        letter-spacing: -0.03em;
+        &:before { content: "(" }
+        &:after { content: ")" }
+      }
+    }
+  }
+  input[type='checkbox'][data-checked='all'] + .btn_check-all {
+    @include btn-beside-title;
+    &:after {
+      content: " 취소";
+      display: none;
+      background-color: $mono1;
+    }
+  }
+  input[type='checkbox'][data-checked='all']:checked + .btn_check-all {
+    $font-size: 11;
+    @include form($size: 1, $role: normal-rev, $type: button);
+    overflow: hidden;
+    position: absolute; right: 0; top: 0;
+    margin-top: rem(46); width: auto;
+    border-radius: 0; font-size: rem($font-size); font-weight: 800; line-height: em(24, $font-size);
+    &:after {
+      display: inline;
+      opacity: 1;
+    }
+  }
+  table {
+    $font-size: 14;
+    input[type='checkbox'] {
+      @include form($size: 3, $role: normal, $type: checkbox);
+      & + label { font-weight: 800; }
+      & + label .ico { margin-right: rem(12); vertical-align: top; }
+    }
+    thead th:first-of-type { padding-left: em(60, $font-size) }
+    thead th:first-of-type, tbody th:first-of-type { padding-left: em(60, $font-size) }
+    thead th:first-of-type, tbody th:first-of-type { width: rem(250) }
+    thead th:nth-of-type(2), dt { width: rem(180) }
+    thead th:nth-of-type(2), dd.pay { width: calc(100% - 180px - 125px - 125px - 152px) !important }
+    thead th:nth-of-type(3), dd.refund { width: rem(125) }
+    thead th:nth-of-type(4), dd.price { width: rem(125) !important }
+    thead th:nth-of-type(5), dd.status { width: rem(152); }
+    thead th:nth-of-type(3) { text-align: center !important; }
+    thead th:nth-of-type(4) { padding-right: em(30, $font-size); text-align: right; }
+    thead th:last-of-type { padding-right: em(60, $font-size) !important; }
+    dd.refund { text-align: center; }
+    .bundle-refund + dd {
+      @include valign-center; left: 0;
+      padding: 0;
+    }
+    .bundle-name + dd {
+      margin-left: rem(30 + 28) !important;
+      label { display: block; }
+    }
+    [class^='bundle-type'],
+    [class^='bundle-type'] + dl { padding-left: rem(28) !important }
+    dl[class^='bundle-type'] + dl {
+      dt { width: rem(180 - 28)!important; }
+      dd.pay { width: calc(100% - 230px) !important; }
+    }
+  }
+}
+
+[data-page-id='my_refund_anc']{
+
 }

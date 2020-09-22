@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
     <!--<link rel="stylesheet" href="../resource/css/ags_pc_7c.min.css">--><!-- 제주항공일 때 -->
-    <!--<link rel="stylesheet" href="../resource/css/ags_pc_tw.min.css">--><!-- 티웨이항공일 때 -->
-    <link rel="stylesheet" href="../resource/css/ags_pc.dom.min.css"><!-- 국내선일 때 -->
+    <link rel="stylesheet" href="../resource/css/ags_pc_tw.min.css"><!-- 티웨이항공일 때 -->
+    <!--<link rel="stylesheet" href="../resource/css/ags_pc.dom.min.css">--><!-- 국내선일 때 -->
     <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
     <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
@@ -27,8 +27,8 @@
             <div class="content-wrap">
                 <h2 class="sr-only">서브 네비게이션</h2>
                 <h3 class="page-name">부가서비스 취소 / 환불</h3>
-                <!-- 분기 : 국내선일 때 -->
-                <div class="ticket-info">
+                <!-- 분기 1 : 국내선일 때 -->
+                <!--<div class="ticket-info">
                     <h3 class="sr-only">티켓 정보</h3>
                     <dl class="airport">
                         <dt class="departure">출발지</dt>
@@ -48,9 +48,9 @@
                         <dt class="pay-dnt">결제일시</dt>
                         <dd>2020.10.03(수) 16:10</dd>
                     </dl>
-                </div>
-                <!-- 분기 : 국제선일 때 -->
-                <!--<div class="ticket-info">
+                </div>-->
+                <!-- 분기 2 : 국제선일 때 -->
+                <div class="ticket-info">
                     <h3 class="sr-only">티켓 정보</h3>
                     <dl class="airport">
                         <dt class="departure">출발지</dt>
@@ -74,7 +74,7 @@
                         <dt class="pay-dnt">결제일시</dt>
                         <dd>2020.10.03(수) 16:10</dd>
                     </dl>
-                </div>-->
+                </div>
                 <div class="process-btn-wrap">
                     <a href="#none" target="_self" class="btn_resv-cancel">전체 취소하기</a>
                 </div>
@@ -95,14 +95,26 @@
         <div class="content-wrap">
             <h2 class="sr-only">컨텐츠 본문</h2>
 
-            <!-- 리스트 영역 -->
+            <!--
+                1. 국제선은 가는 편 / 오는 편 부가서비스를 한 번에 결제하므로 구매내역에 따라 가는 편 / 오는 편 두 개의 테이블이 동시에 나타날 수 있습니다.(.total-price 부분도 마찬가지로 왕복 표시 가능)
+                2. 국내선은 가는 편 / 오는 편 부가서비스를 따로 결제하므로 가는 편 / 오는 편 테이블이 동시에 나타나지 않습니다.
+                3. 국내선은 가는 편 결제금액 / 오는 편 결제금액 텍스트를 '결제금액'으로, 가는 편 총 환불 예정금액 / 오는 편 총 환불 예정금액 텍스트를 '총 환불 예정금액'으로, 가는 편 전체선택 / 오는 편 전체선택을 '전체선택'으로 표시합니다.
+                4. 그 외의 모든 사항은 국제선 & 국내선 동일합니다.
+                5. 최하단의 총 합계금액 표시(.total-wrap)는 국제선일 때만 표시합니다.
+                6. 1 ~ 5의 사항은 결제완료 페이지, 마이페이지(나의 예약/결제 내역) 상세, 부가서비스 취소 페이지에 동일하게 적용됩니다.
+             -->
             <article class="my-history-detail-wrap">
                 <h3 class="my_pay-title">탑승객별 부가서비스 구매 내역</h3>
                 <div class="receipt-wrap">
-                    <!-- 분기 : 국내선일 때 --><h4 class="receipt-title">서울(김포)<i class="ico_airplane">&rarr;</i>부산 <i class="ico_tag">7C522</i></h4>
-                    <!-- 분기 : 국제선일 때 --><!--<h4 class="receipt-title">인천<i class="ico_airplane">&rarr;</i>하네다 <i class="ico_tag">7C522</i></h4>-->
+
+                    <!-- 분기 1 : 국제선일 때 -->
+                    <h4 class="receipt-title">인천<i class="ico_airplane">&rarr;</i>하네다 <i class="ico_tag">TW703</i></h4>
                     <input type="checkbox" name="check-group1" id="check-all1" class="sr-only" data-checked="all">
                     <label for="check-all1" class="btn_check-all">가는 편 전체 선택</label>
+                    <!-- 분기 2 : 국내선일 때 -->
+                    <!--<h4 class="receipt-title">서울(김포)<i class="ico_airplane">&rarr;</i>부산 <i class="ico_tag">7C522</i></h4></h4>
+                    <input type="checkbox" name="check-group1" id="check-all1" class="sr-only" data-checked="all">
+                    <label for="check-all1" class="btn_check-all">전체 선택</label>-->
                     <table>
                         <colgroup>
                             <col>
@@ -113,8 +125,8 @@
                         </colgroup>
                         <tfoot>
                         <tr>
-                            <!-- 분기 : 국내선일 때 --><td colspan="5"><i class="ico_tag">총 환불 예정금액</i> <span class="digits">999000</span></td>
-                            <!-- 분기 : 국제선일 때 --><!--<td colspan="5"><i class="ico_tag">가는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>-->
+                            <!-- 분기 1 : 국제선일 때 --><td colspan="5"><i class="ico_tag">가는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>
+                            <!-- 분기 2 : 국내선일 때 --><!--<td colspan="5"><i class="ico_tag">총 환불 예정금액</i> <span class="digits">999000</span></td>-->
                         </tr>
                         </tfoot>
                         <thead>
@@ -127,44 +139,41 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <!-- 번들을 선택한 고객일 때 -->
                         <tr>
                             <th scope="rowgroup" class="passenger-name">Bae, Sungjune</th>
                             <td colspan="4">
+                                <dl class="bundle-type2">
+                                    <dt class="bundle-name">번들명</dt>
+                                    <dd><label for="check101">트리플팩</label></dd>
+                                    <dt class="bundle-price">금액</dt>
+                                    <dd><span class="digits">55000</span></dd>
+                                    <dt class="bundle-status">결제상태</dt>
+                                    <dd>결제완료</dd>
+                                    <dt class="bundle-refund">번들취소</dt>
+                                    <dd><input type="checkbox" name="check-group1" id="check101"><label for="check101"><i class="ico"></i></label></dd>
+                                </dl>
                                 <dl>
                                     <!-- 사전 좌석 -->
-                                    <dt><input type="checkbox" name="check-group1" id="check101"><label for="check101"><i class="ico"></i>사전 좌석</label></dt>
-                                    <dd class="pay">일반석 A / 8B</dd>
-                                    <dd class="refund" aria-label="환불 여부">가능</dd>
-                                    <dd class="price" aria-label="사전 좌석 금액"><span class="digits">99000</span></dd>
-                                    <dd class="status">결제완료</dd>
+                                    <dt>사전 좌석</dt>
+                                    <dd class="pay">E4(A구역)</dd>
                                     <!-- 수하물 -->
-                                    <dt><input type="checkbox" name="check-group1" id="check102"><label for="check102"><i class="ico"></i>수하물</label></dt>
+                                    <dt>수하물</dt>
                                     <dd class="pay">15kg</dd>
-                                    <dd class="refund" aria-label="환불 여부">가능</dd>
-                                    <dd class="price" aria-label="수하물 금액"><span class="digits">99000</span></dd>
-                                    <dd class="status">결제완료</dd>
                                     <!-- 기내식 -->
-                                    <dt><input type="checkbox" name="check-group1" id="check103" disabled="disabled"><label for="check103"><i class="ico"></i>기내식</label></dt>
-                                    <dd class="pay">핑크퐁 도시락</dd>
-                                    <dd class="refund" aria-label="환불 여부"><span class="text-emphasis">불가</span></dd>
-                                    <dd class="price" aria-label="기내식 금액"><span class="digits">99000</span></dd>
-                                    <dd class="status">결제완료</dd>
-                                    <!-- 라운지이용권 -->
-                                    <dt><input type="checkbox" name="check-group1" id="check104"><label for="check104"><i class="ico"></i>라운지이용권</label></dt>
-                                    <dd class="pay">쿠폰번호 A12345678</dd>
-                                    <dd class="refund" aria-label="환불 여부">가능</dd>
-                                    <dd class="price" aria-label="라운지이용권 금액"><span class="digits">99000</span></dd>
-                                    <dd class="status">결제완료</dd>
+                                    <dt>기내식</dt>
+                                    <dd class="pay">햄치즈 샌드위치</dd>
                                 </dl>
                             </td>
                         </tr>
+                        <!-- 번들을 선택하지 않은 고객일 때 -->
                         <tr>
                             <th scope="rowgroup" class="passenger-name">Son, Seungwan</th>
                             <td colspan="4">
                                 <dl>
                                     <!-- 사전 좌석 -->
                                     <dt><input type="checkbox" name="check-group1" id="check105"><label for="check105"><i class="ico"></i>사전 좌석</label></dt>
-                                    <dd class="pay">일반석 A / 8B</dd>
+                                    <dd class="pay">E4(A구역)</dd>
                                     <dd class="refund" aria-label="환불 여부">가능</dd>
                                     <dd class="price" aria-label="사전 좌석 금액"><span class="digits">99000</span></dd>
                                     <dd class="status">결제완료</dd>
@@ -181,11 +190,44 @@
                                     <dd class="price" aria-label="기내식 금액"><span class="digits">99000</span></dd>
                                     <dd class="status">결제완료</dd>
                                     <!-- 라운지이용권 -->
-                                    <dt><input type="checkbox" name="check-group1" id="check108"><label for="check108"><i class="ico"></i>라운지이용권</label></dt>
+                                    <!--<dt><input type="checkbox" name="check-group1" id="check108"><label for="check108"><i class="ico"></i>라운지이용권</label></dt>
                                     <dd class="pay">쿠폰번호 A12345678</dd>
                                     <dd class="refund" aria-label="환불 여부">가능</dd>
                                     <dd class="price" aria-label="라운지이용권 금액"><span class="digits">99000</span></dd>
-                                    <dd class="status">결제완료</dd>
+                                    <dd class="status">결제완료</dd>--><!-- 제주항공 탑승객 중 라운지 구매 고객만 해당함 -->
+                                </dl>
+                            </td>
+                        </tr>
+                        <!-- 번들을 선택한 고객일 때 -->
+                        <tr>
+                            <th scope="rowgroup" class="passenger-name">Kim, Taehyeong</th>
+                            <td colspan="4">
+                                <dl class="bundle-type3">
+                                    <dt class="bundle-name">번들명</dt>
+                                    <dd><label for="check109">멀티팩</label></dd>
+                                    <dt class="bundle-price">금액</dt>
+                                    <dd><span class="digits">55000</span></dd>
+                                    <dt class="bundle-status">결제상태</dt>
+                                    <dd>결제완료</dd>
+                                    <dt class="bundle-refund">번들취소</dt>
+                                    <dd><input type="checkbox" name="check-group1" id="check109"><label for="check109"><i class="ico"></i></label></dd>
+                                </dl>
+                                <dl>
+                                    <!-- 사전 좌석 -->
+                                    <dt>사전 좌석</dt>
+                                    <dd class="pay">E4(A구역)</dd>
+                                    <!-- 수하물 -->
+                                    <dt>수하물</dt>
+                                    <dd class="pay">20kg</dd>
+                                    <!-- 기내식 -->
+                                    <dt>기내식</dt>
+                                    <dd class="pay">닭가슴살 샐러드와 소프트롤</dd>
+                                    <!-- 수하물우선처리 -->
+                                    <dt>수하물우선처리</dt>
+                                    <dd class="pay">제공</dd>
+                                    <!-- 전용카운터 -->
+                                    <dt>전용카운터</dt>
+                                    <dd class="pay">제공</dd>
                                 </dl>
                             </td>
                         </tr>
@@ -193,11 +235,14 @@
                     </table>
                 </div>
                 <div class="receipt-wrap">
-                    <!-- 분기 : 국내선일 때 --><h4 class="receipt-title">부산<i class="ico_airplane">&rarr;</i>서울(김포) <i class="ico_tag">TW703</i></h4>
-                    <!-- 분기 : 국제선일 때 --><!--<h4 class="receipt-title">하네다<i class="ico_airplane">&rarr;</i>인천 <i class="ico_tag">TW703</i></h4>-->
+                    <!-- 분기 1 : 국제선일 때 -->
+                    <h4 class="receipt-title">하네다<i class="ico_airplane">&rarr;</i>인천 <i class="ico_tag">TW703</i></h4>
                     <input type="checkbox" name="check-group2" id="check-all2" class="sr-only" data-checked="all">
-                    <!-- 분기 : 국내선일 때 --><label for="check-all2" class="btn_check-all">전체 선택</label>
-                    <!-- 분기 : 국제선일 때 --><!--<label for="check-all2" class="btn_check-all">오는 편 전체 선택</label>-->
+                    <label for="check-all2" class="btn_check-all">오는 편 전체 선택</label>
+                    <!-- 분기 2 : 국내선일 때 -->
+                    <!--<h4 class="receipt-title">부산<i class="ico_airplane">&rarr;</i>서울(김포) <i class="ico_tag">TW703</i></h4>
+                    <input type="checkbox" name="check-group2" id="check-all2" class="sr-only" data-checked="all">
+                    <label for="check-all2" class="btn_check-all">전체 선택</label>-->
                     <table>
                         <colgroup>
                             <col>
@@ -208,8 +253,8 @@
                         </colgroup>
                         <tfoot>
                         <tr>
-                            <!-- 분기 : 국내선일 때 --><td colspan="5"><i class="ico_tag">총 환불 예정금액</i> <span class="digits">999000</span></td>
-                            <!-- 분기 : 국제선일 때 --><!--<td colspan="5"><i class="ico_tag">오는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>-->
+                            <!-- 분기 1 : 국제선일 때 --><td colspan="5"><i class="ico_tag">오는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>
+                            <!-- 분기 2 : 국내선일 때 --><!--<td colspan="5"><i class="ico_tag">총 환불 예정금액</i> <span class="digits">999000</span></td>-->
                         </tr>
                         </tfoot>
                         <thead>
@@ -228,7 +273,7 @@
                                 <dl>
                                     <!-- 사전 좌석 -->
                                     <dt><input type="checkbox" name="check-group2" id="check201"><label for="check201"><i class="ico"></i>사전 좌석</label></dt>
-                                    <dd class="pay">일반석 A / 8B</dd>
+                                    <dd class="pay">E4(A구역)</dd>
                                     <dd class="refund" aria-label="환불 여부">가능</dd>
                                     <dd class="price" aria-label="사전 좌석 금액"><span class="digits">99000</span></dd>
                                     <dd class="status">결제완료</dd>
@@ -245,62 +290,89 @@
                                     <dd class="price" aria-label="기내식 금액"><span class="digits">99000</span></dd>
                                     <dd class="status">결제완료</dd>
                                     <!-- 라운지이용권 -->
-                                    <dt><input type="checkbox" name="check-group2" id="check204"><label for="check204"><i class="ico"></i>라운지이용권</label></dt>
+                                    <!--<dt><input type="checkbox" name="check-group2" id="check204"><label for="check204"><i class="ico"></i>라운지이용권</label></dt>
                                     <dd class="pay">쿠폰번호 A12345678</dd>
                                     <dd class="refund" aria-label="환불 여부">가능</dd>
                                     <dd class="price" aria-label="라운지이용권 금액"><span class="digits">99000</span></dd>
-                                    <dd class="status">결제완료</dd>
+                                    <dd class="status">결제완료</dd>--><!-- 제주항공 탑승객 중 라운지 구매 고객만 해당함 -->
                                 </dl>
                             </td>
                         </tr>
                         <tr>
                             <th scope="rowgroup" class="passenger-name">Son, Seungwan</th>
                             <td colspan="4">
+                                <dl class="bundle-type1">
+                                    <dt class="bundle-name">번들명</dt>
+                                    <dd><label for="check205">더블팩</label></dd>
+                                    <dt class="bundle-price">금액</dt>
+                                    <dd><span class="digits">17000</span></dd>
+                                    <dt class="bundle-status">결제상태</dt>
+                                    <dd>결제완료</dd>
+                                    <dt class="bundle-refund">번들취소</dt>
+                                    <dd><input type="checkbox" name="check-group2" id="check205"><label for="check205"><i class="ico"></i></label></dd>
+                                </dl>
                                 <dl>
                                     <!-- 사전 좌석 -->
-                                    <dt><input type="checkbox" name="check-group2" id="check205"><label for="check205"><i class="ico"></i>사전 좌석</label></dt>
-                                    <dd class="pay">일반석 A / 8B</dd>
+                                    <dt>사전 좌석</dt>
+                                    <dd class="pay">E4(A구역)</dd>
+                                    <!-- 수하물 -->
+                                    <dt>수하물</dt>
+                                    <dd class="pay">0kg</dd>
+                                    <!-- 기내식 -->
+                                    <dt>기내식</dt>
+                                    <dd class="pay">불고기 또띠아</dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="rowgroup" class="passenger-name">Kim, Taehyeong</th>
+                            <td colspan="4">
+                                <dl>
+                                    <!-- 사전 좌석 -->
+                                    <dt><input type="checkbox" name="check-group2" id="check209"><label for="check209"><i class="ico"></i>사전 좌석</label></dt>
+                                    <dd class="pay">E4(A구역)</dd>
                                     <dd class="refund" aria-label="환불 여부">가능</dd>
                                     <dd class="price" aria-label="사전 좌석 금액"><span class="digits">99000</span></dd>
                                     <dd class="status">결제완료</dd>
                                     <!-- 수하물 -->
-                                    <dt><input type="checkbox" name="check-group2" id="check206"><label for="check206"><i class="ico"></i>수하물</label></dt>
+                                    <dt><input type="checkbox" name="check-group2" id="check210"><label for="check210"><i class="ico"></i>수하물</label></dt>
                                     <dd class="pay">15kg</dd>
                                     <dd class="refund" aria-label="환불 여부">가능</dd>
                                     <dd class="price" aria-label="수하물 금액"><span class="digits">99000</span></dd>
                                     <dd class="status">결제완료</dd>
                                     <!-- 기내식 -->
-                                    <dt><input type="checkbox" name="check-group2" id="check207" disabled="disabled"><label for="check207"><i class="ico"></i>기내식</label></dt>
+                                    <dt><input type="checkbox" name="check-group2" id="check211" disabled="disabled"><label for="check211"><i class="ico"></i>기내식</label></dt>
                                     <dd class="pay">핑크퐁 도시락</dd>
                                     <dd class="refund" aria-label="환불 여부"><span class="text-emphasis">불가</span></dd>
                                     <dd class="price" aria-label="기내식 금액"><span class="digits">99000</span></dd>
                                     <dd class="status">결제완료</dd>
                                     <!-- 라운지이용권 -->
-                                    <dt><input type="checkbox" name="check-group2" id="check208"><label for="check208"><i class="ico"></i>라운지이용권</label></dt>
+                                    <!--<dt><input type="checkbox" name="check-group2" id="check212"><label for="check212"><i class="ico"></i>라운지이용권</label></dt>
                                     <dd class="pay">쿠폰번호 A12345678</dd>
                                     <dd class="refund" aria-label="환불 여부">가능</dd>
                                     <dd class="price" aria-label="라운지이용권 금액"><span class="digits">99000</span></dd>
-                                    <dd class="status">결제완료</dd>
+                                    <dd class="status">결제완료</dd>--><!-- 제주항공 탑승객 중 라운지 구매 고객만 해당함 -->
                                 </dl>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <!-- 분기 : 국제선일 떄 .total-wrap 노출 -->
-                <!--<div class="total-wrap">
+
+                <!-- 국제선일 때 -->
+                <div class="total-wrap">
                     <h4 class="receipt-title">TOTAL</h4>
                     <dl>
                         <dt class="price">가는 편 환불금액</dt>
                         <dd><span class="digits">999000</span></dd>
                         <dt class="price">오는 편 환불금액</dt>
                         <dd><span class="digits">999000</span></dd>
-                        <dt class="fee">시스템 사용료</dt>
-                        <dd><span class="digits">999000</span></dd>
+                        <!--<dt class="fee">시스템 사용료</dt>
+                        <dd><span class="digits">999000</span></dd>--><!-- 마이너스가 필요할 때 사용합니다. -->
                         <dt class="total-price">TOTAL 환불금액</dt>
                         <dd><span class="digits">999000</span></dd>
                     </dl>
-                </div>-->
+                </div>
             </article>
 
             <!-- 부가서비스 취소 / 환불 동의 -->
@@ -309,8 +381,8 @@
                 <ul class="agreement-list">
                     <!-- 제주항공 사전 좌석 선택 규정 -->
                     <li>
-                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check301" name="check-group3"><label for="input-check301"><i class="ico"></i>제주항공(가는 편) 사전 좌석 선택 규정</label>-->
-                        <!-- 국제선일 때 --><input type="checkbox" id="input-check301" name="check-group3"><label for="input-check301"><i class="ico"></i>제주항공 사전 좌석 선택 규정</label>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check301" name="check-group3"><label for="input-check301"><i class="ico"></i>제주항공 사전 좌석 선택 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check301" name="check-group3"><label for="input-check301"><i class="ico"></i>사전 좌석 선택 규정</label>
                         <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
                         <div class="notification-wrap">
                             <div class="table-wrap">
@@ -388,8 +460,8 @@
                     </li>
                     <!-- 제주항공 사전 수하물 규정 -->
                     <li>
-                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check302" name="check-group3"><label for="input-check302"><i class="ico"></i>제주항공(가는 편) 사전 수하물 규정</label>-->
-                        <!-- 국제선일 때 --><input type="checkbox" id="input-check302" name="check-group3"><label for="input-check302"><i class="ico"></i>제주항공 사전 수하물 규정</label>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check302" name="check-group3"><label for="input-check302"><i class="ico"></i>제주항공 사전 수하물 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check302" name="check-group3"><label for="input-check302"><i class="ico"></i>사전 수하물 규정</label>
                         <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
                         <div class="notification-wrap">
                             <div class="table-wrap">
@@ -448,8 +520,9 @@
                     </li>
                     <!-- 제주항공 사전 기내식 규정 -->
                     <li>
-                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check303" name="check-group3"><label for="input-check303"><i class="ico"></i>제주항공(가는 편) 사전 기내식 규정</label>-->
-                        <!-- 국제선일 때 --><input type="checkbox" id="input-check303" name="check-group3"><label for="input-check303"><i class="ico"></i>제주항공 사전 기내식 규정</label>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check303" name="check-group3"><label for="input-check303"><i class="ico"></i>제주항공 사전 기내식 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check303" name="check-group3"><label for="input-check303"><i class="ico"></i>사전 기내식 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
                         <div class="table-wrap">
                             <table>
                                 <colgroup>
@@ -516,8 +589,9 @@
                     </li>
                     <!-- 제주항공 라운지 이용권 규정 -->
                     <li>
-                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check304" name="check-group3"><label for="input-check303"><i class="ico"></i>제주항공(가는 편) 라운지 이용권 규정</label>-->
-                        <!-- 국제선일 때 --><input type="checkbox" id="input-check304" name="check-group3"><label for="input-check304"><i class="ico"></i>제주항공 라운지 이용권 규정</label>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check304" name="check-group3"><label for="input-check303"><i class="ico"></i>제주항공 라운지 이용권 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check304" name="check-group3"><label for="input-check304"><i class="ico"></i>라운지 이용권 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
                         <div class="table-wrap">
                             <table>
                                 <colgroup>
@@ -582,8 +656,8 @@
                     </li>
                     <!-- 티웨이항공 사전 좌석 선택 규정 -->
                     <li>
-                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check311" name="check-group3"><label for="input-check311"><i class="ico"></i>티웨이항공(오는 편) 사전 좌석 선택 규정</label>-->
-                        <!-- 국제선일 때 --><input type="checkbox" id="input-check311" name="check-group3"><label for="input-check311"><i class="ico"></i>티웨이항공 사전 좌석 선택 규정</label>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check311" name="check-group3"><label for="input-check311"><i class="ico"></i>티웨이항공 사전 좌석 선택 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check311" name="check-group3"><label for="input-check311"><i class="ico"></i>사전 좌석 선택 규정</label>
                         <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
                         <div class="notification-wrap">
                             <div class="table-wrap">
@@ -672,8 +746,8 @@
                     </li>
                     <!-- 티웨이항공 사전 수하물 규정 -->
                     <li>
-                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check312" name="check-group3"><label for="input-check312"><i class="ico"></i>티웨이항공(오는 편) 사전 수하물 규정</label>-->
-                        <!-- 국제선일 때 --><input type="checkbox" id="input-check312" name="check-group3"><label for="input-check312"><i class="ico"></i>티웨이항공 사전 수하물 규정</label>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check312" name="check-group3"><label for="input-check312"><i class="ico"></i>티웨이항공 사전 수하물 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check312" name="check-group3"><label for="input-check312"><i class="ico"></i>사전 수하물 규정</label>
                         <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
                         <div class="notification-wrap">
                             <div class="table-wrap">
@@ -739,8 +813,9 @@
                     </li>
                     <!-- 티웨이항공 사전 기내식 규정 -->
                     <li>
-                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check313" name="check-group3"><label for="input-check313"><i class="ico"></i>티웨이항공(가는 편) 사전 기내식 규정</label>-->
-                        <!-- 국제선일 때 --><input type="checkbox" id="input-check313" name="check-group3"><label for="input-check313"><i class="ico"></i>티웨이항공 사전 기내식 규정</label>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check313" name="check-group3"><label for="input-check313"><i class="ico"></i>티웨이항공 사전 기내식 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check313" name="check-group3"><label for="input-check313"><i class="ico"></i>사전 기내식 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
                         <div class="table-wrap">
                             <table>
                                 <colgroup>
@@ -791,6 +866,65 @@
                                             <li>특정 식품에 대한 알레르기 또는 유사 증상이 있는 승객께서는 메뉴를 확인 하신 후 주문해주시기 바랍니다.</li>
                                             <li>땅콩알레르기의 경우 실제 조리과정에서 땅콩이 사용되지 않았더라도 땅콩성분이 함유된 식용유, 식재료 등이 포함되어있을 수 있습니다. 해당 증세가 있는 고객께서는 주문 전 참고해주시기 바랍니다.</li>
                                             <li>기내식 메뉴는 이용 노선, 기간등에 따라 상이할 수 있습니다.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <!-- 티웨이항공 번들 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check314" name="check-group3"><label for="input-check314"><i class="ico"></i>티웨이항공 부가서비스 번들 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check314" name="check-group3"><label for="input-check314"><i class="ico"></i>부가서비스 번들 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="table-wrap">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="colgroup" colspan="2">변경</th>
+                                    <th scope="colgroup" colspan="2">환불</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row">출발 3일 전</th>
+                                    <td>가능</td>
+                                    <th scope="row">출발 3일 전</th>
+                                    <td>가능</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">출발 2일 전 ~ 출발 당일</th>
+                                    <td>불가</td>
+                                    <th scope="row">출발 2일 전 ~ 출발 당일</th>
+                                    <td>불가</td>
+                                </tr>
+                                <tr>
+                                    <th scope="colgroup" colspan="4">부가서비스 번들 사전 구매 제외 대상</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <ul class="notification-list">
+                                            <li>공동운항편</li>
+                                            <li>출발이 임박한 항공편 (국내선: 출발 1일 이내 / 국제선: 출발 2일 이내)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="colgroup" colspan="4">유의사항</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <ul class="notification-list">
+                                            <li>변경을 원하실 경우 취소 후 재 구매하셔야 합니다.</li>
+                                            <li>항공권 변경 또는 취소 시 구매하신 번들 서비스는 자동 환불 처리됩니다.</li>
+                                            <li>단, 국내선 출발 1일 전, 국제선 출발 2일 전 항공편을 취소하는 경우 번들 서비스 금액은 환불되지 않습니다.</li>
+                                            <li>당사 사정에 의한 비정상 운항(지연/결항)으로 항공권 취소 또는 여정 변경하여, 번들 서비스를 제공받지 못한 경우 출발일자와 상관없이 환불이 가능합니다.</li>
+                                            <li>전용 카운터 및 수하물 우선 처리의 경우 추가 제공 사항으로 출발 당일 현장 상황에 따라 미제공 될 수 있습니다.</li>
                                         </ul>
                                     </td>
                                 </tr>

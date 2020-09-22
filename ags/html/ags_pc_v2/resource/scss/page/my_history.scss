@@ -46,7 +46,7 @@
   @include form($size: 1, $role: normal, $type: button);
   position: absolute; right: 0; top: 0;
   margin-top: rem(46); width: auto;
-  border-radius: 0; font-size: rem($font-size); font-weight: 800; line-height: em(24, $font-size)
+  border-radius: 0; font-size: rem($font-size); font-weight: 800; line-height: em(24, $font-size); line-height: em(22, $font-size);
 }
 [data-page-id='my_pay-history-detail_anc'],
 [data-page-id='my_refund_anc']{
@@ -79,71 +79,4 @@
 }
 [data-page-id='my_pay-history-detail_anc'] {
 
-}
-[data-page-id='my_refund_anc']{
-  .notification-text {
-    $font-size: 13;
-    @include font($size: $font-size, $color: $mono1, $weight: 400);
-    padding-top: rem($grid * 4);
-    line-height: em(22, $font-size);
-    a { font-weight: 800; text-decoration: underline; color: inherit; }
-  }
-  .help-desk {
-    @include clearfix;
-    dt, dd { float: left; }
-    .tel + dd {
-      &:before { content: ":"; padding: 0 0.3em; }
-    }
-    .working-time {
-      @include sr-only;
-      & + dd {
-        padding-left: 0.3em;
-        &:before { content: "(" }
-        &:after { content: ")" }
-      }
-    }
-  }
-  input[type='checkbox'][data-checked='all'] + .btn_check-all {
-    @include btn-beside-title;
-    &:after {
-      content: " 취소";
-      display: none;
-      background-color: $mono1;
-    }
-  }
-  input[type='checkbox'][data-checked='all']:checked + .btn_check-all {
-    $font-size: 11;
-    @include form($size: 1, $role: normal-rev, $type: button);
-    overflow: hidden;
-    position: absolute; right: 0; top: 0;
-    margin-top: rem(46); width: auto;
-    border-radius: 0; font-size: rem($font-size); font-weight: 800; line-height: em(24, $font-size);
-    &:after {
-      display: inline;
-      opacity: 1;
-    }
-  }
-  table {
-    $font-size: 14;
-    input[type='checkbox'] {
-      @include form($size: 3, $role: normal, $type: checkbox);
-      & + label { font-weight: 800; }
-      & + label .ico { vertical-align: top; }
-    }
-    thead th:first-of-type { padding-left: em(60, $font-size) }
-    thead th:first-of-type, tbody th:first-of-type { padding-left: em(60, $font-size) }
-    thead th:first-of-type, tbody th:first-of-type { width: rem(250) }
-    thead th:nth-of-type(2), dt { width: rem(180) }
-    thead th:nth-of-type(2), dd.pay { width: calc(100% - 180px - 125px - 125px - 152px) !important }
-    thead th:nth-of-type(3), dd.refund { width: rem(125) }
-    thead th:nth-of-type(4), dd.price { width: rem(125) !important }
-    thead th:nth-of-type(5), dd.status { width: rem(152); }
-    thead th:nth-of-type(3) { text-align: center !important; }
-    thead th:nth-of-type(4) { padding-right: em(30, $font-size); text-align: right; }
-    thead th:last-of-type { padding-right: em(60, $font-size) !important; }
-    dd.refund { text-align: center; }
-  }
-  .agreement-wrap {
-    padding-top: rem(100)
-  }
 }
