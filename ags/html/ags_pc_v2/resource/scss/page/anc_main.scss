@@ -65,10 +65,10 @@ $anc-select-area-width: 267;
       @include tab(style1);
       overflow: hidden;
       position: relative;
-      padding: 0; max-height: 60vh; border: 1px solid $mono8;
-      @at-root .no-flexbox & { height: 60vh; }
+      padding: 0; min-height: rem(648); height: 60vh; border: 1px solid $mono8;
+      @at-root .no-flexbox & {  }
       .tabs {
-        margin-bottom: rem(-4); padding: rem($grid * 4);
+        padding: rem($grid * 4) rem($grid * 4) rem(28);
         [role='tab'] {
           transition: background-color,border,color $trs-duration;
         }
@@ -77,20 +77,12 @@ $anc-select-area-width: 267;
     &.anc_seat .anc-service,
     &.anc_meal .anc-service,
     &.anc_lounge .anc-service {
-      padding-right: rem($right-tp-size);
+      padding-right: rem($right-tp-size); min-height: rem(648);
       .tab-panels { height: 100%; }
       .passenger-list {
         padding: 0;
         &, .scroll-wrap { height: inherit; }
         .mCSB_container { padding: 0 rem($grid * 4) rem($grid * 4); }
-      }
-      .seat-plan,
-      .meal-plan,
-      .lounge-plan {
-        position: absolute; top: 0; right: 0; bottom: 0;
-        width: rem($right-tp-size);
-        border-left: 1px solid $mono8;
-        .scroll-wrap { height: 100%; }
       }
       @at-root .no-flexbox & {
         .seat-plan,
@@ -101,10 +93,18 @@ $anc-select-area-width: 267;
         }
       }
     }
+    &.anc_seat .seat-plan,
+    &.anc_meal .meal-plan,
+    &.anc_lounge .lounge-plan {
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: rem($right-tp-size);
+      border-left: 1px solid $mono8;
+      .scroll-wrap { height: 100%; }
+    }
     & + .anc-service-wrap { margin-top: rem(100); border-top: 1px solid $mono1; }
   }
   [role='tabpanel'].active {
-    height: calc(60vh - 93px);
+    height: calc(100% - 93px);
     @at-root .no-flexbox & { height: 100%; }
   }
   .anc-service + .notification-wrap {

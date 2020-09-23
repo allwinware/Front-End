@@ -2678,6 +2678,25 @@
                 }
             }).scroll();
         })();
+
+        /*CSS3 flex 기능이 없는 브라우저에서 부가서비스 선택 영역의 높이 동적으로 추가하여 내부 스크롤바 영역의 사이즈를 잡아줍니다*/
+        (function(){
+            var $ancArea = $(".anc-service");
+            if($("html.no-flexbox").length > 0){
+                $ancArea.each(function(){
+                    var $this = $(this),
+                        $tabs = $this.find(".tabs"),
+                        $tabpanel = $this.find(".tab-panels"),
+                        $psgList = $tabpanel.find(".passenger-list");
+                    $tabpanel.css("height", $this.innerHeight() - $tabs.outerHeight())
+                    console.log($this.innerHeight(), $tabpanel.height());
+
+                    if($this.parents(".anc-service-wrap.anc_seat").length > 0){
+                        $this.find(".seat-sheet").css("height", $this.find(".seat-plan").innerHeight() - $this.find(".seat-legend").outerHeight());
+                    }
+                });
+            }
+        })();
     })
 </script>
 </body>
