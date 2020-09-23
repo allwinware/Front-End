@@ -124,6 +124,7 @@
     &:after { z-index: 0; content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; border-bottom: 1px solid $mono8 }
     ul { @include clearfix; z-index: 1; display: table }
     li {
+      $font-size: 12;
       @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
       z-index: 1;
       position: relative;
@@ -145,6 +146,13 @@
         display: block;
         width: 14px; height: 14px;
         border-radius: 5px 5px 2px 2px; border: rem(2) solid;
+      }
+      &:after {
+        content: "";
+        display: inline-block;
+        opacity: 0.5;
+        position: absolute; top: 24px; left: 20px;
+        width: em(6, $font-size); height: em(2, $font-size); border-radius: 1px;
       }
       &.seat-type1:before { border-color: $seat-type1 }
       &.seat-type2:before { border-color: $seat-type2 }
@@ -265,14 +273,22 @@
     .exit_left .ico { margin: 0 rem($grid / 2) 0 -6px; border-color: transparent $mono4 transparent transparent; }
     .exit_right .ico { margin: 0 -6px 0 rem($grid / 2); border-color: transparent transparent transparent $mono4; }
     a[class^='seat-'] {
+      $font-size : 13;
       @include valign-middle();
-      @include font($family: 'en', $size: 13, $color: $mono10, $weight: 600, $spacing: -0.03);
+      @include font($family: 'en', $size: $font-size, $color: $mono10, $weight: 600, $spacing: -0.03);
       overflow: hidden;
-      margin: 0 rem(6); width: rem(28); height: rem(28);
+      position: relative; margin: 0 rem(6); width: rem(28); height: rem(28);
       text-align: center;
       border: 2px solid; background-color: $mono10; border-radius: rem($grid) rem($grid) rem(3) rem(3);
       transition: $trs-duration all; transition-delay: $trs-delay;
       text-decoration: none;
+      &:after {
+        content: "";
+        display: inline-block;
+        opacity: 0.5;
+        position: absolute; top: 17px; left: 6px;
+        width: em(12, $font-size); height: em(3, $font-size); border-radius: 2px;
+      }
       &.active { color: $mono10; }
       &.seat-type1 {
         height: rem(36) !important;

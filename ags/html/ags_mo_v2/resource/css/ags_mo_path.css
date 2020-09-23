@@ -3179,18 +3179,8 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   overflow: auto;
   width: 100%;
   height: 6.14286rem;
+  /*&:after { z-index: 0; content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; border-bottom: 1px solid $mono8 }*/
   /* 탭 활성화 상태에서의 좌석 범례 */
-}
-
-.seat-plan .seat-legend:after {
-  z-index: 0;
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  border-bottom: 1px solid #f0f0f0;
 }
 
 .seat-plan .seat-legend ul {
@@ -3243,7 +3233,19 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   width: 14px;
   height: 14px;
   border-radius: 5px 5px 2px 2px;
-  border: 0.14286rem solid;
+  border: 2px solid;
+}
+
+.seat-plan .seat-legend li:after {
+  content: "";
+  display: inline-block;
+  opacity: 0.5;
+  position: absolute;
+  top: 24px;
+  left: 20px;
+  width: 6px;
+  height: 2px;
+  border-radius: 1px;
 }
 
 .seat-plan .seat-legend li.seat-disabled:before {
@@ -3276,7 +3278,8 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   bottom: 0;
   left: 0;
   display: block;
-  margin-bottom: -1px;
+  width: 100%;
+  height: 100%;
   text-indent: -999em;
   text-decoration: none;
   color: inherit;
@@ -3544,6 +3547,7 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   color: #ffffff;
   letter-spacing: -0.03em;
   overflow: hidden;
+  position: relative;
   margin: 0 0.42857rem;
   width: 2rem;
   height: 2rem;
@@ -3562,6 +3566,18 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   width: 0;
   height: 100%;
   vertical-align: middle;
+}
+
+.seat-plan .seat-num a[class^='seat-']:after {
+  content: "";
+  display: inline-block;
+  opacity: 0.5;
+  position: absolute;
+  top: 17px;
+  left: 6px;
+  width: 0.92308em;
+  height: 0.23077em;
+  border-radius: 2px;
 }
 
 .seat-plan .seat-num a[class^='seat-'].active {

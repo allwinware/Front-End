@@ -20,7 +20,7 @@ function activeLinkScrollLeft(el, wrap, duration){
     var thisLeft = $(el).offset().left,
         elLeft = $(wrap).scrollLeft(),
         myScrollPos = thisLeft + elLeft - 32;
-    $(wrap).animate({ scrollLeft: myScrollPos }, duration)
+    $(wrap).stop().animate({ scrollLeft: myScrollPos }, duration)
 }
 
 /*스크롤이 특정 위치를 지나갈 때 클래스 첨삭*/
@@ -55,8 +55,7 @@ function popupShow(target){
 }
 /* 팝업 삭제 기능 정의  */
 function popupHide(target){
-    setTimeout(function(){ target.removeClass("active"); }, 250);
-    setTimeout(function(){ deleteDim(target) }, 1000)
+    setTimeout(function(){ target.removeClass("active"); deleteDim(target) }, 250);
 }
 
 /* 팝업 생성 기능 정의 */

@@ -14,10 +14,11 @@
       position: absolute; top: rem($buy__psg-wrap-height); left: 0; right: 0;
       overflow: auto;
       width: 100%; height: rem($seat-legend-height);
-      &:after { z-index: 0; content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; border-bottom: 1px solid $mono8 }
+      /*&:after { z-index: 0; content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; border-bottom: 1px solid $mono8 }*/
       ul { @include clearfix; z-index: 1; display: table }
       li {
-        @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
+        $font-size: 12;
+        @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: -0.03);
         z-index: 1;
         position: relative;
         display: table-cell;
@@ -37,7 +38,14 @@
           position: absolute; left: rem($grid * 2); top: rem($grid * 2);
           display: block;
           width: 14px; height: 14px;
-          border-radius: 5px 5px 2px 2px; border: rem(2) solid;
+          border-radius: 5px 5px 2px 2px; border: 2px solid;
+        }
+        &:after {
+          content: "";
+          display: inline-block;
+          opacity: 0.5;
+          position: absolute; top: 24px; left: 20px;
+          width: 6px; height: 2px; border-radius: 1px;
         }
         &.seat-disabled:before { border-color: $seat-disabled; @include background($file: 'buy/ico_seat-legend_seat-disabled', $type: png, $width: rem(6), $height: rem(6)); background-position: 50% 50%; }
       }
@@ -47,7 +55,7 @@
         overflow: hidden;
         position: absolute; top: 0; right: 0; bottom: 0; left: 0;
         display: block;
-        margin-bottom: -1px;
+        width: 100%; height: 100%;
         text-indent: -999em; text-decoration: none; color: inherit;
         border-bottom: 1px solid $mono8
       }
@@ -156,14 +164,22 @@
       .exit_left .ico { margin: 0 rem($grid / 2) 0 -6px; border-color: transparent $mono4 transparent transparent; }
       .exit_right .ico { margin: 0 -6px 0 rem($grid / 2); border-color: transparent transparent transparent $mono4; }
       a[class^='seat-'] {
+        $font-size : 13;
         @include valign-middle();
-        @include font($family: 'en', $size: 13, $color: $mono10, $weight: 600, $spacing: -0.03);
+        @include font($family: 'en', $size: $font-size, $color: $mono10, $weight: 600, $spacing: -0.03);
         overflow: hidden;
-        margin: 0 rem(6); width: rem(28); height: rem(28);
+        position: relative; margin: 0 rem(6); width: rem(28); height: rem(28);
         text-align: center;
         border: 2px solid; background-color: $mono10; border-radius: rem($grid) rem($grid) rem(3) rem(3);
         transition: $trs-duration all; transition-delay: $trs-delay;
         text-decoration: none;
+        &:after {
+          content: "";
+          display: inline-block;
+          opacity: 0.5;
+          position: absolute; top: 17px; left: 6px;
+          width: em(12, $font-size); height: em(3, $font-size); border-radius: 2px;
+        }
         &.active { color: $mono10; }
         &.seat-type1 {
           height: rem(36) !important;

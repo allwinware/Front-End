@@ -9,9 +9,42 @@
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
-        $(document).ready(function(){
-            var $win = $(window),
-                $doc = $(document);
+        var $win = $(window),
+            $doc = $(document),
+            $html  = $("html");
+
+        /*좌석 범례 스크롤 기능 정의*/
+        function legendHandler(){
+            var $psgWrap = $(".tab-panel.active .passenger-wrap"),
+                $legendWrap = $(".tab-panel.active .seat-legend"),
+                pd = 7,
+                mgTop = $psgWrap.height() + $legendWrap.height(),
+                items = [],
+                pos = [];
+            $($legendWrap.find("a")).each(function(index, item){
+                var position = $($(".tab-panel.active .seat-num ." + $(item)[0].dataset.scrollto + ":first-of-type")).offset().top - mgTop - pd;
+
+                pos.push(position);
+                items.push($(item)[0].dataset.scrollto)
+            });
+            $win.on("scroll", function(e){
+                setTimeout(function(){
+                    var currentScroll = $html.scrollTop();
+                    for (i in pos) {
+                        if (pos[i] < currentScroll + 1) {
+                            var index = i,
+                                $currentLegend = $(".tab-panel.active .seat-legend ." + items[index]);
+                            $currentLegend.addClass("active").siblings().removeClass("active");
+                        } else if(currentScroll + 1 < pos[0]) {
+                            $(".tab-panel.active .seat-legend ." + items[0]).addClass("active").siblings().removeClass("active");
+                        }
+                    }
+                }, 400);
+                activeLinkScrollLeft($(".tab-panel.active .seat-legend .active"), $legendWrap, 800);
+            }).scroll()
+        }
+
+        $doc.ready(function(){
 
             /* 좌석 선택 방식을 컨트롤 합니다. */
             (function(seatHandler){
@@ -39,7 +72,15 @@
                             /*선택한 좌석버튼을 활성화하고 data-psg 값에 현재 체크된 승객명을 구분자로 부여합니다*/
                             $this.addClass("active").attr("data-psg", $checkedPsgName);
                             /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석 텍스트로 입력한 후 '삭제'버튼을 추가합니다*/
-                            $currentPsgLabel.html("<span>" + $this.text() + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                            if($checkedPsg.siblings("dl").find("[class*='bundle-type']:not(.bundle-type0)").length !== 0){
+                                /*번들 고객이라면*/
+                                /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석정보를 입력한 후 '삭제'버튼을 추가합니다*/
+                                $currentPsgLabel.html("<span>" + $this.text().split("/")[0] + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                            } else {
+                                /*번들 고객이 아니라면*/
+                                /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석정보 + 가격정보를 입력한 후 '삭제'버튼을 추가합니다*/
+                                $currentPsgLabel.html("<span>" + $this.text() + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                            }
                         } else if($this.attr("data-psg") === $checkedPsgName)
                         /*1-2. 선택한 좌석이 해당 승객에게 이미 부여된 상태일 때, 좌석 부여를 취소합니다*/{
                             /*선택한 좌석과 동일한 좌석 텍스트를 삭제합니다*/
@@ -129,43 +170,6 @@
                 });
             })();
 
-            /*좌석 범례 스크롤 기능 정의*/
-            (function(legendScrollHandler){
-                var $html = $("html"),
-                    $seats = $(".seat-num"),
-                    tabPanelPdTop = parseInt($(".tab-panel.active").css("padding-top")) + 8,
-                    seatType2Pos = $seats.find(".seat-type2:first-of-type").offset().top - tabPanelPdTop,
-                    seatType3Pos = $seats.find(".seat-type3:first-of-type").offset().top - tabPanelPdTop,
-                    seatType4Pos = $seats.find(".seat-type4:first-of-type").offset().top - tabPanelPdTop;
-                var $target1 = $(".seat-legend li.seat-type1"),
-                    $target2 = $(".seat-legend li.seat-type2"),
-                    $target3 = $(".seat-legend li.seat-type3"),
-                    $target4 = $(".seat-legend li.seat-type4");
-                $win.on("scroll", function(){
-                    if(seatType2Pos >= $html.scrollTop()){
-                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
-                        $target1.addClass("active").siblings().removeClass("active");
-                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
-                        activeLinkScrollLeft($target1, ".tab-panel.active .seat-legend", 10)
-                    } else if($html.scrollTop() >= seatType2Pos && seatType3Pos > $html.scrollTop()){
-                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
-                        $target2.addClass("active").siblings().removeClass("active");
-                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
-                        activeLinkScrollLeft($target2, ".tab-panel.active .seat-legend", 10)
-                    } else if($html.scrollTop() >= seatType3Pos && seatType4Pos > $html.scrollTop()){
-                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
-                        $target3.addClass("active").siblings().removeClass("active");
-                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
-                        activeLinkScrollLeft($target3, ".tab-panel.active .seat-legend", 10)
-                    } else if($html.scrollTop() >= seatType4Pos){
-                        /*스크롤이 위치한 곳의 범례 아이템을 활성화 시킵니다*/
-                        $target4.addClass("active").siblings().removeClass("active");
-                        /*활성화된 범례 아이템이 화면 좌측에 디스플레이 되도록 합니다*/
-                        activeLinkScrollLeft($target4, ".tab-panel.active .seat-legend", 10)
-                    }
-                });
-            })();
-
             /*번들선택*/
             (function(){
                 $(window).on("scroll", function(){
@@ -177,6 +181,10 @@
                 }).scroll();
             })();
         });
+
+        $win.on("load", function(){
+            legendHandler();
+        })
     </script>
 </head>
 <body>
