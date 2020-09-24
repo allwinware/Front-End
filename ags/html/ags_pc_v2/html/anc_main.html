@@ -6272,23 +6272,6 @@
                 e.preventDefault();
             });
 
-            /*$win.on("scroll", $.debounce(function(e){
-                /!*스크롤이 발생하면 lnb가 상단에 고정되도록 합니다.*!/
-                sticky($lnb, lnbScStart, lnbScEnd);
-
-                /!*스크롤 위치에 따라 .anc-lnb-wrap 내부의 메뉴가 활성화/비활성화 되도록 합니다.*!/
-                var fromTop = $(this).scrollTop() + lnbHeight;
-                var cur = scrollItems.map(function () {
-                    if ($(this).offset().top < fromTop)
-                        return this;
-                });
-                cur = cur[cur.length - 1];
-                var id = cur && cur.length ? cur[0].id : "";
-                menuItems.parent().removeClass("active");
-                if (id) {
-                    menuItems.parent().end().filter("[href*='#" + id + "']").parent().addClass("active");
-                }
-            })).scroll()*/
             $win.on("scroll", function(e){
                 /*스크롤이 발생하면 lnb가 상단에 고정되도록 합니다.*/
                 sticky($lnb, lnbScStart, lnbScEnd);
@@ -6315,11 +6298,10 @@
                 $summary.css("height", $win.height() - $(".anc-lnb-wrap").height());
                 var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
                 var sumScEnd = $("#ags-footer").offset().top - $summary.outerHeight() - parseInt($summary.css("padding-bottom")) - 180;
-                $win.on("scroll", function(){
+                $win.on("scroll", function(e){
                     /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
                     sticky($summary, sumScStart, sumScEnd);
                 }).scroll();
-                console.log(parseInt($summary.css("padding-bottom")))
             }).resize();
         })();
 

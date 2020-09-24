@@ -1,6 +1,5 @@
 /*배경 DIM 생성*/
 function createDim(target){
-    console.log();
     if(target.attr("data-type") === "drawer" || target.attr("data-type") === "message"){
         $("#ags-wrap").append("<div class='page-dim " + target.attr("id") + " active'></div>");
     } else {
