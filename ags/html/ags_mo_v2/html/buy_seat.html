@@ -31,15 +31,15 @@
                 setTimeout(function(){
                     var currentScroll = $html.scrollTop();
                     for (i in pos) {
-                        if (pos[i] < currentScroll + 1) {
+                        if (pos[i] <= currentScroll + 5) {
                             var index = i,
                                 $currentLegend = $(".tab-panel.active .seat-legend ." + items[index]);
                             $currentLegend.addClass("active").siblings().removeClass("active");
-                        } else if(currentScroll + 1 < pos[0]) {
+                        } else if(currentScroll + 5 <= pos[0]) {
                             $(".tab-panel.active .seat-legend ." + items[0]).addClass("active").siblings().removeClass("active");
                         }
                     }
-                }, 400);
+                }, 800);
                 activeLinkScrollLeft($(".tab-panel.active .seat-legend .active"), $legendWrap, 800);
             }).scroll()
         }
