@@ -6296,22 +6296,17 @@
 
         /*사용자의 스크롤 액션에 따른 .anc-summary의 동작 제어*/
         (function(){
-            var $summary = $(".anc-summary"),
-                sumScStart = $summary.offset().top - parseInt($summary.css("padding-top")),
-                sumScEnd = $("#ags-footer").offset().top - $summary.height() - 226;
-
-            $win.on("scroll", function(){
-                /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
-                sticky($summary, sumScStart, sumScEnd);
-
-                /*.anc-summary의 높이값을 정해주고 상황에 따라 높이를 풀어줍니다.*/
-                $summary.css("height", $win.innerHeight() - parseInt($summary.css("top")));
-                if ($win.scrollTop() >= sumScEnd){
-                    $summary.css("height", "")
-                } else if ($win.scrollTop() < sumScEnd) {
-                    $summary.css("height", "")
-                }
-            }).scroll();
+            var $summary = $(".anc-summary");
+            $win.on("resize", function(){
+                $summary.css("height", $win.height() - $(".anc-lnb-wrap").height());
+                var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
+                var sumScEnd = $("#ags-footer").offset().top - $summary.outerHeight() - parseInt($summary.css("padding-bottom")) - 180;
+                $win.on("scroll", function(){
+                    /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
+                    sticky($summary, sumScStart, sumScEnd);
+                }).scroll();
+                console.log(parseInt($summary.css("padding-bottom")))
+            }).resize();
         })();
 
         /*좌석 선택 영역의 스크롤바가 IE9에서 동작하도록 높이값을 계산하여 부여합니다*/
@@ -6321,17 +6316,6 @@
                     heightStd = $seatPlan.parents(".anc-service").height();
                 $seatPlan.css("height", heightStd).children(".seat-sheet").css("height", heightStd - $seatPlan.children(".seat-legend").height())
             });
-        })();
-
-        /*번들선택*/
-        (function(){
-            $(window).on("scroll", function(){
-                if ($(window).scrollTop() > 100){
-                    $(".floating-banner").css("opacity", "0")
-                } else {
-                    $(".floating-banner").css("opacity", 1 - ($(window).scrollTop() * 0.01))
-                }
-            }).scroll();
         })();
 
         /*CSS3 flex 기능이 없는 브라우저에서 부가서비스 선택 영역의 높이 동적으로 추가하여 내부 스크롤바 영역의 사이즈를 잡아줍니다*/

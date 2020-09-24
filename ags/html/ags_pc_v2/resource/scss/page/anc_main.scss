@@ -282,10 +282,11 @@ $anc-select-area-width: 267;
   .anc-summary {
     z-index: 0;
     position: absolute; top: rem(281); left: calc(50% + 333px);
-    padding: rem($grid * 10) 0 rem($grid * 3) 0; width: rem(267);
+    padding: rem(76) 0 rem($grid * 3) 0; width: rem(267);
     .scroll-wrap {
-      overflow: auto; margin-right: rem(-$grid * 2); max-height: calc(100% - 152px);
-      @at-root .no-flexbox & { height: calc(100% - 152px) }
+      overflow: auto; margin-right: rem(-$grid * 2);
+      max-height: calc(100% - 75px - 62px);
+      .mCustomScrollBox { max-height: calc(100% - 75px - 62px); }
       .mCSB_container { margin-right: rem($grid * 2); }
     }
     .flight-way { @include tagging-route }
@@ -328,15 +329,15 @@ $anc-select-area-width: 267;
     }
     .btn_pay {
       @include form($size: 6, $role: submit, $type: button);
-      letter-spacing: rem(1);
+      margin-bottom: 0; letter-spacing: rem(1);
     }
     .digits { letter-spacing: 0; }
     &.ui-fixed {
-      position: fixed; top: rem($anc_lnb-height); max-height: calc(100vh - #{$anc_lnb-height}px);
-      .scroll-wrap { max-height: calc(100vh - 61px - 80px - 24px - 135px); }
+      position: fixed; top: rem($anc_lnb-height); bottom: 0;
+      .scroll-wrap {  }
     }
     &.ui-fixed---bottom {
-      position: absolute; top: auto; bottom: rem(120)
+      position: absolute; top: auto; bottom: rem(140)
     }
     [class*='bundle-type'] {
       @include sr-only;
@@ -409,14 +410,16 @@ $anc-select-area-width: 267;
     $font-size: 11;
     $icon-size: 54;
     @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: -0.03);
-    display: none;
-    position: absolute; left: calc(50% + 546px); top: rem(296);
+    position: absolute; right: 0; top: 0;
     .btn_bundle {
       display: inline-block;
       padding: rem(13) rem($grid); width: em($icon-size, $font-size); height: em($icon-size, $font-size);
       background-color: $mono1; border-radius: 50%;
       line-height: em(14, $font-size); text-decoration: none; text-align: center; color: $mono10;
     }
-    &.active { display: block; }
+    &[data-id] {
+      display: none;
+      &.active { display: block; }
+    }
   }
 }

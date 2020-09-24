@@ -2079,7 +2079,7 @@
                                                 <dt class="passenger-name">탑승객 성명(영문)</dt>
                                                 <dd>Kim, Taehyeong</dd>
                                                 <dt class="selected-baggage">선택 수하물</dt>
-                                                <dd>선택 불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>&lt;!&ndash; 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 &ndash;&gt;
+                                                <dd>선택불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>&lt;!&ndash; 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 &ndash;&gt;
                                             </dl>
                                             <div class="baggage-plan">
                                                 <ul>
@@ -2541,7 +2541,7 @@
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd>Kim, Taehyeong</dd>
                                             <dt class="selected-baggage">선택 수하물</dt>
-                                            <dd>선택 불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>&lt;!&ndash; 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 &ndash;&gt;
+                                            <dd>선택불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>&lt;!&ndash; 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 &ndash;&gt;
                                         </dl>
                                         <div class="baggage-plan">
                                             <ul>
@@ -4885,13 +4885,6 @@
 
         <hr>
 
-        <!-- 티웨이 전용 : 번들 서비스를 제공할 경우 -->
-        <div class="floating-banner active">
-            <a href="#none" target="_self" class="btn_bundle" data-popup="#bundle-summary1">번들<br>선택</a>
-        </div>
-
-        <hr>
-
         <!-- 총 결제금액 -->
         <footer class="anc-summary">
             <h2 class="sr-only">선택한 부가서비스 내역</h2>
@@ -5296,6 +5289,11 @@
                 </dl>
             </div>
             <button type="button" class="btn_pay">결제하기</button>
+
+            <!-- 티웨이 전용 : 번들 서비스를 제공할 경우 -->
+            <div class="floating-banner">
+                <a href="#none" target="_self" class="btn_bundle" data-popup="#bundle-summary2">번들<br>선택</a>
+            </div>
         </footer>
     </section>
 
@@ -6274,44 +6272,55 @@
                 e.preventDefault();
             });
 
-            $win.on("scroll", function(){
+            /*$win.on("scroll", $.debounce(function(e){
+                /!*스크롤이 발생하면 lnb가 상단에 고정되도록 합니다.*!/
+                sticky($lnb, lnbScStart, lnbScEnd);
+
+                /!*스크롤 위치에 따라 .anc-lnb-wrap 내부의 메뉴가 활성화/비활성화 되도록 합니다.*!/
+                var fromTop = $(this).scrollTop() + lnbHeight;
+                var cur = scrollItems.map(function () {
+                    if ($(this).offset().top < fromTop)
+                        return this;
+                });
+                cur = cur[cur.length - 1];
+                var id = cur && cur.length ? cur[0].id : "";
+                menuItems.parent().removeClass("active");
+                if (id) {
+                    menuItems.parent().end().filter("[href*='#" + id + "']").parent().addClass("active");
+                }
+            })).scroll()*/
+            $win.on("scroll", function(e){
                 /*스크롤이 발생하면 lnb가 상단에 고정되도록 합니다.*/
                 sticky($lnb, lnbScStart, lnbScEnd);
 
                 /*스크롤 위치에 따라 .anc-lnb-wrap 내부의 메뉴가 활성화/비활성화 되도록 합니다.*/
-                var fromTop = $(this).scrollTop()+lnbHeight;
-                var cur = scrollItems.map(function(){
+                var fromTop = $(this).scrollTop() + lnbHeight;
+                var cur = scrollItems.map(function () {
                     if ($(this).offset().top < fromTop)
                         return this;
                 });
-                cur = cur[cur.length-1];
+                cur = cur[cur.length - 1];
                 var id = cur && cur.length ? cur[0].id : "";
                 menuItems.parent().removeClass("active");
-                if(id){
-                    menuItems.parent().end().filter("[href*='#"+id+"']").parent().addClass("active");
+                if (id) {
+                    menuItems.parent().end().filter("[href*='#" + id + "']").parent().addClass("active");
                 }
-
             }).scroll()
         })();
 
         /*사용자의 스크롤 액션에 따른 .anc-summary의 동작 제어*/
         (function(){
-            var $summary = $(".anc-summary"),
-                sumScStart = $summary.offset().top - parseInt($summary.css("padding-top")),
-                sumScEnd = $("#ags-footer").offset().top - $summary.height() - 226;
-
-            $win.on("scroll", function(){
-                /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
-                sticky($summary, sumScStart, sumScEnd);
-
-                /*.anc-summary의 높이값을 정해주고 상황에 따라 높이를 풀어줍니다.*/
-                $summary.css("height", $win.innerHeight() - parseInt($summary.css("top")));
-                if ($win.scrollTop() >= sumScEnd){
-                    $summary.css("height", "")
-                } else if ($win.scrollTop() < sumScEnd) {
-                    $summary.css("height", "")
-                }
-            }).scroll();
+            var $summary = $(".anc-summary");
+            $win.on("resize", function(){
+                $summary.css("height", $win.height() - $(".anc-lnb-wrap").height());
+                var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
+                var sumScEnd = $("#ags-footer").offset().top - $summary.outerHeight() - parseInt($summary.css("padding-bottom")) - 180;
+                $win.on("scroll", function(){
+                    /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
+                    sticky($summary, sumScStart, sumScEnd);
+                }).scroll();
+                console.log(parseInt($summary.css("padding-bottom")))
+            }).resize();
         })();
 
         /*좌석 선택 영역의 스크롤바가 IE9에서 동작하도록 높이값을 계산하여 부여합니다*/
@@ -6321,17 +6330,6 @@
                     heightStd = $seatPlan.parents(".anc-service").height();
                 $seatPlan.css("height", heightStd).children(".seat-sheet").css("height", heightStd - $seatPlan.children(".seat-legend").height())
             });
-        })();
-
-        /*번들선택*/
-        (function(){
-            $(window).on("scroll", function(){
-                if ($(window).scrollTop() > 100){
-                    $(".floating-banner").css("opacity", "0")
-                } else {
-                    $(".floating-banner").css("opacity", 1 - ($(window).scrollTop() * 0.01))
-                }
-            }).scroll();
         })();
 
         /*CSS3 flex 기능이 없는 브라우저에서 부가서비스 선택 영역의 높이 동적으로 추가하여 내부 스크롤바 영역의 사이즈를 잡아줍니다*/
@@ -6344,7 +6342,6 @@
                         $tabpanel = $this.find(".tab-panels"),
                         $psgList = $tabpanel.find(".passenger-list");
                     $tabpanel.css("height", $this.innerHeight() - $tabs.outerHeight())
-                    console.log($this.innerHeight(), $tabpanel.height());
 
                     if($this.parents(".anc-service-wrap.anc_seat").length > 0){
                         $this.find(".seat-sheet").css("height", $this.find(".seat-plan").innerHeight() - $this.find(".seat-legend").outerHeight());

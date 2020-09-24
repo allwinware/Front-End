@@ -1217,14 +1217,14 @@
                                             <!-- 선택불가 상태일 때(dl.inactive) -->
                                             <!--
                                                 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우
-                                                탑승객 성명이 회색으로 처리되고, '선택 불가' 메시지가 선택 수하물란에 표시됩니다.
+                                                탑승객 성명이 회색으로 처리되고, '선택불가' 메시지가 선택 수하물란에 표시됩니다.
                                                 .baggage-plan의 a 태그들은 .disabled로 처리됩니다.
                                             -->
                                             <dl class="inactive">
                                                 <dt class="passenger-name">탑승객 성명(영문)</dt>
                                                 <dd>Kim, Taehyeong</dd>
                                                 <dt class="selected-baggage">선택 수하물</dt>
-                                                <dd>선택 불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>
+                                                <dd>선택불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>
                                             </dl>
                                             <div class="baggage-plan">
                                                 <ul>
@@ -1412,7 +1412,7 @@
                                             <dt class="passenger-name">탑승객 성명(영문)</dt>
                                             <dd>Kim, Taehyeong</dd>
                                             <dt class="selected-baggage">선택 수하물</dt>
-                                            <dd>선택 불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>&lt;!&ndash; 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 &ndash;&gt;
+                                            <dd>선택불가 <a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></dd>&lt;!&ndash; 이미 수하물을 구매했거나(티웨이항공), 수하물을 타 채널을 통해 구매하여 수하물을 추가 구매할 수 없을 경우 &ndash;&gt;
                                         </dl>
                                         <div class="baggage-plan">
                                             <ul>
@@ -1532,7 +1532,7 @@
                                                 <dt class="passenger-name">탑승객 성명(영문)</dt>
                                                 <dd>Son, Seungwan</dd>
                                                 <dt class="selected-baggage">선택 수하물</dt>
-                                                <dd>더블팩 기본 제공 20kg</dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
+                                                <dd><i class="text-emphasis">더블팩 기본 제공 20kg</i></dd><!-- 공백문자 없이 완벽하게 비어있을 떄, '선택하세요' 글씨가 자동으로 화면에 노출됩니다. -->
                                             </dl>
                                             <div class="baggage-plan">
                                                 <ul>
@@ -1985,13 +1985,6 @@
 
         <hr>
 
-        <!-- 티웨이 전용 : 번들 서비스를 제공할 경우 -->
-        <div class="floating-banner" data-id="arrival">
-            <a href="#none" target="_self" class="btn_bundle" data-popup="#bundle-summary2">번들<br>선택</a>
-        </div>
-
-        <hr>
-
         <!-- 총 결제금액 -->
         <footer class="anc-summary">
             <h2 class="sr-only">선택한 부가서비스 내역</h2>
@@ -2239,6 +2232,11 @@
                 </dl>
             </div>
             <button type="button" class="btn_pay">결제하기</button>
+
+            <!-- 티웨이 전용 : 번들 서비스를 제공할 경우 -->
+            <div class="floating-banner" data-id="arrival">
+                <a href="#none" target="_self" class="btn_bundle" data-popup="#bundle-summary3">번들<br>선택</a>
+            </div>
         </footer>
     </section>
 
@@ -2248,8 +2246,8 @@
     <footer id="ags-footer" class="ags-footer"></footer>
 </main>
 
-<!-- 팝업 : 번들 선택 - 국제선 대양주 운임 && 국내선 운임 -->
-<div id="bundle-summary2" class="pop-area" data-type="guidance" data-dim="false">
+<!-- 팝업 : 번들 선택 - 국내선 운임 -->
+<div id="bundle-summary3" class="pop-area" data-type="guidance" data-dim="false">
     <div class="pop-wrap">
         <header class="pop-header">
             <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
@@ -2262,8 +2260,7 @@
 
                 <h2 class="sr-only">번들 선택</h2>
                 <div class="bundle-wrap">
-                    <!-- 분기 1 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
-                    <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
+                    <!-- 운임에 따른 번들 정보 - 국내선 -->
                     <div class="bundle-info bundle-dom1">
                         <div class="bundle-type1">
                             <dl class="info-title">
@@ -2286,33 +2283,32 @@
                             </dl>
                         </div>
                         <div class="bundle-type2">
-                                <dl class="info-title">
-                                    <dt class="bundle-name">번들명</dt>
-                                    <dd>트리플팩</dd>
-                                    <dt class="bundle-sale">할인율</dt>
-                                    <dd>29%</dd>
-                                    <dt class="bundle-price">금액</dt>
-                                    <dd><span class="digits">17000</span></dd>
-                                </dl>
-                                <dl class="info-detail">
-                                    <dt>위탁수하물</dt>
-                                    <dd>25kg</dd>
-                                    <dt>사전좌석지정</dt>
-                                    <dd>전좌석</dd>
-                                    <dt>수하물우선처리</dt>
-                                    <dd>제공</dd>
-                                    <dt>전용카운터</dt>
-                                    <dd>제공(대구출발노선 제외)</dd>
-                                </dl>
-                            </div>
+                            <dl class="info-title">
+                                <dt class="bundle-name">번들명</dt>
+                                <dd>트리플팩</dd>
+                                <dt class="bundle-sale">할인율</dt>
+                                <dd>29%</dd>
+                                <dt class="bundle-price">금액</dt>
+                                <dd><span class="digits">17000</span></dd>
+                            </dl>
+                            <dl class="info-detail">
+                                <dt>위탁수하물</dt>
+                                <dd>25kg</dd>
+                                <dt>사전좌석지정</dt>
+                                <dd>전좌석</dd>
+                                <dt>수하물우선처리</dt>
+                                <dd>제공</dd>
+                                <dt>전용카운터</dt>
+                                <dd>제공(대구출발노선 제외)</dd>
+                            </dl>
+                        </div>
                     </div>
                 </div>
 
                 <div class="passenger-wrap">
                     <!-- 승객 리스트 -->
                     <h3 class="sr-only">승객별 번들 선택</h3>
-                    <!-- 분기 1 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
-                    <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
+                    <!-- 운임에 따른 번들 정보 - 국내선 -->
                     <ul class="passenger-list">
                         <li>
                             <dl>
@@ -2320,9 +2316,9 @@
                                 <dd>배성준</dd>
                                 <dt class="selected-bundle">번들 선택</dt>
                                 <dd>
-                                    <input type="radio" id="radio1101" name="radio-group11" checked="checked"><label for="radio1101" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1102" name="radio-group11"><label for="radio1102" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1103" name="radio-group11"><label for="radio1103" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                    <input type="radio" id="radio1701" name="radio-group17" checked="checked"><label for="radio1701" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1702" name="radio-group17"><label for="radio1702" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1703" name="radio-group17"><label for="radio1703" class="btn_select-bundle bundle-type2">트리플팩</label>
                                 </dd>
                             </dl>
                         </li>
@@ -2332,9 +2328,9 @@
                                 <dd>손승완</dd>
                                 <dt class="selected-bundle">번들 선택</dt>
                                 <dd>
-                                    <input type="radio" id="radio1201" name="radio-group12" checked="checked"><label for="radio1201" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1202" name="radio-group12"><label for="radio1202" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1203" name="radio-group12"><label for="radio1203" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                    <input type="radio" id="radio1801" name="radio-group12" checked="checked"><label for="radio1801" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1802" name="radio-group12"><label for="radio1802" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1803" name="radio-group12"><label for="radio1803" class="btn_select-bundle bundle-type2">트리플팩</label>
                                 </dd>
                             </dl>
                         </li>
@@ -2344,9 +2340,9 @@
                                 <dd>김태형</dd>
                                 <dt class="selected-bundle">번들 선택</dt>
                                 <dd>
-                                    <input type="radio" id="radio1301" name="radio-group13" checked="checked"><label for="radio1301" class="btn_select-bundle bundle-type0">선택안함</label>
-                                    <input type="radio" id="radio1302" name="radio-group13"><label for="radio1302" class="btn_select-bundle bundle-type1">더블팩</label>
-                                    <input type="radio" id="radio1303" name="radio-group13"><label for="radio1303" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                    <input type="radio" id="radio1901" name="radio-group13" checked="checked"><label for="radio1901" class="btn_select-bundle bundle-type0">선택안함</label>
+                                    <input type="radio" id="radio1902" name="radio-group13"><label for="radio1902" class="btn_select-bundle bundle-type1">더블팩</label>
+                                    <input type="radio" id="radio1903" name="radio-group13"><label for="radio1903" class="btn_select-bundle bundle-type2">트리플팩</label>
                                 </dd>
                             </dl>
                         </li>
@@ -2524,31 +2520,30 @@
 
         /*수하물 선택 방식을 컨트롤 합니다.*/
         (function(baggageHandler){
-            var $baggage = $(".anc_baggage .tab-panel .baggage-plan a");
+            var $baggage = $(".anc_baggage .tab-panel .baggage-plan a:not(.disabled):not(:first-child:last-child)");
             $baggage.on("click", function(e){
+                e.preventDefault();
                 var $this = $(this)/*클릭한 수하물 용량 버튼*/,
                     price = $this.next("dl").find(".price").next("dd").text()/*클릭한 수하물 용량의 AGS 가격 정보*/,
                     salePrice = $this.next("dl").find(".sale").next("dd").text()/*클릭한 수하물 용량의 AGS 가격 정보*/,
                     $priceDp = $this.parents(".baggage-plan").siblings("dl").children(".selected-baggage + dd")/*수하물 가격 정보가 표기될 탑승객 명 하단의 dd 영역*/;
-                /*좌석 클릭 시 scrollTop 되는 현상 해소*/
-                e.preventDefault();
-                if($this.hasClass("disabled") === false){
-                    /*선택한 수하물 용량 버튼을 활성화합니다*/
-                    $this.parent("li").addClass("active").siblings("li").removeClass("active").parent("ul").siblings(".approach-comment").removeClass("active");
-                    /*탑승객 명 아래에 선택한 수하물의 가격 텍스트와 삭제 버튼을 추가합니다*/
-                    $priceDp.html("<span class='digits'>" + salePrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
 
-                    var priceNum = parseInt(price.replace(/,/g, '')),
-                        salePriceNum = parseInt(salePrice.replace(/,/g, ''));
-                    if(priceNum > salePriceNum){
-                        var calcPrice = priceNum - salePriceNum;
-                        $this.parents("ul").siblings(".approach-comment").addClass("active").find(".digits").text( calcPrice ).digits();
-                    }
+                /*선택한 수하물 용량 버튼을 활성화합니다*/
+                $this.parent("li").addClass("active").siblings("li").removeClass("active").parent("ul").siblings(".approach-comment").removeClass("active");
+                /*탑승객 명 아래에 선택한 수하물의 가격 텍스트와 삭제 버튼을 추가합니다*/
+                $priceDp.html("<span class='digits'>" + salePrice + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+
+                var priceNum = parseInt(price.replace(/,/g, '')),
+                    salePriceNum = parseInt(salePrice.replace(/,/g, ''));
+                if(priceNum > salePriceNum){
+                    var calcPrice = priceNum - salePriceNum;
+                    $this.parents("ul").siblings(".approach-comment").addClass("active").find(".digits").text( calcPrice ).digits();
                 }
             });
 
             /*삭제(X)버튼의 기능을 정의합니다*/
             $("body").on("click", ".anc_baggage .tab-panel.active .btn_delete", function(e){
+                e.preventDefault();
                 var $this = $(e.target)/*클릭한 삭제 버튼*/;
                 /*탑승객 명 아래에 표기된 수하물의 가격 텍스트와 삭제 버튼을 제거하고, 선택된 수하물 용량 버튼을 비활성화합니다*/
                 $this.parent("dd").html("").parent("dl").siblings(".baggage-plan").find(".active").removeClass("active");
@@ -2610,22 +2605,17 @@
 
         /*사용자의 스크롤 액션에 따른 .anc-summary의 동작 제어*/
         (function(){
-            var $summary = $(".anc-summary"),
-                sumScStart = $summary.offset().top - parseInt($summary.css("padding-top")),
-                sumScEnd = $("#ags-footer").offset().top - $summary.height() - 226;
-
-            $win.on("scroll", function(){
-                /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
-                sticky($summary, sumScStart, sumScEnd);
-
-                /*.anc-summary의 높이값을 정해주고 상황에 따라 높이를 풀어줍니다.*/
-                $summary.css("height", $win.innerHeight() - parseInt($summary.css("top")));
-                if ($win.scrollTop() >= sumScEnd){
-                    $summary.css("height", "")
-                } else if ($win.scrollTop() < sumScEnd) {
-                    $summary.css("height", "")
-                }
-            }).scroll();
+            var $summary = $(".anc-summary");
+            $win.on("resize", function(){
+                $summary.css("height", $win.height() - $(".anc-lnb-wrap").height());
+                var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
+                var sumScEnd = $("#ags-footer").offset().top - $summary.outerHeight() - parseInt($summary.css("padding-bottom")) - 180;
+                $win.on("scroll", function(){
+                    /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
+                    sticky($summary, sumScStart, sumScEnd);
+                }).scroll();
+                console.log(parseInt($summary.css("padding-bottom")))
+            }).resize();
         })();
 
         /*좌석 선택 영역의 스크롤바가 IE9에서 동작하도록 높이값을 계산하여 부여합니다*/
@@ -2635,17 +2625,6 @@
                     heightStd = $seatPlan.parents(".anc-service").height();
                 $seatPlan.css("height", heightStd).children(".seat-sheet").css("height", heightStd - $seatPlan.children(".seat-legend").height())
             });
-        })();
-
-        /*번들선택*/
-        (function(){
-            $(window).on("scroll", function(){
-                if ($(window).scrollTop() > 100){
-                    $(".floating-banner").css("opacity", "0")
-                } else {
-                    $(".floating-banner").css("opacity", 1 - ($(window).scrollTop() * 0.01))
-                }
-            }).scroll();
         })();
 
         /*CSS3 flex 기능이 없는 브라우저에서 부가서비스 선택 영역의 높이 동적으로 추가하여 내부 스크롤바 영역의 사이즈를 잡아줍니다*/
