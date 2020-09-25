@@ -115,6 +115,17 @@
   .tab-panel {
     padding-top: 0;
   }
+  .passenger-list {
+    & > li { padding: rem(36) 0 rem(34) rem($grid * 2); min-width: rem(126) }
+    dl { text-align: left; }
+    [class*='bundle-type'] + dd,
+    [class*='bundle-type'] ~ .passenger-name + dd { display: inline-block; vertical-align: top; }
+    [class*='bundle-type'] + dd { margin: 0 rem(5) 0 0; }
+    [class*='bundle-type'] + dd .ico { margin: 1px 0; vertical-align: top; }
+    .bundle-type0 + dd { @include sr-only }
+    [class*='bundle-type'] ~ .passenger-name + dd { line-height: em(18, 16) }
+    [class*='bundle-type']:not(.bundle-type0) ~ .selected-seat + dd { min-width: rem(156) }
+  }
   /* 좌석 범례 */
   .seat-legend {
     z-index: 0;
