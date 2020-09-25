@@ -284,13 +284,17 @@ $anc-select-area-width: 267;
     position: absolute; top: rem(281); left: calc(50% + 333px);
     padding: rem(76) 0 rem($grid * 3) 0; width: rem(267);
     .scroll-wrap {
+      position: relative;
       overflow: auto; margin-right: rem(-$grid * 2);
       max-height: calc(100% - 75px - 62px);
       .mCustomScrollBox { max-height: calc(100% - 75px - 62px); }
       .mCSB_container { margin-right: rem($grid * 2); }
+      &:before { content: ""; position: absolute; left: 0; top: 0; right: rem($grid * 2); display: block; height: 1px; border-top: 1px solid $mono1 }
     }
     .flight-way { @include tagging-route }
-    .departure, .arrival { padding: rem($grid * 3) 0 rem($grid * 2); border-top: 1px solid $mono1; }
+    .departure, .arrival {
+      padding: rem($grid * 3) 0 rem($grid * 2); border-top: 1px solid $mono1;
+    }
     .summary-empty {
       $font-size: 12;
       @include font($size: $font-size, $color: #66B1FF, $weight: 400);
@@ -300,13 +304,21 @@ $anc-select-area-width: 267;
     .passenger-name, .item-list { @include sr-only }
     .passenger-name + dd {
       $font-size: 14;
-      @include font($family: en, $size: $font-size, $color: $text-primary, $weight: 500);
+      @include font($family: en, $size: $font-size, $color: $text-primary, $weight: 600);
       padding: em(20, $font-size) 0 em(12, $font-size);
       text-transform: uppercase;
       &:not(:first-of-type) { margin-top: rem(20); border-top: 1px solid $mono8 }
     }
-    .item-list + dd table {
-      th { height: rem(26); }
+    .item-list + dd {
+      table {
+        th { height: rem(26); }
+      }
+      &:empty:before {
+        content: "선택한 부가서비스 내역이 없습니다. \A 부가서비스를 추가해보세요.";
+        $font-size: 12;
+        @include font($size: $font-size, $color: #66b1ff, $weight: 400);
+        white-space: pre-wrap; line-height: em(16, $font-size);
+      }
     }
     table { table-layout: fixed; width: 100%; }
     table tbody th, table tbody td { @include font($size: 12, $color: $mono1, $weight: 400); vertical-align: middle; }
@@ -344,7 +356,7 @@ $anc-select-area-width: 267;
       & + dd {
         @include clearfix;
         position: relative;
-        padding: rem($grid) 0; ;
+        padding: rem(15) 0 rem($grid); ;
         .info-title { float: left; padding-right: rem($grid); width: calc(100% - 15px) }
         dt { @include sr-only }
         dd { float: left; }
