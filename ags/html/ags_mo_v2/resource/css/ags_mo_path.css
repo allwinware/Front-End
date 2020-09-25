@@ -912,6 +912,7 @@ strong {
   bottom: initial;
   padding: 2.28571rem 0;
   text-align: center;
+  border: 1px solid #000;
 }
 
 .pop-area[data-dim='false'] .pop-wrap {
@@ -3097,6 +3098,7 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   letter-spacing: -0.03em;
   display: inline-block;
   padding: 0.14286rem 0.28571rem;
+  min-width: 3.35714rem;
   border: 1px solid;
   text-align: center;
 }
@@ -3125,36 +3127,6 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   border-color: #D22C27;
 }
 
-[data-page-id^='buy__'] .bundle-inter1 .bundle-type2 ~ .selected-seat + dd:empty:before,
-[data-page-id^='buy__'] .bundle-inter1 .bundle-type2 ~ .selected-meal + dd:empty:before {
-  content: "(프리미엄 제외 좌석) 선택하세요";
-}
-
-[data-page-id^='buy__'] .bundle-inter1 .bundle-type3 ~ .selected-seat + dd:empty:before,
-[data-page-id^='buy__'] .bundle-inter1 .bundle-type3 ~ .selected-meal + dd:empty:before {
-  content: "(전좌석) 선택하세요";
-}
-
-[data-page-id^='buy__'] .bundle-inter2 .bundle-type1 ~ .selected-seat + dd:empty:before,
-[data-page-id^='buy__'] .bundle-inter2 .bundle-type1 ~ .selected-meal + dd:empty:before {
-  content: "(프리미엄 제외 좌석) 선택하세요";
-}
-
-[data-page-id^='buy__'] .bundle-inter2 .bundle-type2 ~ .selected-seat + dd:empty:before,
-[data-page-id^='buy__'] .bundle-inter2 .bundle-type2 ~ .selected-meal + dd:empty:before {
-  content: "(전좌석) 선택하세요";
-}
-
-[data-page-id^='buy__'] .bundle-dom1 .bundle-type1 ~ .selected-seat + dd:empty:before,
-[data-page-id^='buy__'] .bundle-dom1 .bundle-type1 ~ .selected-meal + dd:empty:before {
-  content: "(프리미엄 제외 좌석) 선택하세요";
-}
-
-[data-page-id^='buy__'] .bundle-dom1 .bundle-type2 ~ .selected-seat + dd:empty:before,
-[data-page-id^='buy__'] .bundle-dom1 .bundle-type2 ~ .selected-meal + dd:empty:before {
-  content: "(전좌석) 선택하세요";
-}
-
 /*부가서비스 구매 > 좌석지정*/
 [data-page-id='buy__seat'] {
   overflow: hidden;
@@ -3163,6 +3135,36 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
 
 [data-page-id='buy__seat'] .tab-panel {
   padding-top: 13.78571rem;
+}
+
+[data-page-id='buy__seat'] .passenger-wrap .bundle-inter1 .bundle-type2 ~ .selected-seat + dd:empty:before,
+[data-page-id='buy__seat'] .passenger-wrap .bundle-inter1 .bundle-type2 ~ .selected-meal + dd:empty:before {
+  content: "(프리미엄 제외 좌석) 선택하세요";
+}
+
+[data-page-id='buy__seat'] .passenger-wrap .bundle-inter1 .bundle-type3 ~ .selected-seat + dd:empty:before,
+[data-page-id='buy__seat'] .passenger-wrap .bundle-inter1 .bundle-type3 ~ .selected-meal + dd:empty:before {
+  content: "(전좌석) 선택하세요";
+}
+
+[data-page-id='buy__seat'] .passenger-wrap .bundle-inter2 .bundle-type1 ~ .selected-seat + dd:empty:before,
+[data-page-id='buy__seat'] .passenger-wrap .bundle-inter2 .bundle-type1 ~ .selected-meal + dd:empty:before {
+  content: "(프리미엄 제외 좌석) 선택하세요";
+}
+
+[data-page-id='buy__seat'] .passenger-wrap .bundle-inter2 .bundle-type2 ~ .selected-seat + dd:empty:before,
+[data-page-id='buy__seat'] .passenger-wrap .bundle-inter2 .bundle-type2 ~ .selected-meal + dd:empty:before {
+  content: "(전좌석) 선택하세요";
+}
+
+[data-page-id='buy__seat'] .passenger-wrap .bundle-dom1 .bundle-type1 ~ .selected-seat + dd:empty:before,
+[data-page-id='buy__seat'] .passenger-wrap .bundle-dom1 .bundle-type1 ~ .selected-meal + dd:empty:before {
+  content: "(프리미엄 제외 좌석) 선택하세요";
+}
+
+[data-page-id='buy__seat'] .passenger-wrap .bundle-dom1 .bundle-type2 ~ .selected-seat + dd:empty:before,
+[data-page-id='buy__seat'] .passenger-wrap .bundle-dom1 .bundle-type2 ~ .selected-meal + dd:empty:before {
+  content: "(전좌석) 선택하세요";
 }
 
 .seat-plan {
@@ -5064,15 +5066,21 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   font-family: NanumSquare, "Apple SD Gothic NEO", sans-serif;
   font-size: 0.64286rem;
   font-weight: 800;
-  color: #000;
-  letter-spacing: 0em;
-  margin-right: 0.28571rem;
-  padding: 0 0.28571rem;
-  min-width: 2.85714rem;
-  height: 1.14286rem;
-  line-height: 1rem;
+  color: #aaa;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  padding: 0.14286rem 0.28571rem;
+  min-width: 3.35714rem;
   border: 1px solid;
-  white-space: nowrap;
+  text-align: center;
+}
+
+.passenger-summary [class*='bundle-type'] .bundle-name + dd {
+  margin-right: 0.28571rem;
+  /*@include font($size: 9, $color: $mono1, $weight: 800, $spacing: 0);
+       padding: 0 rem(4); min-width: rem(40); height: rem(16);
+      line-height: rem(14); border: 1px solid;
+      white-space: nowrap;*/
 }
 
 .passenger-summary [class*='bundle-type'] .bundle-sale + dd {
@@ -5102,29 +5110,29 @@ div:not([data-page-id='buy__dom']) .ags-container .ags-snb a.btn_lounge {
   content: "₩";
 }
 
-.passenger-summary [class*='bundle-type'].bundle-type1, .passenger-summary [class*='bundle-type'].bundle-type1 .bundle-name {
+.passenger-summary [class*='bundle-type'].bundle-type1 .bundle-name + dd {
+  color: #7C756E;
   border-color: #7C756E;
 }
 
-.passenger-summary [class*='bundle-type'].bundle-type1 .bundle-name + dd,
 .passenger-summary [class*='bundle-type'].bundle-type1 .bundle-sale + dd {
-  color: #817A73;
+  color: #7C756E;
 }
 
-.passenger-summary [class*='bundle-type'].bundle-type2, .passenger-summary [class*='bundle-type'].bundle-type2 .bundle-name {
+.passenger-summary [class*='bundle-type'].bundle-type2 .bundle-name + dd {
+  color: #8EB454;
   border-color: #8EB454;
 }
 
-.passenger-summary [class*='bundle-type'].bundle-type2 .bundle-name + dd,
 .passenger-summary [class*='bundle-type'].bundle-type2 .bundle-sale + dd {
   color: #8EB454;
 }
 
-.passenger-summary [class*='bundle-type'].bundle-type3, .passenger-summary [class*='bundle-type'].bundle-type3 .bundle-name {
+.passenger-summary [class*='bundle-type'].bundle-type3 .bundle-name + dd {
+  color: #D22C27;
   border-color: #D22C27;
 }
 
-.passenger-summary [class*='bundle-type'].bundle-type3 .bundle-name + dd,
 .passenger-summary [class*='bundle-type'].bundle-type3 .bundle-sale + dd {
   color: #D22C27;
 }

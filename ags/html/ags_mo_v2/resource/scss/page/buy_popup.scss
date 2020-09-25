@@ -164,11 +164,13 @@
     .info-title { padding: rem($grid) 0; }
     dt { @include sr-only }
     dd { display: inline-block; }
+    @include bundle-flag($ico-class: '.bundle-name + dd');
     .bundle-name + dd {
-      @include font($size: 9, $color: $mono1, $weight: 800, $spacing: 0);
-      margin-right: rem(4); padding: 0 rem(4); min-width: rem(40); height: rem(16);
+      margin-right: rem(4);
+      /*@include font($size: 9, $color: $mono1, $weight: 800, $spacing: 0);
+       padding: 0 rem(4); min-width: rem(40); height: rem(16);
       line-height: rem(14); border: 1px solid;
-      white-space: nowrap;
+      white-space: nowrap;*/
     }
     .bundle-sale + dd {
       @include font($size: 9, $color: $mono1, $weight: 800, $spacing: 0);
@@ -181,19 +183,16 @@
       padding: rem(2) rem(24) 0; text-align: right;
     }
     &.bundle-type1 {
-      &, .bundle-name { border-color: #7C756E }
-      .bundle-name + dd,
-      .bundle-sale + dd { color: #817A73 }
+      @include bundle-flag-type($airline: tw, $type: 1, $ico-class: '.bundle-name + dd');
+      .bundle-sale + dd { color: $bg_bundle-type1 }
     }
     &.bundle-type2 {
-      &, .bundle-name { border-color: #8EB454; }
-      .bundle-name + dd,
-      .bundle-sale + dd { color: #8EB454 }
+      @include bundle-flag-type($airline: tw, $type: 2, $ico-class: '.bundle-name + dd');
+      .bundle-sale + dd { color: $bg_bundle-type2 }
     }
     &.bundle-type3 {
-      &, .bundle-name { border-color: #D22C27 }
-      .bundle-name + dd,
-      .bundle-sale + dd { color: #D22C27 }
+      @include bundle-flag-type($airline: tw, $type: 3, $ico-class: '.bundle-name + dd');
+      .bundle-sale + dd { color: $bg_bundle-type3 }
     }
     .charge-sheet {
       tbody td:last-child { padding-right: 0; }
