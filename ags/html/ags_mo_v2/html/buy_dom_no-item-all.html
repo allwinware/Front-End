@@ -2,48 +2,231 @@
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <title>(국내선)부가서비스 구매하기</title>
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <title>(국내선)부가서비스 구매하기 - 모든 부가서비스를 구매할 수 없을 때</title>
     <link rel="stylesheet" href="../resource/css/swiper.min.css">
     <link rel="stylesheet" href="../resource/css/ags_mo.dom.min.css"><!-- 국내선일 경우 -->
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/swiper.min.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
-        $(document).ready(function(){
+        var $win = $(window),
+            $doc = $(document),
+            $html = $("html"),
+            $body = $("body");
+
+        /*좌석 범례 스크롤 기능 정의*/
+        function legendHandler(){
+            var $psgWrap = $(".tab-panel.active .passenger-wrap"),
+                $legendWrap = $(".tab-panel.active .seat-legend"),
+                pd = 7,
+                mgTop = $psgWrap.height() + $legendWrap.height(),
+                items = [],
+                pos = [];
+            $($legendWrap.find("a")).each(function(index, item){
+                var position = $($(".tab-panel.active .seat-num ." + $(item)[0].dataset.scrollto + ":first-of-type")).offset().top - mgTop - pd;
+
+                pos.push(position);
+                items.push($(item)[0].dataset.scrollto)
+            });
+            $win.on("scroll", function(e){
+                setTimeout(function(){
+                    var currentScroll = $html.scrollTop();
+                    for (i in pos) {
+                        if (pos[i] <= currentScroll + 5) {
+                            var index = i,
+                                $currentLegend = $(".tab-panel.active .seat-legend ." + items[index]);
+                            $currentLegend.addClass("active").siblings().removeClass("active");
+                        } else if(currentScroll + 5 <= pos[0]) {
+                            $(".tab-panel.active .seat-legend ." + items[0]).addClass("active").siblings().removeClass("active");
+                        }
+                    }
+                }, 800);
+                activeLinkScrollLeft($(".tab-panel.active .seat-legend .active"), $legendWrap, 800);
+            }).scroll()
+        }
+
+        $doc.ready(function(){
+            /*팝업 불러오기*/
+            $("#popup").load("include/popup.html");
+
+            /* 좌석 선택 방식을 컨트롤 합니다. */
+            (function(seatHandler){
+                var $tabPanel = $(".ags-snb + .tab-panels .tab-panel");
+                $tabPanel.each(function(){
+                    var $thisPanel = $(this),
+                        $psgLists = $thisPanel.find("[data-select='passenger']")/*승객 선택 체크박스 전체*/,
+                        $selectSeats = $thisPanel.find("[data-select='seat']")/*좌석 선택 버튼 전체*/,
+                        $target = $selectSeats.find("a[class*='seat-']:not([class*='disabled']")/*비활성화 되지 않은 좌석 선택 버튼 전체*/;
+
+                    /*페이지 로드 시 첫번째 승객이 선택된 상태로 보이게 합니다*/
+                    $psgLists.find("li:first-child input[type='radio']").prop("checked", true);
+
+                    /*비활성화 되지 않은 좌석 선택 버튼을 클릭하면 다음 기능을 수행합니다*/
+                    $target.on("click", function(){
+                        var $this = $(this)/*클릭한 좌석 버튼*/,
+                            $checkedPsg = $psgLists.find($("input[type='radio']:checked"))/*현재 선택된 승객*/,
+                            $currentPsgLabel = $psgLists.find("input[type='radio']:checked ~ dl .selected-seat + dd")/*현재 선택된 승객의 좌석 텍스트*/,
+                            $checkedPsgName = $checkedPsg.parent("li").find(".passenger-name").next("dd").text()/*현재 선택된 승객의 성명*/;
+                        /*1. 승객의 좌석부여 상태별 IF 조건문*/
+                        if($this.attr("data-psg") === undefined || $this.attr("data-psg") === "")
+                            /*1-1. 해당 승객이 아무런 좌석을 부여받지 않은 상태일 때, 선택한 좌석을 부여합니다*/{
+                            /*좌석버튼 가운데 해당 승객의 이름으로 마크된 좌석이 있을 경우, 좌석 부여를 취소합니다*/
+                            $selectSeats.find("a[data-psg='" + $checkedPsgName + "']").attr("data-psg", "").removeClass("active");
+                            /*선택한 좌석버튼을 활성화하고 data-psg 값에 현재 체크된 승객명을 구분자로 부여합니다*/
+                            $this.addClass("active").attr("data-psg", $checkedPsgName);
+                            /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석 텍스트로 입력한 후 '삭제'버튼을 추가합니다*/
+                            if($checkedPsg.siblings("dl").find("[class*='bundle-type']:not(.bundle-type0)").length !== 0){
+                                /*번들 고객이라면*/
+                                /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석정보를 입력한 후 '삭제'버튼을 추가합니다*/
+                                $currentPsgLabel.html("<span>" + $this.text().split("/")[0] + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                            } else {
+                                /*번들 고객이 아니라면*/
+                                /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석정보 + 가격정보를 입력한 후 '삭제'버튼을 추가합니다*/
+                                $currentPsgLabel.html("<span>" + $this.text() + "</span><a href='#none' target='_self' class='btn_delete'>삭제</a>");
+                            }
+                        } else if($this.attr("data-psg") === $checkedPsgName)
+                            /*1-2. 선택한 좌석이 해당 승객에게 이미 부여된 상태일 때, 좌석 부여를 취소합니다*/{
+                            /*선택한 좌석과 동일한 좌석 텍스트를 삭제합니다*/
+                            $(".tab-panel.active .selected-seat + dd").each(function(){
+                                if($(this).find("span").text() ===  $this.text()){
+                                    $(this).html("");
+                                }
+                            });
+                            /*선택한 좌석을 비활성화하고, data-psg 값을 비워줍니다*/
+                            $this.removeClass("active").attr("data-psg", "");
+                        } else
+                            /*1-3. 선택한 좌석이 다른 승객에게 부여된 좌석일 때, 현재 승객에게 좌석을 새로이 부여합니다*/{
+                            /*선택한 좌석과 동일한 좌석 텍스트를 삭제합니다*/
+                            $(".tab-panel.active .selected-seat + dd").each(function(){
+                                if($(this).find("span").text() === $this.text()){
+                                    $(this).html("");
+                                }
+                            });
+                            /*좌석버튼 가운데 해당 승객의 이름으로 마크된 좌석이 있을 경우, 좌석 부여를 취소합니다*/
+                            $selectSeats.find("a[data-psg='" + $checkedPsgName + "']").attr("data-psg", "").removeClass("active");
+                            /*클릭한 좌석 버튼을 활성화하고 data-psg 값에 현재 체크된 승객명을 구분자로 부여합니다*/
+                            $this.addClass("active").attr("data-psg", $checkedPsgName);
+                            /*현재 선택된 승객의 좌석 텍스트를 선택된 좌석 텍스트로 입력한 후 '삭제'버튼을 추가합니다*/
+                            $currentPsgLabel.html("<span>" + $this.text() + "</span><a href='#none' target='' class='btn_delete'>삭제</a>");
+                        }
+
+                        /*2. IF문을 처리한 이후 다음 승객으로 포커스 이동*/
+                        if($checkedPsg.parent("li").next("li").length > 0) {
+                            setTimeout(function(){
+                                /*다음 승객이 존재하면 다음 승객으로 포커스를 넘깁니다*/
+                                $checkedPsg.parent("li").next("li").find("input[type='radio']").prop("checked", true);
+                                /*포커스를 가진 승객이 화면 좌측에 위치할 수 있도록 스크롤을 이동합니다*/
+                                activeLinkScrollLeft($checkedPsg.parent("li").next("li"), $psgLists.parent(".passenger-wrap"), 800);
+                            }, 1000);
+                        } else if ($checkedPsg.parent("li").next("li").length === 0) {
+                            /*다음 승객이 없고 다음 탭이 있을 경우, 하단 프로세스 버튼 영역으로 포커스를 내려줍니다*/
+                            fixedElHeight = 0 + 32;
+                            $("[data-ui='fixed']").each(function(){
+                                fixedElHeight += $(this).outerHeight();
+                            });
+                            setTimeout(function() {
+                                $("html").animate({
+                                    scrollTop: $(".tab-panel.active [data-role='process-btn-wrap']").offset().top - fixedElHeight
+                                }, 750);
+                            }, 1000)
+                        }
+                    });
+
+                    /*승객에게 좌석을 부여한 뒤, 좌석 텍스트 뒤에 붙는 삭제(X)버튼의 기능을 정의합니다*/
+                    $thisPanel.on("click", ".btn_delete", function(){
+                        var $this = $(this)/*클릭한 삭제버튼*/;
+                        owner = $this.parents("dl").find(".passenger-name + dd").text()/*클릭한 삭제버튼이 작동할 승객의 성명*/;
+
+                        /*승객의 성명으로 마킹된 좌석을 찾아 마킹을 지워줍니다*/
+                        $(".tab-panel.active .seat-num a.active[data-psg='" + owner + "']").attr("data-psg", "").removeClass("active");
+
+                        /*해당 승객에게 포커스를 맞춰줍니다*/
+                        $this.closest("dl").siblings("input[type='radio']").prop("checked", true);
+                        activeLinkScrollLeft($this.closest("li"), $psgLists.parent(".passenger-wrap"), 800);
+
+                        /*승객의 좌석 텍스트를 삭제합니다*/
+                        $this.parent("dd").html("")
+                    });
+                });
+            })();
+
+            /*[data-role='process-btn-wrap'] 버튼의 탭 전환 기능 정의*/
+            (function(nextTab){
+
+                /*가는 편 탭의 .btn_confirm 버튼을 누르면 오는 편 탭으로 이동합니다*/
+                moveTabByClick("#tab-panel1-1 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel1-2']", 0, 800);
+                moveTabByClick("#tab-panel1-2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel1-1']", 0, 800);
+
+                /*오는 편 탭의 .btn_cancel 버튼을 누르면 가는 편 탭으로 이동합니다*/
+                moveTabByClick("#tab-panel2-1 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel2-2']", 0, 800);
+                moveTabByClick("#tab-panel2-2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel2-1']", 0, 800);
+            })();
+
+            /*좌석 범례 클릭 기능 정의*/
+            (function(legendClickHandler) {
+                $doc.on("click", ".tab-panel.active .seat-legend a", function() {
+                    var $this = $(this)/*클릭된 범례 아이템*/,
+                        $target = $(".tab-panel.active .seat-num a[class='" + $this.attr("data-scrollTo") + "']:first-of-type")/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템*/,
+                        position = $target.offset().top - $(".tab-panel.active .passenger-wrap").height() - $(".tab-panel.active .seat-legend").height() - 7; /*클릭된 범례 아이템과 일치하는 좌석 중 첫번째의 화면 위치*/
+                    /*활성화된 범례 아이템과 일치하는 좌석 중 첫번째가 위치한 곳으로 화면을 이동합니다*/
+                    $("html").animate({scrollTop: position}, 800);
+                });
+            })();
+
+            /*번들선택*/
             (function(){
-                /*페이지 로드 시 가는 편 탭 열기*/
-                var $routeTap = $(".tabs_route");
-                if($routeTap.length > 0){
-                    $routeTap.find("[role='tab']").first().mousedown();
-                }
+                $(window).on("scroll", function(){
+                    if ($(window).scrollTop() > 100){
+                        $(".floating-banner").css("opacity", "0").removeClass("active")
+                    } else {
+                        $(".floating-banner").css("opacity", 1 - ($(window).scrollTop() * 0.01)).addClass("active")
+                    }
+                }).scroll();
             })();
         });
 
-        $(window).on("load", function(){
+        $win.on("load", function(){
+            /*가는 편/오는 편 스와이프 탭 기능 정의*/
             (function(){
-                var swiper = new Swiper('.tabs_route', {
-                    observer: true,
-                    observeParents: true,
-                    loop: false,
+                var swiper = new Swiper('#tabs_route', {
                     navigation: {
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev',
                     },
                     pagination: {
                         el: '.swiper-pagination',
-                        clickable: true
+                        clickable: true,
                     },
+                    slidesPerView: 1,
+                    loop: false,
                 });
-                swiper.on('slideChangeTransitionStart', function(){
-                    $(".tab-panel.active").removeClass("active");
-                    $($(".tabs_route").find("li")[swiper.realIndex])
-                        .mousedown()
-                        .parents(".tabs_route").siblings(".tab-panels").find(".tab-panel.active .ags-snb li[role='tab']").first().mousedown();
+                swiper.on('transitionStart', function() {
+                    var $this = $($("#tabs_route").find(".swiper-slide")[swiper.activeIndex]);
+                    $(".ags-snb").find("li[aria-controls='" + $this.attr("data-aria-target") + "']").mousedown();
+                    if($this.attr("data-aria-target") === 'tab-panel1-1'){
+                        $(".ags-snb li[aria-controls='tab-panel2-1'], .ags-snb li[aria-controls='tab-panel2-2']").hide();
+                        $(".ags-snb li[aria-controls='tab-panel1-1'], .ags-snb li[aria-controls='tab-panel1-2']").show();
+                        legendHandler()
+                    } else if($this.attr("data-aria-target") === 'tab-panel2-1'){
+                        $(".ags-snb li[aria-controls='tab-panel1-1'], .ags-snb li[aria-controls='tab-panel1-2']").hide();
+                        $(".ags-snb li[aria-controls='tab-panel2-1'], .ags-snb li[aria-controls='tab-panel2-2']").show();
+                        legendHandler()
+                    }
+                }).transitionStart();
+                $("[data-swiper-next='#" + swiper.el.id + "']").on("click", function(){
+                    $("html").animate({scrollTop: 0}, 1000);
+                    setTimeout(function(){
+                        swiper.slideNext();
+                    }, 1200)
                 });
-
+                $("[data-swiper-prev='#" + swiper.el.id + "']").on("click", function(){
+                    $("html").animate({scrollTop: 0}, 1000)
+                    setTimeout(function(){
+                        swiper.slidePrev();
+                    }, 1200)
+                });
             })();
-
         })
     </script>
 </head>
@@ -53,7 +236,7 @@
 
         <!-- ags-header -->
         <header id="ags-header" class="ags-header">
-            <!-- 제주항공일 경우 -->
+            <!-- 제주항공이고 && 기내면세 오픈했을 경우 -->
             <!--<h2 class="page-name"><a href="#nav-shortcut" target="_self" id="btn_nav-shortcut" class="btn_nav-shortcut">부가서비스 신청 <i class="ico_nav-dropdown"></i></a></h2>
             <div id="nav-shortcut" class="nav-shortcut">
                 <ul>
@@ -62,7 +245,7 @@
                 </ul>
             </div>-->
 
-            <!-- 티웨이항공일 경우 -->
+            <!-- 기내면세 오픈 전 제주항공 || 티웨이항공일 경우 -->
             <h2 class="page-name">부가서비스 신청</h2>
 
             <nav class="ags-gnb">
@@ -243,12 +426,12 @@
         <!-- ags-summary -->
         <footer id="ags-summary" class="ags-summary">
             <h4 class="sr-only">부가서비스 결제금액</h4>
-            <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
+            <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary_dom"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
             <div class="inner-wrap">
                 <div class="total">
                     <h5 class="sr-only">총 결제 금액</h5>
                     <dl>
-                        <dt><a href="#none" target="_self" data-popup="#passenger-summary">총 결제 금액 자세히 보기</a></dt>
+                        <dt><a href="#none" target="_self" data-popup="#passenger-summary_dom">총 결제 금액 자세히 보기</a></dt>
                         <dd><span class="digits">30000</span></dd>
                         <dd><button type="button" class="btn_pay-imm" onClick="location.href='pay_payment.html'">바로 결제하기</button></dd>
                     </dl>
@@ -258,194 +441,6 @@
         <!-- //ags-summary -->
     </div>
 
-    <!-- 팝업 :  총 결제 금액 자세히보기(국제선) -->
-    <div id="passenger-summary" class="passenger-summary" data-type="drawer">
-        <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
-        <h4 class="summary-title">총 결제 금액 자세히보기</h4>
-
-
-        <div class="inner-wrap">
-            <h5 class="title">가는 편</h5>
-            <!-- 국제선일 때 -->
-            <dl class="flight-info">
-                <dt class="flight-num">항공편명</dt>
-                <dd>TW808</dd>
-            </dl>
-
-            <!-- 분기 1 :  모든 탑승객이 번들팩을 추가하지 않았을 때 -->
-
-            <!-- 분기 1-1 : 모든 탑승객이 부가서비스를 선택하지 않았을 때 -->
-            <p class="summary-empty">
-                선택한 부가서비스 내역이 없습니다.<br>
-                부가서비스를 추가해보세요.<br>
-            </p>
-
-            <!-- 분기 1-2 : 부가서비스를 선택했을 때(부가서비스를 선택한 고객만 노출함) -->
-            <div class="table-wrap">
-                <h6 class="passenger-name">Bae, Sungjune</h6>
-                <table class="charge-sheet">
-                    <caption>Bae, Sungjune 결제 금액</caption>
-                    <colgroup>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                    </colgroup>
-                    <tbody>
-                    <tr>
-                        <th scope="row">좌석</th>
-                        <td>D4</td>
-                        <td><span class="digits">10000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">수하물</th>
-                        <td>30kg</td>
-                        <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
-                        <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>ㄱ
-
-            <div class="total-wrap">
-                <dl>
-                    <dt>금액</dt>
-                    <dd><span class="digits">999000</span></dd>
-                </dl>
-            </div>
-
-
-
-            <h5 class="title">오는 편</h5>
-            <!-- 국제선일 때 -->
-            <dl class="flight-info">
-                <dt class="flight-num">항공편명</dt>
-                <dd>TW808</dd>
-            </dl>
-
-            <!-- 분기 1 :  모든 탑승객이 번들팩을 추가하지 않았을 때 -->
-            <!-- 분기 1-1 : 모든 탑승객이 부가서비스를 선택하지 않았을 때 -->
-            <p class="summary-empty">
-                선택한 부가서비스 내역이 없습니다.<br>
-                부가서비스를 추가해보세요.<br>
-            </p>
-
-            <!-- 분기 1-2 : 부가서비스를 선택했을 때(부가서비스를 선택한 고객만 노출함) -->
-            <div class="table-wrap">
-                <h6 class="passenger-name">Bae, Sungjune</h6>
-                <table class="charge-sheet">
-                    <caption>Bae, Sungjune 결제 금액</caption>
-                    <colgroup>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                    </colgroup>
-                    <tbody>
-                    <tr>
-                        <th scope="row">좌석</th>
-                        <td>D4</td>
-                        <td><span class="digits">10000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">수하물</th>
-                        <td>30kg</td>
-                        <td><span class="digits">60000</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">기내식</th>
-                        <td><a href="#none" target="_self">구매하기</a></td>
-                        <td><span class="digits">0</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">라운지</th>
-                        <td>이용권 선택</td>
-                        <td><span class="digits">14900</span></td>
-                        <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- //분기 1 -->
-
-
-            <!-- 분기 2 : 탑승객이 번들팩을 추가했을 때 -->
-            <!-- 분기 2-1 : 탑승객이 번들을 선택했을 때 -->
-            <!--
-            * 티웨이 번들 상품 *
-            1. 티웨이 번들 상품 선택 승객인 경우, 상품 종류에 따라 .bundle-type1(더블팩), .bundle-type2(트리플팩), .bundle-type3(멀티팩)으로 감싸줍니다.
-            2. .info-title에 각 번들 별 정보를 표시하고, .btn_delete를 통해 선택된 번들을 삭제할 수 있습니다. (삭제하면 선택 전 레이아웃 사용)
-            -->
-            <div class="table-wrap">
-                <h6 class="passenger-name">Bae, Sungjune</h6>
-                <div class="bundle-type2">
-                    <dl class="info-title">
-                        <dt class="bundle-name">번들명</dt>
-                        <dd>트리플팩</dd>
-                        <dt class="bundle-sale">할인율</dt>
-                        <dd>29%</dd>
-                        <dt class="bundle-price">금액</dt>
-                        <dd><span class="digits">55000</span></dd>
-                    </dl>
-                    <a href="#none" target="_self" class="btn_delete">삭제</a>
-                    <table class="charge-sheet">
-                        <caption>Bae, Sungjune 결제 금액</caption>
-                        <colgroup>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <th scope="row">좌석</th>
-                            <td>D4</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">수하물</th>
-                            <td>15kg</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">기내식</th>
-                            <td><a href="#none" target="_self">선택하기</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- 분기 2-2 : 일부 탑승객만 번들을 선택했을 때 번들을 선택하지 않은 고객 -->
-            <div class="table-wrap">
-                <h6 class="passenger-name">Bae, Sungjune</h6>
-                <p class="summary-empty">
-                    선택한 부가서비스 내역이 없습니다.<br>
-                    부가서비스를 추가해보세요.<br>
-                </p>
-            </div>
-            <!-- // 분기 2 -->
-
-            <div class="total-wrap">
-                <dl>
-                    <dt>금액</dt>
-                    <dd><span class="digits">999000</span></dd>
-                </dl>
-            </div>
-        </div>
-    </div>
+    <div id="popup"></div>
 </body>
 </html>

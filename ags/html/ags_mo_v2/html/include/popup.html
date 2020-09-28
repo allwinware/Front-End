@@ -1,117 +1,3 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
-    <title>팝업화면</title>
-    <link rel="stylesheet" href="../resource/css/swiper.min.css">
-    <!--<link rel="stylesheet" href="../resource/css/ags_mo_tw.min.css">--><!-- 티웨이항공일 경우 -->
-    <link rel="stylesheet" href="../resource/css/ags_mo_7c.min.css"><!-- 제주항공일 경우(기내면세 팝업도 존재하므로 제주항공 스타일시트로 연결합니다) -->
-    <script src="../resource/js/jquery-3.4.1.min.js"></script>
-    <script src="../resource/js/swiper.min.js"></script>
-    <script src="../resource/js/ags_mo.ui.js"></script>
-    <script>
-        $(document).ready(function(){
-            var swiper = new Swiper('.swiper-container', {
-                pagination: {
-                    el: '.swiper-pagination',
-                },
-            });
-            /* 주문서 취소/수정하기 > 선택 상품 취소 체크박스 컨트롤 */
-            (function(){
-                $(document).on("change", "#dfs-refund [name='check-group1']", function(){
-                    var $target = $(this).parents(".product-area");
-                    if($(this).is(":checked") === true){
-                        /*상품 취소 체크박스가 체크되면, 해당 상품영역(.product-area) 비활성화(.disabled)*/
-                        $target.addClass("disabled");
-                        /*해당 상품영역(.product-area) 내의 수량 높임/낮춤 버튼(.btn_decrease, .btn_increase)을 비활성화(.disabled)*/
-                        $target.find("[class*='btn_']:not('[disabled=disabled]')").attr("disabled", "disabled").addClass("add_disabled")
-                    } else {
-                        /*상품 취소 체크박스가 체크해제되면, 해당 상품영역(.product-area) 활성화*/
-                        $target.removeClass("disabled");
-                        /*해당 상품영역(.product-area) 내의 수량 높임/낮춤 버튼(.btn_decrease, .btn_increase)을 활성화*/
-                        $target.find(".add_disabled").removeAttr("disabled").removeClass("add_disabled")
-                    }
-                })
-            })();
-        });
-    </script>
-</head>
-<body>
-<div id="ags-wrap" class="ags-wrap">
-    <h1 class="site-name">올윈에어</h1>
-
-    <!-- ags-header -->
-    <header id="ags-header" class="ags-header">
-        <h2 class="page-name">팝업 페이지</h2>
-        <nav class="ags-gnb">
-            <h3 class="sr-only">전역메뉴</h3>
-            <ul class="gnb-wrap">
-                <li><a href="#none" target="_self" class="btn_back">뒤로가기</a></li>
-                <li>
-                    <a href="#none" target="_self" class="btn_nav">메뉴</a>
-                    <ul class="gnb-2dp-wrap">
-                        <li><a href="#none" target="_self">부가서비스 구매하기</a></li>
-                        <li><a href="#none" target="_self">면세품 구매하기</a></li>
-                    </ul>
-                </li>
-                <li><a href="#none" target="_self" class="btn_close">화면닫기</a></li>
-            </ul>
-        </nav>
-    </header>
-    <!-- //ags-header -->
-
-    <hr>
-
-    <!-- ags-container -->
-    <div class="ags-container">
-        <section class="ags-contents" data-page-id="popup">
-            <h3 class="sr-only">컨텐츠</h3>
-            <div class="content-wrap">
-                <div class="list-wrap">
-                    <ul class="list-style1">
-                        <li><a href="#none" target="_self" data-popup="#pop_loading">[Loading] 페이지 로딩</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop_loading-msg01">[Loading Message] 여정 정보 로딩 중</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop_loading-msg02">[Loading Message] 부가서비스 취소 중</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop01">[Alert] 선택 내역 삭제하기</a></li><!-- 제주항공용 안내 팝업 -->
-                        <li><a href="#none" target="_self" data-popup="#pop02">[Alert] 약관 동의를 하세요</a></li><!-- 제주항공용 안내 팝업 -->
-                        <li><a href="#none" target="_self" data-popup="#pop05">[Alert] 부가서비스가 취소되었습니다</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop07">[Alert] 약관 동의 필수 안내</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop08">[Alert] 취소/환불 약관 동의 필수 안내</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop11">[Alert] 주문서가 임시저장되었습니다.</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop12">[Alert] 취소/수정 가능한 예약건이 없습니다.</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop13">[Alert] 기내면세 주문서를 수정하시겠습니까?</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop16">[Alert] 오는 편 기내면세 예약만 가능합니다.</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop17">[Alert] 기내면세를 예약할 수 없습니다.</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop18">[Alert] 수하물 구매 불가 안내1 - 당사 구매로 인한 추가 구매 불가 안내</a></li><!-- 티웨이항공용 안내 팝업 -->
-                        <li><a href="#none" target="_self" data-popup="#pop19">[Alert] 수하물 구매 불가 안내2 - 타사 구매로 인한 추가 구매 불가 안내</a></li><!-- 티웨이항공용 안내 팝업 -->
-                        <li><a href="#none" target="_self" data-popup="#pop20">[Alert] 주문서 발송 완료</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop21">[Alert] 비상구 좌석배정 안내</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop22">[Alert] 구매 불가 좌석(동일 열 내 유아 동반 탑승객 존재 시)</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop23">[Alert] 결제 실패 안내</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop24">[Alert] 오는 편 선택하기로 이동할까요?</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop25">[Alert] 가는 편 선택하기로 이동할까요?</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop26">[Alert] 가는 편 결제를 완료해주세요.</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop27">[Alert] 오는 편 결제를 완료해주세요.</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop09">[Message] 여권번호 등록하기</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop10">[Message] 이메일 SMS 주문서 받기</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop03">[Message] 비상구 좌석 배정 제한 규정(티웨이항공용)</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop15">[Message] 비상구 좌석 안내(제주항공용)</a></li>
-                        <li><a href="#none" target="_self" data-popup="#pop04">[Message] 항공기 좌석 안내</a></li><!-- 제주항공용 안내 팝업 -->
-                        <li><a href="#none" target="_self" data-popup="#pop_view-seat">[Message] 좌석 현황 보기</a></li>
-                        <li><a href="#none" target="_self" data-popup="#passenger-summary">[Drawer] 총 결제 금액 자세히보기</a></li>
-                        <li><a href="#none" target="_self" data-popup="#dfs-select-summary">[Drawer] 선택 상품 자세히보기 / 수량 선택</a></li>
-                        <li><a href="#none" target="_self" data-popup="#dfs-product-detail">[Drawer] 상품 상세 팝업</a></li>
-                        <li><a href="#none" target="_self" data-popup="#dfs-refund">[Drawer] 주문서 취소/수정하기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </div>
-    <!-- //ags-container -->
-
-</div>
-
 <!-- 팝업 : 페이지 로딩 -->
 <div id="pop_loading" class="pop-area" data-type="alert">
     <div class="align-center">
@@ -186,30 +72,33 @@
     </div>
 </div>
 
-<!-- 팝업 : 총 결제 금액 자세히보기 -->
+<!-- 팝업 :  총 결제 금액 자세히보기(국제선) -->
 <div id="passenger-summary" class="passenger-summary" data-type="drawer">
     <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
     <h4 class="summary-title">총 결제 금액 자세히보기</h4>
+
+
     <div class="inner-wrap">
         <h5 class="title">가는 편</h5>
-        <!-- 분기 : 국제선일 때 -->
-        <!--<dl class="flight-info">
-            <dt class="flight-num">항공편명</dt>
-            <dd>7C4602</dd>
-        </dl>-->
-        <!-- //분기 : 국제선일 때 -->
-        <!-- 분기 : 국내선일 때 -->
+        <!-- 국제선일 때 -->
         <dl class="flight-info">
-            <dt class="airline">항공사명</dt>
-            <dd><i class="ico_7c">제주항공</i></dd>
             <dt class="flight-num">항공편명</dt>
-            <dd>7C4602</dd>
+            <dd>TW808</dd>
         </dl>
-        <!-- //분기 : 국내선일 때 -->
+
+    <!-- 분기 1 :  모든 탑승객이 번들팩을 추가하지 않았을 때 -->
+
+        <!-- 분기 1-1 : 모든 탑승객이 부가서비스를 선택하지 않았을 때 -->
+        <p class="summary-empty">
+            선택한 부가서비스 내역이 없습니다.<br>
+            부가서비스를 추가해보세요.<br>
+        </p>
+
+        <!-- 분기 1-2 : 부가서비스를 선택했을 때(부가서비스를 선택한 고객만 노출함) -->
         <div class="table-wrap">
-            <h6 class="passenger-name">Kim, Allwin</h6>
+            <h6 class="passenger-name">Bae, Sungjune</h6>
             <table class="charge-sheet">
-                <caption>Kim, Allwin 결제 금액</caption>
+                <caption>Bae, Sungjune 결제 금액</caption>
                 <colgroup>
                     <col>
                     <col>
@@ -225,65 +114,82 @@
                 </tr>
                 <tr>
                     <th scope="row">수하물</th>
-                    <td>14kg</td>
-                    <td><span class="digits">30000</span></td>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
                     <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
+
+        <!-- //분기 1 -->
+
+
+    <!-- 분기 2 : 탑승객이 번들팩을 추가했을 때 -->
+        <!-- 분기 2-1 : 탑승객이 번들을 선택했을 때 -->
+        <!--
+        * 티웨이 번들 상품 *
+        1. 티웨이 번들 상품 선택 승객인 경우, 상품 종류에 따라 .bundle-type1(더블팩), .bundle-type2(트리플팩), .bundle-type3(멀티팩)으로 감싸줍니다.
+        2. .info-title에 각 번들 별 정보를 표시하고, .btn_delete를 통해 선택된 번들을 삭제할 수 있습니다. (삭제하면 선택 전 레이아웃 사용)
+        -->
         <div class="table-wrap">
             <h6 class="passenger-name">Bae, Sungjune</h6>
-            <table class="charge-sheet">
-                <caption>Bae, Sungjune 결제 금액</caption>
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row">좌석</th>
-                    <td><span class="text-grayscale">구매불가</span></td>
-                    <td>0</td>
-                    <td><a href="#none" target="_self" class="btn_delete" data-disabled="true">삭제</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물</th>
-                    <td>14kg</td>
-                    <td><span class="digits">30000</span></td>
-                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="bundle-type2">
+                <dl class="info-title">
+                    <dt class="bundle-name">번들명</dt>
+                    <dd>트리플팩</dd>
+                    <dt class="bundle-sale">할인율</dt>
+                    <dd>29%</dd>
+                    <dt class="bundle-price">금액</dt>
+                    <dd><span class="digits">55000</span></dd>
+                </dl>
+                <a href="#none" target="_self" class="btn_delete">삭제</a>
+                <table class="charge-sheet">
+                    <caption>Bae, Sungjune 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석</th>
+                        <td>D4</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물</th>
+                        <td>15kg</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">선택하기</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <!-- 분기 2-2 : 일부 탑승객만 번들을 선택했을 때 번들을 선택하지 않은 고객 -->
         <div class="table-wrap">
-            <h6 class="passenger-name">Kim, Kukjin</h6>
-            <table class="charge-sheet">
-                <caption>Kim, Kukjin 결제 금액</caption>
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row">좌석</th>
-                    <td><span class="text-grayscale">구매불가(타사구매)</span></td>
-                    <td><span class="digits">10000</span></td>
-                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물</th>
-                    <td><a href="#none" target="_self">구매하기</a></td>
-                    <td>0</td>
-                    <td><a href="#none" target="_self" class="btn_delete" data-disabled="true">삭제</a></td>
-                </tr>
-                </tbody>
-            </table>
+            <h6 class="passenger-name">Bae, Sungjune</h6>
+            <p class="summary-empty">
+                선택한 부가서비스 내역이 없습니다.<br>
+                부가서비스를 추가해보세요.<br>
+            </p>
         </div>
+        <!-- // 분기 2 -->
+
         <div class="total-wrap">
             <dl>
                 <dt>금액</dt>
@@ -291,25 +197,27 @@
             </dl>
         </div>
 
+
+
         <h5 class="title">오는 편</h5>
-        <!-- 분기 : 국제선일 때 -->
-        <!--<dl class="flight-info">
-            <dt class="flight-num">항공편명</dt>
-            <dd>7C4602</dd>
-        </dl>-->
-        <!-- //분기 : 국제선일 때 -->
-        <!-- 분기 : 국내선일 때 -->
+        <!-- 국제선일 때 -->
         <dl class="flight-info">
-            <dt class="airline">항공사명</dt>
-            <dd><i class="ico_7c">제주항공</i></dd>
             <dt class="flight-num">항공편명</dt>
-            <dd>7C4602</dd>
+            <dd>TW808</dd>
         </dl>
-        <!-- //분기 : 국내선일 때 -->
+
+        <!-- 분기 1 :  모든 탑승객이 번들팩을 추가하지 않았을 때 -->
+        <!-- 분기 1-1 : 모든 탑승객이 부가서비스를 선택하지 않았을 때 -->
+        <p class="summary-empty">
+            선택한 부가서비스 내역이 없습니다.<br>
+            부가서비스를 추가해보세요.<br>
+        </p>
+
+        <!-- 분기 1-2 : 부가서비스를 선택했을 때(부가서비스를 선택한 고객만 노출함) -->
         <div class="table-wrap">
-            <h6 class="passenger-name">Kim, Allwin</h6>
+            <h6 class="passenger-name">Bae, Sungjune</h6>
             <table class="charge-sheet">
-                <caption>Kim, Allwin 결제 금액</caption>
+                <caption>Bae, Sungjune 결제 금액</caption>
                 <colgroup>
                     <col>
                     <col>
@@ -325,43 +233,120 @@
                 </tr>
                 <tr>
                     <th scope="row">수하물</th>
-                    <td>14kg</td>
-                    <td><span class="digits">30000</span></td>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
                     <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
+
+        <!-- //분기 1 -->
+
+
+        <!-- 분기 2 : 탑승객이 번들팩을 추가했을 때 -->
+        <!-- 분기 2-1 : 탑승객이 번들을 선택했을 때 -->
+        <!--
+        * 티웨이 번들 상품 *
+        1. 티웨이 번들 상품 선택 승객인 경우, 상품 종류에 따라 .bundle-type1(더블팩), .bundle-type2(트리플팩), .bundle-type3(멀티팩)으로 감싸줍니다.
+        2. .info-title에 각 번들 별 정보를 표시하고, .btn_delete를 통해 선택된 번들을 삭제할 수 있습니다. (삭제하면 선택 전 레이아웃 사용)
+        -->
         <div class="table-wrap">
             <h6 class="passenger-name">Bae, Sungjune</h6>
-            <table class="charge-sheet">
-                <caption>Bae, Sungjune 결제 금액</caption>
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row">좌석</th>
-                    <td><span class="text-grayscale">구매불가(타사구매)</span></td>
-                    <td>0</td>
-                    <td><a href="#none" target="_self" class="btn_delete" data-disabled="true">삭제</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">수하물</th>
-                    <td>14kg</td>
-                    <td><span class="digits">30000</span></td>
-                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="bundle-type2">
+                <dl class="info-title">
+                    <dt class="bundle-name">번들명</dt>
+                    <dd>트리플팩</dd>
+                    <dt class="bundle-sale">할인율</dt>
+                    <dd>29%</dd>
+                    <dt class="bundle-price">금액</dt>
+                    <dd><span class="digits">55000</span></dd>
+                </dl>
+                <a href="#none" target="_self" class="btn_delete">삭제</a>
+                <table class="charge-sheet">
+                    <caption>Bae, Sungjune 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석</th>
+                        <td>D4</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물</th>
+                        <td>15kg</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">선택하기</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <!-- 분기 2-2 : 일부 탑승객만 번들을 선택했을 때 번들을 선택하지 않은 고객 -->
         <div class="table-wrap">
-            <h6 class="passenger-name">Kim, Kukjin</h6>
+            <h6 class="passenger-name">Bae, Sungjune</h6>
+            <p class="summary-empty">
+                선택한 부가서비스 내역이 없습니다.<br>
+                부가서비스를 추가해보세요.<br>
+            </p>
+        </div>
+        <!-- // 분기 2 -->
+
+        <div class="total-wrap">
+            <dl>
+                <dt>금액</dt>
+                <dd><span class="digits">999000</span></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<!-- 팝업 :  총 결제 금액 자세히보기(국내선) -->
+<div id="passenger-summary_dom" class="passenger-summary" data-type="drawer">
+    <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary_dom"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
+    <h4 class="summary-title">총 결제 금액 자세히보기</h4>
+
+
+    <div class="inner-wrap">
+        <h5 class="title">가는 편</h5>
+        <!-- 국내선일 때 -->
+        <dl class="flight-info">
+            <dt class="airline">항공사명</dt>
+            <dd><i class="ico_tw">티웨이항공</i></dd><!-- 제주항공은 .ico_7c, 티웨이항공은 .ico_tw -->
+            <dt class="flight-num">항공편명</dt>
+            <dd>TW808</dd>
+        </dl>
+
+        <!-- 분기 1 :  모든 탑승객이 번들팩을 추가하지 않았을 때 -->
+
+        <!-- 분기 1-1 : 모든 탑승객이 부가서비스를 선택하지 않았을 때 -->
+        <p class="summary-empty">
+            선택한 부가서비스 내역이 없습니다.<br>
+            부가서비스를 추가해보세요.<br>
+        </p>
+
+        <!-- 분기 1-2 : 부가서비스를 선택했을 때(부가서비스를 선택한 고객만 노출함) -->
+        <div class="table-wrap">
+            <h6 class="passenger-name">배성준</h6>
             <table class="charge-sheet">
-                <caption>Kim, Kukjin 결제 금액</caption>
+                <caption>배성준 결제 금액</caption>
                 <colgroup>
                     <col>
                     <col>
@@ -371,19 +356,209 @@
                 <tbody>
                 <tr>
                     <th scope="row">좌석</th>
-                    <td>D6</td>
+                    <td>D4</td>
                     <td><span class="digits">10000</span></td>
                     <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                 </tr>
                 <tr>
                     <th scope="row">수하물</th>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
                     <td><a href="#none" target="_self">구매하기</a></td>
-                    <td>0</td>
-                    <td><a href="#none" target="_self" class="btn_delete" data-disabled="true">삭제</a></td>
+                    <td><span class="digits">0</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
+
+        <!-- //분기 1 -->
+
+
+        <!-- 분기 2 : 탑승객이 번들팩을 추가했을 때 -->
+        <!-- 분기 2-1 : 탑승객이 번들을 선택했을 때 -->
+        <!--
+        * 티웨이 번들 상품 *
+        1. 티웨이 번들 상품 선택 승객인 경우, 상품 종류에 따라 .bundle-type1(더블팩), .bundle-type2(트리플팩), .bundle-type3(멀티팩)으로 감싸줍니다.
+        2. .info-title에 각 번들 별 정보를 표시하고, .btn_delete를 통해 선택된 번들을 삭제할 수 있습니다. (삭제하면 선택 전 레이아웃 사용)
+        -->
+        <div class="table-wrap">
+            <h6 class="passenger-name">배성준</h6>
+            <div class="bundle-type2">
+                <dl class="info-title">
+                    <dt class="bundle-name">번들명</dt>
+                    <dd>트리플팩</dd>
+                    <dt class="bundle-sale">할인율</dt>
+                    <dd>29%</dd>
+                    <dt class="bundle-price">금액</dt>
+                    <dd><span class="digits">55000</span></dd>
+                </dl>
+                <a href="#none" target="_self" class="btn_delete">삭제</a>
+                <table class="charge-sheet">
+                    <caption>배성준 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석</th>
+                        <td>D4</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물</th>
+                        <td>15kg</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">선택하기</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 분기 2-2 : 일부 탑승객만 번들을 선택했을 때 번들을 선택하지 않은 고객 -->
+        <div class="table-wrap">
+            <h6 class="passenger-name">배성준</h6>
+            <p class="summary-empty">
+                선택한 부가서비스 내역이 없습니다.<br>
+                부가서비스를 추가해보세요.<br>
+            </p>
+        </div>
+        <!-- // 분기 2 -->
+
+        <div class="total-wrap">
+            <dl>
+                <dt>금액</dt>
+                <dd><span class="digits">999000</span></dd>
+            </dl>
+        </div>
+
+
+
+        <h5 class="title">오는 편</h5>
+        <!-- 국내선일 때 -->
+        <dl class="flight-info">
+            <dt class="airline">항공사명</dt>
+            <dd><i class="ico_tw">티웨이항공</i></dd><!-- 제주항공은 .ico_7c, 티웨이항공은 .ico_tw -->
+            <dt class="flight-num">항공편명</dt>
+            <dd>TW808</dd>
+        </dl>
+
+        <!-- 분기 1 :  모든 탑승객이 번들팩을 추가하지 않았을 때 -->
+        <!-- 분기 1-1 : 모든 탑승객이 부가서비스를 선택하지 않았을 때 -->
+        <p class="summary-empty">
+            선택한 부가서비스 내역이 없습니다.<br>
+            부가서비스를 추가해보세요.<br>
+        </p>
+
+        <!-- 분기 1-2 : 부가서비스를 선택했을 때(부가서비스를 선택한 고객만 노출함) -->
+        <div class="table-wrap">
+            <h6 class="passenger-name">배성준</h6>
+            <table class="charge-sheet">
+                <caption>배성준 결제 금액</caption>
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">좌석</th>
+                    <td>D4</td>
+                    <td><span class="digits">10000</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">수하물</th>
+                    <td>30kg</td>
+                    <td><span class="digits">60000</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">기내식</th>
+                    <td><a href="#none" target="_self">구매하기</a></td>
+                    <td><span class="digits">0</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">라운지</th>
+                    <td>이용권 선택</td>
+                    <td><span class="digits">14900</span></td>
+                    <td><a href="#none" target="_self" class="btn_delete">삭제</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- //분기 1 -->
+
+
+        <!-- 분기 2 : 탑승객이 번들팩을 추가했을 때 -->
+        <!-- 분기 2-1 : 탑승객이 번들을 선택했을 때 -->
+        <!--
+        * 티웨이 번들 상품 *
+        1. 티웨이 번들 상품 선택 승객인 경우, 상품 종류에 따라 .bundle-type1(더블팩), .bundle-type2(트리플팩), .bundle-type3(멀티팩)으로 감싸줍니다.
+        2. .info-title에 각 번들 별 정보를 표시하고, .btn_delete를 통해 선택된 번들을 삭제할 수 있습니다. (삭제하면 선택 전 레이아웃 사용)
+        -->
+        <div class="table-wrap">
+            <h6 class="passenger-name">배성준</h6>
+            <div class="bundle-type2">
+                <dl class="info-title">
+                    <dt class="bundle-name">번들명</dt>
+                    <dd>트리플팩</dd>
+                    <dt class="bundle-sale">할인율</dt>
+                    <dd>29%</dd>
+                    <dt class="bundle-price">금액</dt>
+                    <dd><span class="digits">55000</span></dd>
+                </dl>
+                <a href="#none" target="_self" class="btn_delete">삭제</a>
+                <table class="charge-sheet">
+                    <caption>배성준 결제 금액</caption>
+                    <colgroup>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">좌석</th>
+                        <td>D4</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수하물</th>
+                        <td>15kg</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기내식</th>
+                        <td><a href="#none" target="_self">선택하기</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 분기 2-2 : 일부 탑승객만 번들을 선택했을 때 번들을 선택하지 않은 고객 -->
+        <div class="table-wrap">
+            <h6 class="passenger-name">배성준</h6>
+            <p class="summary-empty">
+                선택한 부가서비스 내역이 없습니다.<br>
+                부가서비스를 추가해보세요.<br>
+            </p>
+        </div>
+        <!-- // 분기 2 -->
+
         <div class="total-wrap">
             <dl>
                 <dt>금액</dt>
@@ -402,6 +577,7 @@
         </header>
         <section class="pop-container">
             <div class="message-text">
+                <p class="message-text row">하기 규정된 승객에게는 비상구열 좌석 배정을 제한하고 있으니, 제한 사항 확인 후 구매를 부탁 드립니다.</p>
                 <ul class="list-dot row">
                     <li>
                         활동성, 체력 또는 양팔이나 두 손 및 양다리의 민첩성이 다음 각 항목의 사항을 수행하기에 충분치 않은 승객
@@ -536,141 +712,6 @@
     </div>
 </div>
 
-<!-- 팝업 : 주문서가 임시저장되었습니다. -->
-<div id="pop11" class="pop-area" data-type="alert">
-    <div class="pop-wrap">
-        <section class="pop-container">
-            <div class="ico-wrap">
-                <i class="ico_alert--primary">!</i>
-            </div>
-            <h3 class="alert-title">주문서가 임시저장되었습니다.</h3>
-            <div class="alert-text">
-                주문서 완성을 위해 출발 3일전까지<br>
-                <i class="text-emphasis">여권번호를 등록</i>해주세요.
-            </div>
-        </section>
-        <footer class="pop-footer">
-            <button type="button" class="btn_confirm" data-role="close">확인</button>
-        </footer>
-    </div>
-</div>
-
-<!-- 팝업 : 취소/수정 가능한 예약건이 없습니다. -->
-<div id="pop12" class="pop-area" data-type="alert">
-    <div class="pop-wrap">
-        <section class="pop-container">
-            <div class="ico-wrap">
-                <i class="ico_alert">!</i>
-            </div>
-            <h3 class="alert-title">취소/수정 가능한 예약건이 없습니다.</h3>
-            <div class="alert-text">
-                이전 페이지로 이동합니다.
-            </div>
-        </section>
-        <footer class="pop-footer">
-            <button type="button" class="btn_confirm" data-role="close">확인</button>
-        </footer>
-    </div>
-</div>
-
-<!-- 팝업 : 기내면세 주문서를 수정하시겠습니까? -->
-<div id="pop13" class="pop-area" data-type="alert">
-    <div class="pop-wrap">
-        <section class="pop-container">
-            <div class="ico-wrap">
-                <i class="ico_alert">!</i>
-            </div>
-            <h3 class="alert-title">기내면세 주문서를 수정하시겠습니까?</h3>
-        </section>
-        <footer class="pop-footer">
-            <button type="button" class="btn_cancel" data-role="close">취소</button>
-            <button type="button" class="btn_confirm" data-role="close">확인</button>
-        </footer>
-    </div>
-</div>
-
-<!-- 팝업 : 여권번호 등록하기 -->
-<div id="pop09" class="pop-area" data-type="message">
-    <div class="pop-wrap">
-        <header class="pop-header">
-            <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
-            <h2 class="pop-title">여권번호 등록하기</h2>
-        </header>
-        <section class="pop-container">
-            <div class="message-text mg-b--min">
-                <!-- 여권 번호 등록 -->
-                <div class="passport-wrap">
-                    <dl class="passport-list">
-                        <dt class="passport-num"><label for="input-text01">Bae, Sungjune</label></dt>
-                        <dd><input type="text" id="input-text01" placeholder="여권번호를 입력하세요"></dd>
-                        <dt class="passport-num"><label for="input-text02">Son, Seungwan</label></dt>
-                        <dd><input type="text" id="input-text02" placeholder="여권번호를 입력하세요"></dd>
-                        <dt class="passport-num"><label for="input-text03">Kim, Taehyeong</label></dt>
-                        <dd><input type="text" id="input-text03" placeholder="여권번호를 입력하세요"></dd>
-                    </dl>
-                    <div class="notification-wrap">
-                        <ul class="notification-list">
-                            <li>여권번호가 없는 경우 예약하기 버튼 클릭 시 임시저장으로 연결됩니다.</li>
-                            <li>관세법상 여권번호가 실제 여권과 다른 경우, 관세법상 면세품을 받으실 수 없습니다.</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- //여권 번호 등록 -->
-            </div>
-        </section>
-        <footer class="pop-footer">
-            <div class="process-btn-wrap">
-                <button type="button" class="btn_confirm" data-role="close">확인</button>
-            </div>
-        </footer>
-    </div>
-</div>
-
-<!-- 팝업 : 이메일 SMS 주문서 받기 -->
-<div id="pop10" class="pop-area" data-type="message">
-    <div class="pop-wrap">
-        <header class="pop-header">
-            <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
-            <h2 class="pop-title">이메일 SMS 주문서 받기</h2>
-        </header>
-        <section class="pop-container">
-            <div class="message-text mg-b--min">
-                <!-- 이메일 SMS 정보 등록 -->
-                <div class="dfs-email-wrap">
-                    <dl class="dfs-info-list">
-                        <dt>예약번호</dt>
-                        <dd>1912170801</dd>
-                        <dt><label for="dfs-msg-range">일정선택</label></dt>
-                        <dd>
-                            <select id="dfs-msg-range">
-                                <option>전체</option>
-                                <option>가는 편</option>
-                                <option>오는 편</option>
-                            </select>
-                        </dd>
-                        <dt><label for="input-text11">이메일</label></dt>
-                        <dd><input type="text" id="input-text11" placeholder="이메일을 입력하세요"></dd>
-                        <dt><label for="input-text12">휴대전화</label></dt>
-                        <dd><input type="text" id="input-text12" placeholder="숫자만 입력하세요 (-제외)"></dd>
-                    </dl>
-                    <div class="notification-wrap">
-                        <ul class="notification-list">
-                            <li>주문서 출력이 불가능한 경우에는 주문서 번호, 물품, 수량을 메모하셔서 상품 수령 시 제시해 주십시오.</li>
-                            <li>상품의 수량과 품명을 확인하시고, 이상이 있을 경우 기내 승무원에게 바로 통보하여 주시기 바랍니다. (출국 후 상품 분실에 대한 책임은 일체지지 않습니다)</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- //이메일 SMS 정보 등록 -->
-            </div>
-        </section>
-        <footer class="pop-footer">
-            <div class="process-btn-wrap">
-                <button type="button" class="btn_confirm" data-role="close">주문서 발송하기</button>
-            </div>
-        </footer>
-    </div>
-</div>
-
 <!-- 팝업 : 취소/환불 약관 동의 필수 안내 -->
 <div id="pop08" class="pop-area" data-type="alert">
     <div class="pop-wrap">
@@ -682,662 +723,6 @@
             <div class="alert-text">
                 부가서비스 취소/환불 동의가<br>
                 필요합니다.
-            </div>
-        </section>
-        <footer class="pop-footer">
-            <button type="button" class="btn_confirm" data-role="close">확인</button>
-        </footer>
-    </div>
-</div>
-
-<!-- 팝업 : 선택 상품 자세히보기 / 수량 선택 -->
-<div id="dfs-select-summary" class="dfs-select-summary" data-type="drawer">
-    <a href="#none" target="_self" class="btn_drawer" data-popup="#dfs-select-summary"><i class="ico"></i>총 예약 금액 슬라이드 열기/닫기</a>
-    <h4 class="summary-title">선택 상품 자세히보기 / 수량 선택</h4>
-    <div class="inner-wrap">
-        <section class="product-area">
-            <div class="selected-product">
-                <dl class="product-info">
-                    <dt class="product-tag">상품 태그</dt>
-                    <dd>
-                        <span class="sale">20% Sale</span>
-                        <span class="new">New</span>
-                    </dd>
-                    <dt class="brand">브랜드</dt>
-                    <dd>발렌타인</dd>
-                    <dt class="product-name">상품명</dt>
-                    <dd>발렌타인 23년</dd>
-                    <dt class="thumbnail">상품 이미지</dt>
-                    <dd><img src="../resource/img/dfs/2590000750909_OR.jpg" alt=""></dd>
-                    <dt class="price-usd">가격(USD, $)</dt>
-                    <dd><span class="digits">146</span></dd>
-                    <dt class="price-krw">가격(원, ₩)</dt>
-                    <dd><span class="digits">170800</span></dd>
-                </dl>
-                <a href="#none" class="btn_more">상품삭제</a>
-            </div>
-            <div class="dfs-resv-plan">
-                <h6 class="passenger-name">Bae, Sungjune</h6>
-                <div class="table-wrap">
-                    <table class="charge-sheet">
-                        <caption>Bae, Sungjune 예약 수량</caption>
-                        <colgroup>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <tfoot>
-                        </tfoot>
-                        <tbody>
-                        <tr>
-                            <th scope="row">가는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea">0</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">오는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea">0</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h6 class="passenger-name">Son, Seungwan</h6>
-                <div class="table-wrap">
-                    <table class="charge-sheet">
-                        <caption>Son, Seungwan 예약 수량</caption>
-                        <colgroup>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <tfoot>
-                        </tfoot>
-                        <tbody>
-                        <tr>
-                            <th scope="row">가는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea active">1</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">오는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea active">3</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <h6 class="passenger-name">Kim, Taehyeong</h6>
-                    <div class="table-wrap">
-                        <table class="charge-sheet">
-                            <caption>Kim, Taehyeong 예약 수량</caption>
-                            <colgroup>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tfoot>
-                            </tfoot>
-                            <tbody>
-                            <tr>
-                                <th scope="row">가는 편 수량</th>
-                                <td>
-                                    <div class="dfs-handler">
-                                        <dl>
-                                            <dt class="ea">예약 수량</dt>
-                                            <dd><span class="resv-ea">0</span></dd>
-                                        </dl>
-                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">오는 편 수량</th>
-                                <td>
-                                    <div class="dfs-handler">
-                                        <dl>
-                                            <dt class="ea">예약 수량</dt>
-                                            <dd><span class="resv-ea">0</span></dd>
-                                        </dl>
-                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <dl class="ind-total">
-                <dt class="ea">수량<span class="sr-only">(개)</span></dt>
-                <dd>3</dd>
-                <dt class="price-usd">가격(USD, $)</dt>
-                <dd><span class="digits">203</span></dd>
-                <dt class="price-krw">가격(원, ₩)</dt>
-                <dd><span class="digits">233800</span></dd>
-            </dl>
-        </section>
-    </div>
-    <footer class="ags-summary dfs__list">
-        <h4 class="sr-only">선택상품 사전 예약하기</h4>
-        <div class="inner-wrap">
-            <div class="total">
-                <h5 class="sr-only">총 결제 예정 금액</h5>
-                <dl>
-                    <dt>총 결제 예정 금액</dt>
-                    <dd>
-                        <dl class="price-info">
-                            <dt class="price-usd">가격(USD, $)</dt>
-                            <dd><span class="digits">146</span></dd>
-                            <dt class="price-krw">가격(원, ₩)</dt>
-                            <dd><span class="digits">170800</span></dd>
-                        </dl>
-                    </dd>
-                    <dd><button type="button" class="btn_pay-imm" onClick="location.href='dfs_resv-apply.html'">사전 예약하기</button></dd>
-                </dl>
-            </div>
-        </div>
-    </footer>
-</div>
-
-<!-- 팝업 : 상품 상세 팝업 -->
-<div id="dfs-product-detail" class="dfs-product-detail" data-type="drawer">
-    <a href="#none" target="_self" class="btn_drawer" data-popup="#dfs-product-detail"><i class="ico"></i>총 예약 금액 슬라이드 열기/닫기</a>
-    <h4 class="sr-only">상품 자세히 보기</h4>
-    <div class="inner-wrap">
-        <section class="info-area">
-            <h5 class="sr-only">상품 기본정보</h5>
-            <dl class="product-info">
-                <dt class="product-tag">상품 태그</dt>
-                <dd>
-                    <span class="sale">20% Sale</span>
-                    <span class="new">New</span>
-                </dd>
-                <dt class="brand">브랜드</dt>
-                <dd>발렌타인</dd>
-                <dt class="product-name">상품명</dt>
-                <dd>발렌타인 23년</dd>
-            </dl>
-            <div class="swiper-container product-info">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide thumbnail"><img src="../resource/img/dfs/2590000750909_OR.jpg" alt=""></div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-            <div class="product-info">
-                <dl class="price-compare">
-                    <dt>정상가</dt>
-                    <dd class="price-usd"><span class="digits">355</span></dd>
-                    <dd class="price-krw"><span class="digits">415400</span></dd>
-                </dl>
-                <dl class="price-compare">
-                    <dt>할인가</dt>
-                    <dd class="price-usd"><span class="digits">355</span></dd>
-                    <dd class="price-krw"><span class="digits">415400</span></dd>
-                    <dd class="sale"><i class="ico">&darr;</i> 20%</dd>
-                </dl>
-            </div>
-            <dl class="product-info2">
-                <dt class="brand">브랜드</dt>
-                <dd>발렌타인</dd>
-                <dt class="code1">코드</dt>
-                <dd>REF.NO BALL 30YO CASK BATCH</dd>
-                <dt class="code2">상품코드</dt>
-                <dd>2590000687205</dd>
-            </dl>
-            <ul class="product-notification">
-                <li>해당 상품은 예약 후 기내에서 결제 가능 합니다.</li>
-                <li>구매자 본인 명의의 신용카드(체크카드, 직불카드 불가)와 현금(USD/KRW)으로 결제할 수 있습니다.</li>
-                <li>본 상품은 무안공항을 통해 출입국하시는 고객님께서는 구매(예약) 불가한 상품입니다. 양해 부탁드립니다.</li>
-            </ul>
-        </section>
-        <section class="info-area">
-            <h5 class="content-title">기내 면세품 상세 정보 <a href="#none" target="_self" class="btn_content-fold" data-foldable-target="#foldable1">열기/닫기</a></h5>
-            <div id="foldable1" class="product-info-details">
-                <table>
-                    <colgroup>
-                        <col>
-                        <col>
-                    </colgroup>
-                    <tbody>
-                    <tr>
-                        <th scope="row">제목</th>
-                        <td>내용</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">제목</th>
-                        <td>내용</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">제목</th>
-                        <td>다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">제목</th>
-                        <td>다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리, 다줄 처리</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </div>
-    <div class="process-btn-wrap" data-role="process-btn-wrap">
-        <button type="button" class="btn_select">상품 선택하기</button>
-    </div>
-</div>
-
-<!-- 팝업 : 주문서 취소/수정하기 -->
-<div id="dfs-refund" class="dfs-refund" data-type="drawer">
-    <a href="#none" target="_self" class="btn_drawer" data-popup="#dfs-refund"><i class="ico"></i>주문서 취소/수정 슬라이드 열기/닫기</a>
-    <h4 class="summary-title">주문서 취소/수정하기</h4>
-    <div class="inner-wrap">
-        <div class="notification-wrap">
-            <ul class="notification-list">
-                <li>출발 48시간 전까지 주문 취소 및 수정 가능합니다.</li>
-                <li>수정은 수량 변경만 가능합니다.</li>
-            </ul>
-            <button type="button" class="btn_confirm">전체 취소하기</button>
-        </div>
-        <section class="product-area">
-            <div class="input-wrap">
-                <input type="checkbox" id="input-check01" name="check-group1"><label for="input-check01"><i class="ico"></i>선택 상품 취소</label>
-            </div>
-            <div class="selected-product">
-                <dl class="product-info">
-                    <dt class="product-tag">상품 태그</dt>
-                    <dd>
-                        <span class="sale">20% Sale</span>
-                        <span class="new">New</span>
-                    </dd>
-                    <dt class="brand">브랜드</dt>
-                    <dd>발렌타인</dd>
-                    <dt class="product-name">상품명</dt>
-                    <dd>발렌타인 23년</dd>
-                    <dt class="thumbnail">상품 이미지</dt>
-                    <dd><img src="../resource/img/dfs/2590000750909_OR.jpg" alt=""></dd>
-                    <dt class="price-usd">가격(USD, $)</dt>
-                    <dd><span class="digits">146</span></dd>
-                    <dt class="price-krw">가격(원, ₩)</dt>
-                    <dd><span class="digits">170800</span></dd>
-                </dl>
-                <a href="#none" class="btn_more">상품삭제</a>
-            </div>
-            <div class="dfs-resv-plan">
-                <h6 class="passenger-name">Bae, Sungjune</h6>
-                <div class="table-wrap">
-                    <table class="charge-sheet">
-                        <caption>Bae, Sungjune 예약 수량</caption>
-                        <colgroup>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <tfoot>
-                        </tfoot>
-                        <tbody>
-                        <tr>
-                            <th scope="row">가는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea">0</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">오는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea">0</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h6 class="passenger-name">Son, Seungwan</h6>
-                <div class="table-wrap">
-                    <table class="charge-sheet">
-                        <caption>Son, Seungwan 예약 수량</caption>
-                        <colgroup>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <tfoot>
-                        </tfoot>
-                        <tbody>
-                        <tr>
-                            <th scope="row">가는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea active">1</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">오는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea active">3</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <h6 class="passenger-name">Kim, Taehyeong</h6>
-                    <div class="table-wrap">
-                        <table class="charge-sheet">
-                            <caption>Kim, Taehyeong 예약 수량</caption>
-                            <colgroup>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tfoot>
-                            </tfoot>
-                            <tbody>
-                            <tr>
-                                <th scope="row">가는 편 수량</th>
-                                <td>
-                                    <div class="dfs-handler">
-                                        <dl>
-                                            <dt class="ea">예약 수량</dt>
-                                            <dd><span class="resv-ea">0</span></dd>
-                                        </dl>
-                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">오는 편 수량</th>
-                                <td>
-                                    <div class="dfs-handler">
-                                        <dl>
-                                            <dt class="ea">예약 수량</dt>
-                                            <dd><span class="resv-ea">0</span></dd>
-                                        </dl>
-                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <dl class="ind-total">
-                <dt class="ea">수량<span class="sr-only">(개)</span></dt>
-                <dd>3</dd>
-                <dt class="price-usd">가격(USD, $)</dt>
-                <dd><span class="digits">203</span></dd>
-                <dt class="price-krw">가격(원, ₩)</dt>
-                <dd><span class="digits">233800</span></dd>
-            </dl>
-        </section>
-        <section class="product-area">
-            <div class="input-wrap">
-                <input type="checkbox" id="input-check02" name="check-group1"><label for="input-check02"><i class="ico"></i>선택 상품 취소</label>
-            </div>
-            <div class="selected-product">
-                <dl class="product-info">
-                    <dt class="product-tag">상품 태그</dt>
-                    <dd>
-                        <span class="sale">20% Sale</span>
-                        <span class="new">New</span>
-                    </dd>
-                    <dt class="brand">브랜드</dt>
-                    <dd>발렌타인</dd>
-                    <dt class="product-name">상품명</dt>
-                    <dd>발렌타인 23년</dd>
-                    <dt class="thumbnail">상품 이미지</dt>
-                    <dd><img src="../resource/img/dfs/2590000750909_OR.jpg" alt=""></dd>
-                    <dt class="price-usd">가격(USD, $)</dt>
-                    <dd><span class="digits">146</span></dd>
-                    <dt class="price-krw">가격(원, ₩)</dt>
-                    <dd><span class="digits">170800</span></dd>
-                </dl>
-                <a href="#none" class="btn_more">상품삭제</a>
-            </div>
-            <div class="dfs-resv-plan">
-                <h6 class="passenger-name">Bae, Sungjune</h6>
-                <div class="table-wrap">
-                    <table class="charge-sheet">
-                        <caption>Bae, Sungjune 예약 수량</caption>
-                        <colgroup>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <tfoot>
-                        </tfoot>
-                        <tbody>
-                        <tr>
-                            <th scope="row">가는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea">0</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">오는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea">0</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h6 class="passenger-name">Son, Seungwan</h6>
-                <div class="table-wrap">
-                    <table class="charge-sheet">
-                        <caption>Son, Seungwan 예약 수량</caption>
-                        <colgroup>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <tfoot>
-                        </tfoot>
-                        <tbody>
-                        <tr>
-                            <th scope="row">가는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea active">1</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">오는 편 수량</th>
-                            <td>
-                                <div class="dfs-handler">
-                                    <dl>
-                                        <dt class="ea">예약 수량</dt>
-                                        <dd><span class="resv-ea active">3</span></dd>
-                                    </dl>
-                                    <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">수량 빼기</span></a>
-                                    <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <h6 class="passenger-name">Kim, Taehyeong</h6>
-                    <div class="table-wrap">
-                        <table class="charge-sheet">
-                            <caption>Kim, Taehyeong 예약 수량</caption>
-                            <colgroup>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tfoot>
-                            </tfoot>
-                            <tbody>
-                            <tr>
-                                <th scope="row">가는 편 수량</th>
-                                <td>
-                                    <div class="dfs-handler">
-                                        <dl>
-                                            <dt class="ea">예약 수량</dt>
-                                            <dd><span class="resv-ea">0</span></dd>
-                                        </dl>
-                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">오는 편 수량</th>
-                                <td>
-                                    <div class="dfs-handler">
-                                        <dl>
-                                            <dt class="ea">예약 수량</dt>
-                                            <dd><span class="resv-ea">0</span></dd>
-                                        </dl>
-                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">수량 빼기</span></a>
-                                        <a href="#none" target="_self" class="btn_increase"><span class="sr-only">수량 더하기</span></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <dl class="ind-total">
-                <dt class="ea">수량<span class="sr-only">(개)</span></dt>
-                <dd>3</dd>
-                <dt class="price-usd">가격(USD, $)</dt>
-                <dd><span class="digits">203</span></dd>
-                <dt class="price-krw">가격(원, ₩)</dt>
-                <dd><span class="digits">233800</span></dd>
-            </dl>
-        </section>
-    </div>
-
-    <footer class="ags-summary dfs__list">
-        <h4 class="sr-only">선택상품 취소/수정하기</h4>
-        <div class="inner-wrap">
-            <div class="total">
-                <h5 class="sr-only">총 결제 예정 금액</h5>
-                <dl>
-                    <dt>총 결제 예정 금액</dt>
-                    <dd>
-                        <dl class="price-info">
-                            <dt class="price-usd">가격(USD, $)</dt>
-                            <dd><span class="digits">203</span></dd>
-                            <dt class="price-krw">가격(원, ₩)</dt>
-                            <dd><span class="digits">233800</span></dd>
-                        </dl>
-                    </dd>
-                    <dd><button type="button" class="btn_pay-imm" onClick="location.href='my_history-list.html'">취소/수정 완료</button></dd>
-                </dl>
-            </div>
-        </div>
-    </footer>
-</div>
-
-<!-- 팝업 : 오는 편 기내면세 예약만 가능합니다. -->
-<div id="pop16" class="pop-area" data-type="alert">
-    <div class="pop-wrap">
-        <section class="pop-container">
-            <div class="ico-wrap">
-                <i class="ico_alert--primary">!</i>
-            </div>
-            <h3 class="alert-title">오는 편 기내면세 예약만 가능합니다.</h3>
-            <div class="alert-text">
-                가는 편 항공기 출발이 임박하여<br>
-                오는편 기내면세 사전예약 서비스만 가능합니다.
-            </div>
-        </section>
-        <footer class="pop-footer">
-            <button type="button" class="btn_confirm" data-role="close">확인</button>
-        </footer>
-    </div>
-</div>
-
-<!-- 팝업 : 기내면세를 예약할 수 없습니다. -->
-<div id="pop17" class="pop-area" data-type="alert">
-    <div class="pop-wrap">
-        <section class="pop-container">
-            <div class="ico-wrap">
-                <i class="ico_alert--primary">!</i>
-            </div>
-            <h3 class="alert-title">기내면세를 예약할 수 없습니다.</h3>
-            <div class="alert-text">
-                국내 도착 53시간 이내에는 기내면세 사전 예약<br>
-                서비스를 진행하실 수 없습니다.
             </div>
         </section>
         <footer class="pop-footer">
@@ -1378,24 +763,6 @@
                 수하물을 이미 구매하셨습니다.<br>
                 추가 구매를 원하시면 기존 구매처를 통해<br>
                 부가서비스 취소 후 재구매 바랍니다.
-            </div>
-        </section>
-        <footer class="pop-footer">
-            <button type="button" class="btn_confirm" data-role="close">확인</button>
-        </footer>
-    </div>
-</div>
-
-<!-- 팝업 : 주문서 발송 완료 -->
-<div id="pop20" class="pop-area" data-type="alert">
-    <div class="pop-wrap">
-        <section class="pop-container">
-            <div class="ico-wrap">
-                <i class="ico_alert">!</i>
-            </div>
-            <h3 class="alert-title">주문서 발송 완료</h3>
-            <div class="alert-text">
-                요청하신 주문서가 발송되었습니다.
             </div>
         </section>
         <footer class="pop-footer">
@@ -1456,7 +823,7 @@
             <!--<div class="seat-plan seat-7c">--><!-- 제주항공일 떄 -->
             <div class="seat-plan seat-tw"><!-- 티웨이항공일 떄 -->
                 <div class="seat-sheet B73780001">
-                    <div class="scroll-wrap" data-scrollbar="true">
+                    <div class="scroll-wrap">
                         <div class="seat-code">
                             <span>A</span>
                             <span>B</span>
@@ -2203,5 +1570,934 @@
         <p class="text-btn-wrap"><a href="#none" class="btn_cancel" data-role="close">네, 이동하겠습니다</a></p>
     </div>
 </div>
-</body>
-</html>
+
+<!-- 팝업 : 좌석 구매 불가 안내(좌석 구매완료로 인한 구매 불가) -->
+<div id="pop28" class="pop-area" data-type="alert">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert--primary">!</i>
+            </div>
+            <h3 class="alert-title">
+                좌석 구매 불가 안내
+            </h3>
+            <div class="alert-text">
+                모든 탑승객이 사전 좌석을 구매하셨습니다.<br>
+                변경을 원하시면<br>
+                기존 구매한 부가서비스 취소 후 재구매 바랍니다.
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">오는 편 선택하기</a>
+        </footer>
+    </div>
+</div>
+
+<!-- 팝업 : 수하물 구매 불가 안내(수하물 구매완료로 인한 구매 불가) -->
+<div id="pop29" class="pop-area" data-type="alert">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert--primary">!</i>
+            </div>
+            <h3 class="alert-title">
+                수하물 구매 불가 안내
+            </h3>
+            <div class="alert-text">
+                모든 탑승객이 수하물을 구매하셨습니다.<br>
+                변경을 원하시면<br>
+                기존 구매한 부가서비스 취소 후 재구매 바랍니다.
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">기내식 구매단계로 이동</a>
+        </footer>
+    </div>
+</div>
+
+<!-- 팝업 : 번들 선택(국제선 일반/스마트 운임 && 이벤트 운임) -->
+<div id="bundle-summary1" class="bundle-summary" data-type="drawer">
+    <a href="#none" target="_self" class="btn_drawer" data-popup="#bundle-summary1"><i class="ico"></i>번들 선택 닫기</a>
+    <h4 class="summary-title">부가서비스 번들</h4>
+    <div class="inner-wrap">
+        <p class="summary-approach">개별 구매 시보다 더 실속 있는 <strong>부가서비스 번들을 이용해보세요!</strong></p>
+        <p class="summary-description">
+            구매하신 항공권에 따라 번들 요금이 달라질 수 있습니다.<br>
+            탭을 선택하여 요금을 확인하세요.
+        </p>
+
+        <!-- 가는 편/오는 편 번들 선택 탭 -->
+        <div class="tab-wrap">
+            <h5 class="sr-only">번들 선택</h5>
+            <!-- 탭버튼 -->
+            <div class="tabs tabs_route">
+                <ul role="tablist">
+                    <li role="tab" aria-controls="tab-panel11" class="active">가는 편</li>
+                    <li role="tab" aria-controls="tab-panel12">오는 편</li>
+                </ul>
+            </div>
+            <!-- //탭버튼 -->
+
+            <div class="tab-panels">
+                <div class="align-horizontal">
+                    <!-- 가는 편 탭 컨텐츠 -->
+                    <div id="tab-panel11" class="tab-panel active" role="tabpanel">
+                        <h6 class="sr-only">가는 편 번들 선택</h6>
+
+                        <div class="scroll-wrap">
+                            <!-- 분기 : 국제선 일반/스마트 운임 -->
+                            <div class="bundle-info bundle-inter1">
+                                <div class="bundle-type1">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>더블팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>28%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">17000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>0kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>스탠다드 존</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공안함</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공안함</dd>
+                                    </dl>
+                                </div>
+                                <div class="bundle-type2">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>트리플팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>29%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">55000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>15kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>프리미엄 존 제외 전좌석</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공안함</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공안함</dd>
+                                    </dl>
+                                </div>
+                                <div class="bundle-type3">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>멀티팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>47%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">71000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>20kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>전좌석</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <!-- 분기 : 이벤트 운임 -->
+                            <!--<div class="bundle-info bundle-inter1">
+                                <div class="bundle-type1">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>더블팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>28%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">12000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>0kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>스탠다드 존</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공안함</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공안함</dd>
+                                    </dl>
+                                </div>
+                                <div class="bundle-type2">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>트리플팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>29%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">46000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>15kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>프리미엄 존 제외 전좌석</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공안함</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공안함</dd>
+                                    </dl>
+                                </div>
+                                <div class="bundle-type3">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>멀티팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>47%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">60000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>20kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>전좌석</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공</dd>
+                                    </dl>
+                                </div>
+                            </div-->
+                        </div>
+
+                        <!-- 승객 리스트 -->
+                        <div class="passenger-wrap">
+                            <ul class="passenger-list">
+                                <li>
+                                    <dl>
+                                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                        <dd>Bae, Sungjune</dd>
+                                        <dt class="selected-bundle">번들 선택</dt>
+                                        <dd>
+                                            <input type="radio" id="radio0101" name="radio-group01" checked="checked"><label for="radio0101" class="btn_select-bundle bundle-type0">선택안함</label>
+                                            <input type="radio" id="radio0102" name="radio-group01"><label for="radio0102" class="btn_select-bundle bundle-type1">더블팩</label>
+                                            <input type="radio" id="radio0103" name="radio-group01"><label for="radio0103" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                            <input type="radio" id="radio0104" name="radio-group01"><label for="radio0104" class="btn_select-bundle bundle-type3">멀티팩</label>
+                                        </dd>
+                                        <dt class="bundle-price">결제금액</dt>
+                                        <dd><span class="digits">0</span></dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                        <dd>Son, Seungwan</dd>
+                                        <dt class="selected-bundle">번들 선택</dt>
+                                        <dd>
+                                            <input type="radio" id="radio0201" name="radio-group02" checked="checked"><label for="radio0201" class="btn_select-bundle bundle-type0">선택안함</label>
+                                            <input type="radio" id="radio0202" name="radio-group02"><label for="radio0202" class="btn_select-bundle bundle-type1">더블팩</label>
+                                            <input type="radio" id="radio0203" name="radio-group02"><label for="radio0203" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                            <input type="radio" id="radio0204" name="radio-group02"><label for="radio0204" class="btn_select-bundle bundle-type3">멀티팩</label>
+                                        </dd>
+                                        <dt class="bundle-price">결제금액</dt>
+                                        <dd><span class="digits">0</span></dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                        <dd>Kim, Taehyeong</dd>
+                                        <dt class="selected-bundle">번들 선택</dt>
+                                        <dd>
+                                            <input type="radio" id="radio0601" name="radio-group06" checked="checked"><label for="radio0601" class="btn_select-bundle bundle-type0">선택안함</label>
+                                            <input type="radio" id="radio0602" name="radio-group06"><label for="radio0602" class="btn_select-bundle bundle-type1">더블팩</label>
+                                            <input type="radio" id="radio0603" name="radio-group06"><label for="radio0603" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                            <input type="radio" id="radio0604" name="radio-group06"><label for="radio0604" class="btn_select-bundle bundle-type3">멀티팩</label>
+                                        </dd>
+                                        <dt class="bundle-price">결제금액</dt>
+                                        <dd><span class="digits">0</span></dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 오는 편 탭 컨텐츠 -->
+                    <div id="tab-panel12" class="tab-panel" role="tabpanel">
+                        <h6 class="sr-only">오는 편 번들 선택</h6>
+
+                        <div class="scroll-wrap">
+                            <!-- 분기 : 국제선 일반/스마트 운임 -->
+                            <div class="bundle-info bundle-inter1">
+                                <div class="bundle-type1">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>더블팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>28%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">17000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>0kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>스탠다드 존</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공안함</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공안함</dd>
+                                    </dl>
+                                </div>
+                                <div class="bundle-type2">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>트리플팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>29%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">55000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>15kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>프리미엄 존 제외 전좌석</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공안함</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공안함</dd>
+                                    </dl>
+                                </div>
+                                <div class="bundle-type3">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>멀티팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>47%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">71000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>20kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>전좌석</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <!-- 분기 : 이벤트 운임 -->
+                            <!--<div class="bundle-info bundle-inter1">
+                                <div class="bundle-type1">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>더블팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>28%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">12000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>0kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>스탠다드 존</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공안함</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공안함</dd>
+                                    </dl>
+                                </div>
+                                <div class="bundle-type2">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>트리플팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>29%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">46000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>15kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>프리미엄 존 제외 전좌석</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공안함</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공안함</dd>
+                                    </dl>
+                                </div>
+                                <div class="bundle-type3">
+                                    <dl class="info-title">
+                                        <dt class="bundle-name">번들명</dt>
+                                        <dd>멀티팩</dd>
+                                        <dt class="bundle-sale">할인율</dt>
+                                        <dd>47%</dd>
+                                        <dt class="bundle-price">금액</dt>
+                                        <dd><span class="digits">60000</span></dd>
+                                    </dl>
+                                    <dl class="info-detail">
+                                        <dt>위탁수하물</dt>
+                                        <dd>20kg</dd>
+                                        <dt>사전좌석지정</dt>
+                                        <dd>전좌석</dd>
+                                        <dt>기내식</dt>
+                                        <dd>제공</dd>
+                                        <dt>수하물우선처리</dt>
+                                        <dd>제공</dd>
+                                        <dt>전용카운터</dt>
+                                        <dd>제공</dd>
+                                    </dl>
+                                </div>
+                            </div-->
+                        </div>
+
+                        <!-- 승객 리스트 -->
+                        <div class="passenger-wrap">
+                            <ul class="passenger-list">
+                                <li>
+                                    <dl>
+                                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                        <dd>Bae, Sungjune</dd>
+                                        <dt class="selected-bundle">번들 선택</dt>
+                                        <dd>
+                                            <input type="radio" id="radio0301" name="radio-group03" checked="checked"><label for="radio0301" class="btn_select-bundle bundle-type0">선택안함</label>
+                                            <input type="radio" id="radio0302" name="radio-group03"><label for="radio0302" class="btn_select-bundle bundle-type1">더블팩</label>
+                                            <input type="radio" id="radio0303" name="radio-group03"><label for="radio0303" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                            <input type="radio" id="radio0304" name="radio-group03"><label for="radio0304" class="btn_select-bundle bundle-type3">멀티팩</label>
+                                        </dd>
+                                        <dt class="bundle-price">결제금액</dt>
+                                        <dd><span class="digits">0</span></dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                        <dd>Son, Seungwan</dd>
+                                        <dt class="selected-bundle">번들 선택</dt>
+                                        <dd>
+                                            <input type="radio" id="radio0401" name="radio-group04" checked="checked"><label for="radio0401" class="btn_select-bundle bundle-type0">선택안함</label>
+                                            <input type="radio" id="radio0402" name="radio-group04"><label for="radio0402" class="btn_select-bundle bundle-type1">더블팩</label>
+                                            <input type="radio" id="radio0403" name="radio-group04"><label for="radio0403" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                            <input type="radio" id="radio0404" name="radio-group04"><label for="radio0404" class="btn_select-bundle bundle-type3">멀티팩</label>
+                                        </dd>
+                                        <dt class="bundle-price">결제금액</dt>
+                                        <dd><span class="digits">0</span></dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl>
+                                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                                        <dd>Kim, Taehyeong</dd>
+                                        <dt class="selected-bundle">번들 선택</dt>
+                                        <dd>
+                                            <input type="radio" id="radio0501" name="radio-group05" checked="checked"><label for="radio0501" class="btn_select-bundle bundle-type0">선택안함</label>
+                                            <input type="radio" id="radio0502" name="radio-group05"><label for="radio0502" class="btn_select-bundle bundle-type1">더블팩</label>
+                                            <input type="radio" id="radio0503" name="radio-group05"><label for="radio0503" class="btn_select-bundle bundle-type2">트리플팩</label>
+                                            <input type="radio" id="radio0504" name="radio-group05"><label for="radio0504" class="btn_select-bundle bundle-type3">멀티팩</label>
+                                        </dd>
+                                        <dt class="bundle-price">결제금액</dt>
+                                        <dd><span class="digits">0</span></dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 프로세스 버튼 그룹 -->
+    <div class="process-btn-wrap" data-role="process-btn-wrap">
+        <a href="#none" target="_self" class="btn_cancel" data-role="close">취소</a>
+        <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+    </div>
+</div>
+
+<!-- 팝업 : 번들 선택(대양주 운임) -->
+<div id="bundle-summary2" class="bundle-summary" data-type="drawer">
+    <a href="#none" target="_self" class="btn_drawer" data-popup="#bundle-summary2"><i class="ico"></i>번들 선택 닫기</a>
+    <h1 class="summary-title">부가서비스 번들</h1>
+    <div class="inner-wrap">
+        <p class="summary-approach">개별 구매 시보다 더 실속 있는<br><strong>부가서비스 번들을 이용해보세요!</strong></p>
+
+        <h2 class="sr-only">번들 선택</h2>
+        <div class="scroll-wrap">
+            <!-- 분기 1 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
+            <div class="bundle-info bundle-inter2">
+                <div class="bundle-type1">
+                    <dl class="info-title">
+                        <dt class="bundle-name">번들명</dt>
+                        <dd>더블팩</dd>
+                        <dt class="bundle-sale">할인율</dt>
+                        <dd>28%</dd>
+                        <dt class="bundle-price">금액</dt>
+                        <dd><span class="digits">20000</span></dd>
+                    </dl>
+                    <dl class="info-detail">
+                        <dt>위탁수하물</dt>
+                        <dd>23kg * 1</dd>
+                        <dt>사전좌석지정</dt>
+                        <dd>프리미엄 존 제외 전좌석</dd>
+                        <dt>기내식</dt>
+                        <dd>제공</dd>
+                        <dt>수하물우선처리</dt>
+                        <dd>제공안함</dd>
+                    </dl>
+                </div>
+                <div class="bundle-type2">
+                    <dl class="info-title">
+                        <dt class="bundle-name">번들명</dt>
+                        <dd>트리플팩</dd>
+                        <dt class="bundle-sale">할인율</dt>
+                        <dd>29%</dd>
+                        <dt class="bundle-price">금액</dt>
+                        <dd><span class="digits">46000</span></dd>
+                    </dl>
+                    <dl class="info-detail">
+                        <dt>위탁수하물</dt>
+                        <dd>23kg * 2</dd>
+                        <dt>사전좌석지정</dt>
+                        <dd>전좌석</dd>
+                        <dt>기내식</dt>
+                        <dd>제공</dd>
+                        <dt>수하물우선처리</dt>
+                        <dd>제공</dd>
+                    </dl>
+                </div>
+            </div>
+            <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
+            <!--<div class="bundle-info bundle-dom1">
+                <div class="bundle-type1">
+                    <dl class="info-title">
+                        <dt class="bundle-name">번들명</dt>
+                        <dd>더블팩</dd>
+                        <dt class="bundle-sale">할인율</dt>
+                        <dd>28%</dd>
+                        <dt class="bundle-price">금액</dt>
+                        <dd><span class="digits">9000</span></dd>
+                    </dl>
+                    <dl class="info-detail">
+                        <dt>위탁수하물</dt>
+                        <dd>20kg</dd>
+                        <dt>사전좌석지정</dt>
+                        <dd>프리미엄 존 제외 전좌석</dd>
+                        <dt>수하물우선처리</dt>
+                        <dd>제공안함</dd>
+                        <dt>전용카운터</dt>
+                        <dd>제공안함</dd>
+                    </dl>
+                </div>
+                <div class="bundle-type2">
+                        <dl class="info-title">
+                            <dt class="bundle-name">번들명</dt>
+                            <dd>트리플팩</dd>
+                            <dt class="bundle-sale">할인율</dt>
+                            <dd>29%</dd>
+                            <dt class="bundle-price">금액</dt>
+                            <dd><span class="digits">17000</span></dd>
+                        </dl>
+                        <dl class="info-detail">
+                            <dt>위탁수하물</dt>
+                            <dd>25kg</dd>
+                            <dt>사전좌석지정</dt>
+                            <dd>전좌석</dd>
+                            <dt>수하물우선처리</dt>
+                            <dd>제공</dd>
+                            <dt>전용카운터</dt>
+                            <dd>제공(대구출발노선 제외)</dd>
+                        </dl>
+                    </div>
+            </div>-->
+        </div>
+
+        <!-- 승객 리스트 -->
+        <div class="passenger-wrap">
+            <h3 class="sr-only">승객별 번들 선택</h3>
+            <!-- 분기 1 : 운임에 따른 번들 정보 - 국제선 대양주 운임 -->
+            <ul class="passenger-list">
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>Bae, Sungjune</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <h4 class="bundle-way">가는 편</h4>
+                            <input type="radio" id="radio1101" name="radio-group11" checked="checked"><label for="radio1101" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1102" name="radio-group11"><label for="radio1102" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1103" name="radio-group11"><label for="radio1103" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dd>
+                            <h4 class="bundle-way">오는 편</h4>
+                            <input type="radio" id="radio1201" name="radio-group12" checked="checked"><label for="radio1201" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1202" name="radio-group12"><label for="radio1202" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1203" name="radio-group12"><label for="radio1203" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>Son, Seungwan</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <h4 class="bundle-way">가는 편</h4>
+                            <input type="radio" id="radio1301" name="radio-group13" checked="checked"><label for="radio1301" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1302" name="radio-group13"><label for="radio1302" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1303" name="radio-group13"><label for="radio1303" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dd>
+                            <h4 class="bundle-way">오는 편</h4>
+                            <input type="radio" id="radio1401" name="radio-group14" checked="checked"><label for="radio1401" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1402" name="radio-group14"><label for="radio1402" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1403" name="radio-group14"><label for="radio1403" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>Kim, Taehyeong</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <h4 class="bundle-way">가는 편</h4>
+                            <input type="radio" id="radio1501" name="radio-group15" checked="checked"><label for="radio1501" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1502" name="radio-group15"><label for="radio1502" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1503" name="radio-group15"><label for="radio1503" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dd>
+                            <h4 class="bundle-way">오는 편</h4>
+                            <input type="radio" id="radio1601" name="radio-group16" checked="checked"><label for="radio1601" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1602" name="radio-group16"><label for="radio1602" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1603" name="radio-group16"><label for="radio1603" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+            </ul>
+            <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
+            <!--<ul class="passenger-list">
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>배성준</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <input type="radio" id="radio1101" name="radio-group11" checked="checked"><label for="radio1101" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1102" name="radio-group11"><label for="radio1102" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1103" name="radio-group11"><label for="radio1103" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>손승완</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <input type="radio" id="radio1201" name="radio-group12" checked="checked"><label for="radio1201" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1202" name="radio-group12"><label for="radio1202" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1203" name="radio-group12"><label for="radio1203" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>김태형</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <input type="radio" id="radio1301" name="radio-group13" checked="checked"><label for="radio1301" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio1302" name="radio-group13"><label for="radio1302" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio1303" name="radio-group13"><label for="radio1303" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+            </ul>-->
+        </div>
+    </div>
+    <!-- 프로세스 버튼 그룹 -->
+    <div class="process-btn-wrap" data-role="process-btn-wrap">
+        <a href="#none" target="_self" class="btn_cancel" data-role="close">취소</a>
+        <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+    </div>
+</div>
+
+<!-- 팝업 : 번들 선택(국내선 운임) -->
+<div id="bundle-summary3" class="bundle-summary" data-type="drawer">
+    <a href="#none" target="_self" class="btn_drawer" data-popup="#bundle-summary3"><i class="ico"></i>번들 선택 닫기</a>
+    <h1 class="summary-title">부가서비스 번들</h1>
+    <div class="inner-wrap">
+        <p class="summary-approach">개별 구매 시보다 더 실속 있는<br><strong>부가서비스 번들을 이용해보세요!</strong></p>
+
+        <h2 class="sr-only">번들 선택</h2>
+        <div class="scroll-wrap">
+            <!-- 운임에 따른 번들 정보 - 국내선 -->
+            <div class="bundle-info bundle-dom1">
+                <div class="bundle-type1">
+                    <dl class="info-title">
+                        <dt class="bundle-name">번들명</dt>
+                        <dd>더블팩</dd>
+                        <dt class="bundle-sale">할인율</dt>
+                        <dd>28%</dd>
+                        <dt class="bundle-price">금액</dt>
+                        <dd><span class="digits">9000</span></dd>
+                    </dl>
+                    <dl class="info-detail">
+                        <dt>위탁수하물</dt>
+                        <dd>20kg</dd>
+                        <dt>사전좌석지정</dt>
+                        <dd>프리미엄 존 제외 전좌석</dd>
+                        <dt>수하물우선처리</dt>
+                        <dd>제공안함</dd>
+                        <dt>전용카운터</dt>
+                        <dd>제공안함</dd>
+                    </dl>
+                </div>
+                <div class="bundle-type2">
+                    <dl class="info-title">
+                        <dt class="bundle-name">번들명</dt>
+                        <dd>트리플팩</dd>
+                        <dt class="bundle-sale">할인율</dt>
+                        <dd>29%</dd>
+                        <dt class="bundle-price">금액</dt>
+                        <dd><span class="digits">17000</span></dd>
+                    </dl>
+                    <dl class="info-detail">
+                        <dt>위탁수하물</dt>
+                        <dd>25kg</dd>
+                        <dt>사전좌석지정</dt>
+                        <dd>전좌석</dd>
+                        <dt>수하물우선처리</dt>
+                        <dd>제공</dd>
+                        <dt>전용카운터</dt>
+                        <dd>제공(대구출발노선 제외)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- 승객 리스트 -->
+        <div class="passenger-wrap">
+            <h3 class="sr-only">승객별 번들 선택</h3>
+            <!-- 분기 2 : 운임에 따른 번들 정보 - 국내선 -->
+            <ul class="passenger-list">
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>배성준</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <input type="radio" id="radio2001" name="radio-group20" checked="checked"><label for="radio2001" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio2002" name="radio-group20"><label for="radio2002" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio2003" name="radio-group20"><label for="radio2003" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>손승완</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <input type="radio" id="radio2101" name="radio-group21" checked="checked"><label for="radio2101" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio2102" name="radio-group21"><label for="radio2102" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio2103" name="radio-group21"><label for="radio2103" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt class="passenger-name">탑승객 성명(영문)</dt>
+                        <dd>김태형</dd>
+                        <dt class="selected-bundle">번들 선택</dt>
+                        <dd>
+                            <input type="radio" id="radio2201" name="radio-group22" checked="checked"><label for="radio2201" class="btn_select-bundle bundle-type0">선택안함</label>
+                            <input type="radio" id="radio2202" name="radio-group22"><label for="radio2202" class="btn_select-bundle bundle-type1">더블팩</label>
+                            <input type="radio" id="radio2203" name="radio-group22"><label for="radio2203" class="btn_select-bundle bundle-type2">트리플팩</label>
+                        </dd>
+                        <dt class="bundle-price">결제금액</dt>
+                        <dd><span class="digits">0</span></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 프로세스 버튼 그룹 -->
+    <div class="process-btn-wrap" data-role="process-btn-wrap">
+        <a href="#none" target="_self" class="btn_cancel" data-role="close">취소</a>
+        <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+    </div>
+</div>
+
+<!-- 팝업 : 좌석을 선택하세요 -->
+<div id="pop30" class="pop-area" data-type="alert" data-dim="false">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert">!</i>
+            </div>
+            <h3 class="alert-title">
+                좌석을 선택하세요
+            </h3>
+            <div class="alert-text">
+                <strong class="text-uppercase">Bae, Sungjune</strong> 님의 좌석이<br>
+                선택되지 않았습니다.
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+        </footer>
+    </div>
+</div>
+
+<!-- 팝업 : 기내식을 선택하세요 -->
+<div id="pop31" class="pop-area" data-type="alert">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert">!</i>
+            </div>
+            <h3 class="alert-title">
+                기내식을 선택하세요
+            </h3>
+            <div class="alert-text">
+                <strong class="text-uppercase">Bae, Sungjune</strong> 님의 기내식이<br>
+                선택되지 않았습니다.
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+        </footer>
+    </div>
+</div>
+
+<!-- 팝업 : 번들을 취소하시겠습니까? -->
+<div id="pop32" class="pop-area" data-type="alert" data-dim="false">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert--primary">!</i>
+            </div>
+            <h3 class="alert-title">
+                번들을 취소하시겠습니까?
+            </h3>
+            <div class="alert-text">
+                번들을 삭제하시면 선택한<br>
+                번들 내용도 다같이 취소됩니다.
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_cancel" data-role="close">취소</a>
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+        </footer>
+    </div>
+</div>
+
+<!-- 팝업 : 다른 좌석을 선택해주세요(소아 불가) -->
+<div id="pop33" class="pop-area" data-type="alert">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert--primary">!</i>
+            </div>
+            <h3 class="alert-title">
+                다른 좌석을 선택해주세요
+            </h3>
+            <div class="alert-text">
+                소아의 경우 비상구에 앉으실 수 없습니다.
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+        </footer>
+    </div>
+</div>
+
+<!-- 팝업 : 다른 좌석을 선택해주세요(소아 보호자 불가) -->
+<div id="pop34" class="pop-area" data-type="alert">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert--primary">!</i>
+            </div>
+            <h3 class="alert-title">
+                다른 좌석을 선택해주세요
+            </h3>
+            <div class="alert-text">
+                유아 및 소아를 동반한 성인 보호자 한 분은<br>
+                비상구에 앉으실 수 없습니다.<br>
+                유아 및 소아와 함께 일반 좌석을 선택해주세요.
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+        </footer>
+    </div>
+</div>
+
+<!-- 팝업 : 알레르기 정보 -->
+<div id="pop35" class="pop-area" data-type="alert" data-dim="false">
+    <div class="pop-wrap">
+        <section class="pop-container">
+            <div class="ico-wrap">
+                <i class="ico_alert--primary">!</i>
+            </div>
+            <h3 class="alert-title">
+                알레르기 정보
+            </h3>
+            <div class="alert-text">
+                알류(가금류), 계란, 우유,<br>
+                대두, 밀, 돼지고기, 토마토
+            </div>
+        </section>
+        <footer class="pop-footer">
+            <a href="#none" target="_self" class="btn_confirm" data-role="close">확인</a>
+        </footer>
+    </div>
+</div>

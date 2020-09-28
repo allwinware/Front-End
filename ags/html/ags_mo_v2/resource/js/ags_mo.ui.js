@@ -1,3 +1,39 @@
+/*HTML Include*/
+function includeHTML(callback) {
+    var z, i, elmnt, file, xhr;
+    /*loop through a collection of all HTML elements:*/
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-html");
+        if (file) {
+            /*make an HTTP request using the attribute value as the file name:*/
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        elmnt.innerHTML = this.responseText;
+                    }
+                    if (this.status == 404) {
+                        elmnt.innerHTML = "Page not found.";
+                    }
+                    /*remove the attribute, and call this function once more:*/
+                    elmnt.removeAttribute("include-html");
+                    includeHTML(callback);
+                }
+            };
+            xhr.open("GET", file, true);
+            xhr.send();
+            /*exit the function:*/
+            return;
+        }
+    }
+    setTimeout(function() {
+        callback();
+    }, 0);
+}
+
 /*배경 DIM 생성*/
 function createDim(target){
     if(target.attr("data-type") === "drawer" || target.attr("data-type") === "message"){
@@ -37,6 +73,11 @@ $.fn.digits = function(){
         $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
     })
 };
+function digitsActive(target){
+    if(target.find(".digits").length > 0){
+        $(".digits").digits();
+    }
+}
 
 /* 버튼을 이용한 탭간 이동 기능 정의 */
 function moveTabByClick(el, target, position, duration){
@@ -50,7 +91,7 @@ function moveTabByClick(el, target, position, duration){
 /* 팝업 생성 기능 정의 */
 function popupShow(target){
     createDim(target);
-    setTimeout(function(){ target.addClass("active") }, 250);
+    setTimeout(function(){ target.addClass("active"); }, 250);
 }
 /* 팝업 삭제 기능 정의  */
 function popupHide(target){
@@ -59,7 +100,7 @@ function popupHide(target){
 
 /* 팝업 생성 기능 정의 */
 function popupShow_noDim(target){
-    setTimeout(function(){ target.addClass("active") }, 250);
+    setTimeout(function(){ target.addClass("active"); }, 250);
 }
 /* 팝업 삭제 기능 정의  */
 function popupHide_noDim(target){
@@ -69,13 +110,22 @@ function popupHide_noDim(target){
 /* 메시지 팝업 기능 정의(하단에서 올라오는 팝업) */
 function messagePopShow(target){
     popupShow(target);
-    target.css({
-        "max-height": $(window).innerHeight()
-    })
+    $(window).on("resize", function(){
+        target.css({
+            "max-height": $(window).innerHeight() - $("#ags-header").height()
+        });
+    }).resize();
 }
 function messagePopHide(target){
-    popupHide(target)
+    popupHide(target);
     setTimeout(function(){ target.css("max-height", "") }, 750);
+}
+function drawerPopShow(target){
+    createDim(target);
+    setTimeout(function(){ target.addClass("active") }, 250);
+    $(window).on("resize", function(){
+        target.css("height", $win.innerHeight() - $("#ags-header").height());
+    }).resize();
 }
 function drawerPopHide(target){
     target.css("bottom", "-100vh");
@@ -86,7 +136,8 @@ function drawerPopHide(target){
     }, 1000)
 }
 
-$(document).ready(function(){
+$(window).on("load", function(){
+
     /* variation */
     var $win = $(window),
         $doc = $(document),
@@ -94,7 +145,7 @@ $(document).ready(function(){
 
     /* 상품가격 등의 숫자정보 표현 시 콤마 추가 */
     (function(digitsHandler){
-        $(".digits").digits();
+        digitsActive($body);
     })();
 
     /*.page-name에 단축 navigation 링크가 있을 경위*/
@@ -116,129 +167,134 @@ $(document).ready(function(){
     })();
 
     /* Tab(탭) */
-    (function(tabHandler){
-        $(".tab-wrap").each(function(){
-            var $thisTap = $(this),
-                $tabBtn = $thisTap.children(".tabs").children("[role='tablist']").children("[role='tab']"),
-                $innerWrap = $thisTap.children(".tab-panels").children(".align-horizontal"),
-                $tabPan = $innerWrap.children("[role='tabpanel']");
+    function tabHandler(target){
+        var $tab = $(target.find(".tab-wrap"));
+        if($tab.length > 0){
+            $tab.each(function(){
+                var $thisTap = $(this),
+                    $tabBtn = $thisTap.children(".tabs").children("[role='tablist']").children("[role='tab']"),
+                    $innerWrap = $thisTap.children(".tab-panels").children(".align-horizontal"),
+                    $tabPan = $innerWrap.children("[role='tabpanel']");
 
-            if($thisTap.find(".align-horizontal").length > 0){
-                $innerWrap.css("width", $tabPan.length * 100 + "%");
-                $tabPan.css("width", $win.innerWidth());
-                $thisTap.children(".tabs").children("[role='tablist']").children("[role='tab'].active").mousedown();
-            }
+                if($thisTap.find(".align-horizontal").length > 0){
+                    $innerWrap.css("width", $tabPan.length * 100 + "%");
+                    $tabPan.css("width", $win.innerWidth());
+                    $thisTap.children(".tabs").children("[role='tablist']").children("[role='tab'].active").mousedown();
+                }
 
-            // 의미적으로 활성화 표기를 위해 true로 설정된 aria-selected 속성 추가
-            $tabBtn.attr("aria-selected", "true");
-            $tabBtn.on("keydown", function(event){
-                event = event || window.event;
-                event.preventDefault ? event.preventDefault() : event.returnValue = false;
-                var keycode = event.keyCode || event.which;
+                // 의미적으로 활성화 표기를 위해 true로 설정된 aria-selected 속성 추가
+                $tabBtn.attr("aria-selected", "true");
+                $tabBtn.on("keydown", function(event){
+                    event = event || window.event;
+                    event.preventDefault ? event.preventDefault() : event.returnValue = false;
+                    var keycode = event.keyCode || event.which;
 
-                switch(keycode){
-                    case 37:  // left arrow
-                        if(this.previousElementSibling){
+                    switch(keycode){
+                        case 37:  // left arrow
+                            if(this.previousElementSibling){
+                                $(this)
+                                    .attr("tabindex", "-1")
+                                    .prev()
+                                    .attr("tabindex", "0")
+                                    .focus();
+                            }else{
+                                // 초점이 첫 번째 요소에 있었다면, 마지막 탭으로 초점 이동
+                                $(this)
+                                    .attr("tabindex", "-1");
+                                $tabPan.first()
+                                    .attr("tabindex", "0")
+                                    .focus();
+                            }
+                            break;
+                        case 39:  // right arrow
+                            if(this.nextElementSibling){
+                                $(this)
+                                    .attr("tabindex", "-1")
+                                    .next()
+                                    .attr("tabindex", "0")
+                                    .focus();
+                            }else{
+                                // 초점이 마지막 요소에 있었다면, 첫 번째 탭으로 초점 이동
+                                $(this)
+                                    .attr("tabindex", "-1");
+                                $tabPan.first()
+                                    .attr("tabindex", "0")
+                                    .focus();
+                            }
+                            break;
+                        case 32:    // Space
+                        case 13:    // Enter
+
+                            // 선택된 탭 활성화
                             $(this)
+                                .addClass("active")
+                                .attr("aria-selected", "true")
+                                // 기존 탭 비활성화
+                                .siblings()
+                                .removeClass("active")
+                                .attr("aria-selected", "false");
+                            // 연관된 탭 패널 활성화
+                            $("#" + $(this).attr("aria-controls"))
+                                .attr("tabindex", "0")
+                                .addClass("active")
+                                // 기존 탭 패널 비활성화
+                                .siblings("[role='tabpanel']")
                                 .attr("tabindex", "-1")
-                                .prev()
-                                .attr("tabindex", "0")
-                                .focus();
-                        }else{
-                            // 초점이 첫 번째 요소에 있었다면, 마지막 탭으로 초점 이동
-                            $(this)
-                                .attr("tabindex", "-1");
-                            $tabPan.first()
-                                .attr("tabindex", "0")
-                                .focus();
-                        }
-                        break;
-                    case 39:  // right arrow
-                        if(this.nextElementSibling){
-                            $(this)
-                                .attr("tabindex", "-1")
-                                .next()
-                                .attr("tabindex", "0")
-                                .focus();
-                        }else{
-                            // 초점이 마지막 요소에 있었다면, 첫 번째 탭으로 초점 이동
-                            $(this)
-                                .attr("tabindex", "-1");
-                            $tabPan.first()
-                                .attr("tabindex", "0")
-                                .focus();
-                        }
-                        break;
-                    case 32:    // Space
-                    case 13:    // Enter
+                                .removeClass("active");
+                            break;
+                    }
+                });
+                $tabBtn.on("keydown", ".active", function(event){
+                    event = event || window.event;
+                    var keycode = event.keyCode || event.which;
 
-                        // 선택된 탭 활성화
-                        $(this)
-                            .addClass("active")
-                            .attr("aria-selected", "true")
-                            // 기존 탭 비활성화
-                            .siblings()
-                            .removeClass("active")
-                            .attr("aria-selected", "false");
-                        // 연관된 탭 패널 활성화
+                    // tab 키 눌렀을 때 (shift + tab은 제외)
+                    if(!event.shiftKey && keycode === 9){
+                        event.preventDefault ? event.preventDefault() : event.returnValue = false;
                         $("#" + $(this).attr("aria-controls"))
                             .attr("tabindex", "0")
                             .addClass("active")
-                            // 기존 탭 패널 비활성화
+                            .focus()
                             .siblings("[role='tabpanel']")
                             .attr("tabindex", "-1")
                             .removeClass("active");
-                        break;
-                }
-            });
-            $tabBtn.on("keydown", ".active", function(event){
-                event = event || window.event;
-                var keycode = event.keyCode || event.which;
-
-                // tab 키 눌렀을 때 (shift + tab은 제외)
-                if(!event.shiftKey && keycode === 9){
-                    event.preventDefault ? event.preventDefault() : event.returnValue = false;
-                    $("#" + $(this).attr("aria-controls"))
+                    }
+                });
+                $tabBtn.on("mousedown", function(){
+                    // 선택된 탭 활성화
+                    var $this = $(this),
+                        $target = $("#" + $this.attr("aria-controls"));
+                    $this
+                        .addClass("active")
+                        .attr({
+                            "tabindex": "0",
+                            "aria-selected": "true"
+                        })
+                        .focus()
+                        // 기존 탭 비활성화
+                        .siblings()
+                        .removeClass("active")
+                        .attr({
+                            "tabindex": "-1",
+                            "aria-selected": "false"
+                        });
+                    // 연관된 탭 패널 활성화
+                    $target
                         .attr("tabindex", "0")
                         .addClass("active")
-                        .focus()
+                        // 기존 탭 패널 비활성화
                         .siblings("[role='tabpanel']")
                         .attr("tabindex", "-1")
                         .removeClass("active");
-                }
-            });
-            $tabBtn.on("mousedown", function(){
-                // 선택된 탭 활성화
-                var $this = $(this),
-                    $target = $("#" + $this.attr("aria-controls"));
-                $this
-                    .addClass("active")
-                    .attr({
-                        "tabindex": "0",
-                        "aria-selected": "true"
-                    })
-                    .focus()
-                    // 기존 탭 비활성화
-                    .siblings()
-                    .removeClass("active")
-                    .attr({
-                        "tabindex": "-1",
-                        "aria-selected": "false"
-                    });
-                // 연관된 탭 패널 활성화
-                $target
-                    .attr("tabindex", "0")
-                    .addClass("active")
-                    // 기존 탭 패널 비활성화
-                    .siblings("[role='tabpanel']")
-                    .attr("tabindex", "-1")
-                    .removeClass("active");
 
-                /* 탭 컨텐츠가 화면 중앙에 오도록 이동 */
-                $innerWrap.css("margin-left", "-" + $target.index() * 100 + "vw");
+                    /* 탭 컨텐츠가 화면 중앙에 오도록 이동 */
+                    $innerWrap.css("margin-left", "-" + $target.index() * 100 + "vw");
+                });
             });
-
-        });
+        }
+    }
+    (function(){
+        tabHandler($body)
     })();
 
     /* 전체 선택 Checkbox */
@@ -265,7 +321,8 @@ $(document).ready(function(){
     })();
 
     /* 일반적인 팝업 */
-    $(document).on("click", "[data-popup]", function(){
+    $(document).on("click", "[data-popup]", function(e){
+        e.preventDefault();
         var $pop = $($(this).attr("data-popup"));
         if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === undefined){
             popupShow($pop);
@@ -284,14 +341,19 @@ $(document).ready(function(){
                 }
             });
         } else if($pop.attr("data-type") === 'message'){
-            messagePopShow($pop)
+            messagePopShow($pop);
         } else if($pop.attr("data-type") === 'drawer'){
             if($pop.hasClass("active") === true){
                 drawerPopHide($pop);
             } else {
-                popupShow($pop);
-                $pop.css("height", $win.innerHeight() - $("#ags-header").height());
+                drawerPopShow($pop);
             }
+        }
+
+        /* 선택된 팝업이 표시될 때 컨텐츠에 .digits 엘리먼트가 있는지 확인하고, 있으면 digits 기능을 수행합니다. */
+        if($pop.is(":visible") === true){
+            tabHandler($pop);
+            digitsActive($pop);
         }
     });
 
@@ -334,30 +396,22 @@ $(document).ready(function(){
     })();
 
     /* 앵커 태그를 이용해 타겟을 접고 펼치는 이벤트를 컨트롤합니다. */
-    (function(){
+    (function(anchorFoldable){
         $(document).on("click", "a[data-foldable-target]", function(){
             var $trigger = $(this),
                 $target = $($(this).attr("data-foldable-target"));
             if($target.hasClass("active") === true){
-                $trigger.removeClass("active")
-                $target.removeClass("active")
+                $trigger.removeClass("active");
+                $target.removeClass("active");
             } else {
-                $trigger.addClass("active")
-                $target.addClass("active")
+                $trigger.addClass("active");
+                $target.addClass("active");
             }
         });
-    })()
-});
+    })();
 
-
-$(window).on("load", function(){
-    /* variation */
-    var $win = $(window),
-        $doc = $(document),
-        $body = $("body");
-
-    (function(){
-        /*페이지 로드 시 가는 편 탭 열기*/
+    /*페이지 로드 시 가는 편 탭 열기*/
+    (function(routeTabHandler){
         var $routeTap = $(".tabs_route");
         if($routeTap.length > 0){
             $routeTap.find("[role='tab']").first().mousedown();
