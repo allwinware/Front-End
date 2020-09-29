@@ -125,6 +125,7 @@ function drawerPopShow(target){
     setTimeout(function(){ target.addClass("active") }, 250);
     $(window).on("resize", function(){
         target.css("height", $win.innerHeight() - $("#ags-header").height());
+        $(target.find(".inner-wrap")).scrollTop(0);
     }).resize();
 }
 function drawerPopHide(target){
@@ -260,7 +261,9 @@ $(window).on("load", function(){
                             .removeClass("active");
                     }
                 });
-                $tabBtn.on("mousedown", function(){
+                $tabBtn.on("mousedown", function(event){
+                    event.preventDefault ? event.preventDefault() : event.returnValue = false;
+
                     // 선택된 탭 활성화
                     var $this = $(this),
                         $target = $("#" + $this.attr("aria-controls"));
