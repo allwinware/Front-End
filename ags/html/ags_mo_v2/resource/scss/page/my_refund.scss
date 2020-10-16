@@ -3,6 +3,7 @@
   overflow: hidden;
   width: 100%;
   input[type='checkbox'] { @include form($size: 2, $role: normal, $type: checkbox); }
+  input[type='checkbox'][disabled] { @include form($size: 2, $role: disabled, $type: checkbox); }
   .refund-wrap {
     position: relative;
     padding: rem(50) 0 0 rem($grid * 2)
@@ -59,6 +60,8 @@
       width: rem(70);
       text-align: left;
       label { font-weight: inherit; }
+      .btn_help { @include ico_help; margin: 1px 0 0 2px; }
+      &.input[disabled] + label .ico { background-color: $mono8;}
     }
     tbody td:nth-of-type(2) { @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03); text-align: right; }
     .digits:before { content: "￦"; font-size: rem(12); color: $mono1; font-weight: 500; }
