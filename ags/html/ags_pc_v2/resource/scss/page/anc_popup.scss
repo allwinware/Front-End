@@ -1,4 +1,24 @@
 /* 부가서비스 신청 > 팝업 */
+
+/* 컨텐츠 로딩 팝업 */
+.anc-service .pop-area { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.anc-service .pop-area.active { z-index: 1; }
+.anc-service .pop-area[data-dim-clear='true'] .page-dim { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.anc-service .page-loading {
+  @include align-center;
+  top: calc(50% - 34px);
+  text-align: center;
+  background-color: $mono10;
+  border: 1px solid $mono8;
+}
+.anc-service .page-loading .loading-message {
+  @include box-shadow(0 8px 16px rgba(0,0,0,0.5));
+  margin-top: rem(82); padding: rem($grid * 2); min-width: rem(280);
+  border: 1px solid $mono1;
+  background-color: rgba(255,255,255,0.9); font-weight: 600; color: $mono1;
+}
+
+/* 라운지 위치 안내 팝업 */
 [data-pop-id='pop_lounge-location_7c'] {
   padding: rem($grid * 3) rem($grid * 4) rem($grid * 5);
   text-align: center;
@@ -206,4 +226,109 @@
       flex: 1 auto;
     }
   }
+}
+
+.anc_car-dpicker {
+  .awa-datepicker {
+    margin-left: rem(-33);
+    &:before {
+      @include transform(rotate(-45deg) translate(20px, 20px));
+      content: "";
+      position: absolute; left: rem(167); top: -1px;
+      display: block;
+      width: rem(12); height: rem(12);
+      border: solid $mono1; border-width: 1px 1px 0 0;
+      transform-origin: left top;
+      background-color: $mono10;
+    }
+  }
+  .awa-datepicker.two-months .month-wrapper {
+    table tbody td .first-date-selected:after { content: '대여' }
+    table tbody td .last-date-selected:after { content: '반납' }
+    .time-wrapper { @include sr-only }
+  }
+  .inner-wrap {
+    @include clearfix;
+    padding: 0 rem(12);
+    .timepicker-wrap, .notification-wrap { float: left; padding: 0 rem(12); width: rem(466); }
+    .fake-timepicker {
+      @include clearfix;
+      margin: 0 rem(-$grid); padding-bottom: rem($grid * 4); width: 100%;
+      .timepicker { float: left; padding: 0 rem($grid); }
+      .date-check { @include font($size: 10, $color: $mono1, $weight: 800, $spacing: -0.03); padding-bottom: rem($grid); }
+      .date { color: $text-primary; }
+      @include selectric-select-wrap($selectric-size: 3);
+      .selectric { width: rem(164); }
+      .selectric .label,
+      .selectric-items li { letter-spacing: 0; }
+      .selectric-items li { font-size: rem(13); }
+    }
+    .btn-wrap {
+      .apply-btn { @include form($size: 4, $role: submit, $type: button); width: rem(343); }
+    }
+  }
+}
+
+[data-pop-id='pop_lentacar-info']{
+  margin: rem(-$grid * 3) rem(-$grid * 2) 0; width: rem(460); max-height: inherit;
+  .scroll-wrap {
+    max-height: inherit;
+    .mCSB_inside>.mCSB_container { margin-right: 0; padding: rem($grid * 5) rem($grid * 3) 0 }
+    .mCSB_scrollTools {  }
+  }
+  @include selectric-select-wrap($selectric-size: 3);
+  .select_company {
+    padding-bottom: rem($grid * 3);
+  }
+  .select_company label {
+    $font-size: 10;
+    @include font($size: $font-size, $color: $mono1, $weight: 600);
+    display: block;
+    padding-bottom: em($grid, $font-size)
+  }
+  .car-info-wrap { position: relative; }
+  .car-info {
+    $thumbnail-width: 140;
+    position: relative;
+    margin-bottom: rem($grid * 2); padding: rem($grid * 3) 0 0 rem($thumbnail-width + $grid * 3);
+    dt { @include sr-only; }
+    .car-name + dd {
+      $font-size: 14;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding-bottom: rem($grid * 2);
+      line-height: em(19, $font-size)
+    }
+    .car-price + dd {
+      @include font($size: 13, $color: $text-primary, $weight: 400);
+      @include price-unit(krw);
+      padding-bottom: rem(4);
+      letter-spacing: 0;
+    }
+    .car-description + dd {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono3, $weight: 400);
+      padding-bottom: rem(28); width: rem(134);
+      line-height: em(16, $font-size)
+    }
+    .car-tag + dd {
+      position: absolute; left: rem($thumbnail-width + $grid * 3); top: 0;
+      .ico_tag { float: left; margin-right: 1px; min-width: rem($grid * 4); background-color: $bg-secondary; }
+    }
+    .car-thumbnail + dd {
+      position: absolute; left: 0; top: rem(28);
+      width: rem($thumbnail-width); min-height: rem(78);
+      img { @include valign-center; max-width: 100%; }
+    }
+  }
+  .btn_car-resv {
+    @include form($size: 3, $role: submit, $type: button);
+    position: absolute; right: 0; bottom: 0;
+    width: rem(90);
+  }
+  .car-info-detail { padding-bottom: rem($grid * 5); border-top: 1px solid $mono8 }
+  .car-info-title { @include font($size: 12, $color: $text-primary, $weight: 800); padding: rem($grid * 5) 0 rem(10); }
+  .table-wrap { border-top: 1px solid $mono1 }
+  table { width: 100%; }
+  table th, td { padding: rem(13) 0; height: rem(42); font-size: rem(11); letter-spacing: -0.03em; line-height: rem(16); border-bottom: 1px solid $mono8; }
+  table th { padding-right: rem($grid * 2); font-weight: 800; text-align: left; }
 }

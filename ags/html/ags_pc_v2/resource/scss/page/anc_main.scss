@@ -1,5 +1,6 @@
 /* 부가서비스 신청 */
 $anc-select-area-width: 267;
+$route-tab-size: 89;
 [data-page-id='anc_main'] {
   &.ags-container { padding-top: rem($anc_lnb-height + 80); }
   .anc-lnb-wrap {
@@ -53,6 +54,7 @@ $anc-select-area-width: 267;
       @at-root .anc_baggage .service-symbol:before { @include background($file: 'anc/service-symbol_baggage', $type: png, $width: rem($ico-size), $height: rem($ico-size)); width: rem($ico-size); height: rem($ico-size); }
       @at-root .anc_meal .service-symbol:before { @include background($file: 'anc/service-symbol_meal', $type: png, $width: rem($ico-size), $height: rem($ico-size)); width: rem($ico-size); height: rem($ico-size); }
       @at-root .anc_lounge .service-symbol:before { @include background($file: 'anc/service-symbol_lounge', $type: png, $width: rem($ico-size), $height: rem($ico-size)); width: rem($ico-size); height: rem($ico-size); }
+      @at-root .anc_car .service-symbol:before { @include background($file: 'anc/service-symbol_car', $type: png, $width: rem($ico-size), $height: rem($ico-size)); width: rem($ico-size); height: rem($ico-size); }
     }
     .service-title { $font-size: 18; @include font($size: $font-size, $color: $mono1, $weight: 800); margin-bottom: em(10, $font-size) }
     .service-description {
@@ -76,10 +78,11 @@ $anc-select-area-width: 267;
     }
     &.anc_seat .anc-service,
     &.anc_meal .anc-service,
-    &.anc_lounge .anc-service {
+    &.anc_lounge .anc-service,
+    &.anc_car .anc-service {
       padding-right: rem($right-tp-size); min-height: rem(648);
       .tab-panels { height: 100%; }
-      .passenger-list {
+      .passenger-list, .sort-wrap {
         padding: 0;
         &, .scroll-wrap { height: inherit; }
         .mCSB_container { padding: 0 rem($grid * 4) rem($grid * 4); }
@@ -87,7 +90,8 @@ $anc-select-area-width: 267;
       @at-root .no-flexbox & {
         .seat-plan,
         .meal-plan,
-        .lounge-plan {
+        .lounge-plan,
+        .car-plan {
           @include clearfix;
           & > * { float: left; width: 100%; };
         }
@@ -95,7 +99,8 @@ $anc-select-area-width: 267;
     }
     &.anc_seat .seat-plan,
     &.anc_meal .meal-plan,
-    &.anc_lounge .lounge-plan {
+    &.anc_lounge .lounge-plan,
+    &.anc_car .car-plan {
       position: absolute; top: 0; right: 0; bottom: 0;
       width: rem($right-tp-size);
       border-left: 1px solid $mono8;
@@ -104,7 +109,7 @@ $anc-select-area-width: 267;
     & + .anc-service-wrap { margin-top: rem(100); border-top: 1px solid $mono1; }
   }
   [role='tabpanel'].active {
-    height: calc(100% - 93px);
+    height: calc(100% - #{$route-tab-size}px);
     @at-root .no-flexbox & { height: 100%; }
   }
   .anc-service + .notification-wrap {
@@ -137,8 +142,11 @@ $anc-select-area-width: 267;
       cursor: pointer
     }
     .passenger-name + dd {
-      @include font($family: en, $size: 16, $color: $mono4, $weight: 600);
+      $font-size: 16;
+      @include font($family: en, $size: $font-size, $color: $mono4, $weight: 600);
       @include text-uppercase;
+      height: em(18, $font-size);
+      line-height: em(18, $font-size)
     }
     .ico_baby {
       $font-size: 11;
@@ -148,9 +156,9 @@ $anc-select-area-width: 267;
       overflow: hidden;
       position: relative;
       display: inline-block;
-      width: auto; height: em(19, $font-size);
+      width: auto; height: em(14, $font-size);
       white-space: nowrap;
-      vertical-align: top;
+      vertical-align: top; line-height: em(14, $font-size);
       &:before { content: "+ BABY"; }
     }
     .selected-seat + dd,
@@ -257,14 +265,7 @@ $anc-select-area-width: 267;
   .passenger-list:last-child {
     & > ul > li { @include clearfix; padding: rem(20) rem($grid * 4); width: 100%; }
   }
-  .btn_help {
-    overflow: hidden;
-    display: inline-block;
-    margin-left: rem(3); width: rem(12); height: rem(12);
-    @include background($file: 'anc/ico_help', $type: png, $width: rem(12), $height: rem(12));
-    background-position: center center;
-    text-indent: -999em; vertical-align: top;
-  }
+  .btn_help { @include ico_help }
   .function-wrap {
     @include flex(space-between stretch flex-start nowrap);
     padding: rem($grid * 2) rem($grid * 2) 0;
@@ -285,16 +286,16 @@ $anc-select-area-width: 267;
     padding: rem(76) 0 rem($grid * 3) 0; width: rem(267);
     .scroll-wrap {
       position: relative;
-      overflow: auto; margin-right: rem(-$grid * 2);
+      margin-right: rem(-$grid * 2);
       max-height: calc(100% - 75px - 62px);
-      .mCustomScrollBox { max-height: calc(100% - 75px - 62px); }
       .mCSB_container { margin-right: rem($grid * 2); }
       &:before { content: ""; position: absolute; left: 0; top: 0; right: rem($grid * 2); display: block; height: 1px; border-top: 1px solid $mono1 }
     }
-    .flight-way { @include tagging-route }
-    .departure, .arrival {
+    .departure, .arrival, [class^='departure-'] {
       padding: rem($grid * 3) 0 rem($grid * 2); border-top: 1px solid $mono1;
     }
+    .flight-way, .service-title { @include tagging-route }
+    .service-title { background-color: #ff4378 }
     .summary-empty {
       $font-size: 12;
       @include font($size: $font-size, $color: #66B1FF, $weight: 400);
@@ -302,36 +303,80 @@ $anc-select-area-width: 267;
       line-height: em(16, $font-size);
     }
     .passenger-name, .item-list { @include sr-only }
-    .passenger-name + dd {
-      $font-size: 14;
-      @include font($family: en, $size: $font-size, $color: $text-primary, $weight: 600);
-      padding: em(20, $font-size) 0 em(12, $font-size);
-      text-transform: uppercase;
-      &:not(:first-of-type) { margin-top: rem(20); border-top: 1px solid $mono8 }
-    }
-    .item-list + dd {
-      table {
-        th { height: rem(26); }
+    .departure, .arrival {
+      .passenger-name + dd {
+        $font-size: 14;
+        @include font($family: en, $size: $font-size, $color: $text-primary, $weight: 600);
+        padding: em(20, $font-size) 0 em(12, $font-size);
+        text-transform: uppercase;
+        &:not(:first-of-type) { margin-top: rem(20); border-top: 1px solid $mono8 }
       }
-      &:empty:before {
-        content: "선택한 부가서비스 내역이 없습니다. \A 부가서비스를 추가해보세요.";
+      .item-list + dd {
+        table {
+          th { height: rem(26); }
+        }
+        &:empty:before {
+          content: "선택한 부가서비스 내역이 없습니다. \A 부가서비스를 추가해보세요.";
+          $font-size: 12;
+          @include font($size: $font-size, $color: #66b1ff, $weight: 400);
+          white-space: pre-wrap; line-height: em(16, $font-size);
+        }
+      }
+      table { table-layout: fixed; width: 100%; }
+      table tbody th, table tbody td { @include font($size: 12, $color: $mono1, $weight: 400); vertical-align: middle; }
+      table tbody th { width: rem(94); text-align: left; font-weight: 800; white-space: nowrap }
+      table tbody th + td { @include text-ellipsis(); display: table-cell; }
+      table tbody th ~ td {
+        padding-left: rem($grid);
+        &:nth-of-type(1) { letter-spacing: -0.03em }
+        &:nth-of-type(2) { @include price-unit(krw); width: rem(75); text-align: right; }
+        &:nth-of-type(3) { width: rem(22) }
+        a { color: #66B1FF; text-decoration: underline; letter-spacing: -0.08em }
+      }
+    }
+    .departure-car {
+      dl { padding-bottom: rem(4); }
+      .passenger-name + dd {
+        $font-size: 14;
+        @include font($size: $font-size, $color: $text-primary, $weight: 600);
+        @include background($file: 'common/ico_passenger', $type: png, $width: rem(12), $height: rem(12));
+        @include text-uppercase;
+        margin: rem(23) 0 0; padding: 0 0 rem($grid * 2) rem(20);
+      }
+      .passenger-name:not(:first-of-type) + dd {
+        position: relative;
+        margin-top: rem(37);
+        &:before { content: ""; position: absolute; left: 0; top: rem(-$grid * 2); display: inline-block; width: 100%; height: 1px; border-top: 1px solid $mono8 }
+      }
+      .item-list + dd {
+        .car-plan {
+          $font-size: 13;
+          @include text-ellipsis(block);
+          @include font($size: $font-size, $color: $mono1, $weight: 600);
+          padding-bottom: em($grid, $font-size);
+        }
+        .car-plan-detail {
+          $font-size: 11;
+          @include font($size: $font-size, $color: $mono3, $weight: 400);
+        }
+      }
+      table { table-layout: fixed; width: 100%; }
+      table th, table td { height: rem(26) }
+      table th { text-align: left; }
+      table td { padding-left: rem($grid); }
+      table td:nth-of-type(1) {
         $font-size: 12;
-        @include font($size: $font-size, $color: #66b1ff, $weight: 400);
-        white-space: pre-wrap; line-height: em(16, $font-size);
+        @include price-unit(krw);
+        @include font($size: $font-size, $color: $mono1, $weight: 400);
+        width: rem(66);
+        text-align: right;
+      }
+      table td:nth-of-type(2) {
+        width: rem(20);
+        text-align: right;
       }
     }
-    table { table-layout: fixed; width: 100%; }
-    table tbody th, table tbody td { @include font($size: 12, $color: $mono1, $weight: 400); vertical-align: middle; }
-    table tbody th { width: rem(94); text-align: left; font-weight: 800; white-space: nowrap }
-    table tbody th + td { @include text-ellipsis(); display: table-cell; }
-    table tbody th ~ td {
-      padding-left: rem($grid);
-      &:nth-of-type(1) { letter-spacing: -0.03em }
-      &:nth-of-type(2) { @include price-unit(krw); width: rem(75); text-align: right; }
-      &:nth-of-type(3) { width: rem(22) }
-      a { color: #66B1FF; text-decoration: underline; letter-spacing: -0.08em }
-    }
-    .btn_delete { @include btn_delete; margin-left: 0; }
+    .btn_delete { @include btn_delete; margin-left: 0; font-size: 0; }
     .total-sum {
       @include clearfix;
       padding: rem($grid * 3) 0;

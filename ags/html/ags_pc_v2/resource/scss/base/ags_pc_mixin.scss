@@ -116,6 +116,12 @@
   -ms-transform: $value;
   transform: $value;
 }
+@mixin transition($transition) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+}
 @mixin valign-middle($value: before) {
   &:#{$value} { content: ""; display: inline-block; width: 0; height: 100%; vertical-align: middle; }
 }
@@ -429,10 +435,14 @@
   .table-wrap {  padding-bottom: 0; }
   .notification-wrap {
     margin-top: rem($grid * 5); padding: rem($grid * 4);
-    background-color: #F8F8F8;
+    background-color: $mono9;
     .notification-text {
       @include font($size: 11, $color: $mono1, $weight: 400);
       &:first-child { padding-top: rem($grid * 2) }
+      &.pre-wrap {
+        white-space: pre-wrap;
+        &:first-child { padding-top: 0 }
+      }
     }
     .notification-list {
       padding: rem($grid) 0 rem(20);
@@ -492,7 +502,7 @@
       padding: rem(17) 0 0;
     }
   }
-  dl {
+  /*dl {
     $font-size: 11;
     @include font($size: $font-size, $color: $mono1, $weight: 400, $spacing: 0);
     dt {
@@ -506,7 +516,7 @@
       background-color: $mono10;
       border-bottom: 1px solid #ddd;
     }
-  }
+  }*/
 }
 @mixin ico($type: 'alert') {
   overflow: hidden;
@@ -518,11 +528,11 @@
     background-color: $mono7; border-radius: 50%;
     text-indent: -999em;
     &:before {
-      @include background($file: 'popup/ico_exclamation--w', $type: png, $width: rem(4), $height: rem(28));
+      @include background($file: 'popup/ico_exclamation--w', $type: png, $width: 4px, $height: 28px);
       @include align-center;
       content: "";
       display: inline-block;
-      width: rem(4); height: rem(28);
+      width: 4px; height: 28px;
     }
   }
 }
@@ -551,6 +561,7 @@
     line-height: em(18, $font-size);
   }
   .alert-text:first-child { padding-top: rem(12) }
+  .ico-wrap + .alert-text { padding-top: rem($grid * 3) }
   dl.alert-text {
     margin-left: rem($grid * 2); margin-right: rem($grid * 2);
     & > dt {
@@ -885,4 +896,13 @@
   } @else if $airline == tw and $type == 3 {
     #{$ico-class} { color: #D22C27; border-color: #D22C27 }
   }
+}
+
+@mixin ico_help {
+  overflow: hidden;
+  display: inline-block;
+  margin-left: rem(3); width: rem(12); height: rem(12);
+  @include background($file: 'anc/ico_help', $type: png, $width: rem(12), $height: rem(12));
+  background-position: center center;
+  text-indent: -999em; vertical-align: top;
 }

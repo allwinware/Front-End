@@ -35,6 +35,22 @@ function includeHTML(callback) {
     }, 0);
 }
 
+/*스크롤이 특정 위치를 지나갈 때 클래스 첨삭*/
+function compScroll(el, current, setPoint, className) {
+    if (current > setPoint) {
+        el.addClass(className);
+    } else {
+        el.removeClass(className)
+    }
+}
+
+/* 상품가격 등의 숫자정보 표현 시 콤마 추가기능 정의 */
+$.fn.digits = function(){
+    return this.each(function(){
+        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
+    })
+};
+
 /*배경 DIM 생성*/
 function createDim(target){
     /*if(target.attr("data-type") === "drawer" || target.attr("data-type") === "message"){*/
@@ -52,22 +68,6 @@ function deleteDim(target){
     $("html, body").css("overflow", "");
 }
 
-/*스크롤이 특정 위치를 지나갈 때 클래스 첨삭*/
-function compScroll(el, current, setPoint, className) {
-    if (current > setPoint) {
-        el.addClass(className);
-    } else {
-        el.removeClass(className)
-    }
-}
-
-/* 상품가격 등의 숫자정보 표현 시 콤마 추가기능 정의 */
-$.fn.digits = function(){
-    return this.each(function(){
-        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
-    })
-};
-
 /* 팝업 생성 기능 정의 */
 function popupShow(target){
     createDim(target);
@@ -82,16 +82,64 @@ function popupHide(target){
     setTimeout(function(){ deleteDim(target) }, 1000)
 }
 
-/* 메시지 팝업 기능 정의(하단에서 올라오는 팝업) */
-function messagePopShow(target){
-    popupShow(target);
-    target.css({
-        "max-height": $(window).innerHeight()
-    })
+/* 팝업 활성화 / 비활성화 정의 */
+function popupActivate(target){
+    var $pop = $(target);
+
+    if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === undefined){
+        popupShow($pop);
+    } else if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === 'false'){
+        popupShow_NoDim($pop);
+        if($win.height() > $pop.height()){
+            $pop.css({
+                "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
+            })
+        } else {
+            $pop.css("top", $doc.scrollTop())
+        }
+        $(document).on("click", function(e){
+            if($pop.hasClass("active") && !$pop.has(e.target).length){
+                popupHide($pop);
+            }
+        });
+    } else if($pop.attr("data-type") === 'message'){
+        /*messagePopShow($pop)*/
+        popupShow($pop);
+    } else if($pop.attr("data-type") === 'submission'){
+        /*messagePopShow($pop)*/
+        popupShow($pop);
+    } else if($pop.attr("data-type") === 'drawer'){
+        if($pop.hasClass("active") === true){
+            $pop.css("height", "");
+            popupHide($pop)
+        } else {
+            popupShow($pop);
+            $pop.css("height", $win.innerHeight() - $("#ags-header").height());
+        }
+    } else if($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === undefined){
+        popupShow($pop);
+    } else if($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === 'false'){
+        popupShow_NoDim($pop);
+        if($win.height() > $pop.height()){
+            $pop.css({
+                "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
+            })
+        } else {
+            $pop.css("top", $doc.scrollTop())
+        }
+        $(document).on("click", function(e){
+            if($pop.hasClass("active") && !$pop.has(e.target).length){
+                popupHide($pop);
+            }
+        });
+    }
 }
-function messagePopHide(target){
-    popupHide(target)
-    setTimeout(function(){ target.css("max-height", "") }, 750);
+
+function popupInactivate(target){
+    var $pop = $(target);
+    if($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission' || $pop.attr("data-type") === 'guidance'){
+        popupHide($pop);
+    }
 }
 
 /* 엘리먼트가 특정 위치에서 Sticky되거나 unSticky되는 기능 정의 */
@@ -110,6 +158,70 @@ function sticky(target, start, end){
     } else {
         $target.removeClass("ui-fixed");
     }
+}
+
+/*스크롤바 기본 옵션*/
+var scrollOption = {
+    setWidth: false,
+    setHeight: false,
+    setTop: 0,
+    setLeft: 0,
+    axis: "y",
+    scrollbarPosition: "inside",
+    scrollInertia: 200,
+    autoDraggerLength: true,
+    autoHideScrollbar: true,
+    autoExpandScrollbar: false,
+    alwaysShowScrollbar: false,
+    snapAmount: null,
+    snapOffset: 0,
+    mouseWheel: {
+        enable: true,
+        scrollAmount: "auto",
+        axis: "y",
+        preventDefault: false,
+        deltaFactor: "auto",
+        normalizeDelta: false,
+        invert: false,
+        disableOver: ["select", "option", "keygen", "datalist", "textarea"]
+    },
+    scrollButtons: {
+        enable: false,
+        scrollType: "stepless",
+        scrollAmount: "auto"
+    },
+    keyboard: {
+        enable: true,
+        scrollType: "stepless",
+        scrollAmount: "auto"
+    },
+    contentTouchScroll: 25,
+    advanced: {
+        autoExpandHorizontalScroll: false,
+        autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
+        updateOnContentResize: true,
+        updateOnImageLoad: true,
+        updateOnSelectorChange: false,
+        releaseDraggableSelectors: false
+    },
+    theme: "light",
+    callbacks: {
+        onInit: false,
+        onScrollStart: false,
+        onScroll: false,
+        onTotalScroll: false,
+        onTotalScrollBack: false,
+        whileScrolling: false,
+        onTotalScrollOffset: 0,
+        onTotalScrollBackOffset: 0,
+        alwaysTriggerOffsets: true,
+        onOverflowY: false,
+        onOverflowX: false,
+        onOverflowYNone: false,
+        onOverflowXNone: false
+    },
+    live: false,
+    liveSelector: null
 }
 
 
@@ -284,65 +396,17 @@ $(window).on("load", function(){
         });
     })();
 
-    /* 일반적인 팝업 */
+    /* 일반적인 팝업을 컨트롤합니다. */
     $doc.on("click", "[data-popup]", function(e){
         e.preventDefault();
         var $pop = $($(this).attr("data-popup"));
-        if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === undefined){
-            popupShow($pop);
-        } else if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === 'false'){
-            popupShow_NoDim($pop);
-            if($win.height() > $pop.height()){
-                $pop.css({
-                    "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
-                })
-            } else {
-                $pop.css("top", $doc.scrollTop())
-            }
-            $(document).on("click", function(e){
-                if($pop.hasClass("active") && !$pop.has(e.target).length){
-                    popupHide($pop);
-                }
-            });
-        } if($pop.attr("data-type") === 'message'){
-            /*messagePopShow($pop)*/
-            popupShow($pop);
-        } else if($pop.attr("data-type") === 'submission'){
-            /*messagePopShow($pop)*/
-            popupShow($pop);
-        } else if($pop.attr("data-type") === 'drawer'){
-            if($pop.hasClass("active") === true){
-                $pop.css("height", "");
-                popupHide($pop)
-            } else {
-                popupShow($pop);
-                $pop.css("height", $win.innerHeight() - $("#ags-header").height());
-            }
-        } else if($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === undefined){
-            popupShow($pop);
-        } else if($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === 'false'){
-            popupShow_NoDim($pop);
-            if($win.height() > $pop.height()){
-                $pop.css({
-                    "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
-                })
-            } else {
-                $pop.css("top", $doc.scrollTop())
-            }
-            $(document).on("click", function(e){
-                if($pop.hasClass("active") && !$pop.has(e.target).length){
-                    popupHide($pop);
-                }
-            });
-        }
+        popupActivate($pop)
     });
 
     $doc.on("click", "[data-role='close']", function(e){
         e.preventDefault();
         var $pop = $($("#" + $(this).parents(".pop-area").attr("id")));
-        if($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission' || $pop.attr("data-type") === 'guidance'){
-            popupHide($pop);
-        }
+        popupInactivate($pop)
     });
 
     /* 스크롤 이벤트의 작동을 컨트롤 합니다. */
@@ -411,68 +475,7 @@ $(window).on("load", function(){
 
     /* 스크롤 바를 미관상 보기 좋게 바꿔줍니다. */
     (function(){
-        $("*[data-scrollbar='true']").mCustomScrollbar({
-            setWidth: false,
-            setHeight: false,
-            setTop: 0,
-            setLeft: 0,
-            axis: "y",
-            scrollbarPosition: "inside",
-            scrollInertia: 200,
-            autoDraggerLength: true,
-            autoHideScrollbar: true,
-            autoExpandScrollbar: false,
-            alwaysShowScrollbar: false,
-            snapAmount: null,
-            snapOffset: 0,
-            mouseWheel: {
-                enable: true,
-                scrollAmount: "auto",
-                axis: "y",
-                preventDefault: false,
-                deltaFactor: "auto",
-                normalizeDelta: false,
-                invert: false,
-                disableOver: ["select", "option", "keygen", "datalist", "textarea"]
-            },
-            scrollButtons: {
-                enable: false,
-                scrollType: "stepless",
-                scrollAmount: "auto"
-            },
-            keyboard: {
-                enable: true,
-                scrollType: "stepless",
-                scrollAmount: "auto"
-            },
-            contentTouchScroll: 25,
-            advanced: {
-                autoExpandHorizontalScroll: false,
-                autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
-                updateOnContentResize: true,
-                updateOnImageLoad: true,
-                updateOnSelectorChange: false,
-                releaseDraggableSelectors: false
-            },
-            theme: "light",
-            callbacks: {
-                onInit: false,
-                onScrollStart: false,
-                onScroll: false,
-                onTotalScroll: false,
-                onTotalScrollBack: false,
-                whileScrolling: false,
-                onTotalScrollOffset: 0,
-                onTotalScrollBackOffset: 0,
-                alwaysTriggerOffsets: true,
-                onOverflowY: false,
-                onOverflowX: false,
-                onOverflowYNone: false,
-                onOverflowXNone: false
-            },
-            live: false,
-            liveSelector: null
-        });
+        $("*[data-scrollbar='true']").mCustomScrollbar(scrollOption);
     })();
 
     $(window).on("resize", function(){

@@ -1,7 +1,7 @@
 /* form */
 @mixin form($size: 1, $role: normal, $type: button) {
   display: inline-block;
-  margin: 0 0 grid-mg(1); width: 100%;
+  margin: 0; width: 100%;
   border-radius: $border-common-radius;
   white-space: nowrap;
   @if $type == "button" or $type == "select" or $type == "textbox" {
@@ -324,6 +324,55 @@
   select { width: 100%; }
 }
 
+@mixin selectric-select-wrap($selectric-size: 3) {
+  label { line-height: 1; }
+  .selectric-wrapper { }
+  .selectric {
+    @include form($size: $selectric-size, $role: normal, $type: select);
+    .label {
+      @include valign-middle();
+      position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+      margin: 0; padding: 0 rem($grid * 4) 0 1em; width: 100%; height: 100%;
+      font-size: inherit; color: inherit;
+    }
+    b.button {
+      overflow: hidden;
+      height: 100%;
+      text-indent: -999em;
+      background-color: transparent;
+      transition: transform 0.2s;
+      /*transform: rotate(-180deg);*/
+      transform: rotate(0);
+      transform-origin: 50% 50%;
+      &:after {
+        content: "";
+        position: absolute; top: 50%; right: rem(20);
+        width: rem(8); height: rem(8);
+        border: solid $mono1; border-width: 0 2px 2px 0;
+        transform: rotate(45deg) translate(-2px, -17px);
+        z-index: 0;
+      }
+    }
+  }
+  &.selectric-open {
+    b.button {
+      transform: rotate(0);
+      &:after { /*transform: rotate(45deg) translate(-2px, -15px)*/ }
+    }
+  }
+  .selectric-items {
+    box-shadow: none;
+    margin-top: -1px;
+    border-color: #ddd; border-radius: rem(3);
+    background-color: #fff;
+    li:hover,
+    .highlighted,
+    .selected,
+    .selected:hover,
+    .selected.highlighted { background-color: $bg-submit };
+  }
+}
+
 
 @mixin form-group-style($form-size: 4) {
   input[type='text'], input[type='file'] { @include form($size: $form-size, $role: normal, $type: textbox); }
@@ -352,55 +401,7 @@
     }
   }
   /*selectric일 때*/
-  .selectric-select-wrap {
-    label { line-height: 1; }
-    .selectric-wrapper {
-      .selectric {
-        @include form($size: $form-size, $role: normal, $type: select);
-        .label {
-          @include valign-middle();
-          position: absolute; left: 0; top: 0; right: 0; bottom: 0;
-          margin: 0; padding: 0 rem($grid * 4) 0 1em; width: 100%; height: 100%;
-          font-size: inherit; color: inherit;
-        }
-        b.button {
-          overflow: hidden;
-          height: 100%;
-          text-indent: -999em;
-          background-color: transparent;
-          transition: transform 0.2s;
-          /*transform: rotate(-180deg);*/
-          transform: rotate(0);
-          transform-origin: 50% 50%;
-          &:after {
-            content: "";
-            position: absolute; top: 50%; right: rem(20);
-            width: rem(8); height: rem(8);
-            border: solid $mono1; border-width: 0 2px 2px 0;
-            transform: rotate(45deg) translate(-2px, -17px);
-            z-index: 0;
-          }
-        }
-      }
-      &.selectric-open {
-        b.button {
-          transform: rotate(0);
-          &:after { /*transform: rotate(45deg) translate(-2px, -15px)*/ }
-        }
-      }
-    }
-    .selectric-items {
-      box-shadow: none;
-      margin-top: -9px;
-      border-color: #ddd; border-radius: rem(3);
-      background-color: #fff;
-      li:hover,
-      .highlighted,
-      .selected,
-      .selected:hover,
-      .selected.highlighted { background-color: $bg-submit };
-    }
-  }
+  @include selectric-select-wrap($selectric-size: $form-size);
   .btn-wrap {
     input[type='radio'], input[type='checkbox'] { @include sr-only }
     label, a, button {
