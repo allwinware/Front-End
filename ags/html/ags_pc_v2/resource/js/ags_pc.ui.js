@@ -86,22 +86,27 @@ function popupHide(target){
 function popupActivate(target){
     var $pop = $(target);
 
-    if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === undefined){
-        popupShow($pop);
-    } else if($pop.attr("data-type") === 'alert' && $pop.attr("data-dim") === 'false'){
-        popupShow_NoDim($pop);
-        if($win.height() > $pop.height()){
-            $pop.css({
-                "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
-            })
-        } else {
-            $pop.css("top", $doc.scrollTop())
-        }
-        $(document).on("click", function(e){
-            if($pop.hasClass("active") && !$pop.has(e.target).length){
-                popupHide($pop);
+    if($pop.attr("data-type") === 'alert'){
+        if($pop.attr("data-dim") === undefined && $pop.attr("data-dim-clear") === undefined){
+            popupShow($pop);
+        } else if($pop.attr("data-dim") === 'false' && $pop.attr("data-dim-clear") === undefined){
+            popupShow_NoDim($pop);
+            if($win.height() > $pop.height()){
+                $pop.css({
+                    "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
+                })
+            } else {
+                $pop.css("top", $doc.scrollTop())
             }
-        });
+            $(document).on("click", function(e){
+                if($pop.hasClass("active") && !$pop.has(e.target).length){
+                    popupHide($pop);
+                }
+            });
+        } else if($pop.attr("data-dim") === undefined && $pop.attr("data-dim-clear") === 'true'){
+            popupShow_NoDim($pop);
+        }
+
     } else if($pop.attr("data-type") === 'message'){
         /*messagePopShow($pop)*/
         popupShow($pop);

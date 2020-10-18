@@ -16,7 +16,8 @@
       background-color: $mono9;
       .seat-code,
       .seat-num { margin: 0 auto; width: rem(294); }
-      &.B73780001 {
+      &.B73780001,
+      &.B73780002 {
         $bg-width: 16;
         $bg-height: 434;
         &:before {
@@ -31,8 +32,29 @@
           display: inline-block; width: rem($bg-width); height: rem($bg-height);
           position: absolute; right: 0; top: rem(512);
         }
+      }
+      &.B73780001 {
         li:nth-of-type(3) .seat-type1 { margin-top: rem(-$grid); }
         li:nth-of-type(3) .seat-disabled-lg { margin-top: rem(-$grid); }
+      }
+      &.B73780002 {
+        li.exit-row:first-child + li { margin-top: rem(70) }
+        li:nth-of-type(4) { margin-bottom: rem(18); }
+
+        a[class^='seat-'].seat-type-nc,
+        a[class^='seat-'].seat-type-nc + .hallway {
+          width: 36px; height: 42px;
+          border-radius: 12px 12px 3px 3px;
+        }
+        a[class^='seat-'].seat-type-nc { margin: 0 7px; }
+        a[class^='seat-'].seat-type-nc:nth-of-type(1) { margin-left: 16px; }
+        a[class^='seat-'].seat-type-nc + .hallway { margin: 0 16px; }
+
+
+        a[class^='seat-'].seat-disabled-nc {
+          width: 36px !important; height: rem(42) !important;
+          border-radius: 12px 12px 3px 3px;
+        }
       }
       .seat-code {
         position: absolute; top: rem(120); left: 50%;
