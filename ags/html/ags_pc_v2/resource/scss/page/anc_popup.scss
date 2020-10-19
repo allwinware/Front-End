@@ -20,7 +20,7 @@
 
 /* 라운지 위치 안내 팝업 */
 [data-pop-id='pop_lounge-location_7c'] {
-  padding: rem($grid * 3) rem($grid * 4) rem($grid * 5);
+  padding: rem($grid * 3) rem($grid * 4) rem($grid * 5); width: rem(680);
   text-align: center;
   img { max-width: 100%; height: auto !important; }
 }
@@ -268,14 +268,10 @@
     }
   }
 }
-
+/*부가서비스 신청 > 렌터카*/
 [data-pop-id='pop_lentacar-info']{
-  margin: rem(-$grid * 3) rem(-$grid * 2) 0; width: rem(460); max-height: inherit;
-  .scroll-wrap {
-    max-height: inherit;
-    .mCSB_inside>.mCSB_container { margin-right: 0; padding: rem($grid * 5) rem($grid * 3) 0 }
-    .mCSB_scrollTools {  }
-  }
+  @include pop_scroll-full;
+  width: rem(460);
   @include selectric-select-wrap($selectric-size: 3);
   .select_company {
     padding-bottom: rem($grid * 3);
@@ -331,4 +327,85 @@
   table { width: 100%; }
   table th, td { padding: rem(13) 0; height: rem(42); font-size: rem(11); letter-spacing: -0.03em; line-height: rem(16); border-bottom: 1px solid $mono8; }
   table th { padding-right: rem($grid * 2); font-weight: 800; text-align: left; }
+}
+
+/*부가서비스 신청 > 신용카드 결제 정보*/
+[data-pop-id="pop_payment_credit-card"]{
+  @include pop_scroll-full;
+  width: rem(580);
+  .selectric-select-wrap {
+    @include selectric-select-wrap($selectric-size: 3);
+    .selectric-wrapper { height: rem(42); }
+    .selectric { font-weight: 400; }
+  }
+  .inner-wrap { @include clearfix; margin: 0 rem(-10) }
+  .input-group, .input-wrap, .select-wrap, .selectric-select-wrap, .btn-wrap {
+    position: relative;
+    float: left;
+    padding: 0 rem(10) rem($grid * 4);
+    .notification-text {
+      $font-size: 11;
+      @include font($size: $font-size, $color: $mono3, $weight: 600);
+      position: absolute; right: rem(10); top: 0;
+      text-align: right; line-height: em(16, $font-size);
+    }
+  }
+  .input-group .select-wrap,
+  .input-group .input-wrap,
+  .input-group .btn-wrap,
+  .input-group .selectric-select-wrap {
+    padding: 0;
+    &:not(:last-child) { padding: 0 rem($grid) 0 0 }
+  }
+  .select_owner-type1, .select_owner-type2,
+  .select_card-company, .select_pay-plan, .pay-plan-group,
+  .input_owner-name, .owner-info-group, .card-pw-group { width: 50% }
+  .btn-wrap, .card-num-group,  { width: 100%; }
+  .input-wrap input[type='text'],
+  .input-wrap input[type='password'] {
+    @include form($size: 3, $role: normal, $type: textbox);
+    font-size: rem(14); font-weight: 400;
+  }
+  .input-wrap input[type='password'] {
+    padding: 0;
+    letter-spacing: em(1.6, 18);
+    &::-webkit-input-placeholder {
+      font-size: rem(14); line-height:normal;
+    }
+    &::-moz-placeholder {
+      font-size: rem(14); line-height:normal;
+      opacity: 1;
+    }
+    &:-ms-input-placeholder {
+      font-size: rem(14); line-height:normal;
+    }
+  }
+  .form-title {
+    $font-size: 13;
+    @include font($size: $font-size, $color: $mono1, $weight: 800);
+    display: block;
+    padding-bottom: em(12, $font-size);
+    line-height: em(16, $font-size);
+  }
+  .select_pay-plan + .btn-wrap { margin-top: rem(-20) }
+  .btn_payment-plan { @include font($size: 11, $color: $text-primary, $weight: 400); }
+  .input_card-num input {
+    width: rem(80) !important;
+    text-align: center; letter-spacing: em(1.6,  18) !important;
+  }
+  .pay-plan-group .select_pay-plan { width: 50%; }
+  .input_card-pw input[type='password'] {
+    width: rem(80) !important;
+    text-align: center;
+    &[disabled] {
+      padding: 0;
+      text-align: left; border-color: transparent;
+    }
+  }
+  .input_owner-birthday input { letter-spacing: em(-0.18,  14) !important; }
+  .owner-info-group input { width: rem(150) !important }
+  .select_owner-gender .selectric { width: rem(98) !important }
+  .owner-info-group:before { content: ""; display: table; clear: both; }
+  .select_pay-plan .selectric-items { height: 170px }
+  .select_owner-gender .selectric-items { top: auto; bottom: 100%; }
 }
