@@ -120,7 +120,7 @@
         customArrowPrevSymbol: null,
         customArrowNextSymbol: null,
         monthSelect: true,
-        yearSelect: true
+        yearSelect: true,
     }, opt);
 
     opt.start = false;
@@ -406,9 +406,10 @@
                 return false;
             });
 
+
         box.find('.apply-btn').click(function () {
-            closeDatePicker();
             var dateRange = getDateString(new Date(opt.start)) + opt.separator + getDateString(new Date(opt.end));
+            closeDatePicker();
             $(self).trigger('datepicker-apply', {
                 'value': dateRange,
                 'date1': new Date(opt.start),
@@ -794,6 +795,12 @@
           'date1': new Date(opt.start)
         });
         dayHovering(day);
+      } else if (opt.start && opt.end) {
+          $(self).trigger('datepicker-last-date-selected', {
+              'date1': new Date(opt.start),
+              'date2': new Date(opt.end)
+          });
+          dayHovering(day);
       }
       updateSelectableRange(time);
 
@@ -1086,39 +1093,47 @@
         box.find('.end-day').html(getDateString(new Date(parseInt(opt.end))));
       }
       var dateRange;
-      if (opt.start && opt.singleDate) {
-        box.find('.apply-btn').removeClass('disabled');
-        if (opt.time.enabled) {
-          dateRange = moment(new Date(opt.start)).format("YYYY.MM.DD ") + box.find('.time-start .hour select').val().replace(/^(\d{1})$/, '0$1')
-              + ":" + box.find('.time-start .minute select').val().replace(/^(\d{1})$/, '0$1');
-        } else {
-          dateRange = getDateString(new Date(opt.start));
-        }
+      if(opt.autoClose === true){
+          if (opt.start && opt.singleDate) {
+            box.find('.apply-btn').removeClass('disabled');
+            if (opt.time.enabled) {
+              dateRange = moment(new Date(opt.start)).format("YYYY.MM.DD ") + box.find('.time-start .hour select').val().replace(/^(\d{1})$/, '0$1')
+                  + ":" + box.find('.time-start .minute select').val().replace(/^(\d{1})$/, '0$1');
+            } else {
+              dateRange = getDateString(new Date(opt.start));
+            }
 
-        opt.setValue.call(selfDom, dateRange, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
+            opt.setValue.call(selfDom, dateRange, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
 
-        if (initiated && !silent) {
-          $(self).trigger('datepicker-change', {
-            'value': dateRange,
-            'date1': new Date(opt.start)
-          });
-        }
-      } else if (opt.start && opt.end) {
-        box.find('.selected-days').show().find('.selected-days-num').html(countDays(opt.end, opt.start));
-        box.find('.apply-btn').removeClass('disabled');
-        dateRange = getDateString(new Date(opt.start)) + opt.separator + getDateString(new Date(opt.end));
-        opt.setValue.call(selfDom, dateRange, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
-        if (initiated && !silent) {
-          $(self).trigger('datepicker-change', {
-            'value': dateRange,
-            'date1': new Date(opt.start),
-            'date2': new Date(opt.end)
-          });
-        }
-      } else if (forceValid) {
-        box.find('.apply-btn').removeClass('disabled');
+            if (initiated && !silent) {
+              $(self).trigger('datepicker-change', {
+                'value': dateRange,
+                'date1': new Date(opt.start)
+              });
+            }
+          } else if (opt.start && opt.end) {
+            box.find('.selected-days').show().find('.selected-days-num').html(countDays(opt.end, opt.start));
+            box.find('.apply-btn').removeClass('disabled');
+            dateRange = getDateString(new Date(opt.start)) + opt.separator + getDateString(new Date(opt.end));
+            if (opt.time.enabled) {
+            }
+            opt.setValue.call(selfDom, dateRange, getDateString(new Date(opt.start)), getDateString(new Date(opt.end)));
+            if (initiated && !silent) {
+              $(self).trigger('datepicker-change', {
+                'value': dateRange,
+                'date1': new Date(opt.start),
+                'date2': new Date(opt.end)
+              });
+            }
+          } else if (forceValid) {
+            box.find('.apply-btn').removeClass('disabled');
+          } else {
+            box.find('.apply-btn').addClass('disabled');
+          }
       } else {
-        box.find('.apply-btn').addClass('disabled');
+          if (opt.start && opt.singleDate) {
+          } else if (opt.start && opt.end) {
+          }
       }
     }
 

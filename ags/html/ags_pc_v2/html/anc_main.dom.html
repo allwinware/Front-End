@@ -3609,12 +3609,11 @@ No-show : 취소수수료 50%
                     startDate: moment(today).format('YYYY.MM.DD(ddd) HH:mm'),
                     minDate: new Date(),
                     minDays: 2,
-                    applyBtnClass: 'apply-btn',
                     time: {
                         enabled: true,
                         startHour: 7,
                         endHour: 22
-                    }
+                    },
                 })
                 .prop("value", setStartDate.format("YYYY.MM.DD(ddd) HH:mm") + " ~ " + setEndDate.format("YYYY.MM.DD(ddd) HH:mm"))
 
@@ -3658,16 +3657,13 @@ No-show : 취소수수료 50%
             box.find('.fake-time-end select').val(moment(setEndDate).format('HH:mm')).change().selectric('refresh')
 
             /*날짜 변경 시*/
-            $("#car-calendar").on('datepicker-change', function(e){
+            $("#car-calendar").on('datepicker-last-date-selected', function(e){
                 setTimeout(function(){
                     var selectedStartDate = moment(parseInt(box.find(".first-date-selected").attr("time"))).format("YYYY.MM.DD(ddd)"),
                         selectedEndDate = moment(parseInt(box.find(".last-date-selected").attr("time"))).format("YYYY.MM.DD(ddd)");
                     box.find(".fake-time-start .date-check .date").text(selectedStartDate);
                     box.find(".fake-time-end .date-check .date").text(selectedEndDate)
-                }, 800)
-            });
-            $(".apply-btn").on("click", function(){
-                $("#car-calendar").trigger('datepicker-apply')
+                }, 800);
             })
             /*시간 변경 시*/
             box.find(".fake-time-start select").on("change touchmove", function(e) {
@@ -3677,17 +3673,6 @@ No-show : 취소수수료 50%
                 box.find(".time-start .total-time .hour-val").text(timeValue[0]);
                 box.find(".time-start select[name='minute']").val(timeValue[1]).prop("selected", true);
                 box.find(".time-start .total-time .minute-val").text(timeValue[1]);
-                /*$("#car-calendar").trigger('datepicker-change', {
-                    'value': moment(setStartDate).format("YYYY.MM.DD(ddd) HH:mm") + " ~ " + moment(setEndDate).format("YYYY.MM.DD(ddd) HH:mm")
-                })*/
-                /*$("#car-calendar").on("datepicker-apply", function(e, picker){
-                    var startDate = picker.startDate.format('YYYY.MM.DD(ddd) HH:mm'),
-                        endDate = picker.endDate.format('YYYY.MM.DD(ddd) HH:mm');
-                    $(this).prop("value", startDate + " ~ " + endDate)
-                }).trigger("datepicker-apply")*/
-                /*var startDate = $('#car-calendar').data('allwinDatepicker').startDate.format('YYYY.MM.DD(ddd) HH:mm');
-                var endDate = $('#car-calendar').data('allwinDatepicker').endDate.format('YYYY.MM.DD(ddd) HH:mm');
-                $("#car-calendar").prop("value", startDate + " ~ " + endDate)*/
             });
             box.find(".fake-time-end select").on("change touchmove", function(e) {
                 var $item = $(e.target),
@@ -3697,6 +3682,15 @@ No-show : 취소수수료 50%
                 box.find(".time-end select[name='minute']").val(timeValue[1]).prop("selected", true);
                 box.find(".time-end .total-time .minute-val").text(timeValue[1]);
             });
+            $(".apply-btn").on("click", function(){
+                var selectedStartDate = moment(parseInt(box.find(".first-date-selected").attr("time"))).format("YYYY.MM.DD(ddd)"),
+                    selectedEndDate = moment(parseInt(box.find(".last-date-selected").attr("time"))).format("YYYY.MM.DD(ddd)"),
+                    timeStart = box.find(".fake-time-start select").val(),
+                    timeEnd = box.find(".fake-time-end select").val();
+                $("#car-calendar")
+                    .prop("value", selectedStartDate + " " + timeStart + " ~ " + selectedEndDate + " " + timeEnd);
+                box.css('display', 'none')/**/
+            })
         })();
     })
 </script>
