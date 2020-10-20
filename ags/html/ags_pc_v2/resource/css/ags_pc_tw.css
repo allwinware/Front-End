@@ -2829,7 +2829,7 @@ body {
 
 .ags-header .gnb li {
   float: left;
-  padding: 1.92308rem 0.61538rem 0;
+  padding: 1.92308rem 1.53846rem 0;
 }
 
 .ags-header .gnb li:last-of-type {
@@ -4160,7 +4160,7 @@ body {
 }
 
 /* 부가서비스 신청 > 팝업 */
-/* 컨텐츠 로딩 팝업 */
+/* 부가서비스 영역 컨텐츠 로딩 팝업 */
 .anc-service .pop-area {
   position: absolute;
   left: 0;
@@ -8914,46 +8914,46 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   letter-spacing: -0.03em;
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) {
   margin: 0 -2.30769rem;
   padding: 0.61538rem 0;
   text-align: left;
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):after {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info):after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) dt, [data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) dd {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dt, [data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd {
   float: left;
   padding: 0.61538rem 2.14286em;
   min-height: 2.42857em;
   line-height: 1.28571em;
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) dt {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dt {
   font-weight: 800;
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) dd {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd {
   font-weight: 400;
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) dd.refund {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.refund {
   text-align: center;
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) dd.price {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.price {
   letter-spacing: 0;
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) dd.price .digits:before {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.price .digits:before {
   content: "₩";
 }
 
-[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']) dd.status {
+[data-page-id='anc_pay-complete'] .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.status {
   padding-right: 4.61538rem;
   text-align: center;
 }
@@ -9299,15 +9299,6 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
   right: 14rem;
   padding-right: 0;
-}
-
-[data-page-id='anc_pay-complete'] .car-plan-detail {
-  font-size: 0.84615rem;
-  font-weight: 400;
-  color: #888;
-  letter-spacing: -0.08em;
-  font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
-  padding-top: 1.23077rem;
 }
 
 /* 부가서비스 신청 > 구매실패 */
@@ -10510,12 +10501,68 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   color: #FF4F24;
 }
 
+[data-page-id^='my_'] .car-plan-detail {
+  font-size: 0.84615rem;
+  font-weight: 400;
+  color: #888;
+  letter-spacing: -0.08em;
+  font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
+  padding-top: 0.61538rem;
+}
+
+[data-page-id^='my_'] .content-wrap .pop-area {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+[data-page-id^='my_'] .content-wrap .pop-area.active {
+  z-index: 1;
+}
+
+[data-page-id^='my_'] .content-wrap .pop-area[data-dim-clear='true'] .page-dim {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+[data-page-id^='my_'] .content-wrap .page-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+}
+
+[data-page-id^='my_'] .content-wrap .page-loading .loading-message {
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  margin-top: 6.30769rem;
+  padding: 1.23077rem;
+  min-width: 21.53846rem;
+  border: 1px solid #000;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  color: #000;
+}
+
 /*마이페이지 > 나의 예약/결제 내역*/
-[data-page-id='my_pay-history_anc'] {
+[data-page-id='my_pay-history_anc'],
+[data-page-id='my_pay-history_car'] {
   padding-top: 7.69231rem;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area {
+[data-page-id='my_pay-history_anc'] .search-area,
+[data-page-id='my_pay-history_car'] .search-area {
   margin: 0 -0.38462rem 6.15385rem;
   padding: 0 0 6.15385rem;
   border-bottom: 1px solid #f0f0f0;
@@ -10523,13 +10570,16 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   /*selectric일 때*/
 }
 
-[data-page-id='my_pay-history_anc'] .search-area:after {
+[data-page-id='my_pay-history_anc'] .search-area:after,
+[data-page-id='my_pay-history_car'] .search-area:after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area input[type='text'], [data-page-id='my_pay-history_anc'] .search-area input[type='file'] {
+[data-page-id='my_pay-history_anc'] .search-area input[type='text'], [data-page-id='my_pay-history_anc'] .search-area input[type='file'],
+[data-page-id='my_pay-history_car'] .search-area input[type='text'],
+[data-page-id='my_pay-history_car'] .search-area input[type='file'] {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -10547,24 +10597,31 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   background-color: #ffffff;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area input[type='text']::-webkit-input-placeholder, [data-page-id='my_pay-history_anc'] .search-area input[type='file']::-webkit-input-placeholder {
+[data-page-id='my_pay-history_anc'] .search-area input[type='text']::-webkit-input-placeholder, [data-page-id='my_pay-history_anc'] .search-area input[type='file']::-webkit-input-placeholder,
+[data-page-id='my_pay-history_car'] .search-area input[type='text']::-webkit-input-placeholder,
+[data-page-id='my_pay-history_car'] .search-area input[type='file']::-webkit-input-placeholder {
   /* Edge */
   font-size: inherit;
   color: #aaa;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area input[type='text']:-ms-input-placeholder, [data-page-id='my_pay-history_anc'] .search-area input[type='file']:-ms-input-placeholder {
+[data-page-id='my_pay-history_anc'] .search-area input[type='text']:-ms-input-placeholder, [data-page-id='my_pay-history_anc'] .search-area input[type='file']:-ms-input-placeholder,
+[data-page-id='my_pay-history_car'] .search-area input[type='text']:-ms-input-placeholder,
+[data-page-id='my_pay-history_car'] .search-area input[type='file']:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   font-size: inherit;
   color: #aaa;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area input[type='text']::placeholder, [data-page-id='my_pay-history_anc'] .search-area input[type='file']::placeholder {
+[data-page-id='my_pay-history_anc'] .search-area input[type='text']::placeholder, [data-page-id='my_pay-history_anc'] .search-area input[type='file']::placeholder,
+[data-page-id='my_pay-history_car'] .search-area input[type='text']::placeholder,
+[data-page-id='my_pay-history_car'] .search-area input[type='file']::placeholder {
   font-size: inherit;
   color: #aaa;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area textarea {
+[data-page-id='my_pay-history_anc'] .search-area textarea,
+[data-page-id='my_pay-history_car'] .search-area textarea {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -10584,7 +10641,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   line-height: 1.8em;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .select-wrap {
+[data-page-id='my_pay-history_anc'] .search-area .select-wrap,
+[data-page-id='my_pay-history_car'] .search-area .select-wrap {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -10609,11 +10667,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   z-index: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .select-wrap::-ms-expand {
+[data-page-id='my_pay-history_anc'] .search-area .select-wrap::-ms-expand,
+[data-page-id='my_pay-history_car'] .search-area .select-wrap::-ms-expand {
   display: none;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .select-wrap select {
+[data-page-id='my_pay-history_anc'] .search-area .select-wrap select,
+[data-page-id='my_pay-history_car'] .search-area .select-wrap select {
   -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
@@ -10629,11 +10689,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   z-index: 1;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .select-wrap select::-ms-expand {
+[data-page-id='my_pay-history_anc'] .search-area .select-wrap select::-ms-expand,
+[data-page-id='my_pay-history_car'] .search-area .select-wrap select::-ms-expand {
   display: none;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .select-wrap label {
+[data-page-id='my_pay-history_anc'] .search-area .select-wrap label,
+[data-page-id='my_pay-history_car'] .search-area .select-wrap label {
   position: absolute;
   width: 0;
   height: 0;
@@ -10644,7 +10706,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .select-wrap:after {
+[data-page-id='my_pay-history_anc'] .search-area .select-wrap:after,
+[data-page-id='my_pay-history_car'] .search-area .select-wrap:after {
   content: "";
   position: absolute;
   top: 50%;
@@ -10657,11 +10720,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   z-index: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area label {
+[data-page-id='my_pay-history_anc'] .search-area label,
+[data-page-id='my_pay-history_car'] .search-area label {
   line-height: 1;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .selectric {
+[data-page-id='my_pay-history_anc'] .search-area .selectric,
+[data-page-id='my_pay-history_car'] .search-area .selectric {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -10684,11 +10749,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   padding: 0 1.53846rem 0 0;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .selectric::-ms-expand {
+[data-page-id='my_pay-history_anc'] .search-area .selectric::-ms-expand,
+[data-page-id='my_pay-history_car'] .search-area .selectric::-ms-expand {
   display: none;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .selectric .label {
+[data-page-id='my_pay-history_anc'] .search-area .selectric .label,
+[data-page-id='my_pay-history_car'] .search-area .selectric .label {
   position: absolute;
   left: 0;
   top: 0;
@@ -10702,7 +10769,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   color: inherit;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .selectric .label:before {
+[data-page-id='my_pay-history_anc'] .search-area .selectric .label:before,
+[data-page-id='my_pay-history_car'] .search-area .selectric .label:before {
   content: "";
   display: inline-block;
   width: 0;
@@ -10710,7 +10778,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   vertical-align: middle;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .selectric b.button {
+[data-page-id='my_pay-history_anc'] .search-area .selectric b.button,
+[data-page-id='my_pay-history_car'] .search-area .selectric b.button {
   overflow: hidden;
   height: 100%;
   text-indent: -999em;
@@ -10721,7 +10790,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   transform-origin: 50% 50%;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .selectric b.button:after {
+[data-page-id='my_pay-history_anc'] .search-area .selectric b.button:after,
+[data-page-id='my_pay-history_car'] .search-area .selectric b.button:after {
   content: "";
   position: absolute;
   top: 50%;
@@ -10734,15 +10804,18 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   z-index: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area.selectric-open b.button {
+[data-page-id='my_pay-history_anc'] .search-area.selectric-open b.button,
+[data-page-id='my_pay-history_car'] .search-area.selectric-open b.button {
   transform: rotate(0);
 }
 
-[data-page-id='my_pay-history_anc'] .search-area.selectric-open b.button:after {
+[data-page-id='my_pay-history_anc'] .search-area.selectric-open b.button:after,
+[data-page-id='my_pay-history_car'] .search-area.selectric-open b.button:after {
   /*transform: rotate(45deg) translate(-2px, -15px)*/
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .selectric-items {
+[data-page-id='my_pay-history_anc'] .search-area .selectric-items,
+[data-page-id='my_pay-history_car'] .search-area .selectric-items {
   box-shadow: none;
   margin-top: -1px;
   border-color: #ddd;
@@ -10754,11 +10827,18 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 [data-page-id='my_pay-history_anc'] .search-area .selectric-items .highlighted,
 [data-page-id='my_pay-history_anc'] .search-area .selectric-items .selected,
 [data-page-id='my_pay-history_anc'] .search-area .selectric-items .selected:hover,
-[data-page-id='my_pay-history_anc'] .search-area .selectric-items .selected.highlighted {
+[data-page-id='my_pay-history_anc'] .search-area .selectric-items .selected.highlighted,
+[data-page-id='my_pay-history_car'] .search-area .selectric-items li:hover,
+[data-page-id='my_pay-history_car'] .search-area .selectric-items .highlighted,
+[data-page-id='my_pay-history_car'] .search-area .selectric-items .selected,
+[data-page-id='my_pay-history_car'] .search-area .selectric-items .selected:hover,
+[data-page-id='my_pay-history_car'] .search-area .selectric-items .selected.highlighted {
   background-color: #FEE700;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='radio'], [data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='checkbox'] {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='radio'], [data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='checkbox'],
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='radio'],
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='checkbox'] {
   position: absolute;
   width: 0;
   height: 0;
@@ -10769,7 +10849,10 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap label, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap a, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap button {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap label, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap a, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap button,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap label,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap a,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap button {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -10793,7 +10876,10 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   width: auto;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap label[disabled='disabled'], [data-page-id='my_pay-history_anc'] .search-area .btn-wrap a[disabled='disabled'], [data-page-id='my_pay-history_anc'] .search-area .btn-wrap button[disabled='disabled'] {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap label[disabled='disabled'], [data-page-id='my_pay-history_anc'] .search-area .btn-wrap a[disabled='disabled'], [data-page-id='my_pay-history_anc'] .search-area .btn-wrap button[disabled='disabled'],
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap label[disabled='disabled'],
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap a[disabled='disabled'],
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap button[disabled='disabled'] {
   border: 1px solid #f0f0f0;
   background-color: #f0f0f0;
   color: #aaa;
@@ -10801,7 +10887,9 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='radio']:checked + label,
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='radio']:checked + label,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='check']:checked + label {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -10825,7 +10913,9 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='radio']:checked + label[disabled='disabled'],
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label[disabled='disabled'] {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label[disabled='disabled'],
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='radio']:checked + label[disabled='disabled'],
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='check']:checked + label[disabled='disabled'] {
   border: 1px solid #f0f0f0;
   background-color: #f0f0f0;
   color: #aaa;
@@ -10834,35 +10924,57 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap label:not(:first-child):not(:last-child), [data-page-id='my_pay-history_anc'] .search-area .btn-wrap a:not(:first-child):not(:last-child), [data-page-id='my_pay-history_anc'] .search-area .btn-wrap button:not(:first-child):not(:last-child),
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='radio']:checked + label:not(:first-child):not(:last-child),
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label:not(:first-child):not(:last-child) {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label:not(:first-child):not(:last-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap label:not(:first-child):not(:last-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap a:not(:first-child):not(:last-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap button:not(:first-child):not(:last-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='radio']:checked + label:not(:first-child):not(:last-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='check']:checked + label:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap label:first-child, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap a:first-child, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap button:first-child,
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='radio']:checked + label:first-child,
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label:first-child {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label:first-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap label:first-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap a:first-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap button:first-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='radio']:checked + label:first-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='check']:checked + label:first-child {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap label:last-child, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap a:last-child, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap button:last-child,
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='radio']:checked + label:last-child,
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label:last-child {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label:last-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap label:last-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap a:last-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap button:last-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='radio']:checked + label:last-child,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='check']:checked + label:last-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap label:not(:first-child), [data-page-id='my_pay-history_anc'] .search-area .btn-wrap a:not(:first-child), [data-page-id='my_pay-history_anc'] .search-area .btn-wrap button:not(:first-child),
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='radio']:checked + label:not(:first-child),
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label:not(:first-child) {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap input[type='check']:checked + label:not(:first-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap label:not(:first-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap a:not(:first-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap button:not(:first-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='radio']:checked + label:not(:first-child),
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap input[type='check']:checked + label:not(:first-child) {
   border-left-color: transparent;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .calendar-wrap input[type='text'] {
+[data-page-id='my_pay-history_anc'] .search-area .calendar-wrap input[type='text'],
+[data-page-id='my_pay-history_car'] .search-area .calendar-wrap input[type='text'] {
   height: 100%;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .calendar-wrap label {
+[data-page-id='my_pay-history_anc'] .search-area .calendar-wrap label,
+[data-page-id='my_pay-history_car'] .search-area .calendar-wrap label {
   background-image: url("../img/my/ico_calendar.png");
   background-repeat: no-repeat;
   background-size: 1.84615rem auto;
@@ -10877,23 +10989,27 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='my_pay-history_anc'] .search-area .calendar-wrap label {
+  [data-page-id='my_pay-history_anc'] .search-area .calendar-wrap label,
+  [data-page-id='my_pay-history_car'] .search-area .calendar-wrap label {
     background-image: url("../img/my/ico_calendar@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='my_pay-history_anc'] .search-area .calendar-wrap label {
+  [data-page-id='my_pay-history_anc'] .search-area .calendar-wrap label,
+  [data-page-id='my_pay-history_car'] .search-area .calendar-wrap label {
     background-image: url("../img/my/ico_calendar@3x.png");
   }
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] {
+[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'],
+[data-page-id='my_pay-history_car'] .search-area .file-wrap input[type='text'] {
   background-color: #F8F8F8;
   cursor: default;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] + label {
+[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] + label,
+[data-page-id='my_pay-history_car'] .search-area .file-wrap input[type='text'] + label {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -10920,14 +11036,16 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   font-weight: 600;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] + label[disabled='disabled'] {
+[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] + label[disabled='disabled'],
+[data-page-id='my_pay-history_car'] .search-area .file-wrap input[type='text'] + label[disabled='disabled'] {
   border: 1px solid #f0f0f0;
   background-color: #f0f0f0;
   color: #aaa;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] + label:before {
+[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] + label:before,
+[data-page-id='my_pay-history_car'] .search-area .file-wrap input[type='text'] + label:before {
   content: "";
   display: inline-block;
   width: 0;
@@ -10935,7 +11053,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   vertical-align: middle;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .selectric-select-wrap .selectric-items li {
+[data-page-id='my_pay-history_anc'] .search-area .selectric-select-wrap .selectric-items li,
+[data-page-id='my_pay-history_car'] .search-area .selectric-select-wrap .selectric-items li {
   font-size: 1.07692rem;
   font-weight: 600;
   color: #000;
@@ -10948,53 +11067,80 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 [data-page-id='my_pay-history_anc'] .search-area input[type='text'], [data-page-id='my_pay-history_anc'] .search-area .select-wrap,
 [data-page-id='my_pay-history_anc'] .search-area .btn-wrap > label, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap > input[type='checkbox'] + label, [data-page-id='my_pay-history_anc'] .search-area input[type='radio'] + label,
-[data-page-id='my_pay-history_anc'] .search-area .btn-wrap > button, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap > a {
+[data-page-id='my_pay-history_anc'] .search-area .btn-wrap > button, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap > a,
+[data-page-id='my_pay-history_car'] .search-area input[type='text'],
+[data-page-id='my_pay-history_car'] .search-area .select-wrap,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap > label,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap > input[type='checkbox'] + label,
+[data-page-id='my_pay-history_car'] .search-area input[type='radio'] + label,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap > button,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap > a {
   height: 3.69231rem !important;
   line-height: 3.53846rem !important;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .calendar-wrap input[type='text'] {
+[data-page-id='my_pay-history_anc'] .search-area .calendar-wrap input[type='text'],
+[data-page-id='my_pay-history_car'] .search-area .calendar-wrap input[type='text'] {
   padding-right: 4.92308rem;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .calendar-wrap label {
+[data-page-id='my_pay-history_anc'] .search-area .calendar-wrap label,
+[data-page-id='my_pay-history_car'] .search-area .calendar-wrap label {
   width: 3.69231rem;
   height: 3.69231rem;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] + label {
+[data-page-id='my_pay-history_anc'] .search-area .file-wrap input[type='text'] + label,
+[data-page-id='my_pay-history_car'] .search-area .file-wrap input[type='text'] + label {
   height: 3.69231rem;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .input-wrap, [data-page-id='my_pay-history_anc'] .search-area .input-group, [data-page-id='my_pay-history_anc'] .search-area .select-wrap, [data-page-id='my_pay-history_anc'] .search-area .calendar-wrap, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap, [data-page-id='my_pay-history_anc'] .search-area .selectric-select-wrap {
+[data-page-id='my_pay-history_anc'] .search-area .input-wrap, [data-page-id='my_pay-history_anc'] .search-area .input-group, [data-page-id='my_pay-history_anc'] .search-area .select-wrap, [data-page-id='my_pay-history_anc'] .search-area .calendar-wrap, [data-page-id='my_pay-history_anc'] .search-area .btn-wrap, [data-page-id='my_pay-history_anc'] .search-area .selectric-select-wrap,
+[data-page-id='my_pay-history_car'] .search-area .input-wrap,
+[data-page-id='my_pay-history_car'] .search-area .input-group,
+[data-page-id='my_pay-history_car'] .search-area .select-wrap,
+[data-page-id='my_pay-history_car'] .search-area .calendar-wrap,
+[data-page-id='my_pay-history_car'] .search-area .btn-wrap,
+[data-page-id='my_pay-history_car'] .search-area .selectric-select-wrap {
   position: relative;
   float: left;
   margin: 0 0.38462rem;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap'] {
+[data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap'],
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap'] {
   margin: 0;
 }
 
 [data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:first-child.select-wrap,
-[data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:first-child.selectric-select-wrap .selectric {
+[data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:first-child.selectric-select-wrap .selectric,
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:first-child.select-wrap,
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:first-child.selectric-select-wrap .selectric {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 [data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).select-wrap,
 [data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).selectric-select-wrap .selectric,
-[data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).btn-wrap > *:first-child, [data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).input-wrap > *:first-child, [data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).calendar-wrap > *:first-child {
+[data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).btn-wrap > *:first-child, [data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).input-wrap > *:first-child, [data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).calendar-wrap > *:first-child,
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:not(:first-child).select-wrap,
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:not(:first-child).selectric-select-wrap .selectric,
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:not(:first-child).btn-wrap > *:first-child,
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:not(:first-child).input-wrap > *:first-child,
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:not(:first-child).calendar-wrap > *:first-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 [data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).input-wrap input[type='text'],
-[data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).calendar-wrap input[type='text'] {
+[data-page-id='my_pay-history_anc'] .search-area .input-group > [class*='-wrap']:not(:first-child).calendar-wrap input[type='text'],
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:not(:first-child).input-wrap input[type='text'],
+[data-page-id='my_pay-history_car'] .search-area .input-group > [class*='-wrap']:not(:first-child).calendar-wrap input[type='text'] {
   border-left-color: transparent;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area label {
+[data-page-id='my_pay-history_anc'] .search-area label,
+[data-page-id='my_pay-history_car'] .search-area label {
   position: absolute;
   width: 0;
   height: 0;
@@ -11005,27 +11151,32 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .search-area .process-btn-wrap {
+[data-page-id='my_pay-history_anc'] .search-area .process-btn-wrap,
+[data-page-id='my_pay-history_car'] .search-area .process-btn-wrap {
   float: left;
   width: 100%;
 }
 
-[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb {
+[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb,
+[data-page-id='my_pay-history_car'] .my-lnb-wrap .lnb {
   margin: 0 -0.92308rem 3.07692rem;
 }
 
-[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb:after {
+[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb:after,
+[data-page-id='my_pay-history_car'] .my-lnb-wrap .lnb:after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb li {
+[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb li,
+[data-page-id='my_pay-history_car'] .my-lnb-wrap .lnb li {
   float: left;
   margin: 0 0.92308rem;
 }
 
-[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb li a {
+[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb li a,
+[data-page-id='my_pay-history_car'] .my-lnb-wrap .lnb li a {
   font-size: 1.53846rem;
   font-weight: 400;
   color: #aaa;
@@ -11037,13 +11188,15 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border-bottom: 2px solid transparent;
 }
 
-[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb li.active a {
+[data-page-id='my_pay-history_anc'] .my-lnb-wrap .lnb li.active a,
+[data-page-id='my_pay-history_car'] .my-lnb-wrap .lnb li.active a {
   color: #000;
   font-weight: 800;
   border-bottom: 2px solid #000;
 }
 
-[data-page-id='my_pay-history_anc'] .page-name {
+[data-page-id='my_pay-history_anc'] .page-name,
+[data-page-id='my_pay-history_car'] .page-name {
   font-size: 2.46154rem;
   font-weight: 800;
   color: #000;
@@ -11052,27 +11205,34 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   margin-bottom: 3.07692rem;
 }
 
-[data-page-id='my_pay-history_anc'] .my-history-wrap .my-header {
+[data-page-id='my_pay-history_anc'] .my-history-wrap .my-header,
+[data-page-id='my_pay-history_car'] .my-history-wrap .my-header {
   padding-top: 1.53846rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .function-wrap {
+[data-page-id='my_pay-history_anc'] .history-list .function-wrap,
+[data-page-id='my_pay-history_car'] .history-list .function-wrap {
   padding: 1.53846rem 0 3.84615rem;
   text-align: right;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .function-wrap:after {
+[data-page-id='my_pay-history_anc'] .history-list .function-wrap:after,
+[data-page-id='my_pay-history_car'] .history-list .function-wrap:after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list dt, [data-page-id='my_pay-history_anc'] .history-list dd {
+[data-page-id='my_pay-history_anc'] .history-list dt, [data-page-id='my_pay-history_anc'] .history-list dd,
+[data-page-id='my_pay-history_car'] .history-list dt,
+[data-page-id='my_pay-history_car'] .history-list dd {
   display: inline-block;
   line-height: 1.53846rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .search-result, [data-page-id='my_pay-history_anc'] .history-list .search-result + dd {
+[data-page-id='my_pay-history_anc'] .history-list .search-result, [data-page-id='my_pay-history_anc'] .history-list .search-result + dd,
+[data-page-id='my_pay-history_car'] .history-list .search-result,
+[data-page-id='my_pay-history_car'] .history-list .search-result + dd {
   font-size: 1rem;
   font-weight: 600;
   color: #000;
@@ -11081,16 +11241,20 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   float: left;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .search-result .digits, [data-page-id='my_pay-history_anc'] .history-list .search-result + dd .digits {
+[data-page-id='my_pay-history_anc'] .history-list .search-result .digits, [data-page-id='my_pay-history_anc'] .history-list .search-result + dd .digits,
+[data-page-id='my_pay-history_car'] .history-list .search-result .digits,
+[data-page-id='my_pay-history_car'] .history-list .search-result + dd .digits {
   font-size: 1.38462rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .search-result:after {
+[data-page-id='my_pay-history_anc'] .history-list .search-result:after,
+[data-page-id='my_pay-history_car'] .history-list .search-result:after {
   content: ":";
   padding: 0 0.3em;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .search-result ~ dt {
+[data-page-id='my_pay-history_anc'] .history-list .search-result ~ dt,
+[data-page-id='my_pay-history_car'] .history-list .search-result ~ dt {
   position: absolute;
   width: 0;
   height: 0;
@@ -11101,7 +11265,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .sort-condition ~ dd input[type='radio'] {
+[data-page-id='my_pay-history_anc'] .history-list .sort-condition ~ dd input[type='radio'],
+[data-page-id='my_pay-history_car'] .history-list .sort-condition ~ dd input[type='radio'] {
   position: absolute;
   width: 0;
   height: 0;
@@ -11112,17 +11277,20 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .sort-condition ~ dd input[type='radio'] + label {
+[data-page-id='my_pay-history_anc'] .history-list .sort-condition ~ dd input[type='radio'] + label,
+[data-page-id='my_pay-history_car'] .history-list .sort-condition ~ dd input[type='radio'] + label {
   margin-left: 0.61538rem;
   color: #aaa;
   font-weight: 600;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list .sort-condition ~ dd input[type='radio']:checked + label {
+[data-page-id='my_pay-history_anc'] .history-list .sort-condition ~ dd input[type='radio']:checked + label,
+[data-page-id='my_pay-history_car'] .history-list .sort-condition ~ dd input[type='radio']:checked + label {
   color: #000;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'],
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] {
   font-size: 1.07692rem;
   font-weight: 400;
   color: #000;
@@ -11133,7 +11301,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border-top: 1px solid #000;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > thead > tr > th {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > thead > tr > th,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > thead > tr > th {
   padding: 1.15385rem 1.23077rem;
   height: 3.92308rem;
   line-height: 1.61538rem;
@@ -11142,102 +11311,128 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border-bottom: 1px solid #000;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr > th, [data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr > td {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr > th, [data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr > td,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > tbody > tr > th,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > tbody > tr > td {
   padding: 2.07692rem 1.84615rem;
   border-bottom: 1px solid #f0f0f0;
   vertical-align: middle;
 }
 
 [data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr.active > th,
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr.active > td {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr.active > td,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > tbody > tr.active > th,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > tbody > tr.active > td {
   border-bottom-color: transparent;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr:hover > th, [data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr:hover > td {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr:hover > th, [data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr:hover > td,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > tbody > tr:hover > th,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > tbody > tr:hover > td {
   background-color: #F8F8F8;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr.result-empty > td {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr.result-empty > td,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > tbody > tr.result-empty > td {
   padding-top: 9.23077rem;
   padding-bottom: 9.23077rem;
   text-align: center;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr.result-empty > td:hover {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] > tbody > tr.result-empty > td:hover,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] > tbody > tr.result-empty > td:hover {
   background-color: transparent;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] a {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] a,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] a {
   text-decoration: none;
   color: inherit;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] a:hover {
+[data-page-id='my_pay-history_anc'] .history-list > table[data-grid-type='board'] a:hover,
+[data-page-id='my_pay-history_car'] .history-list > table[data-grid-type='board'] a:hover {
   text-decoration: underline;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table thead th:first-of-type {
+[data-page-id='my_pay-history_anc'] .history-list table thead th:first-of-type,
+[data-page-id='my_pay-history_car'] .history-list table thead th:first-of-type {
   width: 11.53846rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(2) {
+[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(2),
+[data-page-id='my_pay-history_car'] .history-list table thead th:nth-of-type(2) {
   width: 11.53846rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(4) {
+[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(4),
+[data-page-id='my_pay-history_car'] .history-list table thead th:nth-of-type(4) {
   width: 14.23077rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(5) {
+[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(5),
+[data-page-id='my_pay-history_car'] .history-list table thead th:nth-of-type(5) {
   width: 13.07692rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(6) {
+[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(6),
+[data-page-id='my_pay-history_car'] .history-list table thead th:nth-of-type(6) {
   width: 10rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(7) {
+[data-page-id='my_pay-history_anc'] .history-list table thead th:nth-of-type(7),
+[data-page-id='my_pay-history_car'] .history-list table thead th:nth-of-type(7) {
   width: 9.61538rem;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table tbody td:first-of-type {
+[data-page-id='my_pay-history_anc'] .history-list table tbody td:first-of-type,
+[data-page-id='my_pay-history_car'] .history-list table tbody td:first-of-type {
   text-align: center;
   letter-spacing: 0;
   font-weight: 600;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(2) {
+[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(2),
+[data-page-id='my_pay-history_car'] .history-list table tbody td:nth-of-type(2) {
   text-align: center;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(4) {
+[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(4),
+[data-page-id='my_pay-history_car'] .history-list table tbody td:nth-of-type(4) {
   text-align: center;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(5) {
+[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(5),
+[data-page-id='my_pay-history_car'] .history-list table tbody td:nth-of-type(5) {
   text-align: center;
   letter-spacing: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(6) {
+[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(6),
+[data-page-id='my_pay-history_car'] .history-list table tbody td:nth-of-type(6) {
   text-align: right;
   letter-spacing: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(7) {
+[data-page-id='my_pay-history_anc'] .history-list table tbody td:nth-of-type(7),
+[data-page-id='my_pay-history_car'] .history-list table tbody td:nth-of-type(7) {
   text-align: center;
 }
 
-[data-page-id='my_pay-history_anc'] .history-list table .price .digits:before {
+[data-page-id='my_pay-history_anc'] .history-list table .price .digits:before,
+[data-page-id='my_pay-history_car'] .history-list table .price .digits:before {
   content: "₩";
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info {
+[data-page-id='my_pay-history_anc'] .ticket-info,
+[data-page-id='my_pay-history_car'] .ticket-info {
   text-align: left;
 }
 
 [data-page-id='my_pay-history_anc'] .ticket-info .departure,
-[data-page-id='my_pay-history_anc'] .ticket-info .arrival {
+[data-page-id='my_pay-history_anc'] .ticket-info .arrival,
+[data-page-id='my_pay-history_car'] .ticket-info .departure,
+[data-page-id='my_pay-history_car'] .ticket-info .arrival {
   position: absolute;
   width: 0;
   height: 0;
@@ -11248,49 +11443,61 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info dt, [data-page-id='my_pay-history_anc'] .ticket-info dd {
+[data-page-id='my_pay-history_anc'] .ticket-info dt, [data-page-id='my_pay-history_anc'] .ticket-info dd,
+[data-page-id='my_pay-history_car'] .ticket-info dt,
+[data-page-id='my_pay-history_car'] .ticket-info dd {
   display: inline;
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info .arrival + dd:before {
+[data-page-id='my_pay-history_anc'] .ticket-info .arrival + dd:before,
+[data-page-id='my_pay-history_car'] .ticket-info .arrival + dd:before {
   content: "↔";
   padding: 0 0.3em 0 0.1em;
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info.one-way .arrival + dd:before {
+[data-page-id='my_pay-history_anc'] .ticket-info.one-way .arrival + dd:before,
+[data-page-id='my_pay-history_car'] .ticket-info.one-way .arrival + dd:before {
   content: "→";
   padding: 0 0.3em 0 0.1em;
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info .iata-code:before {
+[data-page-id='my_pay-history_anc'] .ticket-info .iata-code:before,
+[data-page-id='my_pay-history_car'] .ticket-info .iata-code:before {
   content: "(";
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info .iata-code:after {
+[data-page-id='my_pay-history_anc'] .ticket-info .iata-code:after,
+[data-page-id='my_pay-history_car'] .ticket-info .iata-code:after {
   content: ")";
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info .schedule:after {
+[data-page-id='my_pay-history_anc'] .ticket-info .schedule:after,
+[data-page-id='my_pay-history_car'] .ticket-info .schedule:after {
   content: ":";
   padding: 0 0.1em 0 0.3em;
 }
 
 [data-page-id='my_pay-history_anc'] .ticket-info .arrival + dd:after,
-[data-page-id='my_pay-history_anc'] .ticket-info .schedule ~ dd:after {
+[data-page-id='my_pay-history_anc'] .ticket-info .schedule ~ dd:after,
+[data-page-id='my_pay-history_car'] .ticket-info .arrival + dd:after,
+[data-page-id='my_pay-history_car'] .ticket-info .schedule ~ dd:after {
   content: "";
   display: block;
   width: 100%;
   height: 0;
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info .arrival + dd + .schedule:before {
+[data-page-id='my_pay-history_anc'] .ticket-info .arrival + dd + .schedule:before,
+[data-page-id='my_pay-history_car'] .ticket-info .arrival + dd + .schedule:before {
   content: "";
   display: block;
   width: 100%;
   height: 0.76923rem;
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info .schedule, [data-page-id='my_pay-history_anc'] .ticket-info .schedule + dd {
+[data-page-id='my_pay-history_anc'] .ticket-info .schedule, [data-page-id='my_pay-history_anc'] .ticket-info .schedule + dd,
+[data-page-id='my_pay-history_car'] .ticket-info .schedule,
+[data-page-id='my_pay-history_car'] .ticket-info .schedule + dd {
   font-size: 0.92308rem;
   font-weight: 400;
   color: #000;
@@ -11298,27 +11505,31 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
 }
 
-[data-page-id='my_pay-history_anc'] .ticket-info .schedule ~ dd {
+[data-page-id='my_pay-history_anc'] .ticket-info .schedule ~ dd,
+[data-page-id='my_pay-history_car'] .ticket-info .schedule ~ dd {
   letter-spacing: 0;
 }
 
 /*마이페이지 > 나의 예약/결제 내역 > 상세*/
 [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .process-btn-wrap,
-[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap {
+[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .process-btn-wrap {
   margin: 0 -0.38462rem;
   padding-top: 3.84615rem;
   text-align: left;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .process-btn-wrap:after,
-[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap:after {
+[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap:after,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .process-btn-wrap:after {
   content: '';
   display: table;
   clear: both;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .process-btn-wrap .btn_refund,
-[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap .btn_refund {
+[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap .btn_refund,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .process-btn-wrap .btn_refund {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -11342,7 +11553,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .process-btn-wrap .btn_refund[disabled='disabled'],
-[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap .btn_refund[disabled='disabled'] {
+[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap .btn_refund[disabled='disabled'],
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .process-btn-wrap .btn_refund[disabled='disabled'] {
   border: 1px solid #f0f0f0;
   background-color: #f0f0f0;
   color: #aaa;
@@ -11350,7 +11562,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .process-btn-wrap .btn_inquiry,
-[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap .btn_inquiry {
+[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap .btn_inquiry,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .process-btn-wrap .btn_inquiry {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -11374,7 +11587,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .process-btn-wrap .btn_inquiry[disabled='disabled'],
-[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap .btn_inquiry[disabled='disabled'] {
+[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap .btn_inquiry[disabled='disabled'],
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .process-btn-wrap .btn_inquiry[disabled='disabled'] {
   border: 1px solid #f0f0f0;
   background-color: #f0f0f0;
   color: #aaa;
@@ -11382,52 +11596,51 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .process-btn-wrap [class^='btn_'],
-[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap [class^='btn_'] {
+[data-page-id='my_refund_anc'] .my-title-wrap .process-btn-wrap [class^='btn_'],
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .process-btn-wrap [class^='btn_'] {
   float: left;
   margin: 0 0.38462rem;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .page-name,
-[data-page-id='my_refund_anc'] .page-name {
-  font-size: 1.23077rem;
-  font-weight: 800;
-  color: #000;
-  letter-spacing: -0.08em;
-  font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
-}
-
-[data-page-id='my_pay-history-detail_anc'] .ticket-info,
-[data-page-id='my_refund_anc'] .ticket-info {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info {
   padding-top: 3.84615rem;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info:after,
-[data-page-id='my_refund_anc'] .ticket-info:after {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info:after,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info:after,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info:after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .airport,
-[data-page-id='my_refund_anc'] .ticket-info .airport {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport {
   padding-bottom: 1.53846rem;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .airport:after,
-[data-page-id='my_refund_anc'] .ticket-info .airport:after {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport:after,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport:after,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport:after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .airport > dt, [data-page-id='my_pay-history-detail_anc'] .ticket-info .airport > dd,
-[data-page-id='my_refund_anc'] .ticket-info .airport > dt,
-[data-page-id='my_refund_anc'] .ticket-info .airport > dd {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport > dt, [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport > dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport > dt,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport > dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport > dt,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport > dd {
   float: left;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .airport dt,
-[data-page-id='my_refund_anc'] .ticket-info .airport dt {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport dt,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport dt,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport dt {
   position: absolute;
   width: 0;
   height: 0;
@@ -11438,8 +11651,9 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .airport dd,
-[data-page-id='my_refund_anc'] .ticket-info .airport dd {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport dd {
   font-size: 2.30769rem;
   font-weight: 800;
   color: #000;
@@ -11447,8 +11661,9 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .airport .arrival + dd,
-[data-page-id='my_refund_anc'] .ticket-info .airport .arrival + dd {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport .arrival + dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport .arrival + dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport .arrival + dd {
   padding-left: 2.2em;
   background-image: url("../img/common/ico_airplane.png");
   background-repeat: no-repeat;
@@ -11457,33 +11672,38 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='my_pay-history-detail_anc'] .ticket-info .airport .arrival + dd,
-  [data-page-id='my_refund_anc'] .ticket-info .airport .arrival + dd {
+  [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport .arrival + dd,
+  [data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport .arrival + dd,
+  [data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport .arrival + dd {
     background-image: url("../img/common/ico_airplane@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='my_pay-history-detail_anc'] .ticket-info .airport .arrival + dd,
-  [data-page-id='my_refund_anc'] .ticket-info .airport .arrival + dd {
+  [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .airport .arrival + dd,
+  [data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .airport .arrival + dd,
+  [data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .airport .arrival + dd {
     background-image: url("../img/common/ico_airplane@3x.png");
   }
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info {
   padding-top: 0.27273em;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info:after,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info:after {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info:after,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info:after,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info:after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .type,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .type {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .type,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .type,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .type {
   position: absolute;
   width: 0;
   height: 0;
@@ -11494,8 +11714,9 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .type + dd,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .type + dd {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .type + dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .type + dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .type + dd {
   font-size: 0.69231rem;
   font-weight: 800;
   color: #ffffff;
@@ -11523,31 +11744,38 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   line-height: 1.63636em;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info dt, [data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info dd,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info dt,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info dd {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info dt, [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info dt,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info dt,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info dd {
   display: inline;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info dt:after,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info dt:after {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info dt:after,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info dt:after,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info dt:after {
   content: ":";
   padding: 0 0.27273em;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .schedule ~ dt,
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .resv-num ~ dt,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .schedule ~ dt,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .resv-num ~ dt {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .schedule ~ dt,
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .resv-num ~ dt,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .schedule ~ dt,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .resv-num ~ dt,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .schedule ~ dt,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .resv-num ~ dt {
   position: relative;
   margin-left: 1.09091em;
   padding-left: 1.09091em;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .schedule ~ dt:before,
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .resv-num ~ dt:before,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .schedule ~ dt:before,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .resv-num ~ dt:before {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .schedule ~ dt:before,
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .resv-num ~ dt:before,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .schedule ~ dt:before,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .resv-num ~ dt:before,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .schedule ~ dt:before,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .resv-num ~ dt:before {
   content: "";
   position: absolute;
   left: 0;
@@ -11561,69 +11789,92 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   background-color: #999;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .resv-num + dd,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .resv-num + dd {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .resv-num + dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .resv-num + dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .resv-num + dd {
   font-weight: 800;
   letter-spacing: 0;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .price + dd .digits:before,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .price + dd .digits:before {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .price + dd .digits:before,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .price + dd .digits:before,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .price + dd .digits:before {
   content: "₩";
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .price + dd .digits,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .price + dd .digits {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .price + dd .digits,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .price + dd .digits,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .price + dd .digits {
   font-weight: 800;
   color: #FF4F24;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .passenger-name,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .passenger-name {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .passenger-name,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .passenger-name,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .passenger-name {
   font-weight: 800;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .price + dd .digits,
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .schedule + dd,
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .passenger-name,
-[data-page-id='my_pay-history-detail_anc'] .ticket-info .detail-info .pay-dnt + dd,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .price + dd .digits,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .schedule + dd,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .passenger-name,
-[data-page-id='my_refund_anc'] .ticket-info .detail-info .pay-dnt + dd {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .price + dd .digits,
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .schedule + dd,
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .passenger-name,
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info .detail-info .pay-dnt + dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .price + dd .digits,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .schedule + dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .passenger-name,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info .detail-info .pay-dnt + dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .price + dd .digits,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .schedule + dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .passenger-name,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info .detail-info .pay-dnt + dd {
   letter-spacing: -0.03em;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .ticket-info.one-way .airport .arrival + dd,
-[data-page-id='my_refund_anc'] .ticket-info.one-way .airport .arrival + dd {
+[data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd,
+[data-page-id='my_refund_anc'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd,
+[data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd {
   background-image: url("../img/common/ico_airplane_oneway.png");
   background-repeat: no-repeat;
   background-size: 1.69231rem 1.23077rem;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
-  [data-page-id='my_pay-history-detail_anc'] .ticket-info.one-way .airport .arrival + dd,
-  [data-page-id='my_refund_anc'] .ticket-info.one-way .airport .arrival + dd {
+  [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd,
+  [data-page-id='my_refund_anc'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd,
+  [data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd {
     background-image: url("../img/common/ico_airplane_oneway@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-  [data-page-id='my_pay-history-detail_anc'] .ticket-info.one-way .airport .arrival + dd,
-  [data-page-id='my_refund_anc'] .ticket-info.one-way .airport .arrival + dd {
+  [data-page-id='my_pay-history-detail_anc'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd,
+  [data-page-id='my_refund_anc'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd,
+  [data-page-id='my_pay-history-detail_car'] .my-title-wrap .ticket-info.one-way .airport .arrival + dd {
     background-image: url("../img/common/ico_airplane_oneway@3x.png");
   }
 }
 
+[data-page-id='my_pay-history-detail_anc'] .page-name,
+[data-page-id='my_refund_anc'] .page-name,
+[data-page-id='my_pay-history-detail_car'] .page-name {
+  font-size: 1.23077rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.08em;
+  font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
+}
+
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap {
   margin-top: 6.15385rem;
   padding-top: 7.69231rem;
   border-top: 1px solid #f0f0f0;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap [class*='_pay-title'],
-[data-page-id='my_refund_anc'] .my-history-detail-wrap [class*='_pay-title'] {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap [class*='_pay-title'],
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap [class*='_pay-title'] {
   font-size: 1.53846rem;
   font-weight: 800;
   color: #000;
@@ -11633,12 +11884,15 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap {
   padding-top: 3.84615rem;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table {
   table-layout: fixed;
   width: 100%;
   border-top: 1px solid #000;
@@ -11646,7 +11900,9 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table th, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table td,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table th,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table td {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table td,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table th,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table td {
   height: 3.57143em;
   vertical-align: middle;
 }
@@ -11655,7 +11911,11 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot th,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody td {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody td,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tfoot th,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tfoot td,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody th,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td {
   font-size: 1.07692rem;
   font-weight: 400;
   color: #000;
@@ -11667,18 +11927,22 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tfoot th, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot th,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tfoot th,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tfoot td {
   background-color: #F8F8F8;
   text-align: right;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tfoot .ico_tag,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot .ico_tag {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot .ico_tag,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tfoot .ico_tag {
   margin-right: 1.23077rem;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tfoot td {
   font-size: 1.07692rem;
   font-weight: 600;
   color: #FF4F24;
@@ -11688,19 +11952,22 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td .digits:before,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td .digits:before {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td .digits:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tfoot td .digits:before {
   content: "₩";
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td .digits,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td .digits {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tfoot td .digits,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tfoot td .digits {
   display: inline-block;
   width: 6.30769rem;
   letter-spacing: 0;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th {
   font-size: 1.07692rem;
   font-weight: 800;
   color: #000;
@@ -11711,135 +11978,165 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type {
   padding-left: 4.28571em;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type {
   padding-left: 4.28571em;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:first-of-type,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type {
   width: 19.23077rem;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(2), [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dt,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(2),
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dt {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dt,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(2),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dt {
   width: 13.84615rem;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(2), [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dd.pay,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(2),
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dd.pay {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dd.pay,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(2),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dd.pay {
   width: calc(100% - 180px - 125px - 152px);
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(3), [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dd.price,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(3),
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dd.price {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dd.price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(3),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dd.price {
   width: 9.61538rem;
   text-align: right;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(4), [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dd.status,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(4),
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dd.status {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dd.status,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(4),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dd.status {
   width: 11.69231rem;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table thead th:last-of-type,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:last-of-type {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table thead th:last-of-type,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:last-of-type {
   padding-right: 4.28571em;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type {
   font-weight: 600;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tbody td,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody td {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody td,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td {
   text-align: center;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table tbody th.passenger-name,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th.passenger-name {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table tbody th.passenger-name,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody th.passenger-name {
   letter-spacing: -0.03em;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dd.pay,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dd.pay {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dd.pay,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dd.pay {
   letter-spacing: -0.03em;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']),
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info),
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) {
   margin: 0 -2.30769rem;
   padding: 0.61538rem 0;
   text-align: left;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):after,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):after {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info):after,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info):after,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info):after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dt, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dt,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dt, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dt,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dt,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd {
   float: left;
   padding: 0.61538rem 2.14286em;
   min-height: 2.42857em;
   line-height: 1.28571em;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dt,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dt {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dt,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dt,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dt {
   font-weight: 800;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd {
   font-weight: 400;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd.refund,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd.refund {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.refund,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.refund,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.refund {
   text-align: center;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd.price,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd.price {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.price,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.price {
   letter-spacing: 0;
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd.price .digits:before,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd.price .digits:before {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.price .digits:before,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.price .digits:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.price .digits:before {
   content: "₩";
 }
 
-[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd.status,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']) dd.status {
+[data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.status,
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.status,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl:not([class^='bundle-type']):not(.ticket-info) dd.status {
   padding-right: 4.61538rem;
   text-align: center;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'],
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'],
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] {
   position: relative;
   margin: 0.61538rem -2.30769rem -0.61538rem;
   text-align: right;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] dt,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] dt {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] dt,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] dt {
   position: absolute;
   width: 0;
   height: 0;
@@ -11854,7 +12151,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] dd {
   display: inline-block;
   padding: 0 2.30769rem;
   line-height: 2.46154rem;
@@ -11862,7 +12160,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-name + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-name + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-name + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-name + dd {
   font-size: 0.69231rem;
   font-weight: 800;
   color: #aaa;
@@ -11879,7 +12178,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-name + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-name + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-name + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-name + dd {
   position: absolute;
   left: 0;
   top: 50%;
@@ -11892,7 +12192,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-price + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-price + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-price + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-price + dd {
   font-size: 1.07692rem;
   font-weight: 400;
   color: #000;
@@ -11905,12 +12206,14 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-price + dd .digits:before,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-price + dd .digits:before {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-price + dd .digits:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-price + dd .digits:before {
   content: "₩";
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-status + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-status + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-status + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] .bundle-status + dd {
   font-size: 1.07692rem;
   font-weight: 400;
   color: #000;
@@ -11922,36 +12225,42 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type0 .bundle-name + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type0 .bundle-name + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type0 .bundle-name + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type0 .bundle-name + dd {
   color: transparent;
   border-color: transparent;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type1 .bundle-name + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type1 .bundle-name + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type1 .bundle-name + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type1 .bundle-name + dd {
   color: #7C756E;
   border-color: #7C756E;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type2 .bundle-name + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type2 .bundle-name + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type2 .bundle-name + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type2 .bundle-name + dd {
   color: #8EB454;
   border-color: #8EB454;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type3 .bundle-name + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type3 .bundle-name + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type3 .bundle-name + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'].bundle-type3 .bundle-name + dd {
   color: #D22C27;
   border-color: #D22C27;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] + dl dd.pay,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] + dl dd.pay {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] + dl dd.pay,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table dl[class^='bundle-type'] + dl dd.pay {
   width: calc(100% - 180px);
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-title,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-title {
   font-size: 1.23077rem;
   font-weight: 600;
   color: #000;
@@ -11961,7 +12270,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-title .ico_airplane,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title .ico_airplane {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title .ico_airplane,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-title .ico_airplane {
   background-image: url("../img/pay/ico_airplane.png");
   background-repeat: no-repeat;
   background-size: 0.92308rem 0.76923rem;
@@ -11976,20 +12286,23 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-title .ico_airplane,
-  [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title .ico_airplane {
+  [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title .ico_airplane,
+  [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-title .ico_airplane {
     background-image: url("../img/pay/ico_airplane@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-title .ico_airplane,
-  [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title .ico_airplane {
+  [data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title .ico_airplane,
+  [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-title .ico_airplane {
     background-image: url("../img/pay/ico_airplane@3x.png");
   }
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-title .ico_airplane + .ico_tag,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title .ico_airplane + .ico_tag {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-title .ico_airplane + .ico_tag,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-title .ico_airplane + .ico_tag {
   margin-left: 0.30769rem;
   border-color: #000;
   background-color: #ffffff;
@@ -11997,19 +12310,22 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap {
   height: auto;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap:after,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap:after {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap:after,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap:after {
   content: '';
   display: table;
   clear: both;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dl,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dl {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dl,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dl {
   position: relative;
   padding: 1.30769rem 4.61538rem;
   height: 4rem;
@@ -12018,7 +12334,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dt:not(.total-price),
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dt:not(.total-price) {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dt:not(.total-price),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dt:not(.total-price) {
   font-size: 0.69231rem;
   font-weight: 800;
   color: #ffffff;
@@ -12039,7 +12356,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price {
   font-size: 0.69231rem;
   font-weight: 800;
   color: #ffffff;
@@ -12061,7 +12379,9 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .price, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .fee,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .price,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .fee {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .fee,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .fee {
   position: relative;
   margin-right: 1.23077rem;
 }
@@ -12069,7 +12389,10 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .price, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .fee, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .price,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .fee,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price {
   margin-left: 3.84615rem;
   min-width: auto;
 }
@@ -12080,7 +12403,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:before,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:before,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:after {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:after,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .price:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .price:after,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .fee:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .fee:after,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price:after {
   content: "";
   position: absolute;
   top: -0.15385rem;
@@ -12094,17 +12423,22 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .price:before, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .fee:before, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price:before,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .price:before,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:before,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:before {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .price:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .fee:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price:before {
   background-color: #000;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .fee:before,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:before {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .fee:before {
   background-color: #FF4F24;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .price:after,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .price:after {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .price:after,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .price:after {
   background-image: url("../img/pay/ico_calc-plus.png");
   background-repeat: no-repeat;
   background-size: 1.38462rem 1.38462rem;
@@ -12112,20 +12446,23 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .price:after,
-  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .price:after {
+  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .price:after,
+  [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .price:after {
     background-image: url("../img/pay/ico_calc-plus@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .price:after,
-  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .price:after {
+  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .price:after,
+  [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .price:after {
     background-image: url("../img/pay/ico_calc-plus@3x.png");
   }
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .fee:after {
   background-image: url("../img/pay/ico_calc-minus.png");
   background-repeat: no-repeat;
   background-size: 1.38462rem 1.38462rem;
@@ -12133,20 +12470,23 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after,
-  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after {
+  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after,
+  [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .fee:after {
     background-image: url("../img/pay/ico_calc-minus@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after,
-  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after {
+  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd + .fee:after,
+  [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd + .fee:after {
     background-image: url("../img/pay/ico_calc-minus@3x.png");
   }
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price:after,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:after {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:after,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price:after {
   background-image: url("../img/pay/ico_calc-equal.png");
   background-repeat: no-repeat;
   background-size: 1.38462rem 1.38462rem;
@@ -12154,14 +12494,16 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
   [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price:after,
-  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:after {
+  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:after,
+  [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price:after {
     background-image: url("../img/pay/ico_calc-equal@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price:after,
-  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:after {
+  [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price:after,
+  [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price:after {
     background-image: url("../img/pay/ico_calc-equal@3x.png");
   }
 }
@@ -12170,18 +12512,25 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .price,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .price + dd,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .fee,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .fee + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .fee + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .price + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .fee,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .fee + dd {
   float: left;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap dd .digits:before,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd .digits:before {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap dd .digits:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap dd .digits:before {
   content: "₩";
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .price + dd, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .fee + dd,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .price + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .fee + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .fee + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .price + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .fee + dd {
   font-size: 1.07692rem;
   font-weight: 400;
   color: #000;
@@ -12192,14 +12541,16 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .digits,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .digits {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .digits,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .digits {
   height: 1.30769rem;
   line-height: 1.30769rem;
   letter-spacing: 0;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .digits:before,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .digits:before {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .digits:before,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .digits:before {
   font-size: inherit;
   font-weight: inherit;
   color: inherit;
@@ -12207,7 +12558,9 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price, [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price + dd,
 [data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price + dd {
   position: absolute;
   left: 0;
   top: 50%;
@@ -12218,13 +12571,15 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price {
   right: 21.84615rem;
   width: 6.30769rem;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .total-wrap .total-price + dd,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price + dd {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .total-wrap .total-price + dd,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .total-wrap .total-price + dd {
   font-size: 1.07692rem;
   font-weight: 600;
   color: #FF4F24;
@@ -12235,12 +12590,14 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .receipt-wrap,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .receipt-wrap,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap {
   position: relative;
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .btn_view-seat,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .btn_view-seat {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .btn_view-seat,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .btn_view-seat {
   display: inline-block;
   margin: 0;
   width: 100%;
@@ -12273,7 +12630,8 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap .btn_view-seat[disabled='disabled'],
-[data-page-id='my_refund_anc'] .my-history-detail-wrap .btn_view-seat[disabled='disabled'] {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap .btn_view-seat[disabled='disabled'],
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .btn_view-seat[disabled='disabled'] {
   border: 1px solid #f0f0f0;
   background-color: #f0f0f0;
   color: #aaa;
@@ -12281,16 +12639,18 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 [data-page-id='my_pay-history-detail_anc'] .my-history-detail-wrap + .process-btn-wrap,
-[data-page-id='my_refund_anc'] .my-history-detail-wrap + .process-btn-wrap {
+[data-page-id='my_refund_anc'] .my-history-detail-wrap + .process-btn-wrap,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap + .process-btn-wrap {
   padding-top: 6.15385rem;
 }
 
-/*마이페이지 > 구매 내역/취소*/
+[data-page-id='my_pay-history-detail_car'],
 [data-page-id='my_refund_anc'] {
   overflow: hidden;
   width: 100%;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'],
 [data-page-id='my_refund_anc'] input[type='checkbox'] {
   display: inline-block;
   margin: 0;
@@ -12307,11 +12667,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'] + label,
 [data-page-id='my_refund_anc'] input[type='checkbox'] + label {
   position: relative;
   display: inline-block;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'] + label .ico,
 [data-page-id='my_refund_anc'] input[type='checkbox'] + label .ico {
   transition: all 0.5s;
   /*transition-delay: $trs-delay;*/
@@ -12321,6 +12683,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border-radius: 50%;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'] + label .ico:before,
 [data-page-id='my_refund_anc'] input[type='checkbox'] + label .ico:before {
   content: "";
   transition: border-color 0.5s;
@@ -12333,6 +12696,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   transform: rotate(-45deg);
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'] + label,
 [data-page-id='my_refund_anc'] input[type='checkbox'] + label {
   font-size: 1rem;
   font-weight: 400;
@@ -12343,6 +12707,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   line-height: 16px;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'] + label .ico,
 [data-page-id='my_refund_anc'] input[type='checkbox'] + label .ico {
   margin-right: 0.61538rem;
   width: 16px;
@@ -12350,6 +12715,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   line-height: 16px;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'] + label .ico:before,
 [data-page-id='my_refund_anc'] input[type='checkbox'] + label .ico:before {
   left: 3px;
   top: 4px;
@@ -12357,46 +12723,56 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   height: 4px;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'] + label .ico,
 [data-page-id='my_refund_anc'] input[type='checkbox'] + label .ico {
   border: 1px solid #e4e4e4;
   background-color: #ffffff;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox']:checked + label .ico,
 [data-page-id='my_refund_anc'] input[type='checkbox']:checked + label .ico {
   border: 1px solid #FF4F24;
   background-color: #FF4F24;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox']:checked + label .ico:before,
 [data-page-id='my_refund_anc'] input[type='checkbox']:checked + label .ico:before {
   border-color: #ffffff;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'][disabled='disabled'] + label .ico,
 [data-page-id='my_refund_anc'] input[type='checkbox'][disabled='disabled'] + label .ico {
   border: 1px solid #e4e4e4;
   background-color: #f0f0f0;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'][disabled='disabled'] + label .ico:before,
 [data-page-id='my_refund_anc'] input[type='checkbox'][disabled='disabled'] + label .ico:before {
   border-color: #e4e4e4;
 }
 
+[data-page-id='my_pay-history-detail_car'] .text-underline,
 [data-page-id='my_refund_anc'] .text-underline {
   font-weight: 800;
 }
 
+[data-page-id='my_pay-history-detail_car'] .refund-wrap,
 [data-page-id='my_refund_anc'] .refund-wrap {
   position: relative;
   padding: 3.84615rem 0 0 1.23077rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .inner-wrap header,
 [data-page-id='my_refund_anc'] .inner-wrap header {
   position: relative;
 }
 
+[data-page-id='my_pay-history-detail_car'] .inner-wrap:not([style*='display']) + .inner-wrap,
 [data-page-id='my_refund_anc'] .inner-wrap:not([style*='display']) + .inner-wrap {
   padding-top: 6.15385rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .title,
 [data-page-id='my_refund_anc'] .title {
   font-size: 1.07692rem;
   font-weight: 800;
@@ -12406,11 +12782,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   display: inline-block;
 }
 
+[data-page-id='my_pay-history-detail_car'] .flight-num,
 [data-page-id='my_refund_anc'] .flight-num {
   display: inline-block;
   margin: 0 0 0.92308rem 0.30769rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .flight-num dt,
 [data-page-id='my_refund_anc'] .flight-num dt {
   position: absolute;
   width: 0;
@@ -12422,6 +12800,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .flight-num dd,
 [data-page-id='my_refund_anc'] .flight-num dd {
   font-size: 0.69231rem;
   font-weight: 800;
@@ -12442,29 +12821,35 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   padding: 0 0.30769rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .check-all-wrap,
 [data-page-id='my_refund_anc'] .check-all-wrap {
   position: absolute;
   right: 1.23077rem;
   top: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .check-all-wrap label,
 [data-page-id='my_refund_anc'] .check-all-wrap label {
   font-weight: 600 !important;
 }
 
+[data-page-id='my_pay-history-detail_car'] .table-wrap,
 [data-page-id='my_refund_anc'] .table-wrap {
   position: relative;
   padding-bottom: 1.23077rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .table-wrap:first-of-type,
 [data-page-id='my_refund_anc'] .table-wrap:first-of-type {
   border-top: 1px solid #000;
 }
 
+[data-page-id='my_pay-history-detail_car'] .table-wrap + .table-wrap,
 [data-page-id='my_refund_anc'] .table-wrap + .table-wrap {
   border-top: 1px solid #f0f0f0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .passenger-name,
 [data-page-id='my_refund_anc'] .passenger-name {
   font-size: 1.07692rem;
   font-weight: 800;
@@ -12474,12 +12859,14 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   text-transform: uppercase;
 }
 
+[data-page-id='my_pay-history-detail_car'] .total-wrap,
 [data-page-id='my_refund_anc'] .total-wrap {
   height: 3.38462rem;
   border-top: 1px solid #000;
   border-bottom: 1px solid #f0f0f0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .total-wrap > dl,
 [data-page-id='my_refund_anc'] .total-wrap > dl {
   display: table;
   table-layout: fixed;
@@ -12487,11 +12874,14 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   height: 100%;
 }
 
-[data-page-id='my_refund_anc'] .total-wrap > dl > dt, [data-page-id='my_refund_anc'] .total-wrap > dl > dd {
+[data-page-id='my_pay-history-detail_car'] .total-wrap > dl > dt, [data-page-id='my_pay-history-detail_car'] .total-wrap > dl > dd,
+[data-page-id='my_refund_anc'] .total-wrap > dl > dt,
+[data-page-id='my_refund_anc'] .total-wrap > dl > dd {
   display: table-cell;
   vertical-align: middle;
 }
 
+[data-page-id='my_pay-history-detail_car'] .total-wrap > dl > dt,
 [data-page-id='my_refund_anc'] .total-wrap > dl > dt {
   font-size: 0.92308rem;
   font-weight: 600;
@@ -12501,6 +12891,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   width: 9.23077rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .total-wrap > dl > dd,
 [data-page-id='my_refund_anc'] .total-wrap > dl > dd {
   font-size: 1rem;
   font-weight: 500;
@@ -12512,6 +12903,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   text-align: right;
 }
 
+[data-page-id='my_pay-history-detail_car'] .total-wrap > dl > dd .digits:before,
 [data-page-id='my_refund_anc'] .total-wrap > dl > dd .digits:before {
   content: "￦";
   font-size: 0.92308rem;
@@ -12519,6 +12911,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   font-weight: 600;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap,
 [data-page-id='my_refund_anc'] .agreement-wrap {
   padding: 6.15385rem 0 0 0;
   /*dl {
@@ -12539,6 +12932,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   padding: 7.69231rem 1.23077rem 0 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-title,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-title {
   font-size: 1.38462rem;
   font-weight: 800;
@@ -12548,10 +12942,12 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   margin-bottom: 1.07692rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-list,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-list {
   border-top: 1px solid #000;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-list > li,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-list > li {
   font-size: 1rem;
   font-weight: 600;
@@ -12564,6 +12960,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border-bottom: 1px solid #f0f0f0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-list > li:before,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-list > li:before {
   content: "";
   display: inline-block;
@@ -12572,6 +12969,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   vertical-align: middle;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-list > li label,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-list > li label {
   overflow: hidden;
   display: inline-block;
@@ -12584,11 +12982,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   height: 3.84615rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-list > li.active,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-list > li.active {
   overflow: auto;
   height: auto;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-list .btn_more,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-list .btn_more {
   font-size: 0.84615rem;
   font-weight: 600;
@@ -12604,6 +13004,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   margin-right: -0.38462rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-list .btn_more .ico,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-list .btn_more .ico {
   -webkit-transform: rotate(-45deg) translate(5px, 1.5px);
   -ms-transform: rotate(-45deg) translate(5px, 1.5px);
@@ -12622,16 +13023,19 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   transform: rotate(135deg) translate(-4px, -3px) !important;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .table-wrap,
 [data-page-id='my_refund_anc'] .agreement-wrap .table-wrap {
   padding-bottom: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap {
   margin-top: 3.07692rem;
   padding: 2.46154rem;
   background-color: #F8F8F8;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-text,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-text {
   font-size: 0.84615rem;
   font-weight: 400;
@@ -12640,22 +13044,27 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-text:first-child,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-text:first-child {
   padding-top: 1.23077rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-text.pre-wrap,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-text.pre-wrap {
   white-space: pre-wrap;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-text.pre-wrap:first-child,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-text.pre-wrap:first-child {
   padding-top: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-list,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-list {
   padding: 0.61538rem 0 1.53846rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-list > li,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-list > li {
   font-size: 0.84615rem;
   font-weight: 400;
@@ -12668,6 +13077,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   letter-spacing: -0.03em;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-list > li:before,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-list > li:before {
   content: "";
   position: absolute;
@@ -12680,26 +13090,35 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   background-color: #5B5B5B;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-list > li + li,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-list > li + li {
   margin-top: 0.36364em;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-list:last-child,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-list:last-child {
   padding-bottom: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-list.no-blt li,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-list.no-blt li {
   padding-left: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap .notification-list.no-blt li:before,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap .notification-list.no-blt li:before {
   display: none;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-list,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list {
   padding: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-text + .notification-list,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-list + .notification-text,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-list + .notification-list,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-text + .notification-text,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-text + .notification-list,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list + .notification-text,
 [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list + .notification-list,
@@ -12707,14 +13126,19 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   padding-top: 0.61538rem;
 }
 
-[data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list:not(.no-blt) .notification-text, [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list:not(.no-blt) li {
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-list:not(.no-blt) .notification-text, [data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-list:not(.no-blt) li,
+[data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list:not(.no-blt) .notification-text,
+[data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list:not(.no-blt) li {
   color: #5B5B5B;
 }
 
-[data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list.no-blt .notification-text, [data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list.no-blt li {
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-list.no-blt .notification-text, [data-page-id='my_pay-history-detail_car'] .agreement-wrap .notification-wrap td .notification-list.no-blt li,
+[data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list.no-blt .notification-text,
+[data-page-id='my_refund_anc'] .agreement-wrap .notification-wrap td .notification-list.no-blt li {
   color: #000;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table,
 [data-page-id='my_refund_anc'] .agreement-wrap table {
   width: 100%;
   font-size: 0.84615rem;
@@ -12725,19 +13149,30 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   width: 100%;
 }
 
-[data-page-id='my_refund_anc'] .agreement-wrap table a, [data-page-id='my_refund_anc'] .agreement-wrap table button, [data-page-id='my_refund_anc'] .agreement-wrap table input, [data-page-id='my_refund_anc'] .agreement-wrap table textarea, [data-page-id='my_refund_anc'] .agreement-wrap table select {
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table a, [data-page-id='my_pay-history-detail_car'] .agreement-wrap table button, [data-page-id='my_pay-history-detail_car'] .agreement-wrap table input, [data-page-id='my_pay-history-detail_car'] .agreement-wrap table textarea, [data-page-id='my_pay-history-detail_car'] .agreement-wrap table select,
+[data-page-id='my_refund_anc'] .agreement-wrap table a,
+[data-page-id='my_refund_anc'] .agreement-wrap table button,
+[data-page-id='my_refund_anc'] .agreement-wrap table input,
+[data-page-id='my_refund_anc'] .agreement-wrap table textarea,
+[data-page-id='my_refund_anc'] .agreement-wrap table select {
   margin-bottom: 0 !important;
 }
 
-[data-page-id='my_refund_anc'] .agreement-wrap table th, [data-page-id='my_refund_anc'] .agreement-wrap table td {
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table th, [data-page-id='my_pay-history-detail_car'] .agreement-wrap table td,
+[data-page-id='my_refund_anc'] .agreement-wrap table th,
+[data-page-id='my_refund_anc'] .agreement-wrap table td {
   vertical-align: middle;
   line-height: 1.63636em;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table thead th,
 [data-page-id='my_refund_anc'] .agreement-wrap table thead th {
   height: 3.81818em;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table thead th,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody th[scope='colgroup'],
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody th:first-child:last-child,
 [data-page-id='my_refund_anc'] .agreement-wrap table thead th,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody th[scope='colgroup'],
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody th:first-child:last-child {
@@ -12749,12 +13184,17 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   background-color: #2A2167;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table thead th + th,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody th[scope='colgroup'] + th,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody th:first-child:last-child + th,
 [data-page-id='my_refund_anc'] .agreement-wrap table thead th + th,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody th[scope='colgroup'] + th,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody th:first-child:last-child + th {
   border-left: 1px solid #ffffff;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody th,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody td,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody th,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody td {
   padding: 1.09091em 0.90909em;
@@ -12762,32 +13202,41 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border-bottom: 1px solid #ddd;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody th + *,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody td + *,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody th + *,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody td + * {
   border-left: 1px solid #ddd;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table p,
 [data-page-id='my_refund_anc'] .agreement-wrap table p {
   line-height: 1.23077rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table p + ul,
 [data-page-id='my_refund_anc'] .agreement-wrap table p + ul {
   padding-top: 0.92308rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table p + ul + p,
 [data-page-id='my_refund_anc'] .agreement-wrap table p + ul + p {
   padding-top: 0.92308rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody th,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody th {
   font-weight: 800;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody tr:last-of-type th,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap table tbody tr:last-of-type td,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody tr:last-of-type th,
 [data-page-id='my_refund_anc'] .agreement-wrap table tbody tr:last-of-type td {
   border-bottom: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-all-list,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-all-list {
   position: relative;
   margin: -1px 0 3.84615rem;
@@ -12796,6 +13245,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border-bottom: 1px solid #f0f0f0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .agreement-all-list label,
 [data-page-id='my_refund_anc'] .agreement-wrap .agreement-all-list label {
   font-size: 1rem;
   font-weight: 600;
@@ -12810,23 +13260,29 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   padding: 1.30769rem 0 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap input[type='checkbox'] + label .ico,
 [data-page-id='my_refund_anc'] .agreement-wrap input[type='checkbox'] + label .ico {
   vertical-align: top;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap tbody th,
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap tbody td,
 [data-page-id='my_refund_anc'] .agreement-wrap tbody th,
 [data-page-id='my_refund_anc'] .agreement-wrap tbody td {
   text-align: center;
 }
 
+[data-page-id='my_pay-history-detail_car'] .agreement-wrap .table-wrap,
 [data-page-id='my_refund_anc'] .agreement-wrap .table-wrap {
   border-top: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .process-btn-wrap,
 [data-page-id='my_refund_anc'] .process-btn-wrap {
   padding-bottom: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .notification-text,
 [data-page-id='my_refund_anc'] .notification-text {
   font-size: 1rem;
   font-weight: 400;
@@ -12837,31 +13293,38 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   line-height: 1.69231em;
 }
 
+[data-page-id='my_pay-history-detail_car'] .notification-text a,
 [data-page-id='my_refund_anc'] .notification-text a {
   font-weight: 800;
   text-decoration: underline;
   color: inherit;
 }
 
+[data-page-id='my_pay-history-detail_car'] .help-desk:after,
 [data-page-id='my_refund_anc'] .help-desk:after {
   content: '';
   display: table;
   clear: both;
 }
 
-[data-page-id='my_refund_anc'] .help-desk dt, [data-page-id='my_refund_anc'] .help-desk dd {
+[data-page-id='my_pay-history-detail_car'] .help-desk dt, [data-page-id='my_pay-history-detail_car'] .help-desk dd,
+[data-page-id='my_refund_anc'] .help-desk dt,
+[data-page-id='my_refund_anc'] .help-desk dd {
   float: left;
 }
 
+[data-page-id='my_pay-history-detail_car'] .help-desk .tel + dd,
 [data-page-id='my_refund_anc'] .help-desk .tel + dd {
   letter-spacing: -0.03em;
 }
 
+[data-page-id='my_pay-history-detail_car'] .help-desk .tel + dd:before,
 [data-page-id='my_refund_anc'] .help-desk .tel + dd:before {
   content: ":";
   padding: 0 0.3em;
 }
 
+[data-page-id='my_pay-history-detail_car'] .help-desk .working-time,
 [data-page-id='my_refund_anc'] .help-desk .working-time {
   position: absolute;
   width: 0;
@@ -12873,19 +13336,23 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] .help-desk .working-time + dd,
 [data-page-id='my_refund_anc'] .help-desk .working-time + dd {
   padding-left: 0.3em;
   letter-spacing: -0.03em;
 }
 
+[data-page-id='my_pay-history-detail_car'] .help-desk .working-time + dd:before,
 [data-page-id='my_refund_anc'] .help-desk .working-time + dd:before {
   content: "(";
 }
 
+[data-page-id='my_pay-history-detail_car'] .help-desk .working-time + dd:after,
 [data-page-id='my_refund_anc'] .help-desk .working-time + dd:after {
   content: ")";
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'][data-checked='all'] + .btn_check-all,
 [data-page-id='my_refund_anc'] input[type='checkbox'][data-checked='all'] + .btn_check-all {
   display: inline-block;
   margin: 0;
@@ -12918,6 +13385,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   line-height: 2em;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'][data-checked='all'] + .btn_check-all[disabled='disabled'],
 [data-page-id='my_refund_anc'] input[type='checkbox'][data-checked='all'] + .btn_check-all[disabled='disabled'] {
   border: 1px solid #f0f0f0;
   background-color: #f0f0f0;
@@ -12925,12 +13393,14 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'][data-checked='all'] + .btn_check-all:after,
 [data-page-id='my_refund_anc'] input[type='checkbox'][data-checked='all'] + .btn_check-all:after {
   content: " 취소";
   display: none;
   background-color: #000;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'][data-checked='all']:checked + .btn_check-all,
 [data-page-id='my_refund_anc'] input[type='checkbox'][data-checked='all']:checked + .btn_check-all {
   display: inline-block;
   margin: 0;
@@ -12963,6 +13433,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   line-height: 2.18182em;
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'][data-checked='all']:checked + .btn_check-all[disabled='disabled'],
 [data-page-id='my_refund_anc'] input[type='checkbox'][data-checked='all']:checked + .btn_check-all[disabled='disabled'] {
   border: 1px solid #f0f0f0;
   background-color: #f0f0f0;
@@ -12970,11 +13441,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
+[data-page-id='my_pay-history-detail_car'] input[type='checkbox'][data-checked='all']:checked + .btn_check-all:after,
 [data-page-id='my_refund_anc'] input[type='checkbox'][data-checked='all']:checked + .btn_check-all:after {
   display: inline;
   opacity: 1;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'],
 [data-page-id='my_refund_anc'] table input[type='checkbox'] {
   display: inline-block;
   margin: 0;
@@ -12992,11 +13465,13 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   height: 16px;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label {
   position: relative;
   display: inline-block;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label .ico,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label .ico {
   transition: all 0.5s;
   /*transition-delay: $trs-delay;*/
@@ -13006,6 +13481,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   border-radius: 50%;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label .ico:before,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label .ico:before {
   content: "";
   transition: border-color 0.5s;
@@ -13018,6 +13494,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   transform: rotate(-45deg);
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label {
   font-size: 1.07692rem;
   font-weight: 500;
@@ -13026,6 +13503,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label .ico,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label .ico {
   margin-right: 8px;
   width: 16px;
@@ -13033,6 +13511,7 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   line-height: 16px;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label .ico:before,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label .ico:before {
   left: 3px;
   top: 4px;
@@ -13040,91 +13519,119 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   height: 4px;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label .ico,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label .ico {
   border: 1px solid #e4e4e4;
   background-color: #ffffff;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox']:checked + label .ico,
 [data-page-id='my_refund_anc'] table input[type='checkbox']:checked + label .ico {
   border: 1px solid #FF4F24;
   background-color: #FF4F24;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox']:checked + label .ico:before,
 [data-page-id='my_refund_anc'] table input[type='checkbox']:checked + label .ico:before {
   border-color: #ffffff;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'][disabled='disabled'] + label .ico,
 [data-page-id='my_refund_anc'] table input[type='checkbox'][disabled='disabled'] + label .ico {
   border: 1px solid #e4e4e4;
   background-color: #f0f0f0;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'][disabled='disabled'] + label .ico:before,
 [data-page-id='my_refund_anc'] table input[type='checkbox'][disabled='disabled'] + label .ico:before {
   border-color: #e4e4e4;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label {
   font-weight: 800;
 }
 
+[data-page-id='my_pay-history-detail_car'] table input[type='checkbox'] + label .ico,
 [data-page-id='my_refund_anc'] table input[type='checkbox'] + label .ico {
   margin-right: 0.92308rem;
   vertical-align: top;
 }
 
+[data-page-id='my_pay-history-detail_car'] table thead th:first-of-type,
 [data-page-id='my_refund_anc'] table thead th:first-of-type {
   padding-left: 4.28571em;
 }
 
-[data-page-id='my_refund_anc'] table thead th:first-of-type, [data-page-id='my_refund_anc'] table tbody th:first-of-type {
+[data-page-id='my_pay-history-detail_car'] table thead th:first-of-type, [data-page-id='my_pay-history-detail_car'] table tbody th:first-of-type,
+[data-page-id='my_refund_anc'] table thead th:first-of-type,
+[data-page-id='my_refund_anc'] table tbody th:first-of-type {
   padding-left: 4.28571em;
 }
 
-[data-page-id='my_refund_anc'] table thead th:first-of-type, [data-page-id='my_refund_anc'] table tbody th:first-of-type {
+[data-page-id='my_pay-history-detail_car'] table thead th:first-of-type, [data-page-id='my_pay-history-detail_car'] table tbody th:first-of-type,
+[data-page-id='my_refund_anc'] table thead th:first-of-type,
+[data-page-id='my_refund_anc'] table tbody th:first-of-type {
   width: 19.23077rem;
 }
 
-[data-page-id='my_refund_anc'] table thead th:nth-of-type(2), [data-page-id='my_refund_anc'] table dt {
+[data-page-id='my_pay-history-detail_car'] table thead th:nth-of-type(2), [data-page-id='my_pay-history-detail_car'] table dt,
+[data-page-id='my_refund_anc'] table thead th:nth-of-type(2),
+[data-page-id='my_refund_anc'] table dt {
   width: 13.84615rem;
 }
 
-[data-page-id='my_refund_anc'] table thead th:nth-of-type(2), [data-page-id='my_refund_anc'] table dd.pay {
+[data-page-id='my_pay-history-detail_car'] table thead th:nth-of-type(2), [data-page-id='my_pay-history-detail_car'] table dd.pay,
+[data-page-id='my_refund_anc'] table thead th:nth-of-type(2),
+[data-page-id='my_refund_anc'] table dd.pay {
   width: calc(100% - 180px - 125px - 125px - 152px) !important;
 }
 
-[data-page-id='my_refund_anc'] table thead th:nth-of-type(3), [data-page-id='my_refund_anc'] table dd.refund {
+[data-page-id='my_pay-history-detail_car'] table thead th:nth-of-type(3), [data-page-id='my_pay-history-detail_car'] table dd.refund,
+[data-page-id='my_refund_anc'] table thead th:nth-of-type(3),
+[data-page-id='my_refund_anc'] table dd.refund {
   width: 9.61538rem;
 }
 
-[data-page-id='my_refund_anc'] table thead th:nth-of-type(4), [data-page-id='my_refund_anc'] table dd.price {
+[data-page-id='my_pay-history-detail_car'] table thead th:nth-of-type(4), [data-page-id='my_pay-history-detail_car'] table dd.price,
+[data-page-id='my_refund_anc'] table thead th:nth-of-type(4),
+[data-page-id='my_refund_anc'] table dd.price {
   width: 9.61538rem !important;
 }
 
-[data-page-id='my_refund_anc'] table thead th:nth-of-type(5), [data-page-id='my_refund_anc'] table dd.status {
+[data-page-id='my_pay-history-detail_car'] table thead th:nth-of-type(5), [data-page-id='my_pay-history-detail_car'] table dd.status,
+[data-page-id='my_refund_anc'] table thead th:nth-of-type(5),
+[data-page-id='my_refund_anc'] table dd.status {
   width: 11.69231rem;
 }
 
+[data-page-id='my_pay-history-detail_car'] table thead th:nth-of-type(3),
 [data-page-id='my_refund_anc'] table thead th:nth-of-type(3) {
   text-align: center !important;
 }
 
+[data-page-id='my_pay-history-detail_car'] table thead th:nth-of-type(4),
 [data-page-id='my_refund_anc'] table thead th:nth-of-type(4) {
   padding-right: 2.14286em;
   text-align: right;
 }
 
+[data-page-id='my_pay-history-detail_car'] table thead th:last-of-type,
 [data-page-id='my_refund_anc'] table thead th:last-of-type {
   padding-right: 4.28571em !important;
 }
 
+[data-page-id='my_pay-history-detail_car'] table dd.refund,
 [data-page-id='my_refund_anc'] table dd.refund {
   text-align: center;
 }
 
+[data-page-id='my_pay-history-detail_car'] table dd.refund .text-emphasis,
 [data-page-id='my_refund_anc'] table dd.refund .text-emphasis {
   position: relative;
 }
 
+[data-page-id='my_pay-history-detail_car'] table dd.refund .btn_help,
 [data-page-id='my_refund_anc'] table dd.refund .btn_help {
   content: "";
   overflow: hidden;
@@ -13149,17 +13656,20 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+  [data-page-id='my_pay-history-detail_car'] table dd.refund .btn_help,
   [data-page-id='my_refund_anc'] table dd.refund .btn_help {
     background-image: url("../img/anc/ico_help@2x.png");
   }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  [data-page-id='my_pay-history-detail_car'] table dd.refund .btn_help,
   [data-page-id='my_refund_anc'] table dd.refund .btn_help {
     background-image: url("../img/anc/ico_help@3x.png");
   }
 }
 
+[data-page-id='my_pay-history-detail_car'] table .bundle-refund + dd,
 [data-page-id='my_refund_anc'] table .bundle-refund + dd {
   position: absolute;
   left: 0;
@@ -13171,27 +13681,175 @@ html.no-flexbox [data-page-id='anc_main'] .anc_seat .seat-legend a {
   padding: 0;
 }
 
+[data-page-id='my_pay-history-detail_car'] table .bundle-name + dd,
 [data-page-id='my_refund_anc'] table .bundle-name + dd {
   margin-left: 4.46154rem !important;
 }
 
+[data-page-id='my_pay-history-detail_car'] table .bundle-name + dd label,
 [data-page-id='my_refund_anc'] table .bundle-name + dd label {
   display: block;
 }
 
+[data-page-id='my_pay-history-detail_car'] table [class^='bundle-type'],
+[data-page-id='my_pay-history-detail_car'] table [class^='bundle-type'] + dl,
 [data-page-id='my_refund_anc'] table [class^='bundle-type'],
 [data-page-id='my_refund_anc'] table [class^='bundle-type'] + dl {
   padding-left: 2.15385rem !important;
 }
 
+[data-page-id='my_pay-history-detail_car'] table dl[class^='bundle-type'] + dl dt,
 [data-page-id='my_refund_anc'] table dl[class^='bundle-type'] + dl dt {
   width: 11.69231rem !important;
 }
 
+[data-page-id='my_pay-history-detail_car'] table dl[class^='bundle-type'] + dl dd.pay,
 [data-page-id='my_refund_anc'] table dl[class^='bundle-type'] + dl dd.pay {
   width: calc(100% - 230px) !important;
 }
 
+/*마이페이지 > 나의 예약/결제 내역*/
+/*마이페이지 > 렌터카 예약내역 > 목록*/
+[data-page-id='my_pay-history_car'] .history-list table[data-grid-type='board'] > thead > tr > th:nth-of-type(1) {
+  width: 9.23077rem;
+}
+
+[data-page-id='my_pay-history_car'] .history-list table[data-grid-type='board'] > thead > tr > th:nth-of-type(2) {
+  width: 10rem;
+}
+
+[data-page-id='my_pay-history_car'] .history-list table[data-grid-type='board'] > thead > tr > th:nth-of-type(3) {
+  width: 17.69231rem;
+}
+
+[data-page-id='my_pay-history_car'] .history-list table[data-grid-type='board'] > thead > tr > th:nth-of-type(4) {
+  width: auto;
+}
+
+[data-page-id='my_pay-history_car'] .history-list table[data-grid-type='board'] > tbody > tr > td:nth-of-type(2) {
+  font-weight: 600;
+}
+
+[data-page-id='my_pay-history_car'] .history-list table[data-grid-type='board'] > tbody > tr > td {
+  line-height: 1.71429em;
+}
+
+[data-page-id='my_pay-history_car'] .history-list table[data-grid-type='board'] > tbody > tr > td:nth-of-type(3) .schedule,
+[data-page-id='my_pay-history_car'] .history-list table[data-grid-type='board'] > tbody > tr > td:nth-of-type(3) .schedule + dd {
+  font-size: 1.07692rem;
+}
+
+[data-page-id='my_pay-history_car'] .history-list .result-empty td {
+  font-size: 1.07692rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.08em;
+  font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
+  padding: 9.38462rem 1.23077rem;
+  text-align: center;
+}
+
+/*마이페이지 > 렌터카 예약내역 > 상세(+취소/환불)*/
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(1),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody th:nth-of-type(1) {
+  width: 13.84615rem !important;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(2),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(1) {
+  width: 21.53846rem !important;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(3),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(2) {
+  width: auto;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(4),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(3) {
+  width: 9.23077rem !important;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(5),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(4) {
+  width: 10rem !important;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(6),
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(5) {
+  width: 11.69231rem !important;
+  padding-right: 4.61538rem;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody th,
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td {
+  line-height: 1.71429em;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td {
+  padding-top: 1.69231rem;
+  padding-bottom: 1.69231rem;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody th:first-of-type label .ico {
+  margin-left: -2.46154rem;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(1) {
+  text-align: left;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(2) {
+  text-align: center;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table thead th:nth-of-type(4) {
+  text-align: center;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(4) {
+  letter-spacing: 0;
+  text-align: right;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .receipt-wrap table tbody td:nth-of-type(4) .digits:before {
+  content: "₩";
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .ticket-info dt, [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .ticket-info dd {
+  display: inline;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .ticket-info .schedule:after {
+  content: ":";
+  padding: 0 0.1em 0 0.3em;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .ticket-info .schedule ~ dd:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .ticket-info .schedule, [data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .ticket-info .schedule + dd {
+  font-size: 1.07692rem;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.08em;
+  font-family: MalgunGothic, "Malgun Gothic", "Apple SD Gothic NEO", "Apple Gothic", sans-serif;
+  display: inline;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .ticket-info .schedule ~ dd {
+  letter-spacing: 0;
+}
+
+[data-page-id='my_pay-history-detail_car'] .my-history-detail-wrap .car-plan-detail {
+  padding-top: 0.61538rem;
+}
+
+/*마이페이지 > 구매 내역/취소*/
 /* 마이페이지 > 팝업 */
 .pop-wrap .seat-plan {
   display: block !important;
