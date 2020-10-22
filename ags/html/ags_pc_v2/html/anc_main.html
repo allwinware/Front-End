@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
     <link rel="stylesheet" href="../resource/css/swiper.min.css">
-    <!--<link rel="stylesheet" href="../resource/css/ags_pc_7c.min.css">--><!-- 제주항공일 때 -->
+    <link rel="stylesheet" href="../resource/css/ags_pc_7c.min.css"><!-- 제주항공일 때 -->
     <link rel="stylesheet" href="../resource/css/ags_pc_tw.min.css"><!-- 티웨이항공일 때 -->
     <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
     <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
@@ -6691,6 +6691,14 @@
                 $win.on("scroll", function(e){
                     /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
                     sticky($summary, sumScStart, sumScEnd);
+                    setTimeout(function(){
+                        /*스크롤이 발생했고 윈도우 사이즈가 컨텐츠 기본 너비보다 작을 때 summary의 위치를 재조정합니다.*/
+                        if($summary.hasClass("ui-fixed") && $(".ags-wrap").width() > $win.width()){
+                            $summary.addClass("fixed-left")
+                        } else {
+                            $summary.removeClass("fixed-left")
+                        }
+                    }, 400)
                 }).scroll();
             }).resize();
         })();

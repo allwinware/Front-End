@@ -81,7 +81,7 @@ $route-tab-size: 89;
     &.anc_lounge .anc-service,
     &.anc_car .anc-service {
       padding-right: rem($right-tp-size); min-height: rem(648);
-      .tab-panels { height: 100%; }
+      .tab-panels { height: calc(100% - #{$route-tab-size}px); }
       .passenger-list, .sort-wrap {
         padding: 0;
         &, .scroll-wrap { height: inherit; }
@@ -109,7 +109,7 @@ $route-tab-size: 89;
     & + .anc-service-wrap { margin-top: rem(100); border-top: 1px solid $mono1; }
   }
   [role='tabpanel'].active {
-    height: calc(100% - #{$route-tab-size}px);
+    height: 100%;
     @at-root .no-flexbox & { height: 100%; }
   }
   .anc-service + .notification-wrap {
@@ -391,7 +391,7 @@ $route-tab-size: 89;
     .digits { letter-spacing: 0; }
     &.ui-fixed {
       position: fixed; top: rem($anc_lnb-height); bottom: 0;
-      .scroll-wrap {  }
+      &.fixed-left { left: rem(949) }
     }
     &.ui-fixed---bottom {
       position: absolute; top: auto; bottom: rem(140)
@@ -410,7 +410,7 @@ $route-tab-size: 89;
           @include font($size: 9, $color: $mono1, $weight: 800);
           margin-right: rem($grid); padding: 0 rem(4); min-width: rem(40); height: rem(16);
           line-height: rem(14); border: 1px solid;
-          white-space: nowrap;
+          text-align: center; white-space: nowrap;
         }
         .bundle-sale + dd {
           @include valign-middle();

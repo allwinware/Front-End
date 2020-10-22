@@ -3544,6 +3544,14 @@ No-show : 취소수수료 50%
                 $win.on("scroll", function(e){
                     /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
                     sticky($summary, sumScStart, sumScEnd);
+                    setTimeout(function(){
+                        /*스크롤이 발생했고 윈도우 사이즈가 컨텐츠 기본 너비보다 작을 때 summary의 위치를 재조정합니다.*/
+                        if($summary.hasClass("ui-fixed") && $(".ags-wrap").width() > $win.width()){
+                            $summary.addClass("fixed-left")
+                        } else {
+                            $summary.removeClass("fixed-left")
+                        }
+                    }, 800)
                 }).scroll();
             }).resize();
         })();
@@ -3593,6 +3601,7 @@ No-show : 취소수수료 50%
             });
         })();
 
+        /*렌터카 대여-반납 캘린더를 컨트롤 합니다.*/
         (function(){
             var today = new Date(),
                 remainder = 30 - (moment(today).format("mm") % 30),
