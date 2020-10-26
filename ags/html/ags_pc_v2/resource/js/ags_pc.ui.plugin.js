@@ -121,6 +121,7 @@
         customArrowNextSymbol: null,
         monthSelect: true,
         yearSelect: true,
+        closeClickOutside: true,
     }, opt);
 
     opt.start = false;
@@ -168,6 +169,8 @@
     var self = this;
     var selfDom = $(self).get(0);
     var domChangeTimer;
+    var selectStart = opt.start;
+    var selectEnd = opt.end;
 
     $(this).unbind('.datepicker').bind('click.datepicker', function (evt) {
         var isOpen = box.is(':visible');
@@ -252,9 +255,13 @@
     return this;
 
     function IsOwnDatePickerClicked(evt, selfObj) {
-        return (selfObj.contains(evt.target) || evt.target == selfObj || (selfObj.childNodes != undefined && $.inArray(evt.target,
-        selfObj.childNodes) >= 0));
+        if(opt.closeClickOutside){
+            return (selfObj.contains(evt.target) || evt.target == selfObj || (selfObj.childNodes != undefined && $.inArray(evt.target,
+            selfObj.childNodes) >= 0));
+        }
     }
+
+
 
     function init_datepicker() {
         var self = this;
@@ -331,7 +338,7 @@
         //if user click other place of the webpage, close date range picker window
         $(document).bind('click.datepicker', function (evt) {
             if (!IsOwnDatePickerClicked(evt, self[0])) {
-                if (box.is(':visible')) {
+                if (opt.closeClickOutside && box.is(':visible')) {
                     closeDatePicker();
                 }
             }
@@ -408,7 +415,7 @@
 
 
         box.find('.apply-btn').click(function () {
-            var dateRange = getDateString(new Date(opt.start)) + opt.separator + getDateString(new Date(opt.end));
+            var dateRange = getDateString(new Date(selectStart)) + opt.separator + getDateString(new Date(selectEnd));
             closeDatePicker();
             $(self).trigger('datepicker-apply', {
                 'value': dateRange,
@@ -1245,7 +1252,7 @@
         }
         if (
             (opt.start && opt.end && end >= time && start <= time) ||
-            (opt.start && !opt.end && moment(start).format('YYYY.MM.DD') == moment(time).format('YYYY.MM.DD'))
+            (opt.start && !opt.end && moment(start).format(opt.format) == moment(time).format(opt.format))
         ) {
           $(this).addClass('checked');
         } else {
@@ -1253,19 +1260,24 @@
         }
 
         //add first-date-selected class name to the first date selected
-        if (opt.start && moment(start).format('YYYY.MM.DD') == moment(time).format('YYYY.MM.DD')) {
-          $(this).addClass('first-date-selected');
+        if (opt.start && moment(start).format(opt.format) == moment(time).format(opt.format)) {
+            $(this).addClass('first-date-selected');
+            if(selectStart !== moment(start).format(opt.format)){
+                return selectStart = moment(start).format(opt.format);
+            }
         } else {
-          $(this).removeClass('first-date-selected');
+            $(this).removeClass('first-date-selected');
         }
         //add last-date-selected
-        if (opt.end && moment(end).format('YYYY.MM.DD') == moment(time).format('YYYY.MM.DD')) {
-          $(this).addClass('last-date-selected');
+        if (opt.end && moment(end).format(opt.format) == moment(time).format(opt.format)) {
+            $(this).addClass('last-date-selected');
+            if(selectEnd !== moment(end).format(opt.format)){
+                return selectEnd = moment(end).format(opt.format);
+            }
         } else {
-          $(this).removeClass('last-date-selected');
+            $(this).removeClass('last-date-selected');
         }
       });
-
       box.find('.week-number').each(function () {
         if ($(this).attr('data-start-time') == opt.startWeek) {
           $(this).addClass('week-number-selected');

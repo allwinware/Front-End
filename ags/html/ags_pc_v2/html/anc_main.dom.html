@@ -3688,8 +3688,8 @@ No-show : 취소수수료 50%
             /*날짜 변경 시*/
             $("#car-calendar").on('datepicker-last-date-selected', function(e){
                 setTimeout(function(){
-                    var selectedStartDate = moment(parseInt(box.find(".first-date-selected").attr("time"))).format("YYYY.MM.DD(ddd)"),
-                        selectedEndDate = moment(parseInt(box.find(".last-date-selected").attr("time"))).format("YYYY.MM.DD(ddd)");
+                    var selectedStartDate = (box.find(".drp_top-bar .start-day").text().split(" "))[0],
+                        selectedEndDate = (box.find(".drp_top-bar .end-day").text().split(" "))[0];
                     box.find(".fake-time-start .date-check .date").text(selectedStartDate);
                     box.find(".fake-time-end .date-check .date").text(selectedEndDate)
                 }, 800);
@@ -3698,27 +3698,25 @@ No-show : 취소수수료 50%
             box.find(".fake-time-start select").on("change touchmove", function(e) {
                 var $item = $(e.target),
                     timeValue = $item.val().split(":");
-                box.find(".time-start select[name='hour']").val(timeValue[0]).prop("selected", true);
+                box.find(".time-start select[name='hour']").val(timeValue[0]).prop("selected", true).trigger("change");
                 box.find(".time-start .total-time .hour-val").text(timeValue[0]);
-                box.find(".time-start select[name='minute']").val(timeValue[1]).prop("selected", true);
+                box.find(".time-start select[name='minute']").val(timeValue[1]).prop("selected", true).trigger("change");
                 box.find(".time-start .total-time .minute-val").text(timeValue[1]);
             });
             box.find(".fake-time-end select").on("change touchmove", function(e) {
                 var $item = $(e.target),
                     timeValue = $item.val().split(":");
-                box.find(".time-end select[name='hour']").val(timeValue[0]).prop("selected", true);
+                box.find(".time-end select[name='hour']").val(timeValue[0]).prop("selected", true).trigger("change");
                 box.find(".time-end .total-time .hour-val").text(timeValue[0]);
-                box.find(".time-end select[name='minute']").val(timeValue[1]).prop("selected", true);
+                box.find(".time-end select[name='minute']").val(timeValue[1]).prop("selected", true).trigger("change");
                 box.find(".time-end .total-time .minute-val").text(timeValue[1]);
             });
             $(".apply-btn").on("click", function(){
-                var selectedStartDate = moment(parseInt(box.find(".first-date-selected").attr("time"))).format("YYYY.MM.DD(ddd)"),
-                    selectedEndDate = moment(parseInt(box.find(".last-date-selected").attr("time"))).format("YYYY.MM.DD(ddd)"),
-                    timeStart = box.find(".fake-time-start select").val(),
-                    timeEnd = box.find(".fake-time-end select").val();
+                var selectedStartDate = box.find(".drp_top-bar .start-day").text(),
+                    selectedEndDate = box.find(".drp_top-bar .end-day").text()
                 $("#car-calendar")
-                    .prop("value", selectedStartDate + " " + timeStart + " ~ " + selectedEndDate + " " + timeEnd);
-                box.css('display', 'none')/**/
+                    .prop("value", selectedStartDate + " ~ " + selectedEndDate);
+                box.css('display', 'none');
             })
         })();
     })
