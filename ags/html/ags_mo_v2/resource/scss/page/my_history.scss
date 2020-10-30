@@ -61,6 +61,8 @@
   }
   .tabs_categories {
     @include tab(style1 nowrap);
+    [role='tablist'] { overflow: auto; width: auto; display: flex; }
+    [role='tablist'] [role='tab'] { display: initial; flex: 1; padding-left: rem($grid * 2); padding-right: rem($grid * 2); overflow: visible; min-width: 40%; text-overflow: initial; }
     & + .tab-panels { padding-top: rem(50); }
     & + .tab-panels .align-horizontal { overflow: hidden; width: 100% }
     &[style*='display'] + .tab-panels { padding-top: 0 !important; }
@@ -69,6 +71,22 @@
   .price-info {
     @include price($type: inline, $color1: $text-primary, $color2: $mono1);
   }
+}
+[data-page-id='my__history-list'],
+[data-page-id^='my__history-detail'] {
+  .ticket-wrap,
+  .rentacar-wrap {
+    padding: rem($grid * 3) rem($grid * 2);
+    dl { @include clearfix; position: relative; }
+  }
+  .ticket-wrap .resv-num,
+  .rentacar-wrap .resv-num {
+    @include font($size: 10, $color: $mono1, $weight: 400, $spacing: -0.03);
+    & + dd { @include font($size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03); }
+    &, & + dd { display: inline-block; margin-bottom: rem($grid * 3); vertical-align: middle; }
+  }
+  .purchase-state { @include sr-only }
+  .purchase-state + dd { @include font($size: 10, $color: $text-primary, $weight: 800, $spacing: -0.03); float: right; }
 }
 [data-page-id='my__history-list'] {
   margin-bottom: rem(-144); padding: 0 0 rem(112); min-height: calc(100vh - #{$gnb-height}px);
@@ -119,13 +137,7 @@
       }
     }
     dl { @include clearfix; }
-    .purchase-state, .departure, .arrival, .duration { @include sr-only; }
-    .resv-num {
-      @include font($size: 10, $color: $mono1, $weight: 400, $spacing: -0.03);
-      & + dd { @include font($size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03); }
-      &, & + dd { display: inline-block; margin-bottom: rem($grid * 3); }
-    }
-    .purchase-state + dd { @include font($size: 10, $color: $text-primary, $weight: 800, $spacing: -0.03); float: right; }
+    .departure, .arrival, .duration { @include sr-only; }
     .departure + dd, .arrival + dd {
       @include font($size: 20, $color: $mono1, $weight: 800, $spacing: -0.03);
       display: inline-block;
@@ -141,18 +153,30 @@
       @include background($file: 'my/ico_journey-type2', $type: png, $width: 17px, $height: auto);
     }
     .duration + dd { @include font($size: 11, $color: $mono4, $weight: 400, $spacing: -0.03); margin-bottom: rem($grid * 2) }
-    .my-plan, .my-plan + dd { @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03); display: inline-block; margin-bottom: rem(6); }
-    .my-plan { font-weight: 600; }
-    .my-plan + dd {
+    .my-plan, .my-plan + dd,
+    .driver-name, .driver-name + dd,
+    .car-plan, .car-plan + dd,
+    .resv-duration, .resv-duration + dd { @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03); float: left; }
+    .my-plan, .my-plan + dd { margin-bottom: rem(6); }
+    .driver-name, .driver-name + dd,
+    .car-plan, .car-plan + dd,
+    .resv-duration, .resv-duration + dd { margin-bottom: rem(12); }
+    .my-plan, .driver-name, .resv-duration, .car-plan { padding-right: rem(4); width: rem(46); font-weight: 600; }
+    .my-plan + dd,
+    .driver-name + dd,
+    .resv-duration + dd,
+    .car-plan + dd {
       position: relative;
-      margin-left: rem(4); padding-left: rem(10);
-      &:before { content: "";
+      padding-left: rem(10);  width: calc(100% - 46px);
+      &:before {
+        content: "";
         display: inline-block;
-        position: absolute; left: 0; top: 50%;
-        -webkit-transform: translate(0, -50%); -moz-transform: translate(0, -50%); transform: translate(0, -50%);
+        position: absolute; left: 0; top: 0;
         width: 1px; height: rem(10); border-left: 1px solid $mono9
       }
+      &:last-child { margin-bottom: 0; }
     }
+    .resv-date { display: inline-block; padding-top: rem(6); color: $mono4; }
     .btn_more {
       overflow: hidden;
       position: absolute; left: 0; top: 0; bottom: 0; right: 0;
@@ -163,15 +187,10 @@
 }
 [data-page-id^='my__history-detail'] {
   .ticket-wrap {
-    padding: rem($grid * 3) rem($grid * 2);
-    dl { @include clearfix; position: relative; }
-    .purchase-state, .departure, .arrival, .duration { @include sr-only; }
+    .departure, .arrival, .duration { @include sr-only; }
     .resv-num {
-      @include font($size: 10, $color: $mono1, $weight: 400, $spacing: -0.03);
-      & + dd { @include font($size: 13, $color: $text-primary, $weight: 800, $spacing: -0.03); }
-      &, & + dd { display: inline-block; margin-bottom: rem($grid * 3); vertical-align: middle; }
+      &, & + dd {  vertical-align: middle; }
     }
-    .purchase-state + dd { @include font($size: 10, $color: $text-primary, $weight: 800, $spacing: -0.03); float: right; }
     .departure + dd, .arrival + dd {
       @include font($size: 20, $color: $mono1, $weight: 800, $spacing: -0.03);
       display: inline-block;
@@ -327,13 +346,62 @@
     tbody td:nth-of-type(2) { text-align: right; }
   }
 }
-[data-page-id='my__refund'] {
-  @include flight-info;
-  [class*='bundle-type'] {
-    padding: rem($grid) 0;
-    .bundle-price + dd .digits,
-    .status + dd { font-size: rem(13); }
+[data-page-id='my__history-detail_car'] {
+  .rentacar-wrap {
+    .car-price, .car-price + dd { margin-bottom: rem($grid * 2); }
+    .car-price { @include font($size: 16, $color: $mono1, $weight: 800); float: left; width: 40% }
+    .car-price + dd {
+      @include font($family: en, $size: 15, $color: $mono1, $weight: 400, $spacing: 0); width: 60%;
+      @include price-unit(krw);
+      float: right;
+      text-align: right; line-height: em(16, 14);
+    }
+    .duration, .duration + dd { @include font($size: 11, $color: $mono1, $weight: 400); float: left; line-height: em(12, 11) }
+    .duration { font-weight: 600; }
+    .duration + dd { @include divide-line($direction: left, $el: before, $color: $mono9, $size: 11, $mg: 8) }
   }
-  .notification-wrap { margin-top: rem($grid * 4); padding-top: rem($grid * 2) !important; }
-  .notification-wrap .table-wrap:first-of-type { border-top: 0; }
+  .history-detail-wrap {
+    .table-wrap {
+      position: relative;
+      .passenger-name {
+        padding-left: 0;
+        background: none !important;
+        input[type='checkbox'] {
+          @include form($size: 3, $role: normal, $type: checkbox);
+          & + label {
+            font-weight: 600; color: $text-primary;
+            .ico { margin-right: rem(12) }
+          }
+        }
+      }
+      .plan-price {
+        @include clearfix;
+        position: absolute; top: rem($grid * 2); right: rem($grid * 2);
+        .status, .price { @include sr-only }
+        .status + dd, .price + dd { float: left; }
+        .status + dd { @include  tagging-route; padding: 0 rem(4); width: auto; }
+        .price + dd { @include price-unit(krw); @include font($family: en, $size: 14, $color: $mono1, $weight: 400); padding-left: rem(8); line-height: em(16, 14) }
+      }
+
+      .plan-info {
+        @include clearfix;
+        margin-bottom: rem(-10);
+        dt, dd { @include font($size: 11, $color: $mono1, $weight: 400); float: left; margin-bottom: rem(10); line-height: em(16, 11); }
+        dt { float: left; width: 4em; font-weight: 600; }
+        dd {
+          @include divide-line($direction: left, $el: before, $color: $mono9, $size: 11, $mg: 8);
+          width: calc(100% - 4em);
+          &:before { @include transform(translate(0,0)); top: rem(1); }
+        }
+      }
+      &.inactive {
+        .status + dd { border-color: $mono4; }
+        .status + dd, .price + dd, .plan-info dt, .plan-info dd { color: $mono4 }
+      }
+      &:last-child { border-bottom: 1px solid $mono8 }
+    }
+  }
+  .total-calc-wrap { padding-bottom: 0; }
+  .agreement-wrap { @include agreement-wrap; }
+  .process-btn-wrap { margin-top: rem(50); }
 }

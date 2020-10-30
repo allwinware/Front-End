@@ -1,3 +1,5 @@
+$ico_pop-close-size: 14;
+
 /* z-index */
 .ags-summary { z-index: 500; &.active { z-index: 1500 } }
 .ags-wrap .page-dim { z-index: 1000 }
@@ -99,6 +101,7 @@
     }
   }
 }
+
 /* data-type='alert' */
 [data-type='alert'] {
   @include alert-style;
@@ -146,7 +149,7 @@
 /* data-type='message' */
 [data-type='message'] {
   $pop-header-area: 53;
-  $pop-footer-area: 150;
+  $pop-footer-area: 120;
   overflow: hidden;
   transition: 0.75s all; transition-delay: 0.25s;
   max-height: 0;
@@ -155,13 +158,14 @@
   display: block;
   &.active { max-height: 100vh; bottom: 0; }
   .pop-wrap {
+    z-index: 0;
     transition: none;
     overflow: hidden;
     padding: rem(($pop-header-area)) 0 rem($pop-footer-area); max-height: inherit;
     background-color: $mono10;
   }
   .pop-header {
-    z-index: 1;
+    z-index: 10;
     position: absolute; left: 0; top: 0; right: 0;
     padding: 0 rem($grid * 2) rem($grid * 2); height: rem($pop-header-area);
     background-color: $mono10; border-bottom: 1px solid $mono8
@@ -178,7 +182,7 @@
   }
   .btn_close {
     z-index: 1;
-    @include background($file:'../img/common/ico_header-close', $type: png, $width: 14px, $height: 14px);
+    @include background($file:'../img/common/ico_header-close', $type: png, $width: #{$ico_pop-close-size}px, $height: #{$ico_pop-close-size}px);
     overflow: hidden;
     position: absolute; left: rem($grid * 2); top: rem($grid * 2);
     width: rem(24); height: rem(24);
@@ -196,9 +200,9 @@
     &:last-child { padding-bottom: rem(74); }
   }
   .pop-footer {
-    z-index: 1;
+    z-index: 10;
     position: absolute; bottom: 0; right: 0; left: 0;
-    padding: rem($grid * 3) rem($grid * 2); min-height: rem(105);
+    padding: rem($grid * 3) rem($grid * 2); min-height: rem(46 + 24 + 24);
     background-color: $mono10;
     input[type='checkbox'] { @include form($size: 4, $role: normal, $type: checkbox) }
     .process-btn-wrap {
@@ -207,11 +211,11 @@
       [class^='btn_'] { margin: 0 rem(3) !important; }
       .btn_cancel {
         @include form($type: button, $size: 4, $role: cancel);
-        width: auto; min-width: rem(90);
+        width: auto; min-width: rem(90); height: rem(46); line-height: rem(46);
       }
       .btn_confirm {
         @include form($type: button, $size: 4, $role: submit);
-        flex: 1 auto;
+        flex: 1 auto; height: rem(46); line-height: rem(46);
       }
       &:first-child { padding-top: 0; }
     }
@@ -253,6 +257,63 @@
   &.active {
     top: auto; bottom: 0;
     padding: rem(108) 0 rem(34) 0;
+  }
+}
+
+/* data-type='submission' */
+[data-type='submission'] {
+  $pop-header-area: 53;
+  $pop-footer-area: 90;
+  top: 0;
+  .pop-wrap {
+    @include align-center;
+    overflow: hidden;
+    padding: 0 0 rem($pop-footer-area); width: calc(327 / 375 * 100%);
+    border-radius: rem(3);
+    background-color: $mono10;
+    max-height: 80vh
+  }
+  .pop-header { margin: 0; height: rem($pop-header-area); background-color: $mono1; }
+  .pop-title {
+    z-index: 0;
+    $font-size: 16;
+    @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: 0);
+    @include text-ellipsis(block);
+    @include text-ellipsis();
+    overflow: auto;
+    position: relative;
+    padding: rem(18) rem($grid * 3); width: 100%; height: rem($pop-header-area);
+    line-height: em(16, $font-size); text-align: center;
+    color: $mono10; text-align: left;
+  }
+  .btn_close {
+    z-index: 1;
+    @include background($file: 'popup/ico_pop-close--w', $type: 'png', $width: #{$ico_pop-close-size}px, $height: #{$ico_pop-close-size}px);
+    overflow: hidden;
+    position: absolute; right: rem($grid * 2); top: rem(14);
+    width: rem(24); height: rem(24);
+    background-position: 50% 50%; background-color: transparent;
+    text-indent: -999em;
+  }
+  .pop-container {
+    max-height: calc(80vh - #{$pop-header-area}px - #{$pop-footer-area}px);
+    overflow: auto;
+    padding: 0;
+    .pop-content { padding: rem($grid * 4) rem($grid * 2) 0; }
+  }
+  .pop-footer {
+    @include flex(space-between stretch flex-start nowrap);
+    position: absolute; left: 0; right: 0; bottom: 0;
+    margin: 0;
+    .btn_cancel {
+      @include form($type: button, $size: 4, $role: cancel);
+      width: auto; min-width: rem(90);
+    }
+    .btn_confirm {
+      @include form($type: button, $size: 4, $role: submit);
+      flex: 1 auto;
+    }
+    [class^='btn_'] { margin: 0; border-radius: 0; }
   }
 }
 
@@ -326,7 +387,319 @@
   }
 }
 
+/* 캘린더 기본 스타일 */
+.awa-datepicker {
+  position: absolute;
+  z-index: 1;
+  margin-top: rem(14); padding: rem($grid * 5) 0;
+  background-color: $mono10;
+  border: 1px solid $mono1; border-radius: $border-common-radius;
+  @include box-shadow(0 8px 16px rgba(0,0,0,0.5));
+  .datepicker-title { @include font($size: 18, $color: $mono1, $weight: 800); margin-top: rem(-$grid * 2); padding: 0 rem($grid * 3) rem($grid * 3); }
 
+  &.single-month,
+  &.two-months {
+    .month-wrapper {
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto; width: 100%;
+      font-size: 0;
+      .month-item {
+        display: block;
+        position: relative;
+        table {
+          table-layout: fixed;
+          border-collapse: collapse; border-spacing: 0;
+          margin: 0 auto; width: 100%;
+        }
+        thead {
+          .caption th { padding-bottom: rem(10); }
+          .month-name {
+            @include clearfix;
+            display: inline-block;
+            margin: 0 16px; width: auto;
+            text-align: center;
+            .select-wrapper {
+              font-size: 0;
+              position: relative;
+              overflow: hidden;
+              display: inline-block;
+            }
+          }
+          .prev, .next,
+          select, .dot, .month-element {
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            vertical-align: top;
+          }
+          select, .dot, .month-element {
+            $font-size: 18;
+            @include font($family: en, $size: $font-size, $color: #111, $weight: 600);
+          }
+          .dot {
+            display: inline-block;
+            width: auto;
+          }
+          select {
+            background: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            -o-appearance: none;
+            appearance: none;
+          }
+          th {
+            min-width: 62px;
+            height: 25px;
+            line-height: 25px;
+          }
+          .prev, .next {
+            overflow: hidden;
+            position: relative;
+            width: 24px;
+            background-color: $mono10;
+            text-indent: -999em;
+            &:before { content: ""; @include align-center; display: inline-block; width: rem(8); height: rem(8); border: solid $mono1; }
+            &, &:before { cursor: pointer !important; }
+          }
+          .prev {
+            /*background: url('#{$img-path}/ico_prev-arrow.png') center center no-repeat;
+            background-size: 16px 28px;*/
+            &:before { margin-top: -1px; border-width: 2px 0 0 2px; @include transform(rotate(-45deg)translate(1px, -5px)) }
+          }
+          .next {
+            /*background: url('#{$img-path}/ico_next-arrow.png') center center no-repeat;
+            background-size: 16px 28px;*/
+            &:before { margin-top: -1px; border-width: 2px 2px 0 0; @include transform(rotate(45deg) translate(-6px, 0px)) }
+          }
+          .week-name {
+            th {
+              $font-size: 12;
+              @include font($size: $font-size, $color: $mono4, $weight: 400);
+              height: 33px;
+              text-align: center; vertical-align: middle;
+              &:first-child {
+                color: #fd9a7c !important;
+              }
+            }
+          }
+        }
+        tbody {
+          border-bottom: 1px solid #e6e6e6;
+          border-left: 1px solid #e6e6e6;
+          td {
+            position: relative;
+            height: rem(49);
+            cursor: pointer;
+            border: solid #e6e6e6; border-width: 1px 1px 0 0;
+            vertical-align: top;
+            &:first-child .day:not(.checked) { color: #fd9a7c; }
+          }
+          .day {
+            position: absolute; left: 0; top: 0; bottom: 0; right: 0;
+            width: 100%; height: rem(48);
+            text-align: center;
+            &:not(.checked).invalid {
+              color: $mono4;
+            }
+            &.real-today {
+              position: relative;
+              &:after {
+                $font-size: 10;
+                @include font($family: en, $size: $font-size, $color: $mono1, $weight: 500);
+                content: 'TODAY';
+                position: absolute; bottom: rem(8); left: 0;
+                display: inline-block;
+                width: 100%;
+                line-height: em(14, $font-size)
+              }
+            }
+          }
+          .lastMonth,
+          .nextMonth {
+            color: $mono4;
+          }
+          .first-date-selected,
+          .last-date-selected {
+            position: relative;
+            background: $bg-submit !important;
+            color: $mono1;
+            &:after {
+              $font-size: 10;
+              content: '';
+              display: block;
+              position: absolute; left: 0; bottom: rem(7);
+              width: 100%;
+              text-align: center; line-height: em(14, $font-size); font-size: rem($font-size); font-weight: 600;
+            }
+          }
+          .checked {
+            background: #f8f8f8;
+          }
+          .hovering:not(.first-date-selected):not(.last-date-selected) {
+            background: #f8f8f8;
+            color: $mono1;
+          }
+          .lastMonth.checked,
+          .nextMonth.checked {
+            &.checked {
+              background: #f8f8f8;
+              color: $mono4;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.single-month {
+    .month-wrapper {
+      .month-item {
+        padding: 0;
+        table {
+          width: rem(342);
+        }
+        thead {
+        }
+        tbody {
+          border-bottom: 1px solid #e6e6e6;
+          border-left: 1px solid #e6e6e6;
+          td {
+            padding: 0 !important;
+            text-align: center;
+            cursor: pointer;
+            border-top: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+          }
+        }
+        .day {
+          $font-size: 14;
+          @include font($family: en, $size: 14, $color: $mono1, $weight: 500);
+          padding-top: rem(9);
+        }
+        .holiday {
+          &.hovering:not(.first-date-selected):not(.last-date-selected) {
+            color: #fd9a7c;
+          }
+          &.first-date-selected,
+          &.last-date-selected {
+            /*color: #fff !important;*/
+          }
+        }
+      }
+    }
+  }
+
+  &.two-months {
+    min-width: rem(956);
+    .month-wrapper {
+      @include clearfix;
+      padding: 0 rem(12) rem($grid * 4);
+      .month-item {
+        float: left;
+        width: 50%;
+        thead {
+          .caption th { text-align: center; }
+        }
+        tbody {
+          td {
+            $font-size: 16;
+            @include font($family: en, $size: $font-size, $color: $mono1, $weight: 500);
+            height: 62px;
+            text-align: center;
+            .day {
+              padding-top: 15px;
+              line-height: 19px;
+            }
+            .first-date-selected {
+              &:after {
+                font-size: 12px;
+                bottom: 8px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.single-date {
+    padding: 0;
+    .month-wrapper {
+      padding: 0; width: auto;
+      border: 0;
+      .month-item {
+        border: 1px solid #b3b3b3;
+      }
+    }
+  }
+
+  .time-choices {
+    border: 1px solid #b3b3b3;
+    border-top: 0;
+    font-size: 0;
+    padding: 5px;
+    overflow: hidden;
+    span {
+      position: relative;
+      display: inline-block;
+      width: 105px;
+      &:after {
+        content: '';
+        font-size: 14px;
+        display: inline-block;
+        line-height: 30px;
+        margin-left: 6px;
+      }
+    }
+    select {
+      box-sizing: border-box;
+      border: 1px solid #e6e6e6;
+      vertical-align: top;
+      display: inline-block;
+      font-size: 14px;
+      padding-left: 10px;
+      width: 80px;
+      height: 30px;
+    }
+    .hour {
+      float: left;
+      &:after {
+        content: '시';
+      }
+    }
+    .minute {
+      float: right;
+      &:after {
+        content: '분';
+      }
+    }
+  }
+  .month-apply {
+    padding: 5px 0 5px 0;
+    text-align: center;
+    border: 1px solid #b3b3b3;
+    border-top: 0;
+    overflow: hidden;
+    clear: both;
+  }
+  .bt-month-apply {
+    border: 1px solid #b3b3b3;
+    font-size: 12px;
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    color: #000;
+    text-align: center;
+    line-height: 30px;
+  }
+  .footer {
+    padding: 0;
+    border: 0;
+    display: none;
+  }
+}
 
 /* popup.html을 위한 스타일시트 */
 [data-page-id='popup'] {

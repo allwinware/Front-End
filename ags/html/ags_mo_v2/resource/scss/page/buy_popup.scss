@@ -163,6 +163,8 @@
   }
   .flight-info + .summary-empty { padding: rem(44) 0 rem(43); border: solid $mono1; border-width: 1px 0; }
   .table-wrap .summary-empty { padding-top: rem(4) }
+  .flight-info + .table-wrap,
+  .title + .table-wrap { border-top: 1px solid $mono1 }
   [class*='bundle-type'] {
     @include clearfix;
     position: relative;
@@ -205,13 +207,16 @@
   }
   .charge-sheet {
     @include table($style: type1, $mg-size: small);
+    table-layout: fixed;
     th, td { padding: rem($grid) 0; vertical-align: middle; }
     thead th, tbody th, tbody td, tfoot th, tfoot td { border-bottom: 0; }
     tbody td:nth-of-type(3) { text-align: right; }
     tbody th, tbody td { padding-top: rem(7); padding-bottom: rem(7); height: rem(30); }
+    tbody th:nth-of-type(1) { width: rem(85) }
     tbody td:nth-of-type(2) {
       @include font($size: 12, $color: $mono1, $weight: 400, $spacing: -0.03);
-      padding-right: rem(12); text-align: right;
+      padding-right: rem(12); width: rem(90);
+      text-align: right;
       .digits {
         @include font($family: en, $size: 13, $color: $mono1, $weight: 400, $spacing: -0.03);
         &:before {
@@ -221,7 +226,7 @@
       }
     }
     tbody th:nth-of-type(3), tbody td:nth-of-type(3) {
-      padding-left: 0; padding-right: rem($grid * 2); width: rem(12);
+      padding-left: 0; padding-right: rem($grid * 2);  width: rem(28);
       text-align: center;
     }
     tbody th[scope='colgroup'] { text-align: left; }
@@ -233,6 +238,10 @@
     a, a:active, a:visited { color: #66B1FF; }
     .btn_delete { position: relative; right: initial; top: initial; margin-left: 0; vertical-align: top }
     tbody tr.inactive th[scope='row'] + td { color: $mono4; }
+    tbody tr.inactive:not(.add-service) .btn_delete { opacity: 0.3 }
+    tbody tr.inactive .add-baggage { font-weight: 600; color: $text-primary; }
+    tbody td:first-child { padding-left: 0; }
+
   }
   .table-wrap {
     padding-top: rem($grid * 2);
@@ -476,6 +485,7 @@
   }
 }
 
+/*라운지 위치 안내 팝업*/
 [data-pop-id='pop_lounge-location_7c']{
   $font-size: 13;
   @include font($size: $font-size, $color: $mono1, $weight: 600, $spacing: 0);
@@ -491,4 +501,197 @@
     .op-time + dd { color: $text-primary !important }
   }
   img { vertical-align: top; }
+}
+
+/*부가서비스 신청 > 렌터카 > 캘린더*/
+[data-pop-id='buy_car-dpicker'] {
+  .awa-datepicker {
+    @include box-shadow(none);
+    position: relative; top: auto !important; left: auto !important;
+    margin: 0; padding: 0;
+    border: 0;
+  }
+  .awa-datepicker .month-wrapper {
+    padding: rem($grid) 0 rem($grid * 5);
+    .month-item tbody .first-date-selected:after { content: '대여' }
+    .month-item tbody .last-date-selected:after { content: '반납' }
+    .time-wrapper { @include sr-only }
+  }
+  .inner-wrap {
+    @include clearfix;
+    .timepicker-wrap, .notification-wrap { float: left; width: 100%; }
+    .fake-timepicker {
+      @include clearfix;
+      margin: 0 rem(-$grid); padding-bottom: rem($grid * 5);
+      .timepicker { float: left; padding: 0 rem($grid); width: 50%; }
+      .date-check { @include font($size: 10, $color: $mono1, $weight: 800, $spacing: -0.03); padding-bottom: rem($grid); }
+      .date { color: $text-primary; }
+      select { @include form($size: 3, $role: normal, $type: select) }
+    }
+    .notification-list {
+      li { font-size: inherit; }
+    }
+  }
+}
+
+/*부가서비스 신청 > 렌터카*/
+[data-pop-id='pop_rentacar-info']{
+  width: rem(460);
+  select { @include form($size: 3, $role: normal, $type: select) }
+  .select_company {
+    padding-bottom: rem($grid * 3);
+  }
+  .select_company label {
+    $font-size: 10;
+    @include font($size: $font-size, $color: $mono1, $weight: 600);
+    display: block;
+    padding-bottom: em($grid, $font-size)
+  }
+  .car-info-wrap { position: relative; }
+  .car-info {
+    $thumbnail-width: 140;
+    position: relative;
+    margin-bottom: rem($grid * 2); padding: rem($grid * 3) 0 0 rem($thumbnail-width + $grid * 3);
+    dt { @include sr-only; }
+    .car-name + dd {
+      $font-size: 14;
+      @include font($size: $font-size, $color: $mono1, $weight: 600);
+      padding-bottom: rem($grid * 2);
+      line-height: em(19, $font-size)
+    }
+    .car-price + dd {
+      @include font($size: 13, $color: $text-primary, $weight: 400);
+      @include price-unit(krw);
+      padding-bottom: rem(4);
+      letter-spacing: 0;
+    }
+    .car-description + dd {
+      $font-size: 12;
+      @include font($size: $font-size, $color: $mono3, $weight: 400);
+      padding-bottom: rem(28); width: rem(134);
+      line-height: em(16, $font-size)
+    }
+    .car-tag + dd {
+      position: absolute; left: rem($thumbnail-width + $grid * 3); top: 0;
+      .ico_tag { float: left; margin-right: 1px; min-width: rem($grid * 4); background-color: $bg-secondary; }
+    }
+    .car-thumbnail + dd {
+      position: absolute; left: 0; top: rem(28);
+      width: rem($thumbnail-width); min-height: rem(78);
+      img { @include valign-center; max-width: 100%; }
+    }
+  }
+  .btn_car-resv {
+    @include form($size: 3, $role: submit, $type: button);
+    position: absolute; right: 0; bottom: 0;
+    width: rem(90);
+  }
+  .car-info-detail { padding-bottom: rem($grid * 5); border-top: 1px solid $mono8 }
+  .car-info-title { @include font($size: 12, $color: $text-primary, $weight: 800); padding: rem($grid * 5) 0 rem(10); }
+  .table-wrap { border-top: 1px solid $mono1 }
+  table { width: 100%; }
+  table th, td { padding: rem(13) 0; height: rem(42); font-size: rem(11); letter-spacing: -0.03em; line-height: rem(16); border-bottom: 1px solid $mono8; }
+  table th { padding-right: rem($grid * 2); font-weight: 800; text-align: left; }
+}
+
+/*부가서비스 신청 > 신용카드 결제 정보*/
+[data-pop-id="pop_payment_credit-card"]{
+  .input-group { float: left; }
+  .inner-wrap { @include clearfix; position: relative; margin: 0 rem(-$grid / 2) }
+  .select-wrap, .input-wrap { position: relative; }
+  select { @include form($size: 3, $role: normal, $type: select); background: none !important; }
+  select + .ico {
+    z-index: -1;
+    overflow: hidden;
+    display: inline-block;
+    position: absolute;
+    width: rem(24); height: rem(25);
+    &:after {
+      content: "";
+      z-index: 0;
+      display: inline-block;
+      width: rem(8); height: rem(8);
+      border: solid $mono1; border-width: 0 2px 2px 0;
+      @include transform(rotate(45deg) translate(7px, -4px));
+    }
+  }
+  input[type='text'],
+  input[type='password'],
+  input[type='number'] {
+    @include form($size: 3, $role: normal, $type: textbox);
+    font-weight: 400;
+  }
+  input[type='password'] { letter-spacing: em(1.6, 18); }
+  input[type='password'],
+  input[type='number'].ui-password {
+    padding: 0 rem($grid);
+    font-family: monospace;
+    &::-webkit-input-placeholder { font-family: $font-common-family; }
+    &::-moz-placeholder { opacity: 1; font-family: $font-common-family; }
+    &:-ms-input-placeholder { font-family: $font-common-family; }
+  }
+  .input-wrap .ico,
+  .select-wrap .ico { top: rem(36); right: rem(16); }
+  .input-group .input-wrap .ico,
+  .input-group .select-wrap .ico { top: rem(10); right: rem(6); }
+  .input-wrap, .select-wrap, .selectric-select-wrap, .btn-wrap {
+    position: relative;
+    float: left;
+    padding: 0 rem($grid / 2) rem($grid * 4);
+  }
+  .notification-text {
+    $font-size: 11;
+    @include font($size: $font-size, $color: $mono3, $weight: 600);
+    position: absolute; right: rem(10); top: 0;
+    text-align: right; line-height: em(16, $font-size);
+  }
+  .select_owner-type1, .select_owner-type2,
+  .input_owner-birthday, .select_owner-gender { width: 50% }
+  .select_card-company, .select_pay-plan, .pay-plan-group, .input_owner-name, .owner-info-group, .btn-wrap, .card-pw-group { width: 100%; }
+  .form-title {
+    $font-size: 12;
+    @include font($size: $font-size, $color: $mono1, $weight: 800);
+    display: block;
+    padding-bottom: em(12, $font-size);
+    line-height: em(16, $font-size);
+  }
+  .input-group .form-title { $font-size: 12; float: left; padding: 0 rem($grid / 2) em(12, $font-size); width: 100%; }
+  .select_pay-plan + .btn-wrap { margin-top: rem(-20) }
+  .btn_payment-plan { @include font($size: 11, $color: $text-primary, $weight: 400); }
+  .input_card-num { width: 25% }
+  .input_card-num input[type='text'],
+  .input_card-num input[type='number'],
+  .input_card-num input[type='password'] {
+    padding: 0 rem($grid); width: 100%;
+    font-size: rem(13); text-align: center; letter-spacing: em(1.6, 18);
+  }
+  .pay-plan-group .select_pay-plan { width: 50%; }
+  .input_card-pw input[type='password'] {
+    width: rem(80) !important;
+    text-align: center;
+    &[disabled] {
+      padding: 0;
+      text-align: left; border-color: transparent;
+      background-color: transparent;
+      opacity: 1; color: $mono1;
+    }
+  }
+  .input_owner-birthday input { letter-spacing: em(-0.18, 13) !important; }
+  .owner-info-group input { }
+}
+
+/*부가서비스 신청 > 차종 선택*/
+[data-pop-id="pop_rentacar-type"]{
+  .sort-condition {
+    padding: rem($grid * 2) 0 0;
+    dt { @include sr-only; }
+    dd { @include clearfix; }
+    .sort-by-category + dd {
+      margin: rem(-4);
+      .input-wrap { @include clearfix; }
+      input[type='checkbox'] { @include sr-only }
+      input[type='checkbox'] + label { float: left; @include form($size: 3, $role: normal, $type: button); margin: rem(4); width: calc(33.333% - 8px); font-size: rem(12); color: $mono4; border-color: $mono6; }
+      input[type='checkbox']:checked + label { background-color: $mono1; border-color: $mono1; color: $mono10 }
+    }
+  }
 }

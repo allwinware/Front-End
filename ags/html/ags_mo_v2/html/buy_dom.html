@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../resource/css/ags_mo.dom.min.css"><!-- 국내선일 경우 -->
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/swiper.min.js"></script>
+    <script src="../resource/js/ags_mo.util.plugin.js"></script>
+    <script src="../resource/js/ags_mo.ui.plugin.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
         var $win = $(window),
@@ -16,34 +18,47 @@
             $body = $("body");
 
         /*좌석 범례 스크롤 기능 정의*/
-        function legendHandler(){
-            var $psgWrap = $(".tab-panel.active .passenger-wrap"),
-                $legendWrap = $(".tab-panel.active .seat-legend"),
+        function legendHandler(target){
+            var $psgWrap = $(target).find(".passenger-wrap"),
+                $legendWrap = $(target).find(".seat-legend"),
                 pd = 7,
                 mgTop = $psgWrap.height() + $legendWrap.height(),
                 items = [],
                 pos = [];
+
             $($legendWrap.find("a")).each(function(index, item){
                 var position = $($(".tab-panel.active .seat-num ." + $(item)[0].dataset.scrollto + ":first-of-type")).offset().top - mgTop - pd;
-
                 pos.push(position);
                 items.push($(item)[0].dataset.scrollto)
             });
             $win.on("scroll", function(e){
-                setTimeout(function(){
-                    var currentScroll = $html.scrollTop();
-                    for (i in pos) {
-                        if (pos[i] <= currentScroll + 5) {
-                            var index = i,
-                                $currentLegend = $(".tab-panel.active .seat-legend ." + items[index]);
-                            $currentLegend.addClass("active").siblings().removeClass("active");
-                        } else if(currentScroll + 5 <= pos[0]) {
-                            $(".tab-panel.active .seat-legend ." + items[0]).addClass("active").siblings().removeClass("active");
+                if($legendWrap.parents(".tab-panel.active").length > 0) {
+                    setTimeout(function(){
+                        var currentScroll = $html.scrollTop();
+                        for (i in pos) {
+                            if (pos[i] <= currentScroll + 5) {
+                                var index = i,
+                                    $currentLegend = $(".tab-panel.active .seat-legend ." + items[index]);
+                                $currentLegend.addClass("active").siblings().removeClass("active");
+                            } else if(currentScroll + 5 <= pos[0]) {
+                                $(".tab-panel.active .seat-legend ." + items[0]).addClass("active").siblings().removeClass("active");
+                            }
                         }
-                    }
-                }, 800);
-                activeLinkScrollLeft($(".tab-panel.active .seat-legend .active"), $legendWrap, 800);
+                    }, 800);
+                    activeLinkScrollLeft($(".tab-panel.active .seat-legend .active"), $legendWrap, 800);
+                }
             }).scroll()
+        }
+
+        /*번들선택 버튼 스크롤 기능 정의*/
+        function floatingBannerGroup(){
+            $(window).on("scroll", function(){
+                if ($(window).scrollTop() > 100){
+                    $(".floating-banner").css("opacity", "0").removeClass("active")
+                } else {
+                    $(".floating-banner").css("opacity", 1 - ($(window).scrollTop() * 0.01)).addClass("active")
+                }
+            }).scroll();
         }
 
         $doc.ready(function(){
@@ -173,17 +188,6 @@
                     $("html").animate({scrollTop: position}, 800);
                 });
             })();
-
-            /*번들선택*/
-            (function(){
-                $(window).on("scroll", function(){
-                    if ($(window).scrollTop() > 100){
-                        $(".floating-banner").css("opacity", "0").removeClass("active")
-                    } else {
-                        $(".floating-banner").css("opacity", 1 - ($(window).scrollTop() * 0.01)).addClass("active")
-                    }
-                }).scroll();
-            })();
         });
 
         $win.on("load", function(){
@@ -205,13 +209,16 @@
                     var $this = $($("#tabs_route").find(".swiper-slide")[swiper.activeIndex]);
                     $(".ags-snb").find("li[aria-controls='" + $this.attr("data-aria-target") + "']").mousedown();
                     if($this.attr("data-aria-target") === 'tab-panel1-1'){
-                        $(".ags-snb li[aria-controls='tab-panel2-1'], .ags-snb li[aria-controls='tab-panel2-2']").hide();
-                        $(".ags-snb li[aria-controls='tab-panel1-1'], .ags-snb li[aria-controls='tab-panel1-2']").show();
-                        legendHandler()
+                        $(".ags-snb li[aria-controls^='tab-panel2']").css("display", "none");
+                        $(".ags-snb li[aria-controls^='tab-panel1']").css("display", "table-cell");
+                        $("#floating-banner-wrap").removeClass("active").hide();
+                        legendHandler(".tab-panel.active");
                     } else if($this.attr("data-aria-target") === 'tab-panel2-1'){
-                        $(".ags-snb li[aria-controls='tab-panel1-1'], .ags-snb li[aria-controls='tab-panel1-2']").hide();
-                        $(".ags-snb li[aria-controls='tab-panel2-1'], .ags-snb li[aria-controls='tab-panel2-2']").show();
-                        legendHandler()
+                        $(".ags-snb li[aria-controls^='tab-panel1']").css("display", "none");
+                        $(".ags-snb li[aria-controls^='tab-panel2']").css("display", "table-cell");
+                        $("#floating-banner-wrap").addClass("active").show();
+                        legendHandler(".tab-panel.active");
+                        floatingBannerGroup();
                     }
                 }).transitionStart();
                 $("[data-swiper-next='#" + swiper.el.id + "']").on("click", function(){
@@ -227,6 +234,126 @@
                     }, 1200)
                 });
             })();
+
+            /*렌터카 대여-반납 캘린더를 컨트롤 합니다.*/
+            (function(){
+                var today = new Date(),
+                    remainder = 30 - (moment(today).format("mm") % 30),
+                    setStartDate = moment(today).add(6, "day").add(remainder, "minutes"),
+                    setEndDate = moment(today).add(10, "day").add(remainder, "minutes");
+
+                function returnTimesInBetween(start, end) {
+                    var getGenTime = function(timeString){
+                        var H = timeString.substr(0, 2);
+                        var h = H;
+                        return timeString = "<option>" + h + timeString.substr(2, 3) + "</option>";
+                    };
+                    var timesInBetween = [];
+                    var startH = parseInt(start.split(":")[0]);
+                    var startM = parseInt(start.split(":")[1]);
+                    var endH = parseInt(end.split(":")[0]);
+                    var endM = parseInt(end.split(":")[1]);
+
+                    if (startM === 30)
+                        startH++;
+                    for (var i = startH; i < endH; i++) {
+                        timesInBetween.push(i < 10 ? "0" + i + ":00" : i + ":00")
+                        timesInBetween.push(i < 10 ? "0" + i + ":30" : i + ":30")
+                    }
+                    timesInBetween.push(endH + ":00");
+                    if (endM === 30)
+                        timesInBetween.push(endH + ":30")
+
+                    return timesInBetween.map(getGenTime);
+                }
+
+                $("#car-calendar")
+                    .allwinDatepicker({
+                        container: "#awa-datepicker-wrap",
+                        autoClose: false,
+                        singleMonth: "auto",
+                        showTopbar: true,
+                        monthSelect: false,
+                        yearSelect: false,
+                        customArrowBeforeSymbol: true,
+                        customArrowNextSymbol: true,
+                        format: 'YYYY.MM.DD(ddd) HH:mm',
+                        startDate: moment(today).format('YYYY.MM.DD(ddd) HH:mm'),
+                        minDate: new Date(),
+                        minDays: 2,
+                        time: {
+                            enabled: true,
+                            startHour: 7,
+                            endHour: 22
+                        },
+                    })
+                    .prop("value", setStartDate.format("YYYY.MM.DD(ddd) HH:mm") + " ~ " + setEndDate.format("YYYY.MM.DD(ddd) HH:mm"))
+
+                var box = $("#awa-datepicker-wrap");
+                box
+                    .append('<div class="inner-wrap">' +
+                        '<div class="timepicker-wrap">\n' +
+                        '    <div class="fake-timepicker">\n' +
+                        '        <div class="timepicker fake-time-start">\n' +
+                        '            <div class="date-check">대여 : <span class="date">' + setStartDate.format("YYYY.MM.DD(ddd)") + '</span></div>' +
+                        '            <select>\n' +
+                        returnTimesInBetween("7:00", "22:00").join('') +
+                        '            </select>\n' +
+                        '        </div>\n' +
+                        '        <div class="timepicker fake-time-end">\n' +
+                        '            <div class="date-check">반납 : <span class="date">' + setEndDate.format("YYYY.MM.DD(ddd)") + '</span></div>' +
+                        '            <select>\n' +
+                        returnTimesInBetween("7:00", "22:00").join('') +
+                        '            </select>\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '</div>' +
+                        '<div class="notification-wrap">' +
+                        '    <h4 class="notification-title"><i class="ico"></i>꼭 읽어보세요!</h4>' +
+                        '    <ul class="notification-list">' +
+                        '        <li>반납일 기준으로 30일 이내 144시간 초과하여 동일업체  추가 예약할 경우, 업체에서 인수가 거절될 수 있습니다.</li>' +
+                        '        <li>08:00 ~ 22:00 외 대여 / 반납을 원하실 경우, 예약하실 업체에게 문의해주시기 바랍니다. </li>' +
+                        '    </ul>' +
+                        '</div>' +
+                        '</div>');
+                /*일반 셀렉트박스일 때*/
+                box.find('.fake-time-start select').val(moment(setStartDate).format('HH:mm')).prop("selected", true)
+                box.find('.fake-time-end select').val(moment(setEndDate).format('HH:mm')).prop("selected", true)
+
+                /*날짜 변경 시*/
+                $("#car-calendar").on('datepicker-last-date-selected', function(e){
+                    setTimeout(function(){
+                        var selectedStartDate = (box.find(".drp_top-bar .start-day").text().split(" "))[0],
+                            selectedEndDate = (box.find(".drp_top-bar .end-day").text().split(" "))[0];
+                        box.find(".fake-time-start .date-check .date").text(selectedStartDate);
+                        box.find(".fake-time-end .date-check .date").text(selectedEndDate)
+                    }, 800);
+                })
+                /*시간 변경 시*/
+                box.find(".fake-time-start select").on("change touchmove", function(e) {
+                    var $item = $(e.target),
+                        timeValue = $item.val().split(":");
+                    box.find(".time-start select[name='hour']").val(timeValue[0]).prop("selected", true).trigger("change");
+                    box.find(".time-start .total-time .hour-val").text(timeValue[0]);
+                    box.find(".time-start select[name='minute']").val(timeValue[1]).prop("selected", true).trigger("change");
+                    box.find(".time-start .total-time .minute-val").text(timeValue[1]);
+                });
+                box.find(".fake-time-end select").on("change touchmove", function(e) {
+                    var $item = $(e.target),
+                        timeValue = $item.val().split(":");
+                    box.find(".time-end select[name='hour']").val(timeValue[0]).prop("selected", true).trigger("change");
+                    box.find(".time-end .total-time .hour-val").text(timeValue[0]);
+                    box.find(".time-end select[name='minute']").val(timeValue[1]).prop("selected", true).trigger("change");
+                    box.find(".time-end .total-time .minute-val").text(timeValue[1]);
+                });
+                $(box.parents(".pop-area").find(".btn_confirm")).on("click", function(){
+                    var selectedStartDate = box.find(".drp_top-bar .start-day").text(),
+                        selectedEndDate = box.find(".drp_top-bar .end-day").text()
+                    $("#car-calendar")
+                        .prop("value", selectedStartDate + " ~ " + selectedEndDate);
+                })
+            })();
+
         })
     </script>
 </head>
@@ -246,7 +373,8 @@
             </div>-->
 
             <!-- 기내면세 오픈 전 제주항공 || 티웨이항공일 경우 -->
-            <h2 class="page-name">부가서비스 신청</h2>
+            <!--<h2 class="page-name">부가서비스 사전구매</h2>--><!-- 렌터카 서비스 미제공 시 -->
+            <h2 class="page-name">사전 좌석 / 수하물 / 렌터카</h2><!-- 렌터카 서비스 제공 시 -->
 
             <nav class="ags-gnb">
                 <h3 class="sr-only">전역메뉴</h3>
@@ -342,7 +470,7 @@
                                         <dt class="departure">출발지</dt>
                                         <dd><span class="iata-code">GMP</span> 서울(김포)</dd>
                                         <dt class="arrival">도착지</dt>
-                                        <dd><span class="iata-code">PUS</span> 부산</dd>
+                                        <dd><span class="iata-code">CJU</span> 제주</dd>
                                         <dt class="airline">항공사</dt>
                                         <dd><i class="ico_7c">제주항공</i></dd>
                                         <dt class="schedule">여정일</dt>
@@ -356,7 +484,7 @@
                                     <h3 class="sr-only">티켓 정보</h3>
                                     <dl class="airport">
                                         <dt class="departure">출발지</dt>
-                                        <dd><span class="iata-code">PUS</span> 부산</dd>
+                                        <dd><span class="iata-code">CJU</span> 제주</dd>
                                         <dt class="arrival">도착지</dt>
                                         <dd><span class="iata-code">GMP</span> 서울(김포)</dd>
                                         <dt class="airline">항공사</dt>
@@ -376,6 +504,7 @@
                         <ul class="tablist snb-wrap" role="tablist">
                             <li role="tab" aria-controls="tab-panel1-1" class="btn_seat active"><span class="sr-only">가는 편 </span>좌석 지정</li><!-- 현재 활성화 된 메뉴일 경우 .active -->
                             <li role="tab" aria-controls="tab-panel1-2" class="btn_baggage"><span class="sr-only">가는 편 </span>수하물</li>
+                            <li role="tab" aria-controls="tab-panel1-3" class="btn_rentacar"><span class="sr-only">가는 편 </span>렌터카</li>
                             <li role="tab" aria-controls="tab-panel2-1" class="btn_seat"><span class="sr-only">오는 편 </span>좌석 지정</li>
                             <li role="tab" aria-controls="tab-panel2-2" class="btn_baggage"><span class="sr-only">오는 편 </span>수하물</li>
                         </ul>
@@ -797,7 +926,6 @@
                                     <button type="button" class="btn_confirm">오는 편 선택하기</button>
                                 </div>
                             </div>
-                            <!-- //가는 편 좌석지정 탭 컨텐츠 -->
 
                             <!-- 가는 편 수하물 탭 컨텐츠 -->
                             <div id="tab-panel1-2" class="tab-panel" role="tabpanel">
@@ -927,7 +1055,7 @@
                                 <!-- 프로세스 버튼 그룹 -->
                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
                                     <button type="button" class="btn_cancel">이전</button>
-                                    <button type="button" class="btn_confirm" data-swiper-next="#tabs_route" data-slide-to="departure">오는 편 좌석 선택하기</button>
+                                    <button type="button" class="btn_confirm" data-swiper-next="#tabs_route" data-slide-to="departure">가는 편 렌터카 선택하기</button>
                                 </div>
                                 <!-- 수하물 서비스 관련 안내문(제주항공용) -->
                                 <div class="notification-wrap">
@@ -945,7 +1073,7 @@
                                     </ul>
                                 </div>
 
-                            <!-- **** 분기 II : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 II : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
                                 <!-- 출발시간 임박으로 인한 서비스 구매불가 안내 -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
@@ -961,7 +1089,199 @@
                                 </div>
                                 <!-- 프로세스 버튼 그룹 -->
                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
-                                    <button type="button" class="btn_confirm" data-swiper-next="#tabs_route" data-slide-to="departure">오는 편 선택하기</button>
+                                    <button type="button" class="btn_cancel">이전</button>
+                                    <!--<button type="button" class="btn_confirm">가는 편 결제하기</button>--><!-- 렌트카 서비스를 제공할 수 없을 떄 -->
+                                    <button type="button" class="btn_confirm">가는 편 렌트카 선택하러 가기</button><!-- 렌트카 서비스를 제공할 수 있을 때(국내선 출발편이면서 && 도착지가 제주공항일 때) -->
+                                </div>
+                            </div>
+
+                            <!-- 가는 편 렌터카 탭 컨텐츠 -->
+                            <div id="tab-panel1-3" class="tab-panel" role="tabpanel">
+                                <h5 class="sr-only">렌터카</h5>
+
+                                <div class="rentacar_sort-wrap">
+                                    <div class="sort-condition">
+                                        <dl>
+                                            <dt class="driver-name"><label for="car-driver">운전자</label></dt>
+                                            <dd>
+                                                <div class="select-wrap">
+                                                    <select id="car-driver">
+                                                        <option>배성준</option>
+                                                        <option>손승완</option>
+                                                        <option>김태형</option>
+                                                    </select>
+                                                    <label for="car-driver" class="ico"><span class="sr-only">운전자선택</span></label>
+                                                </div>
+                                                <div class="input-wrap">
+                                                    <input type="checkbox" id="licence-period" name="licence-period">
+                                                    <label for="licence-period"><i class="ico"></i>운전경력 1년 미만</label>
+                                                </div>
+                                            </dd>
+                                            <dt class="search-period"><label for="car-calendar">대여기간</label></dt>
+                                            <dd>
+                                                <div class="input-wrap">
+                                                    <input type="text" id="car-calendar" data-popup="#buy_car-dpicker" readonly="readonly">
+                                                    <label for="car-calendar" class="ico"><span class="sr-only">기간선택</span></label>
+                                                </div>
+                                            </dd>
+
+                                        </dl>
+
+                                        <div class="btn-wrap">
+                                            <button type="button" class="btn_search" data-popup="#pop_rentacar-type">차량 검색하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="car-plan">
+                                    <!-- 차량 리스트 상단 - 메시지 || 검색분류 -->
+                                    <!-- 분기 1-1 : 사용자가 '차량 검색하기' 버튼을 조작하기 전일 때 -->
+                                    <!--<p class="notice-msg">두 분의 오붓한 여행을 위한 렌터카를 추천해 드려요.</p>--><!--PNR 탑승객 유형에 따라 27가지 메시지로 분류됩니다 (렌터카 기획서 내의 '탑승객 구성에 따른 차종 추천' 페이지 참조)-->
+
+                                    <!-- 분기 1-2 : 사용자가 '차량 검색하기' 버튼을 조작한 후 -->
+                                    <!-- 기능 영역 -->
+                                    <div class="function-wrap">
+                                        <div class="select-wrap sort-by-category">
+                                            <label for="sort-condition01">정렬 기준</label>
+                                            <select id="sort-condition01">
+                                                <option>최저가순</option>
+                                                <option>최신년식순</option>
+                                                <option>추천차종</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- 차량 리스트 - 추천차종 또는 검색 결과가 존재할 때 || 검색 결과 목록이 없을 때 -->
+                                    <!--
+                                        * 전달사항 *
+                                        추천 차량은 사용자가 어떤 조건으로도 검색하지 않았을 때 나타나며, 최대 4개까지 리스트 업하여 노출합니다.
+                                        검색 결과는 사용자가 조건을 선택하여 검색버튼을 눌렀을 때 나타나며, 한 번에 최대 4개까지 리스터 업하여 노출합니다. 더 많은 차종 보기 버튼을 누르면 4개씩 추가하여 노출합니다
+                                    -->
+                                    <!-- 분기 2-1 : 추천차종을 보여줄 때 || 검색 결과가 존재할 때 -->
+                                    <div class="car-list">
+                                        <div class="item active">
+                                            <dl class="car-info">
+                                                <dt class="car-name">차량명</dt>
+                                                <dd>BMW i3(18년~)(전기/충전비유료) BMW i3(18년~)(전기/충전비유료)</dd>
+                                                <dt class="car-price">렌트요금</dt>
+                                                <dd><span class="digits">69000</span> ~</dd>
+                                                <dt class="car-description">플랜설명</dt>
+                                                <dd>(34시간 / 완전자차 포함)</dd>
+                                                <dt class="car-tag">플랜태그</dt>
+                                                <dd>
+                                                    <i class="ico_tag">RV/SUV</i>
+                                                    <i class="ico_tag">전기</i>
+                                                    <i class="ico_tag">경차/소형</i>
+                                                </dd>
+                                                <dt class="car-thumbnail">차량 이미지</dt>
+                                                <dd><img src="../resource/img/buy/img_car-sample1.jpg" alt="BMW i3(18년~)(전기/충전비유료) 차량 이미지"></dd>
+                                            </dl>
+                                            <div class="btn-wrap">
+                                                <a href="#none" target="_self" class="btn_more">선택하기</a>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <dl class="car-info">
+                                                <dt class="car-name">차량명</dt>
+                                                <dd>더 뉴 아반떼 AD(20년~)(휘)</dd>
+                                                <dt class="car-price">렌트요금</dt>
+                                                <dd><span class="digits">71600</span> ~</dd>
+                                                <dt class="car-description">플랜설명</dt>
+                                                <dd>(34시간 / 완전자차 포함)</dd>
+                                                <dt class="car-tag">플랜태그</dt>
+                                                <dd>
+                                                    <i class="ico_tag">수입/스포츠</i>
+                                                </dd>
+                                                <dt class="car-thumbnail">차량 이미지</dt>
+                                                <dd><img src="../resource/img/buy/img_car-sample2.jpg" alt="더 뉴 아반떼 AD(20년~)(휘)"></dd>
+                                            </dl>
+                                            <div class="btn-wrap">
+                                                <a href="#none" target="_self" class="btn_more">선택하기</a>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <dl class="car-info">
+                                                <dt class="car-name">차량명</dt>
+                                                <dd>아이오닉 EV (전기/충전비유료)</dd>
+                                                <dt class="car-price">렌트요금</dt>
+                                                <dd><span class="digits">89800</span> ~</dd>
+                                                <dt class="car-description">플랜설명</dt>
+                                                <dd>(34시간 / 완전자차 포함)</dd>
+                                                <dt class="car-tag">플랜태그</dt>
+                                                <dd>
+                                                    <i class="ico_tag">준중형</i>
+                                                    <i class="ico_tag">전기</i>
+                                                </dd>
+                                                <dt class="car-thumbnail">차량 이미지</dt>
+                                                <dd><img src="../resource/img/buy/img_car-sample3.jpg" alt="아이오닉 EV (전기/충전비유료)"></dd>
+                                            </dl>
+                                            <div class="btn-wrap">
+                                                <a href="#none" target="_self" class="btn_more">선택하기</a>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <dl class="car-info">
+                                                <dt class="car-name">차량명</dt>
+                                                <dd>테슬라 모델3 롱 레인지 EV(전기)</dd>
+                                                <dt class="car-price">렌트요금</dt>
+                                                <dd><span class="digits">110400</span> ~</dd>
+                                                <dt class="car-description">플랜설명</dt>
+                                                <dd>(34시간 / 완전자차 포함)</dd>
+                                                <dt class="car-tag">플랜태그</dt>
+                                                <dd>
+                                                    <i class="ico_tag">수입</i>
+                                                    <i class="ico_tag">전기</i>
+                                                </dd>
+                                                <dt class="car-thumbnail">차량 이미지</dt>
+                                                <dd><img src="../resource/img/buy/img_car-sample3.jpg" alt="테슬라 모델3 롱 레인지 EV(전기)"></dd>
+                                            </dl>
+                                            <div class="btn-wrap">
+                                                <a href="#none" target="_self" class="btn_more">선택하기</a>
+                                            </div>
+                                        </div>
+
+                                        <a href="#none" target="_self" class="btn_load-more">+ 더 많은 차량 보기</a>
+                                    </div>
+
+                                    <!-- 분기 2-2 : 검색 결과 목록이 없을 때 -->
+                                    <!--<div class="car-list">
+                                        <div class="no-item">
+                                            <div class="ico-wrap">
+                                                <i class="ico_alert&#45;&#45;primary">!</i>
+                                            </div>
+                                            <div class="alert-text">
+                                                선택하신 조건에 맞는 차량이 없습니다.
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div><!-- //.car-plan -->
+
+
+
+                                <!-- 컨텐츠 로딩 시 팝업 노출 -->
+                                <!--
+                                    활성화 :
+                                    var $pop = $(#POPUP-ID)
+                                    popupActivate($pop)
+
+                                    비활성화 :
+                                    var $pop = $(#POPUP-ID)
+                                    popupInactivate($pop)
+                                -->
+                                <div id="pop_loading-msg03" class="pop-area" data-type="alert" data-dim-clear="true">
+                                    <div class="page-loading">
+                                        <i class="ico"></i>
+                                        <div class="loading-message">
+                                            렌터카 최저가 가격을 검색하는 중입니다.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 프로세스 버튼 그룹 -->
+                                <div class="process-btn-wrap" data-role="process-btn-wrap">
+                                    <button type="button" class="btn_cancel">이전</button>
+                                    <button type="button" class="btn_confirm">가는 편 결제하기</button>
                                 </div>
                             </div>
 
@@ -1533,7 +1853,6 @@
                                     <button type="button" class="btn_confirm">마이페이지</button>
                                 </div>
                             </div>
-                            <!-- //오는 편 좌석지정 탭 컨텐츠 -->
 
                             <!-- 오는 편 수하물 탭 컨텐츠 -->
                             <div id="tab-panel2-2" class="tab-panel" role="tabpanel">
@@ -1637,7 +1956,7 @@
                                 <!-- 프로세스 버튼 그룹 -->
                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
                                     <button type="button" class="btn_cancel">이전</button>
-                                    <button type="button" class="btn_confirm">결제하기</button>
+                                    <button type="button" class="btn_confirm">오는 편 결제하기</button>
                                 </div>
                                 <!-- 수하물 서비스 관련 안내문(티웨이항공용) -->
                                 <div class="notification-wrap">
@@ -1670,12 +1989,12 @@
                                     <button type="button" class="btn_confirm">마이페이지</button>
                                 </div>
                             </div>
-                            <!-- //오는 편 수하물 탭 컨텐츠 -->
                         </div>
                     </div>
+                </div>
 
                 <!-- 티웨이 전용 : 번들 서비스를 제공할 경우 -->
-                <div class="floating-banner active">
+                <div id="floating-banner-wrap" class="floating-banner" >
                     <a href="#none" target="_self" class="btn_bundle" data-popup="#bundle-summary3">번들<br>선택</a>
                 </div>
             </section>
@@ -1704,5 +2023,24 @@
 
     <!-- POPUP include -->
     <div id="popup"></div>
+
+    <!-- 팝업 : 렌터카 대여-반납 캘린더 -->
+    <div id="buy_car-dpicker" class="pop-area" data-type="message">
+        <div class="pop-wrap">
+            <header class="pop-header">
+                <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
+                <h2 class="pop-title">좌석 현황 보기</h2>
+            </header>
+            <section class="pop-container" data-pop-id="buy_car-dpicker">
+                <div id="awa-datepicker-wrap"></div>
+            </section>
+            <footer class="pop-footer">
+                <div class="process-btn-wrap">
+                    <button type="button" class="btn_confirm" data-role="close">확인</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
 </body>
 </html>

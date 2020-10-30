@@ -1,7 +1,7 @@
 /* form */
 @mixin form($size: 1, $role: normal, $type: button) {
   display: inline-block;
-  margin: 0 0 grid-mg(1); width: 100%;
+  margin: 0; width: 100%;
   border-radius: $border-common-radius;
   white-space: nowrap;
   @if $type == "button" or $type == "select" or $type == "textbox" {
@@ -15,20 +15,20 @@
       height: rem(26);
       line-height: rem(24);
     } @else if $size == 2 {
+      @include font($size: 12, $color: $mono1, $weight: 600);
       padding: 0 rem(13);
       height: rem(36);
       line-height: rem(34);
-      @include font($size: 12, $color: $mono1, $weight: 600);
     } @else if $size == 3 {
-      padding: 0 rem(16);
-      height: rem(40);
-      line-height: rem(38);
       @include font($size: 13, $color: $mono1, $weight: 600);
+      padding: 0 rem(16);
+      height: rem(42);
+      line-height: rem(40);
     } @else if $size == 4 {
+      @include font($size: 14, $color: $mono1, $weight: 600);
       padding: 0 rem(20);
       height: rem(54);
       line-height: rem(52);
-      @include font($size: 14, $color: $mono1, $weight: 600);
     }
   }
   @if $type == "text" or $type == "textbox" {
@@ -130,6 +130,13 @@
         border: 1px solid $border-primary; background-color: $bg-primary;
         &:before { border-color: $mono10 }
       }
+      &:disabled + label .ico {
+        border-color: $mono9; background-color: $mono8;
+        &:before { border-color: transparent }
+      }
+      &:checked:disabled + label .ico {
+        &:before { border-color: $mono9 }
+      }
     } @else if $role == "disabled" {
       & + label .ico {
         border: 1px solid $mono9; background-color: $mono9;
@@ -173,6 +180,16 @@
       border: 1px solid $bg-secondary;
       background-color: $bg-secondary;
       color: $mono10
+    } @else if $role == "normal-rev" {
+      border: 1px solid $mono1;
+      background-color: $mono1;
+      color: $mono10
+    }
+    &[disabled='disabled'] {
+      border: 1px solid $mono8;
+      background-color: $mono8;
+      color: $mono4;
+      text-shadow: 1px 1px 1px rgba(255,255,255,0.3)
     }
   }
   @if $type == "button" {
@@ -184,8 +201,9 @@
     &::-ms-expand { display: none; }
     @include background($file: 'common/ico_select-arrow', $type: png, $width: 9px, $height: auto);
     background-color: transparent; background-position: right 5px top 50%;
-    padding: 0 rem(20) 0 0;
+    /*padding: 0 rem(20) 0 0;*/
   } @else if $type == "textbox" {
+    -webkit-appearance: none;
 
   } @else if $type == "textarea" {
 
@@ -208,7 +226,9 @@
 .ui-checkbox {
   @include form($size: 1, $role: normal, $type: checkbox)
 }
-
+.ui-password {
+  -webkit-text-security: disc
+}
 
 .select-wrap {
   display: inline-block;

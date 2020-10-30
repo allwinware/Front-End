@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <title>렌터카 예약 내역 / 취소 - 마이페이지</title>
+    <!--<link rel="stylesheet" href="../resource/css/ags_mo_tw.min.css">--><!-- 티웨이항공일 경우 -->
+    <!--<link rel="stylesheet" href="../resource/css/ags_mo_7c.min.css">--><!-- 제주항공일 경우 -->
+    <link rel="stylesheet" href="../resource/css/ags_mo.dom.min.css"><!-- 국내선일 경우 -->
+    <script src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script src="../resource/js/ags_mo.ui.js"></script>
+    <script>
+        $(window).on("load", function(){
+            /*약관 자세히보기 버튼 동작 정의*/
+            $(".agreement-list .btn_more").on("click", function(){
+                $(this).parent("li").toggleClass("active").siblings("li").removeClass("active")
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="ags-wrap" class="ags-wrap">
+    <h1 class="site-name">올윈에어</h1>
+
+    <!-- ags-header -->
+    <header id="ags-header" class="ags-header">
+        <h2 class="page-name">렌터카 예약 내역 / 취소</h2>
+        <nav class="ags-gnb">
+            <h3 class="sr-only">전역메뉴</h3>
+            <ul class="gnb-wrap">
+                <li><a href="my_history-list.html" target="_self" class="btn_back">뒤로가기</a></li>
+                <li>
+                    <a href="#none" target="_self" id="btn_gnb" class="btn_gnb">메뉴</a>
+                    <div id="gnb-2dp" class="gnb-2dp-wrap">
+                        <a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>
+                        <p class="welcome-msg">
+                            안녕하세요!<br>
+                            <span class="customer-name">Bae, Sungjune</span>님
+                        </p>
+                        <ul class="depth1">
+                            <li><a href="#none" target="_self">항공 부가서비스 사전 신청</a></li>
+                            <li class="new active"><a href="#none" target="_self">기내 면세품 예약</a></li><!-- 활성화된 메뉴는 .active -->
+                            <li>
+                                <a href="#none" target="_self">마이페이지</a>
+                                <ul class="depth2">
+                                    <li><a href="#none" target="_self">부가서비스 신청내역</a></li>
+                                    <li><a href="#none" target="_self">기내 면세품 예약내역</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="fnb">
+                            <li><a href="#none" target="_self">개인정보취급방침</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#none" target="_self" class="btn_close">화면 닫기</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- //ags-header -->
+
+    <hr>
+
+    <!-- ags-container -->
+    <div class="ags-container">
+        <section class="ags-contents" data-page-id="my__history-detail_car">
+            <h3 class="sr-only">컨텐츠</h3>
+
+            <div class="content-wrap">
+
+                <!-- 렌터카 결제정보 영역 -->
+                <div class="rentacar-wrap">
+                    <h4 class="sr-only">렌터카 결제정보</h4>
+                    <dl>
+                        <dt class="resv-num">예약번호</dt>
+                        <dd>123456</dd>
+                        <dt class="purchase-state">예약상태</dt>
+                        <dd>결제완료</dd>
+                    </dl>
+                    <dl>
+                        <dt class="car-price">렌터카 총 결제금액</dt>
+                        <dd><span class="digits">99000</span></dd>
+                        <dt class="duration">결제일시</dt>
+                        <dd>2020.10.11. 10:12</dd>
+                    </dl>
+                </div>
+                <!-- //렌터카 결제정보 영역 -->
+
+                <!-- 고객센터 정보 영역 -->
+                <dl class="help-wrap">
+                    <dt class="tel">고객센터</dt>
+                    <dd>1522-4148</dd>
+                    <dt class="time">운영시간</dt>
+                    <dd>(평일 9:30~17:00 / 점심시간 12:00~13:00)</dd>
+                </dl>
+                <!-- //고객센터 정보 영역 -->
+
+                <!-- 렌터카 예약 내역 및 총 환불 금액 -->
+                <div class="history-detail-wrap">
+                    <!-- 렌터카 예약 내역 -->
+                    <div class="inner-wrap">
+                        <h4 class="title">렌터카 예약 내역</h4>
+                        <div class="table-group">
+                            <div class="table-wrap">
+                                <h5 class="passenger-name"><input type="checkbox" id="input-check01" name="check-group1"><label for="input-check01"><i class="ico"></i>배성준(운전자)</label></h5>
+                                <div class="car-plan">
+                                    <dl class="plan-price">
+                                        <dt class="status">결제상태</dt>
+                                        <dd>결제완료</dd>
+                                        <dt class="price">금액</dt>
+                                        <dd><span class="digits">55000</span></dd>
+                                    </dl>
+                                    <dl class="plan-info">
+                                        <dt class="rent-company">업체명</dt>
+                                        <dd>제주OK렌터카</dd>
+                                        <dt class="car-name">차량명</dt>
+                                        <dd>올 뉴 모닝(20년~)(휘)</dd>
+                                        <dt class="car-plan">대여기간</dt>
+                                        <dd>
+                                            2020.11.11(월) 09:00 ~ 11.12(화) 19:00<br>
+                                            32시간 / 완전자차 포함
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="table-wrap inactive">
+                                <h5 class="passenger-name"><input type="checkbox" id="input-check02" name="check-group1" disabled="disabled"><label for="input-check02"><i class="ico"></i>김태형(운전자)</label></h5>
+                                <div class="car-plan">
+                                    <dl class="plan-price">
+                                        <dt class="status">결제상태</dt>
+                                        <dd>결제취소</dd>
+                                        <dt class="price">금액</dt>
+                                        <dd><span class="digits">55000</span></dd>
+                                    </dl>
+                                    <dl class="plan-info">
+                                        <dt class="rent-company">업체명</dt>
+                                        <dd>제주OK렌터카</dd>
+                                        <dt class="car-name">차량명</dt>
+                                        <dd>올 뉴 모닝(20년~)(휘)</dd>
+                                        <dt class="car-plan">대여기간</dt>
+                                        <dd>
+                                            2020.11.11(월) 09:00 ~ 11.12(화) 19:00<br>
+                                            32시간 / 완전자차 포함
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+                    <!-- 총 환불 금액 -->
+                    <div class="inner-wrap">
+                        <h4 class="title">총 환불 금액</h4>
+                        <div class="total-calc-wrap">
+                            <table class="charge-sheet">
+                                <caption>총 결제금액</caption>
+                                <colgroup>
+                                    <col style="width: 120px;">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><span class="ico_flag">렌터카 환불금액</span></th>
+                                    <td><span class="digits">999000</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><span class="ico_flag">취소 수수료</span></th>
+                                    <td><span class="digits">10000</span></td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th scope="row"><span class="ico_flag">Total 환불금액</span></th>
+                                    <td><span class="digits">999000</span></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- //렌터카 예약 내역 및 총 환불 금액 -->
+
+
+                <!-- 렌터카 취소 / 환불 동의 -->
+                <div class="agreement-wrap">
+                    <h4 class="agreement-title">취소 / 환불 동의</h4>
+                    <ul class="agreement-list">
+                        <!-- 렌터카 이용 규정 -->
+                        <li>
+                            <input type="checkbox" id="input-check17" name="check-group2"><label for="input-check17"><i class="ico"></i>렌터카 취소 / 환불 규정</label>
+                            <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                            <div class="notification-wrap">
+                                <div class="table-wrap">
+                                    <table>
+                                        <colgroup>
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="col">취소/환불규정</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p class="notification-text pre-wrap">* 예약취소
+예약당일(당일 23:59분까지/인수 24시간 내 취소시 적용 불가) : 수수료 없음
+예약 다음날~인수 7일전까지(168시간 이전까지) : 수수료 없음
+인수 6일전~인수 3일전까지(72시간 이전까지) : 수수료 없음
+인수 2일전~인수 1일전까지(24시간 이전까지) : 수수료 없음
+인수 24시간 이내 : 수수료 30%
+No-show : 취소수수료 50%
+
+* 차종 인수 24시간 내 취소하는 경우, 예약 당일 취소 구간(수수료 없음)이 적용되지 않습니다.
+* 차종 인수 후 예약 취소 또는 조기반납 시 결제금액 환불 불가
+* 천재지변으로 예약 취소 시 결제금액 환불 가능</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- //렌터카 이용 규정 -->
+                    </ul>
+                </div>
+
+                <!-- 프로세스 버튼 그룹 -->
+                <div class="process-btn-wrap" data-role="process-btn-wrap">
+                    <button type="button" class="btn_cancel">이전</button>
+                    <button type="button" class="btn_confirm">취소 / 환불하기</button>
+                </div>
+            </div>
+
+        </section>
+    </div>
+    <!-- //ags-container -->
+
+    <!-- ags-summary -->
+    <footer id="ags-summary" class="ags-summary">
+        <h4 class="sr-only">부가서비스 취소금액</h4>
+        <div class="inner-wrap">
+            <div class="total">
+                <h5 class="sr-only">총 환불 예정 금액</h5>
+                <dl>
+                    <dt>총 환불 예정 금액</dt>
+                    <dd><span class="digits">90000</span></dd>
+                    <dd><button type="button" class="btn_refund-imm">취소 / 환불하기</button></dd>
+                </dl>
+            </div>
+        </div>
+    </footer>
+    <!-- //ags-summary -->
+
+</div>
+</body>
+</html>

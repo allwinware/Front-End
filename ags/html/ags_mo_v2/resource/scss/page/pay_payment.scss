@@ -1,9 +1,9 @@
 /*부가서비스 결제 > 결제정보 확인하기*/
 [data-page-id='pay__payment']{
-  overflow: hidden;
-  width: 100%;
   input[type='checkbox'] { @include form($size: 3, $role: normal, $type: checkbox); }
   input[type='radio'] { @include form($size: 3, $role: normal, $type: radio); }
+  overflow: hidden;
+  width: 100%;
   .ticket-wrap {
     position: relative;
     height: rem(72);
@@ -128,15 +128,17 @@
   }
   .agreement-wrap {
     @include agreement-wrap;
-    padding-right: rem($grid * 2);
     tbody th,
     tbody td {
       text-align: center;
       .notification-list,
       .notification-text { text-align: left; }
+      .notification-text.pre-wrap {
+        white-space: pre-wrap;
+        &:first-child { padding-top: 0 }
+      }
       .notification-list li { margin-top: rem(2) }
     }
-    .notification-wrap { margin-top: rem(32); }
   }
 }
 

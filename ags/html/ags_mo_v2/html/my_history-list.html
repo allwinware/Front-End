@@ -60,7 +60,7 @@
 
             <div class="content-wrap">
                 <header class="content-header">
-                    <h4 class="content-title">나의 예약/구매내역</h4>
+                    <h4 class="content-title">나의 예약 / 구매내역</h4>
                     <p class="content-description">예약번호를 선택하여 상세 내역을 확인하세요.</p>
                 </header>
 
@@ -68,14 +68,15 @@
                 <div class="tab-wrap">
 
                     <!-- 탭버튼 -->
-                    <!-- 분기 1 : 티웨이항공일 경우 - 탭버튼이 무의미하므로 .tabs 전체 삭제하거나 주석처리하여 가려주세요 -->
-                    <!-- 분기 2 : 제주항공일 경우 -->
-                    <!--<div class="tabs tabs_categories">
+                    <!-- 분기 1 : 항공 부가서비스(좌석,수하물,기내식,라운지)만 제공할 경우 탭버튼 전체를 삭제 -->
+                    <!-- 분기 2 : 항공 부가서비스 + 렌터카 또는 기내면세품 예약 서비스를 제공할 때(제공하는 서비스 버튼만 노출 -->
+                    <div class="tabs tabs_categories">
                         <ul role="tablist">
                             <li role="tab" aria-controls="tab-panel1" class="active">부가서비스 구매내역</li>
-                            <li role="tab" aria-controls="tab-panel2">기내면세품 예약내역</li>
+                            <li role="tab" aria-controls="tab-panel2">렌터카 예약 내역</li>
+                            <!--<li role="tab" aria-controls="tab-panel3">기내면세품 예약 내역</li>-->
                         </ul>
-                    </div>-->
+                    </div>
                     <!-- //탭버튼 -->
 
                     <!-- 탭 컨텐츠 묶음 -->
@@ -200,8 +201,79 @@
                                 <!-- //부가서비스 구매내역 목록 -->
                             </div>
                             <!-- //부가서비스 구매내역 탭 컨텐츠 -->
-                            <!-- 기내면세품 예약내역 탭 컨텐츠 -->
+                            <!-- 렌터카 예약 내역 탭 컨텐츠 -->
                             <div id="tab-panel2" class="tab-panel" role="tabpanel">
+                                <h5 class="sr-only">렌터카 예약 내역 리스트</h5>
+                                <!-- 기능 영역 -->
+                                <div class="function-wrap">
+                                    <div class="inner-box">
+                                        총 <i class="text-emphasis">4건</i>의 구매내역
+                                    </div>
+                                    <div class="inner-box">
+                                        <label for="sort-condition21">정렬 기준</label>
+                                        <select id="sort-condition21">
+                                            <option>구매일 순</option>
+                                            <option>대여일 순</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- //기능 영역 -->
+
+                                <!-- 렌터카 예약 내역 목록 -->
+                                <div class="history-list-wrap">
+                                    <ul>
+                                        <!-- 분기 1 : 구매내역이 없을 때 -->
+                                        <li class="empty">렌터카 예약 내역이 없습니다.</li>
+
+                                        <!-- 분기 2 : 구매내역이 있을 때 -->
+                                        <!-- 분기 2-1 : 결제완료 상태일 때 -->
+                                        <li>
+                                            <dl>
+                                                <dt class="resv-num">예약번호</dt>
+                                                <dd>123456</dd>
+                                                <dt class="purchase-state">예약상태</dt>
+                                                <dd>예약완료</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt class="driver-name">운전자</dt>
+                                                <dd>배성준 외 1건</dd>
+                                                <dt class="resv-duration">대여기간</dt>
+                                                <dd>2020.11.11(월) 09:00 ~ 2020.11.12(화) 19:00</dd>
+                                                <dt class="car-plan">대여항목</dt>
+                                                <dd>
+                                                    올 뉴 모닝(20년~)(휘) 외 1건<br>
+                                                    <span class="resv-date">(2020.11.01. 10:12)</span>
+                                                </dd>
+                                            </dl>
+                                            <a href="#none" target="_self" class="btn_more">자세히 보기</a>
+                                        </li>
+
+                                        <!-- 분기 2-1 : 취소/환불완료 상태일 때(anchor 태그는 삭제합니다) -->
+                                        <li class="refund">
+                                            <dl>
+                                                <dt class="resv-num">예약번호</dt>
+                                                <dd>123456</dd>
+                                                <dt class="purchase-state">예약상태</dt>
+                                                <dd>취소/환불완료</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt class="driver-name">운전자</dt>
+                                                <dd>배성준 외 1건</dd>
+                                                <dt class="resv-duration">대여기간</dt>
+                                                <dd>2020.11.11(월) 09:00 ~ 2020.11.12(화) 19:00</dd>
+                                                <dt class="car-plan">대여항목</dt>
+                                                <dd>
+                                                    올 뉴 모닝(20년~)(휘) 외 1건<br>
+                                                    <span class="resv-date">(2020.11.01. 10:12)</span>
+                                                </dd>
+                                            </dl>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- //렌터카 예약내역 탭 컨텐츠 -->
+                            <!-- 기내면세품 예약내역 탭 컨텐츠 -->
+                            <div id="tab-panel3" class="tab-panel" role="tabpanel">
                                 <h5 class="sr-only">기내면세품 예약내역 리스트</h5>
                                 <!-- 기능 영역 -->
                                 <div class="function-wrap">

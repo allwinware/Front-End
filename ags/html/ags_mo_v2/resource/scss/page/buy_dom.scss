@@ -15,7 +15,8 @@
   .tabs_route {
     overflow: hidden;
     position: relative;
-    width: 100%;
+    padding-top: 0; width: 100%;
+    [role='tab'] { max-width: initial; }
     & > .swiper-wrapper {
       @include clearfix;
       display: flex;
@@ -25,7 +26,7 @@
     & > .swiper-wrapper > .swiper-slide {
       position: relative;
       display: block;
-      padding-top: 0; max-width: 100vw;
+      padding-top: rem(30); width: 100%;
       text-align: center;
       .ico_tag {
         @include tagging-route;
@@ -67,7 +68,7 @@
     &.swiper-container {
       .swiper-pagination-bullet { width: rem(6); height: rem(6); border-radius: 50%; background-color: #ddd; opacity: 1; }
       .swiper-pagination-bullet-active { background-color: $bg-primary }
-      .swiper-slide { height: rem(134); border-bottom: 1px solid $mono8; }
+      .swiper-slide { height: rem(164); border-bottom: 1px solid $mono8; }
       .swiper-button-prev,
       .swiper-button-next {
         position: absolute; top: rem(48);
@@ -106,7 +107,7 @@
     margin-top: rem($grid * 3);
     & > li {
       @include snb-menu;
-      display: table-cell;
+      display: none;
       border-bottom: 1px solid $mono8;
       &:not(:first-of-type) { border-left: 0; }
       &.active { background-color: transparent; border-bottom-color: $mono1; }
@@ -593,4 +594,228 @@
       background-color: $mono10;
     }
   }
+
+  /*번들 플로팅배너*/
+  .floating-banner { display: none; }
+
+  /*부가서비스 구매 > 렌터카*/
+  .rentacar_sort-wrap {
+    .sort-condition {
+      padding: rem($grid * 4) rem($grid * 2) 0;
+      dl { padding-bottom: rem($grid) }
+      dt {
+        $font-size: 10;
+        @include font($size: 10, $color: $mono1, $weight: 800); padding-bottom: rem($grid)
+      }
+      dd { @include clearfix; padding-bottom: rem($grid * 2); }
+
+      .driver-name + dd {
+        .select-wrap { float: left; position: relative; }
+        select { @include form($size: 3, $role: normal, $type: select); padding-left: rem(12); width: rem(172); font-weight: 400; background-image: none !important; }
+        select + label.ico {
+          z-index: 1;
+          overflow: hidden;
+          display: inline-block;
+          position: absolute; top: rem(9); right: rem(12);
+          width: rem(24); height: rem(25);
+          &:after {
+            content: "";
+            z-index: 0;
+            display: inline-block;
+            width: rem(8); height: rem(8);
+            border: solid $mono1; border-width: 0 2px 2px 0;
+            @include transform(rotate(45deg) translate(7px, -4px));
+          }
+        }
+        .input-wrap {
+          float: left;
+          padding: rem(12) 0 0 rem($grid * 2);
+          input[type='checkbox'] { @include form($size: 1, $role: normal, $type: checkbox) }
+        }
+      }
+      .search-period + dd {
+        .input-wrap {
+          z-index: 0;
+          position: relative;
+          input[type='text'] {
+            z-index: 0;
+            @include form($size: 3, $role: normal, $type: textbox);
+            letter-spacing: em(-0.16, 13);
+            cursor: pointer;
+          }
+          .ico {
+            z-index: 1;
+            overflow: hidden;
+            display: inline-block;
+            position: absolute; top: rem(9); right: rem(12);
+            width: rem(24); height: rem(25);
+            &:after {
+              content: "";
+              z-index: 0;
+              display: inline-block;
+              width: rem(8); height: rem(8);
+              border: solid $mono1; border-width: 0 2px 2px 0;
+              @include transform(rotate(45deg) translate(7px, -4px));
+            }
+          }
+        }
+      }
+      .btn_search { @include form($size: 3, $role: normal-rev, $type: button); }
+    }
+  }
+
+  .car-plan {
+    $thumbnail-width: 100;
+    padding: rem(50) 0 0 rem($grid * 2);
+    .notice-msg {
+      $font-size: 12;
+      z-index: 0;
+      @include font($size: 12, $color: $mono1, $weight: 400);
+      padding-bottom: em(12, $font-size)
+    }
+    .car-list {
+      z-index: 0;
+      border-top: 1px solid $mono1;
+    }
+    @at-root .car-info {
+      position: relative;
+      padding: rem($grid * 5) rem($grid) rem($grid) rem($thumbnail-width + $grid * 2);
+      dt { @include sr-only; }
+      .car-name + dd {
+        $font-size: 14;
+        @include font($size: $font-size, $color: $mono1, $weight: 600);
+        padding-bottom: rem(12);
+        line-height: em(19, $font-size)
+      }
+      .car-price + dd {
+        @include font($size: 13, $color: $text-primary, $weight: 400);
+        @include price-unit(krw);
+        padding-bottom: rem(8);
+        letter-spacing: 0;
+      }
+      .car-description + dd {
+        $font-size: 12;
+        @include font($size: $font-size, $color: $mono3, $weight: 400);
+        padding-bottom: rem($grid); line-height: em(16, $font-size)
+      }
+      .car-tag + dd {
+        position: absolute; left: rem($thumbnail-width + $grid * 2); top: rem($grid * 2);
+        .ico_tag {
+          @include font($size: 9, $color: $mono10, $weight: 500);
+          float: left;
+          margin-right: 1px; padding: 0 rem(4); min-width: rem($grid * 4); height: rem(16);
+          line-height: rem(16); text-align: center;
+          background-color: $bg-secondary;
+        }
+      }
+      .car-thumbnail + dd {
+        position: absolute; left: 0; top: rem(28);
+        width: rem($thumbnail-width); min-height: rem(78);
+        img { @include valign-center; max-width: 100%; }
+      }
+    }
+    .item {
+      $font-size: 12;
+      min-height: rem(145);
+      border-bottom: 1px solid $mono8;
+      .btn-wrap {
+        @include clearfix;
+        padding-bottom: rem(20)
+      }
+      .btn_more {
+        $font-size: 12;
+        @include font($size: $font-size, $color: #66b1ff, $weight: 600, $spacing: (-0.3 / $font-size));
+        margin: 0 0 0 rem($thumbnail-width + $grid * 2); padding: em(8, $font-size) 0;
+      }
+    }
+    .no-item { padding-bottom: rem(50); border-bottom: 1px solid $mono8; }
+    .btn_load-more {
+      $font-size: 12;
+      @include font($size: $font-size, $color: #66b1ff, $weight: 600, $spacing: (-0.3 / $font-size));
+      display: block;
+      margin: rem($grid * 3) 0 0; padding: rem($grid);
+      text-align: center; line-height: em(16, $font-size); text-decoration: none;
+    }
+
+    .function-wrap {
+      $form-height: 12;
+      @include clearfix;
+      padding: 0 0 rem($form-height);
+      line-height: #{$form-height}px;
+      .sort-by-category {
+        position: relative;
+        padding-right: rem($form-height); height: rem($form-height);
+        label {
+          position: absolute; right: 0; top: 0;
+          display: block;
+          width: #{$form-height}px; height: inherit;
+          font-size: 0;
+          &:after {
+            content: "";
+            position: absolute; left: 4px; top: 3px;
+            display: block;
+            width: 4px; height: 4px;
+            border: solid $mono1; border-width: 0 1px 1px 0;
+            @include transform(rotate(45deg));
+          }
+        }
+        select {
+          $font-size: 11;
+          @include font($size: $font-size, $color: $mono1, $weight: 400);
+          -webkit-appearance: none; -moz-appearance: none; appearance: none;
+          &::-ms-expand { display: none; }
+          height: rem($form-height); line-height: inherit;
+          vertical-align: top;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+/*부가서비스 구매 > 렌터카 > 상세페이지*/
+[data-page-id='buy__car']{
+  overflow: hidden;
+  padding: rem($grid * 4) rem($grid * 2) 0; width: 100%;
+  .select-wrap { position: relative; }
+  select { @include form($size: 3, $role: normal, $type: select); width: 100%; background: none !important; }
+  select + label.ico {
+    z-index: -1;
+    overflow: hidden;
+    display: inline-block;
+    position: absolute; bottom: rem(16); right: rem(12);
+    padding-bottom: 0; width: rem(24); height: rem(25);
+    &:after {
+      content: "";
+      z-index: 0;
+      display: inline-block;
+      width: rem(8); height: rem(8);
+      border: solid $mono1; border-width: 0 2px 2px 0;
+      @include transform(rotate(45deg) translate(10px, -1px));
+    }
+  }
+  .select_company {
+    padding-bottom: rem($grid); width: 100%;
+  }
+  .select_company label {
+    $font-size: 10;
+    @include font($size: $font-size, $color: $mono1, $weight: 600);
+    display: block;
+    padding-bottom: em($grid, $font-size)
+  }
+  .car-info-wrap { position: relative; padding-bottom: rem(10); }
+  .car-info {
+    padding: rem(40) 0 rem(12) rem(120);
+    .car-tag + dd { left: rem(120) }
+  }
+  .btn_car-resv {
+    @include form($size: 3, $role: submit, $type: button);
+    width: 100%;
+  }
+  .car-info-detail {  }
+  .car-info-title { @include font($size: 12, $color: $text-primary, $weight: 800); padding: rem($grid * 5) 0 rem(10); }
+  .table-wrap { border-top: 1px solid $mono1 }
+  table { width: 100%; }
+  table th, td { padding: rem(13) 0; height: rem(42); font-size: rem(11); letter-spacing: -0.03em; line-height: rem(16); border-bottom: 1px solid $mono8; }
+  table th { padding-right: rem($grid * 2); font-weight: 800; text-align: left; }
 }
