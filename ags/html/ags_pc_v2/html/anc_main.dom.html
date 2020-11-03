@@ -3537,14 +3537,21 @@ No-show : 취소수수료 50%
         /*사용자의 스크롤 액션에 따른 .anc-summary의 동작 제어*/
         (function(){
             var $summary = $(".anc-summary");
+            var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
+            var sumScEnd = $("#ags-footer").offset().top - $summary.outerHeight() - parseInt($summary.css("padding-bottom")) - 180;
             $win.on("resize", function(){
                 $summary.css("height", $win.height() - $(".anc-lnb-wrap").height());
-                var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
-                var sumScEnd = $("#ags-footer").offset().top - $summary.outerHeight() - parseInt($summary.css("padding-bottom")) - 180;
                 $win.on("scroll", function(e){
                     /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
                     sticky($summary, sumScStart, sumScEnd);
+                    if($(".ags-wrap").width() > $win.width()){
+                        console.log($(".ags-container > .content-wrap").width(), $win.width())
+                        $summary.css("left", "954px")
+                    } else {
+                        $summary.css("left", "")
+                    }
                 }).scroll();
+                console.log($summary.height(), sumScStart, sumScEnd)
             }).resize();
         })();
 
