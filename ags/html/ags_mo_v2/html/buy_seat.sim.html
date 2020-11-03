@@ -144,6 +144,18 @@
                 });
             })();
 
+            /*좌석 범례 클릭 기능 정의*/
+            (function(legendClickHandler) {
+                $doc.on("click", ".tab-panel.active .seat-legend li a", function () {
+                    var $this = $(this)/*클릭된 범례 아이템*/,
+                        $target = $(".tab-panel.active .seat-num a[class='" + $this.attr("data-scrollTo") + "']:first-of-type")/*클릭된 범례 아이템과 일치하는 좌석 중 가장 첫번째 아이템*/,
+                        position = $target.offset().top - parseInt($(".tab-panel.active").css("padding-top")) - 7/*클릭된 범례 아이템과 일치하는 좌석 중 첫번째의 화면 위치*/;
+
+                    /*활성화된 범례 아이템과 일치하는 좌석 중 첫번째가 위치한 곳으로 화면을 이동합니다*/
+                    $("html").animate({scrollTop: position}, 800);
+                });
+            })();
+
             /*[data-role='process-btn-wrap'] 버튼의 탭 전환 기능 정의*/
             (function(nextTab){
                 /*가는 편 탭의 .btn_confirm 버튼을 누르면 오는 편 탭으로 이동합니다*/
