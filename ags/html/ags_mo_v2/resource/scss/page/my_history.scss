@@ -154,21 +154,23 @@
       @include background($file: 'my/ico_journey-type2', $type: png, $width: 17px, $height: auto);
     }
     .duration + dd { @include font($size: 11, $color: $mono4, $weight: 400, $spacing: -0.03); margin-bottom: rem($grid * 2) }
-    .my-plan, .my-plan + dd,
+    .pay-date, .pay-date + dd,
     .driver-name, .driver-name + dd,
     .car-plan, .car-plan + dd,
     .resv-duration, .resv-duration + dd { @include font($size: 11, $color: $mono1, $weight: 400, $spacing: -0.03); float: left; }
-    .my-plan, .my-plan + dd { margin-bottom: rem(6); }
+    .pay-date, .pay-date + dd { margin-bottom: rem(6); }
     .driver-name, .driver-name + dd,
     .car-plan, .car-plan + dd,
     .resv-duration, .resv-duration + dd { margin-bottom: rem(12); }
-    .my-plan, .driver-name, .resv-duration, .car-plan { padding-right: rem(4); width: rem(46); font-weight: 600; }
-    .my-plan + dd,
+    .pay-date, .driver-name, .resv-duration, .car-plan { padding-right: rem(4); font-weight: 600; }
+    .pay-date { width: rem(38); }
+    .driver-name, .resv-duration, .car-plan { width: rem(46); }
+    .pay-date + dd,
     .driver-name + dd,
     .resv-duration + dd,
     .car-plan + dd {
       position: relative;
-      padding-left: rem(10);  width: calc(100% - 46px);
+      padding-left: rem(10);
       &:before {
         content: "";
         display: inline-block;
@@ -177,6 +179,10 @@
       }
       &:last-child { margin-bottom: 0; }
     }
+    .pay-date + dd { width: calc(100% - 38px); }
+    .driver-name + dd,
+    .resv-duration + dd,
+    .car-plan + dd { width: calc(100% - 46px); }
     .resv-date { display: inline-block; padding-top: rem(6); color: $mono4; }
     .btn_more {
       overflow: hidden;
