@@ -2,7 +2,7 @@
 [data-page-id='anc_main'] {
   /*전체 서비스 가는편/오는편 선택 버튼(국내선 전용, Fake Tab Button)*/
   .flight-way-selector {
-    margin-bottom: rem(-40); padding-top: rem($grid * 10);
+    margin-bottom: rem(-40); padding-top: rem($grid * 10); height: rem($grid * 10 + $route-tab-size);
     ul { @include clearfix; }
     li {
       @include font($size: 16, $color: $mono4, $weight: 800);
@@ -19,6 +19,12 @@
       [class^='ico_'] { display: inline-block; margin-right: rem(12); height: rem(30); vertical-align: top; background-position: center center }
       .ico_7c { @include background($file: 'anc/symbol_flight-way_7c', $type: png, $width: rem(69), $height: rem(14)); width: rem(69) }
       .ico_tw { @include background($file: 'anc/symbol_flight-way_tw', $type: png, $width: rem(43), $height: rem(18)); width: rem(43) }
+    }
+    .btn-group.ui-fixed {
+      z-index: 99;
+      position: fixed; top: rem($anc_lnb-height); left: calc(50% - 600px);
+      margin-bottom: rem(-$grid * 4); padding-bottom: rem($grid * 4); width: rem(868);
+      background-color: $mono10;
     }
   }
   .ticket-info + .flight-way-selector { margin-top: rem(20) }

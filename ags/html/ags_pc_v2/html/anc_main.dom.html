@@ -95,7 +95,7 @@
                     ex)본 버튼그룹 중 가는편 버튼 클릭 시, 좌석/수하물 내부의 가는편 탭이 선택된 것과 동일한 작동을 수행
                 4. 편도일 경우 .flight-way-selector 엘리먼트를 삭제해줍니다.
             -->
-            <div class="flight-way-selector">
+            <div id="flight-way-selector" class="flight-way-selector">
                 <div class="btn-group">
                     <h4 class="sr-only">구간 선택</h4>
                     <ul class="btn-list">
@@ -3534,6 +3534,23 @@ No-show : 취소수수료 50%
             }).scroll()
         })();
 
+        /*가는 편/오는 편 탭(#flight-way-selector) 위치고정*/
+        (function(){
+            var $flightWay = $("#flight-way-selector .btn-group");
+            var sumScStart = $flightWay.offset().top - $(".anc-lnb-wrap").height();
+            var sumScEnd = $("#ags-footer").offset().top - $flightWay.outerHeight() - parseInt($flightWay.css("padding-bottom")) - 180;
+            $win.on("scroll", function(){
+                /*스크롤이 발생하면 탭이 상단에 고정되도록 합니다.*/
+                sticky($flightWay, sumScStart, sumScEnd);
+                if($(".ags-wrap").width() > $win.width()){
+                    $flightWay.css("left", "16px")
+                } else {
+                    $flightWay.css("left", "")
+                }
+
+            })
+        })();
+
         /*사용자의 스크롤 액션에 따른 .anc-summary의 동작 제어*/
         (function(){
             var $summary = $(".anc-summary");
@@ -3545,7 +3562,6 @@ No-show : 취소수수료 50%
                     /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
                     sticky($summary, sumScStart, sumScEnd);
                     if($(".ags-wrap").width() > $win.width()){
-                        console.log($(".ags-container > .content-wrap").width(), $win.width())
                         $summary.css("left", "954px")
                     } else {
                         $summary.css("left", "")
