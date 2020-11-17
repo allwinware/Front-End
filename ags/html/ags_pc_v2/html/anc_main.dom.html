@@ -3544,7 +3544,7 @@ No-show : 취소수수료 50%
                 /*스크롤이 발생하면 탭이 상단에 고정되도록 합니다.*/
                 sticky($flightWay, flightWayStart, flightWayEnd);
                 if(containerWidth > $win.innerWidth()){
-                    $flightWay.css("left", "16px")
+                    $flightWay.css("left", 16 - $win.scrollLeft())
                 } else {
                     $flightWay.css("left", "")
                 }
@@ -3563,8 +3563,8 @@ No-show : 취소수수료 50%
                 $win.on("scroll", function(e){
                     /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
                     sticky($summary, sumScStart, sumScEnd);
-                    if(containerWidth > $win.innerWidth()){
-                        $summary.css("left", "954px");
+                    if($summary.hasClass("ui-fixed") && containerWidth > $win.innerWidth()){
+                        $summary.css("left", 950 - $win.scrollLeft());
                     } else {
                         $summary.css("left", "")
                     }
