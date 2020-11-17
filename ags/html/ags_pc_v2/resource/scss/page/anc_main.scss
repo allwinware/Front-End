@@ -285,7 +285,11 @@ $route-tab-size: 89;
     z-index: 0;
     position: absolute; top: rem(281); left: calc(50% + 333px);
     padding: rem(76) 0 rem($grid * 3) 0; width: rem(267);
+    transition-duration:  0.2s;
+    transition-delay: 0.2s;
+    transition-property: height, bottom, left;
     .scroll-wrap {
+      overflow: hidden;
       position: relative;
       margin-right: rem(-$grid * 2);
       max-height: calc(100% - 75px - 62px);
@@ -393,9 +397,13 @@ $route-tab-size: 89;
     &.ui-fixed {
       position: fixed; top: rem($anc_lnb-height); bottom: 0;
       &.fixed-left { left: rem(949) }
+      .scroll-wrap { max-height: initial; height: calc(100% - 75px - 62px) }
+      .scroll-wrap .mCustomScrollbar { max-height: inherit !important; }
     }
     &.ui-fixed---bottom {
-      position: absolute; top: auto; bottom: rem(140)
+      position: fixed; top: rem($anc_lnb-height); bottom: rem(334);
+      &.fixed-left { left: rem(949) }
+      .scroll-wrap .mCustomScrollbar { max-height: inherit !important; }
     }
     [class*='bundle-type'] {
       @include sr-only;
