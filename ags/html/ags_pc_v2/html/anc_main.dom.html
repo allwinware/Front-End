@@ -3537,12 +3537,13 @@ No-show : 취소수수료 50%
         /*가는 편/오는 편 탭(#flight-way-selector) 위치고정*/
         (function(){
             var $flightWay = $("#flight-way-selector .btn-group");
-            var sumScStart = $flightWay.offset().top - $(".anc-lnb-wrap").height();
-            var sumScEnd = $("#ags-footer").offset().top - $flightWay.outerHeight() - parseInt($flightWay.css("padding-bottom")) - 180;
+            var flightWayStart = $flightWay.offset().top - $(".anc-lnb-wrap").height();
+            var flightWayEnd = $("#ags-footer").offset().top - $flightWay.outerHeight() - parseInt($flightWay.css("padding-bottom")) - 180;
+            var containerWidth = parseInt($(".ags-wrap").css("min-width"));
             $win.on("scroll", function(){
                 /*스크롤이 발생하면 탭이 상단에 고정되도록 합니다.*/
-                sticky($flightWay, sumScStart, sumScEnd);
-                if($(".ags-wrap").width() > $win.width()){
+                sticky($flightWay, flightWayStart, flightWayEnd);
+                if(containerWidth > $win.innerWidth()){
                     $flightWay.css("left", "16px")
                 } else {
                     $flightWay.css("left", "")
@@ -3556,18 +3557,18 @@ No-show : 취소수수료 50%
             var $summary = $(".anc-summary");
             var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
             var sumScEnd = $("#ags-footer").offset().top - $summary.outerHeight() - parseInt($summary.css("padding-bottom")) - 180;
+            var containerWidth = parseInt($(".ags-wrap").css("min-width"));
             $win.on("resize", function(){
                 $summary.css("height", $win.height() - $(".anc-lnb-wrap").height());
                 $win.on("scroll", function(e){
                     /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
                     sticky($summary, sumScStart, sumScEnd);
-                    if($(".ags-wrap").width() > $win.width()){
-                        $summary.css("left", "954px")
+                    if(containerWidth > $win.innerWidth()){
+                        $summary.css("left", "954px");
                     } else {
                         $summary.css("left", "")
                     }
                 }).scroll();
-                console.log($summary.height(), sumScStart, sumScEnd)
             }).resize();
         })();
 
