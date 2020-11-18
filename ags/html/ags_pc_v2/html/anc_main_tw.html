@@ -4931,20 +4931,22 @@
         (function(){
             var $summary = $(".anc-summary");
             var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
-            var sumScEnd = $("#ags-footer").offset().top - $summary.outerHeight() - parseInt($summary.css("padding-bottom")) - 180;
+            var containerWidth = parseInt($(".ags-wrap").css("min-width"));
             $win.on("resize", function(){
-                $summary.css("height", $win.height() - $(".anc-lnb-wrap").height());
+                var sumScEnd = $("#ags-footer").offset().top - 165 - $summary.outerHeight(true);
                 $win.on("scroll", function(e){
                     /*스크롤이 발생하면 summary가 우측에 고정되도록 합니다.*/
                     sticky($summary, sumScStart, sumScEnd);
-                    if($(".ags-wrap").width() > $win.width()){
-                        console.log($(".ags-container > .content-wrap").width(), $win.width())
-                        $summary.css("left", "954px")
+                    if($summary.hasClass("ui-fixed") || $summary.hasClass("ui-fixed---bottom") ){
+                        if(containerWidth > $win.innerWidth()){
+                            $summary.css("left", 950 - $win.scrollLeft());
+                        } else {
+                            $summary.css("left", "")
+                        }
                     } else {
                         $summary.css("left", "")
                     }
                 }).scroll();
-                console.log($summary.height(), sumScStart, sumScEnd)
             }).resize();
         })();
 
