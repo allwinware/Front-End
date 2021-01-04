@@ -5,6 +5,74 @@
   .passport-list + .notification-wrap,
   .dfs-info-list + .notification-wrap { padding: rem(10) rem($grid * 2) 0 0 }
 }
+/*여권번호 등록 & 이메일 SMS 주문서 받기*/
+.passport-wrap, .dfs-email-wrap {
+  .passport-list, .dfs-info-list {
+    @include clearfix;
+    border-top: 1px solid #000;
+    dt, dd {
+      float: left;
+      padding: 0.57143rem 0;
+      height: 3.78571rem;
+      line-height: 2.57143rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    dt {
+      padding-right: 2.14286rem;
+      width: rem(100);
+      font-weight: 600;
+    }
+    dd {
+      position: relative;
+      padding-right: 1.14286rem;
+      width: calc(100% - 100px);
+      input[type='text'] {
+        @include form($size: 3, $role: normal, $type: textbox);
+        @include font($size: 13, $color: $mono1, $weight: 600, $spacing: -0.03);
+        @include placeholder(){
+          color: $mono4;
+        }
+        padding-left: 0; padding-right: 0; height: rem(36);
+        border-width: 0;
+      }
+      select {
+        @include form($size: 3, $role: normal, $type: select);
+        padding-left: 0; height: rem(36);
+        line-height: rem(36);
+        border-width: 0; background-size: 12px auto !important;
+        &:disabled {
+          border: 1px solid $mono8;
+          background-color: $mono8;
+          color: $mono4;
+          text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+        }
+        &::-ms-expand { display: none; }
+      }
+    }
+    .passport-num {
+      @include font($family: en, $size: 14, $color: $mono1, $weight: 500, $spacing: -0.03);
+      text-transform: uppercase;
+    }
+    label {
+      display: inline-block;
+      padding: 0.78571rem 0;
+      line-height: 1rem;
+    }
+    .notification-wrap { padding: 0.42857rem 0 0 0; }
+    .notification-list {
+      font-size: 0.78571rem;
+      line-height: 1.27273em;
+      word-break: keep-all;
+    }
+  }
+  .passport-list {
+    dt { width: 10rem; }
+    dd { width: calc(100% - 140px); }
+  }
+  .dfs-info-list {
+    dd { font-weight: 600; }
+  }
+}
 
 /* 상품 상세정보 */
 .dfs-product-detail {
