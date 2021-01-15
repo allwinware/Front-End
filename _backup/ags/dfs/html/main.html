@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>제주항공 기내면세점</title>
+    <meta name="viewport" content="width=1380">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="Description" content="">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <link rel="stylesheet" href="../resource/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../resource/js/bxslider/jquery.bxslider.min.css">
+    <link rel="stylesheet" href="../resource/css/dfs.min.css">
+    <script src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script src="../resource/js/bootstrap.min.js"></script>
+    <script src="../resource/js/bxslider/jquery.bxslider.min.js"></script>
+    <script src="../resource/js/modernizr-custom.js"></script>
+    <script src="../resource/js/dfs.ui.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            var $body = $("body"),
+                $page = $("#dfs-wrap"),
+                $pageHeader = $("#header");
+
+            //이 페이지가 main 페이지임을 선언합니다.
+            $("#dfs-wrap").attr("data-page-type", "main");
+
+            //bxslider를 정의합니다.
+            $(function(){
+                $("#top5_category1").bxSlider({
+                    mode: 'horizontal',
+                    infiniteLoop: true,
+                    slideWidth: 230,
+                    minSlides: 4,
+                    maxSlides: 4,
+                    moveSlides: 1,
+                    controls: true,
+                    pager: false,
+                    auto: true,
+                    autoHover: true,
+                    touchEnabled:false
+                });
+                $("#top5_category2").bxSlider({
+                    mode: 'horizontal',
+                    infiniteLoop: true,
+                    slideWidth: 230,
+                    minSlides: 4,
+                    maxSlides: 4,
+                    moveSlides: 1,
+                    controls: true,
+                    pager: false,
+                    auto: true,
+                    autoHover: true,
+                    touchEnabled:false
+                })
+            });
+
+            /* 브라우저 좌측에 따라다니는 DFS Navigation 동작 정의 */
+            (function(dfsNavHandler){
+                $(".dfs-nav-wrap").css("height", $(this).parents().innerHeight());
+
+                var $dfsNav = $("#dfs-nav-sticky");
+                var $dfsBavStopper = $("#footer");
+                if (!!$dfsNav.offset()) { // make sure "#dfs-nav-wrap" element exists
+                    var generalSidebarHeight = $dfsNav.innerHeight();
+                    var dfsNavOffset = $dfsNav.offset().top - $pageHeader.height();
+                    var dfsNavStopperPosition = $dfsBavStopper.offset().top;
+                    var stopPoint = dfsNavStopperPosition - generalSidebarHeight - dfsNavOffset;
+                    var diff = stopPoint + dfsNavOffset;
+
+                    $(window).scroll(function(){ // scroll event
+                        var windowTop = $(window).scrollTop(); // returns number
+                        console.log(stopPoint);
+                        if (stopPoint < windowTop) {
+                            $dfsNav.css({ position: 'absolute', top: '', bottom: '0' });
+                        } else if (dfsNavOffset < windowTop) {
+                            $dfsNav.css({ position: 'fixed', top: $pageHeader.height(), bottom: '' });
+                        } else {
+                            $dfsNav.css({position: 'absolute', top: '0', bottom: ''});
+                        }
+                    });
+                }
+            })();
+
+            //nav의 동작을 정의합니다.
+            $(".dfs-nav-wrap .depth1 > li > a")
+                .on("mouseover", function(){
+                    $(this).parent("li").addClass("active").siblings("li").removeClass("active");
+                });
+            $(".dfs-nav").on("mouseleave", function(){
+                $(".dfs-nav-wrap .depth1 > li").removeClass("active")
+            });
+
+
+            //카테고리별 브랜드 리스트 레이어 팝업의 동작을 정의합니다.
+            $(".btn_brand-list").on("click", function () {
+                $(".btn_brand-list").not($(this)).removeClass("active");
+                $(this).siblings(".brand-list-wrap").toggleClass("active");
+            });
+            $(".brand-list-wrap .btn_close").on("click", function () {
+                $(this).parents(".brand-list-wrap").removeClass("active");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="dfs-wrap" class="dfs-wrap">
+        <header id="header" class="header">
+            <div class="global-header-wrap">
+                <div class="inner">
+                    <h1 class="logo">
+                        <img src="../resource/img/common/header-logo__jj-modetour@2x.jpg" alt="제주항공 X 모두투어">
+                    </h1>
+                    <h2 class="sr-only">사이트 메뉴</h2>
+                    <ul class="global-nav">
+                        <li><a href="#none" target="_self">항공 부가서비스 신청하기</a></li>
+                        <li><a href="#none" target="_self">신청내역/취소</a></li>
+                        <li><a href="#none" target="_self">고객센터</a></li>
+                        <li><a href="#none" target="_self" class="btn_dfs">기내면세예약</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="dfs-header" class="dfs-header-wrap">
+                <div class="inner">
+                    <h2 class="sr-only">기내면세점 글로벌 메뉴</h2>
+                    <ul class="path">
+                        <li>기내면세예약 홈</li>
+                    </ul>
+                    <ul class="dfs-side-nav">
+                        <li>
+                            <span class="search-wrap">
+                                <input type="text" id="product-search" class="input_search" placeholder="상품검색">
+                                <label for="product-search">상품검색</label>
+                                <button type="button" class="btn_search">검색</button>
+                            </span>
+                        </li>
+                        <li><a href="#none" target="_self" class="btn_cart">장바구니 <span class="ico"><i class="num">99</i><i class="sr-only">개의 상품이 담겨있습니다.</i></span></a></li>
+                        <li><a href="#none" target="_self" class="btn_mypage">예약내역/취소</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <hr>
+
+        <div id="container" class="container">
+            <section id="visual" class="visual">
+                <div class="inner">
+                    <h2 class="sr-only">서비스 소개</h2>
+                    <p>
+                        <span class="customer-name">Bae, Sungjune</span>님
+                    </p>
+                    <p>
+                        원하시는 기내 면세를<br>
+                        지금 결제할 필요 없이 사전예약만 하세요!
+                    </p>
+                    <p>
+                        시중 면세보다 저렴하게<br>
+                        품절될 걱정 없이<br>
+                        기내에서 간편하게 수령할 수 있습니다.<br><br>
+                        면세 한도 초과 시에는 동승자에게 자동 배분해 드립니다.
+                    </p>
+                </div>
+            </section>
+
+            <hr>
+
+            <!--
+                ▪︎ .contents는 sub page 별로 CSS 클래스가 별도로 추가되어 붙습니다. (ex: class='contents page__product-detail') HTML 분할 시 이 점 참고 바랍니다.
+                ※ 단, 메인 페이지는 해당사항 없습니다. (메인 페이지는 스크립트를 이용해 #dfs-wrap에 data-page-type='main'으로 처리)
+            -->
+            <section class="contents">
+                <div class="inner">
+
+                    <!-- Side Navigation -->
+                    <header class="dfs-nav-wrap">
+                        <div id="dfs-nav-sticky" class="dfs-nav-sticky">
+                            <h1 class="shop-title">제주항공 기내면세품</h1>
+                            <nav class="dfs-nav">
+                                <h2 class="sr-only">기내면세점 메뉴</h2>
+                                <ul class="depth1">
+                                    <li><a href="#product-area1" target="_self" data-type="scroll-link">TOP5</a></li>
+                                    <li>
+                                        <a href="#none" target="_self">주류</a>
+                                        <ul class="depth2">
+                                            <li><a href="#product-area2" target="_self" data-type="scroll-link">주류 전체보기</a></li>
+                                            <li>
+                                                <a href="#none" target="_self">브랜드별 보기</a>
+                                                <ul class="depth3">
+                                                    <li><a href="#none" target="_self">브랜드 1</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 2</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 3</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 4</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 5</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 6</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 7</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 8</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 9</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 10</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#none" target="_self">화장품</a>
+                                        <ul class="depth2">
+                                            <li><a href="#product-area3" target="_self" data-type="scroll-link">화장품 전체보기</a></li>
+                                            <li>
+                                                <a href="#none" target="_self">브랜드별 보기</a>
+                                                <ul class="depth3">
+                                                    <li><a href="#none" target="_self">브랜드 1</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 2</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 3</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 4</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 5</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 6</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 7</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 8</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 9</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 10</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 11</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 12</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 13</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 14</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 15</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#none" target="_self">향수</a>
+                                        <ul class="depth2">
+                                            <li><a href="#product-area4" target="_self" data-type="scroll-link">향수 전체보기</a></li>
+                                            <li>
+                                                <a href="#none" target="_self">브랜드별 보기</a>
+                                                <ul class="depth3">
+                                                    <li><a href="#none" target="_self">브랜드 1</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 2</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 3</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 4</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 5</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 6</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 7</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 8</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 9</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 10</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#none" target="_self">패션잡화</a>
+                                        <ul class="depth2">
+                                            <li><a href="#product-area5" target="_self" data-type="scroll-link">패션잡화 전체보기</a></li>
+                                            <li>
+                                                <a href="#none" target="_self">브랜드별 보기</a>
+                                                <ul class="depth3">
+                                                    <li><a href="#none" target="_self">브랜드 1</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 2</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 3</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 4</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 5</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 6</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 7</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 8</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 9</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 10</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#none" target="_self">시계/주얼리</a>
+                                        <ul class="depth2">
+                                            <li><a href="#product-area6" target="_self" data-type="scroll-link">시계/주얼리 전체보기</a></li>
+                                            <li>
+                                                <a href="#none" target="_self">브랜드별 보기</a>
+                                                <ul class="depth3">
+                                                    <li><a href="#none" target="_self">브랜드 1</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 2</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 3</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 4</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 5</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 6</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 7</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 8</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 9</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 10</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#none" target="_self">전자제품</a>
+                                        <ul class="depth2">
+                                            <li><a href="#product-area7" target="_self" data-type="scroll-link">전자제품 전체보기</a></li>
+                                            <li>
+                                                <a href="#none" target="_self">브랜드별 보기</a>
+                                                <ul class="depth3">
+                                                    <li><a href="#none" target="_self">브랜드 1</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 2</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 3</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 4</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 5</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 6</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 7</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 8</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 9</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 10</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#none" target="_self">건강/생활</a>
+                                        <ul class="depth2">
+                                            <li><a href="#product-area8" target="_self" data-type="scroll-link">건강/생활 전체보기</a></li>
+                                            <li>
+                                                <a href="#none" target="_self">브랜드별 보기</a>
+                                                <ul class="depth3">
+                                                    <li><a href="#none" target="_self">브랜드 1</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 2</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 3</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 4</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 5</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 6</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 7</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 8</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 9</a></li>
+                                                    <li><a href="#none" target="_self">브랜드 10</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="wish-reg">
+                                <h2 class="sr-only">면세상품 추가요청</h2>
+                                <p class="tag"><i class="ico">Wish!</i> 이런 면세품 구해주세요.</p>
+                                <label for="input_text01" class="sr-only">요청 면세품</label>
+                                <input type="text" id="input_text01" class="ui-textbox" placeholder="구매 희망 상품명">
+                                <button type="button" class="ui-button">신청하기</button>
+                            </div>
+                        </div>
+                    </header>
+                    <!-- //Side Navigation -->
+
+                    <hr>
+
+                    <!-- Product List -->
+                    <div class="dfs-products-wrap">
+                        <h2 class="sr-only">면세상품 목록</h2>
+
+
+                        <div id="product-area1" class="best-product">
+                            <!-- TOP5 -->
+                            <section class="product-group">
+                                <h3 class="section-title">TOP5 주류</h3>
+                                <ul id="top5_category1" class="product-list">
+                                    <li>
+                                        <h4 class="rank top1"><span class="sr-only">TOP</span>1</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>발렌타인 23년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2590000750909_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">146</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">170800</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <h4 class="rank"><span class="sr-only">TOP</span>2</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>젝다니엘</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>American Whiskey Miniature Set</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2590000740863_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">26</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">30400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <h4 class="rank"><span class="sr-only">TOP</span>3</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>30년 캐스크 에디션 배치 2,500ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2590000684211_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">355</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">415400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <h4 class="rank"><span class="sr-only">TOP</span>4</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>까뮤</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>VSOP ELEGANCE</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2590000662257_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">43</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">50300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <h4 class="rank"><span class="sr-only">TOP</span>5</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>까뮤</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>XO ELEGANCE</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2590000662240_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">154</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">180200</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //TOP5 -->
+
+                            <!-- TOP5 -->
+                            <section class="product-group">
+                                <h3 class="section-title">TOP5 화장품</h3>
+                                <ul id="top5_category2" class="product-list">
+                                    <li>
+                                        <h4 class="rank top1"><span class="sr-only">TOP</span>1</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>에스티로더</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>퓨어 컬러 엔비 립스틱 트리오</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2290000773235_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">68</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">79600</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <h4 class="rank "><span class="sr-only">TOP</span>2</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>에스티로더</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>갈색병 인텐스 리셋 컨센트레이트 20ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2290000773228_OR_1575010494265.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">76</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">88900</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <h4 class="rank"><span class="sr-only">TOP</span>3</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>루나</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>에센스 수분광 팩트 CX 듀오</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2290000757051_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">38</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">44500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <h4 class="rank"><span class="sr-only">TOP</span>4</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>록시땅</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>시어 인텐시브 핸드밤 150ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2291000755221_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">29</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">33900</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <h4 class="rank"><span class="sr-only">TOP</span>5</h4>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>크리니크</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>드라마티컬리 디퍼런트 하이드레이팅 젤리 듀오 125ml*2</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/product/2290000753251_OR.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">999</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">999999</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //TOP5 -->
+                        </div>
+
+                        <div class="all-product">
+                            <!-- 주류 전체 -->
+                            <section id="product-area2" class="product-group">
+                                <header class="section-header">
+                                    <h3 class="section-title">주류 전체</h3>
+                                    <div class="side-function-area">
+                                        <a class="btn_brand-list" href="#none" target="_self">브랜드 전체 보기</a>
+                                        <div class="brand-list-wrap">
+                                            <header class="list-header">
+                                                <h4 class="title">주류 브랜드</h4>
+                                                <a href="#none" target="_self" class="btn_close">닫기</a>
+                                            </header>
+                                            <dl class="brand-list">
+                                                <dt>ㄱ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">그레이구스</a></li>
+                                                        <li><a href="#none" target="_self">글렌피스</a></li>
+                                                        <li><a href="#none" target="_self">까뮤</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㄹ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">로얄샬루트</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅂ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">발렌타인</a></li>
+                                                        <li><a href="#none" target="_self">발베니</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅅ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">수정방</a></li>
+                                                        <li><a href="#none" target="_self">시바스리갈</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅈ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">젝다니엘</a></li>
+                                                        <li><a href="#none" target="_self">조니워커</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅎ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">핸드픽트</a></li>
+                                                        <li><a href="#none" target="_self">화요</a></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </header>
+                                <ul class="product-list">
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>블루 라벨</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">149</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">174300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>30년 캐스크 에디션 배치 2,500ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">355</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">415400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>15Y Miltonduff Bottle</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">31</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">36300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>화요</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>53도 750ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">57</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">66700</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>시바스리갈</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>얼티스</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">131</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">153300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>핸드픽트</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>21년 워밍 스파이스 에디션</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">124</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">145100</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>아일랜드 그린 1L</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">60</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">70200</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발베니</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>16년 싱글몰트 위스키</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">109</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">127500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>글렌피딕</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>글렌피딕 21년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">162</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">189500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>발렌타인 30년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">335</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">392000</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>젝다니엘</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>테네시 허니</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">27</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">31600</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //주류 전체 -->
+
+                            <!-- 화장품 전체 -->
+                            <section id="product-area3" class="product-group">
+                                <header class="section-header">
+                                    <h3 class="section-title">화장품 전체</h3>
+                                    <div class="side-function-area">
+                                        <a class="btn_brand-list" href="#none" target="_self">브랜드 전체 보기</a>
+                                        <div class="brand-list-wrap">
+                                            <header class="list-header">
+                                                <h4 class="title">주류 브랜드</h4>
+                                                <a href="#none" target="_self" class="btn_close">닫기</a>
+                                            </header>
+                                            <dl class="brand-list">
+                                                <dt>ㄱ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">그레이구스</a></li>
+                                                        <li><a href="#none" target="_self">글렌피스</a></li>
+                                                        <li><a href="#none" target="_self">까뮤</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㄹ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">로얄샬루트</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅂ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">발렌타인</a></li>
+                                                        <li><a href="#none" target="_self">발베니</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅅ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">수정방</a></li>
+                                                        <li><a href="#none" target="_self">시바스리갈</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅈ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">젝다니엘</a></li>
+                                                        <li><a href="#none" target="_self">조니워커</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅎ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">핸드픽트</a></li>
+                                                        <li><a href="#none" target="_self">화요</a></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </header>
+                                <ul class="product-list">
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>블루 라벨</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">149</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">174300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>30년 캐스크 에디션 배치 2,500ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">355</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">415400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>15Y Miltonduff Bottle</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">31</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">36300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>화요</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>53도 750ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">57</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">66700</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>시바스리갈</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>얼티스</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">131</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">153300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>핸드픽트</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>21년 워밍 스파이스 에디션</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">124</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">145100</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>아일랜드 그린 1L</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">60</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">70200</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발베니</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>16년 싱글몰트 위스키</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">109</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">127500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>글렌피딕</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>글렌피딕 21년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">162</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">189500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>발렌타인 30년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">335</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">392000</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>젝다니엘</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>테네시 허니</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">27</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">31600</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //화장품 전체 -->
+
+                            <!-- 향수 전체 -->
+                            <section id="product-area4" class="product-group">
+                                <header class="section-header">
+                                    <h3 class="section-title">향수 전체</h3>
+                                    <div class="side-function-area">
+                                        <a class="btn_brand-list" href="#none" target="_self">브랜드 전체 보기</a>
+                                        <div class="brand-list-wrap">
+                                            <header class="list-header">
+                                                <h4 class="title">주류 브랜드</h4>
+                                                <a href="#none" target="_self" class="btn_close">닫기</a>
+                                            </header>
+                                            <dl class="brand-list">
+                                                <dt>ㄱ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">그레이구스</a></li>
+                                                        <li><a href="#none" target="_self">글렌피스</a></li>
+                                                        <li><a href="#none" target="_self">까뮤</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㄹ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">로얄샬루트</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅂ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">발렌타인</a></li>
+                                                        <li><a href="#none" target="_self">발베니</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅅ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">수정방</a></li>
+                                                        <li><a href="#none" target="_self">시바스리갈</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅈ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">젝다니엘</a></li>
+                                                        <li><a href="#none" target="_self">조니워커</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅎ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">핸드픽트</a></li>
+                                                        <li><a href="#none" target="_self">화요</a></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </header>
+                                <ul class="product-list">
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>블루 라벨</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">149</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">174300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>30년 캐스크 에디션 배치 2,500ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">355</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">415400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>15Y Miltonduff Bottle</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">31</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">36300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>화요</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>53도 750ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">57</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">66700</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>시바스리갈</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>얼티스</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">131</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">153300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>핸드픽트</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>21년 워밍 스파이스 에디션</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">124</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">145100</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>아일랜드 그린 1L</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">60</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">70200</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발베니</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>16년 싱글몰트 위스키</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">109</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">127500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>글렌피딕</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>글렌피딕 21년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">162</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">189500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>발렌타인 30년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">335</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">392000</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>젝다니엘</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>테네시 허니</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">27</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">31600</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //향수 전체 -->
+
+                            <!-- 패션잡화 전체 -->
+                            <section id="product-area5" class="product-group">
+                                <header class="section-header">
+                                    <h3 class="section-title">패션잡화 전체</h3>
+                                    <div class="side-function-area">
+                                        <a class="btn_brand-list" href="#none" target="_self">브랜드 전체 보기</a>
+                                        <div class="brand-list-wrap">
+                                            <header class="list-header">
+                                                <h4 class="title">주류 브랜드</h4>
+                                                <a href="#none" target="_self" class="btn_close">닫기</a>
+                                            </header>
+                                            <dl class="brand-list">
+                                                <dt>ㄱ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">그레이구스</a></li>
+                                                        <li><a href="#none" target="_self">글렌피스</a></li>
+                                                        <li><a href="#none" target="_self">까뮤</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㄹ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">로얄샬루트</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅂ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">발렌타인</a></li>
+                                                        <li><a href="#none" target="_self">발베니</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅅ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">수정방</a></li>
+                                                        <li><a href="#none" target="_self">시바스리갈</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅈ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">젝다니엘</a></li>
+                                                        <li><a href="#none" target="_self">조니워커</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅎ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">핸드픽트</a></li>
+                                                        <li><a href="#none" target="_self">화요</a></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </header>
+                                <ul class="product-list">
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>블루 라벨</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">149</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">174300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>30년 캐스크 에디션 배치 2,500ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">355</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">415400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>15Y Miltonduff Bottle</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">31</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">36300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>화요</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>53도 750ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">57</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">66700</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>시바스리갈</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>얼티스</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">131</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">153300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>핸드픽트</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>21년 워밍 스파이스 에디션</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">124</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">145100</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>아일랜드 그린 1L</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">60</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">70200</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발베니</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>16년 싱글몰트 위스키</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">109</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">127500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>글렌피딕</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>글렌피딕 21년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">162</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">189500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>발렌타인 30년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">335</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">392000</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>젝다니엘</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>테네시 허니</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">27</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">31600</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //패션잡화 전체 -->
+
+                            <!-- 시계/주얼리 전체 -->
+                            <section id="product-area6" class="product-group">
+                                <header class="section-header">
+                                    <h3 class="section-title">시계/주얼리 전체</h3>
+                                    <div class="side-function-area">
+                                        <a class="btn_brand-list" href="#none" target="_self">브랜드 전체 보기</a>
+                                        <div class="brand-list-wrap">
+                                            <header class="list-header">
+                                                <h4 class="title">주류 브랜드</h4>
+                                                <a href="#none" target="_self" class="btn_close">닫기</a>
+                                            </header>
+                                            <dl class="brand-list">
+                                                <dt>ㄱ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">그레이구스</a></li>
+                                                        <li><a href="#none" target="_self">글렌피스</a></li>
+                                                        <li><a href="#none" target="_self">까뮤</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㄹ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">로얄샬루트</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅂ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">발렌타인</a></li>
+                                                        <li><a href="#none" target="_self">발베니</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅅ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">수정방</a></li>
+                                                        <li><a href="#none" target="_self">시바스리갈</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅈ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">젝다니엘</a></li>
+                                                        <li><a href="#none" target="_self">조니워커</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅎ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">핸드픽트</a></li>
+                                                        <li><a href="#none" target="_self">화요</a></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </header>
+                                <ul class="product-list">
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>블루 라벨</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">149</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">174300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>30년 캐스크 에디션 배치 2,500ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">355</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">415400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>15Y Miltonduff Bottle</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">31</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">36300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>화요</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>53도 750ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">57</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">66700</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>시바스리갈</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>얼티스</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">131</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">153300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>핸드픽트</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>21년 워밍 스파이스 에디션</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">124</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">145100</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>아일랜드 그린 1L</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">60</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">70200</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발베니</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>16년 싱글몰트 위스키</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">109</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">127500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>글렌피딕</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>글렌피딕 21년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">162</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">189500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>발렌타인 30년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">335</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">392000</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>젝다니엘</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>테네시 허니</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">27</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">31600</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //시계/주얼리 전체 -->
+
+                            <!-- 전자제품 전체 -->
+                            <section id="product-area7" class="product-group">
+                                <header class="section-header">
+                                    <h3 class="section-title">전자제품 전체</h3>
+                                    <div class="side-function-area">
+                                        <a class="btn_brand-list" href="#none" target="_self">브랜드 전체 보기</a>
+                                        <div class="brand-list-wrap">
+                                            <header class="list-header">
+                                                <h4 class="title">주류 브랜드</h4>
+                                                <a href="#none" target="_self" class="btn_close">닫기</a>
+                                            </header>
+                                            <dl class="brand-list">
+                                                <dt>ㄱ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">그레이구스</a></li>
+                                                        <li><a href="#none" target="_self">글렌피스</a></li>
+                                                        <li><a href="#none" target="_self">까뮤</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㄹ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">로얄샬루트</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅂ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">발렌타인</a></li>
+                                                        <li><a href="#none" target="_self">발베니</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅅ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">수정방</a></li>
+                                                        <li><a href="#none" target="_self">시바스리갈</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅈ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">젝다니엘</a></li>
+                                                        <li><a href="#none" target="_self">조니워커</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅎ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">핸드픽트</a></li>
+                                                        <li><a href="#none" target="_self">화요</a></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </header>
+                                <ul class="product-list">
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>블루 라벨</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">149</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">174300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>30년 캐스크 에디션 배치 2,500ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">355</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">415400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>15Y Miltonduff Bottle</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">31</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">36300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>화요</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>53도 750ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">57</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">66700</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>시바스리갈</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>얼티스</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">131</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">153300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>핸드픽트</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>21년 워밍 스파이스 에디션</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">124</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">145100</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>아일랜드 그린 1L</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">60</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">70200</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발베니</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>16년 싱글몰트 위스키</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">109</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">127500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>글렌피딕</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>글렌피딕 21년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">162</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">189500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>발렌타인 30년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">335</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">392000</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>젝다니엘</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>테네시 허니</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">27</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">31600</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //전자제품 전체 -->
+
+                            <!-- 건강/생활 전체 -->
+                            <section id="product-area8" class="product-group">
+                                <header class="section-header">
+                                    <h3 class="section-title">건강/생활 전체</h3>
+                                    <div class="side-function-area">
+                                        <a class="btn_brand-list" href="#none" target="_self">브랜드 전체 보기</a>
+                                        <div class="brand-list-wrap">
+                                            <header class="list-header">
+                                                <h4 class="title">주류 브랜드</h4>
+                                                <a href="#none" target="_self" class="btn_close">닫기</a>
+                                            </header>
+                                            <dl class="brand-list">
+                                                <dt>ㄱ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">그레이구스</a></li>
+                                                        <li><a href="#none" target="_self">글렌피스</a></li>
+                                                        <li><a href="#none" target="_self">까뮤</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㄹ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">로얄샬루트</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅂ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">발렌타인</a></li>
+                                                        <li><a href="#none" target="_self">발베니</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅅ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">수정방</a></li>
+                                                        <li><a href="#none" target="_self">시바스리갈</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅈ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">젝다니엘</a></li>
+                                                        <li><a href="#none" target="_self">조니워커</a></li>
+                                                    </ul>
+                                                </dd>
+                                                <dt>ㅎ</dt>
+                                                <dd>
+                                                    <ul>
+                                                        <li><a href="#none" target="_self">핸드픽트</a></li>
+                                                        <li><a href="#none" target="_self">화요</a></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </header>
+                                <ul class="product-list">
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>블루 라벨</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">149</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">174300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>30년 캐스크 에디션 배치 2,500ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">355</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">415400</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>15Y Miltonduff Bottle</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">31</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">36300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>화요</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>53도 750ml</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">57</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">66700</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>시바스리갈</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>얼티스</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">131</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">153300</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>핸드픽트</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>21년 워밍 스파이스 에디션</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">124</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">145100</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>조니워커</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>아일랜드 그린 1L</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">60</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">70200</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발베니</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>16년 싱글몰트 위스키</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">109</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">127500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>글렌피딕</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>글렌피딕 21년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">162</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">189500</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>발렌타인</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>발렌타인 30년</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">335</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">392000</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                    <li>
+                                        <dl class="product-info">
+                                            <dt class="brand">브랜드</dt>
+                                            <dd>젝다니엘</dd>
+                                            <dt class="product-name">상품명</dt>
+                                            <dd>테네시 허니</dd>
+                                            <dt class="thumbnail">상품 이미지</dt>
+                                            <dd><img src="../resource/img/main/img_product-thumb.jpg" alt="@브랜드명 @제품명의 제품 이미지"></dd>
+                                            <dt class="price-usd">가격(USD, $)</dt>
+                                            <dd><span class="digits">27</span></dd>
+                                            <dt class="price-krw">가격(원, ₩)</dt>
+                                            <dd><span class="digits">31600</span></dd>
+                                        </dl>
+                                        <a href="#none" target="_self" class="btn_more">이 상품 자세히 보기</a>
+                                        <a href="#none" target="_self" class="btn_add-cart">장바구니 담기</a>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //건강/생활 전체 -->
+                        </div>
+                    </div>
+                    <!-- //Product List -->
+
+                </div>
+            </section>
+
+            <div class="scroll-top-wrap">
+                <div class="inner">
+                    <a href="#none" id="btn_scroll-top" class="btn_scroll-top">맨 위로</a>
+                </div>
+            </div>
+        </div><!-- //.container -->
+
+        <hr>
+
+        <footer id="footer" class="footer">
+            <div class="inner">
+                <div class="logo">
+                    <img src="../resource/img/common/footer-logo__allwinair@2x.png" alt="ALLWIN AIR">
+                </div>
+                <ul class="agreements">
+                    <li><a href="#">개인정보취급방침</a></li>
+                    <li>고객센터 : 1522-2284 (평일 09:30~17:00)</li>
+                </ul>
+                <div class="company-info">
+                    <p>모두투어 항공사 부가서비스는 (주)올윈에어와의 제휴로 제공됩니다.</p>
+                    <ul class="detail-info">
+                        <li>서울시 중구 서소문로 106 동화빌딩 9층</li>
+                        <li>㈜올윈웨어</li>
+                        <li>대표이사 : 이정갑
+                        <li>사업자등록번호 : 220-88-72464</li>
+                    </ul>
+                    <p class="copyright">Copyright Allwinware INC., All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div><!-- //.dfs_wrap -->
+</body>
+</html>
