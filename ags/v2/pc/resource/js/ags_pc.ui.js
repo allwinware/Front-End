@@ -229,12 +229,33 @@ var scrollOption = {
     liveSelector: null
 }
 
+/* 컨텐츠 로드/리사이즈 시 body 높이값 정의 */
+function fitLayout(){
+    var delay = 300,
+        timer = null,
+        $win = $(window),
+        $body = $("body");
+    $win.on("resize", function(){
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+            if($(".ags-wrap").height < $win.height()){
+                $body.addClass("fit-layout").css("min-height", $win.innerHeight());
+            } else {
+                $body.removeClass("fit-layout").css("min-height", "");
+            }
+        }, delay)
+    }).resize()
+}
 
 $(window).on("load", function(){
     /* variation */
     var $win = $(window),
         $doc = $(document),
         $body = $("body");
+
+    /* 컨텐츠 로드/리사이즈 시 컨텐츠 높이가 윈도우 높이보다 작으면 body에 최소 높이 주기 */
+    fitLayout();
+    /* Dom 변경으로 인해 컨텐츠 세로 높이가 윈도우 사이즈보다 길어지거나 짧아질 경우 fitLayout()을 호출해 다시 body의 높이값을 잡아주세요. (ex. 컨텐츠 로딩 전후 등) */
 
     /* 상품가격 등의 숫자정보 표현 시 콤마 추가 */
     (function(digitsHandler){
@@ -482,16 +503,6 @@ $(window).on("load", function(){
     (function(){
         $("*[data-scrollbar='true']").mCustomScrollbar(scrollOption);
     })();
-
-    $(window).on("resize", function(){
-        /* 컨텐츠의 길이가 윈도우 세로 높이보다 짧을 때, 윈도우의 높이만큼 컨텐츠의 기본 높이를 잡아줍니다(내용이 짧을 때에도 Footer를 하단에 고정시키기 위한 스크립트) */
-        (function(){
-            var $winHgt = $win.height();
-            if($body.height() < $winHgt){
-                $body.addClass("fit-layout").css("min-height", $winHgt);
-            }
-        })();
-    }).resize();
 
     /*anchor 태그로 컨텐츠 이동 시 smooth한 scroll 처리*/
     (function(){
