@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <meta name="viewport"
+        content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     <title>기내식 - 부가서비스 구매하기</title>
+    <link rel="stylesheet" href="../resource/css/ags_mo_7c.css">
     <link rel="stylesheet" href="../resource/css/ags_mo_tw.css"><!-- 티웨이항공일 경우 -->
-    <!--<link rel="stylesheet" href="../resource/css/ags_mo_7c.css">--><!-- 제주항공일 경우 -->
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
@@ -14,13 +16,13 @@
             $html = $("html"),
             $body = $("body");
 
-        $doc.ready(function(){
+        $doc.ready(function () {
             /*팝업 불러오기*/
             $("#popup").load("include/common_popup.html");
 
             /* 기내식 선택을 컨트롤 합니다. */
-            (function(mealHandler){
-                $(".tab-panel").each(function(){
+            (function (mealHandler) {
+                $(".tab-panel").each(function () {
                     var $thisPanel = $(this),
                         $psgLists = $thisPanel.find("[data-select='passenger']"),
                         $selectMeals = $thisPanel.find("[data-select='meal']"),
@@ -29,32 +31,32 @@
                     $psgLists.find("li:first-child input[type='radio'], li:first-child input[type='radio']").prop("checked", true);
 
                     /*탑승객이 번들 상품을 선택했을 때와 선택하지 않았을 때의 기내식 리스트 표시 정의 & 선택한 기내식 표시 정의*/
-                    function psgAction(e){
+                    function psgAction(e) {
                         var $this = $(e.target);
-                        if($this.siblings("dl").find("dt[class*='bundle-type']:not('.bundle-type0')").length !== 0){
+                        if ($this.siblings("dl").find("dt[class*='bundle-type']:not('.bundle-type0')").length !== 0) {
                             /*탑승객이 선택되었고 선택된 승객이 번들 상품을 선택하였을 떄의 기내식 리스트를 표현합니다*/
-                            setTimeout(function(){
+                            setTimeout(function () {
                                 $selectMeals.find("div:not([data-id='bundle-item'])").addClass("inactive").removeClass("active");
                                 $selectMeals.find("div[data-id='bundle-item']").addClass("active").removeClass("inactive");
                             }, 400);
                         } else {
                             /*탑승객이 선택되었고 선택된 승객이 번들 상품을 선택하지 않았을 때의 기내식 리스트를 표현합니다*/
-                            setTimeout(function(){
+                            setTimeout(function () {
                                 $selectMeals.find("div[data-id='bundle-item']").addClass("inactive").removeClass("active");
                                 $selectMeals.find("div:not([data-id='bundle-item'])").addClass("active").removeClass("inactive");
                             }, 400);
                         }
                     }
                     /*탑승객을 선택했을 때의 화면동작 정의*/
-                    $psgLists.find("input[type='radio'], input[type='radio']").on("change", function(e){
-                        if($(this).is(":checked")){
+                    $psgLists.find("input[type='radio'], input[type='radio']").on("change", function (e) {
+                        if ($(this).is(":checked")) {
 
                             activeLinkScrollLeft($(this).closest("li"), $psgLists.parent(".passenger-wrap"), 800);
 
                             /*탑승객을 선택했을 때 (탑승객이 번들 상품을 선택했을 때와 선택하지 않았을 때의 기내식 리스트 표시 정의)*/
                             psgAction(e);
 
-                            if($(this).attr("data-bind") !== "" && $(this).attr("data-bind") !== undefined){
+                            if ($(this).attr("data-bind") !== "" && $(this).attr("data-bind") !== undefined) {
                                 /*선택된 승객이 이미 기내식을 선택했을 경우*/
                                 $target.prop("checked", false);
                                 $($(this).attr("data-bind")).prop("checked", true)
@@ -64,8 +66,8 @@
                             }
                         }
                     }).change();
-                    
-                    $target.on("change", function(){
+
+                    $target.on("change", function () {
                         var $this = $(this),
                             $checkedPsg = $psgLists.find($("input[type='radio']:checked, input[type='radio']:checked")),
                             $psgLabel = $psgLists.find("input[type='radio'] ~ dl .selected-meal + dd, input[type='radio'] ~ dl .selected-meal + dd"),
@@ -73,7 +75,7 @@
                             $mealName = $this.siblings("dl").find(".meal-name + dd").text(),
                             $mealPrice = $this.siblings("dl").find(".meal-description + dd + .meal-price + dd").text();
 
-                        if($this.is(":checked")) {
+                        if ($this.is(":checked")) {
                             if ($thisPanel.find("input[data-all-psg='true']").length > 0 && $thisPanel.find("input[data-all-psg='true']").prop("checked") === true) {
                                 /*탑승객 메뉴 통일하기 체크박스를 선택한 상태고*/
                                 if ($this.siblings("dl").find(".meal-description + dd + .meal-price + dd").length !== 0) {
@@ -118,7 +120,7 @@
                     });
 
                     /*승객에게 좌석을 부여한 뒤, 좌석 텍스트 뒤에 붙는 삭제(X)버튼의 기능을 정의합니다*/
-                    $("body").on("click", ".tab-panel.active .btn_delete", function(){
+                    $("body").on("click", ".tab-panel.active .btn_delete", function () {
                         var $this = $(this)/*클릭한 삭제버튼*/,
                             $checkedPsg = $this.parents("dl").siblings("input[type='radio'], input[type='radio']"),
                             owner = $this.parents("dl").find(".passenger-name + dd").text()/*클릭한 삭제버튼이 작동할 승객의 성명*/;
@@ -139,9 +141,9 @@
             })();
 
             /*번들선택*/
-            (function(){
-                $(window).on("scroll", function(){
-                    if ($(window).scrollTop() > 100){
+            (function () {
+                $(window).on("scroll", function () {
+                    if ($(window).scrollTop() > 100) {
                         $(".floating-banner").css("opacity", "0").removeClass("active")
                     } else {
                         $(".floating-banner").css("opacity", 1 - ($(window).scrollTop() * 0.01)).addClass("active")
@@ -150,18 +152,18 @@
             })();
         });
 
-        $win.on("load", function(){
+        $win.on("load", function () {
             /*[data-role='process-btn-wrap'] 버튼의 탭 전환 기능 정의*/
-            (function(nextTab){
+            (function (nextTab) {
                 moveTabByClick("#tab-panel1 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel2']", 0, 800);
                 moveTabByClick("#tab-panel2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel1']", 0, 800);
             })();
 
             /* 스크롤 이벤트의 작동을 컨트롤 합니다. */
-            (function(scrollHandler){
+            (function (scrollHandler) {
                 var $trg = $(".tab-panel.active [data-ui*='fixed']"),
                     mainSetPoint = $trg.offset().top;
-                $win.on("scroll", function(){
+                $win.on("scroll", function () {
                     var currentScrollTop = $doc.scrollTop();
                     compScroll($body, currentScrollTop, mainSetPoint, "ui-fixed");
                 }).scroll()
@@ -169,6 +171,7 @@
         })
     </script>
 </head>
+
 <body>
     <div id="ags-wrap" class="ags-wrap">
         <h1 class="site-name">올윈에어</h1>
@@ -201,7 +204,8 @@
                             </p>
                             <ul class="depth1">
                                 <li><a href="#none" target="_self">항공 부가서비스 사전 신청</a></li>
-                                <li class="new active"><a href="#none" target="_self">기내 면세품 예약</a></li><!-- 활성화된 메뉴는 .active -->
+                                <li class="new active"><a href="#none" target="_self">기내 면세품 예약</a></li>
+                                <!-- 활성화된 메뉴는 .active -->
                                 <li>
                                     <a href="#none" target="_self">마이페이지</a>
                                     <ul class="depth2">
@@ -233,10 +237,13 @@
                     <div class="ags-snb">
                         <h4 class="sr-only">서브메뉴</h4>
                         <ul class="snb-wrap">
-                            <li class="buy"><a href="#none" target="_self" class="btn_seat">좌석 지정</a></li><!-- 부가서비스를 신청하고 넘어왔을 경우 .buy -->
+                            <li class="buy"><a href="#none" target="_self" class="btn_seat">좌석 지정</a></li>
+                            <!-- 부가서비스를 신청하고 넘어왔을 경우 .buy -->
                             <li><a href="#none" target="_self" class="btn_baggage">수하물</a></li>
-                            <li class="active"><a href="#none" target="_self" class="btn_meal">기내식</a></li><!-- 현재 활성화 된 메뉴일 경우 .active -->
-                            <li><a href="#none" target="_self" class="btn_lounge">라운지</a></li><!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
+                            <li class="active"><a href="#none" target="_self" class="btn_meal">기내식</a></li>
+                            <!-- 현재 활성화 된 메뉴일 경우 .active -->
+                            <li><a href="#none" target="_self" class="btn_lounge">라운지</a></li>
+                            <!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
                         </ul>
                     </div>
                 </header>
@@ -262,7 +269,7 @@
                             <div id="tab-panel1" class="tab-panel active" role="tabpanel">
                                 <h5 class="sr-only">가는 편</h5>
 
-                            <!-- **** 분기 I : 제공할 수 있는 기내식 서비스가 있을 경우 **** -->
+                                <!-- **** 분기 I : 제공할 수 있는 기내식 서비스가 있을 경우 **** -->
                                 <!-- 승객 선택 -->
                                 <!-- 분기 1 : 승객 중 누구도 번들팩을 추가하지 않았을 때 -->
                                 <!--<div class="passenger-wrap" data-ui="fixed selected-centered">
@@ -307,7 +314,8 @@
                                     <!-- 분기 2-1 : 운임에 따른 번들 정보 - 국제선 일반/스마트/이벤트 운임 -->
                                     <ul class="passenger-list bundle-inter1" data-select="passenger">
                                         <li>
-                                            <input type="radio" id="radio_passenger1-1" name="select_passenger-group1" checked="checked">
+                                            <input type="radio" id="radio_passenger1-1" name="select_passenger-group1"
+                                                checked="checked">
                                             <dl>
                                                 <dt class="bundle-type2">선택한 번들팩</dt>
                                                 <dd><span class="ico">트리플팩</span></dd>
@@ -687,9 +695,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">16000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@구름 위의 샌드위치@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@구름 위의 샌드위치@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -706,9 +716,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@풍밥@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@풍밥@ 이미지">
+                                                </dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -724,9 +736,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">29000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@패밀리 세트@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@패밀리 세트@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -744,9 +758,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@생선요리와 화이트와인@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@생선요리와 화이트와인@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -764,9 +780,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@오색 비빔밥@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@오색 비빔밥@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -785,9 +803,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@PILOT 기내식@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@PILOT 기내식@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -805,9 +825,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@흑돼지 덮밥@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@흑돼지 덮밥@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -826,9 +848,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">18000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div data-id="bundle-item" class="item">
@@ -840,9 +864,11 @@
                                                     햄치즈 샌드위치
                                                 </dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@햄치즈 샌드위치"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@햄치즈 샌드위치">
+                                                </dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                             <input type="radio" id="input-radio59" name="meal-group1">
                                             <label for="input-radio59"><i class="ico"></i> 선택하기</label>
@@ -856,9 +882,11 @@
                                                     불고기 또띠아
                                                 </dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                             <input type="radio" id="input-radio60" name="meal-group1">
                                             <label for="input-radio60"><i class="ico"></i> 선택하기</label>
@@ -872,9 +900,11 @@
                                                     닭가슴살 샐러드, 발사믹 드레싱, 소프트롤, 버터
                                                 </dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@닭가슴살 샐러드와 소프트롤@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@닭가슴살 샐러드와 소프트롤@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                             <input type="radio" id="input-radio61" name="meal-group1">
                                             <label for="input-radio61"><i class="ico"></i> 선택하기</label>
@@ -891,7 +921,7 @@
                                 <!-- //프로세스 버튼 그룹 -->
 
 
-                            <!-- **** 분기 II : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 II : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
                                 <!-- 기내식 제공 노선이 아닐 때 -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
@@ -923,7 +953,7 @@
                                     </div>
                                 </div>
 
-                            <!-- **** 분기 III : 티웨이항공 / 좌석 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 III : 티웨이항공 / 좌석 서비스를 제공할 수 없을 때 **** -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
                                         <i class="ico_alert--primary">!</i>
@@ -945,7 +975,7 @@
                             <div id="tab-panel2" class="tab-panel" role="tabpanel">
                                 <h5 class="sr-only">오는 편</h5>
 
-                            <!-- **** 분기 I : 제공할 수 있는 기내식 서비스가 있을 경우 **** -->
+                                <!-- **** 분기 I : 제공할 수 있는 기내식 서비스가 있을 경우 **** -->
                                 <!-- 승객 선택 -->
                                 <!-- 분기 1 : 승객 중 누구도 번들팩을 추가하지 않았을 때 -->
                                 <!--<div class="passenger-wrap" data-ui="fixed selected-centered">
@@ -990,7 +1020,8 @@
                                     <!-- 분기 2-1 : 운임에 따른 번들 정보 - 국제선 일반/스마트/이벤트 운임 -->
                                     <ul class="passenger-list bundle-inter1" data-select="passenger">
                                         <li>
-                                            <input type="radio" id="radio_passenger2-1" name="select_passenger-group2" checked="checked">
+                                            <input type="radio" id="radio_passenger2-1" name="select_passenger-group2"
+                                                checked="checked">
                                             <dl>
                                                 <dt class="bundle-type0">선택한 번들팩</dt>
                                                 <dd><span class="ico">없음</span></dd>
@@ -1322,9 +1353,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">16000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@구름 위의 샌드위치@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@구름 위의 샌드위치@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -1341,9 +1374,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@풍밥@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@풍밥@ 이미지">
+                                                </dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -1359,9 +1394,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">29000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@패밀리 세트@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@패밀리 세트@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -1379,9 +1416,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@생선요리와 화이트와인@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@생선요리와 화이트와인@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -1399,9 +1438,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@오색 비빔밥@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@오색 비빔밥@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -1420,9 +1461,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@PILOT 기내식@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@PILOT 기내식@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -1440,9 +1483,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">15000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@흑돼지 덮밥@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@흑돼지 덮밥@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div class="item">
@@ -1461,9 +1506,11 @@
                                                 <dt class="meal-price">정가</dt>
                                                 <dd><span class="digits">18000</span></dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                         </div>
                                         <div data-id="bundle-item" class="item">
@@ -1475,9 +1522,11 @@
                                                     햄치즈 샌드위치
                                                 </dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@햄치즈 샌드위치"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@햄치즈 샌드위치">
+                                                </dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                             <input type="radio" id="input-radio79" name="meal-group1">
                                             <label for="input-radio79"><i class="ico"></i> 선택하기</label>
@@ -1491,9 +1540,11 @@
                                                     불고기 또띠아
                                                 </dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@스튜어디스/스튜어드 기내식@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                             <input type="radio" id="input-radio80" name="meal-group1">
                                             <label for="input-radio80"><i class="ico"></i> 선택하기</label>
@@ -1507,9 +1558,11 @@
                                                     닭가슴살 샐러드, 발사믹 드레싱, 소프트롤, 버터
                                                 </dd>
                                                 <dt class="meal-thumbnail">상품 이미지</dt>
-                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg" alt="@닭가슴살 샐러드와 소프트롤@ 이미지"></dd>
+                                                <dd><img src="../resource/img/buy/img_meal-sample.jpg"
+                                                        alt="@닭가슴살 샐러드와 소프트롤@ 이미지"></dd>
                                                 <dt class="meal-etc">기타정보</dt>
-                                                <dd><a href="#none" target="_self" data-popup="#pop35" class="btn_allergy">알레르기 정보</a></dd>
+                                                <dd><a href="#none" target="_self" data-popup="#pop35"
+                                                        class="btn_allergy">알레르기 정보</a></dd>
                                             </dl>
                                             <input type="radio" id="input-radio81" name="meal-group1">
                                             <label for="input-radio81"><i class="ico"></i> 선택하기</label>
@@ -1522,13 +1575,15 @@
                                 <!-- 프로세스 버튼 그룹 -->
                                 <div class="process-btn-wrap" data-role="process-btn-wrap">
                                     <button type="button" class="btn_cancel">이전</button>
-                                    <!--<button type="button" class="btn_confirm" onClick="location.href='buy_lounge.html'">라운지 선택 단계로 이동</button>--><!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
-                                    <button type="button" class="btn_confirm" onClick="location.href='pay_payment.html'">결제하기</button>
+                                    <!--<button type="button" class="btn_confirm" onClick="location.href='buy_lounge.html'">라운지 선택 단계로 이동</button>-->
+                                    <!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
+                                    <button type="button" class="btn_confirm"
+                                        onClick="location.href='pay_payment.html'">결제하기</button>
                                 </div>
                                 <!-- 프로세스 버튼 그룹 -->
 
 
-                            <!-- **** 분기 II : 제주항공 / 기내식 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 II : 제주항공 / 기내식 서비스를 제공할 수 없을 때 **** -->
                                 <!-- 제주항공 / 기내식 제공 노선이 아닐 때 -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
@@ -1558,7 +1613,7 @@
                                 </div>
                                 <!-- //제주항공 / 출발시간 임박으로 인한 구매 불가 -->
 
-                            <!-- **** 분기 III : 티웨이항공 / 기내식 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 III : 티웨이항공 / 기내식 서비스를 제공할 수 없을 때 **** -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
                                         <i class="ico_alert--primary">!</i>
@@ -1613,7 +1668,8 @@
         <!-- ags-summary -->
         <footer id="ags-summary" class="ags-summary">
             <h4 class="sr-only">부가서비스 결제금액</h4>
-            <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
+            <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액
+                슬라이드 열기/닫기</a>
             <div class="inner-wrap">
                 <div class="total">
                     <h5 class="sr-only">총 결제 금액</h5>
@@ -1631,4 +1687,5 @@
     <!-- POPUP include -->
     <div id="popup"></div>
 </body>
+
 </html>

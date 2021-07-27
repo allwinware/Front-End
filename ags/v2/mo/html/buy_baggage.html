@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <meta name="viewport"
+        content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     <title>수하물 - 부가서비스 구매하기</title>
+    <link rel="stylesheet" href="../resource/css/ags_mo_7c.css">
     <link rel="stylesheet" href="../resource/css/ags_mo_tw.css"><!-- 티웨이항공일 경우 -->
-    <!--<link rel="stylesheet" href="../resource/css/ags_mo_7c.css">--><!-- 제주항공일 경우 -->
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
     <script src="../resource/js/ags_mo.ui.js"></script>
     <script>
@@ -14,20 +16,20 @@
             $html = $("html"),
             $body = $("body");
 
-        $doc.ready(function(){
+        $doc.ready(function () {
             /*팝업 불러오기*/
             $("#popup").load("include/common_popup.html");
 
             /*[data-role='process-btn-wrap'] 버튼의 탭 전환 기능 정의*/
-            (function(nextTab){
+            (function (nextTab) {
                 moveTabByClick("#tab-panel1 [data-role='process-btn-wrap'] .btn_confirm", "li[aria-controls='tab-panel2']", 0, 800);
                 moveTabByClick("#tab-panel2 [data-role='process-btn-wrap'] .btn_cancel", "li[aria-controls='tab-panel1']", 0, 800);
             })();
 
             /*번들선택*/
-            (function(){
-                $win.on("scroll", function(){
-                    if ($win.scrollTop() > 100){
+            (function () {
+                $win.on("scroll", function () {
+                    if ($win.scrollTop() > 100) {
                         $(".floating-banner").css("opacity", "0").removeClass("active")
                     } else {
                         $(".floating-banner").css("opacity", 1 - ($win.scrollTop() * 0.01)).addClass("active")
@@ -37,6 +39,7 @@
         });
     </script>
 </head>
+
 <body>
     <div id="ags-wrap" class="ags-wrap">
         <h1 class="site-name">올윈에어</h1>
@@ -69,7 +72,8 @@
                             </p>
                             <ul class="depth1">
                                 <li><a href="#none" target="_self">항공 부가서비스 사전 신청</a></li>
-                                <li class="new active"><a href="#none" target="_self">기내 면세품 예약</a></li><!-- 활성화된 메뉴는 .active -->
+                                <li class="new active"><a href="#none" target="_self">기내 면세품 예약</a></li>
+                                <!-- 활성화된 메뉴는 .active -->
                                 <li>
                                     <a href="#none" target="_self">마이페이지</a>
                                     <ul class="depth2">
@@ -98,10 +102,13 @@
                     <div class="ags-snb">
                         <h4 class="sr-only">서브메뉴</h4>
                         <ul class="snb-wrap">
-                            <li class="buy"><a href="#none" target="_self" class="btn_seat">좌석 지정</a></li><!-- 부가서비스를 신청하고 넘어왔을 경우 .buy -->
-                            <li class="active"><a href="#none" target="_self" class="btn_baggage">수하물</a></li><!-- 현재 활성화 된 메뉴일 경우 .active -->
+                            <li class="buy"><a href="#none" target="_self" class="btn_seat">좌석 지정</a></li>
+                            <!-- 부가서비스를 신청하고 넘어왔을 경우 .buy -->
+                            <li class="active"><a href="#none" target="_self" class="btn_baggage">수하물</a></li>
+                            <!-- 현재 활성화 된 메뉴일 경우 .active -->
                             <li><a href="#none" target="_self" class="btn_meal">기내식</a></li>
-                            <li><a href="#none" target="_self" class="btn_lounge">라운지</a></li><!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
+                            <li><a href="#none" target="_self" class="btn_lounge">라운지</a></li>
+                            <!--티웨이 항공은 라운지 상품이 없으므로 본 버튼을 노출하지 않습니다.-->
                         </ul>
                     </div>
                 </header>
@@ -126,7 +133,7 @@
                             <div id="tab-panel1" class="tab-panel active" role="tabpanel">
                                 <h5 class="sr-only">가는 편</h5>
 
-                            <!-- **** 분기 : 제공할 수 있는 수하물 서비스가 있을 경우 **** -->
+                                <!-- **** 분기 : 제공할 수 있는 수하물 서비스가 있을 경우 **** -->
 
                                 <!-- 수하물 추가 안내 메시지 -->
                                 <!-- 수하물 안내 메시지 관련 스프레드시트(https://docs.google.com/spreadsheets/d/1wKiNbbNfjEB8Ea2M9J5wG7e-vMXclgRL18eZMg_Ct7w/edit#gid=1575651303) 참조 -->
@@ -147,39 +154,46 @@
                                                 <col>
                                             </colgroup>
                                             <tfoot>
-                                            <tr>
-                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                <th scope="row">총 수하물</th>
-                                                <td><span class="total-weight">20</span>kg</td>
-                                                <!-- 추가 구매시(제주항공용) -->
-                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 20kg 포함)</i></th>
+                                                <tr>
+                                                    <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
+                                                    <th scope="row">총 수하물</th>
+                                                    <td><span class="total-weight">20</span>kg</td>
+                                                    <!-- 추가 구매시(제주항공용) -->
+                                                    <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 20kg 포함)</i></th>
                                                 <td><span class="total-weight">20</span>kg</td>-->
-                                            </tr>
+                                                </tr>
                                             </tfoot>
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">기본 제공</th>
-                                                <td>20kg</td>
-                                            </tr>
-                                            <tr>
-                                                <!-- 추가 구매 불가능한 상태일 때 -->
-                                                <th scope="row">
-                                                    추가 구매
-                                                    <span class="text-subscript">선택불가<a href="#none" class="btn_help" data-popup="#baggage-denied1">도움말</a></span>
-                                                </th>
-                                                <td>
-                                                    <div class="baggage-handler inactive"><!-- 추가 구매가 불가능할 경우 .inactive 클래스 추가 -->
-                                                        <dl>
-                                                            <dt class="weight">선택 중량</dt>
-                                                            <dd><span class="selected-weight">20</span>kg</dd>
-                                                            <dt class="price">구매 금액</dt>
-                                                            <dd><span class="digits">0</span></dd>
-                                                        </dl>
-                                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">중량 빼기</span></a>
-                                                        <a href="#none" target="_self" class="btn_increase" disabled="disabled"><span class="sr-only">중량 더하기</span></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">기본 제공</th>
+                                                    <td>20kg</td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- 추가 구매 불가능한 상태일 때 -->
+                                                    <th scope="row">
+                                                        추가 구매
+                                                        <span class="text-subscript">선택불가<a href="#none"
+                                                                class="btn_help"
+                                                                data-popup="#baggage-denied1">도움말</a></span>
+                                                    </th>
+                                                    <td>
+                                                        <div class="baggage-handler inactive">
+                                                            <!-- 추가 구매가 불가능할 경우 .inactive 클래스 추가 -->
+                                                            <dl>
+                                                                <dt class="weight">선택 중량</dt>
+                                                                <dd><span class="selected-weight">20</span>kg</dd>
+                                                                <dt class="price">구매 금액</dt>
+                                                                <dd><span class="digits">0</span></dd>
+                                                            </dl>
+                                                            <a href="#none" target="_self" class="btn_decrease"
+                                                                disabled="disabled"><span class="sr-only">중량
+                                                                    빼기</span></a>
+                                                            <a href="#none" target="_self" class="btn_increase"
+                                                                disabled="disabled"><span class="sr-only">중량
+                                                                    더하기</span></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -193,10 +207,10 @@
                                                 <col>
                                             </colgroup>
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">트리플팩 기본 제공</th>
-                                                <td>15kg</td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">트리플팩 기본 제공</th>
+                                                    <td>15kg</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -210,14 +224,14 @@
                                                 <col>
                                             </colgroup>
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">멀티팩 기본 제공</th>
-                                                <td>20kg</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">수하물 우선처리</th>
-                                                <td>제공</td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">멀티팩 기본 제공</th>
+                                                    <td>20kg</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">수하물 우선처리</th>
+                                                    <td>제공</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -232,7 +246,7 @@
                                 <!-- //프로세스 버튼 그룹 -->
 
 
-                            <!-- **** 분기 : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
                                 <!-- 출발시간 임박으로 인한 서비스 구매불가 안내 -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
@@ -250,7 +264,7 @@
                                     </div>
                                 </div>
 
-                            <!-- **** 분기 : 티웨이항공 / 좌석 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 : 티웨이항공 / 좌석 서비스를 제공할 수 없을 때 **** -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
                                         <i class="ico_alert--primary">!</i>
@@ -271,7 +285,7 @@
                             <!-- 오는 편 탭 컨텐츠 -->
                             <div id="tab-panel2" class="tab-panel" role="tabpanel">
                                 <h5 class="sr-only">오는 편</h5>
-                            <!-- **** 분기 : 제공할 수 있는 수하물 서비스가 있을 경우 **** -->
+                                <!-- **** 분기 : 제공할 수 있는 수하물 서비스가 있을 경우 **** -->
 
                                 <!-- 수하물 추가 안내 메시지 -->
                                 <!-- 수하물 안내 메시지 관련 스프레드시트(https://docs.google.com/spreadsheets/d/1wKiNbbNfjEB8Ea2M9J5wG7e-vMXclgRL18eZMg_Ct7w/edit#gid=1575651303) 참조 -->
@@ -291,39 +305,45 @@
                                                 <col>
                                             </colgroup>
                                             <tfoot>
-                                            <tr>
-                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                <th scope="row">총 수하물</th>
-                                                <td><span class="total-weight">25</span>kg</td>
-                                                <!-- 추가 구매시(제주항공용) -->
-                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
+                                                <tr>
+                                                    <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
+                                                    <th scope="row">총 수하물</th>
+                                                    <td><span class="total-weight">25</span>kg</td>
+                                                    <!-- 추가 구매시(제주항공용) -->
+                                                    <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
                                                 <td><span class="total-weight">30</span>kg</td>-->
-                                            </tr>
+                                                </tr>
                                             </tfoot>
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">기본 제공</th>
-                                                <td>25kg</td>
-                                            </tr>
-                                            <tr>
-                                                <!-- 추가 구매 불가능한 상태일 때 -->
-                                                <th scope="row">
-                                                    추가 구매
-                                                    <span class="text-subscript">선택불가<a href="#none" class="btn_help" data-popup="#baggage-denied2">도움말</a></span>
-                                                </th>
-                                                <td>
-                                                    <div class="baggage-handler inactive">
-                                                        <dl>
-                                                            <dt class="weight">선택 중량</dt>
-                                                            <dd><span class="selected-weight">0</span>kg</dd>
-                                                            <dt class="price">구매 금액</dt>
-                                                            <dd><span class="digits">0</span></dd>
-                                                        </dl>
-                                                        <a href="#none" target="_self" class="btn_decrease" disabled="disabled"><span class="sr-only">중량 빼기</span></a>
-                                                        <a href="#none" target="_self" class="btn_increase" disabled="disabled"><span class="sr-only">중량 더하기</span></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">기본 제공</th>
+                                                    <td>25kg</td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- 추가 구매 불가능한 상태일 때 -->
+                                                    <th scope="row">
+                                                        추가 구매
+                                                        <span class="text-subscript">선택불가<a href="#none"
+                                                                class="btn_help"
+                                                                data-popup="#baggage-denied2">도움말</a></span>
+                                                    </th>
+                                                    <td>
+                                                        <div class="baggage-handler inactive">
+                                                            <dl>
+                                                                <dt class="weight">선택 중량</dt>
+                                                                <dd><span class="selected-weight">0</span>kg</dd>
+                                                                <dt class="price">구매 금액</dt>
+                                                                <dd><span class="digits">0</span></dd>
+                                                            </dl>
+                                                            <a href="#none" target="_self" class="btn_decrease"
+                                                                disabled="disabled"><span class="sr-only">중량
+                                                                    빼기</span></a>
+                                                            <a href="#none" target="_self" class="btn_increase"
+                                                                disabled="disabled"><span class="sr-only">중량
+                                                                    더하기</span></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -337,43 +357,49 @@
                                                 <col>
                                             </colgroup>
                                             <tfoot>
-                                            <tr>
-                                                <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
-                                                <th scope="row">총 수하물</th>
-                                                <td><span class="total-weight">30</span>kg</td>
-                                                <!-- 추가 구매시(제주항공용) -->
-                                                <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
+                                                <tr>
+                                                    <!-- 첫 구매시(티웨이항공, 제주항공 공통) -->
+                                                    <th scope="row">총 수하물</th>
+                                                    <td><span class="total-weight">30</span>kg</td>
+                                                    <!-- 추가 구매시(제주항공용) -->
+                                                    <!--<th scope="row">총 수하물 <i class="text-grayscale">(기존구매 10kg 포함)</i></th>
                                                 <td><span class="total-weight">30</span>kg</td>-->
-                                            </tr>
+                                                </tr>
                                             </tfoot>
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">기본 제공</th>
-                                                <td>15kg</td>
-                                            </tr>
-                                            <tr>
-                                                <!-- 추가 구매 가능한 상태일 때 -->
-                                                <th scope="row">
-                                                    추가 구매
-                                                    <!--일반노선일 때--><span class="text-subscript">(추가 5kg당 <span class="digits">30000</span>)</span>
-                                                    <!--대양주노선일 때--><!--<span class="text-subscript">(추가 1PC당 <span class="digits">45000</span>)</span>-->
-                                                </th>
-                                                <td>
-                                                    <div class="baggage-handler">
-                                                        <dl>
-                                                            <dt class="weight">선택 중량</dt>
-                                                            <dd><span class="selected-weight">15</span>kg</dd>
-                                                            <dt class="price">구매 금액</dt>
-                                                            <dd>
-                                                                <p class="approach-comment">공항 구매 시보다 <span class="digits">10000</span> SAVE!</p>
-                                                                <span class="digits">90000</span>
-                                                            </dd>
-                                                        </dl>
-                                                        <a href="#none" target="_self" class="btn_decrease"><span class="sr-only">중량 빼기</span></a>
-                                                        <a href="#none" target="_self" class="btn_increase" disabled="disabled"><span class="sr-only">중량 더하기</span></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">기본 제공</th>
+                                                    <td>15kg</td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- 추가 구매 가능한 상태일 때 -->
+                                                    <th scope="row">
+                                                        추가 구매
+                                                        <!--일반노선일 때--><span class="text-subscript">(추가 5kg당 <span
+                                                                class="digits">30000</span>)</span>
+                                                        <!--대양주노선일 때-->
+                                                        <!--<span class="text-subscript">(추가 1PC당 <span class="digits">45000</span>)</span>-->
+                                                    </th>
+                                                    <td>
+                                                        <div class="baggage-handler">
+                                                            <dl>
+                                                                <dt class="weight">선택 중량</dt>
+                                                                <dd><span class="selected-weight">15</span>kg</dd>
+                                                                <dt class="price">구매 금액</dt>
+                                                                <dd>
+                                                                    <p class="approach-comment">공항 구매 시보다 <span
+                                                                            class="digits">10000</span> SAVE!</p>
+                                                                    <span class="digits">90000</span>
+                                                                </dd>
+                                                            </dl>
+                                                            <a href="#none" target="_self" class="btn_decrease"><span
+                                                                    class="sr-only">중량 빼기</span></a>
+                                                            <a href="#none" target="_self" class="btn_increase"
+                                                                disabled="disabled"><span class="sr-only">중량
+                                                                    더하기</span></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -387,10 +413,10 @@
                                                 <col>
                                             </colgroup>
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">더블팩 기본 제공</th>
-                                                <td>0kg</td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">더블팩 기본 제공</th>
+                                                    <td>0kg</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -405,7 +431,7 @@
                                 <!-- //프로세스 버튼 그룹 -->
 
 
-                            <!-- **** 분기 : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 : 제주항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
                                         <i class="ico_alert--primary">!</i>
@@ -419,7 +445,7 @@
                                     </div>
                                 </div>
 
-                            <!-- **** 분기 : 티웨이항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
+                                <!-- **** 분기 : 티웨이항공 / 수하물 서비스를 제공할 수 없을 때 **** -->
                                 <div class="no-item">
                                     <div class="ico-wrap">
                                         <i class="ico_alert--primary">!</i>
@@ -449,7 +475,8 @@
                     <ul class="notification-list">
                         <li>출발 2일 전까지 사전수하물 환불 가능합니다. 단, 출발 1일 전부터 취소 시에는 환불되지 않습니다.</li>
                         <li>위탁수하물 구매는 1인당 1회 가능합니다. (무게 변경을 원하실 경우 출발 2일 전까지 취소 후 재구매 하셔야 합니다.)</li>
-                        <li>항공권 취소 시, 구매하신 수하물은 자동 취소 및 환불되며, 여정 변경시에는 구매하신 수하물을 취소하신 후 다시 구매하셔야 합니다. (단, 출발일 1일 전부터 수하물 취소 및 환불이 불가합니다.)</li>
+                        <li>항공권 취소 시, 구매하신 수하물은 자동 취소 및 환불되며, 여정 변경시에는 구매하신 수하물을 취소하신 후 다시 구매하셔야 합니다. (단, 출발일 1일 전부터 수하물
+                            취소 및 환불이 불가합니다.)</li>
                         <li>위탁 수하물 1개 무게는 32Kg을 초과할 수 없으며, 초과시 분리 포장해주셔야 합니다.</li>
                     </ul>
                     <!-- 제주항공용 안내 텍스트 -->
@@ -476,7 +503,8 @@
         <!-- ags-summary -->
         <footer id="ags-summary" class="ags-summary">
             <h4 class="sr-only">부가서비스 결제금액</h4>
-            <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액 슬라이드 열기/닫기</a>
+            <a href="#none" target="_self" class="btn_drawer" data-popup="#passenger-summary"><i class="ico"></i>총 결제 금액
+                슬라이드 열기/닫기</a>
             <div class="inner-wrap">
                 <div class="total">
                     <h5 class="sr-only">총 결제 금액</h5>
@@ -494,4 +522,5 @@
     <!-- POPUP include -->
     <div id="popup"></div>
 </body>
+
 </html>
