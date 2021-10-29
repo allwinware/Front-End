@@ -11,7 +11,7 @@ function includeHTML(callback) {
         if (file) {
             /*make an HTTP request using the attribute value as the file name:*/
             xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (this.readyState == 4) {
                     if (this.status == 200) {
                         elmnt.innerHTML = this.responseText;
@@ -30,7 +30,7 @@ function includeHTML(callback) {
             return;
         }
     }
-    setTimeout(function() {
+    setTimeout(function () {
         callback();
     }, 0);
 }
@@ -45,16 +45,16 @@ function compScroll(el, current, setPoint, className) {
 }
 
 /* 상품가격 등의 숫자정보 표현 시 콤마 추가기능 정의 */
-$.fn.digits = function(){
-    return this.each(function(){
-        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
+$.fn.digits = function () {
+    return this.each(function () {
+        $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
     })
 };
 
 /*배경 DIM 생성*/
-function createDim(target){
+function createDim(target) {
     /*if(target.attr("data-type") === "drawer" || target.attr("data-type") === "message"){*/
-    if(target.attr("data-type") === "drawer"){
+    if (target.attr("data-type") === "drawer") {
         $("#ags-wrap").append("<div class='page-dim " + target.attr("id") + " active'></div>");
     } else {
         target.prepend("<div class='page-dim " + target.attr("id") + " active'></div>");
@@ -63,96 +63,96 @@ function createDim(target){
 }
 
 /*배경 DIM 제거*/
-function deleteDim(target){
+function deleteDim(target) {
     $(".page-dim." + target.attr("id") + ".active").remove();
     $("html, body").css("overflow", "");
 }
 
 /* 팝업 생성 기능 정의 */
-function popupShow(target){
+function popupShow(target) {
     createDim(target);
-    setTimeout(function(){ target.addClass("active") }, 250);
+    setTimeout(function () { target.addClass("active") }, 250);
 }
-function popupShow_NoDim(target){
-    setTimeout(function(){ target.addClass("active") }, 250);
+function popupShow_NoDim(target) {
+    setTimeout(function () { target.addClass("active") }, 250);
 }
 /* 팝업 삭제 기능 정의  */
-function popupHide(target){
-    setTimeout(function(){ target.removeClass("active"); }, 250);
-    setTimeout(function(){ deleteDim(target) }, 1000)
+function popupHide(target) {
+    setTimeout(function () { target.removeClass("active"); }, 250);
+    setTimeout(function () { deleteDim(target) }, 1000)
 }
 
 /* 팝업 활성화 / 비활성화 정의 */
-function popupActivate(target){
+function popupActivate(target) {
     var $pop = $(target);
 
-    if($pop.attr("data-type") === 'alert'){
-        if($pop.attr("data-dim") === undefined && $pop.attr("data-dim-clear") === undefined){
+    if ($pop.attr("data-type") === 'alert') {
+        if ($pop.attr("data-dim") === undefined && $pop.attr("data-dim-clear") === undefined) {
             popupShow($pop);
-        } else if($pop.attr("data-dim") === 'false' && $pop.attr("data-dim-clear") === undefined){
+        } else if ($pop.attr("data-dim") === 'false' && $pop.attr("data-dim-clear") === undefined) {
             popupShow_NoDim($pop);
-            if($win.height() > $pop.height()){
+            if ($win.height() > $pop.height()) {
                 $pop.css({
-                    "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
+                    "top": $doc.scrollTop() + ($win.innerHeight() / 2) - ($pop.outerHeight() / 2)
                 })
             } else {
                 $pop.css("top", $doc.scrollTop())
             }
-            $(document).on("click", function(e){
-                if($pop.hasClass("active") && !$pop.has(e.target).length){
+            $(document).on("click", function (e) {
+                if ($pop.hasClass("active") && !$pop.has(e.target).length) {
                     popupHide($pop);
                 }
             });
-        } else if($pop.attr("data-dim") === undefined && $pop.attr("data-dim-clear") === 'true'){
+        } else if ($pop.attr("data-dim") === undefined && $pop.attr("data-dim-clear") === 'true') {
             popupShow_NoDim($pop);
         }
 
-    } else if($pop.attr("data-type") === 'message'){
+    } else if ($pop.attr("data-type") === 'message') {
         /*messagePopShow($pop)*/
         popupShow($pop);
-    } else if($pop.attr("data-type") === 'submission'){
+    } else if ($pop.attr("data-type") === 'submission') {
         /*messagePopShow($pop)*/
         popupShow($pop);
-    } else if($pop.attr("data-type") === 'drawer'){
-        if($pop.hasClass("active") === true){
+    } else if ($pop.attr("data-type") === 'drawer') {
+        if ($pop.hasClass("active") === true) {
             $pop.css("height", "");
             popupHide($pop)
         } else {
             popupShow($pop);
             $pop.css("height", $win.innerHeight() - $("#ags-header").height());
         }
-    } else if($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === undefined){
+    } else if ($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === undefined) {
         popupShow($pop);
-    } else if($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === 'false'){
+    } else if ($pop.attr("data-type") === 'guidance' && $pop.attr("data-dim") === 'false') {
         popupShow_NoDim($pop);
-        if($win.height() > $pop.height()){
+        if ($win.height() > $pop.height()) {
             $pop.css({
-                "top": $doc.scrollTop() + ( $win.innerHeight() / 2 ) - ( $pop.outerHeight() / 2 )
+                "top": $doc.scrollTop() + ($win.innerHeight() / 2) - ($pop.outerHeight() / 2)
             })
         } else {
             $pop.css("top", $doc.scrollTop())
         }
-        $(document).on("click", function(e){
-            if($pop.hasClass("active") && !$pop.has(e.target).length){
+        $(document).on("click", function (e) {
+            if ($pop.hasClass("active") && !$pop.has(e.target).length) {
                 popupHide($pop);
             }
         });
     }
 }
 
-function popupInactivate(target){
+function popupInactivate(target) {
     var $pop = $(target);
-    if($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission' || $pop.attr("data-type") === 'guidance'){
+    if ($pop.attr("data-type") === 'alert' || $pop.attr("data-type") === 'message' || $pop.attr("data-type") === 'submission' || $pop.attr("data-type") === 'guidance') {
         popupHide($pop);
     }
 }
 
 /* 엘리먼트가 특정 위치에서 Sticky되거나 unSticky되는 기능 정의 */
-function sticky(target, start, end){
+function sticky(target, start, end) {
     var $target = target;
-    if($win.scrollTop() >= start){
+    if ($win.scrollTop() >= start) {
         $target.addClass("ui-fixed");
-        if ($win.scrollTop() >= end){
+        if ($win.scrollTop() >= end) {
             $target.removeClass("ui-fixed").addClass("ui-fixed---bottom");
         } else if ($win.scrollTop() < end) {
             $target.removeClass("ui-fixed---bottom").addClass("ui-fixed");
@@ -230,15 +230,15 @@ var scrollOption = {
 }
 
 /* 컨텐츠 로드/리사이즈 시 body 높이값 정의 */
-function fitLayout(){
+function fitLayout() {
     var delay = 300,
         timer = null,
         $win = $(window),
         $body = $("body");
-    $win.on("resize", function(){
+    $win.on("resize", function () {
         clearTimeout(timer);
-        timer = setTimeout(function(){
-            if($(".ags-wrap").height < $win.height()){
+        timer = setTimeout(function () {
+            if ($(".ags-wrap").height < $win.height()) {
                 $body.addClass("fit-layout").css("min-height", $win.innerHeight());
             } else {
                 $body.removeClass("fit-layout").css("min-height", "");
@@ -247,7 +247,7 @@ function fitLayout(){
     }).resize()
 }
 
-$(window).on("load", function(){
+$(window).on("load", function () {
     /* variation */
     var $win = $(window),
         $doc = $(document),
@@ -258,31 +258,31 @@ $(window).on("load", function(){
     /* Dom 변경으로 인해 컨텐츠 세로 높이가 윈도우 사이즈보다 길어지거나 짧아질 경우 fitLayout()을 호출해 다시 body의 높이값을 잡아주세요. (ex. 컨텐츠 로딩 전후 등) */
 
     /* 상품가격 등의 숫자정보 표현 시 콤마 추가 */
-    (function(digitsHandler){
+    (function (digitsHandler) {
         $(".digits").digits();
     })();
 
     /*.page-name에 단축 navigation 링크가 있을 경위*/
-    (function(){
+    (function () {
         var $nav = $("#nav-shortcut"),
             $navItem = $nav.find("a");
-        $doc.on("click", "#btn_nav-shortcut", function(e){
+        $doc.on("click", "#btn_nav-shortcut", function (e) {
             $($(this).attr("href")).toggleClass("active");
             e.stopPropagation();
         });
-        $doc.on("click", "body", function(){
-            if($nav.length > 0){
+        $doc.on("click", "body", function () {
+            if ($nav.length > 0) {
                 $nav.removeClass("active");
             }
         });
-        $doc.on("click", $navItem, function(){
+        $doc.on("click", $navItem, function () {
             $nav.removeClass("active");
         });
     })();
 
     /* Tab(탭) */
-    (function(tabHandler){
-        $("[data-type='tab-group']").each(function(){
+    (function (tabHandler) {
+        $("[data-type='tab-group']").each(function () {
             var $thisTap = $(this),
                 $tabBtn = $thisTap.find("[role='tab']"),
                 $tabPan = $thisTap.find("[role='tabpanel']");
@@ -293,20 +293,20 @@ $(window).on("load", function(){
 
             // 의미적으로 활성화 표기를 위해 true로 설정된 aria-selected 속성 추가
             $tabBtn.attr("aria-selected", "true");
-            $tabBtn.on("keydown", function(event){
+            $tabBtn.on("keydown", function (event) {
                 event = event || window.event;
                 event.preventDefault ? event.preventDefault() : event.returnValue = false;
                 var keycode = event.keyCode || event.which;
 
-                switch(keycode){
+                switch (keycode) {
                     case 37:  // left arrow
-                        if(this.previousElementSibling){
+                        if (this.previousElementSibling) {
                             $(this)
                                 .attr("tabindex", "-1")
                                 .prev()
                                 .attr("tabindex", "0")
                                 .focus();
-                        }else{
+                        } else {
                             // 초점이 첫 번째 요소에 있었다면, 마지막 탭으로 초점 이동
                             $(this)
                                 .attr("tabindex", "-1");
@@ -316,13 +316,13 @@ $(window).on("load", function(){
                         }
                         break;
                     case 39:  // right arrow
-                        if(this.nextElementSibling){
+                        if (this.nextElementSibling) {
                             $(this)
                                 .attr("tabindex", "-1")
                                 .next()
                                 .attr("tabindex", "0")
                                 .focus();
-                        }else{
+                        } else {
                             // 초점이 마지막 요소에 있었다면, 첫 번째 탭으로 초점 이동
                             $(this)
                                 .attr("tabindex", "-1");
@@ -352,12 +352,12 @@ $(window).on("load", function(){
                         break;
                 }
             });
-            $tabBtn.on("keydown", ".active", function(event){
+            $tabBtn.on("keydown", ".active", function (event) {
                 event = event || window.event;
                 var keycode = event.keyCode || event.which;
 
                 // tab 키 눌렀을 때 (shift + tab은 제외)
-                if(!event.shiftKey && keycode === 9){
+                if (!event.shiftKey && keycode === 9) {
                     event.preventDefault ? event.preventDefault() : event.returnValue = false;
                     $("#" + $(this).attr("aria-controls"))
                         .attr("tabindex", "0")
@@ -368,7 +368,7 @@ $(window).on("load", function(){
                         .removeClass("active");
                 }
             });
-            $tabBtn.on("mousedown", function(e){
+            $tabBtn.on("mousedown", function (e) {
                 // 선택된 탭 활성화
                 var $this = $(this),
                     $target = $("#" + $this.attr("aria-controls"));
@@ -400,20 +400,20 @@ $(window).on("load", function(){
     })();
 
     /* 전체 선택 Checkbox */
-    (function(checkAllHandler){
-        $("input[data-checked='all']").each(function(){
+    (function (checkAllHandler) {
+        $("input[data-checked='all']").each(function () {
             var $trigger = $(this),
                 $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this)).not(":disabled");
-            $trigger.on("change", function(){
-                if($(this).is(":checked")){
+            $trigger.on("change", function () {
+                if ($(this).is(":checked")) {
                     $family.prop("checked", true);
                 } else {
                     $family.prop("checked", false);
                 }
             });
-            $family.on("change", function(){
+            $family.on("change", function () {
                 var checkedFamily = $("input[type='checkbox'][name='" + $(this).attr("name") + "']:checked").not($trigger);
-                if($family.length === checkedFamily.length){
+                if ($family.length === checkedFamily.length) {
                     $trigger.prop("checked", true);
                 } else {
                     $trigger.prop("checked", false);
@@ -423,24 +423,24 @@ $(window).on("load", function(){
     })();
 
     /* 일반적인 팝업을 컨트롤합니다. */
-    $doc.on("click", "[data-popup]", function(e){
+    $doc.on("click", "[data-popup]", function (e) {
         e.preventDefault();
         var $pop = $($(this).attr("data-popup"));
         popupActivate($pop)
     });
 
-    $doc.on("click", "[data-role='close']", function(e){
+    $doc.on("click", "[data-role='close']", function (e) {
         e.preventDefault();
         var $pop = $($("#" + $(this).parents(".pop-area").attr("id")));
         popupInactivate($pop)
     });
 
     /* 스크롤 이벤트의 작동을 컨트롤 합니다. */
-    (function(scrollHandler){
-        if($("[data-ui*='fixed']").length > 0){
+    (function (scrollHandler) {
+        if ($("[data-ui*='fixed']").length > 0) {
             var $trg = $(".tab-panel.active [data-ui*='fixed']"),
                 mainSetPoint = $trg.offset().top;
-            $win.on("scroll", function(){
+            $win.on("scroll", function () {
                 var currentScrollTop = $doc.scrollTop();
                 compScroll($body, currentScrollTop, mainSetPoint, "ui-fixed");
             }).scroll()
@@ -448,11 +448,11 @@ $(window).on("load", function(){
     })();
 
     /* 앵커 태그를 이용해 타겟을 접고 펼치는 이벤트를 컨트롤합니다. */
-    (function(){
-        $doc.on("click", "a[data-foldable-target]", function(){
+    (function () {
+        $doc.on("click", "a[data-foldable-target]", function () {
             var $trigger = $(this),
                 $target = $($(this).attr("data-foldable-target"));
-            if($target.hasClass("active") === true){
+            if ($target.hasClass("active") === true) {
                 $trigger.removeClass("active");
                 $target.removeClass("active")
             } else {
@@ -463,10 +463,10 @@ $(window).on("load", function(){
     })();
 
     /*보드(게시판)형 테이블의 링크 처리*/
-    (function(){
+    (function () {
         var $grid = $("table[data-grid-type='board']");
-        if($grid.length > 0){
-            $($grid.find("a")).each(function(){
+        if ($grid.length > 0) {
+            $($grid.find("a")).each(function () {
                 var $item = $(this);
                 $item.closest("tr:not(.accordion-content)").addClass("tr-anchor")
                     .attr("onClick", "location.href='" + $item.attr("href") + "'")
@@ -475,15 +475,15 @@ $(window).on("load", function(){
     })();
 
     /*아코디언 스타일 테이블 처리*/
-    (function(){
+    (function () {
         var $accordionWrap = $("[data-accordion='true']");
-        if($accordionWrap.attr("data-grid-type") === "board"){
-            $(".tr-anchor").on("click", function(e){
+        if ($accordionWrap.attr("data-grid-type") === "board") {
+            $(".tr-anchor").on("click", function (e) {
                 $(this).toggleClass("active").siblings("tr:not(.accordion-content)").removeClass("active");
                 e.preventDefault()
             })
         } else {
-            $($accordionWrap.find("a")).on("click", function(e){
+            $($accordionWrap.find("a")).on("click", function (e) {
                 $(this).closest("tr").toggleClass("active").siblings("tr:not(.accordion-content)").removeClass("active");
                 e.preventDefault()
             });
@@ -491,23 +491,23 @@ $(window).on("load", function(){
     })();
 
     /* selectric */
-    (function(){
-        if($(".selectric-select-wrap").length > 0){
-            $(".selectric-select-wrap select").each(function(){
+    (function () {
+        if ($(".selectric-select-wrap").length > 0) {
+            $(".selectric-select-wrap select").each(function () {
                 $(this).selectric()
             })
         }
     })();
 
     /* 스크롤 바를 미관상 보기 좋게 바꿔줍니다. */
-    (function(){
+    (function () {
         $("*[data-scrollbar='true']").mCustomScrollbar(scrollOption);
     })();
 
     /*anchor 태그로 컨텐츠 이동 시 smooth한 scroll 처리*/
-    (function(){
+    (function () {
         /*아이템 클릭 시 컨텐츠로 스크롤*/
-        $(".btn_go-content").on("click", function(e){
+        $(".btn_go-content").on("click", function (e) {
             e.preventDefault();
             var href = $(this).attr("href"),
                 id = href.substring(href.indexOf('#'));
