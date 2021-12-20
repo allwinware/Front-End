@@ -191,11 +191,22 @@ function activeLinkScrollLeft(el, wrap, duration) {
 /*스크롤이 특정 위치를 지나갈 때 클래스 첨삭*/
 function compScroll(el, current, setPoint, className) {
     // console.log(current);
-    if (current > setPoint && current < 1600) {
+	$("div[class='seat-plan']").each(function(idx, obj) {
+		if($(obj).offset().left > -30 && $(obj).offset().left < 30) {
+			if (current > setPoint && current < $(obj).height()) {
+				el.addClass(className);
+			} else {
+				el.removeClass(className);
+			}
+		}
+	});
+/*
+    if (current > setPoint && current < $("div[class='seat-plan']").eq(itry).height()) {
         el.addClass(className);
     } else {
         el.removeClass(className);
     }
+*/
 }
 
 // 클래스 삭제
@@ -423,6 +434,7 @@ $(window).on("load", function () {
             uiFixed("body")
         }
     })();
+
 
     /* 앵커 태그를 이용해 타겟을 접고 펼치는 이벤트를 컨트롤합니다. */
     (function (anchorFoldable) {
