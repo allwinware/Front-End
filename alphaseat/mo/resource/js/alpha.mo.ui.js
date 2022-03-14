@@ -4,11 +4,26 @@ $(document).on("click", "#ags-wrap", function () {
   $("#ags-wrap").css("display", "none");
   $("#ags-wrap-back").css("display", "block");
   
+  
+  
+/*하다 맘.. 다시 짜야함.*/
+  if($('.scale_s' ).css("transfrom") == "scale(0.3)"){      
+        $("#con_slider").css('overflow-y','scroll');
+  }else{
+    
+    $("#con_slider").css('overflow-y','scroll');    
+    $('body').css('overflow','hidden');
+    $('.scale_type_a').css('top','-490px');
+  }  
+  
 });
 $(document).on("click", "#ags-wrap-back", function () {
   $("#con_slider").removeClass("active");
   $("#ags-wrap-back").css("display", "none");
   $("#ags-wrap").css("display", "block");
+
+  
+  
 });
 
 /*좌석선택*/
@@ -78,9 +93,8 @@ $( document ).ready(function() {
 
   $('.trigger_a').on('click', function() {
     $('.scale_type_a').toggleClass('scale');
-    $('.scale_type_a').css('top','0px');
+    $('.scale_type_a').css('top','0px');    
     $('body').css('overflow-y','scroll');
-
     
     $('.slider1 .seat_sheet_number').remove();
     $('.slider1 .seat_sheet_abcdef').remove();

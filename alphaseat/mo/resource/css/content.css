@@ -1,7 +1,7 @@
 /*사이트 이름*/
 
 body{
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .site-name {
@@ -33,7 +33,7 @@ body{
   justify-content: center;
   align-items: center;
   position: absolute;
-  top:15px;
+  top:17px;
   width: 100%;
 }
 
@@ -327,7 +327,7 @@ body{
   transition-property: all;
   transition-duration: 0.5s;
   transition-timing-function: ease;
-  height: 95vh;
+  height: 90vh;
 }
 
 .contents.active{
@@ -412,7 +412,7 @@ body{
 }
 
 .seat_code span{
-  border-bottom: 3px solid #000;
+  border-bottom: 2px solid #666;
   width: 42px;
   text-align: center;
   padding: 5px 0px;
@@ -538,6 +538,12 @@ body{
   cursor: default;
 }
 
+
+
+
+
+/*맨앞좌석 오른쪽 좌석 없을때*/
+
 .seat_sheet_price_box .buy_num.type1 {height: 50px;}
 .seat_sheet_price_box .buy_num.type2 {height: 192px;}
 .seat_sheet_price_box .buy_num.type3 {height: 37px;}
@@ -550,20 +556,45 @@ body{
   position: absolute;
   top:29px;
 }
-
-/*보더 깜빡이 깜빡깜빡*/
-
-
-
-
-
 .seat_sheet_recom_box .recom_num.type2 a {
   height: 193px;
   clip-path: polygon(0 0, 50% 0, 50% 7.5%, 100% 7.5%, 100% 100%, 0 100%);
+  position: absolute;
+  top: 49.5px;
+}
+
+.seat_sheet_recom_box .recom_num.type1 a {
+ border:3px solid #14c0ff;
+  border-bottom-color: #ff0000;
+ 
+}
+
+
+
+   
+/*맨앞좌석 왼쪽 좌석 없을때*/
+
+.seat_sheet_price_box .buy_num.type1_2 {height: 62px;}
+.seat_sheet_price_box .buy_num.type2_2 {height: 180px;}
+.seat_sheet_price_box .buy_num.type3_2 {height: 37px;}
+.seat_sheet_price_box .buy_num.type4_2 {height: 120px;}
+.seat_sheet_price_box .buy_num.type5_2 {height: 120px;}
+
+.seat_sheet_recom_box .recom_num.type1_2 a {  
+  height: 34px;
+  clip-path: polygon(0 0, 100% 0, 100% 59%, 49% 59%, 49% 100%, 0 100%);
+  position: absolute;
+  top:29px;
+}
+.seat_sheet_recom_box .recom_num.type2_2 a {
+  height: 193px;
+  clip-path: polygon(0 7.5%, 50% 7.5%, 50% 0, 100% 0, 100% 100%, 0 100%);
   background: #08A7E1;
   position: absolute;
   top: 49.5px;
 }
+
+
 
 
 .seat_sheet_recom_box .recom_num.type3 a {
@@ -571,9 +602,7 @@ body{
   position: absolute;
   background: #000;
   top: 243px;
-
 }
-
 .seat_sheet_recom_box .recom_num.type4 a {
   height: 119px;
   position: absolute;
@@ -599,7 +628,9 @@ body{
   letter-spacing: -0.5;
   line-height:20px;
   padding-top: 100px;
-  background: url(../img/common/loading-6.gif) no-repeat center / 90px 26px;
+
+  background: url(../img/common/loading-1.gif) no-repeat center / 66px 45px;
+ /* background: url(../img/common/loading-6.gif) no-repeat center / 90px 26px;*/
 
 }
 
@@ -629,7 +660,8 @@ body{
   color: #fff;
   line-height: 38px;
   letter-spacing: -0.6px;
-  display: inline-block;
+  display: inline-block;  
+  transition: 0.2s all;
 }
 
 .seat_sheet li a.seat_active{ 
@@ -637,11 +669,7 @@ body{
   border-bottom: 5px solid #CE3802;
   transition: 0.2s all;
 }
-.seat_sheet li a.seat_active::after{
 
-  border: 2px solid #ff6600;
-
-}
 
 
 
@@ -774,6 +802,60 @@ body{
 
 /*좌석 박스 만들기*/
 
+
+.bd_t_line{position: relative;}
+.bd_t_line::after{
+  position: absolute;
+  border-top: 2px solid #ff6600;
+  top: -8px;
+  left: -4px;
+  content: "";
+  width: 40px;
+  height:48px;
+  background: transparent;
+  z-index: -1;
+}
+.bd_b_line{position: relative;}
+.bd_b_line::after{
+  border-bottom: 2px solid #ff6600;
+  position: absolute;
+  top: -8px;
+  left: -4px;
+  content: "";
+  width: 40px;
+  height:48px;
+  background: transparent;
+  z-index: -1;
+}
+.bd_l_line{position: relative;}
+.bd_l_line::after{
+  border-left: 2px solid #ff6600;
+  position: absolute;
+  top: -8px;
+  left: -4px;
+  content: "";
+  width: 40px;
+  height:48px;
+  background: transparent;
+  z-index: -1;
+}
+.bd_r_line{position: relative;}
+.bd_r_line::after{
+  border-right: 2px solid #ff6600;
+  position: absolute;
+  top: -8px;
+  left: -4px;
+  content: "";
+  width: 40px;
+  height:48px;
+  background: transparent;
+  z-index: -1;
+}
+
+
+/*좌석 라인 테스트----------------------------------------------*/
+
+
 .seat_num .a1-1{position: relative;}
 .seat_num .a1-1::before {
   content: "AI 1위 98%";
@@ -851,13 +933,8 @@ body{
 }
 
 
-
-
 /*payment 결과*/
 
-.pay_content {
-
-}
 .pay_txt{
   display: flex;
   justify-content: space-between;
@@ -896,14 +973,23 @@ body{
 .pay_gro span:nth-last-child(1){
   color: #F5581A;
 }
+.pay_gro span:nth-last-child(1):before {
+  content: "￦";
+}
+
 .pay_group {
   padding: 5px 20px;
   scrollbar-width: 300px;
-  height: 400px;
   height: 145px;
   overflow-y: scroll;
-  
 }
+.pay_group.cho {
+  scrollbar-width: none;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+
 .pay_group li{
   display: flex;
   justify-content: space-between;
@@ -915,14 +1001,14 @@ body{
 
 .pay_group_s {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 80px;
   font-family: 'RobotoM';
 }
 
 
-.pay_group li .pay_group_s span:first-child{
+.pay_group li .pay_group_s .chair_s{
   text-align: center;
   clip-path: polygon(12% 0, 88% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
   background-color: #F5581A;
@@ -931,8 +1017,12 @@ body{
   line-height: 22px;
   width: 22px;
   height: 20px;
+  margin-bottom: 1px;
 }
 
+.pay_group li .pay_group_s .chair_comple{
+  padding-left: 10px;
+}
 
 .pay_choice{  
   border-top: 1px solid #eeeeee;
@@ -1087,10 +1177,6 @@ body{
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
-}
-
-.ags-summary .pay_way{
-
 }
 
 .ags-summary .pay_group{
