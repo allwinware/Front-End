@@ -5,26 +5,28 @@ $(document).on("click", "#ags-wrap", function () {
   $("#ags-wrap-back").css("display", "block");
   
   
-  
-/*하다 맘.. 다시 짜야함.*/
-  if($('.scale_s' ).css("transfrom") == "scale(0.3)"){      
-        $("#con_slider").css('overflow-y','scroll');
-  }else{
-    
-    $("#con_slider").css('overflow-y','scroll');    
-    $('body').css('overflow','hidden');
-    $('.scale_type_a').css('top','-490px');
-  }  
-  
-});
-$(document).on("click", "#ags-wrap-back", function () {
-  $("#con_slider").removeClass("active");
-  $("#ags-wrap-back").css("display", "none");
-  $("#ags-wrap").css("display", "block");
+  /*하다 맘.. 다시 짜야함.
+  처음에 확대 후 오는편 누르면 스크롤 버그 생김
+  if ($('.scale_s').css("transfrom") == "scale(0.3)") {
+    $("#con_slider").css('overflow-y', 'scroll');
+  } else {
 
-  
-  
-});
+    $("#con_slider").css('overflow-y', 'scroll');
+    $('body').css('overflow', 'hidden');
+    $('.scale_type_a').css('top', '-490px');
+  }
+*/
+  });
+
+
+  $(document).on("click", "#ags-wrap-back", function () {
+    $("#con_slider").removeClass("active");
+    $("#ags-wrap-back").css("display", "none");
+    $("#ags-wrap").css("display", "block");
+
+
+
+  });
 
 /*좌석선택*/
 $(document).on("click", ".seat_btn", function () {
