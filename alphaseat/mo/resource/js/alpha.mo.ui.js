@@ -105,6 +105,9 @@ $( document ).ready(function() {
     $('.slider1 .seat_sheet_recom_box').remove();
     $('.slider1 .seat_sheet_loading').remove();
 
+    $('.slider1 .seat_sheet_touch').remove();
+    
+
     
     $(this).remove();
          return false;
@@ -125,6 +128,8 @@ $( document ).ready(function() {
     $('.slider2 .seat_sheet_price_box').remove();
     $('.slider2 .seat_sheet_recom_box').remove();
     $('.slider2 .seat_sheet_loading').remove();
+
+    $('.slider2 .seat_sheet_touch').remove();
 
     
     $(this).remove();
