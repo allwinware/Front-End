@@ -3,6 +3,7 @@ $(document).on("click", "#ags-wrap", function () {
     $("#con_slider").addClass("active");
     $("#ags-wrap").css("display", "none");
     $("#ags-wrap-back").css("display", "block");
+    
 
 
     /*하다 맘.. 다시 짜야함.
@@ -23,13 +24,31 @@ $(document).on("click", "#ags-wrap-back", function () {
     $("#con_slider").removeClass("active");
     $("#ags-wrap-back").css("display", "none");
     $("#ags-wrap").css("display", "block");
+
+    
+
 });
+
 
 
 /*좌석선택*/
+
+
+/*좌석선택 오렌지*/
 $(document).on("click", ".seat_btn", function () {
     $(this).addClass("seat_active");
 });
+$(document).on("click", ".seat_active", function () {
+    $(this).removeClass("seat_active");
+});
+/*좌석선택 블루*/
+$(document).on("click", ".seat_btn_blue", function () {
+    $(this).addClass("seat_active_blue");
+});
+$(document).on("click", ".seat_active_blue", function () {
+    $(this).removeClass("seat_active_blue");
+});
+
 
 
 /*gnb 팝업 정의*/
@@ -72,20 +91,6 @@ $(document).ready(function () {
     });
 });
 
-
-/*스크롤 다시허용
-
-$('#element').off('scroll touchmove mousewheel');
- 
-*/
-
-/*좌석선택*/
-$(document).on("click", ".seat_btn", function () {
-    $(this).addClass("seat_active");
-});
-$(document).on("click", ".seat_active", function () {
-    $(this).removeClass("seat_active");
-});
 
 
 /*스케일*/
@@ -211,12 +216,12 @@ function layerPop(id) {
 /*왼쪽 스크롤 박스*/
 $(document).ready(function () {
 
-    $('#test2_1').click(function () {
+    $('#down_btn').click(function () {
         var offset = $('#section4').offset(); //선택한 태그의 위치를 반환
 
         //animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 
 
-        $('.slider1').animate({
+        $('html').animate({
             scrollTop: offset.top
         }, 400);
     });
