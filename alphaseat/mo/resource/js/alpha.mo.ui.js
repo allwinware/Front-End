@@ -208,7 +208,7 @@ function layerPop(id) {
 }
 
 
-/*왼쪽 스크롤 박스
+/*왼쪽 스크롤 박스*/
 $(document).ready(function () {
 
     $('#test2_1').click(function () {
@@ -221,5 +221,5 @@ $(document).ready(function () {
         }, 400);
     });
 });
-*/
+
 
