@@ -191,8 +191,6 @@ body{
 
 }
 
-
-
 /*왼쪽 사이드바*/
 .test{
   font-size: 100px;
@@ -244,8 +242,6 @@ body{
 
 }
 
-
-
 /*상단 셀렉트 박스*/
 .select_box{
   display: flex;
@@ -292,9 +288,7 @@ body{
 }
 .passenger dl dd{
   padding-top: 5px;
-  color: #ff0000;
-
- 
+  color: #ff0000; 
 }
 
 
@@ -319,7 +313,7 @@ body{
 .contents{
   padding-top: 150px;  
   position: relative;
-  overflow-y: scroll;
+  overflow: auto;
   display: flex;
   justify-content: flex-start;
   width: 200%;
@@ -338,7 +332,6 @@ body{
   display:none;
 }
 
-
 .slider1, .slider2 {
   width: 100%;
 }
@@ -351,10 +344,6 @@ body{
 }
 
 /*오른쪽박스*/
-
-.contents .right_box{
-  
-}
 
 .contents .right_box .front_box{
 
@@ -718,6 +707,71 @@ body{
 
 } 
 
+/*digital_loading 깜빡깜빡*/
+/*왼쪽숫자 오른쪽 동그라미*/
+.contents .digital_loading{
+  position: relative;
+}
+.contents .digital_loading .digi_left_a{
+  position: absolute;
+  top: 162px;
+  left: 130px;
+  z-index: 15;
+}
+.contents .digital_loading .digi_left_b{
+  position: absolute;
+  top: 193px;
+  left: 142px;
+  z-index: 15;
+}
+.contents .digital_loading .digi_left_c{
+  position: absolute;
+  top: 439px;
+  left: 130px;
+  z-index: 15;
+}
+.contents .digital_loading .load_left_a{  
+  padding: 0 13px;
+  background: url(../img/common/digi_num_left.gif) no-repeat center / 28px 13px;
+
+}
+.contents .digital_loading .load_left_b{
+  padding: 0 11px;
+  background: url(../img/common/circle_blue.gif) no-repeat center / 20px 20px;
+}
+
+
+/*왼쪽동그라미 오른쪽숫자 */
+.contents .digital_loading .digi_right_a{
+  position: absolute;
+  top: 222px;
+  left: 105px;
+  z-index: 15;
+}
+.contents .digital_loading .digi_right_b{
+  position: absolute;
+  top: 270px;
+  left: 115px;
+  z-index: 15;
+}
+.contents .digital_loading .digi_right_c{
+  position: absolute;
+  top: 394px;
+  left: 105px;
+  z-index: 15;
+}
+.contents .digital_loading .load_right_a{  
+  padding: 0 13px;
+  background: url(../img/common/digi_num_right.gif) no-repeat center / 28px 13px;
+
+}
+.contents .digital_loading .load_right_b{
+  padding: 0 11px;
+  background: url(../img/common/circle_blue.gif) no-repeat center / 20px 20px;
+}
+
+
+
 /*좌석 이미지 클릭 코드*/
 .seat_num{
   padding-top: 5px;
@@ -743,13 +797,42 @@ body{
   display: inline-block;  
   transition: 0.2s all;
 }
+/* 주황색으로 표시할때
 
-.seat_sheet li a.seat_active{ 
-  background-color: #ff6600;  
+.seat_sheet li a{  
+  width: 36px;
+  height: 35px;
+  text-align: center;
+  clip-path: polygon(12% 0, 88% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
+  background-color: #f5581a;  
   border-bottom: 5px solid #CE3802;
+  font-size: 10.5px;
+  color: #fff;
+  line-height: 38px;
+  letter-spacing: -0.6px;
+  display: inline-block;  
   transition: 0.2s all;
 }
 
+
+*/
+
+
+
+.seat_sheet li a.seat_active{ 
+  background: url(../img/common/seat_click.png) no-repeat top 4px right 50% / 14px 14px;
+  background-color: #f5581a;
+
+  border-bottom: 5px solid #CE3802;
+  transition: 0.2s all;
+  
+}
+.seat_sheet li a.seat_active::after{
+  content: attr(seatno);
+  line-height: 48px;
+  font-family: 'NotoSansL';
+  letter-spacing: 0;
+}
 
 
 
@@ -1390,6 +1473,5 @@ body{
   font-family: 'NotoSansM';
   font-size: 15px;
 }
-
 
 
