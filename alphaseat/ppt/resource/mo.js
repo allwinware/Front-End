@@ -1,10 +1,11 @@
-var cnt = 1;
+var cnt = 4;
 
 $(document).on("click", ".imggo", function () {
     var img = document.getElementById("img");
     if (cnt == 1) {
         img.src = "./image/ppt_02.jpg";
         cnt = 2;
+        
     } else if (cnt == 2) {
         img.src = "./image/ppt_03.jpg";
         cnt = 3;
