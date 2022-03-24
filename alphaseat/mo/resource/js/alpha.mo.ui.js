@@ -116,6 +116,7 @@ $(document).ready(function () {
 	/*좌석선택 오렌지*/
 	$(document).on("click", ".seat_btn", function () {
 		$(this).addClass("seat_active");
+		
 	});
 
 	$(document).on("click", ".seat_active", function () {
