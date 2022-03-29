@@ -16,7 +16,7 @@ body{
 .ags-wrap header {
 	position:fixed ;
 	width: 100%;
-	z-index: 900;
+	z-index: 800;
 	top: 0;
 	height: 150px;
 	background: #fff;
@@ -320,9 +320,8 @@ body{
 	padding-top: 150px;
 	position: relative;
 	margin: 0 auto;
-	transition-property: all;
-	transition-duration: 0.5s;
-	transition-timing-function: ease;
+	transition-duration: 0.3s;	
+	
 }
 
 .separate200{
@@ -489,10 +488,10 @@ body{
 
 
 .seat_sheet_bg.ac1{	
-	height: 100vh;
+	height: 80vh;
 }
 .seat_sheet_bg.ac2{	
-	height: 100vh;
+	height: 80vh;
 }
 .airplane_bg{
 	position:absolute;
@@ -910,6 +909,8 @@ body{
 .scale_s{
 	transform: translate(-500px,0);
 	transform: scale(0.3);
+	-webkit-transform: translate(-500px,0);
+	-webkit-transform: scale(0.3);
 }
 
 /*항공기 이미지 크게 */
@@ -1171,6 +1172,7 @@ body{
 .pay_group {
 	padding: 5px 20px;
 	scrollbar-width: 300px;
+	height: 120px;
 	overflow-y: scroll;
 }
 .pay_group.cho {
@@ -1260,7 +1262,7 @@ body{
 	-webkit-box-shadow: 2px 1px 13px 0px #bbb;
 	-moz-box-shadow: 2px 1px 13px 0px #bbb;
 	box-shadow: 2px 1px 13px 0px #bbb;
-	z-index: 50;
+	z-index: 901;
 }
 /*스크롤 버튼*/
 .ags-summary .scroll_btn{
@@ -1319,6 +1321,7 @@ body{
 	left: 50%;
 	top: -14px;
 	transform:translate(-50%, -50%);
+	-webkit-transform:translate(-50%, -50%);
 }
 .ags-summary .btn_footer_close {
 	position: absolute;
@@ -1335,9 +1338,29 @@ body{
 
 }
 
+/*딤드*/
+
+.dimmed_bg{
+	position: absolute;
+	z-index: 900;    
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 800%;
+    min-height: 100%;
+    text-indent: -9999px;
+    background: #000;
+    -ms-filter: alpha(opacity=20);
+    -moz-opacity: 0.2;
+    filter: alpha(opacity=20);
+    opacity: 0.2;
+	display: none;
+}
+
+
 /* 하단 슽라이더 내용*/
 
-.footer_contents {
+.footer_contents {	
 	position: relative;
 	background: #fff;
 	width: 100%;
@@ -1409,7 +1432,6 @@ body{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	overflow-y: auto;
 }
 
 .ags-summary .pay_group{
@@ -1436,7 +1458,7 @@ body{
 	font-family: 'NotoSansM';
 }
 
-
+/* 선호도 */
 .ags-summary .pay_pay_bg{
 	width: 100%;
 	height: 130px;
@@ -1545,14 +1567,15 @@ body{
 	width: 100%;
 }
 
-.creditcard{	
-}
-
 .card_warp{
 	display: flex;
 	justify-content: space-between;
 	padding: 10px 15px 10px 20px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #aaa;
+}
+.creditcard{
+	overflow-y: auto;
+	height: 1000px;
 }
 
 .creditcard .card_warp .card_slider{
@@ -1572,8 +1595,7 @@ body{
 #card_slider_box{	
 	overflow: hidden;
 }
-#card_slider_box .card_box1{
-	
+#card_slider_box .card_box1{	
 	display: flex;
 	justify-content: space-between;
 	padding: 15px 20px 15px 20px;
@@ -1624,7 +1646,7 @@ body{
 }
 
 
-
+/*총결제금액*/
 .credit_total{
 	display: flex;
 	justify-content: space-between;
@@ -1638,6 +1660,169 @@ body{
 
 .credit_total .credit_total_box2{
 	color: #f5581a;
+}
+
+
+.credit_method{
+	font-size: 13px;
+	font-family: 'NotoSansB';
+}
+
+.credit_method .credit_method_fst{
+	padding: 20px 20px 10px 20px;
+	border-bottom: 1px solid #aaa;
+
+}
+.credit_method_card{		
+	display: flex;
+	justify-content: space-between;	
+	align-items:center;
+	padding: 10px 20px 10px 20px;
+	
+	border-bottom: 1px solid #ddd;
+}
+
+.credit_method .credit_method_card .method_card_box1 {
+	padding-left: 25px;
+	height: 17px;
+	display: flex;
+	align-items:center;
+	background: url(../img/common/war_check.png) no-repeat left / 16px 16px;
+}
+.method_card_box2 {
+	font-size: 11px;
+	color: #aaa;
+	font-family: 'NotoSansR';
+}
+.pdt10{
+	padding-top: 10px;
+}
+
+/*결제방법 신용카드*/
+.card-select-wrap{
+	padding: 5px 0;
+}
+.card-select-wrap select{
+	display: inline-block;
+    margin: 0;
+	width: 170px;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: -0.3px;
+    padding: 0 30px 0 20px;
+    height: 35px;
+    border: 1px solid #ddd;
+	
+	background: url(../img/common/down_arrow.png) no-repeat right 5px top 50%  / 22px 22px;
+}
+.card-select-wrap span{
+	padding-left: 10px;
+	font-size: 11px;
+	color: #aaa;
+	font-family: 'NotoSansR';
+}
+.card-write{
+	position: relative;
+	padding-top: 20px;	}
+
+.card-pass-wrap{	
+	position: absolute;
+	top: 10px;
+	display: flex;
+	justify-content: space-between;
+	padding-left: 81px;
+	padding-right: 20px;
+}
+.card-pass-wrap span{
+	width: 23%;
+}
+
+.input_case_card {
+    display: inline-block;
+    margin: 0;
+    color: #999;
+    padding: 0 5px;
+    height: 35px;
+	width: 100%;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+	text-align: center;
+	font-size: 11px;
+}
+.card-select-moon{
+	position: relative;
+	padding: 35px 0 20px 0;
+}
+.card-select-moon .card-pass-wrap{	
+	position: absolute;
+	top: 25px;
+	display: flex;
+	justify-content: flex-start;
+	padding-left: 81px;
+	padding-right: 20px;
+}
+
+.card-select-moon .card-pass-wrap span {
+	font-size: 11px;
+	color: #aaa;
+	margin-right: 8px;
+}
+
+.card-select-pass{
+	position: relative;
+	padding: 10px 0;
+}
+.card-select-pass .card-pass-wrap{	
+	position: absolute;
+	top: 5px;
+	padding-left: 81px;
+	padding-right: 20px;
+}
+
+.card-select-pass .card-pass-wrap span {
+	width:35%
+}
+.card-select-pass .card-pass-wrap span:nth-child(2){
+	position: absolute;
+	top:30%;
+	left: 140px;
+}
+
+.forms_li_title{
+	padding: 0 10px 0 20px;
+	display: inline-block;
+}
+
+.card-email{
+	position: relative;
+	padding-top: 20px;
+}
+
+.card-email .card-pass-wrap span {
+	width:200px
+}
+.card-email .input_case_card {
+	text-align: left;
+}
+
+
+.notification-title{
+	padding: 40px 0 5px 40px;
+	background: url(../img/common/ico_notice.png) no-repeat left 20px top 40px / 16px 16px;
+
+}
+.notification-list{
+	padding: 20px 20px;
+	font-family: 'NotoSansL';
+	font-size: 12px;
+	color: #999;
+
+}
+.notification-list li{
+	padding-top: 10px;
+
 }
 
 
@@ -1656,6 +1841,33 @@ body{
 
 /*크기에 따라서 화면구성*/
 
-@media (max-width: 330px) {
+@media (max-width: 376px) {
+	.seat_sheet_bg.ac1{	
+		height: 100vh;
+	}
+	.seat_sheet_bg.ac2{	
+		height: 100vh;
+	}
+	.card-select-moon .card-pass-wrap span {
+		margin-right: 7px;
+	}
+	
+
+}
+
+@media (max-width: 321px) {
+	.seat_sheet_bg.ac1{	
+		height: 120vh;
+	}
+	.seat_sheet_bg.ac2{	
+		height: 120vh;
+	}
+	.card-select-wrap span{
+		display: none;
+	}
+	.card-select-moon .card-pass-wrap span {
+		margin-right: 6px;
+	}
+	
 
 }

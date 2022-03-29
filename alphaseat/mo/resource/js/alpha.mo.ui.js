@@ -145,11 +145,17 @@ $(document).ready(function () {
 
 	/*푸터 슬라이드 팝업*/
 	$(document).on("click", ".btn_footer_open", function () {
-		$(".ags-summary").addClass("active");
+		$(".ags-summary").addClass("active");				
+		$(".dimmed").css("display", "block");
+		$("body").css("overflow", "hidden");
+		
+		
 	});
 
 	$(document).on("click", ".btn_footer_close", function () {
 		$(".ags-summary").removeClass("active");
+		$(".dimmed").css("display", "none");
+		$("body").css("overflow", "");
 	});
 	
 	/*상단 내려오는 슬라이드*/
