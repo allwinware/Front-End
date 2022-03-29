@@ -146,7 +146,7 @@ $(document).ready(function () {
 	/*푸터 슬라이드 팝업*/
 	$(document).on("click", ".btn_footer_open", function () {
 		$(".ags-summary").addClass("active");				
-		$(".dimmed").css("display", "block");
+		$(".dimmed_bg").css("display", "block");
 		$("body").css("overflow", "hidden");
 		
 		
@@ -154,7 +154,7 @@ $(document).ready(function () {
 
 	$(document).on("click", ".btn_footer_close", function () {
 		$(".ags-summary").removeClass("active");
-		$(".dimmed").css("display", "none");
+		$(".dimmed_bg").css("display", "none");
 		$("body").css("overflow", "");
 	});
 	
