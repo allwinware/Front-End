@@ -18,7 +18,7 @@ body{
 	width: 100%;
 	z-index: 800;
 	top: 0;
-	height: 150px;
+	height: auto;
 	background: #fff;
 }
 .ags-wrap .ags-header {
@@ -107,8 +107,14 @@ body{
 
 /* GNB 메뉴 팝업 */
 .ags-header .gnb-wrap .gnb-2dp-wrap {
-	transition: all 0.5s;
-	transition-delay: 0.2s;
+	transition: 0.3s ease;
+	-webkit-transition: 0.3s ease;
+	-moz-transition: 0.3s ease;
+
+	transform: rotate(.001deg); 
+	-webkit-transform: rotate(.001deg); 
+	-moz-transform: rotate(.001deg); 
+
 	opacity: 100;
 	visibility: hidden;
 	overflow: auto;
@@ -343,6 +349,7 @@ body{
 	appearance: none;
 	font-size: 14px;
 	letter-spacing: -0.7px;
+	padding-right: 7px;
 }
 .select_group a{
 	background: url(../img/common/ico_select-arrow.png) no-repeat 15px 10px;
@@ -355,8 +362,9 @@ body{
 	overflow: auto;
 	position: fixed;
 	width: 100%;
+	left: 0;
 	height: 0;
-	margin-top: 13.4px;
+	margin-top: 17.8px;
 	background-color: #fafafa;
 	display: flex;
 	align-items: center;
@@ -365,7 +373,6 @@ body{
 .passenger dl{
 	display: flex;
 	font-size: 12px;flex-direction: column;
-
 	padding-right: 20px;
 }
 .passenger dl dd{
@@ -376,28 +383,37 @@ body{
 
 /*가는여정과 비행시간*/
 
+
+.select_txt{
+	padding: 5px 12px 5px 12px;
+	border-radius: 15px;
+	border: 1px solid #ccc;
+	margin-left: 20px;
+}
+
 .select_txt span{
 	font-size: 13px;
 	margin: 0 1px;
 	display:inline-block
 }
-
-.select_txt span:first-child{
+.select_txt span:nth-child(1){
+	margin-right: 6px;
+	color: #00aae7;
+}
+.select_txt span:nth-child(2){
 	background: url(../img/common/ico_airplane.png) no-repeat center right / 15px 15px;
 	padding: 0 22px 0px 0px;
 }
-
-.select_txt span:nth-child(2)
-{
- margin-right:8px;
-}
-
 .contents{
 	padding-top: 150px;
 	position: relative;
 	margin: 0 auto;
-	transition-duration: 0.3s;	
-	
+	transition-duration: 0.3s;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	transform: rotate(.001deg); 
+	-webkit-transform: rotate(.001deg); 
+	-moz-transform: rotate(.001deg); 
 }
 
 .separate200{
@@ -428,6 +444,8 @@ body{
 .seat_sheet{
 	position: relative;
 	transition: all 1s ease;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
 	top: -490px;
 }
 
@@ -575,6 +593,9 @@ body{
 	width: 294px;
 	height: 675px;
 	transition: 0.3s all;
+	-webkit-transition: 0.3s all;
+	-moz-transition: 0.3s all;
+	
 	top: 10px;
 	z-index: -1;
 }
@@ -609,7 +630,7 @@ body{
 	top: 130px;
 	left: 72px;
 	width: 100px;
-	font-size: 7px;
+	font-size: 10px;
 	color: #444;
 	font-family: 'RobotoM';
 }
@@ -632,10 +653,11 @@ body{
 
 }
 .seat_sheet_number li{
-	padding-bottom: 5.1px;
+	line-height: 14.9px;
 }
 .seat_sheet_number li:nth-child(15){
-	padding-bottom: 11px;
+	padding-top: 1px;
+	padding-bottom: 6.5px;
 }
 
 .seat_sheet_price_box .skybox{
@@ -966,6 +988,9 @@ body{
 	letter-spacing: -0.6px;
 	display: inline-block;
 	transition: 0.2s all;
+	-webkit-transition: 0.2s all;
+	-moz-transition: 0.2s all;
+	
 }
 /* 주황색으로 표시할때*/
 .seat_orange{
@@ -979,6 +1004,8 @@ body{
 	background-color: #f5581a;
 	border-bottom: 5px solid #CE3802;
 	transition: 0.2s all;
+	-webkit-transition: 0.2s all;
+	-moz-transition: 0.2s all;
 }
 
 .seat_sheet li a.seat_active::after{	
@@ -995,6 +1022,8 @@ body{
 	background-color: #08a7e1;
 	border-bottom: 5px solid #008cc1;
 	transition: 0.2s all;
+	-webkit-transition: 0.2s all;
+	-moz-transition: 0.2s all;
 
 }
 .seat_sheet li a.seat_active_blue::after{
@@ -1280,6 +1309,8 @@ body{
 	border-top: 1px solid #BBBBBB;
 	display: flex;
 	justify-content: space-between;
+	
+	align-items: center;
 	padding: 15px 20px;
 	font-size: 13px;
 	border-bottom: 1px solid #eeeeee;
@@ -1291,9 +1322,24 @@ body{
 .pay_gro span:nth-last-child(1){
 	color: #F5581A;
 }
-.pay_gro span:nth-last-child(1):before {
+.pay_gro strong span:before {
 	content: "￦";
 }
+
+.pay_gro div button{
+	border-radius: 3px;
+	margin-left: 8px;
+	border: 1px solid #ddd;
+	padding: 0 3px 0 18px;
+	width: 55px;
+	height: 20px;
+	color: #222222;
+	font-size: 12px;
+	font-family: 'Labdigital';
+	background: url(../img/common/ico_heart.png) no-repeat left 7px top 50% / 8px 7px;
+	
+}
+
 
 .pay_group {
 	padding: 5px 20px;
@@ -1494,6 +1540,8 @@ body{
 	margin: 0;
 	padding: 0;
 	transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);
+	-webkit-transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);
+	-moz-transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);
 	top: 101%;
 	position: fixed;
 	left: 0;

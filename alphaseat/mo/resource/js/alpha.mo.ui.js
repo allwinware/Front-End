@@ -116,20 +116,23 @@ $(document).ready(function () {
 	/*좌석선택 오렌지*/
 	$(document).on("click", ".seat_btn", function () {
 		$(this).addClass("seat_active");
-		
+		$(".seat_num .seat_active span").css("display", "none");
 	});
 
 	$(document).on("click", ".seat_active", function () {
 		$(this).removeClass("seat_active");
+		$(".seat_num .seat_btn span").css("display", "block");
 	});
 
 	/*좌석선택 블루*/
 	$(document).on("click", ".seat_btn_blue", function () {
 		$(this).addClass("seat_active_blue");
+		$(".seat_num .seat_active_blue span").css("display", "none");
 	});
 
 	$(document).on("click", ".seat_active_blue", function () {
 		$(this).removeClass("seat_active_blue");
+		$(".seat_num .seat_btn_blue span").css("display", "block");
 	});
 
 	/*gnb 팝업 정의*/
@@ -185,6 +188,9 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_price_box').remove();
 		$('.slider1 .seat_sheet_recom_box').remove();
 		$('.slider1 .seat_sheet_loading').remove();
+		$('.air_logo').remove();
+
+		
 
 		$('.slider1 .seat_sheet_touch').remove();
 		$('.slider1 .digital_loading').remove();
@@ -206,6 +212,8 @@ $(document).ready(function () {
 		$('.slider2 .seat_sheet_price_box').remove();
 		$('.slider2 .seat_sheet_recom_box').remove();
 		$('.slider2 .seat_sheet_loading').remove();
+		$('.air_logo').remove();
+
 
 		$('.slider2 .seat_sheet_touch').remove();
 		$('.slider2 .digital_loading').remove();
