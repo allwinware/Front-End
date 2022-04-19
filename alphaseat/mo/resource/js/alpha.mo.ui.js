@@ -90,19 +90,28 @@ var seatCtl	= {
 /*상단 셀렉트 그룹*/
 $(document).ready(function () {
 
+	var height_ac1 = $('.seat_sheet_bg.ac1').css("height");
+	var height_ac2 = $('.seat_sheet_bg.ac2').css("height");
+
 	/*가는편 오는편*/
 	$(document).on("click", "#ags-wrap", function () {
 		$("#con_slider").addClass("active");
 		$("#ags-wrap").css("display", "none");
 		$("#ags-wrap-back").css("display", "block");
-/*
-		if ($('.seat_sheet_bg.ac1').css("height") == "100%") {
-			
+
+		var height_click1 = $('.seat_sheet_bg.ac1').css("height");
+
+	//	alert("경고창(1)" + height_ac1);
+	//	alert("경고창(1)" + height_click1);
+
+		if (height_ac1 != height_click1) {
+			$('.seat_sheet_bg.ac2').css(height_ac1);
+			$('.seat_sheet_bg.ac2').css('overflow', 'hidden');
 		} else {
-			$('.seat_sheet_bg.ac2').css('height', '100vh');
-			$('.contents').css('overflow', 'hidden');
+			//alert("경고창2");
+			$('.seat_sheet_bg.ac2').css(height_ac2);
 		}
-*/
+
 		seatCtl.setScrollEvent();
 	});
 
@@ -260,20 +269,6 @@ $(document).ready(function () {
 		}, 400);
 	});
 	
-	
-	/*카드결제 슬라이드
-
-	$(".card_slider").click(function () {
-		
-		$(this).next("#card_slider_box").stop().slideToggle(300);
-		$(this).toggleClass('on').siblings().removeClass('on');
-		$(this).next("#card_slider_box").siblings("#card_slider_box").slideUp(300); // 1개씩 펼치기
-	 
-		$('#card_slider_box').stop().slideToggle(300);
-		$(this).toggleClass('on').siblings().removeClass('on');
-		$('#card_slider_box').siblings("#card_slider_box").slideUp(300); // 1개씩 펼치기
-	});
-	*/
 	/*약관동의*/
 	$(".credit_box_btn").click(function () {
 		var _self	= this;
@@ -294,17 +289,7 @@ $(document).ready(function () {
 
 		});
 	});
-/*
 
-	$(".credit_box_right").click(function () {
-
-		$('#credit_agree_box_content').stop().slideToggle(300);
-		$(this).toggleClass('on').siblings().removeClass('on');
-		$('#credit_agree_box_content').siblings("#credit_agree_box_content").slideUp(300); // 1개씩 펼치기
-	});
-*/
-
-	/*$('.contents').addClass("ovrFlw");*/
 
 });
 
