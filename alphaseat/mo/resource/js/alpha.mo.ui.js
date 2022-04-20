@@ -98,21 +98,41 @@ $(document).ready(function () {
 		$("#con_slider").addClass("active");
 		$("#ags-wrap").css("display", "none");
 		$("#ags-wrap-back").css("display", "block");
+		seatCtl.setScrollEvent();
 
 		var height_click1 = $('.seat_sheet_bg.ac1').css("height");
+		var height_click2 = $('.seat_sheet_bg.ac2').css("height");
 
-	//	alert("경고창(1)" + height_ac1);
-	//	alert("경고창(1)" + height_click1);
+		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
+		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
 
 		if (height_ac1 != height_click1) {
-			$('.seat_sheet_bg.ac2').css(height_ac1);
-			$('.seat_sheet_bg.ac2').css('overflow', 'hidden');
-		} else {
-			//alert("경고창2");
-			$('.seat_sheet_bg.ac2').css(height_ac2);
-		}
+			//alert("1_1");
 
-		seatCtl.setScrollEvent();
+			if (height_ac2 != height_click2) {
+				//alert("2_1");
+				
+				$('.seat_sheet_bg.ac2').css('height', '100%');
+	
+			} else {
+				//alert("2_2");	
+				$('.contents').css('overflow', 'hidden');
+				$('.seat_sheet_bg.ac1').css('height', '100vh');
+			}
+
+		} else {
+			//alert("1_2");
+
+			if (height_ac2 != height_click2) {
+				//alert("2_1");
+	
+			} else {
+				//alert("2_2");	
+				$('.seat_sheet_bg.ac2').css('height', '100%');
+			}
+
+		}
+		
 	});
 
 	$(document).on("click", "#ags-wrap-back", function () {
@@ -120,7 +140,62 @@ $(document).ready(function () {
 		$("#ags-wrap-back").css("display", "none");
 		$("#ags-wrap").css("display", "block");
 		seatCtl.setScrollEvent();
+
+		var height_click1 = $('.seat_sheet_bg.ac1').css("height");
+		var height_click2 = $('.seat_sheet_bg.ac2').css("height");
+			
+		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
+		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
+
+		if (height_ac2 != height_click2) {
+			//alert("2_1");
+			
+			if (height_ac1 != height_click1) {
+				//alert("1_1");
+				$('.contents').css('overflow', 'hidden');
+				$('.seat_sheet_bg.ac2').css('height', '100vh');
+			} else {
+				//alert("1_2");	
+				$('.seat_sheet_bg.ac1').css('height', '100%');
+			}
+
+		} else {
+			//alert("2_2");
+
+			$('.seat_sheet_bg.ac1').css('height', '100%');
+
+
+		}
+
 	});
+
+
+	/*부가서비스 가는편 오는편--------------------------------*/
+	$(document).on("click", "#service-come", function () {
+		$("#sor_slider").removeClass("active");
+		$(".service-come_btn").css("color","#222");
+		$(".service-come_btn").css("border-bottom","1px solid #222");
+		$(".service-back_btn").css("border-bottom","none");
+		$(".service-back_btn").css("color","#aaa");		
+		
+		seatCtl.setScrollEvent();
+		
+	});
+
+	$(document).on("click", "#service-back", function () {
+		$("#sor_slider").addClass("active");				
+		$(".service-come_btn").css("color","#aaa");
+		$(".service-back_btn").css("color","#222");
+		$(".service-come_btn").css("border-bottom","none");
+		$(".service-back_btn").css("border-bottom","1px solid #222");
+
+		seatCtl.setScrollEvent();
+
+	});
+
+
+
+
 
 	/*좌석선택 오렌지*/
 	$(document).on("click", ".seat_btn", function () {
