@@ -4,6 +4,9 @@ html, body{
 	overflow-x: hidden;
 	max-width:100%;
 }
+.digits:before{
+	content: "￦";
+}
 
 .site-name {
 	position: absolute;
@@ -735,6 +738,7 @@ html, body{
 .seat_sheet_recom_box .recom_num.type1 a {
 	height: 30px;
 	clip-path: polygon(0 0, 100% 0, 100% 100%, 51% 100%, 51% 59%, 0 59%);
+	-webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 51% 100%, 51% 59%, 0 59%);
 	position: absolute;
 	top:29px;
 }
@@ -743,6 +747,7 @@ html, body{
 .seat_sheet_recom_box .recom_num.type1s a {
 	height: 58.5px;
 	clip-path: polygon(0 0, 50% 0, 50% 21%, 100% 21%, 100% 100%, 0 100%);
+	-webkit-clip-path: polygon(0 0, 50% 0, 50% 21%, 100% 21%, 100% 100%, 0 100%);
 	position: absolute;
 	top: 47.5px;
 }
@@ -759,12 +764,14 @@ html, body{
 .seat_sheet_recom_box .recom_num.type1_2 a {
 	height: 34px;
 	clip-path: polygon(0 0, 100% 0, 100% 59%, 49% 59%, 49% 100%, 0 100%);
+	-webkit-clip-path: polygon(0 0, 100% 0, 100% 59%, 49% 59%, 49% 100%, 0 100%);
 	position: absolute;
 	top: 29px;
 }
 .seat_sheet_recom_box .recom_num.type1s_2 a {
 	height: 56.5px;
 	clip-path: polygon(0 24.5%, 50% 24.5%, 50% 0, 100% 0, 100% 100%, 0 100%);
+	-webkit-clip-path: polygon(0 24.5%, 50% 24.5%, 50% 0, 100% 0, 100% 100%, 0 100%);
 	/* background: #08A7E1; */
 	position: absolute;
 	top: 50px;
@@ -1048,7 +1055,7 @@ html, body{
 
 /*좌석 이미지 클릭 코드*/
 .seat_num{
-	padding-top: 5px;
+	padding-top: 7px;
 }
 
 .seat_sheet li{
@@ -1811,10 +1818,6 @@ html, body{
 	-moz-transition-duration: 0.3s;
 }
 
-.service_contents .slider1, .slider2{
-	
-}
-
 .service_contents .service_con_txt1{
 	font-size: 13px;
 	font-family: 'NotoSansR';
@@ -2022,17 +2025,15 @@ html, body{
 	width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
-    vertical-align: middle;
     display: block;
     line-height: 18px;
 	height: 25px;
 	padding: 0 16px 0 0;
 }
+
 .food_warp input[type=radio]:checked+dl dd label{
 	color: #000;
 }
-
-
 
 .food_warp ul li dl dt{
 	position: absolute;
@@ -2066,11 +2067,107 @@ html, body{
 .food_warp_txt1 input[type="radio"] + label i {
     margin-right: 3px;	
 }
-
-.food_item{
-	padding: 10px 16px;
+.food_menu{
+	position: relative;
+	padding: 10px 16px;	
+	font-family:'NotoSansR';
+	width: 100%;
+    height: 115px;
+	border-bottom: 1px solid #e4e4e4;
 }
 
+.food_menu dt{
+	position: absolute;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.food_menu .food_name + dd{
+	position: absolute;
+	top: 16px;
+    left: 110px;
+	font-size: 14px;
+}
+.food_menu .food_explane + dd{
+	position: absolute;
+	top: 40px;
+    left: 110px;
+	font-size: 12px;
+	color:#888;
+	line-height: 16px;
+	letter-spacing: -0.6px;
+	
+}
+.food_menu .food_price1 + dd{
+	position: absolute;
+	top: 85px;
+    left: 110px;
+	font-size: 13px;
+	color: #ff4f24;
+	font-family:'NotoSansM';
+	
+}
+.food_menu .food_price2 + dd{
+	position: absolute;
+	top: 85px;
+    left: 170px;
+	font-size: 13px;
+	text-decoration: line-through;
+	color: #aaa;
+}
+.food_menu .food_thumbnail{
+	overflow: hidden;
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid #f0f0f0;
+	
+}
+.food_menu .food_thumbnail img{
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    height: auto;
+}
+
+/*음식 앞 아이콘*/
+
+.food_menu .food_name + dd .new{
+	background-color: #ff4378;
+	color: #fff;
+	font-size: 9px;
+	font-family: 'RobotoL';
+	padding: 2px 3px;
+	letter-spacing: -0.4px;
+}
+.food_menu .food_name + dd .best{
+	background-color: #2a2167;
+	color: #fff;
+	font-size: 9px;
+	font-family: 'RobotoL';
+	padding: 2px 3px;
+	letter-spacing: -0.4px;
+}
+
+
+
+input[id="food_item_btn1"] + label{
+	position: absolute;
+	top: 16px;
+	right: 16px;
+}
 input[id="food_item_btn1"] + label i:before{
 	content: "";
     position: absolute;
@@ -2783,11 +2880,12 @@ input[type="checkbox"] + label i{
 	line-height: 16px;
 	border:1px solid #ddd;
 	border-radius: 50%;
-	margin-right: 8px;
+	margin-right: 5px;
 	transition: all 0.5s;
 	-moz-transition: all 0.5s;
 	-webkit-transition: all 0.5s;	
 }
+
 input[id="check1"] + label i:before{
 	content: "";
     position: absolute;
