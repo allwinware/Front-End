@@ -1,3 +1,39 @@
+/*HTML Include*/
+function includeHTML(callback) {
+    var z, i, elmnt, file, xhr;
+    /*loop through a collection of all HTML elements:*/
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-html");
+        if (file) {
+            /*make an HTTP request using the attribute value as the file name:*/
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        elmnt.innerHTML = this.responseText;
+                    }
+                    if (this.status == 404) {
+                        elmnt.innerHTML = "Page not found.";
+                    }
+                    /*remove the attribute, and call this function once more:*/
+                    elmnt.removeAttribute("include-html");
+                    includeHTML(callback);
+                }
+            };
+            xhr.open("GET", file, true);
+            xhr.send();
+            /*exit the function:*/
+            return;
+        }
+    }
+    setTimeout(function () {
+        callback();
+    }, 0);
+}
+
 // 레이어팝업
 function layerPop(id) {
 	var $el = $('#' + id);
@@ -272,7 +308,8 @@ $(document).ready(function () {
 	});
 
 	/*스케일*/
-	$('.trigger_1').on('click', function () {
+	$(document).on("click",".trigger_1", function () {
+		console.log("2222");
 		$('.scale_type_1').toggleClass('scale');
 		$('.scale_type_1').css('top', '0px');
 		$('.contents').css('overflow-y', 'scroll');
@@ -297,7 +334,7 @@ $(document).ready(function () {
 		seatCtl.setScrollEvent();
 		return false;
 	});
-	$('.trigger_2').on('click', function () {
+	$(document).on("click",".trigger_2", function () {
 		$('.scale_type_2').toggleClass('scale');
 		$('.scale_type_2').css('top', '0px');
 		$('.contents').css('overflow-y', 'scroll');
