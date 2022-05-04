@@ -318,7 +318,12 @@ $(document).ready(function () {
 		
 		$('.slider1 .seat_sheet_number').remove();
 		$('.slider1 .seat_sheet_abcdef').remove();
+		$('.slider1 .airplane_bg_front').remove();
+		$('.slider1 .airplane_bg_end').remove();
 		$('.slider1 .airplane_bg').remove();
+
+
+
 		$('.slider1 .seat_sheet_price_box').remove();
 		$('.slider1 .seat_sheet_recom_box').remove();
 		$('.slider1 .seat_sheet_loading').remove();
@@ -343,7 +348,9 @@ $(document).ready(function () {
 		
 		$('.slider2 .seat_sheet_number').remove();
 		$('.slider2 .seat_sheet_abcdef').remove();
-		$('.slider2 .airplane_bg').remove();
+		$('.slider2 .airplane_bg').remove();		
+		$('.slider2 .airplane_bg_front').remove();
+		$('.slider2 .airplane_bg_end').remove();
 		$('.slider2 .seat_sheet_price_box').remove();
 		$('.slider2 .seat_sheet_recom_box').remove();
 		$('.slider2 .seat_sheet_loading').remove();
