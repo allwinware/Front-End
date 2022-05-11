@@ -562,7 +562,13 @@ $(document).ready(function () {
         }, 500);
 
     });
-
+    /*왼쪽 좌석 클릭 색상*/
+    $(document).on("click", ".planscroll", function () {
+		$(this).addClass("left_active");
+	});
+    $(document).on("click", ".left_active", function () {
+		$(this).removeClass("left_active");
+	});
 });
 
 // 레이어팝업
