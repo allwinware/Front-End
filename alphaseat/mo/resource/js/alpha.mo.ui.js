@@ -231,7 +231,15 @@ $(document).ready(function () {
 	});
 
 
+	
+	/*블락싯 슬라이드 go*/
+	$(document).on("click", ".block_btn_go", function () {
+		$(this).addClass("block_active");
+	});
 
+	$(document).on("click", ".block_active", function () {
+		$(this).removeClass("block_active");
+	});
 
 
 	/*좌석선택 오렌지*/
@@ -295,6 +303,7 @@ $(document).ready(function () {
 		$("body").css("overflow", "");
 	});
 	
+	
 	/*상단 내려오는 슬라이드*/
 	$('.select_group_btn').click(function () {
 		if ($('.passenger').css("height") == "55px") {
@@ -310,7 +319,7 @@ $(document).ready(function () {
 
 	/*스케일*/
 	$(document).on("click",".trigger_1", function () {
-		console.log("2222");
+		console.log("trigger_1");
 		$('.scale_type_1').toggleClass('scale');
 		$('.scale_type_1').css('top', '0px');
 		$('.contents').css('overflow-y', 'scroll');
@@ -341,6 +350,7 @@ $(document).ready(function () {
 		return false;
 	});
 	$(document).on("click",".trigger_2", function () {
+		console.log("trigger_2");
 		$('.scale_type_2').toggleClass('scale');
 		$('.scale_type_2').css('top', '0px');
 		$('.contents').css('overflow-y', 'scroll');
@@ -404,6 +414,23 @@ $(document).ready(function () {
 
 		});
 	});
+
+	$(".block_group_btn").click(function () {
+		var _self	= this;
+//alert(		$(_self).attr("agrBtn")	);
+		$("div [agrLt]").each(function(idx, obj) {
+			if( _self == $("div [agrBtn]").get(idx) && $(obj).hasClass("on") == false) {
+				$('.block_group_btn').eq(idx).addClass('on');
+				$(obj).addClass("on").slideDown(300);
+			} else {
+				$('.block_group_btn').eq(idx).removeClass('on');			
+				$(obj).removeClass("on").slideUp(300);				
+
+			}
+
+		});
+	});
+	
 
 
 });
