@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <title>부가서비스 취소 / 환불 < 마이페이지 < AGS</title>
+    <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
+    
+    <link rel="stylesheet" href="../resource/css/contents.css">
+    <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
+    <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resource/js/selectric/jquery.selectric.min.js"></script>
+    <script type="text/javascript" src="../resource/js/alpha.pc.ui.js"></script>
+</head>
+<body>
+<main role="main" class="ags-wrap">
+    <h1 class="site-name">올윈에어 Ancillary Gateway Service</h1>
+    <!-- 서비스정보(include/ags-header.html) -->
+    <header id="ags-header" class="ags-header"></header>
+
+    <hr>
+
+    <section id="ags-container" class="ags-container" data-page-id="my_refund_anc">
+        <header class="my-title-wrap">
+            <div class="content-wrap">
+                <h2 class="sr-only">서브 네비게이션</h2>
+                <h3 class="page-name">부가서비스 취소 / 환불</h3>
+                <!-- 분기 1 : 국내선일 때 -->
+                <!--<div class="ticket-info">
+                    <h3 class="sr-only">티켓 정보</h3>
+                    <dl class="airport">
+                        <dt class="departure">출발지</dt>
+                        <dd>서울(김포) <span class="iata-code">GMP</span></dd>
+                        <dt class="arrival">도착지</dt>
+                        <dd>부산 <span class="iata-code">PUS</span></dd>
+                    </dl>
+                    <dl class="detail-info">
+                        <dt class="resv-num">예약번호</dt>
+                        <dd>JR2RMT</dd>
+                        <dt class="price">총 결제요금</dt>
+                        <dd><span class="digits">124000</span></dd>
+                        <dt class="airline">항공사</dt>
+                        <dd>제주항공</dd>
+                        <dt class="schedule">여정</dt>
+                        <dd>2020.11.16(월)</dd>
+                        <dt class="pay-dnt">결제일시</dt>
+                        <dd>2020.10.03(수) 16:10</dd>
+                    </dl>
+                </div>-->
+                <!-- 분기 2 : 국제선일 때 -->
+                <div class="ticket-info">
+                    <h3 class="sr-only">티켓 정보</h3>
+                    <dl class="airport">
+                        <dt class="departure">출발지</dt>
+                        <dd>인천 <span class="iata-code">ICN</span></dd>
+                        <dt class="arrival">도착지</dt>
+                        <dd>하네다 <span class="iata-code">HND</span></dd>
+                    </dl>
+                    <dl class="detail-info">
+                        <dt class="type">티켓 유형</dt>
+                        <dd>왕복</dd>
+                        <dt class="resv-num">예약번호</dt>
+                        <dd>JR2RMT</dd>
+                        <dt class="price">총 결제요금</dt>
+                        <dd><span class="digits">124000</span></dd>
+                        <dt class="airline">항공사</dt>
+                        <dd>제주항공</dd>
+                        <dt class="schedule">여정</dt>
+                        <dd>2020.11.16(월) ~ 2020.11.23(월)</dd>
+                        <dt class="passenger">탑승객</dt>
+                        <dd><strong class="passenger-name">Bae, Sungjune</strong>님 외 2명</dd>
+                        <dt class="pay-dnt">결제일시</dt>
+                        <dd>2020.10.03(수) 16:10</dd>
+                    </dl>
+                </div>
+                <div class="process-btn-wrap">
+                    <a href="#none" target="_self" class="btn_resv-cancel">전체 취소하기</a>
+                </div>
+                <div class="notification-text">
+                    부가서비스 상담은 올윈에어 <strong class="text-underline">고객센터</strong>를 이용해주세요.
+                    <dl class="help-desk">
+                        <dt class="tel">고객센터</dt>
+                        <dd>1522-4148</dd>
+                        <dt class="working-time">운영시간</dt>
+                        <dd>평일 9:30~17:00 / 점심시간 12:00~13:00</dd>
+                    </dl>
+                </div>
+            </div>
+        </header>
+
+        <hr>
+
+        <div class="content-wrap">
+            <h2 class="sr-only">컨텐츠 본문</h2>
+
+            <!--
+                1. 국제선은 가는 편 / 오는 편 부가서비스를 한 번에 결제하므로 구매내역에 따라 가는 편 / 오는 편 두 개의 테이블이 동시에 나타날 수 있습니다.(.total-price 부분도 마찬가지로 왕복 표시 가능)
+                2. 국내선은 가는 편 / 오는 편 부가서비스를 따로 결제하므로 가는 편 / 오는 편 테이블이 동시에 나타나지 않습니다.
+                3. 국내선은 가는 편 결제금액 / 오는 편 결제금액 텍스트를 '결제금액'으로, 가는 편 총 환불 예정금액 / 오는 편 총 환불 예정금액 텍스트를 '총 환불 예정금액'으로, 가는 편 전체선택 / 오는 편 전체선택을 '전체선택'으로 표시합니다.
+                4. 그 외의 모든 사항은 국제선 & 국내선 동일합니다.
+                5. 최하단의 총 합계금액 표시(.total-wrap)는 국제선일 때만 표시합니다.
+                6. 1 ~ 5의 사항은 결제완료 페이지, 마이페이지(나의 예약/결제 내역) 상세, 부가서비스 취소 페이지에 동일하게 적용됩니다.
+             -->
+            <article class="my-history-detail-wrap">
+                <h3 class="my_pay-title">탑승객별 부가서비스 구매 내역</h3>
+                <div class="receipt-wrap">
+
+                    <!-- 분기 1 : 국제선일 때 -->
+                    <h4 class="receipt-title">인천<i class="ico_airplane">&rarr;</i>하네다 <i class="ico_tag">TW703</i></h4>
+                    <input type="checkbox" name="check-group1" id="check-all1" class="sr-only" data-checked="all">
+                    <label for="check-all1" class="btn_check-all">가는 편 전체 선택</label>
+                    <!-- 분기 2 : 국내선일 때 -->
+                    <!--<h4 class="receipt-title">서울(김포)<i class="ico_airplane">&rarr;</i>부산 <i class="ico_tag">7C522</i></h4></h4>
+                    <input type="checkbox" name="check-group1" id="check-all1" class="sr-only" data-checked="all">
+                    <label for="check-all1" class="btn_check-all">전체 선택</label>-->
+                    <table>
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tfoot>
+                        <tr>
+                            <!-- 분기 1 : 국제선일 때 --><td colspan="5"><i class="ico_tag">가는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>
+                            <!-- 분기 2 : 국내선일 때 --><!--<td colspan="5"><i class="ico_tag">총 환불 예정금액</i> <span class="digits">999000</span></td>-->
+                        </tr>
+                        </tfoot>
+                        <thead>
+                        <tr>
+                            <th scope="col">탑승객명</th>
+                            <th scope="col">구매 항목</th>
+                            <th scope="col">가능여부</th>
+                            <th scope="col">결제금액</th>
+                            <th scope="col">결제상태</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- 번들을 선택한 고객일 때 -->
+                        <tr>
+                            <th scope="rowgroup" class="passenger-name">Bae, Sungjune</th>
+                            <td colspan="4">
+                                <dl class="bundle-type2">
+                                    <dt class="bundle-name">번들명</dt>
+                                    <dd><label for="check101">트리플팩</label></dd>
+                                    <dd class="refund0315" aria-label="가능여부">취소가능</dd>
+                                    <dt class="bundle-price">금액</dt>
+                                    <dd><span class="digits">55000</span></dd>
+                                    <dt class="bundle-status">결제상태</dt>
+                                    <dd>결제완료</dd>
+                                    <dt class="bundle-refund">번들취소</dt>
+                                    <dd><input type="checkbox" name="check-group1" id="check101"><label for="check101"><i class="ico"></i></label></dd>
+                                </dl>
+                                <dl>
+                                    <!-- 사전 좌석 -->
+                                    <dt>사전 좌석</dt>
+                                    <dd class="pay">E4(A구역)</dd>
+                                    <!-- 수하물 -->
+                                    <dt>수하물</dt>
+                                    <dd class="pay">15kg</dd>
+                                    <!-- 기내식 -->
+                                    <dt>기내식</dt>
+                                    <dd class="pay">햄치즈 샌드위치</dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        <!-- 번들을 선택하지 않은 고객일 때 -->
+                        <tr>
+                            <th scope="rowgroup" class="passenger-name">Son, Seungwan</th>
+                            <td colspan="4">
+                                <dl>
+                                    <!-- 사전 좌석 -->
+                                    <dt><input type="checkbox" name="check-group1" id="check105"><label for="check105"><i class="ico"></i>사전 좌석</label></dt>
+                                    <dd class="pay">E4(A구역)</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="사전 좌석 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 수하물 -->
+                                    <dt><input type="checkbox" name="check-group1" id="check106" disabled="disabled"><label for="check106"><i class="ico"></i>수하물</label></dt>
+                                    <dd class="pay">15kg</dd>
+                                    <dd class="refund" aria-label="가능여부">
+                                        <span class="text-emphasis">취소불가 <a href="#none" target="_self" class="btn_help">도움말</a></span>
+                                    </dd>
+                                    <dd class="price" aria-label="수하물 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 기내식 -->
+                                    <dt><input type="checkbox" name="check-group1" id="check107" disabled="disabled"><label for="check107"><i class="ico"></i>기내식</label></dt>
+                                    <dd class="pay">핑크퐁 도시락</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="기내식 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 라운지이용권 -->
+                                    <!--<dt><input type="checkbox" name="check-group1" id="check108"><label for="check108"><i class="ico"></i>라운지이용권</label></dt>
+                                    <dd class="pay">쿠폰번호 A12345678</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="라운지이용권 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>--><!-- 제주항공 탑승객 중 라운지 구매 고객만 해당함 -->
+                                </dl>
+                            </td>
+                        </tr>
+                        <!-- 번들을 선택한 고객일 때 -->
+                        <tr>
+                            <th scope="rowgroup" class="passenger-name">Kim, Taehyeong</th>
+                            <td colspan="4">
+                                <dl class="bundle-type3">
+                                    <dt class="bundle-name">번들명</dt>
+                                    <dd><label for="check109">멀티팩</label></dd>
+                                    <dt class="bundle-price">금액</dt>
+                                    <dd><span class="digits">55000</span></dd>
+                                    <dt class="bundle-status">결제상태</dt>
+                                    <dd>결제완료</dd>
+                                    <dt class="bundle-refund">번들취소</dt>
+                                    <dd><input type="checkbox" name="check-group1" id="check109"><label for="check109"><i class="ico"></i></label></dd>
+                                </dl>
+                                <dl>
+                                    <!-- 사전 좌석 -->
+                                    <dt>사전 좌석</dt>
+                                    <dd class="pay">E4(A구역)</dd>
+                                    <!-- 수하물 -->
+                                    <dt>수하물</dt>
+                                    <dd class="pay">20kg</dd>
+                                    <!-- 기내식 -->
+                                    <dt>기내식</dt>
+                                    <dd class="pay">닭가슴살 샐러드와 소프트롤</dd>
+                                    <!-- 수하물우선처리 -->
+                                    <dt>수하물우선처리</dt>
+                                    <dd class="pay">제공</dd>
+                                    <!-- 전용카운터 -->
+                                    <dt>전용카운터</dt>
+                                    <dd class="pay">제공</dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="receipt-wrap">
+                    <!-- 분기 1 : 국제선일 때 -->
+                    <h4 class="receipt-title">하네다<i class="ico_airplane">&rarr;</i>인천 <i class="ico_tag">TW703</i></h4>
+                    <input type="checkbox" name="check-group2" id="check-all2" class="sr-only" data-checked="all">
+                    <label for="check-all2" class="btn_check-all">오는 편 전체 선택</label>
+                    <!-- 분기 2 : 국내선일 때 -->
+                    <!--<h4 class="receipt-title">부산<i class="ico_airplane">&rarr;</i>서울(김포) <i class="ico_tag">TW703</i></h4>
+                    <input type="checkbox" name="check-group2" id="check-all2" class="sr-only" data-checked="all">
+                    <label for="check-all2" class="btn_check-all">전체 선택</label>-->
+                    <table>
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tfoot>
+                        <tr>
+                            <!-- 분기 1 : 국제선일 때 --><td colspan="5"><i class="ico_tag">오는 편 총 환불 예정금액</i> <span class="digits">999000</span></td>
+                            <!-- 분기 2 : 국내선일 때 --><!--<td colspan="5"><i class="ico_tag">총 환불 예정금액</i> <span class="digits">999000</span></td>-->
+                        </tr>
+                        </tfoot>
+                        <thead>
+                        <tr>
+                            <th scope="col">탑승객명</th>
+                            <th scope="col">구매 항목</th>
+                            <th scope="col">가능여부</th>
+                            <th scope="col">결제금액</th>
+                            <th scope="col">결제상태</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="rowgroup" class="passenger-name">Bae, Sungjune</th>
+                            <td colspan="4">
+                                <dl>
+                                    <!-- 사전 좌석 -->
+                                    <dt><input type="checkbox" name="check-group2" id="check201"><label for="check201"><i class="ico"></i>사전 좌석</label></dt>
+                                    <dd class="pay">E4(A구역)</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="사전 좌석 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 수하물 -->
+                                    <dt><input type="checkbox" name="check-group2" id="check202"><label for="check202"><i class="ico"></i>수하물</label></dt>
+                                    <dd class="pay">15kg</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="수하물 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 기내식 -->
+                                    <dt><input type="checkbox" name="check-group2" id="check203" disabled="disabled"><label for="check203"><i class="ico"></i>기내식</label></dt>
+                                    <dd class="pay">핑크퐁 도시락</dd>
+                                    <dd class="refund" aria-label="가능여부"><span class="text-emphasis">취소불가</span></dd>
+                                    <dd class="price" aria-label="기내식 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 라운지이용권 -->
+                                    <!--<dt><input type="checkbox" name="check-group2" id="check204"><label for="check204"><i class="ico"></i>라운지이용권</label></dt>
+                                    <dd class="pay">쿠폰번호 A12345678</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="라운지이용권 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>--><!-- 제주항공 탑승객 중 라운지 구매 고객만 해당함 -->
+                                </dl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="rowgroup" class="passenger-name">Son, Seungwan</th>
+                            <td colspan="4">
+                                <dl class="bundle-type1">
+                                    <dt class="bundle-name">번들명</dt>
+                                    <dd><label for="check205">더블팩</label></dd>
+                                    <dt class="bundle-price">금액</dt>
+                                    <dd><span class="digits">17000</span></dd>
+                                    <dt class="bundle-status">결제상태</dt>
+                                    <dd>결제완료</dd>
+                                    <dt class="bundle-refund">번들취소</dt>
+                                    <dd><input type="checkbox" name="check-group2" id="check205"><label for="check205"><i class="ico"></i></label></dd>
+                                </dl>
+                                <dl>
+                                    <!-- 사전 좌석 -->
+                                    <dt>사전 좌석</dt>
+                                    <dd class="pay">E4(A구역)</dd>
+                                    <!-- 수하물 -->
+                                    <dt>수하물</dt>
+                                    <dd class="pay">0kg</dd>
+                                    <!-- 기내식 -->
+                                    <dt>기내식</dt>
+                                    <dd class="pay">불고기 또띠아</dd>
+                                </dl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="rowgroup" class="passenger-name">Kim, Taehyeong</th>
+                            <td colspan="4">
+                                <dl>
+                                    <!-- 사전 좌석 -->
+                                    <dt><input type="checkbox" name="check-group2" id="check209"><label for="check209"><i class="ico"></i>사전 좌석</label></dt>
+                                    <dd class="pay">E4(A구역)</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="사전 좌석 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 수하물 -->
+                                    <dt><input type="checkbox" name="check-group2" id="check210"><label for="check210"><i class="ico"></i>수하물</label></dt>
+                                    <dd class="pay">15kg</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="수하물 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 기내식 -->
+                                    <dt><input type="checkbox" name="check-group2" id="check211" disabled="disabled"><label for="check211"><i class="ico"></i>기내식</label></dt>
+                                    <dd class="pay">핑크퐁 도시락</dd>
+                                    <dd class="refund" aria-label="가능여부"><span class="text-emphasis">취소불가</span></dd>
+                                    <dd class="price" aria-label="기내식 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>
+                                    <!-- 라운지이용권 -->
+                                    <!--<dt><input type="checkbox" name="check-group2" id="check212"><label for="check212"><i class="ico"></i>라운지이용권</label></dt>
+                                    <dd class="pay">쿠폰번호 A12345678</dd>
+                                    <dd class="refund" aria-label="가능여부">취소가능</dd>
+                                    <dd class="price" aria-label="라운지이용권 금액"><span class="digits">99000</span></dd>
+                                    <dd class="status">결제완료</dd>--><!-- 제주항공 탑승객 중 라운지 구매 고객만 해당함 -->
+                                </dl>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 국제선일 때 -->
+                <div class="total-wrap">
+                    <h4 class="receipt-title">TOTAL</h4>
+                    <dl>
+                        <dt class="price">가는 편 환불금액</dt>
+                        <dd><span class="digits">999000</span></dd>
+                        <dt class="price">오는 편 환불금액</dt>
+                        <dd><span class="digits">999000</span></dd>
+                        <!--<dt class="fee">시스템 사용료</dt>
+                        <dd><span class="digits">999000</span></dd>--><!-- 마이너스가 필요할 때 사용합니다. -->
+                        <dt class="total-price">TOTAL 환불금액</dt>
+                        <dd><span class="digits">999000</span></dd>
+                    </dl>
+                </div>
+            </article>
+
+            <!-- 부가서비스 취소 / 환불 동의 -->
+            <div class="agreement-wrap">
+                <h3 class="agreement-title">부가서비스 취소 / 환불 동의</h3>
+                <ul class="agreement-list">
+                    <!-- 제주항공 사전 좌석 선택 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check301" name="check-group3"><label for="input-check301"><i class="ico"></i>제주항공 사전 좌석 선택 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check301" name="check-group3"><label for="input-check301"><i class="ico"></i>사전 좌석 선택 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="notification-wrap">
+                            <div class="table-wrap">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="colgroup" colspan="2">변경</th>
+                                        <th scope="colgroup" colspan="2">환불</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 2일 전</th>
+                                        <td>가능</td>
+                                        <th scope="row">출발 2일 전</th>
+                                        <td>가능</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                        <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">환불규정</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>사전 수하물 구매 : 최초 출발 시간 기준 24시간 전부터 환불 불가</li>
+                                                <li>환불 시 시스템 사용료 부과 / 인당, 편도 구간당 <span class="digits">1000</span></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">유의사항</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>최초 출발(여정 첫 구간) 출발 24시간 전까지만 구매 가능합니다.</li>
+                                                <li>항공권 예약/발권 완료 후 사전 좌석 구매가 가능합니다.</li>
+                                                <li>이미 구매한 탑승객의 경우 변경이 불가합니다. 변경을 원할 경우 취소 후 재구매 해주시기 바랍니다.</li>
+                                                <li>여정 변경 및 항공권 취소 시 구매한 부가서비스는 자동 취소되지 않으므로 별도 취소 요청을 해주셔야 합니다</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">비상구 좌석 배정 제한 규정</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <p class="notification-text">국토교통부 고시에 의거 비상구 좌석에 착석한 승객들이 비상시에 비상구 개발, 승무원의 지시에 따라 임무 수행 등 승무원을 돕도록 되어 있어 아래에 규정된 승객에게는 비상구 좌석 배정을 제한하고 있습니다.</p>
+                                            <ul class="notification-list">
+                                                <li>활동성, 체력 또는 양팔이나 두 손 및 양다리의 민첩성이 승무원의 지시를 수행하기에 충분치 않은 승객</li>
+                                                <li>만 15세 미만이거나 동반자의 도움 없이 승무원의 지시를 수행하기에 불충분한 승객</li>
+                                                <li>글 또는 그림으로 제공된 비상탈출에 관한 지시를 읽고 이해하지 못하거나 승무원의 구두지시를 이해하지 못하는 승객</li>
+                                                <li>콘텍트 렌즈나 안경을 제외한 다른 시력보조장비 없이는 승무원의 지시를 수행할 수 없는 승객</li>
+                                                <li>일반적인 보청기를 제외한 다른 청력보조장비 없이는 승무원의 탈출지시를 듣고 이해할 수 없는 승객</li>
+                                                <li>다른 승객들에게 정보를 적절하게 전달할 수 있는 능력이 부족한 승객</li>
+                                                <li>승객의 상태나 책임<i class="text-emphasis">(유소아 동반 승객, 임산부 승객, 노약자, 장애인 등)</i>이 비상시 승무원의 지시를 수행하는데 방해가 되거나 수행할 경우 해를 입게 되는 승객</li>
+                                            </ul>
+                                            <p class="notification-text">상기 규정된 승객에게는 비상구 좌석 배정을 제한 하고 있사오니, 제한 사항 확인 후 구매를 부탁드립니다.</p>
+                                            <p class="notification-text">비상구 좌석 구매 후 출발지 공항에서 비상구 착석 불가능한 승객이라고 판단될 경우 현장에서 임의로 취소될 수 있으며, 비상구 구매 승객에 한하여 웹 체크인 및 모바일 체크인이 불가능 합니다.</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 제주항공 사전 수하물 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check302" name="check-group3"><label for="input-check302"><i class="ico"></i>제주항공 사전 수하물 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check302" name="check-group3"><label for="input-check302"><i class="ico"></i>사전 수하물 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="notification-wrap">
+                            <div class="table-wrap">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="colgroup" colspan="2">변경</th>
+                                        <th scope="colgroup" colspan="2">환불</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 2일 전</th>
+                                        <td>가능</td>
+                                        <th scope="row">출발 2일 전</th>
+                                        <td>가능</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                        <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">위탁수하물 추가 구매 제외 대상</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>유아는 기본 위탁 제공(10kg) 외에 추가 수하물 구매 불가합니다.</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">유의사항</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>이미 구매한 탑승객의 경우 변경이 불가합니다. 변경을 원할 경우 취소 후 재구매 해주시기 바랍니다.</li>
+                                                <li>여정 변경 및 항공권 취소 시 구매한 부가서비스는 자동 취소되지 않으므로 별도 취소 요청을 해주셔야 합니다.</li>
+                                                <li>수하물은 구간별로 각각 구매할 수 있습니다.</li>
+                                                <li>사전 구매하신 수하물은 수속 카운터에서 위탁 접수시에만 사용/이용 가능합니다. (탑승게이트에서 사용 불가)</li>
+                                                <li>구매하신 수하물은 다른 고객에게 양도할 수 없습니다.</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 제주항공 사전 기내식 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check303" name="check-group3"><label for="input-check303"><i class="ico"></i>제주항공 사전 기내식 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check303" name="check-group3"><label for="input-check303"><i class="ico"></i>사전 기내식 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="notification-wrap">
+                            <div class="table-wrap">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="colgroup" colspan="2">변경</th>
+                                        <th scope="colgroup" colspan="2">환불</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 3일 전</th>
+                                        <td>가능</td>
+                                        <th scope="row">출발 3일 전</th>
+                                        <td>가능</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 2일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                        <th scope="row">출발 2일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">유의사항</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>최소 출발 3일전 까지 1인당 1메뉴에 한해 사전 주문이 가능합니다.</li>
+                                                <li>항공권 예약/발권 완료 후 기내식 사전 구매가 가능합니다.</li>
+                                                <li>이미 구매한 탑승객의 경우 변경이 불가합니다. 변경을 원할 경우 취소 후 재구매 해주시기 바랍니다.</li>
+                                                <li>당사에서 여정 변경 및 항공권 취소 시 구매한 부가서비스는 자동 취소(환불)되며 재구매가 가능합니다. (항공사에서 구매한 부가서비스는 항공사에서 별도 취소(환불) 필요)</li>
+                                                <li>노선별로 구매 가능한 메뉴가 상이하며, 노선에 따라 현지 상황에 맞춰 재료가 변경될 수 있습니다.</li>
+                                                <li>노선 별, 수량이 조기 품절될 수 있으며, 이미지는 제공되는 제품과 다를 수 있습니다.</li>
+                                                <li>모든 메뉴에는 견과류, 글루텐, 달걀 또는 유제품이 포함될 수 있습니다.</li>
+                                                <li>특정 식품에 대한 알레르기 또는 유사 증상이 있는 경우 반드시 메뉴별 상세정보를 확인하여 주시기 바랍니다.</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">취소/환불 규정</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>사전 기내식 주문의 경우 최초 출발 3일 전부터 환불이 불가합니다.</li>
+                                                <li>
+                                                    환불 시 시스템 사용료 부과 : 인당/편도 구간당/부가서비스당 온라인 1,000원
+                                                    <ul>
+                                                        <li>부가서비스 취소(환불) 시, 시스템 사용료를 제외한 금액 환불 (단, 당일 구매 후 취소 시, 시스템 사용료 면제)</li>
+                                                        <li>취소 가능 기간 이후, 구매 금액 전체 징수</li>
+                                                    </ul>
+                                                </li>
+                                                <li>당사에서 구매한 부가서비스만 취소/환불이 가능합니다. (항공사에서 직접 구매한 부가서비스 당사에서 취소/환불 불가)</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 제주항공 라운지 이용권 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check304" name="check-group3"><label for="input-check303"><i class="ico"></i>제주항공 라운지 이용권 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check304" name="check-group3"><label for="input-check304"><i class="ico"></i>라운지 이용권 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="notification-wrap">
+                            <div class="table-wrap">
+                                <table>
+                                <colgroup>
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="colgroup" colspan="2">변경</th>
+                                    <th scope="colgroup" colspan="2">환불</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row">출발 2일 전</th>
+                                    <td>가능</td>
+                                    <th scope="row">출발 2일 전</th>
+                                    <td>가능</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">출발 전일 23시 50분 ~ 출발 당일</th>
+                                    <td>불가</td>
+                                    <th scope="row">출발 전일 23시 50분 ~ 출발 당일</th>
+                                    <td>불가</td>
+                                </tr>
+                                <tr>
+                                    <th scope="colgroup" colspan="4">유의사항</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <ul class="notification-list">
+                                            <li>JJ 라운지 이용은 제주항공 운항 편 탑승시에 한하여 사용 가능합니다.</li>
+                                            <li>JJ 라운지 이용권 구매는 이용 예약일 전일 23시 50분까지 구매 가능합니다.</li>
+                                            <li>모든 JJ 라운지는 출발 운항편을 기준하여 반드시 제주항공 출발 예정일의 탑승권을 소지하셔야 합니다.</li>
+                                            <li>온라인 사전 구매 시 반드시 지정 사용일자에만 이용 가능합니다. (운영시간 : 06시~22시)</li>
+                                            <li>JJ 라운지 이용권 사용시 등록하였던 고객 실명정보와 사용자만 이용 가능합니다.</li>
+                                            <li>JJ 라운지 이용권 사용시 본인확인을 위해 반드시 유효한 여권 또는 신분증을 소지하여 주시기 바랍니다.</li>
+                                            <li>JJ 라운지 이용권은 공항공사 정책에 따라 현장구매는 불가하며, 온라인 구매 고객에 한해서 이용 가능합니다.</li>
+                                            <li>소아, 유아의 경우 사용시 생년월일을 확인할 수 있는 서류를 반드시 지참하여 주시기 바랍니다.</li>
+                                            <li>2세 미만의 유아는 무료 입장이 가능합니다.</li>
+                                            <li>JJ 라운지 이용권 번호의 도난, 분실 등에 대하여 당사는 책임을 지지 않으니 이점 주의하시기 바랍니다.</li>
+                                            <li>JJ 라운지 입장 전 원활한 입장을 위해 발급받으신 쿠폰번호 (인증번호)등을 미리 확인하여 주시기 바랍니다.</li>
+                                            <li>제휴카드 이용 고객께서는 사전에 해당카드사를 통해 입장 조건 및 서비스비용을 미리 확인하여 주시기 바랍니다.</li>
+                                            <li>JJ 라운지가 만석인 경우 입장이 제한될 수 있으니, 이점 미리 양해 부탁드립니다.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="colgroup" colspan="4">취소/환불 규정</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <ul class="notification-list">
+                                            <li>해당 JJ 라운지 이용권은 미사용시 자동소멸 되며, 환불처리 되지 않습니다.</li>
+                                            <li>구매 시 지정한 이용일 전일 23시 50분까지 취소/환불이 가능 합니다.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 티웨이항공 사전 좌석 선택 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check311" name="check-group3"><label for="input-check311"><i class="ico"></i>티웨이항공 사전 좌석 선택 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check311" name="check-group3"><label for="input-check311"><i class="ico"></i>사전 좌석 선택 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="notification-wrap">
+                            <div class="table-wrap">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="colgroup" colspan="2">변경</th>
+                                        <th scope="colgroup" colspan="2">환불</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 2일 전</th>
+                                        <td>가능</td>
+                                        <th scope="row">출발 2일 전</th>
+                                        <td>가능</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                        <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">환불규정</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>출발 2일전까지 사전좌석 환불 가능합니다. 단, 출발 2일이내 비행편의 취소 시에는 환불되지 않습니다.</li>
+                                                <li>여정 변경 시 좌석지정은 자동 환불되며, 재 구매가 가능합니다. (단 출발 2일 이내 출발편은 환불 불가합니다)</li>
+                                                <li>비상구열 좌석 선택시 탑승수속 과정에서 위 조건이 맞지 않는 경우, 좌석선택이 취소되며 환불 되지 않습니다.</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">유의사항</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>기종별 좌석 유형 차이로 인하여 항공기 배정에 따라 선택하신 좌석번호가 변경될 수 있습니다.</li>
+                                                <li>항공기 기종에 따라 좌석의 앞뒤, 좌우 간격이 상이할 수 있으며 일부 좌석의 경우 등받이, 팔걸이 고정 좌석입니다.</li>
+                                                <li>공동운항편은 좌석 구매가 불가합니다.</li>
+                                                <li>탑승수속 마감 20분 전 까지 수속을 마치지 않았을 경우 사전 지정된 좌석이 변경될 수 있으며, 금액은 환불되지 않습니다.</li>
+                                                <li>만 15세 미만 또는 한국어나 영어로 의사소통이 불가한 손님, 임산부, 유아 동반 손님, 노약자 등의 경우 비상구 열 좌석지정이 불가하며, 탑승수속 시 좌석이 재배정 될 수 있습니다. 재배정시 구매하신 좌석은 환불되지 않습니다.</li>
+                                                <li>사전 좌석 구매 후 공항에서 해당 좌석 이용이 불가능한 승객이라고 판단할 경우 현장에서 임의로 좌석 배정을 취소 후 재배정 할 수 있으며, 재배정 시 구매하신 사전좌석은 환불되지 않습니다.</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">비상구 좌석 배정 제한 규정</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>
+                                                    활동성, 체력 또는 양팔이나 두손 및 양다리의 민첩성이 승무원의 지시를 수행하기에 충분치 않은 승객
+                                                    <ul>
+                                                        <li>비상구나 탈출용 슬라이드 조작 장치에 대한 접근</li>
+                                                        <li>탈출용 슬라이드 조작 장치를 잡고 밀거나 당기고 돌리거나 조작 밀거나 당기거나 하는 등의 동작을 통한 비상구 개방 날개 위의 창문 형 비상구를 들어 올리거나 분리된 부분을 옆자리로 옮기거나 다음 열로 옮기는 등의 동작</li>
+                                                        <li>날개 위의 창문 형 비상구와 비슷한 크기와 무게의 장애물 제거 신속한 비상구로의 접근</li>
+                                                        <li>장애물 제거 시 균형의 유지</li>
+                                                        <li>신속한 탈출</li>
+                                                        <li>슬라이드 전개 또는 팽창 후 안정유지</li>
+                                                        <li>탈출용 슬라이드로 탈출한 승객이 슬라이드로부터 벗어날 수 있도록 하는 동작</li>
+                                                    </ul>
+                                                </li>
+                                                <li>만 15세 미만이거나 동반자 도움 없이 비상 상황에서의 역할을 수행하기에 불충분한 승객</li>
+                                                <li>글 또는 그림의 형태로 제공된 비상탈출에 관한 지시를 읽고 이해하지 못하거나 승무원의 구두지시를 이해하지 못하는 승객</li>
+                                                <li>콘택트렌즈나 안경을 제외한 다른 시력 보조 장비 없이는 위에 열거한 기능을 하나이상 수행 할 수 없는 승객</li>
+                                                <li>일반적 보청기를 제외한 다른 청력 보조 장비 없이는 승무원의 탈출지시를 듣고 이해할 수 없는 승객</li>
+                                                <li>다른 승객들에게 정보를 적절하게 전달할 수 있는 능력이 부족한 승객</li>
+                                                <li>승객의 상태나 책임, 예를 들어 어린이를 돌보기 때문에 상기 열거된 하나 이상의 역할을 수행하는데 방해가 되는 승객 또는 이러한 역할을 수행할 경우 해를 입게 되는 승객</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 티웨이항공 사전 수하물 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check312" name="check-group3"><label for="input-check312"><i class="ico"></i>티웨이항공 사전 수하물 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check312" name="check-group3"><label for="input-check312"><i class="ico"></i>사전 수하물 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="notification-wrap">
+                            <div class="table-wrap">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="colgroup" colspan="2">변경</th>
+                                        <th scope="colgroup" colspan="2">환불</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 2일 전</th>
+                                        <td>가능</td>
+                                        <th scope="row">출발 2일 전</th>
+                                        <td>가능</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                        <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">위탁 수하물 추가 구매 제외 대상</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>좌석 미점유 유아 고객</li>
+                                                <li>공동운항편</li>
+                                                <li>출발이 임박한 항공편(출발 1일 이내)</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">유의사항</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>위탁수하물 1개의 무게는 32kg을 초과할 수 없으며, 초과 시에는 분리하여 포장해 주셔야 합니다.</li>
+                                                <li>1차형 접이식 소형 유모차 또는 유아용 Carrying Basket Bassinet, 휠체어는 부과 대상에서 제외됩니다.</li>
+                                                <li>공항 상황 및 여건에 따라 적용 범위가 상이할 수 있습니다.</li>
+                                                <li>공동운항편은 위탁수하물 사전 구매가 불가합니다.</li>
+                                                <li>위탁수하물 사전 구매는 출발 2일전까지만 가능합니다.</li>
+                                                <li>출발 2일 전까지 환불이 가능합니다.</li>
+                                                <li>출발 2일 전까지 구매하신 수하물 무게 변경이 가능합니다. 단, 변경을 원하실 경우 취소 후 재구매 하셔야 합니다.</li>
+                                                <li>항공권 취소 시 구매하신 수하물은 자동으로 취소 및 환불되며, 출발 2일 전까지 재구매 하실 수 있습니다.</li>
+                                                <li>항공권 변경 시에는 구매하신 수하물을 취소하신 후, 예약 변경이 가능합니다.</li>
+                                                <li>단, 출발 1일 전부터 항공편의 변경/취소 시 환불되지 않습니다.</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 티웨이항공 사전 기내식 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check313" name="check-group3"><label for="input-check313"><i class="ico"></i>티웨이항공 사전 기내식 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check313" name="check-group3"><label for="input-check313"><i class="ico"></i>사전 기내식 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="notification-wrap">
+                            <div class="table-wrap">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                        <col style="width: 25%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="colgroup" colspan="2">변경</th>
+                                        <th scope="colgroup" colspan="2">환불</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 3일 전</th>
+                                        <td>가능</td>
+                                        <th scope="row">출발 3일 전</th>
+                                        <td>가능</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출발 2일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                        <th scope="row">출발 2일 전 ~ 출발 당일</th>
+                                        <td>불가</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">환불 규정</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>기내식 사전 주문은 출발일 기준 3일 전까지 환불이 가능하며, 출발일 3일 이내의 경우는 환불, 변경이 불가능합니다.</li>
+                                                <li>항공권 취소 및 여정 변경 시 구매한 기내식은 자동 취소(환불)되며, 재 구매가 가능합니다.(단 출발일 3일 이내 환불 불가)</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="colgroup" colspan="4">유의사항</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="notification-list">
+                                                <li>사진은 실제와 차이가 있을 수 있으며 재료의 수급 상황에 따라 부득이 구성이 변경될 수 있습니다.</li>
+                                                <li>당사 사정에 의한 결항으로 항공권 취소, 여정 변경시 기내식은 자동 취소되어 환불처리 됩니다.</li>
+                                                <li>메뉴의 주문/취소는 출발일 기준 3일전까지 가능하며, 출발일 2일 전부터는 변경/환불이 불가능합니다.</li>
+                                                <li>메뉴 변경을 원하실 경우, 주문하신 메뉴를 취소하신 후 재구매 하셔야 합니다.</li>
+                                                <li>안전하고 쾌적한 식사를 위해 한 좌석 당 1개의 메뉴 주문이 가능하며, 좌석 미점유 유아고객은 주문이 불가합니다.</li>
+                                                <li>특정 식품에 대한 알레르기 또는 유사 증상이 있는 승객께서는 메뉴를 확인 하신 후 주문해주시기 바랍니다.</li>
+                                                <li>땅콩알레르기의 경우 실제 조리과정에서 땅콩이 사용되지 않았더라도 땅콩성분이 함유된 식용유, 식재료 등이 포함되어있을 수 있습니다. 해당 증세가 있는 고객께서는 주문 전 참고해주시기 바랍니다.</li>
+                                                <li>기내식 메뉴는 이용 노선, 기간등에 따라 상이할 수 있습니다.</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 티웨이항공 번들 규정 -->
+                    <li>
+                        <!-- 국내선일 때 --><!--<input type="checkbox" id="input-check314" name="check-group3"><label for="input-check314"><i class="ico"></i>티웨이항공 부가서비스 번들 규정</label>-->
+                        <!-- 국제선일 때 --><input type="checkbox" id="input-check314" name="check-group3"><label for="input-check314"><i class="ico"></i>부가서비스 번들 규정</label>
+                        <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                        <div class="notification-wrap">
+                            <div class="table-wrap">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                    <col style="width: 25%">
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="colgroup" colspan="2">변경</th>
+                                    <th scope="colgroup" colspan="2">환불</th>
+                                </tr>
+                                <tr>
+                                    <!-- 분기 1 : 국제선일 때 -->
+                                    <th scope="row">출발 3일 전</th>
+                                    <td>가능</td>
+                                    <th scope="row">출발 3일 전</th>
+                                    <td>가능</td>
+                                    <!-- 분기 2 : 국내선일 때 -->
+                                    <!--<th scope="row">출발 2일 전</th>
+                                    <td>가능</td>
+                                    <th scope="row">출발 2일 전</th>
+                                    <td>가능</td>-->
+                                </tr>
+                                <tr>
+                                    <!-- 분기 1 : 국제선일 때 -->
+                                    <th scope="row">출발 2일 전 ~ 출발 당일</th>
+                                    <td>불가</td>
+                                    <th scope="row">출발 2일 전 ~ 출발 당일</th>
+                                    <td>불가</td>
+                                    <!-- 분기 2 : 국내선일 때 -->
+                                    <!--<th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                    <td>불가</td>
+                                    <th scope="row">출발 1일 전 ~ 출발 당일</th>
+                                    <td>불가</td>-->
+                                </tr>
+                                <tr>
+                                    <th scope="colgroup" colspan="4">부가서비스 번들 사전 구매 제외 대상</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <ul class="notification-list">
+                                            <li>공동운항편</li>
+                                            <li>출발이 임박한 항공편 (국내선: 출발 1일 이내 / 국제선: 출발 2일 이내)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="colgroup" colspan="4">유의사항</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <ul class="notification-list">
+                                            <li>변경을 원하실 경우 취소 후 재 구매하셔야 합니다.</li>
+                                            <li>항공권 변경 또는 취소 시 구매하신 번들 서비스는 자동 환불 처리됩니다.</li>
+                                            <li>단, 국내선 출발 1일 전, 국제선 출발 2일 전 항공편을 취소하는 경우 번들 서비스 금액은 환불되지 않습니다.</li>
+                                            <li>당사 사정에 의한 비정상 운항(지연/결항)으로 항공권 취소 또는 여정 변경하여, 번들 서비스를 제공받지 못한 경우 출발일자와 상관없이 환불이 가능합니다.</li>
+                                            <li>전용 카운터 및 수하물 우선 처리의 경우 추가 제공 사항으로 출발 당일 현장 상황에 따라 미제공 될 수 있습니다.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="agreement-all-list">
+                    <input type="checkbox" id="input-check305" name="check-group3" data-checked="all"><label for="input-check305"><i class="ico"></i>모두 동의하기</label>
+                </div>
+            </div>
+
+
+
+            <div class="process-btn-wrap">
+                <button type="button" class="btn_go-list">목록으로</button>
+                <button type="button" class="btn_refund">선택한 부가서비스 취소하기</button>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- 회사정보(include/ags-footer.html) -->
+    <footer id="ags-footer" class="ags-footer"></footer>
+</main>
+
+<script>
+    var $win = $(window),
+        $doc = $(document);
+
+    $("#ags-header").load("include/ags-header.html");
+    $("#ags-footer").load("include/ags-footer.html");
+
+    /*문서 구조가 모두 로드된 이후에*/
+    $win.on("load", function(){
+        /* GNB에서 마이페이지 메뉴 활성화 */
+        $("#ags-header").find(".gnb li:nth-of-type(3)").addClass("active").siblings().removeClass("active");
+
+        /*약관 자세히보기 버튼을 컨트롤 합니다.*/
+        (function(){
+            $("body").on("click", ".agreement-list .btn_more", function(){
+                $(this).parent("li").toggleClass("active").siblings("li").removeClass("active")
+            });
+        })();
+    })
+</script>
+</body>
+</html>
