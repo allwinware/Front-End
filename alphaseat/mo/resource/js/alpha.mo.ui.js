@@ -231,7 +231,16 @@ $(document).ready(function () {
 	});
 
 
-	
+	/*블락싯 탭탭*/
+	$(document).on("click", ".block_tab_num", function () {
+		$(this).addClass("block_num_active");
+	});
+
+	$(document).on("click", ".block_num_active", function () {
+		$(this).removeClass("block_num_active");
+	});
+
+
 	/*블락싯 슬라이드 go*/
 	$(document).on("click", ".block_btn_go", function () {
 		$(this).addClass("block_active");
