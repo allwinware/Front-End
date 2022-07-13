@@ -284,6 +284,17 @@ $(document).ready(function () {
 		$(".seat_num .seat_btn_blue span").css("display", "block");
 	});
 
+	/*좌석선택 핑크*/
+	$(document).on("click", ".seat_btn_pink", function () {
+		$(this).addClass("seat_active_pink");
+		$(".seat_num .seat_active_pink span").css("display", "none");
+	});
+
+	$(document).on("click", ".seat_active_pink", function () {
+		$(this).removeClass("seat_active_pink");
+		$(".seat_num .seat_btn_pink span").css("display", "block");
+	});
+
 	/*gnb 팝업 정의*/
 	$(document).on("click", "#btn_gnb", function () {
 		$("#gnb-2dp").addClass("active");
@@ -305,8 +316,8 @@ $(document).ready(function () {
 		$("html").css("overflow", "hidden");
 		
 	});
-
-	$(document).on("click", ".foot_align", function () {
+	/*푸터 전체 슬라이드 팝업*/
+	$(document).on("click", ".blank_btn", function () {
 		$(".ags-summary").addClass("active");				
 		$(".dimmed_bg").css("display", "block");
 		$("body").css("overflow", "hidden");
@@ -359,9 +370,8 @@ $(document).ready(function () {
 		$('.slider1 .airplane_bg_front').remove();
 		$('.slider1 .airplane_bg_end').remove();
 		$('.slider1 .airplane_bg').remove();
-
-
-
+		$('.slider1 .popup_infor').remove();
+		
 		$('.slider1 .seat_sheet_price_box').remove();
 		$('.slider1 .seat_sheet_recom_box').remove();
 		$('.slider1 .seat_sheet_loading').remove();
@@ -372,6 +382,10 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_touch_v2').remove();
 		$('.slider1 .seat_sheet_touch_v3').remove();
 		$('.slider1 .digital_loading').remove();
+
+		$('.facility_f').css('display', 'block');
+		$('.facility_b').css('display', 'block');
+		
 
 		$(this).remove();
 
@@ -393,6 +407,7 @@ $(document).ready(function () {
 		$('.slider2 .seat_sheet_price_box').remove();
 		$('.slider2 .seat_sheet_recom_box').remove();
 		$('.slider2 .seat_sheet_loading').remove();
+		$('.slider2 .popup_infor').remove();
 		$('.air_logo').remove();
 		$('.air_time').remove();
 
