@@ -364,10 +364,15 @@ $(document).ready(function () {
 		$('.scale_type_1').css('top', '0px');
 		$('.contents').css('overflow-y', 'scroll');
 		$('.seat_sheet_bg.ac1').css('height', '100%');
+		$('.seat_sheet_bg.ac1').css('margin-bottom', '100px');
 		
+
 		$('.slider1 .seat_sheet_number').remove();
 		$('.slider1 .seat_sheet_abcdef').remove();
-		$('.slider1 .airplane_bg_front').remove();
+		$('.slider1 .airplane_bg_front_jeju').remove();
+		$('.slider1 .airplane_bg_end_jeju').remove();
+		$('.slider1 .airplane_bg_front_busan').remove();
+		$('.slider1 .airplane_bg_end_busan').remove();
 		$('.slider1 .airplane_bg_end').remove();
 		$('.slider1 .airplane_bg').remove();
 		$('.slider1 .popup_infor').remove();
@@ -378,13 +383,10 @@ $(document).ready(function () {
 		$('.air_logo').remove();
 		$('.air_time').remove();
 
-		$('.slider1 .seat_sheet_touch').remove();
+		$('.slider1 .seat_sheet_touch_v1').remove();
 		$('.slider1 .seat_sheet_touch_v2').remove();
 		$('.slider1 .seat_sheet_touch_v3').remove();
 		$('.slider1 .digital_loading').remove();
-
-		$('.facility_f').css('display', 'block');
-		$('.facility_b').css('display', 'block');
 		
 
 		$(this).remove();
@@ -402,7 +404,13 @@ $(document).ready(function () {
 		$('.slider2 .seat_sheet_number').remove();
 		$('.slider2 .seat_sheet_abcdef').remove();
 		$('.slider2 .airplane_bg').remove();		
-		$('.slider2 .airplane_bg_front').remove();
+		
+		
+		$('.slider2 .airplane_bg_front_jeju').remove();
+		$('.slider2 .airplane_bg_end_jeju').remove();
+		$('.slider2 .airplane_bg_front_busan').remove();
+		$('.slider2 .airplane_bg_end_busan').remove();
+
 		$('.slider2 .airplane_bg_end').remove();
 		$('.slider2 .seat_sheet_price_box').remove();
 		$('.slider2 .seat_sheet_recom_box').remove();
@@ -411,7 +419,7 @@ $(document).ready(function () {
 		$('.air_logo').remove();
 		$('.air_time').remove();
 
-		$('.slider2 .seat_sheet_touch').remove();		
+		$('.slider2 .seat_sheet_touch_v1').remove();		
 		$('.slider1 .seat_sheet_touch_v2').remove();
 		$('.slider1 .seat_sheet_touch_v3').remove();
 		$('.slider2 .digital_loading').remove();
@@ -474,10 +482,4 @@ $(document).ready(function () {
 
 		});
 	});
-	
-
-
 });
-
-
-
