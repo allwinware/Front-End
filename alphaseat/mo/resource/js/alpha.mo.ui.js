@@ -308,6 +308,29 @@ $(document).ready(function () {
 		$(".ags-summary").css("display", "block");
 	});
 
+
+	/*푸터 그룹 팝업*/
+	$(document).on("click", ".btn_group_open", function () {
+		$(".ags-summary-group").addClass("active");				
+		$(".dimmed_bg").css("display", "block");
+		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
+		
+	});
+	/*푸터 전체 그룹 팝업*/
+	$(document).on("click", ".blank_btn", function () {
+		$(".ags-summary-group").addClass("active");				
+		$(".dimmed_bg").css("display", "block");
+		$("body").css("overflow", "hidden");
+	});
+
+	$(document).on("click", ".btn_group_close", function () {
+		$(".ags-summary-group").removeClass("active");
+		$(".dimmed_bg").css("display", "none");
+		$("body").css("overflow", "");
+		$("html").css("overflow", "");
+	});
+
 	/*푸터 슬라이드 팝업*/
 	$(document).on("click", ".btn_footer_open", function () {
 		$(".ags-summary").addClass("active");				
@@ -366,6 +389,9 @@ $(document).ready(function () {
 		$('.seat_sheet_bg.ac1').css('height', '100%');
 		$('.seat_sheet_bg.ac1').css('margin-bottom', '100px');
 		
+		$('.ags-summary-group').css('display', 'none');
+		$('.ags-summary').css('display', 'block');
+		
 
 		$('.slider1 .seat_sheet_number').remove();
 		$('.slider1 .seat_sheet_abcdef').remove();
@@ -388,6 +414,7 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_touch_v3').remove();
 		$('.slider1 .digital_loading').remove();
 		
+
 
 		$(this).remove();
 
