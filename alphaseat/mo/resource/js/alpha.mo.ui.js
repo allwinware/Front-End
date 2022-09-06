@@ -309,6 +309,31 @@ $(document).ready(function () {
 	});
 
 
+	/*첫번째팝업 테스트*/
+	$(document).on("click", ".btn_group_open", function () {
+		$(".ags-summary-first").addClass("active");				
+		$(".dimmed_bg").css("display", "block");
+		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
+		
+	});
+
+	/*첫번째 팝업 바로띄우기*/
+	$(document).ready(function(){			
+		$(".dimmed_bg").css("display", "block");
+		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
+	});
+
+	$(document).on("click", ".btn_group_close", function () {
+		$(".ags-summary-first").removeClass("active");
+		$(".dimmed_bg").css("display", "none");
+		$("body").css("overflow", "");
+		$("html").css("overflow", "");
+	});
+
+
+
 	/*푸터 그룹 팝업*/
 	$(document).on("click", ".btn_group_open", function () {
 		$(".ags-summary-group").addClass("active");				
