@@ -601,10 +601,6 @@ function layerPop(id) {
 		}, 400);
 	}
 
-    /*첫번째 팝업 바로띄우기*/
-	$(document).ready(function(){			
-	});
-
 	// 닫기버튼 클릭시 레이어 닫힘
 	$el.find('.btn_close_popup,.btn_close_popup_x, .btn_close_popup1, .wrapper_popup .pop_close, .btn_close_tooltip').off('click').on('click', function () {
 		closeLayerPop();
