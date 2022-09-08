@@ -325,7 +325,7 @@ $(document).ready(function () {
 		$("html").css("overflow", "hidden");
 	});
 
-	$(document).on("click", ".btn_group_close", function () {
+	$(document).on("click", ".btn_group_close,.btn_group_close_x", function () {
 		$(".ags-summary-first").removeClass("active");
 		$(".dimmed_bg").css("display", "none");
 		$("body").css("overflow", "");
