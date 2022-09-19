@@ -308,8 +308,7 @@ $(document).ready(function () {
 		$(".ags-summary").css("display", "block");
 	});
 
-
-	/*첫번째팝업 테스트*/
+	/*첫번째팝업 테스트
 	$(document).on("click", ".btn_group_open", function () {
 		$(".ags-summary-first").addClass("active");				
 		$(".dimmed_bg").css("display", "block");
@@ -317,12 +316,12 @@ $(document).ready(function () {
 		$("html").css("overflow", "hidden");
 		
 	});
+	*/
+
 
 	/*첫번째 팝업 바로띄우기*/
 	$(document).ready(function(){			
 		$(".dimmed_bg").css("display", "block");
-		$("body").css("overflow", "hidden");
-		$("html").css("overflow", "hidden");
 	});
 
 	$(document).on("click", ".btn_group_close,.btn_group_close_x", function () {
@@ -332,26 +331,30 @@ $(document).ready(function () {
 		$("html").css("overflow", "");
 	});
 
+	/*기내식예약 팝업*/
+	$(document).on("click", ".btn_foods_open", function () {
+		$(".ags-foods-group").addClass("active");
+
+	});
+	$(document).on("click", ".btn_foods_close", function () {
+		$(".ags-foods-group").removeClass("active");
+	});
+
+	var radios = document.querySelectorAll('input[type=radio][name="foods"]');
+    radios.forEach(radio => radio.addEventListener('change', () => $(".foods").css("padding-bottom", "300px")));
 
 
 	/*푸터 그룹 팝업*/
 	$(document).on("click", ".btn_group_open", function () {
 		$(".ags-summary-group").addClass("active");				
-		$(".dimmed_bg").css("display", "block");
+		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
 		$("body").css("overflow", "hidden");
 		$("html").css("overflow", "hidden");
 		
 	});
-	/*푸터 전체 그룹 팝업*/
-	$(document).on("click", ".blank_btn", function () {
-		$(".ags-summary-group").addClass("active");				
-		$(".dimmed_bg").css("display", "block");
-		$("body").css("overflow", "hidden");
-	});
-
 	$(document).on("click", ".btn_group_close", function () {
 		$(".ags-summary-group").removeClass("active");
-		$(".dimmed_bg").css("display", "none");
+		$(".dimmed_bg, .dimmed_bgs").css("display", "none");
 		$("body").css("overflow", "");
 		$("html").css("overflow", "");
 	});
@@ -359,23 +362,23 @@ $(document).ready(function () {
 	/*푸터 슬라이드 팝업*/
 	$(document).on("click", ".btn_footer_open", function () {
 		$(".ags-summary").addClass("active");				
-		$(".dimmed_bg").css("display", "block");
+		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
 		$("body").css("overflow", "hidden");
 		$("html").css("overflow", "hidden");
 		
 	});
+	$(document).on("click", ".btn_footer_close", function () {
+		$(".ags-summary").removeClass("active");
+		$(".dimmed_bg, .dimmed_bgs").css("display", "none");
+		$("body").css("overflow", "");
+		$("html").css("overflow", "");
+	});
+	
 	/*푸터 전체 슬라이드 팝업*/
 	$(document).on("click", ".blank_btn", function () {
 		$(".ags-summary").addClass("active");				
 		$(".dimmed_bg").css("display", "block");
 		$("body").css("overflow", "hidden");
-	});
-
-	$(document).on("click", ".btn_footer_close", function () {
-		$(".ags-summary").removeClass("active");
-		$(".dimmed_bg").css("display", "none");
-		$("body").css("overflow", "");
-		$("html").css("overflow", "");
 	});
 
 	/*푸터 슬라이드 팝업 01*/
@@ -439,8 +442,7 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_touch_v3').remove();
 		$('.slider1 .digital_loading').remove();
 		
-
-
+		
 		$(this).remove();
 
 		seatCtl.setScrollEvent();
@@ -475,6 +477,7 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_touch_v2').remove();
 		$('.slider1 .seat_sheet_touch_v3').remove();
 		$('.slider2 .digital_loading').remove();
+		
 
 		$(this).remove();
 
@@ -508,10 +511,10 @@ $(document).ready(function () {
 //alert(		$(_self).attr("agrBtn")	);
 		$("div [agrLt]").each(function(idx, obj) {
 			if( _self == $("div [agrBtn]").get(idx) && $(obj).hasClass("on") == false) {
-				$('.credit_box_btn').eq(idx).addClass('on');
+				$('.credit_box_btn').eq(idx).removeClass('on');
 				$(obj).addClass("on").slideDown(300);
 			} else {
-				$('.credit_box_btn').eq(idx).removeClass('on');			
+				$('.credit_box_btn').eq(idx).addClass('on');			
 				$(obj).removeClass("on").slideUp(300);				
 
 			}
