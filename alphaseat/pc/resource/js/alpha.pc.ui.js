@@ -603,7 +603,8 @@ function layerPop(id) {
 
 	// 닫기버튼 클릭시 레이어 닫힘
 	$el.find('.btn_close_popup,.btn_close_popup_x, .btn_close_popup1, .wrapper_popup .pop_close, .btn_close_tooltip').off('click').on('click', function () {
-		closeLayerPop();
+		closeLayerPop();       
+
 	});
 
 	if ($el.hasClass('sns') || $el.hasClass('tooltip') || $el.hasClass('clickable_dim') || $el.hasClass('menuAll')) {
@@ -641,3 +642,19 @@ function layerPop(id) {
 		initTab(tabTopPopup);
 	});
 };
+
+var floatPosition = parseInt($(".float_menubox").css('top'))
+
+// scroll 인식
+$(window).scroll(function() {
+  
+    // 현재 스크롤 위치
+    var currentTop = $(window).scrollTop();
+    var bannerTop = currentTop + floatPosition + "px";
+
+    //이동 애니메이션
+    $(".float_menubox").stop().animate({
+      "top" : bannerTop
+    }, 500);
+
+}).scroll();
