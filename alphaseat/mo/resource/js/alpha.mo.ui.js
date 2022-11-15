@@ -321,7 +321,7 @@ $(document).ready(function () {
 
 	/*첫번째 팝업 바로띄우기*/
 	$(document).ready(function(){			
-		$(".dimmed_bg").css("display", "block");
+		$(".dimmed_bg").css("display", "none");
 	});
 
 	$(document).on("click", ".btn_group_close,.btn_group_close_x", function () {
