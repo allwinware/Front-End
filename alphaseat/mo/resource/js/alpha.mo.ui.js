@@ -441,6 +441,9 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_touch_v2').remove();
 		$('.slider1 .seat_sheet_touch_v3').remove();
 		$('.slider1 .digital_loading').remove();
+
+		$('.seat_sheet_touch_v0').remove();
+		$('.seat_sheet_touch_v00').remove();
 		
 		
 		$(this).remove();
@@ -478,7 +481,9 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_touch_v3').remove();
 		$('.slider2 .digital_loading').remove();
 		
-
+		$('.seat_sheet_touch_v0').remove();
+		$('.seat_sheet_touch_v00').remove();
+		
 		$(this).remove();
 
 		seatCtl.setScrollEvent();
