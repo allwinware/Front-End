@@ -265,12 +265,14 @@ $(document).ready(function () {
 	$(document).on("click", ".seat_btn", function () {
 		$(this).addClass("seat_active");
 		$(".seat_num .seat_active span").css("display", "none");
+		$(".tw_A333 .seat_num .seat_active span").css("display", "none");
 		
 	});
 
 	$(document).on("click", ".seat_active", function () {
 		$(this).removeClass("seat_active");
 		$(".seat_num .seat_btn span").css("display", "block");
+		$(".tw_A333 .seat_num .seat_active span").css("display", "block");
 	});
 
 	/*좌석선택 블루*/
@@ -423,10 +425,16 @@ $(document).ready(function () {
 
 		$('.slider1 .seat_sheet_number').remove();
 		$('.slider1 .seat_sheet_abcdef').remove();
+		$('.slider1 .seat_sheet_A333').remove();
 		$('.slider1 .airplane_bg_front_jeju').remove();
 		$('.slider1 .airplane_bg_end_jeju').remove();
 		$('.slider1 .airplane_bg_front_busan').remove();
 		$('.slider1 .airplane_bg_end_busan').remove();
+
+		$('.slider1 .airplane_bg_front_tway').remove();
+		$('.slider1 .airplane_bg_end_tway').remove();
+		
+
 		$('.slider1 .airplane_bg_end').remove();
 		$('.slider1 .airplane_bg').remove();
 		$('.slider1 .popup_infor').remove();

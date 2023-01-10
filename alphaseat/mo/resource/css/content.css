@@ -1787,6 +1787,7 @@ html, body{
 	display: flex;
 	justify-content: space-between;
 	padding-top: 10px;
+	align-items: center;
 }
 
 .seat_sheet li a{
@@ -1813,7 +1814,7 @@ html, body{
 /*tw_A333 ---------------------------------------------------------------------*/
 
 .tw_A333 .seat_sheet{
-	top:-569px;
+	top:-752px;
 }
 
 /* 비즈니스 */
@@ -1825,13 +1826,14 @@ html, body{
 }
 
 .tw_A333 .seat_code-1 span{
-	width: 30px;
 	text-align: center;
-	padding: 5px 0px;
+	padding: 3px 10px;
 }
 .tw_A333 .hallway-l{
 	width: 20px;
 }
+
+
 .tw_A333 .hallway-a{
 	width: 15px;
 	border-bottom: 0;
@@ -1840,7 +1842,17 @@ html, body{
 	line-height: 29px;
 	color: #111;
 }
-.tw_A333 .seat_sheet li:nth-child(1) a,.tw_A333 .seat_sheet li:nth-child(2) a{
+
+.tw_A333 .seat_sheet li:nth-child(2) .hallway-a,.tw_A333 .seat_sheet li:nth-child(3) .hallway-a{
+	width: 15px;
+	border-bottom: 0;
+	font-size: 10px;
+	text-align: center;
+	line-height: 46px;
+	color: #111;
+}
+
+.tw_A333 .seat_sheet li:nth-child(2) a,.tw_A333 .seat_sheet li:nth-child(3) a{
 	width: 36px;
 	height: 40px;
 	line-height: 38px;
@@ -1848,7 +1860,7 @@ html, body{
     border-bottom: 5px solid #871bc5;
 }
 
-.tw_A333 .seat_sheet li:nth-child(1) a.seat_active,.tw_A333 .seat_sheet li:nth-child(2) a.seat_active {
+.tw_A333 .seat_sheet li:nth-child(2) a.seat_active,.tw_A333 .seat_sheet li:nth-child(3) a.seat_active {
     background: url(../img/common/seat_click.png) no-repeat top 4px right 50% / 14px 14px;
     background-color: #f5581a;
     border-bottom: 3px solid #CE3802;
@@ -1856,7 +1868,7 @@ html, body{
     -webkit-transition: 0.2s all;
     -moz-transition: 0.2s all;
 }
-.tw_A333 .seat_sheet li:nth-child(1) a.seat_active::after,.tw_A333 .seat_sheet li:nth-child(2) a.seat_active::after {
+.tw_A333 .seat_sheet li:nth-child(2) a.seat_active::after,.tw_A333 .seat_sheet li:nth-child(3) a.seat_active::after {
     content: attr(seatno);
     line-height: 52px;
 	letter-spacing: -0.3px;
@@ -1923,26 +1935,57 @@ html, body{
     font-family: 'PretendardM';
 }
 
+/*앞좌석 이미지 화장실 및 식음료*/
+.facility_ft{
+	position: absolute;
+	background: url(../img/common/facility_ft.png) no-repeat center / 340px 163px;
+	width: 375px;
+	height: 180px;
+	top: 0px;
+	left: -40px;
+}
+.facility_bt{
+	position: absolute;
+	background: url(../img/common/facility_bt.png) no-repeat center / 340px 131px;
+	width: 375px;
+	height: 140px;
+	left: -40px;
+}
+
 
 /*왼쪽 값 간격*/
 .tw_A333 .seat_sheet_number{
-	top:145px;
+	top:127px;
 }
-.tw_A333 .seat_sheet_number li:nth-child(10){
-	padding-bottom: 16px;
+
+.tw_A333 .seat_sheet_number li{
+	line-height: 11.5px;
 }
-.tw_A333 .seat_sheet_number li:nth-child(24){
-	padding-bottom: 6px;
+
+.tw_A333 .seat_sheet_number li:nth-child(1){
+	padding-bottom: 5px;
 }
-.tw_A333 .seat_sheet_number li:nth-child(25){
-	padding-bottom: 8px;
+.tw_A333 .seat_sheet_number li:nth-child(2){
+	padding-bottom: 18px;
 }
+.tw_A333 .seat_sheet_number li:nth-child(9){
+	padding-bottom: 36px;
+}
+
+.tw_A333 .seat_sheet_number li:nth-child(28){
+	padding-bottom: 43px;
+}
+
+
+
+
+
+
 .tw_A333 .seat_sheet_number li:nth-child(15){
 	padding-bottom: 0px;
 }
-
 .tw_A333 .exit-row{
-	padding: 15px 0 20px;
+	padding: 15px 0 10px;
 }
 .tw_A333 .exit-row .exit_left.b26 {
 	position: relative;
@@ -1952,6 +1995,35 @@ html, body{
 	position: relative;
 	bottom: 20px;
 }
+
+/*화장실 식음료 아기*/
+.restaurant {
+	margin-top: 10px;
+    border: 2px solid;
+    border-color: #ddd;
+    border-radius: 5px;
+    width: 59px;
+    height: 30px;
+    background: url(../img/back/ico_restaurant_x3.png) no-repeat center /40% auto;
+}
+
+.wcbox {
+    border: 2px solid;
+    border-color: #ddd;
+    border-radius: 5px;
+    width: 59px;
+    height: 30px;
+    background: url(../img/back/ico_wc_x3.png) no-repeat center /40% auto;
+}
+.babyseat{
+    border: 2px solid;
+    border-color: #ddd;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    background: url(../img/back/ico_babyseat_x3.png) no-repeat center /80% auto;
+}
+
 
 /*좌석간 간격*/
 .tw_A333_tmup{
@@ -1979,58 +2051,79 @@ html, body{
 	
 }
 
+.tw_A333 .seat_sheet_price_box .buy_num div {
+	letter-spacing: -1px;
+  }
+
 /*비행기꼬리*/
-.tw_A333 .airplane_bg_end {
+.tw_A333 .airplane_bg_front_tway {
+	position: absolute;
+	top: 31px;
+	left: 85px;
+	width: 125px;
+	height: 110px;
+	background: url(../img/common/airplane_bgxt_front.png) no-repeat center / 124px 84px;
+	z-index: 1;
+}
+.tw_A333 .airplane_bg_end_tway {
     position: absolute;
-    top: 713px;
+    top: 734px;
     left: 85px;
     width: 125px;
     height: 93px;
-    background: url(../img/common/airplane_bgx_end.png) no-repeat center / 122px 93px;
+    background: url(../img/common/airplane_bgxt_end.png) no-repeat center / 122px 56px;
     z-index: 1;
 }
+
+
 
 .tw_A333 .seat_sheet_price{
 	top:125px;
 }
-.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-1 {height: 46px;}
-.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-2 {height: 113px;}
-.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-3 {height: 36px;}
-.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-4 {height: 181px;}
-.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-5 {height: 58px;}
-.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-6 {height: 167px;}
+.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-1 {height: 33px;}
+.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-2 {height: 26px;}
+.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-3 {height: 86px;}
+.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-4 {height: 54px;}
+.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-5 {height: 206px;}
+.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-6 {height: 44px;}
+.seat_sheet_price_box[actype='tw_A333'] .buy_num.tway-7 {height: 187px;}
 
 
 .seat_sheet_recom_box[actype='tw_A333'] .recom_num.tway-1 a {
-	height: 46px;
+	height: 32px;
 	position: absolute;
 	top: 0px;
 }
 .seat_sheet_recom_box[actype='tw_A333'] .recom_num.tway-2 a {
-	height: 112px;
+	height: 26px;
 	position: absolute;
-	top: 47px;
+	top: 33px;
 }
 
 .seat_sheet_recom_box[actype='tw_A333'] .recom_num.tway-3 a {
-	height: 36px;
+	height: 85px;
 	position: absolute;
-	top: 159px;
+	top: 60px;
 }
 .seat_sheet_recom_box[actype='tw_A333'] .recom_num.tway-4 a {
-	height: 179px;
+	height: 53px;
 	position: absolute;
-	top: 196px;
+	top: 146px;
 }
 .seat_sheet_recom_box[actype='tw_A333'] .recom_num.tway-5 a {
-	height: 57px;
+	height: 205px;
 	position: absolute;
-	top: 376px;
+	top: 200px;
 }
 .seat_sheet_recom_box[actype='tw_A333'] .recom_num.tway-6 a {
-	height: 167px;
+	height: 43px;
 	position: absolute;
-	top: 434px;
+	top: 406px;
+}
+.seat_sheet_recom_box[actype='tw_A333'] .recom_num.tway-7 a {
+	height: 186px;
+	position: absolute;
+	top: 450px;
 }
 .seat_sheet_recom_box[actype='tw_A333'] .recom_num a{
 	border-top: none;
