@@ -266,6 +266,7 @@ $(document).ready(function () {
 		$(this).addClass("seat_active");
 		$(".seat_num .seat_active span").css("display", "none");
 		$(".tw_A333 .seat_num .seat_active span").css("display", "none");
+		$(".seat_num.tw_A333 .seat_active span").css("display", "none");
 		
 	});
 
@@ -273,6 +274,7 @@ $(document).ready(function () {
 		$(this).removeClass("seat_active");
 		$(".seat_num .seat_btn span").css("display", "block");
 		$(".tw_A333 .seat_num .seat_active span").css("display", "block");
+		$(".seat_num.tw_A333 .seat_btn span").css("display", "block");
 	});
 
 	/*좌석선택 블루*/
