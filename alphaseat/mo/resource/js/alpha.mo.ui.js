@@ -302,16 +302,12 @@ $(document).ready(function () {
 		$("#gnb-2dp").addClass("active");
 		$("html, body").css("overflow", "hidden");
 		$(".ags-summary").css("display", "none");
-		$(".ags-summary-group").css("display", "none");
-		$(".ags-foods-group").css("display", "none");
 	});
 
 	$(document).on("click", "#btn_gnb-close", function () {
 		$("#gnb-2dp").removeClass("active");
 		$("html, body").css("overflow", "");
 		$(".ags-summary").css("display", "block");
-		$(".ags-summary-group").css("display", "block");
-		$(".ags-foods-group").css("display", "block");
 	});
 
 	/*첫번째팝업 테스트
