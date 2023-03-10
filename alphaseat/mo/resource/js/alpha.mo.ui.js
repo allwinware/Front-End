@@ -266,6 +266,7 @@ $(document).ready(function () {
 		$(this).addClass("seat_active");
 		$(".seat_num .seat_active span").css("display", "none");
 		$(".tw_A333 .seat_num .seat_active span").css("display", "none");
+		console.log($(this).attr("seatno"));
 		
 	});
 
@@ -273,6 +274,8 @@ $(document).ready(function () {
 		$(this).removeClass("seat_active");
 		$(".seat_num .seat_btn span").css("display", "block");
 		$(".tw_A333 .seat_num .seat_active span").css("display", "block");
+		console.log($(this).attr("seatno"));
+
 	});
 
 	/*좌석선택 블루*/
@@ -323,8 +326,7 @@ $(document).ready(function () {
 		
 	});
 	*/
-
-
+	
 	/*첫번째 팝업 바로띄우기*/
 	$(document).ready(function(){			
 		$(".dimmed_bg").css("display", "none");
