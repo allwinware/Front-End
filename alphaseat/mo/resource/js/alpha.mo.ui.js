@@ -282,22 +282,26 @@ $(document).ready(function () {
 	$(document).on("click", ".seat_btn_blue", function () {
 		$(this).addClass("seat_active_blue");
 		$(".seat_num .seat_active_blue span").css("display", "none");
+		$(".tw_A333 .seat_num .seat_active span").css("display", "none");
 	});
 
 	$(document).on("click", ".seat_active_blue", function () {
 		$(this).removeClass("seat_active_blue");
 		$(".seat_num .seat_btn_blue span").css("display", "block");
+		$(".tw_A333 .seat_num .seat_active span").css("display", "block");
 	});
 
 	/*좌석선택 핑크*/
 	$(document).on("click", ".seat_btn_pink", function () {
 		$(this).addClass("seat_active_pink");
 		$(".seat_num .seat_active_pink span").css("display", "none");
+		$(".tw_A333 .seat_num .seat_active span").css("display", "none");
 	});
 
 	$(document).on("click", ".seat_active_pink", function () {
 		$(this).removeClass("seat_active_pink");
 		$(".seat_num .seat_btn_pink span").css("display", "block");
+		$(".tw_A333 .seat_num .seat_active span").css("display", "block");
 	});
 
 	/*gnb 팝업 정의*/
