@@ -262,46 +262,36 @@ $(document).ready(function () {
 
 
 	/*좌석선택 오렌지*/
+
 	$(document).on("click", ".seat_btn", function () {
-		$(this).addClass("seat_active");
-		$(".seat_num .seat_active span").css("display", "none");
-		$(".tw_A333 .seat_num .seat_active span").css("display", "none");
-		console.log($(this).attr("seatno"));
-		
-	});
-
-	$(document).on("click", ".seat_active", function () {
-		$(this).removeClass("seat_active");
-		$(".seat_num .seat_btn span").css("display", "block");
-		$(".tw_A333 .seat_num .seat_active span").css("display", "block");
-		console.log($(this).attr("seatno"));
-
+		var isActive	= $(this).hasClass("seat_active");
+		if (isActive) {
+			$(this).removeClass("seat_active").find("span").show();
+		} else {
+			$(this).addClass("seat_active").find("span").hide();;
+		}
 	});
 
 	/*좌석선택 블루*/
-	$(document).on("click", ".seat_btn_blue", function () {
-		$(this).addClass("seat_active_blue");
-		$(".seat_num .seat_active_blue span").css("display", "none");
-		$(".tw_A333 .seat_num .seat_active span").css("display", "none");
-	});
 
-	$(document).on("click", ".seat_active_blue", function () {
-		$(this).removeClass("seat_active_blue");
-		$(".seat_num .seat_btn_blue span").css("display", "block");
-		$(".tw_A333 .seat_num .seat_active span").css("display", "block");
+	$(document).on("click", ".seat_btn_blue", function () {
+		var isActive	= $(this).hasClass("seat_active_blue");
+		if (isActive) {
+			$(this).removeClass("seat_active_blue").find("span").show();
+		} else {
+			$(this).addClass("seat_active_blue").find("span").hide();;
+		}
 	});
 
 	/*좌석선택 핑크*/
-	$(document).on("click", ".seat_btn_pink", function () {
-		$(this).addClass("seat_active_pink");
-		$(".seat_num .seat_active_pink span").css("display", "none");
-		$(".tw_A333 .seat_num .seat_active span").css("display", "none");
-	});
 
-	$(document).on("click", ".seat_active_pink", function () {
-		$(this).removeClass("seat_active_pink");
-		$(".seat_num .seat_btn_pink span").css("display", "block");
-		$(".tw_A333 .seat_num .seat_active span").css("display", "block");
+	$(document).on("click", ".seat_btn_pink", function () {
+		var isActive	= $(this).hasClass("seat_active_pink");
+		if (isActive) {
+			$(this).removeClass("seat_active_pink").find("span").show();
+		} else {
+			$(this).addClass("seat_active_pink").find("span").hide();;
+		}
 	});
 
 	/*gnb 팝업 정의*/
