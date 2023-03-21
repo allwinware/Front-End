@@ -521,27 +521,36 @@ $(window).on("load", function () {
 
 $(document).ready(function () {
 	/*좌석선택 오렌지*/
-	$(document).on("click", ".seat_btn", function () {
-		$(this).addClass("seat_active");
-		$(".seat_num .seat_active span").css("display", "none");
-        $(".seat_num.tw_A333 .seat_active span").css("display", "none");
-	});
 
-	$(document).on("click", ".seat_active", function () {
-		$(this).removeClass("seat_active");
-		$(".seat_num .seat_btn span").css("display", "block");
-        $(".seat_num.tw_A333 .seat_btn span").css("display", "block");
+	$(document).on("click", ".seat_btn", function () {
+		var isActive	= $(this).hasClass("seat_active");
+		if (isActive) {
+			$(this).removeClass("seat_active").find("span").show();
+		} else {
+			$(this).addClass("seat_active").find("span").hide();;
+		}
 	});
 
 	/*좌석선택 블루*/
+
 	$(document).on("click", ".seat_btn_blue", function () {
-		$(this).addClass("seat_active_blue");
-		$(".seat_num .seat_active_blue span").css("display", "none");
+		var isActive	= $(this).hasClass("seat_active_blue");
+		if (isActive) {
+			$(this).removeClass("seat_active_blue").find("span").show();
+		} else {
+			$(this).addClass("seat_active_blue").find("span").hide();;
+		}
 	});
 
-	$(document).on("click", ".seat_active_blue", function () {
-		$(this).removeClass("seat_active_blue");
-		$(".seat_num .seat_btn_blue span").css("display", "block");
+	/*좌석선택 핑크*/
+
+	$(document).on("click", ".seat_btn_pink", function () {
+		var isActive	= $(this).hasClass("seat_active_pink");
+		if (isActive) {
+			$(this).removeClass("seat_active_pink").find("span").show();
+		} else {
+			$(this).addClass("seat_active_pink").find("span").hide();;
+		}
 	});
 
     /* 헤더 승객 슬라이더*/
