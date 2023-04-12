@@ -6,8 +6,7 @@
     <meta name="viewport"
         content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     <title>구매 내역 / 취소 - 마이페이지</title>
-    <link rel="stylesheet" href="../resource/css/ags_mo_7c.css">
-    <link rel="stylesheet" href="../resource/css/ags_mo_tw.css"><!-- 티웨이항공일 경우 -->
+    <link rel="stylesheet" href="../resource/css/ags_mo_all.css">
     <!--<link rel="stylesheet" href="../resource/css/ags_mo.dom.css">-->
     <!-- 국내선일 경우 -->
     <script src="../resource/js/jquery-3.4.1.min.js"></script>
@@ -72,7 +71,7 @@
                 <div class="content-wrap">
 
                     <!-- 항공권 정보 영역 -->
-                    <div class="ticket-wrap">
+                    <div class="ticket-wrap" >
                         <h4 class="sr-only">항공권 정보</h4>
                         <dl>
                             <dt class="resv-num">예약번호</dt>
@@ -80,7 +79,7 @@
                             <dt class="purchase-state">예약상태</dt>
                             <dd>결제완료</dd>
                         </dl>
-                        <dl>
+                        <dl style="display: none;"><!--20230412-->
                             <!--<dl class="one-way">-->
                             <!-- 편도 항공권일 경우 dl에 .one-way 삽입 -->
                             <dt class="departure">출발 공항</dt>
@@ -112,7 +111,13 @@
                     <div class="history-detail-wrap">
                         <div class="inner-wrap">
                             <div class="detail-header">
-                                <h5 class="title">가는 편</h5>
+                                <h5 class="title" style="display: none;">가는 편</h5><!--20230412-->
+                                <h5 class="title">
+                                    <span>ICN</span>
+                                    <i class="ico_oneway"></i>
+                                    <!-- <i class="ico_roundway"></i> -->
+                                    <span>HAN</span>
+                                </h5>
                                 <!-- 분기 : 국제선일 때 -->
                                 <dl class="flight-info">
                                     <dt class="flight-num">항공편명</dt>
@@ -239,7 +244,8 @@
                                 </div>
                                 <div class="total-wrap">
                                     <dl>
-                                        <dt>가는 편 결제금액</dt>
+                                        <dt style="display: none;">가는 편 결제금액</dt>
+                                        <dt>결제금액</dt>
                                         <dd><span class="digits">999000</span></dd>
                                     </dl>
                                 </div>
@@ -247,7 +253,14 @@
                         </div>
                         <div class="inner-wrap">
                             <div class="detail-header">
-                                <h5 class="title">오는 편</h5>
+                                <h5 class="title" style="display: none;">오는 편</h5>
+                                <h5 class="title">
+                                    <span>HAN</span>
+                                    <i class="ico_roundway"></i>
+                                    <!-- <i class="ico_roundway"></i> -->
+                                    <span>ICN</span>
+                                </h5>
+                                
                                 <!-- 분기 : 국제선일 때 -->
                                 <dl class="flight-info">
                                     <dt class="flight-num">항공편명</dt>
@@ -365,7 +378,7 @@
                                 </div>
                                 <div class="total-wrap">
                                     <dl>
-                                        <dt>오는 편 결제금액</dt>
+                                        <dt>결제금액</dt>
                                         <dd><span class="digits">999000</span></dd>
                                     </dl>
                                 </div>
@@ -385,11 +398,23 @@
                                     </colgroup>
                                     <tbody>
                                         <tr>
-                                            <th scope="row"><span class="ico_flag">가는 편 결제금액</span></th>
+                                            <th scope="row">
+                                                <span class="ico_flag">
+                                                    <span>ICN</span>
+                                                    <i class="ico_oneway_a"></i>
+                                                    <span>HAN</span> 
+                                                결제금액</span>
+                                            </th>
                                             <td><span class="digits">999000</span></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row"><span class="ico_flag">오는 편 결제금액</span></th>
+                                            <th scope="row">
+                                                <span class="ico_flag">
+                                                    <span>HAN</span>
+                                                    <i class="ico_roundway_a"></i>
+                                                    <span>ICN</span> 
+                                                결제금액</span>
+                                            </th>
                                             <td><span class="digits">999000</span></td>
                                         </tr>
                                     </tbody>
