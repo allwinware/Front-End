@@ -433,7 +433,15 @@ $(document).ready(function () {
 
 		$('.slider1 .airplane_bg_front_tway').remove();
 		$('.slider1 .airplane_bg_end_tway').remove();
+
+		$('.slider1 .airplane_bg_front_yp_HL838').remove();
+		$('.slider1 .airplane_bg_end_yp_HL838').remove();
+
+		$('.slider1 .airplane_bg_front_yp_HL851').remove();
+		$('.slider1 .airplane_bg_end_yp_HL851').remove();
 		
+		$('.slider1 .airplane_bg_front').remove();
+		$('.slider1 .airplane_bg_end').remove();
 
 		$('.slider1 .airplane_bg_end').remove();
 		$('.slider1 .airplane_bg').remove();
