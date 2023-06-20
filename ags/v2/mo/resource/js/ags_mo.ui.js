@@ -200,6 +200,34 @@ function compScroll(el, current, setPoint, className) {
 			}
 		}
 	});
+    $("div[class='seat-plan B777-200']").each(function(idx, obj) {
+		if($(obj).offset().left > -30 && $(obj).offset().left < 30) {
+			if (current > setPoint && current < $(obj).height()) {
+				el.addClass(className);
+			} else {
+				el.removeClass(className);
+			}
+		}
+	});
+    $("div[class='seat-plan seat-all']").each(function(idx, obj) {
+		if($(obj).offset().left > -30 && $(obj).offset().left < 30) {
+			if (current > setPoint && current < $(obj).height()) {
+				el.addClass(className);
+			} else {
+				el.removeClass(className);
+			}
+		}
+	});
+
+    $("div[class='seat-plan seat-all B777-200']").each(function(idx, obj) {
+		if($(obj).offset().left > -30 && $(obj).offset().left < 30) {
+			if (current > setPoint && current < $(obj).height()) {
+				el.addClass(className);
+			} else {
+				el.removeClass(className);
+			}
+		}
+	});
 /*
     if (current > setPoint && current < $("div[class='seat-plan']").eq(itry).height()) {
         el.addClass(className);
