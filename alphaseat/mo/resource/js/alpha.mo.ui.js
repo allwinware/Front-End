@@ -443,6 +443,9 @@ $(document).ready(function () {
 		$('.slider1 .airplane_bg_front').remove();
 		$('.slider1 .airplane_bg_end').remove();
 
+		$('.slider1 .airplane_bg_front_jinair').remove();
+		$('.slider1 .airplane_bg_end_jinair').remove();
+
 		$('.slider1 .airplane_bg_end').remove();
 		$('.slider1 .airplane_bg').remove();
 		$('.slider1 .popup_infor').remove();
