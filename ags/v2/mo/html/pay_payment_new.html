@@ -145,13 +145,340 @@
                         <dd><span class="digits">99000</span></dd>
                     </dl>
                     <div class="total">
-                        <!-- 분기 1 : 국제선일 때 --><!--<a href="#none" target="_self" class="btn_more" data-popup="#passenger-summary">총 결제금액 자세히보기 <i class="ico"></i></a>-->
-                        <!-- 분기 2 : 국내선일 때 --><a href="#none" target="_self" class="btn_more" data-popup="#passenger-summary_dom">총 결제금액 자세히보기 <i class="ico"></i></a>
+                        <a href="#none" target="_self" class="btn_more on" agrBtn>총 결제금액 자세히보기 <i class="ico"></i></a>
                         <dl>
                             <dt>Total</dt>
                             <dd><span class="digits">999000</span></dd>
                         </dl>
                     </div>
+                    <div agrLt class="passenger-summary dis" style="display: none;">
+                        <!-- 팝업 : 총 결제 금액 자세히보기(국내선) -->
+                        <div>
+                            <div class="inner-wrap">                                                         
+                                <dl class="flight-info">
+                                    <h5 class="title">
+                                        <span>ICN</span>
+                                        <i class="ico_oneway"></i>
+                                        <span>HAN</span> 
+                                    </h5>                                 
+                                    <dt class="airline">항공사명</dt>
+                                    <dd><i class="ico_tw">티웨이항공</i></dd><!-- 제주항공은 .ico_7c, 티웨이항공은 .ico_tw -->
+                                    <dt class="flight-num">항공편명</dt>
+                                    <dd>TW808</dd>
+                                </dl>
+                                <div class="pay_choice">
+                                    <span>
+                                        <i class="safe_cho">안심</i> 정해진 자리는 기내에서 일행끼리 자유롭게 바꿀 수 있어요</span>
+                                    <a href="javascript:;" onclick="layerPop('popup1');" class="btn_bd_md submit">자리조정</a>
+                                </div>
+
+                                <!-- 분기 1 :  모든 탑승객이 번들팩을 추가하지 않았을 때 -->
+                                <div class="table-wrap">
+                                    <h6 class="passenger-name">배성준</h6>
+                                    <table class="charge-sheet">
+                                        <caption>배성준 결제 금액</caption>
+                                        <colgroup>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">좌석</th>
+                                                <td>D4</td>
+                                                <td><span class="digits">10000</span></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">수하물</th>
+                                                <td>30kg</td>
+                                                <td><span class="digits">60000</span></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">기내식</th>
+                                                <td><a href="#none" target="_self">구매하기</a></td>
+                                                <td><span class="digits">0</span></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">라운지</th>
+                                                <td>이용권 선택</td>
+                                                <td><span class="digits">14900</span></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="table-wrap">
+                                    <h6 class="passenger-name">김태형</h6>
+                                    <table class="charge-sheet">
+                                        <caption>김태형 결제 금액</caption>
+                                        <colgroup>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                            <!-- 이미 좌석을 구매한 상태일 때
+                                            1. tr에 .inactive 클래스를 붙여줍니다.
+                                            2. 삭제 버튼은 표시는 되지만 작동하지 않아야 합니다.
+                                        -->
+                                            <tr class="inactive">
+                                                <th scope="row">좌석</th>
+                                                <td>D4</td>
+                                                <td><span class="digits">0</span></td>
+                                                <td><a href="#none" target="_self" class="btn_delete" onClick="return false;">삭제</a></td>
+                                            </tr>
+
+                                            <!-- 제주항공일 때 && 수하물을 추가로 구매할 때
+                                            1. tr에 .inactive.add-service 클래스를 붙여줍니다.
+                                            2. 추가된 중량을 기존 구매 중량 옆에 병기합니다(.add-baggage 참조).
+                                            3. 삭제 버튼을 클릭하면 추가된 중량만 선택 취소처리 합니다(.add-baggage 전체 삭제)
+                                            4.
+                                        -->
+                                            <tr class="inactive add-service">
+                                                <th scope="row">수하물</th>
+                                                <td>15kg <span class="add-baggage">+ 10kg</span></td>
+                                                <td><span class="digits">30000</span></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <!-- 이미 기내식을 구매한 상태일 때
+                                            1. tr에 .inactive 클래스를 붙여줍니다.
+                                            2. 삭제 버튼은 표시는 되지만 작동하지 않아야 합니다.
+                                        -->
+                                            <tr class="inactive">
+                                                <th scope="row">기내식</th>
+                                                <td>오색비빔밥</td>
+                                                <td><span class="digits">0</span></td>
+                                                <td><a href="#none" target="_self" class="btn_delete" onClick="return false;">삭제</a></td>
+                                            </tr>
+
+                                            <!-- 이미 라운지를 구매한 상태일 때
+                                            1. tr에 .inactive 클래스를 붙여줍니다.
+                                            2. 삭제 버튼은 표시는 되지만 작동하지 않아야 합니다.
+                                        -->
+                                            <tr class="inactive">
+                                                <th scope="row">라운지</th>
+                                                <td>이용권 선택</td>
+                                                <td><span class="digits">0</span></td>
+                                                <td><a href="#none" target="_self" class="btn_delete" onClick="return false;">삭제</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- //분기 1 -->
+
+                                <!-- 분기 2 : 탑승객이 번들팩을 추가했을 때 -->
+                                <!--
+                                * 티웨이 번들 상품 *
+                                1. 티웨이 번들 상품 선택 승객인 경우, 상품 종류에 따라 .bundle-type1(더블팩), .bundle-type2(트리플팩), .bundle-type3(멀티팩)으로 감싸줍니다.
+                                2. .info-title에 각 번들 별 정보를 표시하고, .btn_delete를 통해 선택된 번들을 삭제할 수 있습니다. (삭제하면 선택 전 레이아웃 사용)
+                                -->
+                                <div class="table-wrap">
+                                    <h6 class="passenger-name">배성준</h6>
+                                    <div class="bundle-type2">
+                                        <dl class="info-title">
+                                            <dt class="bundle-name">번들명</dt>
+                                            <dd>트리플팩</dd>
+                                            <dt class="bundle-sale">할인율</dt>
+                                            <dd>29%</dd>
+                                            <dt class="bundle-price">금액</dt>
+                                            <dd><span class="digits">55000</span></dd>
+                                        </dl>
+                                        
+                                        <table class="charge-sheet">
+                                            <caption>배성준 결제 금액</caption>
+                                            <colgroup>
+                                                <col>
+                                                <col>
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">좌석</th>
+                                                    <td>D4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">수하물</th>
+                                                    <td>15kg</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">기내식</th>
+                                                    <td><a href="#none" target="_self">선택하기</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- // 분기 2 -->
+                                <div class="total-wrap">
+                                    <dl>
+                                        <dt>금액</dt>
+                                        <dd><span class="digits">999000</span></dd>
+                                    </dl>
+                                </div>
+
+                                <!-- 선택 : 렌터카 서비스를 선택했을 때(제주공항으로 향하는 국내선 가는 편 노선에서만 예약 가능합니다) 
+                                <h5 class="title">렌터카</h5>
+                                <div class="table-wrap">
+                                    <h6 class="passenger-name">배성준(운전자)</h6>
+                                    <table class="charge-sheet rentacar-receipt">
+                                        <caption>배성준(운전자) 결제 금액</caption>
+                                        <colgroup>
+                                            <col>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="text-ellipsis">올 뉴 모닝(휘) (제주OK렌터카)</span></td>
+                                                <td><span class="digits">10000</span></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-wrap">
+                                    <h6 class="passenger-name">김태형(운전자)</h6>
+                                    <table class="charge-sheet">
+                                        <caption>김태형(운전자) 결제 금액</caption>
+                                        <colgroup>
+                                            <col>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="text-ellipsis">BMW i3(18년~)(전기/충전비유료) (제주OK렌터카)</span></td>
+                                                <td><span class="digits">10000</span></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="total-wrap">
+                                    <dl>
+                                        <dt>금액</dt>
+                                        <dd><span class="digits">999000</span></dd>
+                                    </dl>
+                                </div>
+                                -->
+                                <dl class="flight-info">
+                                    <h5 class="title">
+                                        <span>ICN</span>
+                                        <i class="ico_oneway"></i>
+                                        <span>HAN</span> 
+                                    </h5>
+                                    <dt class="airline">항공사명</dt>
+                                    <dd><i class="ico_tw">티웨이항공</i></dd><!-- 제주항공은 .ico_7c, 티웨이항공은 .ico_tw -->
+                                    <dt class="flight-num">항공편명</dt>
+                                    <dd>TW808</dd>
+                                </dl>
+                                <div class="pay_choice">
+                                    <span>
+                                        <i class="safe_cho">안심</i> 정해진 자리는 기내에서 일행끼리 자유롭게 바꿀 수 있어요</span>
+                                    <a href="javascript:;" onclick="layerPop('popup1');" class="btn_bd_md submit">자리조정</a>
+                                </div>
+
+                                <!-- 분기 1 :  모든 탑승객이 번들팩을 추가하지 않았을 때 -->
+                                <div class="table-wrap">
+                                    <h6 class="passenger-name">배성준</h6>
+                                    <table class="charge-sheet">
+                                        <caption>배성준 결제 금액</caption>
+                                        <colgroup>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">좌석</th>
+                                                <td>D4</td>
+                                                <td><span class="digits">10000</span></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">수하물</th>
+                                                <td>30kg</td>
+                                                <td><span class="digits">60000</span></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">기내식</th>
+                                                <td><a href="#none" target="_self">구매하기</a></td>
+                                                <td><span class="digits">0</span></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">라운지</th>
+                                                <td>이용권 선택</td>
+                                                <td><span class="digits">14900</span></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- //분기 1 -->
+
+
+                                <!-- 분기 2 : 탑승객이 번들팩을 추가했을 때 -->
+                                <!--
+                                * 티웨이 번들 상품 *
+                                1. 티웨이 번들 상품 선택 승객인 경우, 상품 종류에 따라 .bundle-type1(더블팩), .bundle-type2(트리플팩), .bundle-type3(멀티팩)으로 감싸줍니다.
+                                2. .info-title에 각 번들 별 정보를 표시하고, .btn_delete를 통해 선택된 번들을 삭제할 수 있습니다. (삭제하면 선택 전 레이아웃 사용)
+                                -->
+                                <div class="table-wrap">
+                                    <h6 class="passenger-name">배성준</h6>
+                                    <div class="bundle-type2">
+                                        <dl class="info-title">
+                                            <dt class="bundle-name">번들명</dt>
+                                            <dd>트리플팩</dd>
+                                            <dt class="bundle-sale">할인율</dt>
+                                            <dd>29%</dd>
+                                            <dt class="bundle-price">금액</dt>
+                                            <dd><span class="digits">55000</span></dd>
+                                        </dl>
+                                        
+                                        <table class="charge-sheet">
+                                            <caption>배성준 결제 금액</caption>
+                                            <colgroup>
+                                                <col>
+                                                <col>
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">좌석</th>
+                                                    <td>D4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">수하물</th>
+                                                    <td>15kg</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">기내식</th>
+                                                    <td><a href="#none" target="_self">선택하기</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- // 분기 2 -->
+
+                                <div class="total-wrap">
+                                    <dl>
+                                        <dt>금액</dt>
+                                        <dd><span class="digits">999000</span></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- //부가서비스 총 결제금액 -->
 
@@ -237,7 +564,6 @@
                                             <p class="btn_payment-plan">카드번호를 넣어주세요.</p>
                                             
                                         </div>
-                                        
                                         <div class="input-wrap area_forms_100 card-cvv">
                                             <label class="forms_li_title">보안 코드 <span>(CVC/CVV)</span></label>
                                             <div class="card-pass-wrap ">
@@ -250,8 +576,6 @@
                                             </div>
                                             <p class="btn_payment-plan">보안코드를 넣어주세요.</p>
                                         </div>
-
-
                                         <div class="input-wrap area_forms_50">
                                             <label for="" class="forms_li_title">소유주 이름</label>
                                             <input type="text" id="" placeholder="이름을 입력하세요">
@@ -1088,7 +1412,195 @@ No-show : 취소수수료 50%
     <!-- //ags-summary -->
 </div>
 
-<!-- POPUP include -->
-<div id="popup"></div>
+
+<!--직접배정팝업-->
+<article id="popup1" class="layer_popup full"  tabindex="0">
+    <div class="wrapper_popup">
+        <!-- header -->
+        <div class="popup_header">
+            <!-- title -->
+            <div class="grp_title_popup">
+                <h2>자리조정</h2>
+                <div class="box_button">
+                    <button type="button" class="btn_close_popup_x" title="닫기">닫기</button>
+                </div>
+            </div>
+            <!-- //title -->
+        </div>
+        <!-- //header -->
+        <!-- container -->
+        <div class="popup_body">
+            <!-- content -->
+            <div class="popup_content">
+                <div class="flight-info">
+                    <h5 class="title">
+                        가는편
+                        <span>ICN</span>
+                        <i class="ico_oneway"></i>
+                        <span>HAN</span> 
+                    </h5>
+                    <div>
+                        <button type="button" class="pay_turn">초기화</button>  
+                    </div>
+                </div>
+                <div class="pay_del">
+                    <span>6B</span> 좌석에 누가 앉나요?
+                </div>
+                <div class="pay_seat">
+                    <!-- 기본 -->
+                    <ul class="seat_num" style="display: none;">
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">1A</a>
+                            <a href="#none" target="_self" class="seat_btn">1B</a>
+                            <a href="#none" target="_self" class="seat_btn">1C</a>
+                            <span class="pay_hallway">01</span>
+                            <a href="#none" target="_self" class="seat_btn">1D</a>
+                            <a href="#none" target="_self" class="seat_btn">1E</a>
+                            <a href="#none" target="_self" class="seat_btn">1F</a>
+                        </li>
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">59A</a>
+                            <a href="#none" target="_self" class="seat_btn">59B</a>
+                            <a href="#none" target="_self" class="seat_btn">59C</a>
+                            <span class="pay_hallway">59</span>
+                            <a href="#none" target="_self" class="seat_btn">59D</a>
+                            <a href="#none" target="_self" class="seat_btn">59E</a>
+                            <a href="#none" target="_self" class="seat_btn">59F</a>
+                        </li>
+                    </ul>
+                    <ul class="seat_num tw_A333" style="display: none;">
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">1A</a>
+                            <a href="#none" target="_self" class="seat_btn">1B</a>
+                            <span class="pay_hallway">01</span>
+                            <a href="#none" target="_self" class="seat_btn">1C</a>
+                            <a href="#none" target="_self" class="seat_btn">1D</a>
+                            <a href="#none" target="_self" class="seat_btn">1E</a>
+                            <a href="#none" target="_self" class="seat_btn">1F</a>
+                            <span class="pay_hallway">01</span>
+                            <a href="#none" target="_self" class="seat_btn">1G</a>
+                            <a href="#none" target="_self" class="seat_btn">1H</a>
+                        </li>
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">33A</a>
+                            <a href="#none" target="_self" class="seat_btn">33B</a>
+                            <span class="pay_hallway">33</span>
+                            <a href="#none" target="_self" class="seat_btn">33C</a>
+                            <a href="#none" target="_self" class="seat_btn">33D</a>
+                            <a href="#none" target="_self" class="seat_btn">33E</a>
+                            <a href="#none" target="_self" class="seat_btn">33F</a>
+                            <span class="pay_hallway">33</span>
+                            <a href="#none" target="_self" class="seat_btn">33G</a>
+                            <a href="#none" target="_self" class="seat_btn">33H</a>
+                        </li>
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">49A</a>
+                            <a href="#none" target="_self" class="seat_btn">49B</a>
+                            <span class="pay_hallway">49</span>
+                            <a href="#none" target="_self" class="seat_btn">49C</a>
+                            <a href="#none" target="_self" class="seat_btn">49D</a>
+                            <a href="#none" target="_self" class="seat_btn">49E</a>
+                            <a href="#none" target="_self" class="seat_btn">49F</a>
+                            <span class="pay_hallway">49</span>
+                            <a href="#none" target="_self" class="seat_btn">49G</a>
+                            <a href="#none" target="_self" class="seat_btn">49H</a>
+                        </li>
+                    </ul>
+                    <ul class="seat_num yp_HL838" style="display: none;">
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">1A</a>
+                            <a href="#none" target="_self" class="seat_btn">1B</a>
+                            <a href="#none" target="_self" class="seat_btn">1C</a>
+                            <span class="pay_hallway">01</span>                            
+                            <a href="#none" target="_self" class="seat_btn">1D</a>
+                            <a href="#none" target="_self" class="seat_btn">1E</a>
+                            <a href="#none" target="_self" class="seat_btn">1F</a>
+                            <span class="pay_hallway">01</span>
+                            <a href="#none" target="_self" class="seat_btn">1G</a>
+                            <a href="#none" target="_self" class="seat_btn">1H</a>
+                            <a href="#none" target="_self" class="seat_btn">1J</a>
+                        </li>
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">56A</a>
+                            <a href="#none" target="_self" class="seat_btn">56B</a>
+                            <a href="#none" target="_self" class="seat_btn">56C</a>
+                            <span class="pay_hallway">56</span>                            
+                            <a href="#none" target="_self" class="seat_btn">56D</a>
+                            <a href="#none" target="_self" class="seat_btn">56E</a>
+                            <a href="#none" target="_self" class="seat_btn">56F</a>
+                            <span class="pay_hallway">56</span>
+                            <a href="#none" target="_self" class="seat_btn">56G</a>
+                            <a href="#none" target="_self" class="seat_btn">56H</a>
+                            <a href="#none" target="_self" class="seat_btn">56J</a>
+                        </li>
+                    </ul>    
+                    <ul class="seat_num lj_B777-200">
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">1A</a>
+                            <a href="#none" target="_self" class="seat_btn">1B</a>
+                            <a href="#none" target="_self" class="seat_btn alpha_zero">1C</a>
+                            <span class="pay_hallway">01</span>                            
+                            <a href="#none" target="_self" class="seat_btn">1D</a>
+                            <a href="#none" target="_self" class="seat_btn">1E</a>
+                            <a href="#none" target="_self" class="seat_btn">1F</a>                            
+                            <a href="#none" target="_self" class="seat_btn seat_active">1G</a>
+                            <span class="pay_hallway">01</span>                            
+                            <a href="#none" target="_self" class="seat_btn">1H</a>
+                            <a href="#none" target="_self" class="seat_btn">1J</a>
+                            <a href="#none" target="_self" class="seat_btn">1K</a>
+                        </li>
+                        <li>
+                            <a href="#none" target="_self" class="seat_btn">56A</a>
+                            <a href="#none" target="_self" class="seat_btn">56B</a>
+                            <a href="#none" target="_self" class="seat_btn">56C</a>
+                            <span class="pay_hallway">56</span>                            
+                            <a href="#none" target="_self" class="seat_btn alpha_zero">56D</a>
+                            <a href="#none" target="_self" class="seat_btn">56E</a>
+                            <a href="#none" target="_self" class="seat_btn">56F</a>                            
+                            <a href="#none" target="_self" class="seat_btn">56G</a>
+                            <span class="pay_hallway">56</span>
+                            <a href="#none" target="_self" class="seat_btn">56H</a>
+                            <a href="#none" target="_self" class="seat_btn">56J</a>                            
+                            <a href="#none" target="_self" class="seat_btn">56K</a>
+                        </li>
+                    </ul> 
+                </div>
+                <div class="pay_group">
+                    <ul>
+                        <li>
+                            <div class="pay_group_s">
+                                <div class="chair_s">2E</div>
+                                <div>이정갑</div>
+                            </div>
+                            <div class="pay_group_e">
+                                <div class="pay_select_i">선택완료</div>
+                                <button class="pay_xx_i"></button>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="pay_group_s">
+                                <div>LEE JUNG GABBBBBBBBBBBBBBBB</div>
+                            </div>
+                            <div class="pay_group_e">
+                                <button class="pay_xx_o"></button>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                
+
+                
+                <div class="pay_pay">
+                    <button type="button" class="">저장하기</button>
+                </div>
+
+            </div>
+            <!-- //content -->
+        </div>
+        <!-- //container -->
+    </div>
+</article>
+<!--//직접배정팝업-->
 </body>
 </html>
