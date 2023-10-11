@@ -227,7 +227,7 @@
                         <td>상세 페이지</td><!--2Depth-->
                         <td>부가서비스 구매내역</td><!--3Depth-->
                         <td><a href="my_history-detail_anc.html" target="_blank">my_history-detail_anc.html</a></td><!--URL-->
-                        <td></td><!--비고-->
+                        <td><span class="text-emphasis">NEW 2023.10</span></td><!--비고-->
                     </tr>
                     <tr>
                         <td>나의 예약 / 구매내역</td><!--1Depth-->
@@ -877,6 +877,12 @@
                         <td><a href="#none" target="_self" data-popup="#pop101">pop101</a></td><!--Element ID-->
                         <td></td><!--비고-->
                     </tr>
+                    <tr>
+                        <td>E00</td><!--팝업코드-->
+                        <td>1:1 문의하기</td><!--팝업명-->
+                        <td><a href="#none" target="_self" data-popup="#pop_qnaa">pop_qnaa</a></td><!--Element ID-->
+                        <td><span class="text-emphasis">NEW 2023.10</span></td><!--비고-->
+                    </tr>
 
                     </tbody>
                 </table>
@@ -1005,6 +1011,30 @@
             }
         }).scroll()
     })();
+
+    function toggleVisibility(div) {
+        var folderContent = div.nextElementSibling;
+        var isActive = folderContent.classList.contains('folder-open');
+        
+        // Close all folders
+        var allFolderContents = document.querySelectorAll('.folder-content');
+        for (var i = 0; i < allFolderContents.length; i++) {
+            allFolderContents[i].classList.remove('folder-open');
+        }
+
+        // Remove "active" class from all qna-boxes
+        var allQnaBoxes = document.querySelectorAll('.qna-box');
+        for (var j = 0; j < allQnaBoxes.length; j++) {
+            allQnaBoxes[j].classList.remove('active');
+        }
+
+        // Toggle the clicked folder's state
+        if (!isActive) {
+            folderContent.classList.add('folder-open');
+            div.parentElement.classList.add('active');
+        }
+    }
+
 </script>
 </body>
 </html>
