@@ -585,7 +585,7 @@ $(document).ready(function () {
 
 		});
 	});
-
+    
 });
 
 
@@ -669,3 +669,4 @@ $(document).on("click", ".seat_btn", function () {
         $(this).addClass("seat_active").find("span").hide();;
     }
 });
+
