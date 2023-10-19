@@ -1,0 +1,73 @@
+<style>
+    .folder-content {
+        display: none; /* Initially, all folders are hidden */
+    }
+    .folder-open {
+        display: block; /* Applied to open folders */
+    }
+    .active {
+        /* Add your active styles here */
+        background-color: #f0f0f0;
+    }
+</style>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function toggleVisibility(div) {
+        var folderContent = div.nextElementSibling;
+        var isActive = folderContent.classList.contains('folder-open');
+        
+        // Close all folders
+        var allFolderContents = document.querySelectorAll('.folder-content');
+        for (var i = 0; i < allFolderContents.length; i++) {
+            allFolderContents[i].classList.remove('folder-open');
+        }
+
+        // Remove "active" class from all qna-boxes
+        var allQnaBoxes = document.querySelectorAll('.qna-box');
+        for (var j = 0; j < allQnaBoxes.length; j++) {
+            allQnaBoxes[j].classList.remove('active');
+        }
+
+        // Toggle the clicked folder's state
+        if (!isActive) {
+            folderContent.classList.add('folder-open');
+            div.parentElement.classList.add('active');
+        }
+    }
+    //]]>
+</script>
+
+<!-- Wrap each pair of <h3> and <div> inside a common <div> with the class "qna-box" -->
+<div class="qna-box">
+    <h3 class="closed" onclick="toggleVisibility(this)">Folder 1</h3>
+    <div class="folder-content">
+        <ol>
+            <li>첫번째 요소</li>
+            <li>두번째 요소</li>
+            <li>그럼 안녕</li>
+        </ol>
+    </div>
+</div>
+
+<div class="qna-box">
+    <h3 class="closed" onclick="toggleVisibility(this)">Folder 2</h3>
+    <div class="folder-content">
+        <ol>
+            <li>첫번째 요소</li>
+            <li>두번째 요소</li>
+            <li>그럼 안녕</li>
+        </ol>
+    </div>
+</div>
+
+<div class="qna-box">
+    <h3 class="closed" onclick="toggleVisibility(this)">Folder 3</h3>
+    <div class="folder-content">
+        <ol>
+            <li>첫번째 요소</li>
+            <li>두번째 요소</li>
+            <li>그럼 안녕</li>
+        </ol>
+    </div>
+</div>
