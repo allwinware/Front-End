@@ -8,13 +8,26 @@
 	<title>기내면세점</title>
 	<link rel="stylesheet" href="./resource/css/content.css">
 	<link rel="stylesheet" href="./resource/css/reset.css">
+	<script src="./resource/js/html2canvas.min.js"></script>
 	<script src="./resource/js/jquery-3.4.1.min.js"></script>
 	<script src="./resource/js/tax.mo.ui.js"></script>
+	<script>
+		$(function(){
+			$(".btn_download").click(function(e){
+		        html2canvas(document.getElementById("capture_area")).then(function(canvas) {
+		            var el = document.createElement("a")
+		            el.href = canvas.toDataURL("image/jpeg")
+		            el.download = '면세품교환권.jpg' 
+		            el.click()
+		        })
+		    })
+		})
+	</script>
 </head>
 
-<body class="ticket_bg">
+<body>	
 	<div class="dimmed_bg" style="display: none;"></div>
-	<div class="ags-wrap ticket">
+	<div id="capture_area" class="ags-wrap ticket">
 		<h1 class="site-name">면세품 교환권</h1>
 		<header id="header">
 			<div class="ags-header">
@@ -132,141 +145,18 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="ticket_use">
-				<a href="#none">이용안내 바로가기 ></a>
+			<div class="ticket_down">
+				<div class="ticket_use">
+					<a href="#none">이용안내 바로가기 ></a>				
+				</div>
+				<div class="ticket_save">
+					<button class="btn_download">이미지 저장</button></div>
 			</div>
 			
 		 </div>
 
 
-	</div>							
-	<!-- 첫화면 팝업뛰움 -->
-	<div class="footer-first" style="display: none;">
-		<div class="footer-first-pop active">
-			<div class="footer-first_close">닫힘</div>
-			<div class="footer-first_arrow_down">
-				<span>면세가보다 최대</span>
-				<div>
-					<span>40</span>
-					<span>%</span>
-				</div>
-			</div>
-			<div class="footer-first_img">
-				 <img src="resource/img/goods/goods2_1.jpg">
-				 <div class="footer-first_imgbox">
-					<div class="goods_price_dis_num">
-						<div class="discount_num">
-							<div class="disnum_v1">
-								<div>1병</div>
-								<div>10%할인</div>	
-							</div>
-						</div>
-						<div class="discount_num" style="padding-top: 5px;">
-							<div class="disnum_v1">
-								<div>2병</div>
-								<div>20%할인</div>	
-							</div>
-						</div>
-					</div>
-				 </div>
-			</div>
-			<div class="footer-first_txt">
-				<div>혹시, 면세 선물 준비하셨나요?</div>
-				<div>
-					사전예약하세요!<br>
-					기내 카다로그 면세보다 더 할인됩니다.!<br><br>
-
-					결제∙수령은 기내에서 편리하게 하세요.
-				</div>
-			</div>
-			<div class="footer-first-bottom">
-				<div>
-					<a href="#none" class="close_btn">기내면세 할인예약하기</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 검색창 -->
-	<div class="search_win">
-		<div class="search_pop">
-			<div class="search_pop_close_bg">
-				<div class="search_pop_close">닫힘</div>
-			</div>
-			<div class="search_pop_input">
-				<button class="right-search_pop"></button>
-				<input type="text" onfocus="this.placeholder = ''" placeholder="상품명 또는 브랜드를 입력해 주세요">
-			</div>
-			<div class="search_detail">
-				<div class="search_detail_goods">
-					<div>
-						주류
-					</div>
-					<div>
-						<ul>
-							<li><a href="search_succes.html">골든블랑</a></li>
-							<li><a href="search_succes.html">카발란</a></li>
-							<li><a href="#none">로얄살루트</a></li>
-							<li><a href="#none">발렌타인</a></li>
-							<li><a href="#none">시바스리갈</a></li>
-							<li><a href="#none">아메리칸위스키</a> </li>
-							<li><a href="#none">연태구냥</a></li>
-							<li><a href="#none">우랑예</a></li>
-							<li><a href="#none">조니워커</a></li>
-							<li><a href="#none">잭 다니엘스</a></li>
-							<li><a href="#none">진로</a></li>
-							<li><a href="#none">화요</a></li>
-
-						</ul>
-					</div>
-				</div>
-				<div class="search_detail_goods">
-					<div>
-						주류
-					</div>
-					<div>
-						<ul>
-							<li><a href="search_succes.html">골든블랑</a></li>
-							<li><a href="search_succes.html">카발란</a></li>
-							<li><a href="#none">로얄살루트</a></li>
-							<li><a href="#none">발렌타인</a></li>
-							<li><a href="#none">시바스리갈</a></li>
-							<li><a href="#none">아메리칸위스키</a> </li>
-							<li><a href="#none">연태구냥</a></li>
-							<li><a href="#none">우랑예</a></li>
-							<li><a href="#none">조니워커</a></li>
-							<li><a href="#none">잭 다니엘스</a></li>
-							<li><a href="#none">진로</a></li>
-							<li><a href="#none">화요</a></li>
-
-						</ul>
-					</div>
-				</div>
-				<div class="search_detail_goods">
-					<div>
-						주류
-					</div>
-					<div>
-						<ul>
-							<li><a href="search_succes.html">골든블랑</a></li>
-							<li><a href="search_succes.html">카발란</a></li>
-							<li><a href="#none">로얄살루트</a></li>
-							<li><a href="#none">발렌타인</a></li>
-							<li><a href="#none">시바스리갈</a></li>
-							<li><a href="#none">아메리칸위스키</a> </li>
-							<li><a href="#none">연태구냥</a></li>
-							<li><a href="#none">우랑예</a></li>
-							<li><a href="#none">조니워커</a></li>
-							<li><a href="#none">잭 다니엘스</a></li>
-							<li><a href="#none">진로</a></li>
-							<li><a href="#none">화요</a></li>
-
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	</div>	
 	<div class="cart_popbox_v2" style="display: none;">교환권이 갤러리에 추가되었습니다!</div>
 	<!-- 공유하기-->
 	<div class="ticket_share">
