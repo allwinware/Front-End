@@ -964,7 +964,7 @@
                                 <!--팝업명-->
                                 <td><a href="#none" target="_self" data-popup="#pop_qna">pop_qna</a></td>
                                 <!--Element ID-->
-                                <td></td>
+                                <td><i class="text-emphasis">NEW 2024.02</i></td>
                                 <!--비고-->
                             </tr>
 
@@ -1441,6 +1441,71 @@
                             <label for="resv-num">예약번호</label>
                             <input type="text" id="resv-num" placeholder="예약번호를 입력하세요">
                         </div>
+                        <div class="qna-text">
+                            <h3 class="qna-label">혹시 이게 궁금하세요?</h3>
+                            <div class="qna-box">
+                                <div class="qna-slider" onclick="toggleVisibility(this)">
+                                    <span><i>Q</i> 항공권이 결항이 되었는데 항공 부가 서비스는 어떻게 되나요?</span>
+                                    <span class="qna-arrow"></span>
+                                </div>
+                                <div class="folder-content">
+                                    <ol>
+                                        <li><i>A</i>
+                                            <p> 항공사의 귀책 사유로 고객님께서 부가 서비스를 이용하지 못 하셨을 경우, 
+                                            항공 부가서비스는 전액 환불 가능합니다.
+                                            결항 발생 시, 항공권을 취소하면 구매하신 항공부가서비스도 자동으로 함께 취소 및 환불 처리 됩니다.
+                                            </p>
+                                        </li>                                        
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="qna-box">
+                                <div class="qna-slider" onclick="toggleVisibility(this)">
+                                    <span><i>Q</i> 항공권이 결항이 되었는데 항공 부가 서비스는 어떻게 되나요?</span>
+                                    <span class="qna-arrow"></span>
+                                </div>
+                                <div class="folder-content">
+                                    <ol>
+                                        <li>항공사의 귀책 사유로 고객님께서 부가 서비스를 이용하지 못 하셨을 경우, 
+                                            항공 부가서비스는 전액 환불 가능합니다.
+                                            결항 발생 시, 항공권을 취소하면 구매하신 항공부가서비스도 자동으로 함께 취소 및 환불 처리 됩니다.
+                                        </li>                                        
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="qna-box">
+                                <div class="qna-slider" onclick="toggleVisibility(this)">
+                                    <span><i>Q</i> 항공권이 결항이 되었는데 항공 부가 서비스는 어떻게 되나요?</span>
+                                    <span class="qna-arrow"></span>
+                                </div>
+                                <div class="folder-content">
+                                    <ol>
+                                        <li><i>A</i> 항공사의 귀책 사유로 고객님께서 부가 서비스를 이용하지 못 하셨을 경우, 
+                                            항공 부가서비스는 전액 환불 가능합니다.
+                                            결항 발생 시, 항공권을 취소하면 구매하신 항공부가서비스도 자동으로 함께 취소 및 환불 처리 됩니다.
+                                        </li>                                        
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="qna-box">
+                                <div class="qna-slider" onclick="toggleVisibility(this)">
+                                    <span><i>Q</i> 항공권이 결항이 되었는데 항공 부가 서비스는 어떻게 되나요?</span>
+                                    <span class="qna-arrow"></span>
+                                </div>
+                                <div class="folder-content">
+                                    <ol>
+                                        <li><i>A</i> 항공사의 귀책 사유로 고객님께서 부가 서비스를 이용하지 못 하셨을 경우, 
+                                            항공 부가서비스는 전액 환불 가능합니다.
+                                            결항 발생 시, 항공권을 취소하면 구매하신 항공부가서비스도 자동으로 함께 취소 및 환불 처리 됩니다.
+                                        </li>                                        
+                                    </ol>
+                                </div>
+                            </div>
+                            <button class="qna-box-more">
+                                 더보기
+                            </button>
+                        </div>
+
                         <div class="input-wrap qna-title">
                             <label for="qna-title">제목</label>
                             <input type="text" id="qna-title" placeholder="제목을 입력하세요">
@@ -5696,6 +5761,28 @@
                 }
             }).scroll()
         })();
+        function toggleVisibility(div) {
+        var folderContent = div.nextElementSibling;
+        var isActive = folderContent.classList.contains('folder-open');
+        
+        // Close all folders
+        var allFolderContents = document.querySelectorAll('.folder-content');
+        for (var i = 0; i < allFolderContents.length; i++) {
+            allFolderContents[i].classList.remove('folder-open');
+        }
+
+        // Remove "active" class from all qna-boxes
+        var allQnaBoxes = document.querySelectorAll('.qna-box');
+        for (var j = 0; j < allQnaBoxes.length; j++) {
+            allQnaBoxes[j].classList.remove('active');
+        }
+
+        // Toggle the clicked folder's state
+        if (!isActive) {
+            folderContent.classList.add('folder-open');
+            div.parentElement.classList.add('active');
+        }
+        }
     </script>
 </body>
 
