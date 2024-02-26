@@ -454,6 +454,7 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_recom_box').remove();
 		$('.slider1 .seat_sheet_loading').remove();
 		$('.air_logo').remove();
+		$('.travel_logo').remove();
 		$('.air_time').remove();
 
 		$('.slider1 .seat_sheet_touch_v1').remove();
