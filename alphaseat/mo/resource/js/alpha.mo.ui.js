@@ -411,6 +411,63 @@ $(document).ready(function () {
 	});
 
 	/*스케일*/
+	$(document).on("click",".trigger_1_1", function () {
+		console.log("trigger_1_1");
+		$('.scale').removeClass('scale');
+		$('.scale_type_1').css('top', '-518px');
+
+		$('.ags-summary-group').css('display', 'block');
+		$('.ags-summary').css('display', 'none');
+
+		setTimeout(function(){
+			$('.slider1 .seat_sheet_number').fadeIn();
+			$('.slider1 .seat_sheet_abcdef').fadeIn();
+			$('.slider1 .seat_sheet_A333').fadeIn();
+			$('.slider1 .airplane_bg_front_jeju').fadeIn();
+			$('.slider1 .airplane_bg_end_jeju').fadeIn();
+			$('.slider1 .airplane_bg_front_busan').fadeIn();
+			$('.slider1 .airplane_bg_end_busan').fadeIn();
+
+			$('.slider1 .airplane_bg_front_tway').fadeIn();
+			$('.slider1 .airplane_bg_end_tway').fadeIn();
+
+			$('.slider1 .airplane_bg_front_yp_HL838').fadeIn();
+			$('.slider1 .airplane_bg_end_yp_HL838').fadeIn();
+
+			$('.slider1 .airplane_bg_front_yp_HL851').fadeIn();
+			$('.slider1 .airplane_bg_end_yp_HL851').fadeIn();
+			
+			$('.slider1 .airplane_bg_front').fadeIn();
+			$('.slider1 .airplane_bg_end').fadeIn();
+
+			$('.slider1 .airplane_bg_front_jinair').fadeIn();
+			$('.slider1 .airplane_bg_end_jinair').fadeIn();
+
+			$('.slider1 .airplane_bg_end').fadeIn();
+			$('.slider1 .airplane_bg').fadeIn();
+			$('.slider1 .popup_infor').fadeIn();
+			
+			$('.slider1 .seat_sheet_price_box').fadeIn();
+			$('.slider1 .seat_sheet_recom_box').fadeIn();
+			$('.air_logo').fadeIn();
+			$('.travel_logo').fadeIn();
+			$('.air_time').fadeIn();
+
+			$('.slider1 .seat_sheet_touch_v1').fadeIn();
+			$('.slider1 .digital_loading').fadeIn();
+
+			$('.seat_sheet_touch_v0').fadeIn();
+			$('.seat_sheet_touch_v00').fadeIn();
+			
+			$('.trigger_1').fadeIn();
+			$('.trigger_1_1').hide();		
+		},1800);
+
+		seatCtl.setScrollEvent();
+		return false;
+	});
+
+
 	$(document).on("click",".trigger_1", function () {
 		console.log("trigger_1");
 		$('.scale_type_1').toggleClass('scale');
@@ -423,50 +480,51 @@ $(document).ready(function () {
 		$('.ags-summary').css('display', 'block');
 		
 
-		$('.slider1 .seat_sheet_number').remove();
-		$('.slider1 .seat_sheet_abcdef').remove();
-		$('.slider1 .seat_sheet_A333').remove();
-		$('.slider1 .airplane_bg_front_jeju').remove();
-		$('.slider1 .airplane_bg_end_jeju').remove();
-		$('.slider1 .airplane_bg_front_busan').remove();
-		$('.slider1 .airplane_bg_end_busan').remove();
+		$('.slider1 .seat_sheet_number').hide();
+		$('.slider1 .seat_sheet_abcdef').hide();
+		$('.slider1 .seat_sheet_A333').hide();
+		$('.slider1 .airplane_bg_front_jeju').hide();
+		$('.slider1 .airplane_bg_end_jeju').hide();
+		$('.slider1 .airplane_bg_front_busan').hide();
+		$('.slider1 .airplane_bg_end_busan').hide();
 
-		$('.slider1 .airplane_bg_front_tway').remove();
-		$('.slider1 .airplane_bg_end_tway').remove();
+		$('.slider1 .airplane_bg_front_tway').hide();
+		$('.slider1 .airplane_bg_end_tway').hide();
 
-		$('.slider1 .airplane_bg_front_yp_HL838').remove();
-		$('.slider1 .airplane_bg_end_yp_HL838').remove();
+		$('.slider1 .airplane_bg_front_yp_HL838').hide();
+		$('.slider1 .airplane_bg_end_yp_HL838').hide();
 
-		$('.slider1 .airplane_bg_front_yp_HL851').remove();
-		$('.slider1 .airplane_bg_end_yp_HL851').remove();
+		$('.slider1 .airplane_bg_front_yp_HL851').hide();
+		$('.slider1 .airplane_bg_end_yp_HL851').hide();
 		
-		$('.slider1 .airplane_bg_front').remove();
-		$('.slider1 .airplane_bg_end').remove();
+		$('.slider1 .airplane_bg_front').hide();
+		$('.slider1 .airplane_bg_end').hide();
 
-		$('.slider1 .airplane_bg_front_jinair').remove();
-		$('.slider1 .airplane_bg_end_jinair').remove();
+		$('.slider1 .airplane_bg_front_jinair').hide();
+		$('.slider1 .airplane_bg_end_jinair').hide();
 
-		$('.slider1 .airplane_bg_end').remove();
-		$('.slider1 .airplane_bg').remove();
-		$('.slider1 .popup_infor').remove();
+		$('.slider1 .airplane_bg_end').hide();
+		$('.slider1 .airplane_bg').hide();
+		$('.slider1 .popup_infor').hide();
 		
-		$('.slider1 .seat_sheet_price_box').remove();
-		$('.slider1 .seat_sheet_recom_box').remove();
-		$('.slider1 .seat_sheet_loading').remove();
-		$('.air_logo').remove();
-		$('.travel_logo').remove();
-		$('.air_time').remove();
+		$('.slider1 .seat_sheet_price_box').hide();
+		$('.slider1 .seat_sheet_recom_box').hide();
+		$('.slider1 .seat_sheet_loading').hide();
+		$('.air_logo').hide();
+		$('.travel_logo').hide();
+		$('.air_time').hide();
 
-		$('.slider1 .seat_sheet_touch_v1').remove();
-		$('.slider1 .seat_sheet_touch_v2').remove();
-		$('.slider1 .seat_sheet_touch_v3').remove();
-		$('.slider1 .digital_loading').remove();
+		$('.slider1 .seat_sheet_touch_v1').hide();
+		$('.slider1 .seat_sheet_touch_v2').hide();
+		$('.slider1 .seat_sheet_touch_v3').hide();
+		$('.slider1 .digital_loading').hide();
 
-		$('.seat_sheet_touch_v0').remove();
-		$('.seat_sheet_touch_v00').remove();
+		$('.seat_sheet_touch_v0').hide();
+		$('.seat_sheet_touch_v00').hide();
 		
 		
-		$(this).remove();
+		$('.trigger_1').hide();
+		$('.trigger_1_1').show();
 
 		seatCtl.setScrollEvent();
 		return false;
