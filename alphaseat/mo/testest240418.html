@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>색상 선택</title>
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .color-box {
+        width: 350px;
+        height: 300px;
+        cursor: pointer;
+    }
+    #popup {
+        display: none;
+        position: fixed;
+        background-color: white;
+        border: 1px solid black;
+        padding: 10px;
+        z-index: 1000;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="color-box" style="background-color: red;" onclick="showPopup('red')"></div>
+    <div class="color-box" style="background-color: orange;" onclick="showPopup('orange')"></div>
+    <div class="color-box" style="background-color: yellow;"></div>
+    <div class="color-box" style="background-color: green;"></div>
+    <div class="color-box" style="background-color: blue;"></div>
+    <div class="color-box" style="background-color: indigo;"></div>
+    <div class="color-box" style="background-color: violet;"></div>
+</div>
+
+<div id="popup"></div>
+
+<script>
+    function showPopup(color) {
+        var popup = document.getElementById('popup');
+        popup.innerHTML = '';
+        var colorBox = document.createElement('div');
+        colorBox.style.backgroundColor = color;
+        colorBox.style.width = '200px';
+        colorBox.style.height = '200px';
+        popup.appendChild(colorBox);
+        
+        // 팝업의 높이만큼 버튼들을 위로 이동
+        var buttons = document.querySelectorAll('.color-box');
+        var popupHeight = popup.offsetHeight;
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].style.transform = 'translateY(-' + popupHeight + 'px)';
+        }
+
+        popup.style.display = 'block';
+        popup.onclick = function() {
+            popup.style.display = 'none';
+            // 팝업이 사라진 후 버튼들의 위치를 초기화
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].style.transform = 'translateY(0)';
+            }
+        };
+    }
+</script>
+</body>
+</html>

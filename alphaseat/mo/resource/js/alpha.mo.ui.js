@@ -138,6 +138,9 @@ $(document).ready(function () {
 		$(".travel_a").css("display", "none");
 		$(".travel_b").css("display", "block");
 
+		$('.select_backbtn').removeClass("active");
+		$('.select_comebtn').addClass("active");
+
 		//$("#ags-wrap").css("display", "none");
 		//$("#ags-wrap-back").css("display", "block");
 		seatCtl.setScrollEvent();
@@ -184,6 +187,11 @@ $(document).ready(function () {
 		
 		$(".travel_b").css("display", "none");
 		$(".travel_a").css("display", "block");
+
+		$('.select_backbtn').addClass("active");
+		$('.select_comebtn').removeClass("active");
+		
+
 		//$("#ags-wrap-back").css("display", "none");
 		//$("#ags-wrap").css("display", "block");
 		seatCtl.setScrollEvent();
@@ -420,49 +428,67 @@ $(document).ready(function () {
 		$('.ags-summary').css('display', 'none');
 
 		setTimeout(function(){
-			$('.slider1 .seat_sheet_number').fadeIn();
-			$('.slider1 .seat_sheet_abcdef').fadeIn();
-			$('.slider1 .seat_sheet_A333').fadeIn();
-			$('.slider1 .airplane_bg_front_jeju').fadeIn();
-			$('.slider1 .airplane_bg_end_jeju').fadeIn();
-			$('.slider1 .airplane_bg_front_busan').fadeIn();
-			$('.slider1 .airplane_bg_end_busan').fadeIn();
+			$('.trigger_1_1').fadeOut();
+			$('.ags-summary-group').fadeIn();
+			$('.ags-summary').fadeOut();
+		},100);
 
-			$('.slider1 .airplane_bg_front_tway').fadeIn();
-			$('.slider1 .airplane_bg_end_tway').fadeIn();
+		/*추가 20240415*/
+		$('.btn_group_open').hide();
+		
 
-			$('.slider1 .airplane_bg_front_yp_HL838').fadeIn();
-			$('.slider1 .airplane_bg_end_yp_HL838').fadeIn();
+		setTimeout(function(){
+			/*추가 20240508*/
+		$('.slider1 .seat_sheet_price_txt').fadeIn();		
+		$('.slider1 .seat_sheet_touch_newtxt').fadeIn();
+		/*추가 20240415*/
+		$('.travelandtime').fadeIn();
+		/*--------------------------------------------*/
+		$('.slider1 .seat_sheet_number').fadeIn();
+		$('.slider1 .seat_sheet_abcdef').fadeIn();
+		$('.slider1 .seat_sheet_A333').fadeIn();
+		$('.slider1 .airplane_bg_front_jeju').fadeIn();
+		$('.slider1 .airplane_bg_end_jeju').fadeIn();
+		$('.slider1 .airplane_bg_front_busan').fadeIn();
+		$('.slider1 .airplane_bg_end_busan').fadeIn();
 
-			$('.slider1 .airplane_bg_front_yp_HL851').fadeIn();
-			$('.slider1 .airplane_bg_end_yp_HL851').fadeIn();
-			
-			$('.slider1 .airplane_bg_front').fadeIn();
-			$('.slider1 .airplane_bg_end').fadeIn();
+		$('.slider1 .airplane_bg_front_tway').fadeIn();
+		$('.slider1 .airplane_bg_end_tway').fadeIn();
 
-			$('.slider1 .airplane_bg_front_jinair').fadeIn();
-			$('.slider1 .airplane_bg_end_jinair').fadeIn();
+		$('.slider1 .airplane_bg_front_yp_HL838').fadeIn();
+		$('.slider1 .airplane_bg_end_yp_HL838').fadeIn();
 
-			$('.slider1 .airplane_bg_end').fadeIn();
-			$('.slider1 .airplane_bg').fadeIn();
-			$('.slider1 .popup_infor').fadeIn();
-			
-			$('.slider1 .seat_sheet_price_box').fadeIn();
-			$('.slider1 .seat_sheet_recom_box').fadeIn();
-			$('.air_logo').fadeIn();
-			$('.travel_logo').fadeIn();
-			$('.air_time').fadeIn();
+		$('.slider1 .airplane_bg_front_yp_HL851').fadeIn();
+		$('.slider1 .airplane_bg_end_yp_HL851').fadeIn();
+		
+		$('.slider1 .airplane_bg_front').fadeIn();
+		$('.slider1 .airplane_bg_end').fadeIn();
 
-			$('.slider1 .seat_sheet_touch_v1').fadeIn();
-			$('.slider1 .digital_loading').fadeIn();
+		$('.slider1 .airplane_bg_front_jinair').fadeIn();
+		$('.slider1 .airplane_bg_end_jinair').fadeIn();
 
-			$('.seat_sheet_touch_v0').fadeIn();
-			$('.seat_sheet_touch_v00').fadeIn();
-			
-			$('.trigger_1').fadeIn();
-			$('.trigger_1_1').hide();		
+		$('.slider1 .airplane_bg_end').fadeIn();
+		$('.slider1 .airplane_bg').fadeIn();
+		$('.slider1 .popup_infor').fadeIn();
+		
+		$('.slider1 .seat_sheet_price_box').fadeIn();
+		$('.slider1 .seat_sheet_recom_box').fadeIn();
+		$('.travel_logo').fadeIn();
+		$('.air_time').fadeIn();
+
+		$('.slider1 .seat_sheet_touch_v1').fadeIn();
+		$('.slider1 .digital_loading').fadeIn();
+
+		$('.seat_sheet_touch_v0').fadeIn();
+		$('.seat_sheet_touch_v00').fadeIn();
+		
+		$('.trigger_1').fadeIn();
+							
+				
 		},1800);
 
+		
+		
 		seatCtl.setScrollEvent();
 		return false;
 	});
@@ -470,16 +496,28 @@ $(document).ready(function () {
 
 	$(document).on("click",".trigger_1", function () {
 		console.log("trigger_1");
+
+		/*추가 20240415*/
+		$('.travelandtime').fadeOut();
+
+		/*추가 20240508*/
+		$('.slider1 .seat_sheet_price_txt').hide();
+		$('.slider1 .seat_sheet_touch_newtxt').hide();
+		$('.slider1 .finger_mov').hide();
+		
+		/*--------------------------------------------*/
+
 		$('.scale_type_1').toggleClass('scale');
 		$('.scale_type_1').css('top', '0px');
 		$('.contents').css('overflow-y', 'scroll');
 		$('.seat_sheet_bg.ac1').css('height', '100%');
 		$('.seat_sheet_bg.ac1').css('margin-bottom', '100px');
 		
-		$('.ags-summary-group').css('display', 'none');
-		$('.ags-summary').css('display', 'block');
+		setTimeout(function(){
+			$('.ags-summary-group').fadeOut();
+			$('.ags-summary').fadeIn();
+		},500);
 		
-
 		$('.slider1 .seat_sheet_number').hide();
 		$('.slider1 .seat_sheet_abcdef').hide();
 		$('.slider1 .seat_sheet_A333').hide();
@@ -510,7 +548,6 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_price_box').hide();
 		$('.slider1 .seat_sheet_recom_box').hide();
 		$('.slider1 .seat_sheet_loading').hide();
-		$('.air_logo').hide();
 		$('.travel_logo').hide();
 		$('.air_time').hide();
 
@@ -520,11 +557,10 @@ $(document).ready(function () {
 		$('.slider1 .digital_loading').hide();
 
 		$('.seat_sheet_touch_v0').hide();
-		$('.seat_sheet_touch_v00').hide();
-		
+		$('.seat_sheet_touch_v00').hide();		
 		
 		$('.trigger_1').hide();
-		$('.trigger_1_1').show();
+		$('.trigger_1_1').fadeIn();
 
 		seatCtl.setScrollEvent();
 		return false;
@@ -621,3 +657,64 @@ $(document).ready(function () {
 		});
 	});
 });
+
+/*숫자 버튼 증가감소*/
+
+$(document).ready(function() {
+    function updateCounter($counter, $gab) {
+        var currentNumber = parseInt($counter.find('.number_box').text(), 10);
+        if (currentNumber === 0) {
+            $counter.find('.decrease_btn').addClass('active');
+        } else {
+            $counter.find('.decrease_btn').removeClass('active');
+        }
+        if (currentNumber === 25) {
+            $counter.find('.increase_btn').addClass('active');
+        } else {
+            $counter.find('.increase_btn').removeClass('active');
+        }
+
+        // Update price based on currentNumber
+        var price = 0;
+        if (currentNumber >= 0 && currentNumber < 25) {
+            price = currentNumber * 1000; // $1000 for each unit
+        } else if (currentNumber >= 25) {
+            price = 25000 + (currentNumber - 25) * 2000; // $2000 for each unit after 25
+        }
+
+        // Add comma to price
+        var formattedPrice = price.toLocaleString();
+
+        $gab.text(formattedPrice);
+    }
+
+    function setupCounter($counter, $gab) {
+        updateCounter($counter, $gab);
+
+        $counter.find('.decrease_btn').click(function() {
+            var currentNumber = parseInt($counter.find('.number_box').text(), 10);
+            if (currentNumber > 0) {
+                currentNumber = currentNumber - 5;
+                $counter.find('.number_box').text(currentNumber);
+                updateCounter($counter, $gab);
+            }
+        });
+
+        $counter.find('.increase_btn').click(function() {
+            var currentNumber = parseInt($counter.find('.number_box').text(), 10);
+            if (currentNumber < 25) {
+                currentNumber = currentNumber + 5;
+                $counter.find('.number_box').text(currentNumber);
+                updateCounter($counter, $gab);
+            }
+        });
+    }
+
+    $('.baggagep_btn_chk').each(function(index) {
+        var $counter = $(this);
+        var $gab = $('.gab' + (index + 1)); // Assuming gab classes are named as gab1, gab2, gab3, ...
+
+        setupCounter($counter, $gab);
+    });
+});
+
