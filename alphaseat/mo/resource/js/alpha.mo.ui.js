@@ -550,6 +550,7 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_loading').hide();
 		$('.travel_logo').hide();
 		$('.air_time').hide();
+		$('.air_logo').hide();
 
 		$('.slider1 .seat_sheet_touch_v1').hide();
 		$('.slider1 .seat_sheet_touch_v2').hide();
