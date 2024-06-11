@@ -422,7 +422,7 @@ $(document).ready(function () {
 	$(document).on("click",".trigger_1_1", function () {
 		console.log("trigger_1_1");
 		$('.scale').removeClass('scale');
-		$('.scale_type_1').css('top', '-518px');
+		$('.scale_type_1').css('top', '-529px');
 
 		$('.ags-summary-group').css('display', 'block');
 		$('.ags-summary').css('display', 'none');
@@ -550,7 +550,6 @@ $(document).ready(function () {
 		$('.slider1 .seat_sheet_loading').hide();
 		$('.travel_logo').hide();
 		$('.air_time').hide();
-		$('.air_logo').hide();
 
 		$('.slider1 .seat_sheet_touch_v1').hide();
 		$('.slider1 .seat_sheet_touch_v2').hide();
