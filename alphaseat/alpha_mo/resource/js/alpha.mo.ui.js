@@ -658,8 +658,7 @@ $(document).ready(function () {
 	});
 });
 
-/*숫자 버튼 증가감소*/
-
+/*숫자 버튼 증가감소
 
 $(document).ready(function() {
     function updateCounter($counter, $gab) {
@@ -718,3 +717,4 @@ $(document).ready(function() {
         setupCounter($counter, $gab);
     });
 });
+*/
