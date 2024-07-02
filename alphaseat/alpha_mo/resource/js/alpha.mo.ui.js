@@ -660,6 +660,7 @@ $(document).ready(function () {
 
 /*숫자 버튼 증가감소*/
 
+
 $(document).ready(function() {
     function updateCounter($counter, $gab) {
         var currentNumber = parseInt($counter.find('.number_box').text(), 10);
@@ -717,4 +718,3 @@ $(document).ready(function() {
         setupCounter($counter, $gab);
     });
 });
-
