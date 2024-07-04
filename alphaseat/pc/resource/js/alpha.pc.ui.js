@@ -670,3 +670,26 @@ $(window).scroll(function() {
 
 }).scroll();
 
+
+
+$(document).ready(function() {
+    // X 버튼 클릭 시 팝업 닫기
+    $('.close-btn').on('click', function() {
+      $(this).closest('.foods_right_pop').hide();
+      $(this).closest('.childseat_right_pop').hide();
+    });
+  
+    // 예시로 팝업을 여는 버튼 클릭 이벤트
+    $('.open-popup-btn').on('click', function() {
+        $(".foods_right_pop").css("display", "block");
+        $('.foods_right_pop').show();
+    });
+    // 유아동행 예시
+
+    $('.childopen-popup-btn').on('click', function() {
+        $(".childseat_right_pop").css("display", "block");
+        $('.childseat_right_pop').show();
+    });
+
+
+  });
