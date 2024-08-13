@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>기내면세점</title>
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<script src="./resource/js/jquery-3.4.1.min.js"></script>
+	<script src="./resource/js/tax.mo.ui.js"></script>
+</head>
+
+<body>
+	<div class="dimmed_bg" style="display: none;"></div>
+	<div class="ags-wrap save">
+		<h1 class="site-name">올윈에어</h1>
+		<header id="header">
+			<div class="ags-header">
+				<h2 class="page-name"></h2>
+				<div class="goback">
+					<a href="javascript:history.back();">왼쪽</a>
+				</div>
+				<div class="gnb-wrap right">
+					<ul>
+						<li>
+							<!--마이페이지-->
+							<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+							<div id="gnb-2dp" class="gnb-2dp-wrap">
+								
+									<div class="dp2-warp-bg1">
+										<div class="gnb-2dp-up">
+											<p class="airplane-logo jeju"></p>
+											<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>								
+										</div>
+										<ul class="depth1">
+											<li class="gnb_first">
+												<div>
+													<span>기내 면세품예약</span>
+													<a href="goods_reservation.html" target="_self"></a>
+												</div>
+											</li>
+											<li class="gnb_first">
+												<div>
+													<span>면세 예약내역</span>
+													<a href="goods_reservation.html" target="_self"></a>
+												</div>
+												<ul class="gnb_reserv">
+													<li>
+														<a href="#none" target="_self">출국편</a>
+														<span class="reserv_active chk2" style="display: none;">예약완료</span>
+														<span class="reserv_active chk1">예약완료</span>
+													</li>
+													<li>
+														<a href="#none" target="_self">입국편</a>
+														<span>미예약</span>
+													</li>
+													<li>
+														*예약자/상품/수량 등 변경을 원하시면<br>
+														‘예약내역’에서 전체 취소 후 다시 예약해 주세요.
+													</li>
+													
+												</ul>
+											</li>
+											<li class="gnb_first">
+												<div>
+													<span>부가서비스 바로가기</span>
+													<a href="goods_reservation.html" target="_self"></a>
+												</div>
+											</li>
+											<li class="gnb_second">
+												<span>기내면세 이용안내</span>
+												<ul class="gnb_navi">
+													<li>
+														<img src="resource/img/common/icon_1.png"></span>
+														<span>면세한도</span>
+													</li>
+													<li>
+														<img src="resource/img/common/icon_2.png"></span>
+														<span>예약안내</span></li>
+													<li>
+														<img src="resource/img/common/icon_3.png"></span>
+														<span>교환/환불</span></li>
+													<li>
+														<img src="resource/img/common/icon_4.png"></span>
+														<span>결제수단</span>
+													</li>
+												</ul>
+											</li>
+											<li class="gnb_event">
+												<span>진행중 이벤트</span>
+												<span><img src="resource/img/common/event.png"></span>
+											</li>
+
+											<li class="fnb">
+												<a href="privacy-policy.html" target="_self">개인정보취급방침</a>
+											</li>
+										</ul>
+									</div>
+									<div class="dp2-warp-bg2"></div>
+								
+							</div>
+						</li>
+					</ul>
+				</div>	
+			</div>			
+		</header>
+			<div class="ico_pic2">아이콘2</div>
+			<div class="save_txt1">이지영님 기내면세 예약이 완료되었어요!</div>
+			<div class="save_txt2_1">
+				면세품은 기내에서 편안하게 결제∙수령하세요!
+			</div>
+			<div class="save_txt2_2">
+				<div id="openpopup_btn3" class="save_txt2_2_btn">면세 유의사항</div>
+				<div class="save_txt2_2_btn active">예약내역 상세</div>
+			</div>
+			
+
+	</div>
+
+	<!-- 로딩 -->
+	<article id="pop_loading" class="layer_popup alert" popup-type="loading">
+		<div class="align-center">
+			<div class="page-loading">
+				<i class="ico"></i>
+			</div>
+		</div>
+	</article>
+
+	<div class="popups popup_box3">
+        <div class="popup_content">
+            <span class="popup_close_btn"></span>
+			<div class="popup_content_txt">
+				<div class="popup_content_txt_ad1">기내면세 유의사항</div>
+				<br>
+				<div class="popup_content_txt_ad2">
+					<span>∙ 예약된 출국편/입국편 기내에서 결제∙수령가능합니다.</span>
+					
+					<span>∙ 현금 결제 시 현금 영수증 발급은 불가함을 양지 바랍니다. (법인세법 시행 규칙 제 79조 2항)</span>
+					
+					<span>∙ 개인 및 법인명의 신용 카드를 사용하시는 분은 반드시 신분증을 제시해 주시기 바랍니다.(타인 명의 카드 결제 불가)</span>
+				</div>
+			</div>
+			<div class="popup_btn_com">
+				<button>확인</button>
+			</div>
+		</div>
+    </div>
+</body>
+
+<script>		
+		$(document).ready(function () {
+			$("html").css("overflow", "hidden");
+			var content_list	= $(".content_view:visible > ul");
+			var content_top		= $(".content_view:visible").offset().top;
+
+			// 스크롤 탭이동
+			$(window).on("scroll", function(){
+				var cur_top	= $(this).scrollTop();
+				
+				$(content_list).each(function(index, item){
+					var cur_cont_top	= $(item).offset().top;
+					var cur_cont_bttm	= cur_cont_top + $(item).outerHeight();
+					
+					if (cur_top >= cur_cont_top && cur_top <= cur_cont_bttm) {
+					
+						$("#subMenu1 li > a").removeClass("active");
+						$("#subMenu1 li:eq("+index+") > a").addClass("active");
+					}
+				});
+			})
+		});
+	</script>
+</html>

@@ -97,10 +97,12 @@ $(document).ready(function () {
         $("div [agrLt]").each(function(idx, obj) {
             if( _self == $("div [agrBtn]").get(idx) && $(obj).hasClass("on") == false) {
                 $('.credit_box_btn').eq(idx).removeClass('on');
-                $(obj).addClass("on").slideDown(300);
+                $(obj).addClass("on").slideDown(300);	                
+                $('.reserv_border_box').eq(idx).addClass('active');
             } else {
                 $('.credit_box_btn').eq(idx).addClass('on');			
-                $(obj).removeClass("on").slideUp(300);				
+                $(obj).removeClass("on").slideUp(300);		
+                $('.reserv_border_box').eq(idx).removeClass('active');
 
             }
 
@@ -269,6 +271,11 @@ $(document).ready(function () {
   
     $("#openpopup_btn2").click(function () {
         $(".popup_box2").fadeIn();
+        $("body").css("overflow", "hidden");
+        $("html").css("overflow", "hidden");
+    });
+    $("#openpopup_btn3").click(function () {
+        $(".popup_box3").fadeIn();
         $("body").css("overflow", "hidden");
         $("html").css("overflow", "hidden");
     });
