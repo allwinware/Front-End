@@ -286,6 +286,13 @@ $(document).ready(function () {
         $("body").css("overflow", "");
         $("html").css("overflow", "");
     });
+
+    //닫기
+    $(".popup_clobtn").click(function () {
+        $(".popups").fadeOut();
+        $("body").css("overflow", "");
+        $("html").css("overflow", "");
+    });
   });
   
 
