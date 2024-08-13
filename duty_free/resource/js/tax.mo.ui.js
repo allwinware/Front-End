@@ -296,10 +296,6 @@ $(document).ready(function () {
   });
   
 
-
-
-
-
 /*메인메뉴 스크롤 */
 $(document).on("click", ".menu_subbtn", function () {
     console.log("menu_subbtn");
@@ -338,9 +334,6 @@ $(document).on("click", ".menu_btn", function () {
     
     $("#subMenu" + index + " .menu_subbtn").eq(0).trigger("click");
 });
-
-
-
 
 
  // 제이쿼리를 사용하여 스무스한 스크롤 및 버튼 활성화 구현
