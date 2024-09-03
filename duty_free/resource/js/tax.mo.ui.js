@@ -125,14 +125,43 @@ $(document).ready(function () {
         });
     });
 
+        /* 전체 선택 Checkbox */
+    (function (checkAllHandler) {
+        $("input[data-checked='all']").each(function () {
+            var $trigger = $(this),
+                $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this)).not(":disabled");
+            $trigger.on("change", function () {
+                if ($(this).is(":checked")) {
+                    $family.prop("checked", true);
+                } else {
+                    $family.prop("checked", false);
+                }
+            });
+            $family.on("change", function () {
+                var checkedFamily = $("input[type='checkbox'][name='" + $(this).attr("name") + "']:checked").not($trigger);
+                if ($family.length === checkedFamily.length) {
+                    $trigger.prop("checked", true);
+                } else {
+                    $trigger.prop("checked", false);
+                }
+            });
+        });
+    })();
 
 
 });
 
 
 /*첫번째 팝업 바로띄우기*/
-$(document).on("click", ".footer-first_close,.close_btn", function () {
+$(document).on("click", ".footer-first_close, .close_btn", function () {
     $(".footer-first-pop").removeClass("active");
+    $(".dimmed_bg").css("display", "none");
+    $("body").css("overflow", "");
+    $("html").css("overflow", "");
+});
+
+$(document).on("click", ".footer-agree_close, .close_btn", function () {
+    $(".footer-agree-pop").removeClass("active");
     $(".dimmed_bg").css("display", "none");
     $("body").css("overflow", "");
     $("html").css("overflow", "");
@@ -279,6 +308,20 @@ $(document).ready(function () {
         $("body").css("overflow", "hidden");
         $("html").css("overflow", "hidden");
     });
+
+    $("#openpopup_agree1").click(function () {
+        $(".popup_agree1").fadeIn();
+        $("body").css("overflow", "hidden");
+        $("html").css("overflow", "hidden");
+    });
+  
+    $("#openpopup_agree2").click(function () {
+        $(".popup_agree2").fadeIn();
+        $("body").css("overflow", "hidden");
+        $("html").css("overflow", "hidden");
+    });
+
+
   
     //닫기
     $(".popup_close_btn").click(function () {
