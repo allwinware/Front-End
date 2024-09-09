@@ -380,27 +380,30 @@ $(document).on("click", ".menu_btn", function () {
 
 
  // 제이쿼리를 사용하여 스무스한 스크롤 및 버튼 활성화 구현
-
-$(document).ready(function() {
+ 
+ $(document).ready(function() {
+    // 버튼 클릭 시 해당 섹션으로 스크롤
     $(".goods_cart_btn").click(function() {
       $(".goods_cart_btn").removeClass("active");
       $(this).addClass("active");
-  
-      var target = "#" + $(this).data("target");
-      var offset = $(target).offset().top - 120; // 수정된 부분
+      
+      var target = "#" + $(this).data("target"); // 클릭한 버튼의 data-target 속성에서 대상 ID 가져오기
+      var offset = $(target).offset().top - 120; // 스크롤할 위치에서 120px 위로 조정
   
       $("html, body").animate({
         scrollTop: offset
-      }, 800);
+      }, 800); // 스크롤 애니메이션 800ms
     });
   
-    // 스크롤 이벤트 부분은 유지합니다.
+    // 스크롤 이벤트 처리
     $(window).scroll(function() {
-      var scrollPos = $(document).scrollTop();
+      var scrollPos = $(document).scrollTop(); // 현재 스크롤 위치
+  
       $(".goods_cart_detail").each(function() {
-        var boxOffset = $(this).offset().top - 120;
+        var boxOffset = $(this).offset().top - 120; // 각 섹션의 위치에서 120px 위로 조정
         var boxId = $(this).attr("id");
   
+        // 스크롤 위치가 현재 섹션의 위치에 도달하면 버튼 상태 업데이트
         if (scrollPos >= boxOffset) {
           $(".goods_cart_btn").removeClass("active");
           $(".goods_cart_btn[data-target='" + boxId + "']").addClass("active");
