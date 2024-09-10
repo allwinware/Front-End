@@ -308,15 +308,23 @@ $(document).ready(function () {
         $("body").css("overflow", "hidden");
         $("html").css("overflow", "hidden");
     });
-
     $("#openpopup_agree1").click(function () {
         $(".popup_agree1").fadeIn();
         $("body").css("overflow", "hidden");
         $("html").css("overflow", "hidden");
-    });
-  
+    });  
     $("#openpopup_agree2").click(function () {
         $(".popup_agree2").fadeIn();
+        $("body").css("overflow", "hidden");
+        $("html").css("overflow", "hidden");
+    });
+    $("#openpopup_agree3").click(function () {
+        $(".popup_agree3").fadeIn();
+        $("body").css("overflow", "hidden");
+        $("html").css("overflow", "hidden");
+    });
+    $("#openpopup_agree4").click(function () {
+        $(".popup_agree4").fadeIn();
         $("body").css("overflow", "hidden");
         $("html").css("overflow", "hidden");
     });
