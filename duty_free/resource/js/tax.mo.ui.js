@@ -151,6 +151,15 @@ $(document).ready(function () {
 
 });
 
+/*알림팝업 2초후 사라지기*/
+$(document).ready(function() {
+    $('.pay_ment_btn0').click(function() {
+        $('.black_popup').show(); 
+        setTimeout(function() {
+            $('.black_popup').fadeOut(); 
+        }, 2000);
+    });
+});
 
 /*첫번째 팝업 바로띄우기*/
 $(document).on("click", ".footer-first_close, .close_btn_1", function () {
@@ -193,12 +202,28 @@ $(document).on("click", ".reserv_cancel_open", function () {
     $("html").css("overflow", "hidden");
     
 });
-$(document).on("click", ".reserv_cancel_close", function () {
+$(document).on("click", ".reserv_cancel_close, .close_pop1 ", function () {
     $(".reserv_cancel-pop").removeClass("active");
     $(".dimmed_bg, .dimmed_bgs").css("display", "none");
     $("body").css("overflow", "");
     $("html").css("overflow", "");
 }); 
+
+/*취소후 팝업*/
+$(document).on("click", ".reserv_cancel_open2, .open_pop1", function () {
+    $(".reserv_cancel-pop2").addClass("active");				
+    $(".dimmed_bg, .dimmed_bgs").css("display", "block");
+    $("body").css("overflow", "hidden");
+    $("html").css("overflow", "hidden");
+    
+});
+$(document).on("click", ".reserv_cancel_close2, .close_pop2", function () {
+    $(".reserv_cancel-pop2").removeClass("active");
+    $(".dimmed_bg, .dimmed_bgs").css("display", "none");
+    $("body").css("overflow", "");
+    $("html").css("overflow", "");
+}); 
+
 
 /*검색창 팝업*/
 
