@@ -153,11 +153,11 @@ $(document).ready(function () {
 
 
 /*첫번째 팝업 바로띄우기*/
-$(document).on("click", ".footer-first_close, .close_btn", function () {
+$(document).on("click", ".footer-first_close, .close_btn_1", function () {
     $(".footer-first-pop").removeClass("active");
-    $(".dimmed_bg").css("display", "none");
+    /* $(".dimmed_bg").css("display", "none"); 
     $("body").css("overflow", "");
-    $("html").css("overflow", "");
+    $("html").css("overflow", "");*/
 });
 
 $(document).on("click", ".footer-agree_close, .close_btn", function () {
