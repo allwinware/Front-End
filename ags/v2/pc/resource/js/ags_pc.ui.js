@@ -600,3 +600,22 @@ $(document).on("click", ".seat_btn", function () {
         $(this).addClass("seat_active").find("span").hide();;
     }
 });
+
+
+$(document).ready(function () {
+    var $button = $('.buy_btn_float'); // 클래스 선택자 사용
+    var offset = 100; // 초기 하단으로부터의 거리
+    var bottomOffset = 350; // 스크롤이 끝에 도달했을 때 하단으로부터의 거리
+
+    $(window).scroll(function () {
+        var scrollPosition = $(window).scrollTop() + $(window).height();
+        var documentHeight = $(document).height();
+
+        // 스크롤이 맨 밑 하단에 도달했는지 확인
+        if (scrollPosition >= documentHeight) {
+            $button.addClass('scrolledBottom');
+        } else {
+            $button.removeClass('scrolledBottom');
+        }
+    });
+});
