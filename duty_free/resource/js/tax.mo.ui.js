@@ -1,6 +1,6 @@
 /*gnb 팝업 정의*/
 $(document).on("click", "#btn_gnb", function () {
-    $("#gnb-2dp").addClass("active");
+    $("#gnb-2dp").addClass("active").trigger("menu.onshow");
     $("html, body").css("overflow", "hidden");
 });
 
