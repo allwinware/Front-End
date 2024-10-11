@@ -151,32 +151,6 @@ $(document).ready(function () {
 		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
 		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
 
-		if (height_ac1 != height_click1) {
-			//alert("1_1");
-
-			if (height_ac2 != height_click2) {
-				//alert("2_1");
-				
-				$('.seat_sheet_bg.ac2').css('height', '100%');
-	
-			} else {
-				//alert("2_2");	
-				$('.contents').css('overflow', 'hidden');
-				$('.seat_sheet_bg.ac1').css('height', '100vh');
-			}
-
-		} else {
-			//alert("1_2");
-
-			if (height_ac2 != height_click2) {
-				//alert("2_1");
-	
-			} else {
-				//alert("2_2");	
-				$('.seat_sheet_bg.ac2').css('height', '100%');
-			}
-
-		}
 		
 	});
 
@@ -202,25 +176,7 @@ $(document).ready(function () {
 		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
 		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
 
-		if (height_ac2 != height_click2) {
-			//alert("2_1");
-			
-			if (height_ac1 != height_click1) {
-				//alert("1_1");
-				$('.contents').css('overflow', 'hidden');
-				$('.seat_sheet_bg.ac2').css('height', '100vh');
-			} else {
-				//alert("1_2");	
-				$('.seat_sheet_bg.ac1').css('height', '100%');
-			}
 
-		} else {
-			//alert("2_2");
-
-			$('.seat_sheet_bg.ac1').css('height', '100%');
-
-
-		}
 
 	});
 
