@@ -6,7 +6,6 @@
     <title>AlphaSeat PC</title> <link rel="stylesheet"
             href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
             <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
-            <link rel="stylesheet" href="../resource/css/newui.css">
             <link rel="stylesheet" href="../resource/css/contents.css">
             <link rel="stylesheet" href="../resource/css/common.css">    
             <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
@@ -22,7 +21,7 @@
 <body>
     <main role="main" class="ags-wrap">
         <h1 class="site-name">올윈에어 Ancillary Gateway Service</h1>
-        <!-- (include/ags-header.html) -->
+        <!-- 서비스정보(include/ags-header.dom.html) -->
         <header id="ags-header" class="ags-header"></header>
 
         <hr>
@@ -30,27 +29,45 @@
         <div class="dimmed_bg" style="display: none;"></div>
         <!-- 딤드처리 색없X투명 전체 -->
         <div class="dimmed_transparent_bg" style="display: none;"></div>
-
-        <!-- 바텀 고정 -->
-        <div class="menubox_btom">
-            <div class="menubox_btom_p">
-                <div class="menubox_btom_left">
-                    <div class="menubox_btom_name">LEE JIYOUNG님 4인</div>
-                    <div class="menubox_btom_price">
-                        <span>총 결제금액</span>
-                        <span>44,000</span>
-                    </div>
+        <div class="float_menubox">
+            <div class="float_menubox_left">
+                <div>
+                    <span>이정갑</span>
+                    <span>님</span> 
+                    <span>4</span>
+                    <span>인그룹</span>
                 </div>
-                <div class="menubox_btom_right">
-                    <button class="menubox_btom_box1">건너뛰기</button>
-                    <button class="menubox_btom_box2"> 가는편 좌석 선택완료</button>
+                <div>
+                    <span>합계금액</span> <span>156,000</span>
                 </div>
             </div>
-        </div>
-        
+            <div class="float_menubox_right">
+                <!-- 건너뛰기 박스 -->
+                <div>
+                    <button class="menubox_left_btn" >건너뛰기</button>
+                </div>
+                <!-- (가는 편)요금규정 및 약관동의 -->
+                <div class="agreement-wrap active" data-id="departure" style="display: none;">
+                    <ul class="agreement-list">
+                        <!-- 제주항공(가는 편) 좌석 선택 규정 -->
+                        <li>
+                            <input type="checkbox" id="input-check15" name="check-group2" data-checked="all">
+                            <label for="input-check15">
+                                <i class="ico"></i>요금 규정 및 약관동의<i class="iright"></i>
+                            </label>
+                            <!--<a href="#none" target="_self" class="btn_more"  >자세히 보기</a> -->
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <!-- oranz 오렌지색 -->
+                    <button class="menubox_right_btn oranz">가는편 좌석 선택완료</button>
+                </div>
+            </div>
+        </div>      
         <section id="ags-container" class="ags-container" data-page-id="anc_main" >
             
-            <div class="content-wrap newui">
+            <div class="content-wrap">
                 <h2 class="sr-only">컨텐츠 본문</h2>
 
                 <div id="flight-way-selector" class="flight-way-selector"  style="display: none;">
@@ -97,29 +114,7 @@
                                 </span>
                                 <span class="alert_txt1">항공기 출발 시간이 임박하여 <br> 사전 좌석을 구매할 수 없습니다.</span>
                                 <span class="alert_txt2">
-                                    사전 좌석은 <i class="text-emphasis">항공기 출발 24시간전까지만 구매</i> 가능합니다.<br>
-                                    단, 오는 편은 출발 24시간 이 전이라도<br>
-                                    가는편 출발 2일 뒤부터는 구매할 수 없습니다.<br>
-
-                                    <span style="color: #bcbcbc; padding-top: 5px;">(예 : 5월 5일 오전 10시 출발인 경우 5월 4일 오전 10시 이 전까지 구매 가능)</span>
-                                </span>                            
-                            </div>
-                        </div>
-                        <!-- 아이콘 바뀜 좌석 수하물 기내식 -->
-                        <div class="alert_seat" style="display: none;">
-                            <div class="alert_bgwh"></div>
-                            <div class="alert_bgbg">
-                                <!-- 		
-                                수하물
-                                <div class="icoh-baggage"></div>
-                                기내식
-                                <div class="icoh-meal"></div>		
-                                -->
-                                <!-- 좌석 -->
-                                <span class="icoh-seat"></span>
-                                <span class="alert_txt1">사전 좌석을 구매할 수 없습니다.</span>
-                                <span class="alert_txt3">
-                                    사전 좌석은 <i class="text-emphasis">항공기 출발 24시간전까지만 구매</i> 가능합니다.<br>
+                                    사전 좌석은 <span>항공기 출발 24시간전까지만 구매</span> 가능합니다.<br>
                                     단, 오는 편은 출발 24시간 이 전이라도<br>
                                     가는편 출발 2일 뒤부터는 구매할 수 없습니다.<br>
 
@@ -139,26 +134,28 @@
                         </div>
                         -->
                         <!-- 원래 AGS 가는편 오는편  -->
-                        <div class="tabstabs_newui">
-                            <ul class="tabstabs_newui_btn">
+                        <div class="tabstabs" >
+                            <ul class="tabstabs-btn">
                                 <li role="tab" aria-controls="tab-panel1-1" class="active" tabindex="0" aria-selected="true">
-                                    <div class="tab_newui_a">
-                                        <span>가는편</span>
-                                        <span class="airs_logo tway active">로고</span>
-                                    </div>
-                                    <div>
-                                        <span>인천 ICN</span> →
-                                        <span>싱가포르 SIN</span>
+                                    <div class="tabway_a">가는 편</div>
+                                    <div class="tabway_b">
+                                        <div class="kmd_a">
+                                            <span>ICN</span>
+                                            <span>SIN</span>
+                                        </div>
+                                        <div class="kmd_b">22.07.01 09:25</div>
+                                        <div class="tab_clock_a"><span>6</span>시간 <span>30</span>분 비행</div>
                                     </div>
                                 </li>
                                 <li role="tab" aria-controls="tab-panel1-2" aria-selected="false" class="" tabindex="-1">                                    
-                                    <div class="tab_newui_c">
-                                        <span>오는편</span>
-                                        <span class="airs_logo tway">로고</span>
-                                    </div>
-                                    <div>
-                                        <span>인천 ICN</span> →
-                                        <span>싱가포르 SIN</span>
+                                    <div class="tabway_a">오는 편</div>
+                                    <div class="tabway_b">
+                                        <div class="kmd_a">
+                                            <span>SIN</span>
+                                            <span>ICN</span>
+                                        </div>
+                                        <div class="kmd_b">22.07.03 13:55</div>
+                                        <div class="tab_clock_b"><span>6</span>시간 <span>30</span>분 비행</div>
                                     </div>
                                 </li>
                             </ul>
@@ -173,29 +170,29 @@
                         <!-- 탭 -->
                         <div class="tab-panels">
                             <!-- 항공사명 추가 
-                            제주항공 A_7C_738C
-                            에어부산 A321_195
-                                    A321_200A
-                                    A321_200B
-                            티웨이  tw_A332   -->
-                            <!-- AI추천 돌아가기 -->
+                                제주항공 A_7C_738C
+                                에어부산 A321_195
+                                        A321_200A
+                                        A321_200B
+                                티웨이  tw_A333Y   -->
+                                <!-- AI추천 돌아가기 -->
                             <div class="scroll_btn">
                                 <a href="#none"><span>AI추천 돌아가기</span></a>
                             </div>
                             <div id="tab-panel1-1" class="tab-panel" role="tabpanel">
                                 <!-- (가는 편) 프리뷰 include/7c_738A.html  -->
-                                <div class="box1_left tw_A333">
+                                <div class="box1_left tw_A333Y">                                    
                                     <div class="seat_sheet_bg">
                                         
-                                        <!-- 항공사 로고 
-                                        <div class="air_logo jeju" ></div>
-                                        -->
-                                        <!-- 비행시간 -->
+                                        <!-- 항공사 로고 -->
+                                        <div class="air_logo tway"></div>
+
+                                        <!-- 비행시간 
                                         <div class="air_time">
-                                            <span>5</span>시간<span> 30</span>분 비행
+                                            <span>6</span>시간<span>30</span>분 비행
                                         </div>
-                                        
-                                        <!-- 레이다 깜빡이
+                                        -->
+                                        <!-- 레이다 깜빡이 
                                         <div class="raider_down">
                                             <span class="load_left_aa">90.3</span>
                                         </div>
@@ -215,31 +212,24 @@
                                             <span class="load_right_a_gif"></span>
                                             <span class="load_right_b_gif"></span>
                                         </div>
-                                         -->
+                                        -->
                                         <div class="seat_del_btn"></div>
                                         <!-- 좌석 지우는 x버튼  -->
 
                                         <div class="raider_right"></div>
                                         <!-- 원하는 좌석 위치를 터치하세요. -->
 
-                                         <!-- 1좌석당 가격 -->
-                                        <div class="box_price">1좌석당 가격</div>                                       
-
-                                        <!-- 구역 터치 -->
-                                        <div class="seat_sheet_touch_newtxt">
-                                            원하는 구역을<br><span>터치하세요!</span>
-                                        </div>
-
-                                        <div class="seat_sheet_touch_v0" style="display:none;">
+                                        <div class="seat_sheet_touch_v0" >
                                             <span class="touch_a">맨앞좌석 <span>2</span>인 창가석</span><br>
                                             <span class="touch_boxa"><span>1</span>개 남음</span>
                                         </div>
                                     
-                                        <div class="seat_sheet_touch_v00" style="display:none;">
+                                        <div class="seat_sheet_touch_v00" >
                                             <span class="touch_a">비상구 <span>2</span>인 창가석</span><br>
                                             <span class="touch_boxa"><span>2</span>개 남음</span>
-                                        </div>                                        
-                                        <div class="seat_sheet_touch_v1" style="display:none;">
+                                        </div>
+                                        
+                                        <div class="seat_sheet_touch_v1">
                                             <span class="touch_a">원하는 위치를</span><br>
                                             <span class="touch_b">터치하세요!</span>
                                             <span class="touch_c">실시간 매진 예감...</span>
@@ -250,7 +240,8 @@
                                         </div>
                                         <div class="left_touch_right" style="display:none;">
                                             원하는 <span>4</span>인 그룹석을 터치하세요!
-                                        </div>                                        
+                                        </div>
+                                        
                                         <!-- 오른쪽 로딩 GIF -->
                                         <div class="right_loading_gif" style="display: none;"></div>                 
                                         <!-- 좌석 왼쪽 좌석 표시 -->
@@ -301,12 +292,12 @@
                                                 <li>47</li>
                                                 <li>48</li>
                                                 <li>49</li>
-                                                <li>50</li>                                                  
+                                                <li>50</li>                                
                                             </ul>
                                         </div>
                                         <!-- 왼쪽 좌석 사각형 다각형 박스 표시" -->
                                         <div class="seat_sheet_price">
-                                            <div class="seat_sheet_price_box" actype="tw_A333">
+                                            <div class="seat_sheet_price_box" actype="tw_A333Y">
                                                 <div class="buy_num tway-1"><div>비즈니스존</div><span>13,000</span></div>
                                                 <div class="buy_num tway-2"><div>프리미엄존</div><span>10,000</span></div>
                                                 <div class="buy_num tway-3"><div>세미프리미엄존</div><span>7,000</span></div>
@@ -315,7 +306,7 @@
                                                 <div class="buy_num tway-6"><div>프리미엄존</div><span>10,000</span></div>
                                                 <div class="buy_num tway-7"><div>스텐다드존</div><span>3,000</span></div>
                                             </div>
-                                            <div class="seat_sheet_recom_box" actype="tw_A333">
+                                            <div class="seat_sheet_recom_box" actype="tw_A333Y" >
                                                 <!-- 좌석 막을때 class="disabled" -->
                                                 <div class="recom_num tway-1"><a href="#none" class="trigger_1"></a></div>
                                                 <div class="recom_num tway-2"><a href="#none"></a></div>
@@ -875,22 +866,15 @@
                                             </ul>
                                         </div>
                                         <div class="airplane_bg_end_tway"></div>
-                                    </div>   
-                                </div>
-                                
-                                <div class="box1_right tw_A333" data-scrollbar="false">
-                                    <div class="ai_adverb">
-                                        <div class="ai_txt">
-                                            <div class="smile_name">좌석 위치 선택하기</div>
-                                            <div class="smile_boximg_radar_txt">
-                                                <span>레이더가 가성비 1위 4인 그룹좌석을 찾았어요!</span>
-                                            </div>
-                                        </div>                                        
                                     </div>
+                                
+                                
+                                </div>
+                                <div class="box1_right tw_A333Y">
                                         <div class="seat_sheet_bg">
                                             <!-- 비행기좌석 -->
                                             <div class="facility_ft"></div>
-                                            <div class="seat_sheet rightp">
+                                            <div class="seat_sheet rightp">                                                
                                                 <span class="exit_left_c"><i class="ico_a">&lt;&lt;</i>EXIT</span>
                                                 <div class="seat_code">
                                                     <span>A</span>
@@ -1510,19 +1494,16 @@
                                 <div class="box2_left">                                    
                                     <div class="seat_sheet_bg">
                                 
-                                        <!-- 항공사 로고 
+                                        <!-- 항공사 로고 -->
                                         <div class="air_logo jeju"></div>
-                                        -->
-                                        <!-- 비행시간 -->
+                                        <!-- 비행시간
                                         <div class="air_time">
-                                            <span>6</span>시간<span> 30</span>분 비행
+                                            <span>6</span>시간<span>30</span>분 비행
                                         </div>
-                                        
+                                         -->
                                         <!-- 레이다 깜빡이 -->
                                         <div class="raider_left"></div>
-                                        <div class="raider_right"></div>
-                                        <!-- 1좌석당 가격 -->
-                                        <div class="box_price">1좌석당 가격</div>
+                                        <div class="raider_right"></div>              
                                         <!-- 좌석 왼쪽 좌석 표시 -->
                                         <div class="seat_sheet_number">
                                             <ul>
@@ -1571,7 +1552,7 @@
                                                 <div class="buy_num type4">B구역 <span>5,000</span></div>
                                                 <div class="buy_num type5">C구역 <span>3,000</span></div>
                                             </div>
-                                            <div class="seat_sheet_recom_box" style="display: none;">
+                                            <div class="seat_sheet_recom_box" >
                                                 <!-- 좌석 막을때 class="disabled" -->
                                                 <div class="recom_num type1_2"><a href="#target1" class="planscroll"></a></div>
                                                 <div class="recom_num type1s_2"><a href="#target2" class="planscroll"></a></div>
@@ -1898,15 +1879,7 @@
                                 
                                 
                                 </div>
-                                <div class="box2_right" data-scrollbar="true">
-                                    <div class="ai_adverb">
-                                        <div class="ai_txt">
-                                            <div class="smile_name">좌석 위치 선택하기</div>
-                                            <div class="smile_boximg_radar_txt">
-                                                <span>레이더가 가성비 1위 4인 그룹좌석을 찾았어요!</span>
-                                            </div>
-                                        </div>                                        
-                                    </div>
+                                <div class="box2_right">
                                     <div class="seat_sheet_bg">
                                             <!-- 비행기좌석 -->
                                             <div class="facility_f"></div>
@@ -2775,7 +2748,7 @@
             <hr>
 
             <!-- 총 결제금액 -->
-            <div class="anc-summary newui">
+            <div class="anc-summary">
                 <h2 class="sr-only">선택한 부가서비스 내역</h2>
                 <div class="scroll-wrap" data-scrollbar="true">
                     <div data-id="departure" class="departure active">
@@ -2783,21 +2756,13 @@
                         <div class="pay_r_txt">부가 서비스 내역</div>
                         <div>            
                             <div class="payway_a">
-                                <div class="card_box0">
-                                    <div class="cb_box1">
-                                        <div>
-                                            <span>인천 ICN</span>→
-                                            <span>싱가포르 SIN</span>
-                                        </div>
-                                        <div>가는편</div>                                        
+                                <div class="card_box1">
+                                    <div>
+                                        <span>가는편</span>
+                                        <span>ICN</span>
+                                        <span>SIN</span>
                                     </div>
-                                    <div class="cb_box2">
-                                        <div>05/01 09:15</div>
-                                        <div>
-                                            <span class="airs_logo jeju">logo</span>
-                                            <span>7C6972</span>
-                                        </div>                                        
-                                    </div>
+                                    <div>2022-10-05</div>
                                 </div>
                                 <div class="bd_px">
                                     <div class="personer">
@@ -2972,21 +2937,13 @@
                         </div>
                         <div>            
                             <div class="payway_a">
-                                <div class="card_box0">
-                                    <div class="cb_box1">
-                                        <div>
-                                            <span>인천 ICN</span>→
-                                            <span>싱가포르 SIN</span>
-                                        </div>
-                                        <div>가는편</div>                                        
+                                <div class="card_box1">
+                                    <div>
+                                        <span>오는편</span>
+                                        <span>SIN</span>
+                                        <span>ICN</span>
                                     </div>
-                                    <div class="cb_box2">
-                                        <div>05/01 09:15</div>
-                                        <div>
-                                            <span class="airs_logo jeju">logo</span>
-                                            <span>7C6972</span>
-                                        </div>                                        
-                                    </div>
+                                    <div>2022-10-07</div>
                                 </div>
                                 <div class="bd_px">
                                     <div class="personer">
@@ -3202,55 +3159,52 @@
                                                 <span><a href="#none" class="seat_btn">7D</a></span>
                                             </li>
                                         </ul>
-                                        <ul class="seat_num yp_HL838" >       
+                                        <ul class="seat_num tw_A333Y" >       
                                             <li>                                
                                                 <span><a href="#none" class="seat_btn ">6A</a></span>
-                                                <span><a href="#none" class="seat_btn ">6B</a></span>
-                                                <span><a href="#none" class="seat_btn alpha_zero">6C</a></span>
-                                                <span class="hallway ">06</span>                                                
-                                                <span><a href="#none" class="seat_btn ">36D</a></span>
+                                                <span><a href="#none" class="seat_btn alpha_zero">6B</a></span>
+                                                <span class="hallway ">06</span>
+                                                <span><a href="#none" class="seat_btn ">6C</a></span>
+                                                <span><a href="#none" class="seat_btn ">6D</a></span>
                                                 <span><a href="#none" class="seat_btn ">6E</a></span>
-                                                <span><a href="#none" class="seat_btn ">6F</a></span>
+                                                <span><a href="#none" class="seat_btn alpha_zero">6F</a></span>
                                                 <span class="hallway ">06</span>
                                                 <span><a href="#none" class="seat_btn">6G</a></span>
                                                 <span><a href="#none" class="seat_btn ">6H</a></span>
-                                                <span><a href="#none" class="seat_btn ">6J</a></span>
                                             </li>
-                                            <li>                                
-                                                <span><a href="#none" class="seat_btn ">26A</a></span>
-                                                <span><a href="#none" class="seat_btn ">26B</a></span>
-                                                <span><a href="#none" class="seat_btn ">26C</a></span>
-                                                <span class="hallway ">26</span>                                                
-                                                <span><a href="#none" class="seat_btn ">26D</a></span>
-                                                <span><a href="#none" class="seat_btn ">26E</a></span>
-                                                <span><a href="#none" class="seat_btn ">6F</a></span>
-                                                <span class="hallway ">26</span>
-                                                <span><a href="#none" class="seat_btn">26G</a></span>
-                                                <span><a href="#none" class="seat_btn ">26H</a></span>
-                                                <span><a href="#none" class="seat_btn ">26J</a></span>
+                                            <li>
+                                                <span><a href="#none" class="seat_btn ">22A</a></span>
+                                                <span><a href="#none" class="seat_btn ">22B</a></span>
+                                                <span class="hallway ">22</span>
+                                                <span><a href="#none" class="seat_btn ">22C</a></span>
+                                                <span><a href="#none" class="seat_btn ">22D</a></span>
+                                                <span><a href="#none" class="seat_btn ">22E</a></span>
+                                                <span><a href="#none" class="seat_btn ">22F</a></span>
+                                                <span class="hallway ">22</span>
+                                                <span><a href="#none" class="seat_btn ">22G</a></span>
+                                                <span><a href="#none" class="seat_btn ">22H</a></span>
                                             </li>
-                                            <li>                                
-                                                <span><a href="#none" class="seat_btn ">35A</a></span>
-                                                <span><a href="#none" class="seat_btn ">35B</a></span>
-                                                <span><a href="#none" class="seat_btn ">35C</a></span>
-                                                <span class="hallway ">35</span>                                                
+                                            <li>
+                                                <span><a href="#none" class="seat_btn ">36A</a></span>
+                                                <span><a href="#none" class="seat_btn ">36B</a></span>
+                                                <span class="hallway ">36</span>
+                                                <span><a href="#none" class="seat_btn ">36C</a></span>
                                                 <span><a href="#none" class="seat_btn ">36D</a></span>
-                                                <span><a href="#none" class="seat_btn ">35E</a></span>
-                                                <span><a href="#none" class="seat_btn ">35F</a></span>
-                                                <span class="hallway ">35</span>
-                                                <span><a href="#none" class="seat_btn ">35G</a></span>
-                                                <span><a href="#none" class="seat_btn ">35H</a></span>
-                                                <span><a href="#none" class="seat_btn ">35J</a></span>
+                                                <span><a href="#none" class="seat_btn ">36E</a></span>
+                                                <span><a href="#none" class="seat_btn ">36F</a></span>
+                                                <span class="hallway ">36</span>
+                                                <span><a href="#none" class="seat_btn ">36G</a></span>
+                                                <span><a href="#none" class="seat_btn ">36H</a></span>
                                             </li>
                                         </ul>
                                     </div>
                                     <ul class="pay_group cho">
                                         <li>
                                             <div class="pay_group_s">
-                                                <span class="chair_s">2E</span>
+                                                <span class="chair_s">72E</span>
                                                 <span>LEE J K</span>
                                             </div>
-                                            <span><a href="#none" class="pay_select_i">선택완료</a></span>
+                                            <span class="completxt">선택완료<a href="#none" class="pay_select_i"></a></span>
                                         </li>
                                         <li>
                                             <div class="pay_group_s">
@@ -3259,10 +3213,10 @@
                                         </li>
                                         <li>
                                             <div class="pay_group_s">
-                                                <span class="chair_s">2E</span>
+                                                <span class="chair_s">82E</span>
                                                 <span>LEE J K</span>
                                             </div>
-                                            <span><a href="#none" class="pay_select_i">선택완료</a></span>
+                                            <span class="completxt">선택완료<a href="#none" class="pay_select_i"></a></span>
                                         </li>
                                         <li>
                                             <div class="pay_group_s">
@@ -3436,7 +3390,6 @@
             $html = $("html"),
             $body = $("body");
 
-        $("#ags-header").load("include/ags-header.html"); 
         $("#ags-header").load("include/ags-header.html");
         $("#ags-footer").load("include/ags-footer.html");
 
@@ -3752,7 +3705,7 @@
 
             /*사용자의 스크롤 액션에 따른 .anc-summary의 동작 제어*/
             (function () {
-                var $summary = $(".anc-summary1");
+                var $summary = $(".anc-summary");
                 var sumScStart = $summary.offset().top - parseInt($summary.css("padding-top"));
                 var containerWidth = parseInt($(".ags-wrap").css("min-width"));
                 var summaryHeight = $summary.height();
