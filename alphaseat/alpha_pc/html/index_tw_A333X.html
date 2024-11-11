@@ -6,6 +6,7 @@
     <title>AlphaSeat PC</title> <link rel="stylesheet"
             href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
             <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
+            <link rel="stylesheet" href="../resource/css/newui.css">
             <link rel="stylesheet" href="../resource/css/contents.css">
             <link rel="stylesheet" href="../resource/css/common.css">    
             <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
@@ -21,7 +22,6 @@
 <body>
     <main role="main" class="ags-wrap">
         <h1 class="site-name">올윈에어 Ancillary Gateway Service</h1>
-        <!-- 서비스정보(include/ags-header.dom.html) -->
         <header id="ags-header" class="ags-header"></header>
 
         <hr>
@@ -29,45 +29,25 @@
         <div class="dimmed_bg" style="display: none;"></div>
         <!-- 딤드처리 색없X투명 전체 -->
         <div class="dimmed_transparent_bg" style="display: none;"></div>
-        <div class="float_menubox">
-            <div class="float_menubox_left">
-                <div>
-                    <span>이정갑</span>
-                    <span>님</span> 
-                    <span>4</span>
-                    <span>인그룹</span>
+        <!-- 바텀 고정 -->
+        <div class="menubox_btom">
+            <div class="menubox_btom_p">
+                <div class="menubox_btom_left">
+                    <div class="menubox_btom_name">LEE JIYOUNG님 4인</div>
+                    <div class="menubox_btom_price">
+                        <span>총 결제금액</span>
+                        <span>44,000</span>
+                    </div>
                 </div>
-                <div>
-                    <span>합계금액</span> <span>156,000</span>
-                </div>
-            </div>
-            <div class="float_menubox_right">
-                <!-- 건너뛰기 박스 -->
-                <div>
-                    <button class="menubox_left_btn" >건너뛰기</button>
-                </div>
-                <!-- (가는 편)요금규정 및 약관동의 -->
-                <div class="agreement-wrap active" data-id="departure" style="display: none;">
-                    <ul class="agreement-list">
-                        <!-- 제주항공(가는 편) 좌석 선택 규정 -->
-                        <li>
-                            <input type="checkbox" id="input-check15" name="check-group2" data-checked="all">
-                            <label for="input-check15">
-                                <i class="ico"></i>요금 규정 및 약관동의<i class="iright"></i>
-                            </label>
-                            <!--<a href="#none" target="_self" class="btn_more"  >자세히 보기</a> -->
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <!-- oranz 오렌지색 -->
-                    <button class="menubox_right_btn oranz">가는편 좌석 선택완료</button>
+                <div class="menubox_btom_right">
+                    <button class="menubox_btom_box1">건너뛰기</button>
+                    <button class="menubox_btom_box2"> 가는편 좌석 선택완료</button>
                 </div>
             </div>
         </div>      
         <section id="ags-container" class="ags-container" data-page-id="anc_main" >
             
-            <div class="content-wrap">
+            <div class="content-wrap newui">
                 <h2 class="sr-only">컨텐츠 본문</h2>
 
                 <div id="flight-way-selector" class="flight-way-selector"  style="display: none;">
@@ -114,7 +94,29 @@
                                 </span>
                                 <span class="alert_txt1">항공기 출발 시간이 임박하여 <br> 사전 좌석을 구매할 수 없습니다.</span>
                                 <span class="alert_txt2">
-                                    사전 좌석은 <span>항공기 출발 24시간전까지만 구매</span> 가능합니다.<br>
+                                    사전 좌석은 <i class="text-emphasis">항공기 출발 24시간전까지만 구매</i> 가능합니다.<br>
+                                    단, 오는 편은 출발 24시간 이 전이라도<br>
+                                    가는편 출발 2일 뒤부터는 구매할 수 없습니다.<br>
+
+                                    <span style="color: #bcbcbc; padding-top: 5px;">(예 : 5월 5일 오전 10시 출발인 경우 5월 4일 오전 10시 이 전까지 구매 가능)</span>
+                                </span>                            
+                            </div>
+                        </div>
+                        <!-- 아이콘 바뀜 좌석 수하물 기내식 -->
+                        <div class="alert_seat" style="display: none;">
+                            <div class="alert_bgwh"></div>
+                            <div class="alert_bgbg">
+                                <!-- 		
+                                수하물
+                                <div class="icoh-baggage"></div>
+                                기내식
+                                <div class="icoh-meal"></div>		
+                                -->
+                                <!-- 좌석 -->
+                                <span class="icoh-seat"></span>
+                                <span class="alert_txt1">사전 좌석을 구매할 수 없습니다.</span>
+                                <span class="alert_txt3">
+                                    사전 좌석은 <i class="text-emphasis">항공기 출발 24시간전까지만 구매</i> 가능합니다.<br>
                                     단, 오는 편은 출발 24시간 이 전이라도<br>
                                     가는편 출발 2일 뒤부터는 구매할 수 없습니다.<br>
 
@@ -134,28 +136,26 @@
                         </div>
                         -->
                         <!-- 원래 AGS 가는편 오는편  -->
-                        <div class="tabstabs" >
-                            <ul class="tabstabs-btn">
+                        <div class="tabstabs_newui">
+                            <ul class="tabstabs_newui_btn">
                                 <li role="tab" aria-controls="tab-panel1-1" class="active" tabindex="0" aria-selected="true">
-                                    <div class="tabway_a">가는 편</div>
-                                    <div class="tabway_b">
-                                        <div class="kmd_a">
-                                            <span>ICN</span>
-                                            <span>SIN</span>
-                                        </div>
-                                        <div class="kmd_b">22.07.01 09:25</div>
-                                        <div class="tab_clock_a"><span>6</span>시간 <span>30</span>분 비행</div>
+                                    <div class="tab_newui_a">
+                                        <span>가는편</span>
+                                        <span class="airs_logo tway active">로고</span>
+                                    </div>
+                                    <div>
+                                        <span>인천 ICN</span> →
+                                        <span>싱가포르 SIN</span>
                                     </div>
                                 </li>
                                 <li role="tab" aria-controls="tab-panel1-2" aria-selected="false" class="" tabindex="-1">                                    
-                                    <div class="tabway_a">오는 편</div>
-                                    <div class="tabway_b">
-                                        <div class="kmd_a">
-                                            <span>SIN</span>
-                                            <span>ICN</span>
-                                        </div>
-                                        <div class="kmd_b">22.07.03 13:55</div>
-                                        <div class="tab_clock_b"><span>6</span>시간 <span>30</span>분 비행</div>
+                                    <div class="tab_newui_c">
+                                        <span>오는편</span>
+                                        <span class="airs_logo tway">로고</span>
+                                    </div>
+                                    <div>
+                                        <span>인천 ICN</span> →
+                                        <span>싱가포르 SIN</span>
                                     </div>
                                 </li>
                             </ul>
@@ -184,14 +184,13 @@
                                 <div class="box1_left tw_A333X">                                    
                                     <div class="seat_sheet_bg">
                                         
-                                        <!-- 항공사 로고 -->
-                                        <div class="air_logo tway"></div>
-
-                                        <!-- 비행시간 
-                                        <div class="air_time">
-                                            <span>6</span>시간<span>30</span>분 비행
-                                        </div>
+                                        <!-- 항공사 로고 
+                                        <div class="air_logo tway" ></div>
                                         -->
+                                        <!-- 비행시간 -->
+                                        <div class="air_time">
+                                            <span>5</span>시간<span> 30</span>분 비행
+                                        </div>
                                         <!-- 레이다 깜빡이 
                                         <div class="raider_down">
                                             <span class="load_left_aa">90.3</span>
@@ -213,23 +212,30 @@
                                             <span class="load_right_b_gif"></span>
                                         </div>
                                         -->
-                                        <div class="seat_del_btn" style="display: none;"></div>
+                                        <div class="seat_del_btn"></div>
                                         <!-- 좌석 지우는 x버튼  -->
 
-                                        <div class="raider_right" style="display: none;"></div>
+                                        <div class="raider_right"></div>
                                         <!-- 원하는 좌석 위치를 터치하세요. -->
 
-                                        <div class="seat_sheet_touch_v0" >
+                                        <!-- 1좌석당 가격 -->
+                                        <div class="box_price">1좌석당 가격</div>                                       
+
+                                        <!-- 구역 터치 -->
+                                        <div class="seat_sheet_touch_newtxt">
+                                            원하는 구역을<br><span>터치하세요!</span>
+                                        </div>
+
+                                        <div class="seat_sheet_touch_v0" style="display:none;">
                                             <span class="touch_a">맨앞좌석 <span>2</span>인 창가석</span><br>
                                             <span class="touch_boxa"><span>1</span>개 남음</span>
                                         </div>
                                     
-                                        <div class="seat_sheet_touch_v00" >
+                                        <div class="seat_sheet_touch_v00" style="display:none;">
                                             <span class="touch_a">비상구 <span>2</span>인 창가석</span><br>
                                             <span class="touch_boxa"><span>2</span>개 남음</span>
-                                        </div>
-                                        
-                                        <div class="seat_sheet_touch_v1">
+                                        </div>                                        
+                                        <div class="seat_sheet_touch_v1" style="display:none;">
                                             <span class="touch_a">원하는 위치를</span><br>
                                             <span class="touch_b">터치하세요!</span>
                                             <span class="touch_c">실시간 매진 예감...</span>
