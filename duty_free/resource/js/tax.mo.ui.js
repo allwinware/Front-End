@@ -396,20 +396,39 @@ $(document).on("click", ".menu_subbtn", function () {
 
 
 $(document).on("click", ".menu_btn", function () {
-    $(".menu_btn").removeClass("active");
-    $(this).addClass("active");
-    
-    let index = Number($(".menu_btn").index(this))+1;
-    $(".sub-menu").hide();
-    $("#subMenu" + index).show();
-    $("#subMenu" + index + " .menu_subbtn").eq(0).addClass("active");
-    
-    $(".content_view").hide();
-    $('html').scrollTop('0');
-    $(".content_view").eq(index-1).show();
-    
-    $("#subMenu" + index + " .menu_subbtn").eq(0).trigger("click");
+    if($(window).width() <= 800) {
+        $(".menu_btn").removeClass("active");
+        $(this).addClass("active");
+        
+        let index = Number($(".menu_btn").index(this))+1;
+        $(".sub-menu").hide();
+        $("#subMenu" + index).show();
+        $("#subMenu" + index + " .menu_subbtn").eq(0).addClass("active");
+        
+        $(".content_view").hide();
+        $('html').scrollTop('0');
+        $(".content_view").eq(index-1).show();
+        
+        $("#subMenu" + index + " .menu_subbtn").eq(0).trigger("click");
+    }
+    else{
+        $(".menu_btn").removeClass("active");
+        $(this).addClass("active");
+        
+        let index = Number($(".menu_btn").index(this))+1;
+        $(".pcsub-menu").hide();
+        $("#pcsubMenu" + index).show();
+        $("#pcsubMenu" + index + " .menu_subbtn").eq(0).addClass("active");
+        
+        $(".content_view").hide();
+        $('html').scrollTop('0');
+        $(".content_view").eq(index-1).show();
+        
+        $("#pcsubMenu" + index + " .menu_subbtn").eq(0).trigger("click");
+    }
 });
+
+
 
 
  // 제이쿼리를 사용하여 스무스한 스크롤 및 버튼 활성화 구현
