@@ -410,6 +410,7 @@ $(document).on("click", ".menu_btn", function () {
         $(".content_view").eq(index-1).show();
         
         $("#subMenu" + index + " .menu_subbtn").eq(0).trigger("click");
+        
     }
     else{
         $(".menu_btn").removeClass("active");
