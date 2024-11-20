@@ -719,3 +719,16 @@ $(document).ready(function() {
     });
 });
 
+
+/* 전체 선택 Checkbox */
+
+  function selectAll(selectAll)  {
+	const checkboxes 
+	   = document.querySelectorAll('input[type="checkbox"]');
+/*
+	   = document.getElementsByName('check_group9');
+	*/
+	checkboxes.forEach((checkbox) => {
+	  checkbox.checked = selectAll.checked
+	})
+  }
