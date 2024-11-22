@@ -631,10 +631,11 @@ $(document).ready(function () {
 //alert(		$(_self).attr("agrBtn")	);
 		$("div [agrLt]").each(function(idx, obj) {
 			if( _self == $("div [agrBtn]").get(idx) && $(obj).hasClass("on") == false) {
-				$('.credit_box_btn').eq(idx).removeClass('on');
+				$('.credit_box_btn').eq(idx).addClass('on');
 				$(obj).addClass("on").slideDown(300);
 			} else {
-				$('.credit_box_btn').eq(idx).addClass('on');			
+				
+				$('.credit_box_btn').eq(idx).removeClass('on');			
 				$(obj).removeClass("on").slideUp(300);				
 
 			}
