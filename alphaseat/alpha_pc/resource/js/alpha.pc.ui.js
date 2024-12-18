@@ -173,7 +173,7 @@ var scrollOption = {
     setLeft: 0,
     axis: "y",
     scrollbarPosition: "inside",
-    scrollInertia: 200,
+    scrollInertia: 700,
     autoDraggerLength: true,
     autoHideScrollbar: true,
     autoExpandScrollbar: false,
@@ -182,7 +182,7 @@ var scrollOption = {
     snapOffset: 0,
     mouseWheel: {
         enable: true,
-        scrollAmount: "auto",
+        scrollAmount: "150",
         axis: "y",
         preventDefault: false,
         deltaFactor: "auto",
