@@ -688,3 +688,36 @@ function selectAll(selectAll)  {
 	  checkbox.checked = selectAll.checked
 	})
   }
+
+
+// 스크롤 왔다갔다 안하게
+function toggleScrollBasedOnDisplay() {
+    const playLoad = $('.play_load');
+    if (playLoad.css('display') === 'block') {
+        $('html').addClass('scrollDisable').on('scroll touchmove mousewheel', function(e) {
+            e.preventDefault();
+        });
+    } else {
+        $('html').removeClass('scrollDisable').off('scroll touchmove mousewheel');
+    }
+}
+
+$(document).ready(function() {
+    toggleScrollBasedOnDisplay();
+});
+
+// display 상태가 변할 때 감지
+const observer = new MutationObserver(function() {
+    toggleScrollBasedOnDisplay();
+});
+
+observer.observe(document.querySelector('.play_load'), { attributes: true, attributeFilter: ['style'] });
+
+//버튼 눌렀을때 display block
+
+function showPlayLoad() {
+    const playLoadDiv = document.querySelector('.play_load');
+    if (playLoadDiv) {
+        playLoadDiv.style.display = 'block';
+    }
+}
