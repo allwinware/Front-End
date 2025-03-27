@@ -542,7 +542,7 @@ $(document).ready(function () {
 		$('.slider2 .seat_sheet_price_box').remove();
 		$('.slider2 .seat_sheet_recom_box').remove();
 		$('.slider2 .seat_sheet_loading').remove();
-		$('.slider2 .popup_infor').remove();
+		$('.slider2 .popup_infor').remove(); 
 		$('.air_logo').remove();
 		$('.air_time').remove();
 
@@ -706,13 +706,6 @@ $(document).ready(function() {
     toggleScrollBasedOnDisplay();
 });
 
-// display 상태가 변할 때 감지
-const observer = new MutationObserver(function() {
-    toggleScrollBasedOnDisplay();
-});
-
-observer.observe(document.querySelector('.play_load'), { attributes: true, attributeFilter: ['style'] });
-
 //버튼 눌렀을때 display block
 
 function showPlayLoad() {
@@ -721,3 +714,4 @@ function showPlayLoad() {
         playLoadDiv.style.display = 'block';
     }
 }
+
