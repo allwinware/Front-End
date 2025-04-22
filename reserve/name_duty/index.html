@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>예약자 본인확인</title>
+	<link rel="stylesheet" href="source/content.css">
+	<link rel="stylesheet" href="source/reset.css">	
+	<script src="source/jquery-3.4.1.min.js"></script>
+	<script src="source/mo.ui.js"></script>
+</head>
+
+<body>
+	<div class="main_bg">
+	</div>
+	<div class="footer-pop">
+		
+		<div class="main-menu">			
+			<div class="menu_text_fo" style="display: none;">
+				<div>Name and Phone Number for Self-verification</div>
+			</div>
+			<div class="select_txt">
+				<div class="select_back active">
+					<button id="ags-wrap-back" class="btn_back_a">내국인</button>
+				</div>
+				<div class="select_come">
+					<button id="ags-wrap" class="btn_come_a">foreigner</button>
+				</div>
+			</div>
+			<div class="menu_text" style="padding: 10px 0px 10px; line-height: 20px;">
+				<div style="padding-top: 0px;">항공권 예약자 본인 확인</div>
+				<div>좌석지정,수하물,기내식 예약이 가능해요.<br>
+					면세품은 할인예약만! 돌아오는 기내에서 수령하세요.</div>
+			</div>
+			<!-- class="border_red" 삭제하면 없어짐-->
+			<div class="locals" >
+				<div class="names">
+					<input type="radio" name="boxbox" id="korean" checked>
+					<label>이름(한글)</label>
+					<div class="inputs koreans">
+						<input class="border_red" type="text" maxlength="8" onfocus="this.placeholder = ''" placeholder="성" autofocus>
+						<input  type="text" maxlength="8" onfocus="this.placeholder = ''" placeholder="이름">
+					</div>
+				</div>
+				<div class="oror">또는</div>
+				<div class="names up">
+					<input type="radio" name="boxbox" id="nickname">
+					<label>닉네임</label>
+					<div class="inputs nicknames">
+						<input  type="text" maxlength="8" onfocus="this.placeholder = ''" placeholder="여행사 SNS 간편기입 시 닉네임">
+					</div>
+				</div>
+				<div class="sun"></div>
+				<div class="phone">
+					<label>휴대폰번호</label>
+					<span>010</span>-
+					<input class="border_red" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+						pattern="[0-9]+" maxlength="8" onfocus="this.placeholder = ''" placeholder="휴대폰 뒷번호 8자리">
+				</div>
+			</div>
+			<div class="foreigners" style="display: none;">
+				<div class="names">
+					<label>Name</label>
+					<input class="border_red" type="text" maxlength="20" onfocus="this.placeholder = ''" placeholder="Surname" autofocus>
+				</div>
+				<div class="names_v1">
+					<input class="border_red" type="text" maxlength="20" onfocus="this.placeholder = ''" placeholder="Givenname">
+				</div>			
+				<div class="phone_v1">
+					<label>HP</label>
+					<input class="border_red" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+						pattern="[0-9]+" maxlength="20" onfocus="this.placeholder = ''" placeholder="Phone Number">
+				</div>
+			</div>
+		</div>
+		<!--active 지우면 회색-->
+		<div class="buttons active">
+			<button>확인</button>
+		</div>
+		<div class="buttons_fo active" style="display: none;">
+			<button>confirm</button>
+		</div>
+
+		<!-- 이건 팝업 적용하면 삭제-->
+		<div class="test_pop" style="display: none;">
+			<button id="openpopup_btn1">팝업1</button>
+			<button id="openpopup_btn2">팝업2</button>
+			<button id="openpopup_btn3">팝업3</button>
+			<button id="openpopup_btn6">팝업4</button>
+			<button id="openpopup_btn7">팝업5(7일)</button>
+			<button id="openpopup_btn4">AW에서 본인 인증</button>
+			<button id="openpopup_btn5">여행사 본인 인증</button>
+		</div>
+		<!-- 이건 팝업 적용하면 삭제-->
+	</div>
+
+
+	<!-- 팝업내용 -->
+	<div class="popups popup_box1">
+        <div class="popup_content">
+            <span class="popup_close_btn"></span>
+			<div class="popup_content_txt">
+				<div class="popup_img">
+					<img src="source/ico_time.png">
+				</div>
+				<div class="popup_txt_fon1">고객님 서비스 연결이 안되고 있습니다.</div>
+				<br>
+				<div class="popup_txt_fon2">잠시 후 다시 시도해주세요.<br>
+					문제가 반복된다면 고객센터로 문의해 주세요.
+				
+				</div>
+			</div>
+			<div class="popup_btn_fst">
+				<div class="popup_btn_com gray">				
+					<button class="popup_close_btn">닫기</button>
+				</div>
+				<div class="popup_btn_com">				
+					<button class="popup_close_btn">문의하기</button>
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<div class="popups popup_box2">
+        <div class="popup_content">
+            <span class="popup_close_btn"></span>
+			<div class="popup_content_txt">
+				<div class="popup_img">
+					<img src="source/ico_time.png">
+				</div>
+				<div class="popup_txt_fon1">일정 시간이 지나 <br>서비스 연결이 끊어졌습니다.</div>
+				<br>
+				<div class="popup_txt_fon2">이용을 원하시면 여행사 마이페이지에서 <br>구매 버튼을 다시 눌러주세요.
+				
+				</div>
+			</div>
+			<div class="popup_btn_fst">
+				<div class="popup_btn_com">				
+					<button class="popup_close_btn">확인</button>
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<div class="popups popup_box3">
+        <div class="popup_content">
+            <span class="popup_close_btn"></span>
+			<div class="popup_content_txt">
+				<div class="popup_img">
+					<img src="source/ico_error.png">
+				</div>
+				<div class="popup_txt_fon1">본인인증 실패.</div>
+				<br>
+				<div class="popup_txt_fon2">탑승객 및 예약자에 한해 서비스 이용이 가능합니다.<br>
+					이름과 전화번호를 다시 한번 확인해 주세요.
+				
+				</div>
+			</div>
+			<div class="popup_btn_fst">
+				<div class="popup_btn_com">
+					<button class="popup_close_btn">확인</button>
+				</div>
+			</div>
+		</div>
+    </div>
+	<div class="popups popup_box6">
+        <div class="popup_content">
+            <span class="popup_close_btn"></span>
+			<div class="popup_content_txt">
+				<div class="popup_img">
+					<img src="source/ico_leave.png">
+				</div>
+				<div class="popup_txt_fon1">
+					고객님께 알림을 보내지 않았습니다.
+				</div><br>				
+				<div class="popup_txt_fon2"> 
+					항공권을 구매하신 여행사 마이페이지에서<br>
+					구매 버튼을 누르시면 부가서비스를<br>
+					구매하실 수 있습니다.	
+				</div>
+			</div>
+			<div class="popup_btn_fst">
+				<div class="popup_btn_com">
+					<button class="popup_close_btn">닫기</button>
+				</div>
+			</div>
+		</div>
+    </div>
+	<div class="popups popup_box7">
+        <div class="popup_content">
+            <span class="popup_close_btn"></span>
+			<div class="popup_content_txt">
+				<div class="popup_img">
+					<img src="source/ico_leave.png">
+				</div>
+				<div class="popup_txt_fon1">
+					항공기 출발 후 7일 이후부터<br> 간편 접속이 지원되지 않습니다.
+				</div><br>				
+				<div class="popup_txt_fon2"> 
+					(예약하신 여행사를 통하여 접속해 주세요.)				
+				</div>
+			</div>
+			<div class="popup_btn_fst">
+				<div class="popup_btn_com">
+					<button class="popup_close_btn">닫기</button>
+				</div>
+			</div>
+			<div class="popup_txt_fon4"> 
+				<a href="https://accounts.hanatour.com/?isReserve=N&memberOnlyYn=N&redirectUri=https%3A%2F%2Fwww.hanatour.com%2F">
+					▶ 여행사 페이지 바로가기
+				</a>		
+			</div>
+		</div>
+    </div>
+
+	<div class="popups popup_box4">
+        <div class="popup_content h370">
+            <span class="popup_close_btn"></span>
+			<div class="popup_content_txt">
+				<div class="popup_img">
+					<img src="source/ico_error.png">
+				</div>
+				<div class="popup_txt_fon1">본인 인증 실패</div>
+				<br>
+				<div class="popup_txt_fon2">본인 인증이 되지 않고 있습니다.<br>
+					이름과 전화번호를 다시 한번 확인해 주세요.<br>
+					* SNS(카카오톡, 네이버 등)로 로그인한 경우<br> 
+					본인 인증 시 SNS 상의 이름을 입력해 주세요.
+				
+				</div>
+			</div>
+			<div class="popup_btn_fst">
+				<div class="popup_btn_com">				
+					<button class="popup_close_btn">다시 인증하기</button>
+				</div>				
+			</div>
+			<div class="popup_txt_fon3"> 
+				(여행사 마이페이지를 통해서 구매하실 수 있습니다.)				
+			</div>
+			<div class="popup_txt_fon4"> 
+				<a href="https://accounts.hanatour.com/?isReserve=N&memberOnlyYn=N&redirectUri=https%3A%2F%2Fwww.hanatour.com%2F">
+					▶ 여행사 페이지 바로가기
+				</a>		
+			</div>
+		</div>
+    </div>
+	<div class="popups popup_box5">
+        <div class="popup_content h370">
+            <span class="popup_close_btn"></span>
+			<div class="popup_content_txt">
+				<div class="popup_img">
+					<img src="source/ico_error.png">
+				</div>
+				<div class="popup_txt_fon1">본인 인증 실패</div>
+				<br>
+				<div class="popup_txt_fon2">본인 인증이 되지 않고 있습니다.<br>
+					이름과 전화번호를 다시 한번 확인해 주세요.<br>
+					* SNS(카카오톡, 네이버 등)로 로그인한 경우<br>
+					 본인 인증 시 SNS 상의 이름을 입력해 주세요.			
+				</div>
+			</div>
+			<div class="popup_btn_fst">
+				<div class="popup_btn_com">				
+					<button class="popup_close_btn">다시 인증하기</button>
+				</div>
+			</div>
+		</div>
+    </div>
+	<!-- 💡 Focus 스크립트 -->
+	<script>
+		document.querySelectorAll('input[type="radio"]').forEach(radio => {
+		  radio.addEventListener('change', () => {
+			const target = radio.id === 'korean'
+			  ? document.querySelector('.koreans input')
+			  : document.querySelector('.nicknames input');
+			target?.focus();
+		  }, 0);
+		});
+	
+		// 초기 로딩 시도 자동 포커스
+		window.addEventListener('DOMContentLoaded', () => {
+		  document.querySelector('.koreans input')?.focus();
+		});
+	  </script>
+</body>
+
+
+
+</html>
