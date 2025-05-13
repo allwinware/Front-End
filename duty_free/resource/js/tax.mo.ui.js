@@ -54,7 +54,50 @@ $(document).ready(function() {
         // 다른 버튼에서 'active' 클래스 제거
         $(".ticket_share_name").not(this).removeClass("active");
     });
+
+
 });
+
+$(document).ready(function() {
+    
+    // cs_center div 안의 링크 요소를 선택
+    const links = $(".cs_center a");
+    $(".m_csmsg1").css("display", "block");
+    $(".m_csmsg2").css("display", "none");
+    $(".m_csmsg3").css("display", "none");
+    // 각 링크에 클릭 이벤트 핸들러 추가
+    links.on("click", function(event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+
+        // 모든 버튼의 active 클래스 제거
+        removeActiveClass();
+
+        // 클릭한 링크에 active 클래스 추가
+        $(this).addClass("active");
+
+        // 메시지 업데이트
+        const index = $(".cs_center a").index(this);
+        displayMessage('.m_csmsg' + (index + 1));
+    });
+
+    function removeActiveClass() {
+        // 모든 링크에서 active 클래스 제거
+        links.removeClass("active");
+    }
+
+    function displayMessage(messageClass) {
+        // 모든 메시지 숨김
+        $(".csmessage").css("display", "none");
+
+        // 특정 메시지를 보이도록 설정
+        $(messageClass).css("display", "block");
+    }
+
+});
+
+
+
+
 //예약내역 확인
 $(document).ready(function () {
     const links = $(".reserv_check a");
@@ -464,3 +507,27 @@ $(document).on("click", ".menu_btn", function () {
       });
     });
   });
+
+
+  function toggleVisibility(div) {
+    var $folderContent = $(div).next('.folder-content');
+    var isActive = $folderContent.hasClass('folder-open');
+
+    // Close all folders
+    $('.folder-content').slideUp(200).removeClass('folder-open');
+
+    // Remove "active" class from all qna-boxes
+    $('.qna-box').removeClass('active');
+
+    // Toggle the clicked folder's state
+    if (!isActive) {
+        $folderContent.slideDown(200, function () {
+            // 스크롤 이동: 열림 완료 후 해당 요소로 부드럽게 이동
+            $('html, body').animate({
+                scrollTop: $(div).offset().top
+            }, 300);
+        }).addClass('folder-open');
+
+        $(div).parent('.qna-box').addClass('active');
+    }
+}
