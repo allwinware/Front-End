@@ -521,13 +521,7 @@ $(document).on("click", ".menu_btn", function () {
 
     // Toggle the clicked folder's state
     if (!isActive) {
-        $folderContent.slideDown(200, function () {
-            // 스크롤 이동: 열림 완료 후 해당 요소로 부드럽게 이동
-            $('html, body').animate({
-                scrollTop: $(div).offset().top
-            }, 300);
-        }).addClass('folder-open');
-
+        $folderContent.slideDown(200).addClass('folder-open');
         $(div).parent('.qna-box').addClass('active');
     }
 }
