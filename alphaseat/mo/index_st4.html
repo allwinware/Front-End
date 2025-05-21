@@ -10,15 +10,37 @@
 	<link rel="stylesheet" href="./resource/reset.css">	
 	<link rel="stylesheet" href="./resource/css/content.css">
 	<link rel="stylesheet" href="./resource/css/reset.css">
-	<script src='./resource/jquery-3.4.1.min.js'></script>
+	<script src='./resource/js/jquery-3.4.1.min.js'></script>
 	<script src='./resource/mo.js'></script>
 </head>
+
+<script type="text/javascript">
+	function moveUrl(e) {
+		var urlSearch	= new URLSearchParams(location.search);
+		var mode		= urlSearch.get('mode');
+
+		switch (mode) {
+			case "dev"	:
+				window.location.href	= "https://dev-demo-mo.ags-aws.com/demo/login/aces/1";
+				break;
+			case "stg"	:
+				window.location.href	= "https://stg-demo-mo.ags-aws.com/demo/login/aces/1";
+				break;
+			case "prod"	:
+				window.location.href	= "https://prod-demo.m.ags-aws.com/demo/login/aces/1";
+				break;
+			default	:
+				window.location.href	= "https://dev-demo-mo.ags-aws.com/demo/login/aces/1";
+				
+		}
+	}
+</script>
 
 <body>
 	<div class="alphaseat_img">
 		<div class="abcd1">
 			<div class="move_bar_img2"></div>
-			<a href="https://dev-ags-web-myrealtrip-mobile.ags-aws.com/aw/com/login/dev/M/pg/rsvn/aces/zQm6a11dkq7T8P/1f7Ykf" class="st4"></a>			
+			<a href="javascript:;" class="st4" onclick="moveUrl();"></a>			
 			<img id="img" src="./resource/img/common/pre_04.png">
 		</div>
 	</div>
