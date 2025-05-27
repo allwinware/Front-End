@@ -614,8 +614,8 @@ function layerPop(id) {
 
 	// 닫기버튼 클릭시 레이어 닫힘
 	$el.find('.btn_close_popup,.btn_close_popup_x, .btn_close_popup1, .wrapper_popup .pop_close, .btn_close_tooltip').off('click').on('click', function () {
-		closeLayerPop();       
-
+		closeLayerPop();
+        $(".dimmed_bg_left").fadeOut();
 	});
 
 	if ($el.hasClass('sns') || $el.hasClass('tooltip') || $el.hasClass('clickable_dim') || $el.hasClass('menuAll')) {
@@ -682,17 +682,18 @@ $(document).ready(function() {
     // 예시로 팝업을 여는 버튼 클릭 이벤트
     $('.open-popup-btn').on('click', function() {
         $(".foods_right_pop").css("display", "block");
-        $('.foods_right_pop').show();
     });
     // 유아동행 예시
 
     $('.childopen-popup-btn').on('click', function() {
         $(".childseat_right_pop").css("display", "block");
-        $('.childseat_right_pop').show();
     });
 
-
+    $('.btn_bd_md').on('click', function() {
+        $('.dimmed_bg_left').fadeIn();       
+    });
   });
+
 
 
 
@@ -712,12 +713,6 @@ $(document).ready(function() {
     toggleScrollBasedOnDisplay();
 });
 
-// display 상태가 변할 때 감지
-const observer = new MutationObserver(function() {
-    toggleScrollBasedOnDisplay();
-});
-
-observer.observe(document.querySelector('.play_load'), { attributes: true, attributeFilter: ['style'] });
 
 //버튼 눌렀을때 display block
 

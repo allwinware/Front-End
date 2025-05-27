@@ -78,12 +78,12 @@
                 <!-- 사전 좌석 선택 -->
                 <article id="anc_seat" name="anc_seat" class="anc-service-wrap anc_seat new_wraps">
                     <!-- 상단 닫아놓기 -->
-                    <header class="anc-header" style="display: none;">
-                    </header>
+                     <!-- 딤드처리 왼쪽 전체 -->
+                    <div class="dimmed_bg_left" style="display: none;"></div>
 
                     <div class="anc-service" data-type="tab-group">
                         <!-- 아이콘 바뀜 좌석 수하물 기내식 250108-->
-                        <div class="alert_seat" style="display: block;">
+                        <div class="alert_seat" style="display: none;">
                             <div class="alert_bgwh"></div>
                             <div class="alert_bgbg">
                                 <div class="icoh-seat"></div>
@@ -2656,9 +2656,11 @@
                             <!-- title -->
                             <div class="grp_title_popup">
                                 <h2>자리조정</h2>
+                                <!--
                                 <div>
                                     <button type="button" class="btn_close_popup1" title="닫기">닫기</button>
                                 </div>
+                                -->
                             </div>
                             <!-- //title -->
                         </div>
@@ -2803,7 +2805,10 @@
                                         </li>
 
                                     </ul>
-                                    <div class="pay_save"><button type="button" class="">저장하기</button></div>
+                                    <div class="pay_save">
+                                        <button type="button" class="bctd1 btn_close_popup1">취소</button>
+                                        <button type="button" class="bctd2 orang btn_close_popup1">저장하기</button>
+                                    </div>
 
                                 </div>
                                 
@@ -3208,52 +3213,6 @@
                     $(this).parent("li").toggleClass("active").siblings("li").removeClass("active")
                 });
             })();
-
-            /*사용자의 스크롤 액션에 따른 .anc-lnb-wrap의 동작 제어*/
-            /*(function(){
-                var $lnb = $(".anc-lnb-wrap"),
-                    lnbScStart = $lnb.offset().top,
-                    lnbScEnd = $("#ags-footer").offset().top;
-    
-                var offset = 40,
-                    lnbHeight = $lnb.outerHeight()+offset,
-                    menuItems =  $lnb.find("a[href*='#']"),
-                    scrollItems = menuItems.map(function(){
-                        var href = $(this).attr("href"),
-                            id = href.substring(href.indexOf('#')),
-                            item = $(id);
-                        if (item.length) { return item; }
-                    });
-    
-                /!*LNB 메뉴 아이템 클릭 시 동작 제어*!/
-                menuItems.click(function(e){
-                    var href = $(this).attr("href"),
-                        id = href.substring(href.indexOf('#'));
-                    offsetTop = href === "#" ? 0 : $(id).offset().top - lnbHeight + 1;
-                    /!*좌석 클릭 시 scrollTop 되는 현상 해소*!/
-                    e.preventDefault();
-                    $("html, body").stop().animate({
-                        scrollTop: offsetTop
-                    }, 300);
-                });
-    
-                $win.on("scroll", function(){
-                    /!*스크롤이 발생하면 lnb가 상단에 고정되도록 합니다.*!/
-                    sticky($lnb, lnbScStart, lnbScEnd);
-                    /!*스크롤 위치에 따라 .anc-lnb-wrap 내부의 메뉴가 활성화/비활성화 되도록 합니다.*!/
-                    var fromTop = $(this).scrollTop()+lnbHeight;
-                    var cur = scrollItems.map(function(){
-                        if ($(this).offset().top < fromTop)
-                            return this;
-                    });
-                    cur = cur[cur.length-1];
-                    var id = cur && cur.length ? cur[0].id : "";
-                    menuItems.parent().removeClass("active");
-                    if(id){
-                        menuItems.parent().end().filter("[href*='#"+id+"']").parent().addClass("active");
-                    }
-                }).scroll()
-            })();*/
 
             (function () {
                 lnbHandler();
