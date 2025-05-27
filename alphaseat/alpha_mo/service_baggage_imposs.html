@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ko" style="overflow: hidden;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <title>AlphaSeat</title>
+    <link rel="stylesheet" href="./resource/css/newui.css">
+    <link rel="stylesheet" href="./resource/css/content.css">
+    <link rel="stylesheet" href="./resource/css/reset.css">
+    <link rel="stylesheet" href="./resource/css/common.css">
+    <script src='./resource/js/jquery-2.2.4.min.js'></script>
+    <script src='./resource/js/jquery.min.js'></script>
+    <script src="./resource/js/alpha.mo.ui.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+
+<body style="overflow: hidden;">    
+	<div class="dimmed_bgs"></div>
+    <div class="ags-wrap newui bag">
+        <h1 class="site-name">올윈에어</h1>
+        <header>
+			<div class="ags-header">
+				<div class="gnb_menu">
+					<a href="index.html" class="">좌석지정</a>
+					<a href="#none" class="gnb_menu_active">수하물</a>
+					<a href="service_food.html" class="">기내식</a>
+				</div>
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="gnb-wrap">					
+					<ul>						
+						<li>
+							<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+							<div id="gnb-2dp" class="gnb-2dp-wrap" >
+								<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>								
+								<p class="welcome-msg">안녕하세요. <br>
+								<span class="customer-name">ALLWIN AIR</span>님</p>
+								<ul class="depth1">
+									<li>
+										<a href="#none" target="_self">항공 부가서비스 사전 신청</a>
+									</li>
+									<li class="new active">
+										<a href="#none" target="_self">기내 면세품 예약</a>
+									</li>
+									<li>
+										<a href="#none" target="_self">마이페이지</a>
+										<ul class="depth2">
+											<li>
+												<a href="#none" target="_self">- 부가서비스 신청내역</a>
+											</li>
+											<li>
+												<a href="#none" target="_self">- 기내 면세품 예약내역</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="fnb">
+									<li><a href="#none" target="_self">개인정보취급방침</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>			
+			<div class="select_boxbtn" >
+				<div class="select_backbtn active">
+					<button id="ags-wrap-back" class="btn_back_c">
+						<div class="boxbtn_logo air_logo tway"></div>
+						<div class="boxbtn_fly">
+							<div>인천 ICN</div>→
+							<div>오사카 OCA</div>
+						</div>
+					</button>
+				</div>
+				<div class="select_comebtn">
+					<button id="ags-wrap" class="btn_come_c">
+						<div class="boxbtn_logo air_logo tway"></div>
+						<div class="boxbtn_fly">
+							<div>인천 ICN</div>→
+							<div>오사카 KIX</div>
+						</div>
+					</button>
+				</div>
+			</div>
+			<div class="select_boxbtn long" style="display: none;">
+				<div class="select_backbtn active">
+					<button id="ags-wrap-back" class="btn_back_c">
+						<div class="boxbtn_logo air_logo tway_gray"></div>
+						<div class="boxbtn_fly">
+							<div>인천 ICN</div>→
+							<div>오사카 OCA</div>
+						</div>
+					</button>
+				</div>
+				<div class="select_comebtn">
+					<button id="ags-wrap" class="btn_come_c">
+						<div class="boxbtn_logo air_logo tway_gray"></div>
+						<div class="boxbtn_fly">
+							<div>인천 ICN</div>→
+							<div>오사카 KIX</div>
+						</div>
+					</button>
+				</div>
+			</div>
+			<div class="header_txt" style="display: none;">
+				<div class="header_txt_ai">
+					<img src="./resource/img/common/ai.png">
+					<span>좌석 배치도에서 좌석위치 선택</span>
+				</div>
+				<!--프리뷰버튼-->
+				<div class="header_txt_btn trigger_1_1" style="display: none;">
+					<span>전체좌석</span>
+					<span>-</span>
+				</div>
+			</div>
+		</header>
+        <div class="contents separate200 ovrFlw bagnewui" id="con_slider">
+            <div class="slider1">
+				<div class="no-item-time" style="display: block;">
+					<!-- 
+					경고 이미지
+					<div class="ico-wrap"></div>			
+					수하물
+					<div class="icoh-baggage"></div>
+					기내식
+					<div class="icoh-meal"></div>		
+					-->
+					<!-- 좌석 -->
+					<div class="icoh-seat"></div>
+					<div class="alert-title">
+						항공기 출발 시간이 임박하여<br>
+						사전 좌석을 구매할 수 없습니다.
+					</div>
+					<div class="alert-text">
+						출발 24시간전까지 구매 가능<br>
+						단, 최초 출발 2일 후부터는 오는 편 구매 불가
+					</div>
+					 
+					<div class="alram_btn">        
+						<span>알림 받기</span>        
+						<div class="alram_txt2">구매 안내 알림을 받으시겠습니까?
+						</div>
+					</div>
+					<div class="cscenter" >
+                        고객센터 : 1522-4148 (평일 10:00 ~ 17:00)
+                    </div> 
+					
+				</div>
+                <div class="baggagep_advimg" style="display: none;">
+					<div class="baggagep_num">99</div>
+                    <img src="resource/img/common/baggage_any.png">
+                    <span>*추가금액 개별적용</span>
+                </div>
+                <div class="baggageps" style="display: none;">
+                    <div>
+                        
+                        <ul>                    
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                         <!--baggagep_txt2_img active 오렌지색 빼면 그레이색 -->
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                        <div class="baggagep_btn_chk">
+											<!--active가 있으면 회색-->
+                                            <span>
+                                                <button class="decrease_btn ">-</button>
+                                            </span>
+                                            <span class="number_box">0</span>
+                                            <span>
+                                                <button class="increase_btn active">+</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay gab1">999,999</div> 
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">                                         
+                                        <div class="baggagep_txt2_img">추가</div>
+                                        <!--에어프레미아 수하물 active가 있으면 회색.-->
+										<div class="baggagep_btn_chk_premia">
+                                            <span>
+                                                <button class="btn_primia_left"><</button>
+                                            </span>
+											<div>
+                                            	<span class="baggagep_result">2PC(28kg,32kg)+9kg</span>
+											</div>
+											<span>
+                                                <button class="btn_primia_right active">></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_reserv">150,300</div>
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">                                         
+                                        <div class="baggagep_txt2_img">추가</div>
+										<div class="baggagep_btn_chk_premia_reserv">
+											<span>
+												<button class="btn_primia_left"><</button>
+											</span>
+											<div>
+												<span class="baggagep_result">0</span>
+											</div>
+											<span>
+												<button class="btn_primia_right active">></button>
+											</span>
+										</div>										
+                                    </div>
+                                    <div class="baggagep_reserv">2PC(28kg,32kg)+9kg</div>
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                        <div class="baggagep_btn_chk">
+                                            <span>
+                                                <button class="decrease_btn">-</button>
+                                            </span>
+                                            <span class="number_box">0</span>
+                                            <span>
+                                                <button class="increase_btn">-</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay gab2">999,999</div>
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                        <div class="baggagep_btn_chk">
+                                            <span>
+                                                <button class="decrease_btn">-</button>
+                                            </span>
+                                            <span class="number_box">0</span>
+                                            <span>
+                                                <button class="increase_btn">-</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay gab3">999,999</div>
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                        <div class="baggagep_btn_chk">
+                                            <span>
+                                                <button class="decrease_btn">-</button>
+                                            </span>
+                                            <span class="number_box">0</span>
+                                            <span>
+                                                <button class="increase_btn">-</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay gab4">999,999</div>
+                                </div>
+                            </li>
+
+                        </ul>                       
+                    </div>					
+					<div class="cscenter">
+						고객센터 : 1522-4148 (평일 10:00 ~ 17:00)
+					</div>
+                    <div class="baggagep_sell" style="display: none;">
+                        <div>공항구매가</div>
+                        <span>44,000</span>
+                    </div>
+                    <div class="baggagep_discount" style="display: none;">
+                        <div>사전할인적용</div>
+                        <div>
+                            <span>(40% 할인)</span>
+                            <span>44,000</span>
+                        </div>
+                    </div>            
+                    <div class="pay_gro total" style="display: none;">
+                        <div>수하물 결제금액</div>
+                        <strong><span>44,000</span></strong>
+                    </div>
+                    <!--버튼 1개 맨 밑 gray 빼면 오렌지색-->
+                    <div class="pay_pay gray" style="display: none;">                
+                        <button type="button" class="">결제하기</button>
+                    </div>
+                    <!--버튼 2개 맨 밑 oranz가 오렌지색-->
+                    <div class="pay_pay" style="display: none;">
+                        <button type="button" class="pay_ment_btn3">건너뛰기</button>
+                        <button type="button" class="pay_ment_btn4 oranz">수하물 선택완료</button>
+                    </div>
+                </div>
+            </div>
+			
+            <div class="slider2">
+				<div class="no-item-time" style="display: block;">
+					<!-- 
+					경고 이미지
+					<div class="ico-wrap"></div>			
+					수하물
+					<div class="icoh-baggage"></div>
+					기내식
+					<div class="icoh-meal"></div>		
+					-->
+					<!-- 좌석 -->
+					<div class="icoh-seat"></div>
+					<div class="alert-title">
+						항공기 출발 시간이 임박하여<br>
+						사전 좌석을 구매할 수 없습니다.
+					</div>
+					<div class="alert-text">
+						출발 24시간전까지 구매 가능<br>
+						단, 최초 출발 2일 후부터는 오는 편 구매 불가
+					</div>
+					 
+					<div class="alram_btn">        
+						<span>알림 받기</span>        
+						<div class="alram_txt2">구매 안내 알림을 받으시겠습니까?
+						</div>
+					</div>
+					<div class="cscenter" >
+                        고객센터 : 1522-4148 (평일 10:00 ~ 17:00)
+                    </div> 
+					
+				</div>
+                <div class="baggagep_advimg" style="display: none;">
+					<div class="baggagep_num">33</div>
+                    <img src="resource/img/common/baggage_any.png">
+                    <span>*추가금액 개별적용</span>
+                </div>
+                <div class="baggageps" style="display: none;">
+                    <div>
+                        
+                        <ul>                    
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                         <!--baggagep_txt2_img active 오렌지색 빼면 그레이색 -->
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                        <div class="baggagep_btn_chk">
+											<!--active가 있으면 회색-->
+                                            <span>
+                                                <button class="decrease_btn ">-</button>
+                                            </span>
+                                            <span class="number_box">0</span>
+                                            <span>
+                                                <button class="increase_btn active">+</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay gab1">999,999</div> 
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">                                         
+                                        <div class="baggagep_txt2_img">추가</div>
+                                        <!--에어프레미아 수하물 active가 있으면 회색.-->
+										<div class="baggagep_btn_chk_premia">
+                                            <span>
+                                                <button class="btn_primia_left"><</button>
+                                            </span>
+											<div>
+                                            	<span class="baggagep_result">2PC(28kg,32kg)</span>
+											</div>
+											<span>
+                                                <button class="btn_primia_right active">></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay">150,300</div>
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                         
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                    </div>
+                                    <!-- 예약한 사람이 있는 경우-->
+                                    <div class="baggagep_reserv">24.03.01</div>
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                        <div class="baggagep_btn_chk">
+                                            <span>
+                                                <button class="decrease_btn">-</button>
+                                            </span>
+                                            <span class="number_box">0</span>
+                                            <span>
+                                                <button class="increase_btn">-</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay gab2">999,999</div>
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                        <div class="baggagep_btn_chk">
+                                            <span>
+                                                <button class="decrease_btn">-</button>
+                                            </span>
+                                            <span class="number_box">0</span>
+                                            <span>
+                                                <button class="increase_btn">-</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay gab3">999,999</div>
+                                </div>
+                            </li>
+                            <li>                               
+                                <div class="baggagep_txt1">
+                                    <div>LEE JIYOUNG</div>
+                                    <div>기본 15kg</div>                                                   
+                                </div>                        
+                                <div class="baggagep_txt2">
+                                    <div class="baggagep_sum">
+                                        <div class="baggagep_txt2_img active">추가</div>
+                                        <div class="baggagep_btn_chk">
+                                            <span>
+                                                <button class="decrease_btn">-</button>
+                                            </span>
+                                            <span class="number_box">0</span>
+                                            <span>
+                                                <button class="increase_btn">-</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="baggagep_pay gab4">999,999</div>
+                                </div>
+                            </li>
+
+                        </ul>                       
+                    </div>
+
+                    <div class="baggagep_sell" style="display: none;">
+                        <div>공항구매가</div>
+                        <span>44,000</span>
+                    </div>
+                    <div class="baggagep_discount" style="display: none;">
+                        <div>사전할인적용</div>
+                        <div>
+                            <span>(40% 할인)</span>
+                            <span>44,000</span>
+                        </div>
+                    </div>            
+                    <div class="pay_gro total" style="display: none;">
+                        <div>수하물 결제금액</div>
+                        <strong><span>44,000</span></strong>
+                    </div>
+                    <!--버튼 1개 맨 밑 gray 빼면 오렌지색-->
+                    <div class="pay_pay gray" style="display: none;">                
+                        <button type="button" class="">결제하기</button>
+                    </div>
+                    <!--버튼 2개 맨 밑 oranz가 오렌지색-->
+                    <div class="pay_pay" style="display: none;">
+                        <button type="button" class="pay_ment_btn3">건너뛰기</button>
+                        <button type="button" class="pay_ment_btn4 oranz">수하물 선택완료</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 좌석 안정했을때 -->
+		<div class="ags-summary-group">			
+			<h4 class="sr-only">부가서비스 결제금액</h4>
+			<a href="#none" class="btn_group_open"></a>
+			<div class="footer_contents_group">				
+				<a class="btn_group_close">Close</a>
+				<div class="pay_content">
+					<div>
+						<div class="pay_txt">
+							<span class="pay_txt_a">좌석 지정</span>
+						</div>
+							<div class="pb-10">
+								<div class="pay_way">
+									<div>
+										<div class="select_txt2">
+											<span>가는편</span>
+											
+											<div class="region_txt1">
+												<span>ICN</span>
+												<span>SIN</span>
+											</div>
+											<span class="airname airbusan"></span>
+										</div>
+									</div>
+								</div>			
+								<ul class="pay_group">
+									<li>
+										<div class="pay_group_s">
+											<span>LEE J K</span>
+										</div>
+										<div>
+										</div>
+									</li>
+									<li>
+										<div class="pay_group_s">
+											<span>LEE J K</span>
+										</div>
+										<div>
+										</div>
+									</li>
+									<li>
+										<div class="pay_group_s">
+											<span>LEE J K</span>
+										</div>
+										<div>
+										</div>
+									</li>
+									<li>
+										<div class="pay_group_s">
+											<span>LEE J K</span>
+										</div>
+										<div>
+										</div>
+									</li>
+								</ul>
+							</div>
+					</div>
+
+				</div>
+				
+			</div>			
+		</div>
+		<!-- 좌석 정했을때 -->
+		<div class="ags-summary" >			
+			<h4 class="sr-only">부가서비스 결제금액</h4>
+			<div class="scroll_btn" style="display: none;">
+				<button><span>AI추천 돌아가기</span></button>
+			</div>
+			<a href="#none" class="btn_footer_open"></a>
+			<div class="foot_align">
+				<div class="btf_a">
+					<span>LEE JIYOUNG</span>님
+					<span class="btf_a_people">4</span>인  
+				</div>
+				<!--btf_bbtn oranc 오렌지 색상-->
+				<div class="btf_bbtn">
+					<button>가는 편 좌석선택</button>
+				</div>				
+			</div>			
+			<div class="footer_contents">				
+				<a class="btn_footer_close">Close</a>
+				<div class="pay_content">
+					<div class="creditcard newui">
+						<div class="card_warp">
+							<div class="card_name">부가서비스 신청내역</div>
+							<div class="credit_box_btn" agrBtn style="display: none;"></div>
+						</div>
+						<div agrLt class="credit_agree_box_content dis on" style="display: block;">
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>싱카포르 SIN</span>
+									</div>
+									<div class="air_logo jeju"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>05/01 09:15</div>
+									<div>7C1302</div>
+								</div>
+							</div>
+							<!-- 사람 -->				   
+							<div class="bd_px">
+								<div class="personer">
+									<span>LEE JIYOUNG</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><span>3E</span></div>				   
+											<div>
+												<span>11,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">		
+											<div><span>+10kg</span></div>				   
+											<div>
+												<span>16,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><span>구름 위의 샌드위치</span></div>				   
+											<div>
+												<span>9,000</span> 
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>김상희</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><button class="card_box_buy">구매하기</button></div>				   
+											<div><span></span></div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">		
+											<div><button class="card_box_buy">구매하기</button></div>				   
+											<div><span></span></div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><button class="card_box_buy">구매하기</button></div>				   
+											<div><span></span></div>	
+										</div>
+									</div>	
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이진희</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><span>4E</span></div>				   
+											<div>
+												<span>11,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><span>구름 위의 샌드위치</span></div>				   
+											<div>
+												<span>9,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>		
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이명진</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><span>4F</span></div>				   
+											<div>
+												<span>11,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><span>패밀리 세트</span></div>				   
+											<div>
+												<span>22,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+							</div>
+							<!-- 선나누기 <div class="liner_service"></div> -->
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>싱카포르 SIN</span>
+									</div>
+									<div class="air_logo jeju"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>05/01 09:15</div>
+									<div>7C1302</div>
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이정갑</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><span>3E</span></div>				   
+											<div><span>11,000</span></div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">		
+											<div><span>+10kg</span></div>				   
+											<div><span>16,000</span></div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><span>구름 위의 샌드위치</span></div>				   
+											<div><span>9,000</span></div>	
+										</div>
+									</div>	
+								</div>
+							</div>
+							<!-- 선나누기 --><div class="liner_service"></div>
+						</div>
+						<div class="credit_total">
+							<div>부가서비스 총 결제 금액</div>
+							<span class="credit_total_box2">76,000원</span>   
+						</div>
+					</div>
+
+				</div>
+				
+			</div>			
+		</div>
+
+    </div>
+    
+    
+</body>
+
+</html>
