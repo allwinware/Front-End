@@ -7,7 +7,7 @@
             href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
             <link rel="stylesheet" href="../resource/css/newui.css">
             <link rel="stylesheet" href="../resource/css/contents.css">
-            <link rel="stylesheet" href="../resource/css/common.css">    
+            <link rel="stylesheet" href="../resource/css/pc_path.css">    
             <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
             <script type="text/javascript" src="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
             <script type="text/javascript" src="../resource/js/alpha.pc.ui.js"></script>
@@ -2478,7 +2478,7 @@
                         </div>                        
                         <div class="pay_choice">                            
                             <div><i class="safe_cho">안심</i> <span>정해진 자리는 기내에서 일행끼리 <br> 자유롭게 바꿀 수 있어요</span></div>
-                            <a href="javascript:;" onclick="layerPop('popup1');" class="btn_bd_md submit">자리조정</a>
+                            <a href="javascript:;" class="btn_bd_md submit" data-popup="#pop120">자리조정</a>
                         </div>
                         <!--구분선-->
                         <div class="gugusun"></div>
@@ -2648,176 +2648,181 @@
                 </div>
             
             </div>
-        </section>
-        <!--직접배정팝업-->
-            <div id="popup1" class="layer_popup type2 popup_1" tabindex="0">
-                <div class="page-dim active" style="display: block;"></div>                
-                <div class="wrapper_popup type3">
-                    <!-- header -->
-                    <div class="popup_header">
-                        <!-- title -->
-                        <div class="grp_title_popup">
-                            <h2>자리조정</h2>
-                            <!--
-                            <div>
-                                <button type="button" class="btn_close_popup1" title="닫기">닫기</button>
-                            </div>
-                            -->
-                        </div>
-                        <!-- //title -->
-                    </div>
-                    <!-- //header -->
-                    <!-- container -->
-                    <div class="popup_body">
-                        <!-- content -->
-                        <div class="popup_content">
-                            <!--
-                            <div class="popup_txt1">[<span>홍길동</span>님 <span>9</span>인그룹] 좌석별 승객을 산택하세요.</div>
-                            -->
-                            <div class="popup_con1">
-                                <div class="pay_way">
-                                    <div class="select_txt2">
-                                        <span>가는편</span>
-                                        <span>ICN</span>
-                                        <span>SIN</span>
-                                    </div>
-                                    <button type="button" class="pay_turn">초기화</button>
-                                </div>
-                                <div class="pay_del">
-                                    <div class="passenger_number_choice"> <span>6B</span>좌석에 누가 앉나요?</div>
+        </section> 
+            
 
+        <div id="pop120" class="pop-area" data-type="submission">
+        <div class="pop-wrap seatchange">
+            <header class="pop-header">
+                <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
+                <h2 class="pop-title">
+                    자리조정</h2>
+            </header>
+            <section class="pop-container">
+                <div class="pop-content">
+                    <div class="scroll-wrap" data-scrollbar="true">
+                        <h3 class="sr-only">카드정보 입력</h3>
+                        <div class="inner-wrap">
+                            <div class="pay_way">
+                                <div class="select_txt2">
+                                    <span>가는편</span>
+                                    <span>ICN</span>
+                                    <span>SIN</span>
                                 </div>
-                                <div class="popup_con2">
-                                    <ul class="seat_num" style="display: none;">
-                                        <li>
-                                            <span><a href="#none" class="seat_btn">6A</a></span>
-                                            <span><a href="#none" class="seat_btn">6B</a></span>
-                                            <!--해당 좌석 없어짐-->
-                                            <span><a href="#none" class="seat_btn alpha_zero">6C</a></span>
-                                            <span class="hallway">06</span>
-                                            <span class="binkan_r"></span><!--오른쪽 빈칸-->
-                                            <!-- style="margin-right: 130px;" -->
-                                        </li>
-                                        <li class="line_b">
-                                            <!--box_blink로 박스-->
-                                            <span class="box_blink"><a href="#none" class="seat_btn">7A</a></span>
-                                            <span><a href="#none" class="seat_btn">7B</a></span>
-                                            <span><a href="#none" class="seat_btn">7C</a></span>
-                                            <span class="hallway">07</span>
-                                            <span><a href="#none" class="seat_btn">7D</a></span>
-                                            <span><a href="#none" class="seat_btn">7E</a></span>
-                                            <span><a href="#none" class="seat_btn">7F</a></span>
-                                        </li>
-                                        <span></span>
-                                        <li>
-                                            <!-- style="margin-left: 130px;" -->
-                                            <span class="binkan_l"></span><!--왼쪽 빈칸-->
-                                            <span class="hallway">11</span>
-                                            <span><a href="#none" class="seat_btn">11D</a></span>
-                                            <span><a href="#none" class="seat_btn">11E</a></span>
-                                            <span><a href="#none" class="seat_btn">11F</a></span>
-                                        </li>
-                                        <!-- 직접선택모드 -->
-                                        <li class="jipjub" style="display: none;">
-                                            <span class="box_blink"><a href="#none" class="seat_btn seat_active">7A</a></span>
-                                            <span><a href="#none" class="seat_btn">7B</a></span>
-                                            <span><a href="#none" class="seat_btn">7C</a></span>                                                
-                                            <span><a href="#none" class="seat_btn">7D</a></span>
-                                            <span><a href="#none" class="seat_btn">7C</a></span>
-                                            <span><a href="#none" class="seat_btn">7D</a></span>
-                                        </li>
-                                        <li class="jipjub" style="display: none;">
-                                            <span><a href="#none" class="seat_btn">7D</a></span>
-                                            <span><a href="#none" class="seat_btn">7C</a></span>
-                                            <span><a href="#none" class="seat_btn">7D</a></span>
-                                        </li>
-                                    </ul>
-                                    <ul class="seat_num yp_HL838" style="display: none;">       
-                                        <li>                                
-                                            <span><a href="#none" class="seat_btn ">6A</a></span>
-                                            <span><a href="#none" class="seat_btn ">6B</a></span>
-                                            <span><a href="#none" class="seat_btn alpha_zero">6C</a></span>
-                                            <span class="hallway ">06</span>                                                
-                                            <span><a href="#none" class="seat_btn ">36D</a></span>
-                                            <span><a href="#none" class="seat_btn ">6E</a></span>
-                                            <span><a href="#none" class="seat_btn ">6F</a></span>
-                                            <span class="hallway ">06</span>
-                                            <span><a href="#none" class="seat_btn">6G</a></span>
-                                            <span><a href="#none" class="seat_btn ">6H</a></span>
-                                            <span><a href="#none" class="seat_btn ">6J</a></span>
-                                        </li>
-                                        <li>                                
-                                            <span><a href="#none" class="seat_btn ">26A</a></span>
-                                            <span><a href="#none" class="seat_btn ">26B</a></span>
-                                            <span><a href="#none" class="seat_btn ">26C</a></span>
-                                            <span class="hallway ">26</span>                                                
-                                            <span><a href="#none" class="seat_btn ">26D</a></span>
-                                            <span><a href="#none" class="seat_btn ">26E</a></span>
-                                            <span><a href="#none" class="seat_btn ">6F</a></span>
-                                            <span class="hallway ">26</span>
-                                            <span><a href="#none" class="seat_btn">26G</a></span>
-                                            <span><a href="#none" class="seat_btn ">26H</a></span>
-                                            <span><a href="#none" class="seat_btn ">26J</a></span>
-                                        </li>
-                                        <li>                                
-                                            <span><a href="#none" class="seat_btn ">35A</a></span>
-                                            <span><a href="#none" class="seat_btn ">35B</a></span>
-                                            <span><a href="#none" class="seat_btn ">35C</a></span>
-                                            <span class="hallway ">35</span>                                                
-                                            <span><a href="#none" class="seat_btn ">36D</a></span>
-                                            <span><a href="#none" class="seat_btn ">35E</a></span>
-                                            <span><a href="#none" class="seat_btn ">35F</a></span>
-                                            <span class="hallway ">35</span>
-                                            <span><a href="#none" class="seat_btn ">35G</a></span>
-                                            <span><a href="#none" class="seat_btn ">35H</a></span>
-                                            <span><a href="#none" class="seat_btn ">35J</a></span>
-                                        </li>
-                                    </ul>
-                                    <ul class="seat_num sc_343" style="display: block;">       
-                                        <li>                                
-                                            <span><a href="#none" class="seat_btn ">6A</a></span>
-                                            <span><a href="#none" class="seat_btn ">6B</a></span>
-                                            <span><a href="#none" class="seat_btn alpha_zero">6C</a></span>
-                                            <span class="hallway ">06</span>                                                
-                                            <span><a href="#none" class="seat_btn ">6D</a></span>
-                                            <span><a href="#none" class="seat_btn ">6E</a></span>
-                                            <span><a href="#none" class="seat_btn ">6F</a></span>
-                                            <span><a href="#none" class="seat_btn ">6G</a></span>
-                                            <span class="hallway ">06</span>
-                                            <span><a href="#none" class="seat_btn">6H</a></span>
-                                            <span><a href="#none" class="seat_btn ">6I</a></span>
-                                            <span><a href="#none" class="seat_btn ">6J</a></span>
-                                        </li>
-                                        <li>                                
-                                            <span><a href="#none" class="seat_btn ">16A</a></span>
-                                            <span><a href="#none" class="seat_btn ">16B</a></span>
-                                            <span><a href="#none" class="seat_btn ">16C</a></span>
-                                            <span class="hallway ">16</span>                                                
-                                            <span><a href="#none" class="seat_btn ">16D</a></span>
-                                            <span><a href="#none" class="seat_btn ">6E</a></span>
-                                            <span><a href="#none" class="seat_btn ">6F</a></span>
-                                            <span><a href="#none" class="seat_btn ">6G</a></span>
-                                            <span class="hallway ">16</span>
-                                            <span><a href="#none" class="seat_btn">16H</a></span>
-                                            <span><a href="#none" class="seat_btn ">16I</a></span>
-                                            <span><a href="#none" class="seat_btn ">16J</a></span>
-                                        </li>
-                                        <li>                                
-                                            <span><a href="#none" class="seat_btn ">26A</a></span>
-                                            <span><a href="#none" class="seat_btn ">26B</a></span>
-                                            <span><a href="#none" class="seat_btn ">26C</a></span>
-                                            <span class="hallway ">26</span>                                                
-                                            <span><a href="#none" class="seat_btn ">26D</a></span>
-                                            <span><a href="#none" class="seat_btn ">26E</a></span>
-                                            <span><a href="#none" class="seat_btn ">26F</a></span>
-                                            <span><a href="#none" class="seat_btn ">26G</a></span>
-                                            <span class="hallway ">26</span>
-                                            <span><a href="#none" class="seat_btn">26H</a></span>
-                                            <span><a href="#none" class="seat_btn ">26I</a></span>
-                                            <span><a href="#none" class="seat_btn ">26J</a></span>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <button type="button" class="pay_turn">초기화</button>
+                            </div>
+                            <div class="pay_del">
+                                <div class="passenger_number_choice"> <span>6B</span>좌석에 누가 앉나요?</div>
+                            </div>
+                            <div class="popup_seat">
+                                <ul class="seat_num" style="display: none;">                                    
+                                    <!-- 직접선택모드 -->
+                                    <li class="jipjub" >
+                                        <span class="box_blink"><a href="#none" class="seat_btn seat_active">7A</a></span>
+                                        <span><a href="#none" class="seat_btn">7B</a></span>
+                                        <span><a href="#none" class="seat_btn">7C</a></span>                                                
+                                        <span><a href="#none" class="seat_btn">7D</a></span>
+                                        <span><a href="#none" class="seat_btn">7C</a></span>
+                                        <span><a href="#none" class="seat_btn">7D</a></span>
+                                    </li>
+                                    <li class="jipjub">
+                                        <span><a href="#none" class="seat_btn">7D</a></span>
+                                        <span><a href="#none" class="seat_btn">7C</a></span>
+                                        <span><a href="#none" class="seat_btn">7D</a></span>
+                                    </li>
+                                </ul>
+                                <ul class="seat_num flyseat_33" style="display: none;">       
+                                    <li>
+                                        <span><a href="#none" class="seat_btn">6A</a></span>
+                                        <span><a href="#none" class="seat_btn">6B</a></span>
+                                        <span><a href="#none" class="seat_btn alpha_zero">6C</a></span>
+                                        <span class="hallway">06</span>
+                                        <span><a href="#none" class="seat_btn">6D</a></span>
+                                        <span><a href="#none" class="seat_btn">6E</a></span>
+                                        <span><a href="#none" class="seat_btn">6F</a></span>
+                                    </li>
+                                    <li>
+                                        <span><a href="#none" class="seat_btn">6A</a></span>
+                                        <span><a href="#none" class="seat_btn">6B</a></span>
+                                        <span><a href="#none" class="seat_btn">6C</a></span>
+                                        <span class="hallway">06</span>
+                                        <span><a href="#none" class="seat_btn">6D</a></span>
+                                        <span><a href="#none" class="seat_btn">6E</a></span>
+                                        <span><a href="#none" class="seat_btn">6F</a></span>
+                                    </li>
+                                </ul>
+                                <ul class="seat_num flyseat_242" style="display: none;">       
+                                    <li>                                
+                                        <span><a href="#none" class="seat_btn ">6A</a></span>
+                                        <span><a href="#none" class="seat_btn ">6B</a></span>                                        
+                                        <span class="hallway ">06</span>
+                                        <span><a href="#none" class="seat_btn ">6C</a></span>                                                
+                                        <span><a href="#none" class="seat_btn ">6D</a></span>
+                                        <span><a href="#none" class="seat_btn ">6E</a></span>
+                                        <span><a href="#none" class="seat_btn ">6F</a></span>
+                                        <span class="hallway ">06</span>
+                                        <span><a href="#none" class="seat_btn ">6G</a></span>
+                                        <span><a href="#none" class="seat_btn ">6H</a></span>
+                                    </li>
+                                    <li>                                
+                                        <span><a href="#none" class="seat_btn ">6A</a></span>
+                                        <span><a href="#none" class="seat_btn ">6B</a></span>                                        
+                                        <span class="hallway ">06</span>
+                                        <span><a href="#none" class="seat_btn ">6C</a></span>                                                
+                                        <span><a href="#none" class="seat_btn ">6D</a></span>
+                                        <span><a href="#none" class="seat_btn ">6E</a></span>
+                                        <span><a href="#none" class="seat_btn ">6F</a></span>
+                                        <span class="hallway ">06</span>
+                                        <span><a href="#none" class="seat_btn ">6G</a></span>
+                                        <span><a href="#none" class="seat_btn ">6H</a></span>
+                                    </li>
+                                </ul>
+                                <ul class="seat_num flyseat_333" style="display: none;">       
+                                    <li>                                
+                                        <span><a href="#none" class="seat_btn ">6A</a></span>
+                                        <span><a href="#none" class="seat_btn ">6B</a></span>
+                                        <span><a href="#none" class="seat_btn alpha_zero">6C</a></span>
+                                        <span class="hallway ">06</span>                                                
+                                        <span><a href="#none" class="seat_btn ">36D</a></span>
+                                        <span><a href="#none" class="seat_btn ">6E</a></span>
+                                        <span><a href="#none" class="seat_btn ">6F</a></span>
+                                        <span class="hallway ">06</span>
+                                        <span><a href="#none" class="seat_btn">6G</a></span>
+                                        <span><a href="#none" class="seat_btn ">6H</a></span>
+                                        <span><a href="#none" class="seat_btn ">6J</a></span>
+                                    </li>
+                                    <li>                                
+                                        <span><a href="#none" class="seat_btn ">26A</a></span>
+                                        <span><a href="#none" class="seat_btn ">26B</a></span>
+                                        <span><a href="#none" class="seat_btn ">26C</a></span>
+                                        <span class="hallway ">26</span>                                                
+                                        <span><a href="#none" class="seat_btn ">26D</a></span>
+                                        <span><a href="#none" class="seat_btn ">26E</a></span>
+                                        <span><a href="#none" class="seat_btn ">6F</a></span>
+                                        <span class="hallway ">26</span>
+                                        <span><a href="#none" class="seat_btn">26G</a></span>
+                                        <span><a href="#none" class="seat_btn ">26H</a></span>
+                                        <span><a href="#none" class="seat_btn ">26J</a></span>
+                                    </li>
+                                    <li>                                
+                                        <span><a href="#none" class="seat_btn ">35A</a></span>
+                                        <span><a href="#none" class="seat_btn ">35B</a></span>
+                                        <span><a href="#none" class="seat_btn ">35C</a></span>
+                                        <span class="hallway ">35</span>                                                
+                                        <span><a href="#none" class="seat_btn ">36D</a></span>
+                                        <span><a href="#none" class="seat_btn ">35E</a></span>
+                                        <span><a href="#none" class="seat_btn ">35F</a></span>
+                                        <span class="hallway ">35</span>
+                                        <span><a href="#none" class="seat_btn ">35G</a></span>
+                                        <span><a href="#none" class="seat_btn ">35H</a></span>
+                                        <span><a href="#none" class="seat_btn ">35J</a></span>
+                                    </li>
+                                </ul>
+                                <ul class="seat_num flyseat_343" style="display: block;">       
+                                    <li>                                
+                                        <span><a href="#none" class="seat_btn ">6A</a></span>
+                                        <span><a href="#none" class="seat_btn ">6B</a></span>
+                                        <span><a href="#none" class="seat_btn alpha_zero">6C</a></span>
+                                        <span class="hallway ">06</span>                                                
+                                        <span><a href="#none" class="seat_btn ">6D</a></span>
+                                        <span><a href="#none" class="seat_btn ">6E</a></span>
+                                        <span><a href="#none" class="seat_btn ">6F</a></span>
+                                        <span><a href="#none" class="seat_btn ">6G</a></span>
+                                        <span class="hallway ">06</span>
+                                        <span><a href="#none" class="seat_btn">6H</a></span>
+                                        <span><a href="#none" class="seat_btn ">6I</a></span>
+                                        <span><a href="#none" class="seat_btn ">6J</a></span>
+                                    </li>
+                                    <li>                                
+                                        <span><a href="#none" class="seat_btn ">16A</a></span>
+                                        <span><a href="#none" class="seat_btn ">16B</a></span>
+                                        <span><a href="#none" class="seat_btn ">16C</a></span>
+                                        <span class="hallway ">16</span>                                                
+                                        <span><a href="#none" class="seat_btn ">16D</a></span>
+                                        <span><a href="#none" class="seat_btn ">6E</a></span>
+                                        <span><a href="#none" class="seat_btn ">6F</a></span>
+                                        <span><a href="#none" class="seat_btn ">6G</a></span>
+                                        <span class="hallway ">16</span>
+                                        <span><a href="#none" class="seat_btn">16H</a></span>
+                                        <span><a href="#none" class="seat_btn ">16I</a></span>
+                                        <span><a href="#none" class="seat_btn ">16J</a></span>
+                                    </li>
+                                    <li>                                
+                                        <span><a href="#none" class="seat_btn ">26A</a></span>
+                                        <span><a href="#none" class="seat_btn ">26B</a></span>
+                                        <span><a href="#none" class="seat_btn ">26C</a></span>
+                                        <span class="hallway ">26</span>                                                
+                                        <span><a href="#none" class="seat_btn ">26D</a></span>
+                                        <span><a href="#none" class="seat_btn ">26E</a></span>
+                                        <span><a href="#none" class="seat_btn ">26F</a></span>
+                                        <span><a href="#none" class="seat_btn ">26G</a></span>
+                                        <span class="hallway ">26</span>
+                                        <span><a href="#none" class="seat_btn">26H</a></span>
+                                        <span><a href="#none" class="seat_btn ">26I</a></span>
+                                        <span><a href="#none" class="seat_btn ">26J</a></span>
+                                    </li>
+                                </ul>
+                            </div>
                                 <ul class="pay_group cho">
                                     <li>
                                         <div class="pay_group_s">
@@ -2830,7 +2835,7 @@
                                         <div class="pay_group_s">
                                             <span>JANG JUN KANG</span>
                                         </div>
-                                        <span><a href="#none" class="pay_select_o">1</a></span>
+                                        <span><a href="#none" class="pay_select_o"></a></span>
                                     </li>
                                     <li>
                                         <div class="pay_group_s">
@@ -2849,154 +2854,31 @@
                                             <span>JANG JUN KANG</span>
                                         </div>
                                     </li>
-
                                 </ul>
-                                <div class="pay_save">
-                                    <button type="button" class="bctd1 btn_close_popup1">취소</button>
-                                    <button type="button" class="bctd2 orang btn_close_popup1">저장하기</button>
-                                </div>
-
-                            </div>
-                            
                         </div>
-                        <!-- //content -->
                     </div>
-                    <!-- //container -->
                 </div>
-                
-            </div>          
-            
+            </section>
+            <div class="pay_save">
+                <button type="button" class="bctd1" data-role="close">취소</button>
+                <button type="button" class="bctd2 orang" data-role="close">저장하기</button>
+            </div>
+            <!--
+            <footer class="pop-footer">
+                <div class="process-btn-wrap adpopupcen">
+                    <button type="button" class="btn_cancel" data-role="close">취소</button>
+                    <button type="button" class="btn_confirm" data-role="close">저장하기</button>
+                </div>
+            </footer>
+            -->
         </div>
-            <!--//직접배정팝업-->
+        </div>
+        
         <hr>
 
         <!-- 회사정보(include/ags-footer.html) -->
         <div id="ags-footer" class="ags-footer"></div>
     </main>
-
-    <!-- 팝업 : datepicker -->
-    <div class="anc_car-dpicker"></div>
-
-    <!-- 팝업 : 번들 선택 - 국내선 운임 -->
-    <div id="bundle-summary3" class="pop-area" data-type="guidance" data-dim="false">
-        <div class="pop-wrap">
-            <header class="pop-header">
-                <button type="button" class="btn_close" data-role="close">팝업 닫기</button>
-                <h1 class="sr-only">번들 선택</h1><!-- 타이틀을 표시할때는 .sr-only 삭제 후 .pop-title 추가 -->
-            </header>
-            <section class="pop-container">
-                <div class="pop-content" data-pop-id="pop_bundle-summary">
-                    <p class="summary-approach">개별 구매 시보다 더 실속 있는<br><strong>부가서비스 번들을 이용해보세요!</strong></p>
-
-
-                    <h2 class="sr-only">번들 선택</h2>
-                    <div class="bundle-wrap">
-                        <!-- 운임에 따른 번들 정보 - 국내선 -->
-                        <div class="bundle-info bundle-dom1">
-                            <div class="bundle-type1">
-                                <dl class="info-title">
-                                    <dt class="bundle-name">번들명</dt>
-                                    <dd>더블팩</dd>
-                                    <dt class="bundle-sale">할인율</dt>
-                                    <dd>28%</dd>
-                                    <dt class="bundle-price">금액</dt>
-                                    <dd><span class="digits">9000</span></dd>
-                                </dl>
-                                <dl class="info-detail">
-                                    <dt>위탁수하물</dt>
-                                    <dd>20kg</dd>
-                                    <dt>사전좌석지정</dt>
-                                    <dd>프리미엄 존 제외 전좌석</dd>
-                                    <dt>수하물우선처리</dt>
-                                    <dd>제공안함</dd>
-                                    <dt>전용카운터</dt>
-                                    <dd>제공안함</dd>
-                                </dl>
-                            </div>
-                            <div class="bundle-type2">
-                                <dl class="info-title">
-                                    <dt class="bundle-name">번들명</dt>
-                                    <dd>트리플팩</dd>
-                                    <dt class="bundle-sale">할인율</dt>
-                                    <dd>29%</dd>
-                                    <dt class="bundle-price">금액</dt>
-                                    <dd><span class="digits">17000</span></dd>
-                                </dl>
-                                <dl class="info-detail">
-                                    <dt>위탁수하물</dt>
-                                    <dd>25kg</dd>
-                                    <dt>사전좌석지정</dt>
-                                    <dd>전좌석</dd>
-                                    <dt>수하물우선처리</dt>
-                                    <dd>제공</dd>
-                                    <dt>전용카운터</dt>
-                                    <dd>제공(대구출발노선 제외)</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="passenger-wrap">
-                        <h4 class="bundle-select-title">번들을 선택하세요</h4>
-                        <!-- 운임에 따른 번들 정보 - 국내선 -->
-                        <ul class="passenger-list">
-                            <li>
-                                <dl>
-                                    <dt class="passenger-name">탑승객 성명(영문)</dt>
-                                    <dd>배성준</dd>
-                                    <dt class="selected-bundle">번들 선택</dt>
-                                    <dd>
-                                        <input type="radio" id="radio1701" name="radio-group17" checked="checked"><label
-                                            for="radio1701" class="btn_select-bundle bundle-type0">선택안함</label>
-                                        <input type="radio" id="radio1702" name="radio-group17"><label for="radio1702"
-                                            class="btn_select-bundle bundle-type1">더블팩</label>
-                                        <input type="radio" id="radio1703" name="radio-group17"><label for="radio1703"
-                                            class="btn_select-bundle bundle-type2">트리플팩</label>
-                                    </dd>
-                                </dl>
-                            </li>
-                            <li>
-                                <dl>
-                                    <dt class="passenger-name">탑승객 성명(영문)</dt>
-                                    <dd>손승완</dd>
-                                    <dt class="selected-bundle">번들 선택</dt>
-                                    <dd>
-                                        <input type="radio" id="radio1801" name="radio-group12" checked="checked"><label
-                                            for="radio1801" class="btn_select-bundle bundle-type0">선택안함</label>
-                                        <input type="radio" id="radio1802" name="radio-group12"><label for="radio1802"
-                                            class="btn_select-bundle bundle-type1">더블팩</label>
-                                        <input type="radio" id="radio1803" name="radio-group12"><label for="radio1803"
-                                            class="btn_select-bundle bundle-type2">트리플팩</label>
-                                    </dd>
-                                </dl>
-                            </li>
-                            <li>
-                                <dl>
-                                    <dt class="passenger-name">탑승객 성명(영문)</dt>
-                                    <dd>김태형</dd>
-                                    <dt class="selected-bundle">번들 선택</dt>
-                                    <dd>
-                                        <input type="radio" id="radio1901" name="radio-group13" checked="checked"><label
-                                            for="radio1901" class="btn_select-bundle bundle-type0">선택안함</label>
-                                        <input type="radio" id="radio1902" name="radio-group13"><label for="radio1902"
-                                            class="btn_select-bundle bundle-type1">더블팩</label>
-                                        <input type="radio" id="radio1903" name="radio-group13"><label for="radio1903"
-                                            class="btn_select-bundle bundle-type2">트리플팩</label>
-                                    </dd>
-                                </dl>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <footer class="pop-footer">
-                <div class="process-btn-wrap">
-                    <button type="button" class="btn_cancel" data-role="close">취소</button>
-                    <button type="button" class="btn_confirm" data-role="close">확인</button>
-                </div>
-            </footer>
-        </div>
-    </div>
 
     <script>
         
@@ -3480,91 +3362,4 @@
         })
     </script>
 </body>
-
-<article id="popup2_1" class="layer_popup alert"  tabindex="0" >
-    <div class="wrapper_popup">
-        <!-- header -->
-        <div class="popup_header">
-            <!-- title -->
-            <div class="grp_title_popup">
-            </div>
-            <!-- //title -->
-        </div>
-        <!-- //header -->
-        <!-- container -->
-        <div class="popup_body">
-            <!-- content -->
-            <div class="popup_content">
-                    <div class="rader_popup"></div>                
-                    <div class="popup_con_txt">
-                        <span>이정갑</span>님 <span>4</span>인을 위한<br>
-                        [AI레이더 원스탑 서비스]
-                    </div>
-                    <div class="popup_con_txt_2">
-                        AI 레이더가 100% 일행끼리 붙어 앉는<br>
-                        가격대별 만족도 1위 그룹석을<br>
-                        한 눈에 볼 수 있도록 추천합니다.<br><br>
-                        단 한번 터치로 <span>4</span>인석을 선점하세요!
-                        <!-- <span>1</span>인 좌석을 실시간 추천합니다. -->
-                    </div>    
-            </div>
-            <div class="pay_exr">
-                <div class="pay_exr_btn"><button type="button" class="pay_exr_pay btn_close_popup_x">닫기</button></div>
-            </div>
-            <!-- //content -->
-        </div>
-        <!-- //container -->
-    </div>
-</article>
-
-
-<article id="popup2_ff" class="layer_popup alert"  tabindex="0" >
-    <div class="wrapper_popup">
-        <!-- header -->
-        <div class="popup_header">
-            <!-- title -->
-            <div class="grp_title_popup">
-                <div class="box_button">
-                    <button type="button" class="btn_close_popup" title="닫기">닫기</button>
-                </div>
-            </div>
-            <!-- //title -->
-        </div>
-        <!-- //header -->
-        <!-- container -->
-        <div class="popup_body">
-            <!-- content -->
-            <div class="popup_content">
-                    <div class="popup_con_txt1">
-                        사전좌석지정</div>                
-                    <div class="popup_con_txt2">
-                        
-						<img src="../resource/img/common/ai.png">
-						<span>이정갑</span>님 <span>4</span>인 떨어져 앉을 확률<span>85</span>% 입니다.
-                    </div>
-                    <div class="popup_con_txt3">
-						<div class="smile_img01" style="display: none;"></div>
-						<div class="smile_img02" style="display: none;"></div>
-						<div class="smile_img03" style="display: none;"><span>12</span></div>
-						<div class="smile_img04" ><span>26</span></div>
-						<div class="smile_img05" style="display: none;"><span >42</span></div>
-						<div class="smile_img06" style="display: none;"><span >63</span></div>
-						<!-- 오렌지 -->
-						<div class="smile_img07" style="display: none;"><span class="oranc">86</span></div>
-					</div>
-					<div class="popup_con_txt4">
-						<span>4</span>인 같이 앉으시겠습니까?
-					</div>   
-            </div>
-            <div class="pay_exr">
-                <div class="pay_exr_btn1"><button type="button" class="pay_exr_pay1">건너띄기</button></div>
-                <div class="pay_exr_btn2"><button type="button" class="pay_exr_pay2">네</button></div>
-            </div>
-            <!-- //content -->
-        </div>
-        <!-- //container -->
-    </div>
-</article>
-
-
 </html>

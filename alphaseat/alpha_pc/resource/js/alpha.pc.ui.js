@@ -615,7 +615,6 @@ function layerPop(id) {
 	// 닫기버튼 클릭시 레이어 닫힘
 	$el.find('.btn_close_popup,.btn_close_popup_x, .btn_close_popup1, .wrapper_popup .pop_close, .btn_close_tooltip').off('click').on('click', function () {
 		closeLayerPop();       
-        $("html").css("overflow", "unset");
 	});
 
 	if ($el.hasClass('sns') || $el.hasClass('tooltip') || $el.hasClass('clickable_dim') || $el.hasClass('menuAll')) {
@@ -687,10 +686,6 @@ $(document).ready(function() {
 
     $('.childopen-popup-btn').on('click', function() {
         $(".childseat_right_pop").css("display", "block");
-    });
-
-    $('.btn_bd_md').on('click', function() {
-        $("html").css("overflow", "hidden");    
     });
   
   
