@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>전체 선택 체크박스</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <input type="checkbox" id="agree_check30" name="consentGroup" data-checked="all">
+    <label for="agree_check30"><i></i>전체선택</label>
+    <br>
+    <input type="checkbox" id="agree_check1" name="consentGroup">
+    <label for="agree_check1"><i></i>동의1</label>
+    <br>
+    <input type="checkbox" id="agree_check2" name="consentGroup">
+    <label for="agree_check2"><i></i>동의2</label>
+
+    <script>
+    (function () {
+        $("input[data-checked='all']").each(function () {
+            var $trigger = $(this),
+                $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this)).not(":disabled");
+            $trigger.on("change", function () {
+                if ($(this).is(":checked")) {
+                    $family.prop("checked", true);
+                } else {
+                    $family.prop("checked", false);
+                }
+            });
+            $family.on("change", function () {
+                var checkedFamily = $("input[type='checkbox'][name='" + $(this).attr("name") + "']:checked").not($trigger);
+                if ($family.length === checkedFamily.length) {
+                    $trigger.prop("checked", true);
+                } else {
+                    $trigger.prop("checked", false);
+                }
+            });
+        });
+    })();
+    </script>
+</body>
+</html>

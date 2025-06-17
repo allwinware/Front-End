@@ -689,6 +689,27 @@ function selectAll(selectAll)  {
 	})
   }
 
+$(function () {
+    $("input[data-checked='all']").each(function () {
+        var $trigger = $(this),
+            $family = $("input[type='checkbox'][name='" + $(this).attr("name") + "']").not($(this)).not(":disabled");
+        $trigger.on("change", function () {
+            if ($(this).is(":checked")) {
+                $family.prop("checked", true);
+            } else {
+                $family.prop("checked", false);
+            }
+        });
+        $family.on("change", function () {
+            var checkedFamily = $("input[type='checkbox'][name='" + $(this).attr("name") + "']:checked").not($trigger);
+            if ($family.length === checkedFamily.length) {
+                $trigger.prop("checked", true);
+            } else {
+                $trigger.prop("checked", false);
+            }
+        });
+    });
+});
 
 // 스크롤 왔다갔다 안하게
 function toggleScrollBasedOnDisplay() {
@@ -754,6 +775,49 @@ function showPlayLoad() {
     }
 
 });
+
+//마이페이지 왔다갔다
+
+$(document).ready(function() {
+    // 초기 상태 설정
+    $(".m_csmsga1").css("display", "block");
+    $(".m_csmsga2, .m_csmsga3, .m_csmsga4").css("display", "none");
+
+    // 공통 함수: active 클래스 제거
+    function removeActiveClass(links) {
+        links.removeClass("active");
+    }
+
+    // 공통 함수: 메시지 표시
+    function displayMessage(messageClass) {
+        $(".mypagecsmg").css("display", "none");
+        $(messageClass).css("display", "block");
+    }
+
+    // mypagecs_center 링크 이벤트
+    const mypageLinks = $(".mypagecs_center a");
+    mypageLinks.on("click", function(event) {
+        event.preventDefault();
+        removeActiveClass(mypageLinks);
+        $(this).addClass("active");
+        const index = mypageLinks.index(this);
+        displayMessage('.m_csmsga' + (index + 1));
+    });
+
+    // ags-header 링크 이벤트
+    const agsLinks = $(".ags-header a");
+    agsLinks.on("click", function(event) {
+        event.preventDefault();
+        removeActiveClass(agsLinks);
+        // 추가: mypagecs_center의 active 클래스도 제거
+        removeActiveClass(mypageLinks);
+        $(this).addClass("active");
+        const index = agsLinks.index(this);
+        displayMessage('.m_csmsga' + (index + 1));
+    });
+});
+
+
 
   function toggleVisibility(div) {
     var $folderContent = $(div).next('.folder-content');
