@@ -337,6 +337,11 @@ $(document).ready(function () {
         $("body").css("overflow", "hidden");
         $("html").css("overflow", "hidden");
     });
+     $("#openpopup_btn5").click(function () {
+        $(".popup_box5").fadeIn();
+        $("body").css("overflow", "hidden");
+        $("html").css("overflow", "hidden");
+    });
     $("#openpopup_agree1").click(function () {
         $(".popup_agree1").fadeIn();
         $("body").css("overflow", "hidden");
@@ -524,3 +529,18 @@ $(document).on("click", ".menu_btn", function () {
         $(div).parent('.qna-box').addClass('active');
     }
 }
+
+$(function () {
+    $('input[type="radio"][name="flight"]').on('change', function () {
+        // 모든 flight_contents 초기화
+        $('.flight_contents').css('border', '2pt solid #ddd');
+
+        // 선택된 라디오버튼의 부모 flight_contents에 오렌지 테두리 적용
+        $(this).closest('.flight_contents').css('border', '2px solid #ff6600');
+    });
+
+    // 페이지 로드 시 초기 선택 상태 반영 (예: 이미 체크된 항목이 있을 경우)
+    $('input[type="radio"][name="flight"]:checked').each(function () {
+        $(this).closest('.flight_contents').css('border', '2px solid #ff6600');
+    });
+});
