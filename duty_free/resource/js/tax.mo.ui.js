@@ -342,6 +342,12 @@ $(document).ready(function () {
         $("body").css("overflow", "hidden");
         $("html").css("overflow", "hidden");
     });
+     $("#openpopup_btn7").click(function () {
+        $(".popup_box7").fadeIn();
+        $("body").css("overflow", "hidden");
+        $("html").css("overflow", "hidden");
+    });
+
     $("#openpopup_agree1").click(function () {
         $(".popup_agree1").fadeIn();
         $("body").css("overflow", "hidden");
@@ -368,15 +374,15 @@ $(document).ready(function () {
     //닫기
     $(".popup_close_btn").click(function () {
         $(".popups").fadeOut();
-        $("body").css("overflow", "");
-        $("html").css("overflow", "");
+        $("body").css("overflow", "auto");
+        $("html").css("overflow", "auto");
     });
 
     //닫기
     $(".popup_clobtn").click(function () {
         $(".popups").fadeOut();
-        $("body").css("overflow", "");
-        $("html").css("overflow", "");
+        $("body").css("overflow", "auto");
+        $("html").css("overflow", "auto");
     });
   });
   
