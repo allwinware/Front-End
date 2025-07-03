@@ -692,11 +692,6 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
-
 // 스크롤 왔다갔다 안하게
 function toggleScrollBasedOnDisplay() {
     const playLoad = $('.play_load');
@@ -722,3 +717,24 @@ function showPlayLoad() {
         playLoadDiv.style.display = 'block';
     }
 }
+
+
+
+// 공지사항 슬라이드
+  function toggleVisibility(div) {
+    var $folderContent = $(div).next('.folder-content');
+    var isActive = $folderContent.hasClass('folder-open');
+
+    // Close all folders
+    $('.folder-content').slideUp(200).removeClass('folder-open');
+
+    // Remove "active" class from all cs-boxes
+    $('.cs-box').removeClass('active');
+
+    // Toggle the clicked folder's state
+    if (!isActive) {
+        $folderContent.slideDown(200).addClass('folder-open');
+        $(div).parent('.cs-box').addClass('active');
+    }
+}
+
