@@ -992,6 +992,7 @@ html.hidden {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 1;
 }
 
 .pop-area.active {
@@ -1221,7 +1222,9 @@ html.hidden {
   border-radius: 0.23077rem;
   background-color: #ffffff;
 }
-
+[data-type="alert"] .pop-wrap.wid400 {
+  width: 500px;
+}
 [data-type="alert"] .pop-header {
   margin: -0.92308rem -0.92308rem 0;
   height: 4.07692rem;
@@ -1437,7 +1440,7 @@ html.hidden {
 
 [data-type="message"] .pop-wrap, [data-type="submission"] .pop-wrap, [data-type="guidance"] .pop-wrap {
   transition: none;
-  border-radius: 10px;
+  border-radius: 0.23077rem;
   background-color: #ffffff;
 }
 
@@ -1761,7 +1764,7 @@ html.hidden {
   line-height: 4.15385rem;
   border: 1px solid #eee;
   background-color: #eee;
-  color: #999;
+  color: #222;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -3036,6 +3039,7 @@ body {
   padding: 0 0 10.76923rem;
   min-width: inherit;
 }
+
 
 .fit-layout .ags-container {
   margin: -6.23077rem 0 -13.07692rem;
@@ -12413,7 +12417,8 @@ padding-bottom: 5px;
 
 /*마이페이지 > 나의 예약/결제 내역*/
 [data-page-id="my_pay-history_anc"],
-[data-page-id="my_pay-history_car"] {
+[data-page-id="my_pay-history-detail_anc"],
+[data-page-id="my_refund_anc"]{
   padding-top: 7.69231rem;
 }
 
@@ -13048,7 +13053,7 @@ padding-bottom: 5px;
 [data-page-id="my_pay-history_car"] .my-lnb-wrap .lnb li.active a {
   color: #222;
   
-  border-bottom: 2px solid #222;
+  /*border-bottom: 2px solid #222;*/
 }
 
 [data-page-id="my_pay-history_anc"] .page-name,
@@ -13068,15 +13073,10 @@ padding-bottom: 5px;
 
 [data-page-id="my_pay-history_anc"] .history-list .function-wrap,
 [data-page-id="my_pay-history_car"] .history-list .function-wrap {
-  padding: 1.53846rem 0 3.84615rem;
-  text-align: right;
-}
-
-[data-page-id="my_pay-history_anc"] .history-list .function-wrap:after,
-[data-page-id="my_pay-history_car"] .history-list .function-wrap:after {
-  content: "";
-  display: table;
-  clear: both;
+  padding: 20px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 [data-page-id="my_pay-history_anc"] .history-list dt, [data-page-id="my_pay-history_anc"] .history-list dd,
@@ -13153,14 +13153,13 @@ padding-bottom: 5px;
 
 [data-page-id="my_pay-history_anc"] .history-list > table[data-grid-type="board"],
 [data-page-id="my_pay-history_car"] .history-list > table[data-grid-type="board"] {
-  font-size: 1.07692rem;
-  
-  color: #222;
-  
+  font-size: 1.07692rem;  
+  color: #222;  
   font-family: "PretendardM", "NotoSansR", "Apple SD Gothic NEO", sans-serif;
   table-layout: fixed;
   width: 100%;
   border-top: 1px solid #222;
+  cursor: pointer;
 }
 
 [data-page-id="my_pay-history_anc"] .history-list > table[data-grid-type="board"] > thead > tr > th,
@@ -13168,8 +13167,7 @@ padding-bottom: 5px;
   padding: 1.15385rem 1.23077rem;
   height: 3.92308rem;
   line-height: 1.61538rem;
-  vertical-align: middle;
-  
+  vertical-align: middle;  
   border-bottom: 1px solid #222;
 }
 
@@ -13179,6 +13177,8 @@ padding-bottom: 5px;
   padding: 2.07692rem 1.84615rem;
   border-bottom: 1px solid #f0f0f0;
   vertical-align: middle;
+  text-align: center;
+  position: relative;
 }
 
 [data-page-id="my_pay-history_anc"] .history-list > table[data-grid-type="board"] > tbody > tr.active > th,
@@ -13289,6 +13289,7 @@ padding-bottom: 5px;
 [data-page-id="my_pay-history_anc"] .ticket-info,
 [data-page-id="my_pay-history_car"] .ticket-info {
   text-align: left;
+  font-family: "PretendardL";
 }
 
 [data-page-id="my_pay-history_anc"] .ticket-info .departure,
@@ -13360,11 +13361,9 @@ padding-bottom: 5px;
 [data-page-id="my_pay-history_anc"] .ticket-info .schedule, [data-page-id="my_pay-history_anc"] .ticket-info .schedule + dd,
 [data-page-id="my_pay-history_car"] .ticket-info .schedule,
 [data-page-id="my_pay-history_car"] .ticket-info .schedule + dd {
-  font-size: 0.92308rem;
-  
-  color: #222;
-  
-  font-family: "PretendardM", "NotoSansR", "Apple SD Gothic NEO", sans-serif;
+  font-size: 0.92308rem;  
+  color: #222;  
+  font-family: "PretendardL";
 }
 
 [data-page-id="my_pay-history_anc"] .ticket-info .schedule ~ dd,
@@ -13401,15 +13400,16 @@ padding-bottom: 5px;
   font-family: "PretendardM", "NotoSansR", "Apple SD Gothic NEO", sans-serif;
   padding: 0 1.84615rem;
   height: 4.30769rem;
-  line-height: 4.15385rem;
-  border: 1px solid #f5581a;
-  background-color: #f5581a;
-  color: #fff;
+  line-height: 4.15385rem;  
+  border: 1px solid #292163;
+  background-color: #ffffff;
+  color: #292163;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   width: auto;
 }
+
 
 [data-page-id="my_pay-history-detail_anc"] .my-title-wrap .process-btn-wrap .btn_refund[disabled="disabled"],
 [data-page-id="my_refund_anc"] .my-title-wrap .process-btn-wrap .btn_refund[disabled="disabled"],
@@ -13428,21 +13428,38 @@ padding-bottom: 5px;
   width: 100%;
   border-radius: 3px;
   white-space: nowrap;
-  font-size: 1.23077rem;
-  
-  color: #222;
-  
+  font-size: 1.23077rem;  
+  color: #292163;  
   font-family: "PretendardM", "NotoSansR", "Apple SD Gothic NEO", sans-serif;
   padding: 0 1.84615rem;
   height: 4.30769rem;
   line-height: 4.15385rem;
-  border: 1px solid #222;
+  border: 1px solid #292163;
   background-color: #ffffff;
-  color: #222;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   width: auto;
+}
+.my-title-wrap .process-btn-wrap .btn_refund:hover{
+  background-color: #292163;
+  color: #fff;
+}
+
+.my-title-wrap .process-btn-wrap .btn_inquiry:hover{
+  background-color: #292163;
+  color: #fff;  
+}
+
+.my-title-wrap .process-btn-wrap .btn_refund.active{
+  background-color: #292163;
+  color: #fff;
+  pointer-events: none;
+}
+.my-title-wrap .process-btn-wrap .btn_inquiry.active{
+  background-color: #292163;
+  color: #fff;  
+  pointer-events: none;
 }
 
 [data-page-id="my_pay-history-detail_anc"] .my-title-wrap .process-btn-wrap .btn_inquiry[disabled="disabled"],
@@ -13716,7 +13733,7 @@ padding-bottom: 5px;
 [data-page-id="my_pay-history-detail_anc"] .page-name,
 [data-page-id="my_refund_anc"] .page-name,
 [data-page-id="my_pay-history-detail_car"] .page-name {
-  font-size: 1.23077rem;
+  font-size: 20px;
   
   color: #222;
   
@@ -13726,15 +13743,14 @@ padding-bottom: 5px;
 [data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap,
 [data-page-id="my_refund_anc"] .my-history-detail-wrap,
 [data-page-id="my_pay-history-detail_car"] .my-history-detail-wrap {
-  margin-top: 6.15385rem;
+
   padding-top: 7.69231rem;
-  border-top: 1px solid #f0f0f0;
 }
 
 [data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap [class*="_pay-title"],
 [data-page-id="my_refund_anc"] .my-history-detail-wrap [class*="_pay-title"],
 [data-page-id="my_pay-history-detail_car"] .my-history-detail-wrap [class*="_pay-title"] {
-  font-size: 1.53846rem;
+  font-size: 20px;
   
   color: #222;
   
@@ -14482,9 +14498,6 @@ padding-bottom: 5px;
   width: auto;
   border-radius: 0;
   font-size: 0.84615rem;
-  
-  line-height: 2.18182em;
-  line-height: 2em;
 }
 
 [data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap .btn_view-seat[disabled="disabled"],
@@ -15239,8 +15252,6 @@ padding-bottom: 5px;
   border-radius: 0;
   font-size: 0.84615rem;
   
-  line-height: 2.18182em;
-  line-height: 2em;
 }
 
 [data-page-id="my_pay-history-detail_car"] input[type="checkbox"][data-checked="all"] + .btn_check-all[disabled="disabled"],
@@ -15347,7 +15358,7 @@ padding-bottom: 5px;
   position: absolute;
   left: 0;
   top: 0;
-  border: solid #e4e4e4;
+  border: solid #bbb;
   border-width: 0 0 1px 1px;
   transform: rotate(-45deg);
 }
@@ -15379,7 +15390,7 @@ padding-bottom: 5px;
 
 [data-page-id="my_pay-history-detail_car"] table input[type="checkbox"] + label .ico,
 [data-page-id="my_refund_anc"] table input[type="checkbox"] + label .ico {
-  border: 1px solid #e4e4e4;
+  border: 1px solid #bbb;
   background-color: #ffffff;
 }
 
@@ -17022,7 +17033,7 @@ padding-bottom: 5px;
   
   color: #222;
   
-  font-family: "PretendardM", "NotoSansR", "Apple SD Gothic NEO", sans-serif;
+  font-family: "Pretendard", "NotoSansR", "Apple SD Gothic NEO", sans-serif;
   width: 44.61538rem;
 }
 
@@ -17261,7 +17272,7 @@ padding-bottom: 5px;
 [data-pop-id="pop_qna"] .selectric-items .selected,
 [data-pop-id="pop_qna"] .selectric-items .selected:hover,
 [data-pop-id="pop_qna"] .selectric-items .selected.highlighted {
-  background-color: #f5581a;
+  background-color: #ddd;
 }
 
 [data-pop-id="pop_qna"] .btn-wrap input[type="radio"], [data-pop-id="pop_qna"] .btn-wrap input[type="checkbox"] {
@@ -17561,6 +17572,7 @@ padding-bottom: 5px;
 [data-pop-id="pop_qna"] label {
   display: block;
   padding-bottom: 0.92308em;
+  font-size: 15px;
   
 }
 

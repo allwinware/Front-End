@@ -2,7 +2,7 @@
 <html lang="ko" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>부가서비스 결제내역(목록) < 마이페이지 < AGS</title>
+    <title>부가서비스 구매내역(목록) < 마이페이지 < AGS</title>
     <link rel="stylesheet" href="../resource/js/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../resource/js/selectric/selectric.css">
     <link rel="stylesheet" href="../resource/css/newui.css">
@@ -20,17 +20,22 @@
     <header id="ags-header" class="ags-header"></header>
 
     <hr>
+    <div class="buy_btn_float">
+        <div class="buy_btn_bg">
+            <button class="buy_btn_bbutton">구매하기</button>
+        </div>
+    </div>
 
-    <section id="ags-container" class="ags-container" data-page-id="my_pay-history_anc">
+    <section id="ags-container" class="ags-container mypage" data-page-id="my_pay-history_anc">
         <header class="my-lnb-wrap">
             <div class="content-wrap">
                 <h2 class="sr-only">서브 네비게이션</h2>
                 <h3 class="page-name">마이페이지</h3>
                 <nav class="lnb">
                     <ul>
-                        <li class="active"><a href="#none" target="_self">부가서비스 결제내역</a></li>
-                        <li><a href="#none" target="_self">렌터카 예약내역</a></li>
-                        <li><a href="#none" target="_self">기내면세 예약내역</a></li>
+                        <li class="active"><a href="#none" target="_self" style="pointer-events : none;">부가서비스 구매내역</a></li>
+                        <li><a href="#none" target="_self" style="display: none;">렌터카 예약내역</a></li>
+                        <li><a href="#none" target="_self" style="display: none;">기내면세 예약내역</a></li>
                     </ul>
                 </nav>
             </div>
@@ -40,62 +45,19 @@
 
         <div class="content-wrap">
             <h2 class="sr-only">컨텐츠 본문</h2>
-
             <!-- 리스트 영역 -->
             <article class="my-history-wrap">
-                <!-- 검색 영역(개발보류) -->
-                <!--<header class="my-header">
-                    <div class="search-area">
-                        <div class="input-wrap resv-num">
-                            <input type="text" id="input-text01" placeholder="예약번호를 입력하세요">
-                            <label for="input-text01">예약번호</label>
-                        </div>
-                        <div class="input-group sort">
-                            <div class="select-wrap">
-                                <select id="sort-select01">
-                                    <option selected="selected">출발일 기준</option>
-                                    <option>구매일 기준</option>
-                                </select>
-                                <label for="sort-select01">검색기준</label>
-                            </div>
-                            <div class="btn-wrap duration-controller">
-                                <input type="radio" id="sort-radio1" name="sort-radio-group1"><label for="sort-radio1">3개월</label>
-                                <input type="radio" id="sort-radio2" name="sort-radio-group1"><label for="sort-radio2">6개월</label>
-                                <input type="radio" id="sort-radio3" name="sort-radio-group1"><label for="sort-radio3">1년</label>
-                            </div>
-                        </div>
-                        <div class="calendar-wrap duration">
-                            <input type="text" id="input-text02" placeholder="출발일 - 도착일 선택" data-type="daterangepicker">
-                            <label for="input-text02">출발일 - 도착일 선택</label>
-                        </div>
-                        <div class="calendar-wrap">
-                            <div class="mc-layer__cals">
-                                <input id="matching-datapicker__input" type="hidden" value="">
-                                <div class="matching&#45;&#45;datapicker__view"></div>
-                            </div>
-                        </div>
-                        <div class="select-wrap status">
-                            <select id="sort-select02">
-                                <option selected="selected">상태</option>
-                                <option>결제완료</option>
-                                <option>취소 완료</option>
-                                <option>부분 취소</option>
-                            </select>
-                            <label for="sort-select02">상태</label>
-                        </div>
-                        <div class="process-btn-wrap">
-                            <button type="button" class="btn_search">조회하기</button>
-                        </div>
-                    </div>
-                </header>-->
-
-                <div class="history-list">
+                <div class="history-list">                                         
                     <dl class="function-wrap">
-                        <dt class="search-result">검색결과</dt>
-                        <dd>총 <span class="digits">51</span>건</dd>
-                        <dt class="sort-condition">정렬조건</dt>
-                        <dd><input type="radio" id="sort1" name="fnc-radio-group1" checked="checked"><label for="sort1">출발일 순</label></dd>
-                        <dd><input type="radio" id="sort2" name="fnc-radio-group1"><label for="sort2">구매일 순</label></dd>
+                        <div class="search-cs">
+                            <div class="search-result">검색결과</div>
+                            <div>총 <span class="digits">6</span>건</div>
+                        </div>
+                        <div>
+                            <dt class="sort-condition" style="display: none;">정렬조건</dt>
+                            <dd><input type="radio" id="sort1" name="fnc-radio-group1" checked="checked"><label for="sort1">출발일 순</label></dd>
+                            <dd><input type="radio" id="sort2" name="fnc-radio-group1"><label for="sort2">구매일 순</label></dd>
+                        </div>
                     </dl>
 
                     <table data-grid-type="board">
@@ -118,8 +80,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
+                        <tr>                            
+                            <td><a href="my_pay-history-detail_anc.html" target="_self">JP2RMT</a></td><!-- 예약번호 -->
                             <td>티웨이항공</td><!-- 항공사 -->
                             <td>
                                 <dl class="ticket-info">
@@ -134,8 +96,12 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
-                            <td>결제완료</td><!-- 결제상태 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
+                            <td>결제완료
+                                <div class="buy_btn_a">
+                                    <button class="buy_btn_abutton">구매하기</button>
+                                </div>
+                            </td><!-- 결제상태 -->
                         </tr>
                         <tr>
                             <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
@@ -151,18 +117,27 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
                             <td>결제완료</td><!-- 결제상태 -->
                         </tr>
-                        <tr>
+                        <tr class="tr-anchor" onclick="location.href='#none'">
                             <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
                             <td>티웨이항공</td><!-- 항공사 -->
                             <td>
-                                <dl class="ticket-info">
+                                <dl class="ticket-info one-way">
                                     <dt class="departure">출발지</dt>
                                     <dd>인천 <span class="iata-code">ICN</span></dd>
                                     <dt class="arrival">도착지</dt>
                                     <dd>하네다 <span class="iata-code">HND</span></dd>
+                                    <dd>도쿄 <span class="iata-code">NRT</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>후쿠오카 <span class="iata-code">FUK</span></dd>
+                                    <dd>나고야 <span class="iata-code">NGO</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>삿포로 <span class="iata-code">CTS</span></dd>
+                                    <dd>오사카 <span class="iata-code">KIX</span></dd>
+                                    <dt class="arrival">도착지</dt>
+                                    <dd>인천 <span class="iata-code">ICN</span></dd>
                                     <dt class="schedule">여정1</dt>
                                     <dd>2020.11.11(월)</dd>
                                     <dt class="schedule">여정2</dt>
@@ -174,8 +149,13 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
-                            <td>결제완료</td><!-- 결제상태 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
+                            <td class="text-emphasis">
+                                결제실패
+                                <div class="buy_btn_a">
+                                    <button class="buy_btn_abutton">구매하기</button>
+                                </div>
+                            </td><!-- 결제상태 -->
                         </tr>
                         <tr>
                             <td><a href="#none" target="_self">JP2RMT</a></td><!-- 예약번호 -->
@@ -193,8 +173,8 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
-                            <td>결제완료</td><!-- 결제상태 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
+                            <td class="text_color_blue">구매취소</td><!-- 결제상태 -->
                         </tr>
                         <tr>
                             <td>JP2RMT</td><!-- 예약번호 -->
@@ -212,7 +192,7 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
                             <td>결제완료</td><!-- 결제상태 -->
                         </tr>
                         <tr>
@@ -231,7 +211,7 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
                             <td>결제완료</td><!-- 결제상태 -->
                         </tr>
                         <tr>
@@ -250,7 +230,7 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
                             <td>결제완료</td><!-- 결제상태 -->
                         </tr>
                         <tr>
@@ -269,7 +249,7 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
                             <td>결제완료</td><!-- 결제상태 -->
                         </tr>
                         <tr>
@@ -288,7 +268,7 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
                             <td>결제완료</td><!-- 결제상태 -->
                         </tr>
                         <tr>
@@ -307,7 +287,7 @@
                                 </dl>
                             </td><!-- 여정 -->
                             <td>2020.11.16, 18:20</td><!-- 구매일 -->
-                            <td class="price"><span class="digits">99000</span></td><!-- 총 결제금액 -->
+                            <td class="price"><span class="digits">99,000</span></td><!-- 총 결제금액 -->
                             <td>결제완료</td><!-- 결제상태 -->
                         </tr>
                         </tbody>
