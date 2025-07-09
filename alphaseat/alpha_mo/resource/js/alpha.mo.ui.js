@@ -803,7 +803,7 @@ $(document).ready(function() {
         const index = mypageLinks.index(this);
         displayMessage('.m_csmsga' + (index + 1));
     });
-
+/*
     // ags-header 링크 이벤트
     const agsLinks = $(".ags-header a");
     agsLinks.on("click", function(event) {
@@ -815,6 +815,7 @@ $(document).ready(function() {
         const index = agsLinks.index(this);
         displayMessage('.m_csmsga' + (index + 1));
     });
+*/
 });
 
 
