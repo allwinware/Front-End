@@ -323,29 +323,29 @@ $(document).ready(function() {
 $(document).ready(function () {
     $("#openpopup_btn1").click(function () {
         $(".popup_box1").fadeIn();
-        $("body").css("overflow", "hidden");
-        $("html").css("overflow", "hidden");
+        $("body").css("overflow", "unset");
+        $("html").css("overflow", "unset");
     });
   
     $("#openpopup_btn2").click(function () {
         $(".popup_box2").fadeIn();
-        $("body").css("overflow", "hidden");
-        $("html").css("overflow", "hidden");
+        $("body").css("overflow", "unset");
+        $("html").css("overflow", "unset");
     });
     $("#openpopup_btn3").click(function () {
         $(".popup_box3").fadeIn();
-        $("body").css("overflow", "hidden");
-        $("html").css("overflow", "hidden");
+        $("body").css("overflow", "unset");
+        $("html").css("overflow", "unset");
     });
      $("#openpopup_btn5").click(function () {
         $(".popup_box5").fadeIn();
-        $("body").css("overflow", "hidden");
-        $("html").css("overflow", "hidden");
+        $("body").css("overflow", "unset");
+        $("html").css("overflow", "unset");
     });
      $("#openpopup_btn7").click(function () {
         $(".popup_box7").fadeIn();
-        $("body").css("overflow", "hidden");
-        $("html").css("overflow", "hidden");
+        $("body").css("overflow", "unset");
+        $("html").css("overflow", "unset");
     });
 
     $("#openpopup_agree1").click(function () {
