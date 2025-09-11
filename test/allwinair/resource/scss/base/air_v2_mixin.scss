@@ -1,0 +1,356 @@
+/* MIXIN */
+@function rem($value) {
+  $rem-size: ($value / $font-root-size);
+  @return $rem-size#{rem};
+}
+@function em($value1, $value2) {
+  $em-size: ($value1 / $value2);
+  @return $em-size#{em};
+}
+@function grid-mg($value: 1) {
+  $mg-size: rem(($value * 5));
+  @return $mg-size;
+}
+
+/* mixin */
+@mixin font($family: ko, $size: $font-root-size, $color: $mono1, $weight: 400, $spacing: 0){
+  @if $family == en {
+    font-family: $font-en-family
+  }
+  font-size: rem($size);
+  font-weight: $weight;
+  color: $color;
+  letter-spacing: #{$spacing}em;
+}
+@mixin border-radius($radius: $border-common-radius){
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+@mixin background($file, $type, $width, $height) {
+  $img-path: '../img/';
+  background-image: url($img-path + $file + '.' + $type);
+  background-repeat: no-repeat;
+  background-size: $width $height;
+
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi) {
+    & {
+      background-image: url($img-path + $file + '@2x.' + $type);
+    }
+  }
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+    & {
+      background-image: url($img-path + $file + '@3x.' + $type);
+    }
+  }
+}
+@mixin flex($params: null) {
+  display: flex;
+  $justify-content: null;
+  $align-items: null;
+  @each $value in $params {
+    @if $value == "wrap" {
+      flex-wrap: wrap;
+    } @else if $value == "column" {
+      flex-direction: column;
+    } @else if index(space-between space-around, $value) {
+      $justify-content: $value;
+    } @else if index(baseline stretch, $value) {
+      $align-items: $value;
+    } @else if index(flex-start center flex-end, $value) {
+      @if $justify-content {
+        $align-items: $value;
+      } @else {
+        $justify-content: $value;
+        @if not $align-items {
+          $align-items: $value;
+        }
+      }
+    }
+  }
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+@mixin no-flex($params: null){
+  html.no-flexbox & {
+    @each $value in $params {
+      @if $value == "clearfix" {
+        @include clearfix;
+      } @else if index(float-left, $value) {
+        float: left;
+      } @else if index(float-right, $value) {
+        float: right;
+      }
+    }
+  }//for ie9
+}
+@mixin placeholder(){
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    @content;
+  };
+  &::-moz-placeholder { /* Firefox 19+ */
+    @content;
+  };
+  &:-ms-input-placeholder { /* IE 10+ */
+    @content;
+  };
+  &:-moz-placeholder { /* Firefox 18- */
+    @content;
+  };
+}
+@mixin sr-only {
+  position: absolute; width: 0; height: 0; margin: 0; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0
+}
+@mixin clearfix {
+  &:after { content: ''; display: table; clear: both; }
+}
+@mixin valign-middle($value: before) {
+  &:#{$value} { content: ""; display: inline-block; width: 0; height: 100%; vertical-align: middle; }
+}
+@mixin align-center(){
+  position: absolute; left: 50%; top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+@mixin valign-center(){
+  position: absolute; left: 0; top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+@mixin text-uppercase {
+  text-transform: uppercase;
+}
+@mixin text-ellipsis($value: inline-block) {
+  overflow: hidden;
+  display: $value;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle
+}
+@mixin divide-line($direction: left, $el: before, $color: $mono7, $size: 12, $mg: 10){
+  position: relative;
+  padding-left: ($mg * 2)#{px};
+  &:#{$el} {
+    content: "";
+    position: absolute; left: #{$mg}px; top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    display: inline-block;
+    width: 1px; height: #{$size}px;
+    background-color: $color;
+  }
+};
+@mixin price-unit($type: 'usd'){
+  @content;
+  @if $type == 'usd' {
+    .digits:before { content: "$"; }
+  } @else if $type =='krw' {
+    .digits:before { content: "₩"; }
+  }
+}
+@mixin price($type: normal, $color1: $mono1, $color2: $mono3){
+  @if $type == normal {
+    dl, dt, dd { display: inline-block; }
+    dt { @include sr-only }
+    .price-usd + dd {
+      @include font($size: 14, $color: $color1, $weight: 400);
+      @include price-unit($type: 'usd');
+    }
+    .price-krw + dd {
+      @include font($size: 14, $color: $color2, $weight: 400);
+      @include price-unit($type: 'krw');
+      &:before { content: "(" }
+      &:after { content: ")" }
+    }
+  } @else if $type == total {
+    @include font($size: 16, $color: $color1, $weight: 800);
+    dl, dt, dd { display: inline-block; }
+    dt { @include sr-only }
+    .price-usd + dd {
+      @include price-unit($type: 'usd');
+    }
+    .price-krw + dd {
+      @include font($size: 14, $color: $color2, $weight: 400);
+      @include price-unit($type: 'krw');
+      &:before { content: "(" }
+      &:after { content: ")" }
+    }
+  }
+}
+@mixin bullet($type: circle, $size: 3px, $color: #D8D8D8, $el: before, $top: 5px){
+  position: relative;
+  padding-left: ($size * 3);
+  &:#{$el} {
+    content: "";
+    position: absolute; left: 0;
+    display: inline-block;
+    @if $type == circle {
+      top: $top;
+      width: $size; height: $size;
+      background-color: $color;
+      border-radius: 50%;
+    } @else if $type == dash {
+      width: $size; height: 1px;
+      background-color: $color;
+    }
+  }
+}
+@mixin table($style: type1, $mg-size: normal){
+  a, button, input, textarea, select { margin-bottom: 0 !important; }
+  @if $style == type1 {
+    $font-size-thead: 13;
+    $font-size-tbody: 13;
+    width: 100%;
+    caption { @include sr-only; }
+    th, td {  }
+    thead th {
+      @include font($size: $font-size-thead, $weight: 600);
+      padding: rem(11) 0; height: em(43, $font-size-thead);
+      line-height: em(14, $font-size-thead); vertical-align: middle;
+      border-bottom: 1px solid $mono8
+    }
+    tbody th, tbody td,
+    tfoot th, tfoot td {
+      @include font($size: $font-size-tbody);
+      padding: rem(10) 0; vertical-align: middle;
+      height: em(56, $font-size-tbody);
+      line-height: em(16, $font-size-tbody);
+      border-bottom: 1px solid $mono8
+    }
+    tbody th { font-weight: 600; }
+    tfoot th, tfoot td {
+      @include font($size: $font-size-tbody, $weight: 600);
+      background-color: $mono10
+    }
+    @if $mg-size == normal {
+      thead th { padding-left: rem(30); padding-right: rem(30); }
+      tbody th,
+      tbody td,
+      tfoot th,
+      tfoot td { padding-left: rem(30); padding-right: rem(30); }
+    } @else if $mg-size == small {
+      thead th { padding-left: rem($grid * 2); padding-right: rem($grid * 2); }
+      tbody td { padding-left: rem($grid * 2); padding-right: rem($grid * 2); }
+      thead th:first-child { padding-left: rem($grid * 4); }
+      tbody td:first-child { padding-left: rem($grid * 4); }
+      thead th:last-child { padding-right: rem($grid * 4); }
+      tbody td:last-child { padding-right: rem($grid * 4); }
+      tfoot th:first-child { padding-left: rem($grid * 4); }
+      tfoot td:last-child { padding-right: rem($grid * 4); }
+    } @else if $mg-size == none {
+      thead th,
+      tbody td,
+      thead th:first-child,
+      tbody td:first-child,
+      thead th:last-child,
+      tbody td:last-child,
+      tfoot th:first-child,
+      tfoot td:last-child { padding-left: 0; padding-right: 0; }
+    }
+  }
+  @if $style == type2 {
+
+  }
+}
+@mixin tab($params: null){
+  @each $value in $params {
+    overflow: auto; width: 100%;
+    [role='tablist'] {
+      display: table;
+      overflow: visible; min-width: 100%;
+      [role='tab'] { display: table-cell; }
+    }
+    @if $value == style1 {
+      [role='tab'] {
+        $font-size: 14;
+        @include text-ellipsis(null);
+        @include font($size: $font-size, $color: $mono4, $weight: 800, $spacing: -0.03);
+        padding: em(12, $font-size) rem($grid * 2); max-width: 80vw;
+        text-align: center;
+        border-bottom: 1px solid $mono8;
+        &.active { border-color: $mono1; color: $mono1 }
+      }
+    } @else if $value == style2 {
+      [role='tab'] {
+        $font-size: 16;
+        @include text-ellipsis(null);
+        @include font($size: $font-size, $color: $mono4, $weight: 500, $spacing: -0.03);
+        padding: em(32, $font-size) rem($grid * 2);
+        flex: 1 auto;  max-width: 80vw;
+        text-align: center;
+        border-bottom: 1px solid $mono8;
+        &.active { color: $mono1; }
+      }
+    }
+  }
+}
+@mixin keyframe($animation_name) {
+  @-webkit-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @-o-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @keyframes #{$animation_name} {
+    @content;
+  }
+}
+@mixin animation($delay, $duration, $animation, $direction: forward, $fillmode: fowards) {
+  -webkit-animation-delay: $delay;
+  -webkit-animation-duration: $duration;
+  -webkit-animation-name: $animation;
+  -webkit-animation-fill-mode: $fillmode;
+  -webkit-animation-direction: $direction;
+
+  -moz-animation-delay: $delay;
+  -moz-animation-duration: $duration;
+  -moz-animation-name: $animation;
+  -moz-animation-fill-mode: $fillmode;
+  -moz-animation-direction: $direction;
+
+  animation-delay: $delay;
+  animation-duration: $duration;
+  animation-name: $animation;
+  animation-fill-mode: $fillmode;
+  animation-direction: $direction;
+}
+.anm_r-to-l {
+  @include keyframe($animation_name: anm_r-to-l){
+    0% {
+      -webkit-transform: translate(100%, 0);
+      -ms-transform: translate(100%, 0);
+      transform: translate(100%, 0);
+    }
+    100% {
+
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+  }
+  @include animation($delay: 0.2s, $duration: 0.5s, $animation: anm_r-to-l, $direction: forward, $fillmode: fowards);
+  transition: all 0.5s;
+  transition-delay: 0.5s;
+}
+.anm_l-to-r {
+  @include animation($delay: 0.2s, $duration: 0.5s, $animation: anm_l-to-r, $direction: forward, $fillmode: fowards);
+}
+
+
+@mixin tagging-route {
+  @include font($size: 9, $color: $mono1, $weight: 800, $spacing: -0.03);
+  display: inline-block;
+  width: rem(35); height: rem(16);
+  line-height: rem(14);
+  text-align: center; white-space: nowrap;
+  border: 1px solid $mono1;
+}
