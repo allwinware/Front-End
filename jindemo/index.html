@@ -673,10 +673,207 @@
 		}, 1500); // 3.5초 후 실행
 		});
 	</script>
-	<script>		
-		$("#lj_B737-800").load("include/lj_B737-800.html");
-		$("#lj_B737-900").load("include/lj_B737-900.html");
-		$("#lj_B777-200").load("include/lj_B777-200.html");
+	
+	
+	<script type="text/javascript" src="/js/jin/alpha-comm-api.js"></script>
+	<script type="text/javascript" src="/js/jin/seat-comm-api.js"></script>
+	<script type="text/javascript" src="/js/jin/seat-comm-disp.js"></script>
+	<script type="text/javascript" src="/js/jin/alpha-jin-api.js"></script>
+	<script type="text/javascript" src="/js/jin/alpha-jin-disp.js"></script>
+	<script type="text/javascript" src="/js/jin/alpha-jin-ptrn.js"></script>
+	
+	<script>
+		window.onload	= function() {
+			apiCtl.init();
+		}
+		
+		$("#lj_B737-800").load("/include/jin/737-800.jsp");
+		$("#lj_B777-200").load("/include/jin/777-200ER.jsp");
+		
+		var apiCtl	= {
+			segCtls		: {},
+			init		: function() {
+				var svcList		= ["seat"];
+				var seatMapLt	= $("[seatMap]").get();
+				console.log("seatMapLt", seatMapLt)
+				for (var i=0; i<seatMapLt.length; i++) {
+					var segIdx		= $(seatMapLt[i]).attr("seatMap");
+					
+					// segCtl 생성
+					_this.setSegCtl(segIdx);
+				}
+			},
+			// 여정객체 설정
+			setSegCtl	: function(segIdx) {
+				var _this	= this;
+
+				var configObj	= {
+					SEG_IDX		: segIdx,					// 여정 idx
+					PAX_INFO	: {paxList: []},			// 승객 정보
+				}
+				
+				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend( {originIdx: originIdx}, commAlphaApi, jinAlphaApi, jinAlphaPtrn, {config: configObj});
+			},
+			// 프리뷰 확대	
+			previewZoomIn	: function(segIdx, seatNo, areaCd) {
+				var _this	= this;
+				
+				var segCtl			= _this.getSegCtl(segIdx);
+				var seatList		= segCtl.config.SEAT_INFO.seatList;
+				var autoRcmndList	= segCtl.config.RCMND_INFO;
+				var seatMapEl		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var selMode			= seatMapEl.data("mode");
+				
+				var seatMapEl		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var seatInfo		= seatList.filter((e) => e.seatNo == seatNo)[0];
+				var prevRowSeat		= seatList.filter((e) => e.rowIdx == seatInfo.rowIdx-1)[0];
+				
+				var rcmndInfo		= autoRcmndList.filter(function(item){ return item.gradeCd == areaCd })[0];
+				var rcmndFstSaet	= (rcmndInfo) ? rcmndInfo.findPtrn[0] : null;
+				var rcmndLstSaet	= (rcmndInfo) ? rcmndInfo.findPtrn[rcmndInfo.findPtrn.length-1] : null;
+				var rcmndLstSaetEl	= (rcmndLstSaet) ? seatMapEl.find("[seatno="+rcmndLstSaet.seatNo+"]") : null;
+				
+				var windowHght		= $(window).height();
+				var scrollTop		= $(window).scrollTop();
+				var headerHght		= $("header").height();
+				
+				var seatSheetEl		= seatMapEl.find(".seat_sheet");
+				var seatMapHght		= seatSheetEl.height();
+				var seatMapTop		= Number(seatSheetEl.css("top").replace("px",""));
+				var targetSeatEl	= (prevRowSeat) ? seatMapEl.find("[seatno="+prevRowSeat.seatNo+"]") : seatMapEl.find("[seatno="+seatInfo.seatNo+"]");
+				var targetTop		= (targetSeatEl.position().top/0.3);
+				
+				var maxTop			= (-seatMapTop+seatMapHght)-(windowHght+headerHght);
+				var zoomInTop		= (targetTop < maxTop) ? -(seatMapTop+targetTop-scrollTop) : -(seatMapTop+maxTop-scrollTop-27);
+				
+				// 좌석맵 확대
+				seatMapEl.attr("style", "height: 100%; margin-bottom: 100px;");
+				seatSheetEl.addClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(1,0,0,1,0,"+zoomInTop+")", "-webkit-transform": "matrix(1,0,0,1,0,"+zoomInTop+")"}).siblings().hide();
+				seatSheetEl.find("[seatno]:not(.childseatno) > span").removeClass("blind_box");
+				seatMapEl.parent().find(".cscenter").css("visibility", "visible");
+				
+				_this.onScreenLock();
+		
+				// zoomIn end
+				seatSheetEl.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function() {
+					seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
+		
+					_this.onScreenUnLock();
+					
+					var seatMapPosTop	= seatSheetEl.position().top;
+					var htmlScrollTop	= $("html").scrollTop();
+					var borderHtml		= [];
+					
+					for (var i=0; i<autoRcmndList.length; i++) {
+						borderHtml.push(commSeatDisp.getRcmndBorderHtml(segIdx, autoRcmndList[i], i));
+					}
+					
+					seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s", "transform": "matrix(1,0,0,1,0,0)", "-webkit-transform": "matrix(1,0,0,1,0,0)", "top": "0px"});
+					$("html").scrollTop(Math.abs(seatMapPosTop-htmlScrollTop)+10);
+					commAlphaDisp.getApplyTarget("purchase", ".header_txt_btn").fadeIn();
+					
+					// rcmnd boarder
+					if (selMode == "rcmnd") {
+						commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html(borderHtml.join(""));
+					}
+		
+					if (selMode == "each") {
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+					}
+					
+					// blink
+					if (selMode == "rcmnd" && rcmndFstSaet) {
+						seatMapEl.find("#targetSvg").find("rect[id^=group_rect_"+rcmndFstSaet.seatNo+"][id$="+rcmndLstSaet.seatNo+"]").addClass("blink");
+						seatMapEl.find("#targetSvg").find("polygon[id^=group_polygon_"+rcmndFstSaet.seatNo+"][id$="+rcmndLstSaet.seatNo+"]").removeClass();
+					}
+					// 레이더
+					if (selMode == "rcmnd" && rcmndLstSaet) {
+						seatMapEl.find(".finger").css("top", rcmndLstSaetEl.position().top + rcmndLstSaetEl.height() - 15);
+						seatMapEl.find(".finger").css("left", rcmndLstSaetEl.position().left + rcmndLstSaetEl.width() - 20);
+						seatMapEl.find(".finger").attr("onclick", "apiCtl.onRcmndSeatClick('"+segIdx+"', '"+rcmndInfo.gradeCd+"', '"+rcmndInfo.rank+"', 'sel')");
+						seatMapEl.find(".finger").attr("rcmnd", "Y").show();
+					}
+				});
+				
+				commAlphaDisp.getApplyTarget("purchase", "flyInfo", segIdx).hide();
+			},
+			// 프리뷰 축소
+			previewZoomOut	: function(segIdx) {
+				var _this	= this;
+				
+				var segCtl		= _this.getSegCtl(segIdx);
+				var seatList	= segCtl.config.SEAT_INFO.seatList;
+				
+				var seatMapEl	= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var seatSheetEl	= seatMapEl.find(".seat_sheet");
+				var selMode		= seatMapEl.data("mode");
+				
+				seatMapEl.attr("style", "");
+				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+				seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
+				
+				// zoomOut end
+				seatSheetEl.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (e) => {
+					if ($(e.target).hasClass("seat_active")) {
+						return;
+					}
+		
+					if (seatSheetEl.data("changedTop")) {
+						seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s"}).offset(seatSheetEl.data("changedTop"));
+					}
+					
+					seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
+					seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
+					seatSheetEl.find("[seatno]:not(.childseatno) > span").addClass("blind_box");
+					seatSheetEl.siblings(":not(.seat_sheet_touch_v3)").fadeIn();
+					commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html("");
+					
+					if (selMode != "rcmnd") {
+						commSeatDisp.getApplyTarget("seat", "autoRcmndMark", segIdx).hide();
+					}
+				})
+				
+				commAlphaDisp.getApplyTarget("purchase", ".header_txt_btn").hide();
+				commAlphaDisp.getApplyTarget("purchase", "flyInfo", segIdx).fadeIn();
+			}
+		}
+		
+		// 전체좌석 클릭
+		$(document).on("click", ".header_txt_btn", function(e){
+			var segIdx	= $(".select_boxbtn > div.active").attr("flyInfo");
+			
+			apiCtl.previewZoomOut(segIdx);
+		});
+		
+		// 프리뷰 클릭
+		$(document).on("click", ".seat_sheet_recom_box a", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			var seatMap		= $("[seatMap="+segIdx+"]");
+			
+			var segCtl		= apiCtl.getSegCtl(segIdx);
+			var seatList	= segCtl.config.SEAT_INFO.seatList;
+			
+			var scrollTop	= $(window).scrollTop();
+			var clientY		= e.clientY;
+			var rank		= e.rank;
+			
+			var areaCd		= $(e.target).attr("areacd");
+			var areaNm		= $(e.target).attr("areanm");
+			
+			for (var i=0; i<seatList.length; i++) {
+				var seatNo		= seatList[i].seatNo;
+				var top			= seatMap.find("[seatno="+seatNo+"]").offset().top;
+				var height		= seatMap.find("[seatno="+seatNo+"]").height();
+				
+				if (scrollTop+clientY < (top+height-15)) {
+					apiCtl.previewZoomIn(segIdx, seatNo, areaCd);
+					break;
+				}
+			}
+			
+			e.stopPropagation();
+		});
+		
 	</script>
 
 	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
