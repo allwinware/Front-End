@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<div class="travelandtime" flyInfo="2"></div>
+<!--여행사로고와 시간 추가-->
+<div class="travelandtime" style="display: none;">
+    <div class="travel_logos goodtour">1</div>   
+    <div class="air_times">
+        <!--시간 없앨 시 style="display: none;"-->
+        <span>6</span>시간<span>30</span>분 비행
+    </div>
+</div>
 <div class="seat_sheet_bg ac2 B777-200" seatMap="2" data-mode="rcmnd">
     <div class="digital_loading">
        <div class="digi_left_img" style="top: 150px;">
@@ -88,7 +95,6 @@
         </ul>
     </div>
     <div class="seat_sheet_price">
-    	<div class="seat_sheet_price_txt">1좌석당 가격</div>
         <div class="seat_sheet_price_box" actype="B777-200">
             <div class="buy_num jinair-1"><div>지니플러스</div></div>
             <div class="buy_num jinair-2"><div>지니페스트</div></div>
@@ -113,17 +119,9 @@
         </div>
     </div>
 
-	<!-- 로딩바 -->
-	<div class="seat_sheet_touch_v3" loading-guide-text>
-		<span class="touch_a">잠시만..</span><br>
-		<span class="touch_b">같이앉는 <br>[<span pax-cnt></span>인 그룹석]을<br>찾고 있는 중.</span>
-	</div>
-	
 	<!-- 구역 터치 -->
 	<div class="seat_sheet_touch_v1" style="display:none" touch-guide-text>
-        <span class="touch_a">원하는 위치를</span><br>
-        <span class="touch_b">터치하세요!</span>
-        <span class="touch_c">실시간 매진 예감...</span>
+        원하는 위치를<br><span>터치하세요!</span>
     </div>
 	
     <div class="airplane_loca">
