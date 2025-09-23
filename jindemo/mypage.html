@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>부가서비스 구매내역</title>
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">	
+    <link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-3.4.1.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+
+<body>
+	<div class="dimmed_bg" style="display: none;"></div>
+	<div class="ags-wrap newui">
+		<h1 class="site-name">올윈에어</h1>
+        <header>
+			<div class="ags-header">
+				<h2 class="page-name-card">부가서비스 구매내역</h2>
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="gnb-wrap">					
+					<ul>						
+						<li>
+							<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+							<div id="gnb-2dp" class="gnb-2dp-wrap">
+								<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>								
+								<p class="welcome-msg">안녕하세요. <br>
+								<span class="customer-name">ALLWIN AIR</span>님</p>
+								<ul class="depth1">
+									<li>
+										<a href="#none" target="_self">항공 부가서비스 사전 신청</a>
+									</li>
+									<li class="new active">
+										<a href="#none" target="_self">기내 면세품 예약</a>
+									</li>
+									<li>
+										<a href="#none" target="_self">마이페이지</a>
+										<ul class="depth2">
+											<li>
+												<a href="mypage.html" target="_self">- 부가서비스 신청내역</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="#none" target="_self">고객센터</a>
+										<ul class="depth2">
+											<li>
+												<a href="cscenter.html" target="_self">- 공지사항</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="fnb">
+									<li><a href="#none" target="_self">개인정보취급방침</a></li>
+									<li class="center_txt">고객센터 : 1522-4148(평일 10:00 ~ 17:00)</li>										
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<div class="mypage_main">
+			<div class="myreserv_txt">
+				<div class="myreserv_txt1">나의 예약 / 구매 내역</div>
+				<div class="myreserv_txt2">리스트를 선택하여 상세 내역을 확인하세요.</div>
+				<div class="myreserv_txt3">
+					<div>총 <span class="text-emphasis">4</span>건의 예약내역</div>
+					<select class="myreserv_txt3_2">예약일 순
+						<option>구매일 순</option>
+						<option>출발일 순</option>
+					</select>
+				</div>
+			</div>
+			
+			<!-- 기본 결제완료/부분취소 -->
+			<div class="myreserv_per">
+				<div class="myreserv_per_txt1">
+					<div>
+						예약번호
+						<span class="text-emphasis">1234567</span>
+					</div>
+					<!-- red green blue black gray -->					
+					<div>주문상세 <i class="ico_right"></i></div>
+				</div>
+				<div class="myreserv_per_txt2">
+					<div>
+						<span>인천 ICN</span> 
+						<span class="arrow_rig">↔</span>
+						<span>하노이 HAN</span>
+					</div>
+					<!-- red green blue black gray -->					
+					<div class="text_color_red">결제완료</div>
+					<div class="text-emphasis" style="display: none;">부분취소</div>
+				</div>
+				<div class="myreserv_per_txt3">
+					<div>탑승일자</div>
+					<div>2025. 06.30(월)↔2025.07.05(일)</div>
+				</div>
+				<div class="myreserv_per_txt4">
+					<div>구매일</div>
+					<div>2025.05.20 09:14</div>
+				</div>
+				<div class="myreserv_per_btn">
+					<button>구매하기</button>
+				</div>
+				<a href="mypage_cs.html" target="_self" class="myreserv_btnmore">클릭해서넘어가기</a>			
+			</div>
+			<!-- 신청내역 없음 -->
+			<div class="myreserv_per empty">
+				<div class="myreserv_empty_txt">
+					부가서비스 신청내역이 없습니다.
+				</div>	
+				<div class="myreserv_per_btn">
+					<button>구매하기</button>
+				</div>
+			</div>
+			<!-- 결제실패 나 그레이색-->
+			<div class="myreserv_per fail_gray">
+				<div class="myreserv_per_txt1">
+					<div>
+						예약번호
+						<span class="text-emphasis">1234567</span>
+					</div>
+					<div>결제실패</div>
+				</div>
+				<div class="myreserv_person">
+					<div class="myreserv_per_txt2">
+						<span>인천 ICN</span> 
+						<span class="arrow_rig">→</span>
+						<span>하노이 HAN</span>
+					</div>
+					<div class="myreserv_per_txt3">
+						<div>탑승일자</div>
+						<div>2025.06.30(월)~2025.07.05(일)</div>
+					</div>
+					<div class="myreserv_per_txt4">
+						<div>구매일</div>
+						<div>2025.05.20 09:14</div>
+					</div>					
+				</div>
+				<div>
+					<div class="myreserv_per_txt2">
+						<span>하노이 HAN</span> 
+						<span class="arrow_rig">→</span>
+						<span>인천 ICN</span>
+					</div>
+					<div class="myreserv_per_txt3">
+						<div>탑승일자</div>
+						<div>2025.06.30(월)~2025.07.05(일)</div>
+					</div>
+					<div class="myreserv_per_txt4">
+						<div>구매일</div>
+						<div>2025.05.20 09:14</div>
+					</div>					
+				</div>
+				<div class="myreserv_per_btn">
+					<button>구매하기</button>
+				</div>
+				<a href="#none" target="_self" class="myreserv_btnmore">클릭해서넘어가기</a>
+			</div>
+		
+		</div>		
+		<div class="my_anw_cs">
+			고객센터 : <span class="text-emphasis">1522-4148</span> (평일 10:00~17:00 / 점심시간 12:00~13:00)
+		</div>
+	</div>	
+	<article id="popup_loading" class="layer_popup alert" tabindex="0" >
+        <div class="loadinggif">
+            <!-- container -->
+            <div class="rader_popup"></div>  
+			<div class="load_popup"></div>  
+            <!-- //container -->
+        </div>
+    </article>
+</body>
+</html>

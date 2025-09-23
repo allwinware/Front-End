@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-3.4.1.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<!--
+<body onload="layerPop('popup_loading');">	
+-->
+<body>
+	<div class="ags-wrap newui">
+		<h1 class="site-name">올윈에어</h1>		
+		<div class="dimmed_bgs" style="display: none;"></div>
+		<header>
+			<div class="ags-header">
+				<div class="gnb_menu">
+					<a href="#none" class="gnb_menu_active">좌석지정</a>
+					<a href="service_baggage.html" class="">수하물</a>
+					<a href="service_food.html" class="">기내식</a>
+				</div>
+				<div class="gnb-wrap">					
+					<ul>						
+						<li>
+							<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+							<div id="gnb-2dp" class="gnb-2dp-wrap">
+								<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>								
+								<p class="welcome-msg">안녕하세요. <br>
+								<span class="customer-name">ALLWIN AIR</span>님</p>
+								<ul class="depth1">
+									<li>
+										<a href="#none" target="_self">항공 부가서비스 사전 신청</a>
+									</li>
+									<li class="new active">
+										<a href="#none" target="_self">기내 면세품 예약</a>
+									</li>
+									<li>
+										<a href="#none" target="_self">마이페이지</a>
+										<ul class="depth2">
+											<li>
+												<a href="#none" target="_self">- 부가서비스 신청내역</a>
+											</li>
+											<li>
+												<a href="#none" target="_self">- 기내 면세품 예약내역</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="fnb">
+									<li><a href="#none" target="_self">개인정보취급방침</a></li>
+									<li class="center_txt">고객센터 : 1522-4148(평일 10:00 ~ 17:00)</li>										
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>			
+			<div class="select_boxbtn" >
+				<div class="select_backbtn active">
+					<button id="ags-wrap-back" class="btn_back_c">
+						<div class="boxbtn_logo air_logo jeju_black"></div>
+						<div class="boxbtn_fly">
+							<div>로마 레오나르도 다빈치 FCO</div>→
+							<div>인천 ICN</div>
+						</div>
+					</button>
+				</div>
+				<div class="select_comebtn">
+					<button id="ags-wrap" class="btn_come_c">
+						<div class="boxbtn_logo air_logo jeju_black"></div>
+						<div class="boxbtn_fly">
+							<div>인천 ICN</div>→
+							<div>오사카 KIX</div>
+						</div>
+					</button>
+				</div>
+			</div>
+			<div class="select_boxbtn long" style="display: none;">
+				<div class="select_backbtn active">
+					<button id="ags-wrap-back" class="btn_back_c">
+						<div class="boxbtn_logo air_logo tway_gray"></div>
+						<div class="boxbtn_fly">
+							<div>인천 ICN</div>→
+							<div>오사카 OCA</div>
+						</div>
+					</button>
+				</div>
+				<div class="select_comebtn">
+					<button id="ags-wrap" class="btn_come_c">
+						<div class="boxbtn_logo air_logo tway_gray"></div>
+						<div class="boxbtn_fly">
+							<div>인천 ICN</div>→
+							<div>오사카 KIX</div>
+						</div>
+					</button>
+				</div>
+			</div>
+			<div class="header_txt">
+				<div class="header_txt_ai">
+					<img src="./resource/img/common/ai.png">
+					<span>좌석 배치도에서 좌석위치 선택</span>
+				</div>
+				<!--프리뷰버튼-->
+				<div class="header_txt_btn trigger_1_1" style="display: none;">
+					<span>전체좌석</span>
+					<span>-</span>
+				</div>
+			</div>
+		</header>
+		<div class="find_txt" style="display: none;">가격대별 선호도 1위 그룹석을 찾았어요!</div>
+		<div class="contents separate200" id="con_slider" >
+
+			<!-- include/7c_738A.html 쪽 파일 
+				제주 7c_738A 7c_738B
+				부산 bx_40
+			-->
+			<div class="slider1" >
+				<div id="7c_738A"  ></div>
+				
+			</div>
+
+			<!-- include/7c_738B.html 쪽 파일 -->		
+			<div class="slider2">
+				<div id="7c_738C"></div>
+			</div>
+			
+		</div>
+		
+		<div class="cscenter">
+			고객센터 : 1522-4148 (평일 10:00 ~ 17:00)
+		</div>
+		
+		<div class="no-item" >
+			<!-- 
+			경고 이미지
+			<div class="ico-wrap"></div>			
+			수하물
+			<div class="icoh-baggage"></div>
+			기내식
+			<div class="icoh-meal"></div>		
+			-->
+			<!-- 좌석 -->
+			<div class="icoh-seat" style="display: none;"></div>
+
+			<div class="alert-title" style="display: none;">
+				항공기 출발 시간이 임박하여<br>
+				사전 좌석을 구매할 수 없습니다.
+			</div>
+			<div class="alert-text" style="display: none;">
+				출발 24시간전까지 구매 가능<br>
+				단, 최초 출발 2일 후부터는 오는 편 구매 불가
+			</div>
+			<button class="pay_dibtn" style="display: none;">
+				난 버튼입니다.
+			</button>
+		</div>
+		<div class="no-item" style="display:none;">
+			<div class="ico-wrap"></div>
+			<div class="alert-title">
+				사전 좌석을 구매할 수 없습니다.
+			</div>
+			<div class="alert-text">				
+				사전 좌석은 <i class="text-red">항공기 출발 24시간전까지만 구매</i> 가능합니다.<br>				
+				(예 : 5월 5일 출발인 경우 5월 4일까지 구매 가능)
+                                    
+			</div>
+		</div>
+
+		<!-- 첫화면 팝업뛰움 -->
+		<div class="ags-summary-first active" style="display: none;">			
+			<h4 class="sr-only">부가서비스 결제금액</h4>
+			<!--<a href="#none" class="btn_group_open"></a>-->
+			<div class="footer_contents_group">					
+				<span class="btn_group_close">Close</span>
+				<div class="pay_content btn_group_close_x">
+					<div class="txtbd">사전좌석지정</div>
+					<div class="txtbd_aa">
+						<img src="./resource/img/common/ai.png">
+						<span>이정갑</span>님 <span>4</span>인 떨어져 앉을 확률  <span>85</span>% 입니다.
+					</div>
+
+					<div class="pd-15">
+						<div class="smile_img01" style="display: none;"></div>
+						<div class="smile_img02" style="display: none;"></div>
+						<div class="smile_img03" style="display: none;"><span>12</span></div>
+						<div class="smile_img04" style="display: none;"><span>26</span></div>
+						<div class="smile_img05"><span >42</span></div>
+						<div class="smile_img06" style="display: none;"><span >63</span></div>
+						<!-- 오렌지 -->
+						<div class="smile_img07" style="display: none;"><span class="oranc">86</span></div>
+					</div>
+
+					<div class="txtbd_bb">
+						<span>4</span>인 같이 앉으시겠습니까?
+					</div>
+					<!--버튼 2개 맨 밑-->
+					<div class="pay_pay_footer">
+						<div class="pay_pay_footer_btn1"><button type="button" class="pay_f_go">건너띄기</button></div>
+						<div class="pay_pay_footer_btn2"><button type="button" class="pay_f_turn">네</button></div>
+					</div>
+				</div>
+			</div>			
+		</div>
+
+		<!-- 좌석 안정했을때 -->
+		<div class="ags-summary-group">			
+			<h4 class="sr-only">부가서비스 결제금액</h4>
+			<a href="#none" class="btn_group_open"></a>
+			<div class="footer_contents_group">				
+				<a class="btn_group_close">Close</a>
+				<div class="pay_content">
+					<div>
+						<div class="pay_txt">
+							<span class="pay_txt_a">좌석 지정</span>
+						</div>
+							<div class="pb-10">
+								<div class="pay_way">
+									<div>
+										<div class="select_txt2">
+											<span>가는편</span>
+											
+											<div class="region_txt1">
+												<span>ICN</span>
+												<span>SIN</span>
+											</div>
+											<span class="airname airbusan"></span>
+										</div>
+									</div>
+								</div>			
+								<ul class="pay_group">
+									<li>
+										<div class="pay_group_s">
+											<span>LEE J K</span>
+										</div>
+										<div>
+										</div>
+									</li>
+									<li>
+										<div class="pay_group_s">
+											<span>LEE J K</span>
+										</div>
+										<div>
+										</div>
+									</li>
+									<li>
+										<div class="pay_group_s">
+											<span>LEE J K</span>
+										</div>
+										<div>
+										</div>
+									</li>
+									<li>
+										<div class="pay_group_s">
+											<span>LEE J K</span>
+										</div>
+										<div>
+										</div>
+									</li>
+								</ul>
+							</div>
+					</div>
+
+				</div>
+				
+			</div>			
+		</div>
+		<!-- 좌석 정했을때 -->
+		<div class="ags-summary" >	
+			<h4 class="sr-only">부가서비스 결제금액</h4>			
+			<div class="scroll_btn" style="display: none;">
+				<button><span>AI추천 돌아가기</span></button>
+			</div>
+			<div class="foot_align">
+				<a href="#none" class="btn_footer_open"></a>
+				<div class="btf_a">
+					<div>
+						<span>LEE JIYOUNG</span>님
+						<span class="btf_a_people">4</span>인  
+					</div>
+					<div><span>6B</span> 선택</div>
+				</div>
+				<!--btf_bbtn oranc 오렌지 색상-->
+				<div class="btf_bbtn">
+					<button>다음</button>
+				</div>				
+			</div>			
+			<div class="footer_contents">				
+				<a class="btn_footer_close">Close</a>
+				<div class="pay_content">
+					<div class="creditcard newui">
+						<div class="card_warp">
+							<div class="card_name">부가서비스 신청내역</div>
+							<div class="credit_box_btn" agrBtn style="display: none;"></div>
+						</div>
+						<div agrLt class="credit_agree_box_content dis on" style="display: block;">
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>싱카포르 SIN</span>
+									</div>
+									<div class="air_logo airpremia"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>05/01 09:15</div>
+									<div>7C1302</div>
+								</div>
+							</div>
+							<!-- 사람 -->				   
+							<div class="bd_px">
+								<div class="personer">
+									<input type="checkbox" id="input-check11" name="check-group2">
+									<label for="input-check11"><i class="ico"></i>LEE JIYOUNG</label>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><span>3E</span></div>				   
+											<div>
+												<span class="gray_txt">23.03.01 예약</span>
+											</div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">		
+											<div><span>+1px(23kg) + 9kg</span></div>				   
+											<div>
+												<span>16,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><span>구름 위의 샌드위치샌드위치샌드위치</span></div>				   
+											<div>
+												<span>9,000</span> 
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<input type="checkbox" id="input-check12" name="check-group2">
+									<label for="input-check12"><i class="ico"></i>LEE SANGHEE</label>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><button class="card_box_buy">구매하기</button></div>				   
+											<div><span>0</span></div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">		
+											<div><button class="card_box_buy">구매하기</button></div>				   
+											<div><span>0</span></div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><button class="card_box_buy">구매하기</button></div>				   
+											<div><span>0</span></div>	
+										</div>
+									</div>	
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이진희</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><span>4E</span></div>				   
+											<div>
+												<span>11,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><span>구름 위의 샌드위치</span></div>				   
+											<div>
+												<span>9,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>		
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이명진</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><span>4F</span></div>				   
+											<div>
+												<span>11,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><span>패밀리 세트</span></div>				   
+											<div>
+												<span>22,000</span>
+												<button class="new_xbtn">x</button>
+											</div>	
+										</div>
+									</div>	
+								</div>
+							</div>
+							<!-- 선나누기 <div class="liner_service"></div> -->
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>싱카포르 SIN</span>
+									</div>
+									<div class="air_logo jeju"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>05/01 09:15</div>
+									<div>7C1302</div>
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이정갑</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">		
+											<div><span>3E</span></div>				   
+											<div><span>11,000</span></div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">		
+											<div><span>+10kg</span></div>				   
+											<div><span>16,000</span></div>	
+										</div>
+									</div>	
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">		
+											<div><span>구름 위의 샌드위치</span></div>				   
+											<div><span>9,000</span></div>	
+										</div>
+									</div>	
+								</div>
+							</div>
+							<!-- 선나누기 --><div class="liner_service"></div>
+						</div>
+						<div class="credit_total">
+							<div>부가서비스 총 결제 금액</div>
+							<span class="credit_total_box2">76,000원</span>   
+						</div>
+						<div class="payment_btn">바로 결제하기</div>
+					</div>
+
+				</div>
+				
+			</div>			
+		</div>		
+	</div>
+
+	<script>
+		$("#bx_40_test").load("include/bx_40_test.html");
+		$("#7c_738A_test").load("include/7c_738A_test.html");
+		$("#7c_738A").load("include/7c_738A.html");
+		$("#7c_738B").load("include/7c_738B.html");
+		$("#7c_738C").load("include/7c_738C.html");
+
+		$("#rs_A321_195").load("include/rs_A321_195.html");
+		$("#rs_A321_200A").load("include/rs_A321_200A.html");
+		$("#rs_A321_200B").load("include/rs_A321_200B.html");
+		$("#bx_40").load("include/bx_40.html")
+		$("#tw_A333").load("include/tw_A333.html")
+		$("#tw_777WAL").load("include/tw_777WAL.html")
+
+		$("#yp_HL838").load("include/yp_HL838.html")
+		$("#yp_HL851").load("include/yp_HL851.html")
+		
+		$("#lj_B737-800").load("include/lj_B737-800.html");
+		$("#lj_B737-900").load("include/lj_B737-900.html");
+		$("#lj_B777-200").load("include/lj_B777-200.html");
+	</script>
+	<article id="popup2_1" class="layer_popup alert"  tabindex="0" style="display: none;">
+        <div class="wrapper_popup">
+            <!-- header -->
+            <div class="popup_header">
+                <!-- title -->
+                <div class="grp_title_popup">
+                </div>
+                <!-- //title -->
+            </div>
+            <!-- //header -->
+            <!-- container -->
+            <div class="popup_body">
+                <!-- content -->
+                <div class="popup_content">
+                        <div class="rader_popup"></div>                
+                        <div class="popup_con_txt">
+                            <span>이정갑</span>님 <span>4</span>인을 위한<br>
+                            [AI레이더 원스탑 서비스]
+                        </div>
+                        <div class="popup_con_txt_2">
+                            AI 레이더가 100% 일행끼리 붙어 앉는<br>
+							가격대별 만족도 1위 그룹석을<br>
+							한 눈에 볼 수 있도록 추천합니다.<br><br>
+                            단 한번 터치로 <span>4</span>인석을 선점하세요!
+                            <!-- <span>1</span>인 좌석을 실시간 추천합니다. -->
+                        </div>    
+                </div>
+                <div class="pay_exr">
+                    <div class="pay_exr_btn"><button type="button" class="pay_exr_pay btn_close_popup_x">닫기</button></div>
+                </div>
+                <!-- //content -->
+            </div>
+            <!-- //container -->
+        </div>
+    </article>
+
+	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
+        <div class="loadinggif">
+            <!-- container -->
+            <div class="rader_popup"></div>  
+			<div class="load_popup"></div>  
+            <!-- //container -->
+        </div>
+    </article>
+</body>
+
+</html>
