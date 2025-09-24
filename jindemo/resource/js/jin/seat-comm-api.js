@@ -74,9 +74,9 @@ var commSeatApi	= {
 		var _this		= this;
 		var deferred	= $.Deferred();
 		
-		fetch(_this.config.pathInfo.seatChargePath).then((data) => {
-			console.log("data",data)
-			console.log("data",data.json());
+		fetch(_this.config.pathInfo.seatChargePath).then((res) => {
+			return res.json();
+		}).then((data) => {
 			deferred.resolve(data);
 		})
 		
@@ -88,6 +88,11 @@ var commSeatApi	= {
 		var _this			= this;
 		var deferred		= $.Deferred();
 		
+		fetch(_this.config.pathInfo.seatWeightPath).then((res) => {
+			return res.json();
+		}).then((data) => {
+			deferred.resolve(data);
+		})
 		
 		return deferred.promise();
 	}
