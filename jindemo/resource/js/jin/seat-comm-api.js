@@ -36,6 +36,8 @@ var commSeatApi	= {
 					_this.getAlphaAssignPtrn();
 				}
 				
+				_this.getAlphaSeatPtrn();
+				
 				// 좌석맵설정 
 				_this.setSeatDispInfo("seat"	, "seatRows");
 				_this.setSeatDispInfo("seat"	, "seatCharge");

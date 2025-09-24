@@ -693,8 +693,8 @@ var commSeatDisp	= {
 	// ##################################################################################################
 	,getApplyTarget	: function(container, target, segIdx) {
 		var containerInfo	= {
+			"purchase"	: "[purchase-container]",
 			"seat"		: "[purchase-container=seat]",
-			"popup"		: "[popup-container]",
 		}
 		
 		var applyTarget		= null;
@@ -721,12 +721,12 @@ var commSeatDisp	= {
 			case "basicSeltCancBtn"	:
 				applyTarget	= $(containerInfo[container]).find("[seatMap="+segIdx+"] [cancBtn]");
 				break;
-			case "selSeatMap"	:
-				applyTarget	= $(containerInfo[container]).find("[selSeatMap="+segIdx+"]");
-				break;
-			case "seatAdjustment"	:
-				applyTarget	= $(containerInfo[container]).find("[popup-type=seatAdjustment] [seatAdjustment]");
-				break;
+//			case "selSeatMap"	:
+//				applyTarget	= $(containerInfo[container]).find("[selSeatMap="+segIdx+"]");
+//				break;
+//			case "seatAdjustment"	:
+//				applyTarget	= $(containerInfo[container]).find("[popup-type=seatAdjustment] [seatAdjustment]");
+//				break;
 			default	:
 				applyTarget	= $(containerInfo[container]).find(target);
 		}

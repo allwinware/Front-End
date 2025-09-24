@@ -19,10 +19,9 @@ var commAlphaApi = {
 			
 		var svcList			= _this.svcList;
 		var reqList			= [];
-		console.log("svcList ", svcList);
+
 		// 서비스API
 		for (var i=0; i<svcList.length; i++) {
-			console.log(_this[svcList[i]+"PolicyValid"]);
 			reqList.push(_this[svcList[i]+"PolicyValid"]($.Deferred()));
 		}
 		
@@ -35,8 +34,3 @@ var commAlphaApi = {
 	}
 }
 
-
-String.prototype.comma = Number.prototype.comma = function() {
-    var n = String(this).replace(/\,/g,'');
-    return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
-}
