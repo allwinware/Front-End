@@ -307,9 +307,6 @@ $(document).ready(function () {
 		$(".ags-foods-group").removeClass("active");
 	});
 
-	var radios = document.querySelectorAll('input[type=radio][name="foods"]');
-    radios.forEach(radio => radio.addEventListener('change', () => $(".foods").css("padding-bottom", "300px")));
-
 
 	/*demo*/
 	$(document).on("click", ".btn_group_open_twst", function () {
@@ -932,3 +929,64 @@ $(document).ready(function () {
 	$(".accor_txt2, .accor_txt3, .accor_txt4, .accor_txt5").hide();
   });
   
+
+
+
+  $(function(){
+    // "hh:mm" → 총 분 단위로 변환
+    function parseHHMM(str) {
+      let parts = str.split(':');
+      let h = parseInt(parts[0], 10) || 0;
+      let m = parseInt(parts[1], 10) || 0;
+      return h * 60 + m;
+    }
+
+    // 총 분 → "hh:mm" 포맷
+    function formatHHMM(totalMinutes) {
+      if (totalMinutes < 0) totalMinutes = 0;
+      let h = Math.floor(totalMinutes / 60);
+      let m = totalMinutes % 60;
+      return ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2);
+    }
+
+    let $timer = $('#timer');
+    let initialText = $timer.text().trim();
+    let totalMinutes = parseHHMM(initialText);
+
+    let intervalId = setInterval(function(){
+      totalMinutes--;
+
+      if (totalMinutes <= 0) {
+        $timer.text('00:00');
+        clearInterval(intervalId);
+        return;
+      }
+
+      $timer.text(formatHHMM(totalMinutes));
+    }, 60000); // 1분(60,000ms)마다 감소
+  });
+
+
+  /*체크 클릭 클릭..******************** */
+  $(document).on("change", ".foodsfst input[type=radio]", function() {
+	let idx = $(this).attr("id").replace("chk", ""); // chk1 → 1
+	let target = $("#boy_face" + idx);
+  
+	if ($(this).is(":checked")) {
+	  target.addClass("active");
+	} else {
+	  target.removeClass("active");
+	}
+  });
+
+
+  let currentIndex = 0;
+  const slider = document.getElementById('slider');
+  const totalSlides = document.querySelectorAll('.slide_de').length;
+
+  function moveSlide(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex > totalSlides - 1) currentIndex = totalSlides - 1;
+    slider.style.transform = `translateX(-${currentIndex * 300}px)`;
+  }
