@@ -298,14 +298,7 @@ $(document).ready(function () {
 		$("html").css("overflow", "");
 	});
 
-	/*기내식예약 팝업*/
-	$(document).on("click", ".btn_foods_open", function () {
-		$(".ags-foods-group").addClass("active");
-
-	});
-	$(document).on("click", ".btn_foods_close", function () {
-		$(".ags-foods-group").removeClass("active");
-	});
+	
 
 
 	/*demo*/
@@ -367,19 +360,23 @@ $(document).ready(function () {
 		$(".ags-summary").addClass("active");				
 		$(".dimmed_bg").css("display", "block");
 		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
 	});
 
 	/*푸터 슬라이드 팝업 01*/
 	$(document).on("click", ".slider_btn_01", function () {
 		$(".ags-summary").addClass("active");				
 		$(".dimmed_bg").css("display", "block");
+		
 		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
 	});
 
 	$(document).on("click", ".slider_btn_01_close", function () {
 		$(".ags-summary").removeClass("active");
-		$(".dimmed_bg").css("display", "none");
+		$(".dimmed_bg").css("display", "none");		
 		$("body").css("overflow", "");
+		$("html").css("overflow", "");
 	});
 	
 	
@@ -990,3 +987,31 @@ $(document).ready(function () {
     if (currentIndex > totalSlides - 1) currentIndex = totalSlides - 1;
     slider.style.transform = `translateX(-${currentIndex * 300}px)`;
   }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.demos_boxs').forEach(box => {
+    box.addEventListener('click', () => {
+      document.querySelectorAll('.demos_boxs').forEach(b => b.classList.remove('active'));
+      box.classList.add('active');
+    });
+  });
+});
+
+
+$(document).on("click", ".btn_bags_open", function () {
+	$(".ags_bags_contents").addClass("active");
+	
+	$(".dimmed_bg, .dimmed_bgs").css("display", "block");
+	$("body").css("overflow", "hidden");
+	$("html").css("overflow", "hidden");
+
+});
+$(document).on("click", ".btn_bags_close", function () {
+	$(".ags_bags_contents").removeClass("active");
+	
+	$(".dimmed_bg, .dimmed_bgs").css("display", "none");
+	
+	$("body").css("overflow", "");
+	$("html").css("overflow", "");
+});

@@ -18,7 +18,7 @@
 <!--
 <body onload="layerPop('popup_loading');">	
 -->
-<body>
+<body style="overflow-y: hidden;">
 	<div class="ags-wrap newui demos">
 		<h1 class="site-name">올윈에어</h1>		
 		<div class="dimmed_bgs" style="display: none;"></div>
@@ -43,7 +43,7 @@
 			</div>	
 					
 			<div class="select_boxbtn" >
-				<div class="select_backbtn active" flyInfo="1">
+				<div class="select_backbtn active" >
 					<button id="ags-wrap-back" class="btn_back_c">
 						<div class="boxbtn_flyb">
 							<div class="de_ways1">가는편</div>
@@ -53,7 +53,7 @@
 						</div>
 					</button>
 				</div>
-				<div class="select_comebtn" flyInfo="2">
+				<div class="select_comebtn">
 					<button id="ags-wrap" class="btn_come_c">
 						<div class="boxbtn_flyb">							
 							<div class="de_ways1">오는편</div>
@@ -689,91 +689,10 @@
 		}, 1500); // 3.5초 후 실행
 		});
 	</script>
-	
-	
-	<script type="text/javascript" src="./resource/js/jin/alpha-comm-api.js"></script>
-	<script type="text/javascript" src="./resource/js/jin/seat-comm-api.js"></script>
-	<script type="text/javascript" src="./resource/js/jin/seat-comm-disp.js"></script>
-	<script type="text/javascript" src="./resource/js/jin/alpha-jin-api.js"></script>
-	<script type="text/javascript" src="./resource/js/jin/alpha-jin-disp.js"></script>
-	<script type="text/javascript" src="./resource/js/jin/alpha-jin-ptrn.js"></script>
-	
-	<script>
-		window.onload	= function() {
-			apiCtl.init();
-		}
-		
-		$("#lj_B737-800").load("include/jin/737-800.jsp");
-		$("#lj_B777-200").load("include/jin/777-200ER.jsp");
-		
-		var apiCtl	= {
-			segCtls		: {},
-			init		: function() {
-				var svcList		= ["seat"];
-				var seatMapLt	= $("[seatMap]").get();
-				console.log("seatMapLt", seatMapLt)
-				for (var i=0; i<seatMapLt.length; i++) {
-					var segIdx		= $(seatMapLt[i]).attr("seatMap");
-					
-					// segCtl 생성
-					_this.setSegCtl(segIdx);
-				}
-			},
-			// 여정객체 설정
-			setSegCtl	: function(segIdx) {
-				var _this	= this;
-
-				var configObj	= {
-					SEG_IDX		: segIdx,					// 여정 idx
-					PAX_INFO	: {paxList: []},			// 승객 정보
-				}
-				
-				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend( {originIdx: originIdx}, commAlphaApi, jinAlphaApi, jinAlphaPtrn, {config: configObj});
-			},
-			// 프리뷰 확대	
-			previewZoomIn	: function(segIdx, seatNo, areaCd) {
-			},
-			// 프리뷰 축소
-			previewZoomOut	: function(segIdx) {
-			}
-		}
-		
-		// 전체좌석 클릭
-		$(document).on("click", ".header_txt_btn", function(e){
-			var segIdx	= $(".select_boxbtn > div.active").attr("flyInfo");
-			
-			apiCtl.previewZoomOut(segIdx);
-		});
-		
-		// 프리뷰 클릭
-		$(document).on("click", ".seat_sheet_recom_box a", function(e){
-			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-			var seatMap		= $("[seatMap="+segIdx+"]");
-			
-			var segCtl		= apiCtl.getSegCtl(segIdx);
-			var seatList	= segCtl.config.SEAT_INFO.seatList;
-			
-			var scrollTop	= $(window).scrollTop();
-			var clientY		= e.clientY;
-			var rank		= e.rank;
-			
-			var areaCd		= $(e.target).attr("areacd");
-			var areaNm		= $(e.target).attr("areanm");
-			
-			for (var i=0; i<seatList.length; i++) {
-				var seatNo		= seatList[i].seatNo;
-				var top			= seatMap.find("[seatno="+seatNo+"]").offset().top;
-				var height		= seatMap.find("[seatno="+seatNo+"]").height();
-				
-				if (scrollTop+clientY < (top+height-15)) {
-					apiCtl.previewZoomIn(segIdx, seatNo, areaCd);
-					break;
-				}
-			}
-			
-			e.stopPropagation();
-		});
-		
+	<script>		
+		$("#lj_B737-800").load("include/lj_B737-800.html");
+		$("#lj_B737-900").load("include/lj_B737-900.html");
+		$("#lj_B777-200").load("include/lj_B777-200.html");
 	</script>
 
 	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
