@@ -16,6 +16,7 @@ var commSeatDisp	= {
 			var seatStatus	= seat.seatStatus;
 			var onclick		= "apiCtl.onAssignSeatClick('"+segIdx+"', '"+seatNo+"', 'sel');";
 			
+			
 			if (seatStatus == "A" && charge > 0) {
 				seatMap.find("[seatno="+seatNo+"]").attr("onclick", onclick).html('<span class="blind_box'+chargeZoom+'">'+charge.comma()+'</span>');
 			} else {
@@ -40,6 +41,7 @@ var commSeatDisp	= {
 		
 		var	html			= [];
 	
+		html.push('<div class="seat_sheet_price_txt">1좌석당 가격</div>');
 		html.push('<div class="seat_sheet_price_box">');
 	
 		// preview 가격 html
@@ -691,7 +693,6 @@ var commSeatDisp	= {
 	// ##################################################################################################
 	,getApplyTarget	: function(container, target, segIdx) {
 		var containerInfo	= {
-			"purchase"	: "[purchase-container]",
 			"seat"		: "[purchase-container=seat]",
 			"popup"		: "[popup-container]",
 		}
@@ -720,12 +721,12 @@ var commSeatDisp	= {
 			case "basicSeltCancBtn"	:
 				applyTarget	= $(containerInfo[container]).find("[seatMap="+segIdx+"] [cancBtn]");
 				break;
-//			case "selSeatMap"	:
-//				applyTarget	= $(containerInfo[container]).find("[selSeatMap="+segIdx+"]");
-//				break;
-//			case "seatAdjustment"	:
-//				applyTarget	= $(containerInfo[container]).find("[popup-type=seatAdjustment] [seatAdjustment]");
-//				break;
+			case "selSeatMap"	:
+				applyTarget	= $(containerInfo[container]).find("[selSeatMap="+segIdx+"]");
+				break;
+			case "seatAdjustment"	:
+				applyTarget	= $(containerInfo[container]).find("[popup-type=seatAdjustment] [seatAdjustment]");
+				break;
 			default	:
 				applyTarget	= $(containerInfo[container]).find(target);
 		}
