@@ -153,25 +153,42 @@ var commSeatApi	= {
 				break;
 		}
 	}
-	// 좌석 구매불가 화면설정
+	// 그룹시트 구매 처리
 	// ##################################################################################################
-	,setSeatErrorDispInfo	: function(cantainer, target, errType, comment) {
-		var	_this		= this;
+	,setSeatPurchsInfo	: function(svcType, selPaxInfo, selData) {
+		var _this	= this;
 
-		var segIdx		= _this.config.SEG_IDX;
-		var applyTarget	= commSeatDisp.getApplyTarget(cantainer, target, segIdx);
-		
-		var	html		= "";
-
-		switch (target) {
-			case "seatMap" :
-				html	= commSeatDisp.getSeatErrorHtml(segIdx, errType, comment);
-				applyTarget.html(html);
-				break;
+		if (selPaxInfo) {
+			switch (svcType) {
+				case "rcmnd"	:
+					selPaxInfo.selRcmnd		= selData;
+					break;
+				case "seat"	:
+					selPaxInfo.selSeat		= selData;
+					break;
+				case "temp"	:
+					selPaxInfo.selTemp		= selData;
+					break;
+			}
 		}
-		
-		_this.config.SEAT_INFO.errType	= errType;
-		_this.config.SEAT_INFO.avail	= false;
+	}
+	// 좌석 총 구매요금 조회
+	// ##################################################################################################
+	,getSeatCharge	: function() {
+		var _this	= this;
+
+		var paxList			= _this.config.PAX_INFO.paxList;
+		var seatCharge		= 0;
+
+		for (var i=0; i<paxList.length; i++) {
+			var selSeat	= paxList[i].selSeat;
+
+			if (selSeat) {
+				seatCharge	= seatCharge + selSeat.charge;
+			}
+		}
+
+		return seatCharge;
 	}
 	// 10명이상 승객 패턴 추출
 	// ##################################################################################################
