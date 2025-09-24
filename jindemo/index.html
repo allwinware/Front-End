@@ -77,15 +77,14 @@
 			</div>
 		</header>
 		<div class="find_txt" style="display: none;">가격대별 선호도 1위 그룹석을 찾았어요!</div>
-		<div class="contents separate200" id="con_slider" >
-			<div class="slider1" >
-				<div id="lj_B737-800"></div>				
+		<div class="contents separate200" id="con_slider">
+			<div class="slider1">
+				<div id="lj_B737-800"></div>
 			</div>
 
 			<div class="slider2">
 				<div id="lj_B777-200"></div>
 			</div>
-			
 		</div>
 		
 		<div class="cscenter" style="display: none;">
@@ -700,35 +699,103 @@
 	
 	<script>
 		window.onload	= function() {
-			apiCtl.init();
+			var seatMap1	= $("#lj_B737-800").load("include/jin/737-800.jsp");
+			var seatMap2	= $("#lj_B777-200").load("include/jin/777-200ER.jsp");
+			
+			$.when(seatMap1. seatMap2).then(() => {
+				apiCtl.init();
+			})
 		}
-		
-		$("#lj_B737-800").load("include/jin/737-800.jsp");
-		$("#lj_B777-200").load("include/jin/777-200ER.jsp");
 		
 		var apiCtl	= {
 			segCtls		: {},
-			init		: function() {
-				var svcList		= ["seat"];
+			init		: function(paxCnt) {
+				var _this		= this;
 				var seatMapLt	= $("[seatMap]").get();
-				console.log("seatMapLt", seatMapLt)
+
 				for (var i=0; i<seatMapLt.length; i++) {
 					var segIdx		= $(seatMapLt[i]).attr("seatMap");
+					var acType		= $(seatMapLt[i]).attr("acType");
 					
 					// segCtl 생성
-					_this.setSegCtl(segIdx);
+					_this.setSegCtl(segIdx, acType, paxCnt);
 				}
 			},
 			// 여정객체 설정
-			setSegCtl	: function(segIdx) {
+			setSegCtl	: function(segIdx, acType, paxCnt) {
 				var _this	= this;
-
-				var configObj	= {
-					SEG_IDX		: segIdx,					// 여정 idx
-					PAX_INFO	: {paxList: []},			// 승객 정보
+				var paxList	= [];
+				
+				if (paxCnt) {
+					for (var i=0; i<paxCtn; i++) {
+						paxList.push({
+							"rph": (i+1),
+							"givenName": (i+1),
+							"surname": "승객",
+							"paxType": "ADT",
+						});
+					}
+				} else {
+					paxList	= [{
+						"rph": "1",
+						"givenName": "JIYOUNG",
+						"surname": "KIM",
+						"paxType": "CHD",
+						"guardianYn": "N",
+						"birthday": "2022-05-31",
+						"age": 3,
+						"sex": "F",
+						"guestId": "MiFDSEQ-",
+						"title": "MISS"
+					},
+					{
+						"rph": "2",
+						"givenName": "HYUNWOO",
+						"surname": "JUNG",
+						"paxType": "ADT",
+						"guardianYn": "N",
+						"birthday": "1983-11-24",
+						"age": 41,
+						"sex": "M",
+						"guestId": "MCFBRFQ-",
+						"title": "MR"
+					},
+					{
+						"rph": "3",
+						"givenName": "MYUNGJA",
+						"surname": "PARK",
+						"paxType": "ADT",
+						"guardianYn": "N",
+						"birthday": "1952-08-04",
+						"age": 73,
+						"sex": "F",
+						"guestId": "MSFBRFQ-",
+						"title": "MS"
+					}];
 				}
 				
-				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend( {originIdx: originIdx}, commAlphaApi, jinAlphaApi, jinAlphaPtrn, {config: configObj});
+				var svcList		= ["seat"];
+				var configObj	= {
+					SEG_IDX		: segIdx,					// 여정 idx
+					PAX_INFO	: {paxList: paxList},		// 승객 정보
+					pathInfo	: {
+			            seatChargePath	: "resource/json/jin/"+acType,
+			            seatWeightPath	: "resource/json/jin/"+acType
+					}
+				}
+				
+				var svcAlphaApi		= {};
+				
+				function capitalize(str) {
+					return str.charAt(0).toUpperCase() + str.slice(1);
+				}
+				
+				for (var i=0; i<svcList.length; i++) {
+					svcAlphaApi		= $.extend(svcAlphaApi, window["comm"+capitalize(svcList[i])+"Api"]);
+				}
+				
+				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, jinAlphaApi, jinAlphaPtrn, {config: configObj, svcList: svcList});
+				_this.segCtls["seg"+segIdx+"AlphaCtl"].init();
 			},
 			// 프리뷰 확대	
 			previewZoomIn	: function(segIdx, seatNo, areaCd) {

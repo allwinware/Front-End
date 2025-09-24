@@ -8,7 +8,7 @@
         <span>6</span>시간<span>30</span>분 비행
     </div>
 </div>
-<div class="seat_sheet_bg ac1 B737-800" seatMap="1" data-mode="rcmnd">
+<div class="seat_sheet_bg ac1 B737-800" seatMap="1" acType="737-800" data-mode="rcmnd">
     <div class="digital_loading">
        <div class="digi_left_img" style="top: 150px;">
 			<span class="load_left_img_a"></span>

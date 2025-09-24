@@ -19,10 +19,11 @@ var commAlphaApi = {
 			
 		var svcList			= _this.svcList;
 		var reqList			= [];
-
+		console.log("svcList ", svcList);
 		// 서비스API
 		for (var i=0; i<svcList.length; i++) {
-			reqList.push(_this[svcList[i]+"PolicyValid"]($.Deferred(), withTicketYn));
+			console.log(_this[svcList[i]+"PolicyValid"]);
+			reqList.push(_this[svcList[i]+"PolicyValid"]($.Deferred()));
 		}
 		
 		// 초기화 done 

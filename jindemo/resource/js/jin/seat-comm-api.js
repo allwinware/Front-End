@@ -1,7 +1,7 @@
 var commSeatApi	= {
 	// 좌석유효성 체크
 	// ##################################################################################################
-	seatPolicyValid	: function(deferred, withTicketYn) {
+	seatPolicyValid	: function(deferred) {
 		var _this	= this;
 
 		// seatApi config object 초기화
@@ -73,21 +73,13 @@ var commSeatApi	= {
 	,reqSeatChargeInfo	: function() {
 		var _this		= this;
 		var deferred	= $.Deferred();
-	
-		var request		= $.ajax({
-			 url			: _this.pathInfo.seatChargePath
-			,type			: "POST"
-			,data			: JSON.stringify(_this.getAncInfoReqArg())
-			,contentType	: "application/json; charset=utf-8"
-			,timeout		: 180000
-		})
-		request.done(function(data) {
+		
+		fetch(_this.config.pathInfo.seatChargePath).then((data) => {
+			console.log("data",data)
+			console.log("data",data.json());
 			deferred.resolve(data);
 		})
-		request.always(function(data) {
-			deferred.resolve("seat-charge-response");
-		})
-
+		
 		return deferred.promise();
 	}
 	// 가중치 정보조회
@@ -96,25 +88,6 @@ var commSeatApi	= {
 		var _this			= this;
 		var deferred		= $.Deferred();
 		
-		var reqParam		= _this.getAlphaSeatInfoReqArg();
-		
-		var request		= $.ajax({
-			 url			: _this.pathInfo.seatWeightPath
-			,type			: "POST"
-			,data			: JSON.stringify(reqParam)
-			,contentType	: "application/json; charset=utf-8"
-			,timeout		: 180000
-		})
-		request.done(function(data) {
-			if (data.searchObjectRs) {
-				deferred.resolve(data.searchObjectRs)
-			} else {
-				deferred.resolve(data);
-			}
-		})
-		request.always(function(data) {
-			deferred.resolve("weight-response");
-		})
 		
 		return deferred.promise();
 	}
