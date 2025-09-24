@@ -4,6 +4,9 @@ var commSeatApi	= {
 	seatPolicyValid	: function(deferred) {
 		var _this	= this;
 
+		var paxList			= _this.config.PAX_INFO.paxList;
+		var paxCnt			= paxList.length;
+		
 		// seatApi config object 초기화
 		_this.config.SEAT_INFO		= {};
 		_this.config.PTRN_INFO		= {};
@@ -24,8 +27,6 @@ var commSeatApi	= {
 			
 			// avail reqList responses
 			$.when.apply($, reqList).then(function(weightData) {
-				var paxCnt			= paxList.filter((e) => !(e.airService && e.airService.seat && e.airService.seat.some((seat) => seat.segmentId == segInfo.segmentId))).length;
-			
 				_this.config.PTRN_INFO			= weightData;
 				
 				// rowIdx,colIdx,blockIdx 설정 
