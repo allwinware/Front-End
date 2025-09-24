@@ -36,10 +36,6 @@ var commSeatApi	= {
 					_this.getAlphaAssignPtrn();
 				}
 				
-				if (!somePurchsed) {
-					_this.getAlphaSeatPtrn();
-				}
-				
 				// 좌석맵설정 
 				_this.setSeatDispInfo("seat"	, "seatRows");
 				_this.setSeatDispInfo("seat"	, "seatCharge");
@@ -57,10 +53,6 @@ var commSeatApi	= {
 					_this.setSeatDispInfo("seat"	, "areaPreview");
 				} catch (e) {
 					_this.setSeatDispInfo("seat"	, "basicPreview");
-				}
-
-				if (somePurchsed) {
-					_this.setSeatDispInfo("seat", "semiRcmnd");
 				}
 
 				deferred.resolve("seat-policy-valid-response");
