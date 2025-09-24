@@ -93,29 +93,27 @@ var commSeatApi	= {
 	// ##################################################################################################
 	,setSeatDispInfo	: function(cantainer, target, data) {
 		var	_this		= this;
-		
 		var segIdx		= _this.config.SEG_IDX;
-		var airType		= _this.config.SEG_INFO.airType.toLowerCase();
 		
 		var applyTarget	= commSeatDisp.getApplyTarget(cantainer, target, segIdx);
 		var	html		= "";
 		
 		switch (target) {
 			case "seatRows"	:
-				if (typeof(window[airType+"AlphaDisp"].updateSeatRowsHtml) == "function") {
-					window[airType+"AlphaDisp"].updateSeatRowsHtml(segIdx, _this.config.SEAT_INFO);
+				if (typeof(jinAlphaDisp.updateSeatRowsHtml) == "function") {
+					jinAlphaDisp.updateSeatRowsHtml(segIdx, _this.config.SEAT_INFO);
 				}
 				break;
 			case "seatCharge"	:
-				if (typeof(window[airType+"AlphaDisp"].updateSeatChargeHtml) == "function") {
-					window[airType+"AlphaDisp"].updateSeatChargeHtml(segIdx, _this.config.SEAT_INFO);
+				if (typeof(jinAlphaDisp.updateSeatChargeHtml) == "function") {
+					jinAlphaDisp.updateSeatChargeHtml(segIdx, _this.config.SEAT_INFO);
 				} else {
 					commSeatDisp.updateSeatChargeHtml(segIdx, _this.config.SEAT_INFO);
 				}
 				break;
 			case "noMask"	:
-				if (typeof(window[airType+"AlphaDisp"].updateInfantNoMaskMapHtml) == "function") {
-					window[airType+"AlphaDisp"].updateInfantNoMaskMapHtml(segIdx, _this.config.PAX_INFO, _this.config.SEAT_INFO);
+				if (typeof(jinAlphaDisp.updateInfantNoMaskMapHtml) == "function") {
+					jinAlphaDisp.updateInfantNoMaskMapHtml(segIdx, _this.config.PAX_INFO, _this.config.SEAT_INFO);
 				}
 				break;
 			case "areaPreview"	:
