@@ -988,16 +988,19 @@ $(document).ready(function () {
     slider.style.transform = `translateX(-${currentIndex * 300}px)`;
   }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('.demos_boxs').forEach(box => {
-    box.addEventListener('click', () => {
-      document.querySelectorAll('.demos_boxs').forEach(b => b.classList.remove('active'));
-      box.classList.add('active');
-    });
-  });
+  $(document).on("click", ".bag_slider_box .demos_boxs", function () {
+  // 현재 클릭한 박스가 속한 그룹만 초기화
+  var $group = $(this).closest(".bag_slider_box");
+  $group.find(".demos_boxs").removeClass("active");
+  $(this).addClass("active");
 });
 
+$(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
+  // 현재 클릭한 박스가 속한 그룹만 초기화
+  var $group = $(this).closest(".bag_slider_name_box");
+  $group.find(".demos_boxs").removeClass("active");
+  $(this).addClass("active");
+});
 
 $(document).on("click", ".btn_bags_open", function () {
 	$(".ags_bags_contents").addClass("active");
@@ -1014,4 +1017,32 @@ $(document).on("click", ".btn_bags_close", function () {
 	
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");
+});
+
+/*첫번째 팝업 닫기*/
+$(document).on("click", ".footer-first_close, .close_btn_1", function () {
+    $(".footer-first-pop").removeClass("active");
+    $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
+	$("body").css("overflow", "");
+	$("html").css("overflow", "");
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  let num = 1;
+  let counter = document.getElementById("counter0");
+  let interval = setInterval(() => {
+    counter.textContent = String(num).padStart(2, "0"); 
+    if (num === 28) clearInterval(interval);
+    num++;
+  }, 100); // 0.1초 간격
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  let num = 1;
+  let counter = document.getElementById("counter");
+  let interval = setInterval(() => {
+    counter.textContent = String(num).padStart(2, "0"); 
+    if (num === 25) clearInterval(interval);
+    num++;
+  }, 100); // 0.1초 간격
 });
