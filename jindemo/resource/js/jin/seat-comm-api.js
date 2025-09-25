@@ -20,15 +20,15 @@ var commSeatApi	= {
 			_this.config.SEAT_INFO.seatList	= chargeData.seatMap.seatRowList.reduce((acc,cur) => acc.concat(cur.seatInfoList), []);
 			_this.config.SEAT_INFO.seatObj	= chargeData.seatMap.seatRowList.reduce((acc,cur) => { cur.seatInfoList.forEach((seat) => acc[seat.row+'-'+seat.col] = seat); return acc; }, {});
 			_this.config.SEAT_INFO.acType	= chargeData.seatMap.acType || "";
-			
+
 			var reqList		= [];
 			
-			reqList.push(_this.reqWeightInfo());
+			reqList.push(_this.reqWeightInfo(paxCnt));
 			
 			// avail reqList responses
 			$.when.apply($, reqList).then(function(weightData) {
 				_this.config.PTRN_INFO			= weightData;
-				
+
 				// rowIdx,colIdx,blockIdx 설정 
 				_this.getAlphaSeatConfig();
 				
@@ -39,9 +39,7 @@ var commSeatApi	= {
 				_this.getAlphaSeatPtrn();
 				
 				// 좌석맵설정 
-				_this.setSeatDispInfo("seat"	, "seatRows");
 				_this.setSeatDispInfo("seat"	, "seatCharge");
-				_this.setSeatDispInfo("seat"	, "noMask");
 				
 				if (paxCnt <= 1) {
 					_this.setSeatDispInfo("seat", "basicSelt");
@@ -69,7 +67,7 @@ var commSeatApi	= {
 		var _this		= this;
 		var deferred	= $.Deferred();
 		
-		fetch(_this.config.pathInfo.seatChargePath).then((res) => {
+		fetch(_this.config.pathInfo.seatChargePath+".json").then((res) => {
 			return res.json();
 		}).then((data) => {
 			deferred.resolve(data);
@@ -79,11 +77,17 @@ var commSeatApi	= {
 	}
 	// 가중치 정보조회
 	// ##################################################################################################
-	,reqWeightInfo	: function() {
+	,reqWeightInfo	: function(paxCnt) {
 		var _this			= this;
 		var deferred		= $.Deferred();
 		
-		fetch(_this.config.pathInfo.seatWeightPath).then((res) => {
+		var weightPath		= _this.config.pathInfo.seatWeightPath+"-weight-"+paxCnt+".json";
+		
+		if (paxCnt > 9) {
+			weightPath		= _this.config.pathInfo.seatWeightPath+"-weight-10.json"	
+		} 
+		
+		fetch(weightPath).then((res) => {
 			return res.json();
 		}).then((data) => {
 			deferred.resolve(data);
@@ -101,22 +105,8 @@ var commSeatApi	= {
 		var	html		= "";
 		
 		switch (target) {
-			case "seatRows"	:
-				if (typeof(jinAlphaDisp.updateSeatRowsHtml) == "function") {
-					jinAlphaDisp.updateSeatRowsHtml(segIdx, _this.config.SEAT_INFO);
-				}
-				break;
 			case "seatCharge"	:
-				if (typeof(jinAlphaDisp.updateSeatChargeHtml) == "function") {
-					jinAlphaDisp.updateSeatChargeHtml(segIdx, _this.config.SEAT_INFO);
-				} else {
-					commSeatDisp.updateSeatChargeHtml(segIdx, _this.config.SEAT_INFO);
-				}
-				break;
-			case "noMask"	:
-				if (typeof(jinAlphaDisp.updateInfantNoMaskMapHtml) == "function") {
-					jinAlphaDisp.updateInfantNoMaskMapHtml(segIdx, _this.config.PAX_INFO, _this.config.SEAT_INFO);
-				}
+				commSeatDisp.updateSeatChargeHtml(segIdx, _this.config.SEAT_INFO);
 				break;
 			case "areaPreview"	:
 				html	= commSeatDisp.getAreaPreviewMapHtml(segIdx, _this.config.SEAT_INFO.seatList, _this.config.PTRN_INFO.areaZoneInfoMap);
