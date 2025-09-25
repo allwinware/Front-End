@@ -57,7 +57,7 @@ var jinAlphaApi	= {
 		
 		var paxList		= _this.config.PAX_INFO.paxList.filter((e) => !(e.airService && e.airService.seat && e.airService.seat.some((seat) => seat.segmentId == _this.config.SEG_INFO.segmentId)));
 		var selRcmnd	= _this.config.PAX_INFO.selRcmnd;
-		
+
 		// ### 추천패턴 초기화 ###
 		if (selRcmnd) {
 			_this.cancAlphaSeat(type);
@@ -68,7 +68,7 @@ var jinAlphaApi	= {
 
 		var rcmndSeatList	= rcmndInfo.findPtrn;
 		var noAdtList		= paxList.filter(function(item){ return (item.guardianYn == "Y" || item.paxType != "ADT" || (item.paxType == "ADT" && ((item.age) ? item.age < 15 : false)) )});
-console.log("noAdtList", noAdtList)
+
 		// 유아동반 및 소아 승객 좌석배정
 		if (noAdtList.length > 0) {
 			noAdtLoop:
@@ -117,7 +117,7 @@ console.log("noAdtList", noAdtList)
 				if (selCheck) {
 					continue;
 				}
-				console.log("type", type);
+
 				// 좌석 구매처리
 				if (_this.selSeat(paxInfo, seatInfo, type)) {
 					continue paxLoop;
@@ -219,6 +219,6 @@ console.log("noAdtList", noAdtList)
 		}
 		
 		// 좌석 Element 설정
-//		seatEl.removeClass("seat_active seat_active_pink").find("span").show();
+		seatEl.removeClass("seat_active seat_active_pink").find("span").show();
 	}
 }

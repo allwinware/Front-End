@@ -158,6 +158,8 @@ var commSeatDisp	= {
 		
 		var seatMap	= _this.getApplyTarget("seat", "seatMap", segIdx);
 		
+		seatMap.find("[seatno]").removeClass("seat_orange");
+		
 		// 추천좌석 적용
 		for (var i=0; i<rcmndInfo.length; i++) {
 			var rcmnd		= rcmndInfo[i];
