@@ -45,7 +45,7 @@
 				<div class="gnb-jinlogo"></div>
 			</div>	
 					
-			<div class="select_boxbtn" >
+			<div class="select_boxbtn">
 				<div class="select_backbtn active" flyInfo="1">
 					<button id="ags-wrap-back" class="btn_back_c">
 						<div class="boxbtn_flyb">
@@ -855,6 +855,80 @@
 				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, jinAlphaApi, jinAlphaPtrn, {config: configObj, svcList: svcList});
 				_this.segCtls["seg"+segIdx+"AlphaCtl"].init();
 			},
+			// 여정탭변경
+			flyTabChange	: function(segIdx) {
+				var _this	= this;
+
+				var segCtl			= _this.getSegCtl(segIdx);
+				var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var isZoomIn		= seatMap.find(".seat_sheet").hasClass("scale");
+				var selMode			= seatMap.data("mode");
+				
+				// 좌석맵 css 초기화
+				commSeatDisp.getApplyTarget("seat", "seatMap").attr("style", "");
+			
+				// 다음버튼 css 초기화
+				$("[footerBtn=shift]").removeClass("active");
+				
+				// 가는편,오는편 슬라이드
+				if (segIdx == 1) {
+					$(".contents").removeClass("active");
+				} else {
+					$(".contents").addClass("active");
+				}
+				
+				var selSeat		= segCtl.config.PAX_INFO.paxList.some(function(item){ return item.selSeat });
+				var rcmndInfo	= segCtl.config.RCMND_INFO;
+				
+				if (isZoomIn) {
+					$(".header_txt_btn").show();
+					seatMap.attr("style", "height: 100%; margin-bottom: 100px;");
+					$(".demo_popup1").hide();
+					$(".ags-summary").show();
+				} else {
+					$(".header_txt_btn").hide();
+					seatMap.css("height", $("header").height() + seatMap.find(".seat_sheet").height()*0.3 + seatMap.find(".airplane_loca > div:last").height()+"px");
+					$(".demo_popup1").show();
+					$(".ags-summary").hide();
+				}
+				
+				if (selSeat) {
+					$("[footerBtn=shift]").addClass("active");
+				}
+				
+				// 버튼처리
+				switch (selMode) {
+					case "rcmnd"	:
+						$("[autoRcmndBtn]").parent().hide();
+						$("[assignRcmndBtn]").parent().hide();
+						break;
+					case "assign"	:
+						if (segCtl.config.RCMND_INFO.length > 0) {
+							$("[autoRcmndBtn]").parent().show();
+						}
+						$("[assignRcmndBtn]").parent().hide();
+						break;
+					case "each"	:
+						if (segCtl.config.ASSIGN_INFO.length > 0) {
+							$("[assignRcmndBtn]").parent().show();
+						} 
+						else if (segCtl.config.RCMND_INFO.length > 0) {
+							$("[autoRcmndBtn]").parent().show();
+						}
+						else {
+							$("[autoRcmndBtn]").parent().hide();
+						}
+						break;
+				}
+
+				_this.onClosePopup();
+				
+				commSeatDisp.getApplyTarget("purchase", "[paxCnt]").text(segCtl.config.PAX_INFO.paxList.length);
+				commSeatDisp.getApplyTarget("purchase", "[flyInfo="+segIdx+"]").siblings().removeClass("active");
+				commSeatDisp.getApplyTarget("purchase", "[flyInfo="+segIdx+"]").addClass("active");
+				
+// 				$(".ags-foods-group").removeClass("active");
+			},
 			// 프리뷰 확대	
 			previewZoomIn	: function(segIdx, seatNo, areaCd) {
 				var _this	= this;
@@ -985,9 +1059,8 @@
 				var _this			= this;
 
 				var segCtl			= _this.getSegCtl(segIdx);
-				var segInfo			= segCtl.config.SEG_INFO;
 				var paxInfo			= segCtl.config.PAX_INFO;
-				var paxList			= paxInfo.paxList.filter((e) => !(e.airService && e.airService.seat && e.airService.seat.some((seat) => seat.segmentId == segInfo.segmentId)));
+				var paxList			= paxInfo.paxList;
 				
 				var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
 				var selSeatMap		= commSeatDisp.getApplyTarget("popup", "selSeatMap", segIdx);
@@ -1706,6 +1779,20 @@
 				return segCtl;
 			}
 		}
+		
+		// 여정리스트 클릭
+		$(document).on("click", ".select_boxbtn > div", function(e){
+			var segIdx		= $(this).attr("flyInfo");
+			var isActive	= $(this).hasClass("active");
+			
+			if (isActive) {
+				return;
+			}
+			console.log("segIdx", segIdx);
+			apiCtl.flyTabChange(segIdx);
+			$(".btn_foods_close").trigger("click");
+			e.stopPropagation();
+		});
 		
 		// 전체좌석 클릭
 		$(document).on("click", ".header_txt_btn", function(e){
