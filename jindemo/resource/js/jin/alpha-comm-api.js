@@ -29,6 +29,9 @@ var commAlphaApi = {
 		$.when.apply($, reqList).then(() => {
 			deferred.resolve("init-response");
 		})
+
+		// paxCnt 설정
+		$(".foot_align [paxCnt]").text(_this.config.PAX_INFO.paxList.length);
 		
 		return deferred.promise();
 	}
