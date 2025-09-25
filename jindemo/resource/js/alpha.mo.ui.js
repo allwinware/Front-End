@@ -302,14 +302,21 @@ $(document).ready(function () {
 
 
 	/*demo*/
-	$(document).on("click", ".btn_group_open_twst", function () {
-		$(".ags-summary-group").addClass("active");	
-		$(".ags-summary-group").css("display", "block");				
+	$(document).on("click", ".btn_demo_pop01", function () {
+		$(".footer-first-pop").addClass("active");					
 		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
 		$("body").css("overflow", "hidden");
 		$("html").css("overflow", "hidden");
 		
 	});
+	$(document).on("click", ".btn_demo_pop02", function () {
+		$(".footer-twst-pop").addClass("active");					
+		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
+		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
+		
+	});
+
 
 	/*푸터 그룹 팝업*/
 	$(document).on("click", ".btn_group_open", function () {
@@ -541,39 +548,76 @@ $(document).ready(function () {
 		return false;
 	});
 	$(document).on("click",".trigger_2", function () {
-		console.log("trigger_2");
-		$('.scale_type_2').toggleClass('scale');
-		$('.scale_type_2').css('top', '0px');
+		console.log("trigger_1");
+	
+		/*추가 20240415*/
+		$('.travelandtime').fadeOut();
+	
+		/*추가 20240508*/
+		$('.slider2 .seat_sheet_price_txt').hide();
+		$('.slider2 .seat_sheet_touch_newtxt').hide();
+		$('.slider2 .finger_mov').hide();
+		
+		/*--------------------------------------------*/
+	
+		$('.scale_type_1').toggleClass('scale');
+		$('.scale_type_1').css('top', '0px');
 		$('.contents').css('overflow-y', 'scroll');
-		$('.seat_sheet_bg.ac2').css('height', '100%');
+		$('.seat_sheet_bg.ac1').css('height', '100%');
+		$('.seat_sheet_bg.ac1').css('margin-bottom', '100px');
 		
-		$('.slider2 .seat_sheet_number').remove();
-		$('.slider2 .seat_sheet_abcdef').remove();
-		$('.slider2 .airplane_bg').remove();		
+		setTimeout(function(){
+			$('.ags-summary').fadeIn();
+		},500);
+		
+		$('.slider2 .seat_sheet_number').hide();
+		$('.slider2 .seat_sheet_abcdef').hide();
+		$('.slider2 .seat_sheet_A333').hide();
+		$('.slider2 .airplane_bg_front_jeju').hide();
+		$('.slider2 .airplane_bg_end_jeju').hide();
+		$('.slider2 .airplane_bg_front_busan').hide();
+		$('.slider2 .airplane_bg_end_busan').hide();
+	
+		$('.slider2 .airplane_bg_front_tway').hide();
+		$('.slider2 .airplane_bg_end_tway').hide();
+	
+		$('.slider2 .airplane_bg_front_yp_HL838').hide();
+		$('.slider2 .airplane_bg_end_yp_HL838').hide();
+	
+		$('.slider2 .airplane_bg_front_yp_HL851').hide();
+		$('.slider2 .airplane_bg_end_yp_HL851').hide();
+		
+		$('.slider2 .airplane_bg_front').hide();
+		$('.slider2 .airplane_bg_end').hide();
+	
+		$('.slider2 .airplane_bg_front_jinair').hide();
+		$('.slider2 .airplane_bg_end_jinair').hide();
+	
+		$('.slider2 .airplane_bg_end').hide();
+		$('.slider2 .airplane_bg').hide();
+		$('.slider2 .popup_infor').hide();
+		
+		$('.slider2 .seat_sheet_price_box').hide();
+		$('.slider2 .seat_sheet_recom_box').hide();
+		$('.slider2 .seat_sheet_loading').hide();
+		$('.travel_logo').hide();
+		$('.air_time').hide();
+	
+		$('.slider2 .seat_sheet_touch_v1').hide();
+		$('.slider2 .seat_sheet_touch_v2').hide();
+		$('.slider2 .seat_sheet_touch_v3').hide();
+		$('.slider2 .digital_loading').hide();
+	
+		$('.seat_sheet_touch_v0').hide();
+		$('.seat_sheet_touch_v00').hide();		
+		
+		$('.trigger_2').hide();
+		$('.trigger_2_1').fadeIn();
+	
+		$('.demo_popup1').hide();
 		
 		
-		$('.slider2 .airplane_bg_front_jeju').remove();
-		$('.slider2 .airplane_bg_end_jeju').remove();
-		$('.slider2 .airplane_bg_front_busan').remove();
-		$('.slider2 .airplane_bg_end_busan').remove();
-
-		$('.slider2 .airplane_bg_end').remove();
-		$('.slider2 .seat_sheet_price_box').remove();
-		$('.slider2 .seat_sheet_recom_box').remove();
-		$('.slider2 .seat_sheet_loading').remove();
-		$('.slider2 .popup_infor').remove(); 
-		$('.air_logo').remove();
-		$('.air_time').remove();
-
-		$('.slider2 .seat_sheet_touch_v1').remove();		
-		$('.slider1 .seat_sheet_touch_v2').remove();
-		$('.slider1 .seat_sheet_touch_v3').remove();
-		$('.slider2 .digital_loading').remove();
-		
-		$('.seat_sheet_touch_v0').remove();
-		$('.seat_sheet_touch_v00').remove();
-		
-		$(this).remove();
+        $(".boxbox_text1").css("display", "block");
 
 		seatCtl.setScrollEvent();
 		return false;
@@ -1025,24 +1069,4 @@ $(document).on("click", ".footer-first_close, .close_btn_1", function () {
     $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  let num = 1;
-  let counter = document.getElementById("counter0");
-  let interval = setInterval(() => {
-    counter.textContent = String(num).padStart(2, "0"); 
-    if (num === 28) clearInterval(interval);
-    num++;
-  }, 100); // 0.1초 간격
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  let num = 1;
-  let counter = document.getElementById("counter");
-  let interval = setInterval(() => {
-    counter.textContent = String(num).padStart(2, "0"); 
-    if (num === 25) clearInterval(interval);
-    num++;
-  }, 100); // 0.1초 간격
 });
