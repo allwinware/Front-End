@@ -593,7 +593,7 @@
 					<div class="btf_a_txt">누적 15,000 절약중</div>
 				</div>
 				<div class="btf_bbtn" footerBtn="shift">
-					<div class="btn_demo_pop01">다음</div>
+					<div>다음</div>
 				</div>				
 			</div>			
 			<div class="footer_contents">				
@@ -670,22 +670,23 @@
 		
 		<!-- 3:3 팝업 btn_demo_pop01-->
 
-		<div class="footer-first" >
+		<div class="footer-first">
 			<div class="footer-first-pop">
 				<div class="footer-first_close">닫힘</div>			
-				<div class="mrt_popupimg"></div>
+				<div class="mrt_popupimg2"></div>
+				<div class="mrt_popupimg3"></div>
 				<div class="pay_pay_footer close_btn_1">					
-					<button id="ags-wrap" class="btn_come_c">다음</button>					
+					<button class="btn_come_c">다음</button>					
 				</div>
 			</div>
 		</div>
 		<!-- 3:4:3 팝업btn_demo_pop02 -->
-		<div class="footer-twst" >
+		<div class="footer-twst">
 			<div class="footer-twst-pop">
 				<div class="footer-first_close">닫힘</div>			
-				<div class="mrt_popupimg"></div>
-				<div class="pay_pay_footer close_btn_1">					
-					<button id="ags-wrap" class="btn_come_c">다음</button>					
+				<div class="mrt_popupimg3"></div>
+				<div class="pay_pay_footer close_btn_1" onclick="window.location.href='service_food.html';">					
+					<button class="btn_come_c">다음</button>					
 				</div>
 			</div>
 		</div>
@@ -1788,7 +1789,7 @@
 			if (isActive) {
 				return;
 			}
-			console.log("segIdx", segIdx);
+			
 			apiCtl.flyTabChange(segIdx);
 			$(".btn_foods_close").trigger("click");
 			e.stopPropagation();
@@ -1861,6 +1862,44 @@
 			apiCtl.onSelSeatClean(segIdx);
 			apiCtl.onSeatMapTypeChange(segIdx, "assign");
 // 			segCtl.setAlphaDispInfo("purchase", "footerDtInfo");
+		});
+		
+		// 다음버튼 클릭
+		$(document).on("click", "[footerBtn=shift]", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			var segCtl		= apiCtl.getSegCtl(segIdx);
+			var paxInfo		= segCtl.config.PAX_INFO;
+			var isSelSeat	= paxInfo.paxList.some(function(item){ return item.selSeat }); 
+			
+			// 선택확정 체크
+			if (!isSelSeat) {
+				return;
+			}
+			
+			if (segIdx == 1) {
+				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg2").show();
+			} else {
+				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg3").show();
+			}
+			
+			$(".footer-first-pop").addClass("active");
+			$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
+			$("body").css("overflow", "hidden");
+			$("html").css("overflow", "hidden");
+			
+			e.stopPropagation();
+		});
+		
+		
+		// 선택완료 > 다음버튼 클릭
+		$(document).on("click", ".footer-first .pay_pay_footer", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			console.log("segIdx", segIdx);
+			if (segIdx == 1) {
+				apiCtl.flyTabChange(2);
+			} else {
+				window.location.href = "service_food.html";
+			}
 		});
 		
 		
