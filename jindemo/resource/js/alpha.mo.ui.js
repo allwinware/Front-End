@@ -227,36 +227,36 @@ $(document).ready(function () {
 
 	/*좌석선택 오렌지*/
 
-	$(document).on("click", ".seat_btn", function () {
-		var isActive	= $(this).hasClass("seat_active");
-		if (isActive) {
-			$(this).removeClass("seat_active").find("span").show();
-		} else {
-			$(this).addClass("seat_active").find("span").hide();;
-		}
-	});
+//	$(document).on("click", ".seat_btn", function () {
+//		var isActive	= $(this).hasClass("seat_active");
+//		if (isActive) {
+//			$(this).removeClass("seat_active").find("span").show();
+//		} else {
+//			$(this).addClass("seat_active").find("span").hide();;
+//		}
+//	});
 
 	/*좌석선택 블루*/
 
-	$(document).on("click", ".seat_btn_blue", function () {
-		var isActive	= $(this).hasClass("seat_active_blue");
-		if (isActive) {
-			$(this).removeClass("seat_active_blue").find("span").show();
-		} else {
-			$(this).addClass("seat_active_blue").find("span").hide();;
-		}
-	});
+//	$(document).on("click", ".seat_btn_blue", function () {
+//		var isActive	= $(this).hasClass("seat_active_blue");
+//		if (isActive) {
+//			$(this).removeClass("seat_active_blue").find("span").show();
+//		} else {
+//			$(this).addClass("seat_active_blue").find("span").hide();;
+//		}
+//	});
 
 	/*좌석선택 핑크*/
 
-	$(document).on("click", ".seat_btn_pink", function () {
-		var isActive	= $(this).hasClass("seat_active_pink");
-		if (isActive) {
-			$(this).removeClass("seat_active_pink").find("span").show();
-		} else {
-			$(this).addClass("seat_active_pink").find("span").hide();;
-		}
-	});
+//	$(document).on("click", ".seat_btn_pink", function () {
+//		var isActive	= $(this).hasClass("seat_active_pink");
+//		if (isActive) {
+//			$(this).removeClass("seat_active_pink").find("span").show();
+//		} else {
+//			$(this).addClass("seat_active_pink").find("span").hide();;
+//		}
+//	});
 
 	/*gnb 팝업 정의*/
 	$(document).on("click", "#btn_gnb", function () {
