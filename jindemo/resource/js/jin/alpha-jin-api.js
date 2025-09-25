@@ -173,9 +173,6 @@ console.log("noAdtList", noAdtList)
 			return false;
 		}
 		
-		console.log("paxInfo", paxInfo);
-		console.log("seatInfo", seatInfo);
-		
 		// ### 좌석 구매 ###
 		_this.setSeatPurchsInfo("seat", paxInfo, seatInfo);
 		
