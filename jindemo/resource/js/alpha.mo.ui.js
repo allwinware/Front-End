@@ -225,38 +225,16 @@ $(document).ready(function () {
 	});
 
 
-	/*좌석선택 오렌지*/
+	/*좌석선택 */
 
-//	$(document).on("click", ".seat_btn", function () {
-//		var isActive	= $(this).hasClass("seat_active");
-//		if (isActive) {
-//			$(this).removeClass("seat_active").find("span").show();
-//		} else {
-//			$(this).addClass("seat_active").find("span").hide();;
-//		}
-//	});
-
-	/*좌석선택 블루*/
-
-//	$(document).on("click", ".seat_btn_blue", function () {
-//		var isActive	= $(this).hasClass("seat_active_blue");
-//		if (isActive) {
-//			$(this).removeClass("seat_active_blue").find("span").show();
-//		} else {
-//			$(this).addClass("seat_active_blue").find("span").hide();;
-//		}
-//	});
-
-	/*좌석선택 핑크*/
-
-//	$(document).on("click", ".seat_btn_pink", function () {
-//		var isActive	= $(this).hasClass("seat_active_pink");
-//		if (isActive) {
-//			$(this).removeClass("seat_active_pink").find("span").show();
-//		} else {
-//			$(this).addClass("seat_active_pink").find("span").hide();;
-//		}
-//	});
+	$(document).on("click", ".seat_btn", function () {
+		var isActive	= $(this).hasClass("seat_active");
+		if (isActive) {
+			$(this).removeClass("seat_active").find("span").show();
+		} else {
+			$(this).addClass("seat_active").find("span").hide();;
+		}
+	});
 
 	/*gnb 팝업 정의*/
 	$(document).on("click", "#btn_gnb", function () {
@@ -1020,32 +998,6 @@ $(document).ready(function () {
 	}
   });
 
-
-  let currentIndex = 0;
-  const slider = document.getElementById('slider');
-  const totalSlides = document.querySelectorAll('.slide_de').length;
-
-  function moveSlide(direction) {
-    currentIndex += direction;
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex > totalSlides - 1) currentIndex = totalSlides - 1;
-    slider.style.transform = `translateX(-${currentIndex * 300}px)`;
-  }
-
-  $(document).on("click", ".bag_slider_box .demos_boxs", function () {
-  // 현재 클릭한 박스가 속한 그룹만 초기화
-  var $group = $(this).closest(".bag_slider_box");
-  $group.find(".demos_boxs").removeClass("active");
-  $(this).addClass("active");
-});
-
-$(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
-  // 현재 클릭한 박스가 속한 그룹만 초기화
-  var $group = $(this).closest(".bag_slider_name_box");
-  $group.find(".demos_boxs").removeClass("active");
-  $(this).addClass("active");
-});
-
 $(document).on("click", ".btn_bags_open", function () {
 	$(".ags_bags_contents").addClass("active");
 	
@@ -1069,4 +1021,245 @@ $(document).on("click", ".footer-first_close, .close_btn_1", function () {
     $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");
+});
+
+
+
+
+
+/*bagggage*/
+let lastSelectedQty = null; // 마지막 선택한 수량 저장
+
+// 개별 사람 선택
+$(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
+  var $group = $(this).closest(".bag_slider_name_box");
+  var $thisQty = $(this).find(".demos_boxs_tx1").text();
+
+  if ($(this).hasClass("active")) {
+    // 이미 선택된 버튼 클릭 -> 해제
+    $(this).removeClass("active");
+    $group.find(".bag_slider_name_box_1 .fst div:last").text("합 0개");
+    lastSelectedQty = null;
+  } else {
+    // 기존 선택 해제 후 클릭한 것만 active
+    $group.find(".demos_boxs").removeClass("active");
+    $(this).addClass("active");
+
+    lastSelectedQty = $thisQty;
+    $group.find(".bag_slider_name_box_1 .fst div:last").text("합 " + lastSelectedQty);
+  }
+  
+  // 전원 통일하기 체크박스가 체크되어 있으면 옆 텍스트 업데이트
+  $("#check5").siblings("label").find("span.blue_text").text((lastSelectedQty || "0개") + "로 ");
+  $("#check6").siblings("label").find("span.blue_text").text((lastSelectedQty || "0개") + "로 ");
+});
+
+// 전원 통일하기 (check5, check6)
+$(document).on("change", "#check5, #check6", function () {
+  let $this = $(this);
+
+  if ($this.is(":checked")) {
+    if (!lastSelectedQty) {
+      alert("수하물을 눌러주세요");
+      $this.prop("checked", false); // 체크 해제
+      return;
+    }
+
+    // 다른 체크박스는 해제
+    if ($this.attr("id") === "check5") {
+      $("#check6").prop("checked", false);
+    } else {
+      $("#check5").prop("checked", false);
+    }
+
+    // 전체 사람 블록 반복
+    $(".bag_slider_name_box").each(function () {
+      var $group = $(this);
+
+      // active 초기화
+      $group.find(".demos_boxs").removeClass("active");
+
+      // lastSelectedQty와 같은 버튼 찾기
+      $group.find(".demos_boxs").each(function () {
+        if ($(this).find(".demos_boxs_tx1").text() === lastSelectedQty) {
+          $(this).addClass("active");
+        }
+      });
+
+      // 합 텍스트 업데이트
+      $group.find(".bag_slider_name_box_1 .fst div:last").text("합 " + lastSelectedQty);
+    });
+
+    // 전원 통일하기 옆 텍스트 변경
+    $this.siblings("label").find("span.blue_text").text(lastSelectedQty + "로 ");
+  } else {
+    // 체크 해제 시 모든 선택과 합계 초기화
+    $(".bag_slider_name_box").each(function () {
+      var $group = $(this);
+      $group.find(".demos_boxs").removeClass("active");
+      $group.find(".bag_slider_name_box_1 .fst div:last").text("합 0개");
+    });
+    lastSelectedQty = null;
+    $this.siblings("label").find("span.blue_text").text("");
+  }
+});
+
+
+
+let selectedOption = null; // 현재 선택된 옵션 (예: "+10KG(KRW 130,000)")
+let selectedWeight = null; // KG 값만 따로 저장 (예: "10KG")
+
+// 위 슬라이드 옵션 클릭 시
+$(document).on("click", ".bag_slider_box .demos_boxs", function () {
+  var $group = $(this).closest(".bag_slider_box");
+  $group.find(".demos_boxs").removeClass("active");
+  $(this).addClass("active");
+
+  // 선택한 값 저장
+  selectedWeight = $(this).find(".demos_boxs_tx1").text();
+  let price = $(this).find(".demos_boxs_tx2").text();
+  selectedOption = `${selectedWeight}(${price})`;
+
+  // "전원 통일하기" 옆 텍스트 업데이트
+  $(".bag_txt_same .blue_text").text(selectedWeight);
+});
+
+// 개별 '추가하기' 클릭 시
+$(document).on("click", ".bag_slider_name_box_2", function () {
+  if (!selectedOption) {
+    alert("먼저 위에서 수하물 옵션을 선택해주세요.");
+    return;
+  }
+  let $box = $(this).closest(".bag_slider_name_box");
+  applyOptionToBox($box, selectedOption);
+});
+
+// X 버튼 클릭 시
+$(document).on("click", ".bag_slider_name_box_2_1_img", function () {
+  let $box = $(this).closest(".bag_slider_name_box");
+  $box.find(".bag_slider_name_box_2_1").remove();
+  $box.find(".bag_slider_name_box_2").show();
+});
+
+// 전원 통일하기 체크/해제 시 (여기 중요!!)
+$(document).on("change", "#check1", function () {
+  if ($(this).is(":checked")) {
+    if (selectedOption) {
+      applyToAll(selectedOption);
+    } else {
+      alert("먼저 위에서 수하물 옵션을 선택해주세요.");
+      $(this).prop("checked", false); // 선택 없으면 다시 해제
+    }
+  } else {
+    resetAll();
+  }
+});
+
+// ✅ 개별 박스에 옵션 적용하는 함수
+function applyOptionToBox($box, optionText) {
+  $box.find(".bag_slider_name_box_2").hide();
+  $box.find(".bag_slider_name_box_2_1").remove();
+  $box.append(`
+    <div class="bag_slider_name_box_2_1">
+      <div class="bag_slider_name_box_2_1_txt">${optionText}</div>
+      <div class="bag_slider_name_box_2_1_img"></div>
+    </div>
+  `);
+}
+
+// ✅ 전체 적용 함수
+function applyToAll(optionText) {
+  $(".bag_slider_name_box").each(function () {
+    let $box = $(this);
+    applyOptionToBox($box, optionText);
+  });
+}
+
+// ✅ 전체 초기화 함수
+function resetAll() {
+  $(".bag_slider_name_box").each(function () {
+    let $box = $(this);
+    $box.find(".bag_slider_name_box_2_1").remove();
+    $box.find(".bag_slider_name_box_2").show();
+  });
+}
+
+/************************************** */
+$(document).ready(function() {
+    $('.btn_foods_open').on('change', function() {
+        var $this = $(this);
+        var menuName = $this.closest('li').find('.foodsfst_txt1').clone()  // clone 해서 원본 건드리지 않음
+            .children('span').remove().end()  // 자식 span 제거
+            .text().trim();  // 텍스트만 가져오기
+        var selectedMenu = menuName;
+
+        if ($this.prop('checked')) {
+            var activeCount = $('.demos_chk_box.active').length;
+            var totalCount = $('.demos_chk_box').length;
+
+            if (activeCount < totalCount) {
+                var $targetBox = $('.demos_chk_box').not('.active').first();
+
+                $targetBox.find('div:last').text(menuName);
+                $targetBox.addClass('active');
+                $targetBox.find('.boy_face1').addClass('active');
+                $targetBox.find('.chk_box_boxbox').show();
+            }
+
+            $('#check9').prop('checked', false);
+        } else {
+            var index = $this.closest('li').index();
+            $('.demos_chk_box').eq(index).removeClass('active');
+            $('.demos_chk_box').eq(index).find('.boy_face1').removeClass('active');
+            $('.demos_chk_box').eq(index).find('.chk_box_boxbox').hide();
+            $('.demos_chk_box').eq(index).find('div:last').text('');
+        }
+		/* 이거 클릭했을때 순서 변하기- 일단 순서변하면 클릭이 안됨.
+        if (menuName === "소시지 오므라이스" && $this.prop('checked')) {
+            var $ul = $this.closest('ul');
+            var $lis = $ul.children('li');
+            var $li345 = $lis.slice(2, 5);
+            var $li12 = $lis.slice(0, 2);
+
+            $ul.empty();
+            $li345.each(function () { $ul.append(this); });
+            $li12.each(function () { $ul.append(this); });
+        }
+			*/
+    });
+
+    $('.demos_chk_box').on('click', function () {
+        var $this = $(this);
+        if ($this.hasClass('active')) {
+            $this.removeClass('active');
+            $this.find('.boy_face1').removeClass('active');
+            $this.find('.chk_box_boxbox').hide();
+            $this.find('div:last').text('');
+            var idx = $this.index();
+            $('.btn_foods_open').eq(idx).prop('checked', false);
+        }
+    });
+
+    $('#check9').on('change', function () {
+        if ($(this).is(':checked')) {
+            var pickedMenu = $('.btn_foods_open:checked').first().closest('li').find('.foodsfst_txt1').clone()
+                .children('span').remove().end().text().trim();
+            if (pickedMenu === '') return;
+            $('.demos_chk_box').addClass('active');
+            $('.chk_box_boyface span').addClass('active');
+            $('.chk_box_boxbox').show();
+            $('.demos_chk_box').each(function () {
+                $(this).find('div:last').text(pickedMenu);
+            });
+            $('.btn_foods_open').prop('checked', true);
+        } else {
+            $('.demos_chk_box').removeClass('active');
+            $('.chk_box_boyface span').removeClass('active');
+            $('.chk_box_boxbox').hide();
+            $('.demos_chk_box').each(function () {
+                $(this).find('div:last').text('');
+            });
+            $('.btn_foods_open').prop('checked', false);
+        }
+    });
 });
