@@ -1001,8 +1001,6 @@
 					
 					// 말풍선
 					if (selMode == "rcmnd" && seatMapEl.find(".boxbox_text1").length > 0) {
-						seatMapEl.find(".boxbox_text1").css("top", 80);
-						seatMapEl.find(".boxbox_text1").css("left", 150);
 						seatMapEl.find(".boxbox_text1").show();
 					}
 					// blink
@@ -1288,14 +1286,6 @@
 				// 비상구 우선배정 동의 체크
 				if (type == "sel" && assignInfo && typeof(segCtl.isValidEmergPrioritySeat) == "function" && segCtl.isValidEmergPrioritySeat(assignInfo.findPtrn)) {
 					passCheck	= false;
-					
-					$("[popup-type=emergPrioritySeatValid] :checkbox").prop("checked", false);
-					$("[popup-type=emergPrioritySeatValid] :button").removeClass("orang").attr("onclick", "apiCtl.onAssignSeatClick('"+segIdx+"', '"+seatNo+"', '"+type+"')");
-
-					$("[popup-type=emergPrioritySeatValid]").find("[prioritySeatNo]").html(assignInfo.findPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "EE" }) : false) }).map(function(item){ return item.seatNo }).join(", "));
-					$("[popup-type=emergPrioritySeatValid]").find("[airType]").hide();
-					$("[popup-type=emergPrioritySeatValid]").find("[airType="+segCtl.config.SEG_INFO.airType.toLowerCase()+"]").show();
-					_this.onOpenPopup("emergPrioritySeatValid");
 					return;
 				}
 				
@@ -1303,42 +1293,22 @@
 				if (type == "sel" && assignInfo && segCtl.isValidEmergAgree(assignInfo.findPtrn)) {
 					passCheck	= false;
 					emergCheck	= true;
-					
-					$("[popup-type=emergAgreeValid] :checkbox").prop("checked", false);
-					$("[popup-type=emergAgreeValid] :button").removeClass("orang").attr("onclick", "apiCtl.onAssignSeatClick('"+segIdx+"', '"+seatNo+"', '"+type+"')");
-
-					$("[popup-type=emergAgreeValid]").find("[airType]").hide();
-					$("[popup-type=emergAgreeValid]").find("[airType="+segCtl.config.SEG_INFO.airType.toLowerCase()+"]").show();
-					_this.onOpenPopup("emergAgreeValid");
 					return;
 				}
 
 				// 유아동반 블락에 점유된 좌석이 있으면 안내
 				if (type == "sel" && assignInfo && typeof(segCtl.isValidInfantBlockNoti) == "function" && !segCtl.isValidInfantBlockNoti(null, assignInfo.findPtrn)) {
-					_this.onOpenPopup("infantBlockNoti").then(function(){
-						_this.onAssignSeatClick(segIdx, seatNo, "callback");
-					});
 					return;
 				}
 				
 				// 민트존 첫 열에 체크
 				if (type == "sel" && assignInfo && typeof(segCtl.isValidFRSeat) == "function" && segCtl.isValidFRSeat(assignInfo.findPtrn)) {
 					passCheck	= false;
-					
-					_this.onOpenPopup("frSeatValid").then(function(){
-						_this.onAssignSeatClick(segIdx, seatNo, "callback");
-					})
 				}
 				
 				// 등받이좌석 체크
 				if (type == "sel" && assignInfo && typeof(segCtl.isValidZeroZoneSeat) == "function" && segCtl.isValidZeroZoneSeat(assignInfo.findPtrn)) {
 					passCheck	= false;
-					
-					_this.onOpenPopup("zeroZoneChk").then(function(){
-						if (!emergCheck) {
-							_this.onAssignSeatClick(segIdx, seatNo, "callback");
-						}
-					});
 				} 
 				
 				// 좌선선택 진행여부
