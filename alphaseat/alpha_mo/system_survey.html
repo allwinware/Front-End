@@ -7,12 +7,14 @@
         content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     <title>AlphaSeat</title>
     <link rel="stylesheet" href="./resource/css/content.css">
-    <link rel="stylesheet" href="./resource/css/reset.css">
     <link rel="stylesheet" href="./resource/css/newui.css">
+    <link rel="stylesheet" href="./resource/css/reset.css">
     <link rel="stylesheet" href="./resource/css/common.css">
 	<script src='./resource/js/jquery-3.4.1.min.js'></script>
     <script src='./resource/js/jquery.min.js'></script>
     <script src="./resource/js/alpha.mo.ui.js"></script>
+
+    <!-- 여기부터 1-->
     <style>
          .container {
             text-align: center;
@@ -34,7 +36,7 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            border: 2px solid #222;
+            border: 2px solid #999;
             margin-right: 8px;
             position: relative;
         }
@@ -45,105 +47,225 @@
             left: 3px;
             width: 10px;
             height: 10px;
-            background-color: #222;
+            background-color: #999;
             border-radius: 50%;
         }
-        .mmargin{
-            margin-bottom: 35px;
-            border: 1px solid #aaa;
-            border-radius: 10px;
-            padding: 10px;
+        .message-box{
+            margin-bottom: 100px;
+            padding: 0 10px;
         }
-        </style>
+        .mmargin{
+            margin-bottom: 25px;
+            border-radius: 10px;
+            padding: 18px 15px;            
+            border: 1px solid #eee;
+	        box-shadow: 0 4px 5px 1px #ddd;
+            color: #555;
+        }
+        .mmargin-text{
+            font-size: 16px;
+            color: #222;
+        }
 
+        .message-logobox_v {
+            height: 100%; /* 필요시 지정 */
+            overflow: hidden;
+            padding: 0 10px;
+        }
+
+        .message-logobox_v img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        .message-box .message-title{
+            border-top: 2px dashed #ddd;
+            padding-top: 20px;
+            color: #555;
+            font-weight: 700;
+        }
+    </style>
+
+    <!-- 여기까지-->
 </head>
 
-<body style="overflow: scroll;">
-    <div class="ags-wrap " style="overflow: hidden; overflow-y: auto; ">
+<body>
+    <div class="ags-wrap newui">
         <h1 class="site-name">올윈에어</h1>
         <div class="ags-header">
-            <h2 class="page-name-pay"></h2>
+            <h2 class="page-name-pay">좌석지정 신청완료</h2>
             <div class="gnb-wrap">
                 <ul>
                     <li><a href="" class="btn_back">뒤로가기</a></li>
                 </ul>
             </div>
         </div>
-        <div class="message-box">
+        <div class="service_com">
+            <div class="service_com_txt1" style="display: none;">
+                <span>이정갑</span>님,<br>
+                일행끼리 함께 앉을 수 있는<br>
+                [<span>4</span>인 그룹석]이 확보되었습니다.
+            </div>
+            <div class="service_com_txt1">
+                아직 구매가 완료되지 않은 여정이 있습니다.<br> 
+                완료 후 안내해 드리겠습니다.
+            </div>
+            <div class="service_com_txt2">
+                결제 실패된 여정은 모바일 알림톡을 통해
+                재구매<br> 해주시기 바랍니다.
+            </div>
+            <div class="service_com_txt3">
+                <div>
+                    <span class="text-red">[결제실패]</span>
+                    <span>A1B2C3</span>
+                </div>
+                <div>
+                    <span>인천</span> ->
+                    <span>다낭</span>
+                    <span>티웨이항공</span>,
+                    <span>TW701</span>
+                </div>
+            </div>
+            <div class="service_com_txt3">
+                <div>
+                    <span>[결제완료]</span>
+                    <span>A1B2C3</span>
+                </div>
+                <div>
+                    <span>인천</span> ->
+                    <span>다낭</span>
+                    <span>티웨이항공</span>,
+                    <span>TW701</span>
+                </div>
+                <div>
+                    항공권 취소 시 부가서비스는 자동취소 되며 자세한<br> 내용은 상세 취소 규정을 꼭 확인 바랍니다.
+                </div>
+            </div>
+        </div>
+        <!-- 여기부터 1-->
+        <div class="message-box" id="svyDiv">
             <div class="message-title">
-                <i class="ico_alert"></i>
-                설문조사
+                설문조사</div>
+            <div style="line-height: 20px; text-align: left;">
+            <div class="message-logobox">
+            <div class="message-logobox_v" >
+                <img
+                    src="https://cdn.ags-aws.com/com/img/svy/202509/T2P3.png"></div>
             </div>
-            <!--항공사별 점검 메세지-->
-            <div style="line-height: 20px; text-align: left; padding: 10px;">
-                <div class="message-logobox">             
-                    <div class="message-logobox_v" style="padding: 0 10px;" >
-                        <img src="./resource/img/common/survey_img01.png" style="width: 400px; height: 100%;">
-                    </div>     
+            <div class="message-txt1 mmargin"><span class="mmargin-text">Q1.</span> 이미 확보한 3좌석 옆에 +3좌석을 추가해 일행끼리 더 넓게 앉을 수 있다면, 구매하시겠습니까?
+                <div class="container">
+                    <label>
+                        <input
+                            type="radio"
+                            svygrp=""
+                            name="Q01-S20250925-T2P3"
+                            value="Y"
+                            onchange="svyCtl.svySendOne('Q01-S20250925-T2P3','Y');">
+                            <span class="radio-btn"></span>예
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            svygrp=""
+                            name="Q01-S20250925-T2P3"
+                            value="N"
+                            onchange="svyCtl.svySendOne('Q01-S20250925-T2P3','N');">
+                            <span class="radio-btn"></span>아니오
+                    </label>
                 </div>
-                <div class="message-txt1 mmargin" >
-                   <span>Q1.</span> 이미 확보한 1좌석 옆에 1좌석 또는 2좌석을 추가해 더 넓게 앉을 수 있다면, 구매하시겠습니까?
-                    <div class="container">
-                        <label>
-                            <input type="radio" name="choice" checked>
+            </div>
+            <div class="message-txt1 mmargin"><span class="mmargin-text">Q2.</span> (일본/중국노선) 옆 좌석 +3개 추가 시 90,000원이면, 구매하시겠습니까?
+                <div class="container">
+                    <label>
+                        <input
+                            type="radio"
+                            svygrp=""
+                            name="Q02-S20250925-T2P3"
+                            value="Y"
+                            onchange="svyCtl.svySendOne('Q02-S20250925-T2P3','Y');">
                             <span class="radio-btn"></span>예
                         </label>
                         <label>
-                            <input type="radio" name="choice">
-                            <span class="radio-btn"></span>아니요
-                        </label>
+                            <input
+                                type="radio"
+                                svygrp=""
+                                name="Q02-S20250925-T2P3"
+                                value="N"
+                                onchange="svyCtl.svySendOne('Q02-S20250925-T2P3','N');">
+                                <span class="radio-btn"></span>아니오
+                            </label>
+                        </div>
                     </div>
+                    <div class="message-txt1 mmargin"><span class="mmargin-text">Q3.</span> 만일 [옆 좌석 비워 넒게 앉는 AI 추천서비스]를 진에어가 오픈한다면, 타 항공사 대비 진에어 이용의향은?
+                        <div class="container">
+                            <label>
+                                <input
+                                    type="radio"
+                                    svygrp=""
+                                    name="Q03-S20250925-T2P3"
+                                    value="1"
+                                    onchange="svyCtl.svySendOne('Q03-S20250925-T2P3','1');">
+                                    <span class="radio-btn"></span>이전보다 더 이용할 것이다.
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        svygrp=""
+                                        name="Q03-S20250925-T2P3"
+                                        value="2"
+                                        onchange="svyCtl.svySendOne('Q03-S20250925-T2P3','2');">
+                                        <span class="radio-btn"></span>별 상관없다.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-btn">
+                            <a href="#" onclick="svyCtl.svySendAll();">제출하기</a>
+                        </div>
+         </div>
+
+         <!-- 여기까지-->
+
+        <div class="pay_pilyo" style="display: none;">
+            <div class="pay_txt_oran">
+                혹시, 더 필요한 부가서비스가 있으신가요?
+            </div>
+            <div class="pay_bag">
+                <div class="pay_bag_txt1">수하물 할인</div>
+                <div>
+                    <span class="pay_bag_txt3">공항 보다 40% 할인</span>
+                    <span class="pay_bag_txt2"></span>
                 </div>
-                <div class="message-txt2 mmargin">
-                   <span>Q2.</span> (일본/중국 노선) 옆 좌석 1개 추가 시 30,000원이면, 구매하시겠습니까?
-                    <div class="container">
-                        <label>
-                            <input type="radio" name="choice" checked>
-                            <span class="radio-btn"></span>예
-                        </label>
-                        <label>
-                            <input type="radio" name="choice">
-                            <span class="radio-btn"></span>아니요
-                        </label>
-                    </div>
+            </div>
+            <div class="pay_meat">
+                <div class="pay_meat_txt1">기내식 예약</div>
+                <div>
+                    <span class="pay_meat_txt3">D-3일까지만 구매</span>
+                    <span class="pay_meat_txt2"></span>
                 </div>
-                <div class="message-txt3 mmargin" >
-                   <span>Q3.</span> (일본/중국 노선) 옆 좌석 2개 추가(1인 3좌석 독점) 시 60,000원이면, 구매하시겠습니까?
-                    <div class="container">
-                        <label>
-                            <input type="radio" name="choice" checked>
-                            <span class="radio-btn"></span>예
-                        </label>
-                        <label>
-                            <input type="radio" name="choice">
-                            <span class="radio-btn"></span>아니요
-                        </label>
-                    </div>
-                </div>
-                <div class="message-txt4 mmargin">
-                   <span>Q4.</span> 만일 위 [옆좌석 비워 넓게 앉는 AI추천 서비스] 를 진에어가 오픈한다면, 타 항공사 대비 진에어 이용의향은?
-                    <div class="container">
-                        <label>
-                            <input type="radio" name="choice" checked>
-                            <span class="radio-btn"></span>이전보다 더 이용할 것이다.
-                        </label>
-                        <label>
-                            <input type="radio" name="choice">
-                            <span class="radio-btn"></span>별 상관 없다.
-                        </label>
-                    </div>
+            </div>
+            <div class="pay_bagmeat">
+                <div class="pay_bagmeat_txt1">기내식 / 수하물</div>
+                <div>
+                    <span class="pay_bagmeat_txt3">D-3일까지만 구매</span>
+                    <span class="pay_bagmeat_txt2"></span>
                 </div>
             </div>
         </div>
-        
-        
-
-        <!--버튼-->  
-        <div class="message-btn" style="margin-bottom: 50px;">
-            <a href="">제출하기</a>
+        <div class="service_com_btn" style="display: none;">            
+            <button class="com_btn1">메인으로</button>
+            <button class="com_btn2">구매내역 바로가기</button>      
         </div>
-
-
+        <div class="service_com_btn" style="display: none;">
+            <button class="com_btn3">구매내역 바로가기</button>       
+        </div>
+        <div class="pay_pay">
+            <button type="button" class="pay_ment_btn1">메인으로</button>
+            <button type="button" class="pay_ment_btn2">구매내역 바로가기</button>
+        </div>
 
 
 </body>
