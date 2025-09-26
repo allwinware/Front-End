@@ -29,8 +29,9 @@
 			<div class="ags-header">
 				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
 				<div class="gnb_menu">
+					<div class="finger_demo1"></div>
 					<div class="demo_gnb_menu1">
-						<div class="blue_text"><span style="visibility:hidden">15,000 절약</div>
+						<div class="blue_text"><span style="visibility:hidden"> 절약</div>
 						<div></div>
 						<div></div>
 					</div>
@@ -680,7 +681,7 @@
 			</div>
 		</div>
 		<!-- 3:4:3 팝업btn_demo_pop02 -->
-		<div class="footer-twst">
+		<div class="footer-twst" style="display: none;">
 			<div class="footer-twst-pop">
 				<div class="footer-first_close">닫힘</div>			
 				<div class="mrt_popupimg3"></div>
@@ -944,9 +945,6 @@
 				var prevRowSeat		= seatList.filter((e) => e.rowIdx == seatInfo.rowIdx-1)[0];
 				
 				var rcmndInfo		= autoRcmndList.filter(function(item){ return item.gradeCd == areaCd })[0];
-				var rcmndFstSaet	= (rcmndInfo) ? rcmndInfo.findPtrn[0] : null;
-				var rcmndLstSaet	= (rcmndInfo) ? rcmndInfo.findPtrn[rcmndInfo.findPtrn.length-1] : null;
-				var rcmndLstSaetEl	= (rcmndLstSaet) ? seatMapEl.find("[seatno="+rcmndLstSaet.seatNo+"]") : null;
 				
 				var windowHght		= $(window).height();
 				var scrollTop		= $(window).scrollTop();
@@ -1003,18 +1001,23 @@
 					if (selMode == "rcmnd" && seatMapEl.find(".boxbox_text1").length > 0) {
 						seatMapEl.find(".boxbox_text1").show();
 					}
-					// blink
-					if (selMode == "rcmnd" && rcmndFstSaet) {
-						seatMapEl.find("#targetSvg").find("rect[id^=group_rect_"+rcmndFstSaet.seatNo+"][id$="+rcmndLstSaet.seatNo+"]").addClass("blink");
-						seatMapEl.find("#targetSvg").find("polygon[id^=group_polygon_"+rcmndFstSaet.seatNo+"][id$="+rcmndLstSaet.seatNo+"]").removeClass();
-					}
+					
+					var radarHtml	= [];
+					
 					// 레이더
-					if (selMode == "rcmnd" && rcmndLstSaet) {
-						seatMapEl.find(".finger").css("top", rcmndLstSaetEl.position().top + rcmndLstSaetEl.height() - 15);
-						seatMapEl.find(".finger").css("left", rcmndLstSaetEl.position().left + rcmndLstSaetEl.width() - 20);
-						seatMapEl.find(".finger").attr("onclick", "apiCtl.onRcmndSeatClick('"+segIdx+"', '"+rcmndInfo.gradeCd+"', '"+rcmndInfo.rank+"', 'sel')");
-						seatMapEl.find(".finger").attr("rcmnd", "Y").show();
+					for (var i=0; i<autoRcmndList.length; i++) {
+						var autoRcmnd	= autoRcmndList[i];
+						var lastSeat	= autoRcmnd.findPtrn[autoRcmnd.findPtrn.length-1];
+						var seatEl		= seatMapEl.find("[seatno="+lastSeat.seatNo+"]");
+
+						var radarTop	= seatEl.position().top+seatEl.height()-15;
+						var radarLeft	= seatEl.position().left+seatEl.width()-20;
+						var onclick		= "apiCtl.onRcmndSeatClick('"+segIdx+"', '"+autoRcmnd.gradeCd+"', '"+autoRcmnd.rank+"', 'sel');";
+						
+						radarHtml.push('<div class="finger" onclick="'+onclick+'" style="top: '+radarTop+'px; left: '+radarLeft+'px;"></div>');
 					}
+					
+					seatMapEl.find("[rcmndBtn]").html(radarHtml.join("")).show();
 				});
 			},
 			// 프리뷰 축소
