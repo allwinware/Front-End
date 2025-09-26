@@ -999,6 +999,12 @@
 						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
 					}
 					
+					// 말풍선
+					if (selMode == "rcmnd" && seatMapEl.find(".boxbox_text1").length > 0) {
+						seatMapEl.find(".boxbox_text1").css("top", 80);
+						seatMapEl.find(".boxbox_text1").css("left", 150);
+						seatMapEl.find(".boxbox_text1").show();
+					}
 					// blink
 					if (selMode == "rcmnd" && rcmndFstSaet) {
 						seatMapEl.find("#targetSvg").find("rect[id^=group_rect_"+rcmndFstSaet.seatNo+"][id$="+rcmndLstSaet.seatNo+"]").addClass("blink");
@@ -1025,6 +1031,8 @@
 				var selMode		= seatMapEl.data("mode");
 				
 				seatMapEl.attr("style", "");
+				seatMapEl.find(".boxbox_text1").hide();
+				seatMapEl.find(".finger").hide();
 				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
 				seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 				
