@@ -30,7 +30,7 @@
 				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
 				<div class="gnb_menu">
 					<div class="demo_gnb_menu1">
-						<div class="blue_text">0 절약</div>
+						<div class="blue_text"><span style="visibility:hidden">15,000 절약</div>
 						<div></div>
 						<div></div>
 					</div>
@@ -41,8 +41,7 @@
 						<div>수하물 할인</div>
 					</div>
 				</div>
-				
-				<div class="gnb-jinlogo"></div>
+				<div class="gnb-jinlogo" onclick="window.location.href='index_mrt7.html';"></div>
 			</div>	
 					
 			<div class="select_boxbtn">
@@ -590,7 +589,7 @@
 						<span>LEE JIYOUNG</span>님
 						<span class="btf_a_people" paxCnt>3</span>인  
 					</div>
-					<div class="btf_a_txt">누적 15,000 절약중</div>
+					<div class="btf_a_txt"><span discount></span></div>
 				</div>
 				<div class="btf_bbtn" footerBtn="shift">
 					<div>다음</div>
@@ -1000,6 +999,10 @@
 						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
 					}
 					
+					// 말풍선
+					if (selMode == "rcmnd" && seatMapEl.find(".boxbox_text1").length > 0) {
+						seatMapEl.find(".boxbox_text1").show();
+					}
 					// blink
 					if (selMode == "rcmnd" && rcmndFstSaet) {
 						seatMapEl.find("#targetSvg").find("rect[id^=group_rect_"+rcmndFstSaet.seatNo+"][id$="+rcmndLstSaet.seatNo+"]").addClass("blink");
@@ -1026,6 +1029,8 @@
 				var selMode		= seatMapEl.data("mode");
 				
 				seatMapEl.attr("style", "");
+				seatMapEl.find(".boxbox_text1").hide();
+				seatMapEl.find(".finger").hide();
 				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
 				seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 				
@@ -1086,10 +1091,7 @@
 				segCtl.setSeatPurchsInfo("rcmnd", paxInfo, null);
 				segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
 				
-// 				_this.setContentsInfo(segIdx);
-				
-// 				paxInfo.selComplete	= false;
-// 				selSeatMap.hide().html("");
+				_this.setContentsInfo(segIdx);
 				
 				$("[footerBtn=shift]").removeClass("active");
 			},
@@ -1150,7 +1152,6 @@
 						break;
 					case "each"	:
 						segCtl.setSeatDispInfo("seat", "basicSelt");
-// 						segCtl.setAlphaDispInfo("purchase", "footerDtInfo");
 						
 						commSeatDisp.getApplyTarget("seat", "basicSeltCancBtn", segIdx).show();
 						$("[autoRcmndBtn]").parent().hide();
@@ -1189,23 +1190,12 @@
 
 				// 유아동반 블락에 점유된 좌석이 있으면 안내
 				if (type == "sel" && typeof(segCtl.isValidInfantBlockNoti) == "function" && !segCtl.isValidInfantBlockNoti(null, rcmndInfo.findPtrn)) {
-					_this.onOpenPopup("infantBlockNoti").then(function(){
-						_this.onRcmndSeatClick(segIdx, gradeCd, rank, "callback");
-					});
 					return;
 				}
 
 				// 비상구 우선배정 동의 체크
 				if (type == "sel" && typeof(segCtl.isValidEmergPrioritySeat) == "function" && segCtl.isValidEmergPrioritySeat(rcmndInfo.findPtrn)) {
 					passCheck	= false;
-
-					$("[popup-type=emergPrioritySeatValid] :checkbox").prop("checked", false);
-					$("[popup-type=emergPrioritySeatValid] :button").removeClass("orang").attr("onclick",  "apiCtl.onRcmndSeatClick('"+segIdx+"','"+gradeCd+"','"+rank+"','"+type+"')");
-
-					$("[popup-type=emergPrioritySeatValid]").find("[prioritySeatNo]").html(rcmndInfo.findPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "EE" }) : false) }).map(function(item){ return item.seatNo }).join(", "));
-					$("[popup-type=emergPrioritySeatValid]").find("[airType]").hide();
-					$("[popup-type=emergPrioritySeatValid]").find("[airType="+segCtl.config.SEG_INFO.airType.toLowerCase()+"]").show();
-					_this.onOpenPopup("emergPrioritySeatValid");
 					return;
 				}
 				
@@ -1213,34 +1203,17 @@
 				if (type == "sel" && segCtl.isValidEmergAgree(rcmndInfo.findPtrn)) {
 					passCheck	= false;
 					emergCheck	= true;
-					
-					$("[popup-type=emergAgreeValid] :checkbox").prop("checked", false);
-					$("[popup-type=emergAgreeValid] :button").removeClass("orang").attr("onclick", "apiCtl.onRcmndSeatClick('"+segIdx+"','"+gradeCd+"','"+rank+"','"+type+"')");
-
-					$("[popup-type=emergAgreeValid]").find("[airType]").hide();
-					$("[popup-type=emergAgreeValid]").find("[airType="+segCtl.config.SEG_INFO.airType.toLowerCase()+"]").show();
-					_this.onOpenPopup("emergAgreeValid");
 					return;
 				}
 
 				// 민트존 첫 열에 체크
 				if (type == "sel" && typeof(segCtl.isValidFRSeat) == "function" && segCtl.isValidFRSeat(rcmndInfo.findPtrn)) {
 					passCheck	= false;
-					
-					_this.onOpenPopup("frSeatValid").then(function(){
-						_this.onRcmndSeatClick(segIdx, gradeCd, rank, "callback");
-					})
 				}
 				
 				// 등받이좌석 체크
 				if (type == "sel" && typeof(segCtl.isValidZeroZoneSeat) == "function" && segCtl.isValidZeroZoneSeat(rcmndInfo.findPtrn)) {
 					passCheck	= false;
-					
-					_this.onOpenPopup("zeroZoneChk").then(function(){
-						if (!emergCheck) {
-							_this.onRcmndSeatClick(segIdx, gradeCd, rank, "callback");
-						}
-					});
 				}
 
 				// 좌선선택 진행여부
@@ -1279,6 +1252,8 @@
 				} else {
 					$("[footerBtn]").removeClass("active");
 				}
+				
+				_this.setContentsInfo(segIdx);
 			},
 			// 반자동추천 좌석 클릭
 			onAssignSeatClick	: function(segIdx, seatNo, type) {
@@ -1308,21 +1283,9 @@
 					_this.onSeatMapTypeChange(segIdx, "assign");
 				}
 				
-				// 선택확정 초기화
-// 				selSeatMap.hide().html("");
-// 				segCtl.config.PAX_INFO.selComplete	= false;
-				
 				// 비상구 우선배정 동의 체크
 				if (type == "sel" && assignInfo && typeof(segCtl.isValidEmergPrioritySeat) == "function" && segCtl.isValidEmergPrioritySeat(assignInfo.findPtrn)) {
 					passCheck	= false;
-					
-					$("[popup-type=emergPrioritySeatValid] :checkbox").prop("checked", false);
-					$("[popup-type=emergPrioritySeatValid] :button").removeClass("orang").attr("onclick", "apiCtl.onAssignSeatClick('"+segIdx+"', '"+seatNo+"', '"+type+"')");
-
-					$("[popup-type=emergPrioritySeatValid]").find("[prioritySeatNo]").html(assignInfo.findPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "EE" }) : false) }).map(function(item){ return item.seatNo }).join(", "));
-					$("[popup-type=emergPrioritySeatValid]").find("[airType]").hide();
-					$("[popup-type=emergPrioritySeatValid]").find("[airType="+segCtl.config.SEG_INFO.airType.toLowerCase()+"]").show();
-					_this.onOpenPopup("emergPrioritySeatValid");
 					return;
 				}
 				
@@ -1330,42 +1293,22 @@
 				if (type == "sel" && assignInfo && segCtl.isValidEmergAgree(assignInfo.findPtrn)) {
 					passCheck	= false;
 					emergCheck	= true;
-					
-					$("[popup-type=emergAgreeValid] :checkbox").prop("checked", false);
-					$("[popup-type=emergAgreeValid] :button").removeClass("orang").attr("onclick", "apiCtl.onAssignSeatClick('"+segIdx+"', '"+seatNo+"', '"+type+"')");
-
-					$("[popup-type=emergAgreeValid]").find("[airType]").hide();
-					$("[popup-type=emergAgreeValid]").find("[airType="+segCtl.config.SEG_INFO.airType.toLowerCase()+"]").show();
-					_this.onOpenPopup("emergAgreeValid");
 					return;
 				}
 
 				// 유아동반 블락에 점유된 좌석이 있으면 안내
 				if (type == "sel" && assignInfo && typeof(segCtl.isValidInfantBlockNoti) == "function" && !segCtl.isValidInfantBlockNoti(null, assignInfo.findPtrn)) {
-					_this.onOpenPopup("infantBlockNoti").then(function(){
-						_this.onAssignSeatClick(segIdx, seatNo, "callback");
-					});
 					return;
 				}
 				
 				// 민트존 첫 열에 체크
 				if (type == "sel" && assignInfo && typeof(segCtl.isValidFRSeat) == "function" && segCtl.isValidFRSeat(assignInfo.findPtrn)) {
 					passCheck	= false;
-					
-					_this.onOpenPopup("frSeatValid").then(function(){
-						_this.onAssignSeatClick(segIdx, seatNo, "callback");
-					})
 				}
 				
 				// 등받이좌석 체크
 				if (type == "sel" && assignInfo && typeof(segCtl.isValidZeroZoneSeat) == "function" && segCtl.isValidZeroZoneSeat(assignInfo.findPtrn)) {
 					passCheck	= false;
-					
-					_this.onOpenPopup("zeroZoneChk").then(function(){
-						if (!emergCheck) {
-							_this.onAssignSeatClick(segIdx, seatNo, "callback");
-						}
-					});
 				} 
 				
 				// 좌선선택 진행여부
@@ -1463,7 +1406,7 @@
 					$("[footerBtn=shift]").removeClass("active");
 				}
 				
-// 				_this.setContentsInfo(segIdx);
+				_this.setContentsInfo(segIdx);
 			},
 			// 수동추천 좌석 효과
 			onAssignSelSeatEffect	: function(segIdx, seatNo) {
@@ -1723,7 +1666,26 @@
 					$("[footerBtn=shift]").removeClass("active");
 				}
 				
-// 				_this.setContentsInfo(segIdx);
+				_this.setContentsInfo(segIdx);
+			},
+			// 서비스 선택반영
+			setContentsInfo	: function(segIdx) {
+				var _this	= this;
+				
+				var segCtl		= _this.getSegCtl(segIdx);
+				var totalCharge	= Object.values(_this.segCtls).reduce(function(acc,cur){
+					var selCnt		= cur.config.PAX_INFO.paxList.filter((e) => e.selSeat).length;
+					return acc+(selCnt > 0 ? selCnt*5000 : 0)
+				},0);
+				
+				if (totalCharge > 0) {
+					$(".demo_gnb_menu1 .blue_text > span").css("visibility","visible").text(totalCharge.comma()+" 절약");
+					$(".foot_align .btf_a_txt > span").css("visibility","visible").text("누적 "+totalCharge.comma()+" 절약중");
+				} else {
+					$(".demo_gnb_menu1 .blue_text > span").css("visibility","hidden");
+					$(".foot_align .btf_a_txt > span").css("visibility","hidden");
+				}
+				
 			},
 			// 팝업open
 			onOpenPopup	: function(popupType) {
@@ -1848,7 +1810,6 @@
 			
 			apiCtl.onSelSeatClean(segIdx);
 			apiCtl.onSeatMapTypeChange(segIdx, "rcmnd");
-// 			segCtl.setAlphaDispInfo("purchase", "footerDtInfo");
 		});
 		
 		// 자동선택 돌아가기
@@ -1861,7 +1822,6 @@
 
 			apiCtl.onSelSeatClean(segIdx);
 			apiCtl.onSeatMapTypeChange(segIdx, "assign");
-// 			segCtl.setAlphaDispInfo("purchase", "footerDtInfo");
 		});
 		
 		// 다음버튼 클릭
