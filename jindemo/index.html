@@ -748,7 +748,8 @@
 			
 			var seatMapEl	= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
 			var seatSheetEl	= seatMapEl.find(".seat_sheet");
-			var selMode		= seatMapEl.data("mode");
+			
+			apiCtl.onSeatMapTypeChange(segIdx, "rcmnd");
 			
 			seatMapEl.find(".finger").hide();
 			seatMapEl.attr("style", "");
@@ -1522,66 +1523,48 @@
 
 				// 모든승객 구매체크
 				if (type == "sel" && checkedPax.length <= 0 && isSelSeat && paxList.length > 1) {
-					_this.onOpenPopup("selectionOverNoti");
 					return;
 				}
 
 				// 유아동반 비상구좌석 체크
 				if (type == "sel" && !segCtl.isValidInfantEmerg(paxInfo, seatInfo)) {
-					_this.onOpenPopup("infantEmergValid");
 					return;
 				}
 
 				// 유아동반 노마스크좌석 체크
 				if (type == "sel" && typeof(segCtl.isValidInfantNoMask) == "function" && !segCtl.isValidInfantNoMask(paxInfo, seatInfo)) {
-					_this.onOpenPopup("infantNoMaskValid");
 					return;
 				}
 				
 				// 유아동반 블락 체크
 				if (type == "sel" && !segCtl.isValidInfantBlock(paxInfo, seatInfo)) {
-					_this.onOpenPopup("infantBlockValid");
 					return;
 				}
 
 				// 유아동반 Row 체크
 				if (type == "sel" && !segCtl.isValidInfantRow(paxInfo, seatInfo)) {
-					_this.onOpenPopup("infantRowValid");
 					return;
 				}
 				
 				// 소아 비상구좌석 체크
 				if (type == "sel" && !segCtl.isValidChildEmerg(paxInfo, seatInfo)) {
-					_this.onOpenPopup("childEmergValid");
 					return;
 				}
 
 				// 소아 성인동반 체크
 				// ->2025-06-10 valid pass처리(무조건 true)
 				if (type == "sel" && !segCtl.isValidChildGuardian(paxInfo, seatInfo)) {
-					_this.onOpenPopup("childGuardianValid");
 					return;
 				}
 
 				// 유아동반승객 선택좌석 블락에 점유좌석체크
 				if (type == "sel" && typeof(segCtl.isValidInfantBlockNoti) == "function" && !segCtl.isValidInfantBlockNoti(paxInfo, new Array(seatInfo))) {
-					_this.onOpenPopup("infantBlockNoti").then(function(){
-						_this.onEachSeatClick(segIdx, seatNo, "callback", paxRph);
-					});
 					return;
 				}
 				
 				// 비상구 우선배정 체크
 				if (type == "sel" && typeof(segCtl.isValidEmergPrioritySeat) == "function" && segCtl.isValidEmergPrioritySeat(new Array(seatInfo))) {
 					passCheck	= false;
-
-					$("[popup-type=emergPrioritySeatValid] :checkbox").prop("checked", false);
-					$("[popup-type=emergPrioritySeatValid] :button").removeClass("orang").attr("onclick", "apiCtl.onEachSeatClick('"+segIdx+"', '"+seatNo+"', '"+type+"', '"+paxInfo.rph+"')");
-
-					$("[popup-type=emergPrioritySeatValid]").find("[prioritySeatNo]").html(((seatInfo.locAttrList.some(function(cur){ return cur.locCode == "EE" })) ? seatInfo.seatNo : ""));
-					$("[popup-type=emergPrioritySeatValid]").find("[airType]").hide();
-					$("[popup-type=emergPrioritySeatValid]").find("[airType="+segCtl.config.SEG_INFO.airType.toLowerCase()+"]").show();
-					_this.onOpenPopup("emergPrioritySeatValid");
 					return;
 				}
 				
@@ -1589,34 +1572,17 @@
 				if (type == "sel" && segCtl.isValidEmergAgree(new Array(seatInfo))) {
 					passCheck	= false;
 					emergCheck	= true;
-
-					$("[popup-type=emergAgreeValid] :checkbox").prop("checked", false);
-					$("[popup-type=emergAgreeValid] :button").removeClass("orang").attr("onclick", "apiCtl.onEachSeatClick('"+segIdx+"', '"+seatNo+"', '"+type+"', '"+paxInfo.rph+"')");
-
-					$("[popup-type=emergAgreeValid]").find("[airType]").hide();
-					$("[popup-type=emergAgreeValid]").find("[airType="+segCtl.config.SEG_INFO.airType.toLowerCase()+"]").show();
-					_this.onOpenPopup("emergAgreeValid");
 					return;
 				}
 
 				// 민트존 첫 열에 체크
 				if (type == "sel" && typeof(segCtl.isValidFRSeat) == "function" && segCtl.isValidFRSeat(new Array(seatInfo))) {
 					passCheck	= false;
-					
-					_this.onOpenPopup("frSeatValid").then(function(){
-						_this.onEachSeatClick(segIdx, seatNo, "callback", paxRph);
-					})
 				}
 				
 				// 등받이좌석 체크
 				if (type == "sel" && typeof(segCtl.isValidZeroZoneSeat) == "function" && segCtl.isValidZeroZoneSeat(new Array(seatInfo))) {
 					passCheck	= false;
-					
-					_this.onOpenPopup("zeroZoneChk").then(function(){
-						if (!emergCheck) {
-							_this.onEachSeatClick(segIdx, seatNo, "callback", paxRph);
-						}
-					})
 				}
 
 				// 좌선선택 진행여부
@@ -1630,8 +1596,8 @@
 				}
 				
 				// 선택확정 초기화
-				selSeatMap.hide().html("");
-				segCtl.config.PAX_INFO.selComplete	= false;
+// 				selSeatMap.hide().html("");
+// 				segCtl.config.PAX_INFO.selComplete	= false;
 				
 				if (paxInfo.selSeat) {
 					segCtl.cancSeat(paxInfo, paxInfo.selSeat, "each");
