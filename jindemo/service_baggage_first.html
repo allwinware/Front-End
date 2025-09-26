@@ -301,7 +301,7 @@
 						<span>LEE JIYOUNG</span>님
 						<span class="btf_a_people">3</span>인  
 					</div>
-					<div class="btf_a_txt"><span style="visibility:hidden">절약중</span></div>
+					<div class="btf_a_txt"><span>누적 KRW 105,000 절약중</span></div>
 				</div>
 				<div class="btf_bbtn active">
 					<div class="">다음</div> 
@@ -443,17 +443,8 @@
         	var remainCnt	= $(ramain).attr("remain");
 			var curQty		= $(this).attr("qty");
 			var actQty		= $("[segIdx="+segIdx+"]").find(".demos_boxs.active").get().reduce((acc,cur) => (acc+Number($(cur).attr("qty"))), 0);
-			var savingChg	= actQty*6000;
 
 			$(ramain).text(Number(remainCnt)-actQty);
-			
-			if (savingChg > 0) {
-				$(".demo_gnb_menu1 .blue_text > span").css("visibility","visible").text(savingChg.comma()+" 절약");
-				$(".foot_align .btf_a_txt > span").css("visibility","visible").text("누적 KRW "+savingChg.comma()+" 절약중");
-			} else {
-				$(".demo_gnb_menu1 .blue_text > span").css("visibility","hidden");
-				$(".foot_align .btf_a_txt > span").css("visibility","hidden");
-			}
         });
         
     </script>
