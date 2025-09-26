@@ -130,55 +130,55 @@ $(document).ready(function () {
 	var height_ac1 = $('.seat_sheet_bg.ac1').css("height");
 	var height_ac2 = $('.seat_sheet_bg.ac2').css("height");
 
-	/*가는편 오는편*/
-	$(document).on("click", "#ags-wrap", function () {
-		$("#con_slider").addClass("active");
-		$('.select_back').removeClass("active");
-		$('.select_come').addClass("active");
-		$(".travel_a").css("display", "none");
-		$(".travel_b").css("display", "block");
-
-		$('.select_backbtn').removeClass("active");
-		$('.select_comebtn').addClass("active");
-
-		//$("#ags-wrap").css("display", "none");
-		//$("#ags-wrap-back").css("display", "block");
-		seatCtl.setScrollEvent();
-
-		var height_click1 = $('.seat_sheet_bg.ac1').css("height");
-		var height_click2 = $('.seat_sheet_bg.ac2').css("height");
-
-		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
-		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
-
-		
-	});
-
-	$(document).on("click", "#ags-wrap-back", function () {
-		$("#con_slider").removeClass("active");
-		$('.select_come').removeClass("active");
-		$('.select_back').addClass("active");
-		
-		$(".travel_b").css("display", "none");
-		$(".travel_a").css("display", "block");
-
-		$('.select_backbtn').addClass("active");
-		$('.select_comebtn').removeClass("active");
-		
-
-		//$("#ags-wrap-back").css("display", "none");
-		//$("#ags-wrap").css("display", "block");
-		seatCtl.setScrollEvent();
-
-		var height_click1 = $('.seat_sheet_bg.ac1').css("height");
-		var height_click2 = $('.seat_sheet_bg.ac2').css("height");
-			
-		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
-		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
-
-
-
-	});
+//	/*가는편 오는편*/
+//	$(document).on("click", "#ags-wrap", function () {
+//		$("#con_slider").addClass("active");
+//		$('.select_back').removeClass("active");
+//		$('.select_come').addClass("active");
+//		$(".travel_a").css("display", "none");
+//		$(".travel_b").css("display", "block");
+//
+//		$('.select_backbtn').removeClass("active");
+//		$('.select_comebtn').addClass("active");
+//
+//		//$("#ags-wrap").css("display", "none");
+//		//$("#ags-wrap-back").css("display", "block");
+//		seatCtl.setScrollEvent();
+//
+//		var height_click1 = $('.seat_sheet_bg.ac1').css("height");
+//		var height_click2 = $('.seat_sheet_bg.ac2').css("height");
+//
+//		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
+//		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
+//
+//		
+//	});
+//
+//	$(document).on("click", "#ags-wrap-back", function () {
+//		$("#con_slider").removeClass("active");
+//		$('.select_come').removeClass("active");
+//		$('.select_back').addClass("active");
+//		
+//		$(".travel_b").css("display", "none");
+//		$(".travel_a").css("display", "block");
+//
+//		$('.select_backbtn').addClass("active");
+//		$('.select_comebtn').removeClass("active");
+//		
+//
+//		//$("#ags-wrap-back").css("display", "none");
+//		//$("#ags-wrap").css("display", "block");
+//		seatCtl.setScrollEvent();
+//
+//		var height_click1 = $('.seat_sheet_bg.ac1').css("height");
+//		var height_click2 = $('.seat_sheet_bg.ac2').css("height");
+//			
+//		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
+//		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
+//
+//
+//
+//	});
 
 
 	/*부가서비스 가는편 오는편--------------------------------*/
@@ -227,14 +227,14 @@ $(document).ready(function () {
 
 	/*좌석선택 */
 
-	$(document).on("click", ".seat_btn", function () {
-		var isActive	= $(this).hasClass("seat_active");
-		if (isActive) {
-			$(this).removeClass("seat_active").find("span").show();
-		} else {
-			$(this).addClass("seat_active").find("span").hide();;
-		}
-	});
+//	$(document).on("click", ".seat_btn", function () {
+//		var isActive	= $(this).hasClass("seat_active");
+//		if (isActive) {
+//			$(this).removeClass("seat_active").find("span").show();
+//		} else {
+//			$(this).addClass("seat_active").find("span").hide();;
+//		}
+//	});
 
 	/*gnb 팝업 정의*/
 	$(document).on("click", "#btn_gnb", function () {
