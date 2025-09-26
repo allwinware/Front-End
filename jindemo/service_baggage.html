@@ -24,17 +24,18 @@
         <header>
 			<div class="ags-header">
 				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
-				<div class="gnb_menu">
+				<div class="gnb_menu">                    
+					<div class="finger_demo3"></div>
 					<div class="demo_gnb_menu1">
 						<div class="blue_text alpha_zero" >20,000 절약</div>
 						<div class="alpha_zero">99,000 절약</div>
-						<div class="blue_text">65,000 절약</div>
+						<div class="blue_text"></div>
 					</div>
 					<div class="demo_gnb_menu2_3"></div>
 					<div class="demo_gnb_menu3">
-						<div class="blue_text">같이 앉는 좌석</div>
+						<div>같이 앉는 좌석</div>
 						<div>맛있는 기내식</div>
-						<div>수하물 할인</div>
+						<div class="blue_text">수하물 할인</div>
 					</div>
 				</div>				
 				<div class="gnb-jinlogo"></div>
@@ -91,11 +92,13 @@
                     
                     <div class="slider_box_line">
                         <div class="demos_boxs">
+                            <div class="finger_slider1"></div>
                             <div class="demos_boxs_tx1">+5KG</div>
                             <div class="demos_boxs_tx2">KRW 65,000</div>
                             <div class="demos_boxs_tx3">주문 아주 많아요</div>
                         </div>
                         <div class="demos_boxs">
+                            <div class="finger_slider1"></div>
                             <div class="demos_boxs_tx1">+10KG</div>
                             <div class="demos_boxs_tx2">KRW 130,000</div>
                             <div class="demos_boxs_tx3">주문 많아요</div>
@@ -107,7 +110,7 @@
                         </div> 
                         <div class="demos_boxs">
                             <div class="demos_boxs_tx1">+20KG</div>
-                            <div class="demos_boxs_tx2">KRW 26,000</div>
+                            <div class="demos_boxs_tx2">KRW 260,000</div>
                             <div class="demos_boxs_tx3"></div>
                         </div> 
                         <div class="demos_boxs">
@@ -366,13 +369,20 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            let num = 1;
-            let counter = document.getElementById("counter0");
-            let interval = setInterval(() => {
-                counter.textContent = String(num).padStart(2, "0");
-                num++;
-                if (num > 28) clearInterval(interval);
-            }, 100);
+            const runCounter = () => {
+                let num = 1;
+                let counter = document.getElementById("counter0");
+                let interval = setInterval(() => {
+                    counter.textContent = String(num).padStart(2, "0");
+                    num++;
+                    if (num > 28) {
+                        clearInterval(interval);
+                        setTimeout(runCounter, 3000); // 3초 후 다시 시작
+                    }
+                }, 50);
+            };
+
+            runCounter();
         });
     </script>
     

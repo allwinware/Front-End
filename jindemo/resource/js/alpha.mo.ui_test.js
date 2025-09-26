@@ -225,7 +225,7 @@ $(document).ready(function () {
 	});
 
 
-	/*좌석선택 */
+	/*좌석선택 
 
 	$(document).on("click", ".seat_btn", function () {
 		var isActive	= $(this).hasClass("seat_active");
@@ -235,6 +235,7 @@ $(document).ready(function () {
 			$(this).addClass("seat_active").find("span").hide();;
 		}
 	});
+	*/
 
 	/*gnb 팝업 정의*/
 	$(document).on("click", "#btn_gnb", function () {

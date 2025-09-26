@@ -26,16 +26,17 @@
 			<div class="ags-header">
 				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
 				<div class="gnb_menu">
+                    <div class="finger_demo3"></div>
 					<div class="demo_gnb_menu1">
 						<div class="blue_text alpha_zero" >20,000 절약</div>
 						<div class="alpha_zero">99,000 절약</div>
-						<div class="blue_text">12,000 절약</div>
+						<div class="blue_text"></div>
 					</div>
 					<div class="demo_gnb_menu2_3"></div>
 					<div class="demo_gnb_menu3">
-						<div class="blue_text">같이 앉는 좌석</div>
+						<div>같이 앉는 좌석</div>
 						<div>맛있는 기내식</div>
-						<div>수하물 할인</div>
+						<div class="blue_text">수하물 할인</div>
 					</div>
 				</div>				
 				<div class="gnb-jinlogo"></div>
@@ -87,7 +88,7 @@
                 <div class="bag_slider_box fst">
                     <div class="bag_slider_boxtxt fst">
                         <div>우선수하물 신청</div>
-                        <div>남은 수량 9</div>
+                        <div>남은 수량 <span class="countdown_b">9</span></div>
                     </div>
                 </div>                
                 <div class="bag_slider_name">
@@ -109,6 +110,7 @@
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
                                 <div class="demos_boxs">
+                                    <div class="finger_fst1"></div>
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
@@ -136,6 +138,7 @@
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
                                 <div class="demos_boxs">
+                                    <div class="finger_fst1"></div>
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
@@ -163,6 +166,7 @@
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
                                 <div class="demos_boxs">
+                                    <div class="finger_fst1"></div>
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
@@ -401,13 +405,20 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            let num = 1;
-            let counter = document.getElementById("counter");
-            let interval = setInterval(() => {
-                counter.textContent = String(num).padStart(2, "0");
-                num++;
-                if (num > 25) clearInterval(interval);
-            }, 100);
+            const runCounter = () => {
+                let num = 1;
+                let counter = document.getElementById("counter");
+                let interval = setInterval(() => {
+                    counter.textContent = String(num).padStart(2, "0");
+                    num++;
+                    if (num > 25) {
+                        clearInterval(interval);
+                        setTimeout(runCounter, 3000); // 3초 후 다시 시작
+                    }
+                }, 50);
+            };
+
+            runCounter();
         });
     </script>
     
