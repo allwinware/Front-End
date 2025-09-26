@@ -1395,18 +1395,27 @@ $(document).ready(function() {
 		});
 	});
 
-    $(document).on('click', '.demos_chk_box', function() {	
-        var $this = $(this);
-        if ($this.hasClass('active')) {
-            $this.removeClass('active');
-            $this.find('.boy_face1').removeClass('active');
-            $this.find('.chk_box_boxbox').hide();
-            $this.find('div:last').text('');
-            var idx = $this.index();
-            $('.btn_foods_open').eq(idx).prop('checked', false);
-        }
-		updateSelectedCount();
-    });
+	$(document).on('click', '.demos_chk_box', function() {
+	    var $this = $(this);
+	    if ($this.hasClass('active')) {
+	        // 체크 해제 처리
+	        $this.removeClass('active');
+	        $this.find('.boy_face1').removeClass('active');
+	        $this.find('.chk_box_boxbox').hide();
+	        $this.find('div:last').text('');
+	        var idx = $this.index();
+	        $('.btn_foods_open').eq(idx).prop('checked', false);
+	        // 해제된 요소가 어떤 영역 안에 있는지 체크
+	        if ($this.closest('#boy1').length) {
+	            $('.top_txtp').text("아이가 좋아하는 TOP3");
+	        } else if ($this.closest('#boy2').length) {
+	            $('.top_txtp').text("여성이 좋아하는 TOP3");
+	        } else if ($this.closest('#boy3').length) {
+	            $('.top_txtp').text("남성이 좋아하는 TOP3");
+	        }
+	    }
+	        updateSelectedCount();
+	    });
 
     $(document).on('change', '#check9', function() {	
         if ($(this).is(':checked')) {
