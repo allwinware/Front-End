@@ -1036,42 +1036,42 @@ $(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
 
     // active 클래스 토글 처리
     if ($clicked.hasClass("active")) {
-        $clicked.removeClass("active");
+//        $clicked.removeClass("active");
         lastSelectedQty = null;
-        $group.find(".bag_slider_name_box_1 .fst div:last").text("합 0개");
-
-        // 텍스트 복원
-        if (qty === "+5KG") {
-            $clicked.find(".demos_boxs_tx3").text("주문 아주 많아요");
-        }
-        if (qty === "+10KG") {
-            $clicked.find(".demos_boxs_tx3").text("주문 많아요");
-        }
+//        $group.find(".bag_slider_name_box_1 .fst div:last").text("합 0개");
+//
+//        // 텍스트 복원
+//        if (qty === "+5KG") {
+//            $clicked.find(".demos_boxs_tx3").text("주문 아주 많아요");
+//        }
+//        if (qty === "+10KG") {
+//            $clicked.find(".demos_boxs_tx3").text("주문 많아요");
+//        }
     } else {
-        // 기존 선택 해제와 텍스트 초기화 (클릭한 박스 제외)
-        $group.find(".demos_boxs").removeClass("active");
-        $group.find(".demos_boxs").each(function () {
-            if ($(this).is($clicked)) return; // ← 클릭한 박스는 제외
-            var thisQty = $(this).find(".demos_boxs_tx1").text().trim();
-            if (thisQty === "+5KG") {
-                $(this).find(".demos_boxs_tx3").text("주문 아주 많아요");
-            }
-            if (thisQty === "+10KG") {
-                $(this).find(".demos_boxs_tx3").text("주문 많아요");
-            }
-        });
-
-        // 새 선택 활성화 및 텍스트 변경
-        $clicked.addClass("active");
+//        // 기존 선택 해제와 텍스트 초기화 (클릭한 박스 제외)
+//        $group.find(".demos_boxs").removeClass("active");
+//        $group.find(".demos_boxs").each(function () {
+//            if ($(this).is($clicked)) return; // ← 클릭한 박스는 제외
+//            var thisQty = $(this).find(".demos_boxs_tx1").text().trim();
+//            if (thisQty === "+5KG") {
+//                $(this).find(".demos_boxs_tx3").text("주문 아주 많아요");
+//            }
+//            if (thisQty === "+10KG") {
+//                $(this).find(".demos_boxs_tx3").text("주문 많아요");
+//            }
+//        });
+//
+//        // 새 선택 활성화 및 텍스트 변경
+//        $clicked.addClass("active");
         lastSelectedQty = qty;
-        $group.find(".bag_slider_name_box_1 .fst div:last").text("합 " + lastSelectedQty);
-
-        if (qty === "+5KG") {
-            $clicked.find(".demos_boxs_tx3").text("25,000원 절약");
-        }
-        if (qty === "+10KG") {
-            $clicked.find(".demos_boxs_tx3").text("50,000원 절약");
-        }
+//        $group.find(".bag_slider_name_box_1 .fst div:last").text("합 " + lastSelectedQty);
+//
+//        if (qty === "+5KG") {
+//            $clicked.find(".demos_boxs_tx3").text("25,000원 절약");
+//        }
+//        if (qty === "+10KG") {
+//            $clicked.find(".demos_boxs_tx3").text("50,000원 절약");
+//        }
     }
 
 	var remainingElem = $(".countdown_b");
@@ -1088,43 +1088,43 @@ $(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
 
 
 //----------------------------------------------------------------
-
-$(document).on("click", ".slider_box_line .demos_boxs", function () {
-    if ($(this).find(".demos_boxs_tx1").text().trim() === "+5KG") {
-        $(this).find(".demos_boxs_tx3").text("25,000원 절약");
-		$(".demo_gnb_menu1 div:nth-child(3)").text("65,000 절약");
-    }
-	if ($(this).find(".demos_boxs_tx1").text().trim() === "+10KG") {
-        $(this).find(".demos_boxs_tx3").text("50,000원 절약");
-		$(".demo_gnb_menu1 div:nth-child(3)").text("130,000 절약");
-    }
-	if ($(this).find(".demos_boxs_tx1").text().trim() === "+15KG") {
-        $(this).find(".demos_boxs_tx3").text("75,000원 절약");
-		$(".demo_gnb_menu1 div:nth-child(3)").text("195,000 절약");
-    }
-	if ($(this).find(".demos_boxs_tx1").text().trim() === "+20KG") {
-        $(this).find(".demos_boxs_tx3").text("100,000원 절약");
-		$(".demo_gnb_menu1 div:nth-child(3)").text("260,000 절약");
-    }
-});
-
-
-$(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
-    var remainingElem = $(".countdown_b");
-    var remaining = parseInt(remainingElem.text());
-
-
-    // 1개 선택 시에만 1 차감 (기본값 9에서 8로)
-    var qty = $(this).find(".demos_boxs_tx1").text().trim();
-
-
-    if (qty === "1개" || qty === "1") { // "1개" 텍스트 기준
-        if (remaining > 0) {  // 0 미만 불가
-            remaining--;
-            remainingElem.text(remaining);
-        }
-    }
-});
+//
+//$(document).on("click", ".slider_box_line .demos_boxs", function () {
+//    if ($(this).find(".demos_boxs_tx1").text().trim() === "+5KG") {
+//        $(this).find(".demos_boxs_tx3").text("25,000원 절약");
+//		$(".demo_gnb_menu1 div:nth-child(3)").text("65,000 절약");
+//    }
+//	if ($(this).find(".demos_boxs_tx1").text().trim() === "+10KG") {
+//        $(this).find(".demos_boxs_tx3").text("50,000원 절약");
+//		$(".demo_gnb_menu1 div:nth-child(3)").text("130,000 절약");
+//    }
+//	if ($(this).find(".demos_boxs_tx1").text().trim() === "+15KG") {
+//        $(this).find(".demos_boxs_tx3").text("75,000원 절약");
+//		$(".demo_gnb_menu1 div:nth-child(3)").text("195,000 절약");
+//    }
+//	if ($(this).find(".demos_boxs_tx1").text().trim() === "+20KG") {
+//        $(this).find(".demos_boxs_tx3").text("100,000원 절약");
+//		$(".demo_gnb_menu1 div:nth-child(3)").text("260,000 절약");
+//    }
+//});
+//
+//
+//$(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
+//    var remainingElem = $(".countdown_b");
+//    var remaining = parseInt(remainingElem.text());
+//
+//
+//    // 1개 선택 시에만 1 차감 (기본값 9에서 8로)
+//    var qty = $(this).find(".demos_boxs_tx1").text().trim();
+//
+//
+//    if (qty === "1개" || qty === "1") { // "1개" 텍스트 기준
+//        if (remaining > 0) {  // 0 미만 불가
+//            remaining--;
+//            remainingElem.text(remaining);
+//        }
+//    }
+//});
 
 //----------------------------------------------------------------
 
@@ -1262,20 +1262,20 @@ function resetAll() {
 
 
 
-$(document).on("click", ".bag_slider_name_box_a .demos_boxs", function () {
-    if ($(this).find(".demos_boxs_tx1").text().trim() === "1개") {
-        $(this).find(".demos_boxs_tx3").text("약 25분 아낌");
-		$(".demo_gnb_menu1 div:nth-child(3)").text("6,000 절약");
-    }
-	if ($(this).find(".demos_boxs_tx1").text().trim() === "2개") {
-        $(this).find(".demos_boxs_tx3").text("약 25분 아낌");
-		$(".demo_gnb_menu1 div:nth-child(3)").text("12,000 절약");
-    }
-	if ($(this).find(".demos_boxs_tx1").text().trim() === "3개") {
-        $(this).find(".demos_boxs_tx3").text("약 25분 아낌");
-		$(".demo_gnb_menu1 div:nth-child(3)").text("18,000 절약");
-    }
-});
+//$(document).on("click", ".bag_slider_name_box_a .demos_boxs", function () {
+//    if ($(this).find(".demos_boxs_tx1").text().trim() === "1개") {
+//        $(this).find(".demos_boxs_tx3").text("약 25분 아낌");
+//		$(".demo_gnb_menu1 div:nth-child(3)").text("6,000 절약");
+//    }
+//	if ($(this).find(".demos_boxs_tx1").text().trim() === "2개") {
+//        $(this).find(".demos_boxs_tx3").text("약 25분 아낌");
+//		$(".demo_gnb_menu1 div:nth-child(3)").text("12,000 절약");
+//    }
+//	if ($(this).find(".demos_boxs_tx1").text().trim() === "3개") {
+//        $(this).find(".demos_boxs_tx3").text("약 25분 아낌");
+//		$(".demo_gnb_menu1 div:nth-child(3)").text("18,000 절약");
+//    }
+//});
 
 /************************************** */
 
