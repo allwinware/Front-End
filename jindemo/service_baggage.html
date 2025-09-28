@@ -142,11 +142,7 @@
                                 </div>
                             </div>                        
                             <div class="bag_slider_name_box_2">추가하기</div>
-                            <div class="bag_slider_name_box_2_1" style="display: none;">
-                                <div class="bag_slider_name_box_2_1_txt">+10KG(KRW 130,000)</div>
-                                <div class="bag_slider_name_box_2_1_img"><span></span></div>
-                            </div>
-                            
+                            <div class="bag_slider_name_box_2_1" style="display: none;"></div>
                         </div>
                         <div class="bag_slider_name_box">                        
                             <div class="bag_slider_name_box_1">
@@ -157,6 +153,7 @@
                                 </div>
                             </div>                        
                             <div class="bag_slider_name_box_2">추가하기</div>
+                            <div class="bag_slider_name_box_2_1" style="display: none;"></div>
                         </div>
                         <div class="bag_slider_name_box">                        
                             <div class="bag_slider_name_box_1">
@@ -167,6 +164,7 @@
                                 </div>
                             </div>                        
                             <div class="bag_slider_name_box_2">추가하기</div>
+                            <div class="bag_slider_name_box_2_1" style="display: none;"></div>
                         </div>
                     </div>
 
@@ -217,8 +215,8 @@
                 <div class="bag_slider_name">
                     <div class="bag_slider_name_line">
                         <div class="bag_txt_same">
-                            <input type="checkbox" id="check1">
-                            <label for="check1"><i></i><div><span class="blue_text"></span>전원 통일하기</div></label>
+                            <input type="checkbox" id="check2">
+                            <label for="check2"><i></i><div><span class="blue_text"></span>전원 통일하기</div></label>
                         </div>
                     </div>
                     <div class="bag_slider_boxbox">
@@ -231,11 +229,7 @@
                                 </div>
                             </div>                        
                             <div class="bag_slider_name_box_2">추가하기</div>
-                            <div class="bag_slider_name_box_2_1" style="display: none;">
-                                <div class="bag_slider_name_box_2_1_txt">+10KG(KRW 130,000)</div>
-                                <div class="bag_slider_name_box_2_1_img"><span></span></div>
-                            </div>
-                            
+                            <div class="bag_slider_name_box_2_1" style="display: none;"></div>
                         </div>
                         <div class="bag_slider_name_box">                        
                             <div class="bag_slider_name_box_1">
@@ -246,6 +240,7 @@
                                 </div>
                             </div>                        
                             <div class="bag_slider_name_box_2">추가하기</div>
+                            <div class="bag_slider_name_box_2_1" style="display: none;"></div>
                         </div>
                         <div class="bag_slider_name_box">                        
                             <div class="bag_slider_name_box_1">
@@ -256,6 +251,7 @@
                                 </div>
                             </div>                        
                             <div class="bag_slider_name_box_2">추가하기</div>
+                            <div class="bag_slider_name_box_2_1" style="display: none;"></div>
                         </div>
                     </div>
                 </div>  
@@ -275,7 +271,7 @@
 					</div>
 					<div class="btf_a_txt"><span saving="30000">누적 KRW 30,000 절약중</span></div>
 				</div>
-				<div class="btf_bbtn active" footerBtn="shift">
+				<div class="btf_bbtn" footerBtn="shift">
 					<div>다음</div>
 				</div>				
 			</div>			
@@ -404,25 +400,130 @@
         });
         
         
-        // 절약금액
+      	// 여정탭이동
+		$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
+			var segIdx		= $(this).parent().attr("flyInfo");
+
+			// 다음버튼 css 초기화
+			$("[footerBtn=shift]").removeClass("active");
+			
+			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+        	
+        	if (curSegQty > 0) {
+        		$("[footerBtn=shift]").addClass("active");
+        	} else {
+        		$("[footerBtn=shift]").removeClass("active");
+        	}
+		});
+      	
+      	
+        // 수하물 선택
         $(document).on("click", ".slider_box_line .demos_boxs", function () {
         	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-        	var isActive	= $(this).hasClass("active");
-
+        	
         	// 문구설정
         	$(this).siblings().get().forEach((cur,idx) => {
         		$(cur).find(".demos_boxs_tx3").text($(cur).find(".demos_boxs_tx3").data("msg") || "");
         	});
         	
-        	var saving	= $(".foot_align .btf_a_txt > [saving]").attr("saving");
-        	var actQty	= Number($("[segIdx]").find(".demos_boxs.active").get().reduce((acc,cur) => (acc+Number($(cur).attr("qty"))),0));
+        	var actQty	= Number($(this).attr("qty"));
+        	var actWgt	= $(this).find(".demos_boxs_tx1").text();
+        	var sameQty	= $(".bag_txt_same :checkbox").data("qty");
+        		
+        	if (actQty != sameQty) {
+	        	$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+        	}
         	
         	if (actQty) {
         		$(this).find(".demos_boxs_tx3").text("공항보다 "+(actQty*25000).comma()+"절약");
+        		$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").data("qty", actQty);
         	}
         	
-        	$(".demo_gnb_menu1 .blue_text > span").text((actQty*25000).comma()+" 절약");
+        	$("[segIdx="+segIdx+"] .bag_txt_same .blue_text").text(actWgt);
+        });
+        
+        
+        // 통일하기
+        $(document).on("click", ".bag_txt_same :checkbox", function () {
+        	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	        var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
+	        
+        	if (actBag.length <= 0) {
+        		alert("먼저 위에서 수하물 옵션을 선택해주세요.");
+        		return;
+        	} 
+        	
+        	var isChecked	= $(this).is(":checked");
+        	
+			if (isChecked) {
+				$("[segIdx="+segIdx+"] .bag_slider_boxbox .bag_slider_name_box_2").trigger("click");
+        	} else {
+        		$("[segIdx="+segIdx+"] .bag_slider_boxbox .bag_slider_name_box_2_1").trigger("click");
+        	}
+        });
+        
+        
+        // 추가하기
+        $(document).on("click", ".bag_slider_boxbox .bag_slider_name_box_2", function () {
+        	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+        	var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
+
+        	if (actBag.length <= 0) {
+        		alert("먼저 위에서 수하물 옵션을 선택해주세요.");
+        		return;
+        	}
+        	
+        	var atcBagQty	= Number($(actBag).attr("qty"));
+        	var actBagTxt	= $(actBag).find(".demos_boxs_tx1").text()+"("+$(actBag).find(".demos_boxs_tx2").text()+")";
+        		
+        	$(this).hide().data("qty", atcBagQty);
+        	$(this).next("").html('<div class="bag_slider_name_box_2_1_txt">'+actBagTxt+'</div><div class="bag_slider_name_box_2_1_img"></div>').show();
+        	
+        	var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+         	var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+        	
+         	$(".demo_gnb_menu1 .blue_text > span").text((actQty*25000).comma()+" 절약");
         	$(".foot_align .btf_a_txt > span").text("누적 KRW "+(Number(saving)+(actQty*25000)).comma()+" 절약중");
+        	
+        	if (actQty > 0) {
+        		$(".demo_gnb_menu1 .blue_text > span").show();
+        	}
+        	
+        	var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+        	
+        	if (curSegQty > 0) {
+        		$("[footerBtn=shift]").addClass("active");
+        	} else {
+        		$("[footerBtn=shift]").removeClass("active");
+        	}
+        });
+        
+        
+        // 추가하기 취소
+        $(document).on("click", ".bag_slider_boxbox .bag_slider_name_box_2_1", function () {
+        	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+        	
+        	$(this).html("").hide();
+        	$(this).prev().data("qty", null).show();
+        	
+        	var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+         	var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+        	
+         	$(".demo_gnb_menu1 .blue_text > span").text((actQty*25000).comma()+" 절약");
+        	$(".foot_align .btf_a_txt > span").text("누적 KRW "+(Number(saving)+(actQty*25000)).comma()+" 절약중");
+        	
+        	if (actQty <= 0) {
+        		$(".demo_gnb_menu1 .blue_text > span").hide();
+        	}
+        	
+			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+        	
+        	if (curSegQty > 0) {
+        		$("[footerBtn=shift]").addClass("active");
+        	} else {
+        		$("[footerBtn=shift]").removeClass("active");
+        	}
+        	
         });
         
         
@@ -438,7 +539,6 @@
 			
 			e.stopPropagation();
 		});
-		
      
      
     </script>

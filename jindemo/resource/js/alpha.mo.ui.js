@@ -1082,8 +1082,8 @@ $(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
     
 
     // 체크박스 옆 텍스트 갱신
-    $("#check5").siblings("label").find("span.blue_text").text((lastSelectedQty || "0개") + "로 ");
-    $("#check6").siblings("label").find("span.blue_text").text((lastSelectedQty || "0개") + "로 ");
+//    $("#check5").siblings("label").find("span.blue_text").text((lastSelectedQty || "0개") + "로 ");
+//    $("#check6").siblings("label").find("span.blue_text").text((lastSelectedQty || "0개") + "로 ");
 });
 
 
@@ -1130,54 +1130,54 @@ $(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
 
 
 // 전원 통일하기 (check5, check6)
-$(document).on("change", "#check5, #check6", function () {
-  let $this = $(this);
-
-  if ($this.is(":checked")) {
-    if (!lastSelectedQty) {
-      alert("수하물을 눌러주세요");
-      $this.prop("checked", false); // 체크 해제
-      return;
-    }
-
-    // 다른 체크박스는 해제
-    if ($this.attr("id") === "check5") {
-      $("#check6").prop("checked", false);
-    } else {
-      $("#check5").prop("checked", false);
-    }
-
-    // 전체 사람 블록 반복
-    $(".bag_slider_name_box").each(function () {
-      var $group = $(this);
-
-      // active 초기화
-      $group.find(".demos_boxs").removeClass("active");
-
-      // lastSelectedQty와 같은 버튼 찾기
-      $group.find(".demos_boxs").each(function () {
-        if ($(this).find(".demos_boxs_tx1").text() === lastSelectedQty) {
-          $(this).addClass("active");
-        }
-      });
-
-      // 합 텍스트 업데이트
-      $group.find(".bag_slider_name_box_1 .fst div:last").text("합 " + lastSelectedQty);
-    });
-
-    // 전원 통일하기 옆 텍스트 변경
-    $this.siblings("label").find("span.blue_text").text(lastSelectedQty + "로 ");
-  } else {
-    // 체크 해제 시 모든 선택과 합계 초기화
-    $(".bag_slider_name_box").each(function () {
-      var $group = $(this);
-      $group.find(".demos_boxs").removeClass("active");
-      $group.find(".bag_slider_name_box_1 .fst div:last").text("합 0개");
-    });
-    lastSelectedQty = null;
-    $this.siblings("label").find("span.blue_text").text("");
-  }
-});
+//$(document).on("change", "#check5, #check6", function () {
+//  let $this = $(this);
+//
+//  if ($this.is(":checked")) {
+//    if (!lastSelectedQty) {
+//      alert("수하물을 눌러주세요");
+//      $this.prop("checked", false); // 체크 해제
+//      return;
+//    }
+//
+//    // 다른 체크박스는 해제
+//    if ($this.attr("id") === "check5") {
+//      $("#check6").prop("checked", false);
+//    } else {
+//      $("#check5").prop("checked", false);
+//    }
+//
+//    // 전체 사람 블록 반복
+//    $(".bag_slider_name_box").each(function () {
+//      var $group = $(this);
+//
+//      // active 초기화
+//      $group.find(".demos_boxs").removeClass("active");
+//
+//      // lastSelectedQty와 같은 버튼 찾기
+//      $group.find(".demos_boxs").each(function () {
+//        if ($(this).find(".demos_boxs_tx1").text() === lastSelectedQty) {
+//          $(this).addClass("active");
+//        }
+//      });
+//
+//      // 합 텍스트 업데이트
+//      $group.find(".bag_slider_name_box_1 .fst div:last").text("합 " + lastSelectedQty);
+//    });
+//
+//    // 전원 통일하기 옆 텍스트 변경
+//    $this.siblings("label").find("span.blue_text").text(lastSelectedQty + "로 ");
+//  } else {
+//    // 체크 해제 시 모든 선택과 합계 초기화
+//    $(".bag_slider_name_box").each(function () {
+//      var $group = $(this);
+//      $group.find(".demos_boxs").removeClass("active");
+//      $group.find(".bag_slider_name_box_1 .fst div:last").text("합 0개");
+//    });
+//    lastSelectedQty = null;
+//    $this.siblings("label").find("span.blue_text").text("");
+//  }
+//});
 
 
 
@@ -1196,68 +1196,68 @@ $(document).on("click", ".bag_slider_box .demos_boxs", function () {
   selectedOption = `${selectedWeight}(${price})`;
 
   // "전원 통일하기" 옆 텍스트 업데이트
-  $(".bag_txt_same .blue_text").text(selectedWeight);
+//  $(".bag_txt_same .blue_text").text(selectedWeight);
 });
 
 // 개별 '추가하기' 클릭 시
-$(document).on("click", ".bag_slider_name_box_2", function () {
-  if (!selectedOption) {
-    alert("먼저 위에서 수하물 옵션을 선택해주세요.");
-    return;
-  }
-  let $box = $(this).closest(".bag_slider_name_box");
-  applyOptionToBox($box, selectedOption);
-});
+//$(document).on("click", ".bag_slider_name_box_2", function () {
+//  if (!selectedOption) {
+//    alert("먼저 위에서 수하물 옵션을 선택해주세요.");
+//    return;
+//  }
+//  let $box = $(this).closest(".bag_slider_name_box");
+//  applyOptionToBox($box, selectedOption);
+//});
 
-// X 버튼 클릭 시
-$(document).on("click", ".bag_slider_name_box_2_1_img", function () {
-  let $box = $(this).closest(".bag_slider_name_box");
-  $box.find(".bag_slider_name_box_2_1").remove();
-  $box.find(".bag_slider_name_box_2").show();
-});
+//// X 버튼 클릭 시
+//$(document).on("click", ".bag_slider_name_box_2_1_img", function () {
+//  let $box = $(this).closest(".bag_slider_name_box");
+//  $box.find(".bag_slider_name_box_2_1").remove();
+//  $box.find(".bag_slider_name_box_2").show();
+//});
 
 // 전원 통일하기 체크/해제 시 (여기 중요!!)
-$(document).on("change", "#check1", function () {
-  if ($(this).is(":checked")) {
-    if (selectedOption) {
-      applyToAll(selectedOption);
-    } else {
-      alert("먼저 위에서 수하물 옵션을 선택해주세요.");
-      $(this).prop("checked", false); // 선택 없으면 다시 해제
-    }
-  } else {
-    resetAll();
-  }
-});
+//$(document).on("change", "#check1", function () {
+//  if ($(this).is(":checked")) {
+//    if (selectedOption) {
+//      applyToAll(selectedOption);
+//    } else {
+//      alert("먼저 위에서 수하물 옵션을 선택해주세요.");
+//      $(this).prop("checked", false); // 선택 없으면 다시 해제
+//    }
+//  } else {
+//    resetAll();
+//  }
+//});
 
 // ✅ 개별 박스에 옵션 적용하는 함수
-function applyOptionToBox($box, optionText) {
-  $box.find(".bag_slider_name_box_2").hide();
-  $box.find(".bag_slider_name_box_2_1").remove();
-  $box.append(`
-    <div class="bag_slider_name_box_2_1">
-      <div class="bag_slider_name_box_2_1_txt">${optionText}</div>
-      <div class="bag_slider_name_box_2_1_img"></div>
-    </div>
-  `);
-}
+//function applyOptionToBox($box, optionText) {
+//  $box.find(".bag_slider_name_box_2").hide();
+//  $box.find(".bag_slider_name_box_2_1").remove();
+//  $box.append(`
+//    <div class="bag_slider_name_box_2_1">
+//      <div class="bag_slider_name_box_2_1_txt">${optionText}</div>
+//      <div class="bag_slider_name_box_2_1_img"></div>
+//    </div>
+//  `);
+//}
 
 // ✅ 전체 적용 함수
-function applyToAll(optionText) {
-  $(".bag_slider_name_box").each(function () {
-    let $box = $(this);
-    applyOptionToBox($box, optionText);
-  });
-}
+//function applyToAll(optionText) {
+//  $(".bag_slider_name_box").each(function () {
+//    let $box = $(this);
+//    applyOptionToBox($box, optionText);
+//  });
+//}
 
 // ✅ 전체 초기화 함수
-function resetAll() {
-  $(".bag_slider_name_box").each(function () {
-    let $box = $(this);
-    $box.find(".bag_slider_name_box_2_1").remove();
-    $box.find(".bag_slider_name_box_2").show();
-  });
-}
+//function resetAll() {
+//  $(".bag_slider_name_box").each(function () {
+//    let $box = $(this);
+//    $box.find(".bag_slider_name_box_2_1").remove();
+//    $box.find(".bag_slider_name_box_2").show();
+//  });
+//}
 
 
 
