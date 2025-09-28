@@ -426,17 +426,25 @@
         		$(cur).find(".demos_boxs_tx3").text($(cur).find(".demos_boxs_tx3").data("msg") || "");
         	});
         	
-        	var actQty	= Number($(this).attr("qty"));
-        	var actWgt	= $(this).find(".demos_boxs_tx1").text();
-        	var sameQty	= $(".bag_txt_same :checkbox").data("qty");
-        		
-        	if (actQty != sameQty) {
-	        	$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
-        	}
+        	var actQty		= Number($(this).attr("qty"));
+        	var actWgt		= $(this).find(".demos_boxs_tx1").text();
+			var actQtyLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty")).get().map((e) => $(e).data("qty")).filter((item, idx, self) => self.indexOf(item) == idx);
+			
+        	$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
         	
+			if (actQtyLt.length == 1) {
+				var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
+				var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == actQty).length;
+				
+				if (boxLt == actBoxLt) {
+					$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
+				} else {
+					$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+				}
+			}
+			
         	if (actQty) {
         		$(this).find(".demos_boxs_tx3").text("공항보다 "+(actQty*25000).comma()+"절약");
-        		$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").data("qty", actQty);
         	}
         	
         	$("[segIdx="+segIdx+"] .bag_txt_same").show().find(".blue_text").text(actWgt);
@@ -496,6 +504,15 @@
         	} else {
         		$("[footerBtn=shift]").removeClass("active");
         	}
+        	
+        	var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
+			var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == atcBagQty).length;
+
+			if (boxLt == actBoxLt) {
+				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
+			} else {
+				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+			}
         });
         
         
@@ -523,6 +540,17 @@
         	} else {
         		$("[footerBtn=shift]").removeClass("active");
         	}
+        	
+        	var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
+        	var atcBagQty	= Number($(actBag).attr("qty"));
+        	var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
+			var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == atcBagQty).length;
+
+			if (boxLt == actBoxLt) {
+				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
+			} else {
+				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+			}
         	
         });
         
