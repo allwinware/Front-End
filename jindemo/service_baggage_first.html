@@ -301,7 +301,7 @@
 						<span>LEE JIYOUNG</span>님
 						<span class="btf_a_people">3</span>인  
 					</div>
-					<div class="btf_a_txt"><span>누적 KRW 105,000 절약중</span></div>
+					<div class="btf_a_txt"><span saving="30000">누적 KRW 105,000 절약중</span></div>
 				</div>
 				<div class="btf_bbtn" footerBtn="shift">
 					<div>다음</div> 
@@ -428,6 +428,15 @@
         });
         
         
+        var urlSearch	= new URLSearchParams(location.search);
+        var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+		var paramQty	= urlSearch.get('qty');						
+
+		if (paramQty) {
+			$(".demo_gnb_menu1 .blue_text > span").text((paramQty*25000).comma()+" 절약");
+			$(".foot_align .btf_a_txt > [saving]").text('누적 KRW '+(Number(saving)+(paramQty*25000)).comma()+' 절약중');
+		}
+	    
       	// 여정탭이동
 		$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
 			var segIdx		= $(this).parent().attr("flyInfo");

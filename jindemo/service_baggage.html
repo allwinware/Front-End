@@ -551,7 +551,6 @@
 			} else {
 				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
 			}
-        	
         });
         
         
@@ -562,7 +561,10 @@
 			if (segIdx == 1) {
 				$("#ags-wrap").trigger("click");
 			} else {
-				window.location.href = "service_baggage_first.html";
+				var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+	         	var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+	        	
+				window.location.href = "service_baggage_first.html?qty="+actQty;
 			}
 			
 			e.stopPropagation();
