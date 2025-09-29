@@ -1015,6 +1015,19 @@
 						borderHtml.push(commSeatDisp.getRcmndBorderHtml(segIdx, autoRcmndList[i], i));
 					}
 					
+					
+					if (_this.rollInterval) {
+						clearInterval(_this.rollInterval);
+					}
+					
+					// 롤링 인터벌
+					_this.rollInterval	= setInterval(function() {
+						seatMapEl.find(".boxbox_text1 > div:first").insertAfter(seatMapEl.find(".boxbox_text1 > div:last")).fadeOut(100, function(){
+							seatMapEl.find(".boxbox_text1 div:first").fadeIn(100);
+						});
+					}, 3000);
+					
+					
 					seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s", "transform": "matrix(1,0,0,1,0,0)", "-webkit-transform": "matrix(1,0,0,1,0,0)", "top": "0px"});
 					$("html").scrollTop(Math.abs(seatMapPosTop-htmlScrollTop)+10);
 					commSeatDisp.getApplyTarget("purchase", ".header_txt_btn").fadeIn();
@@ -1061,6 +1074,8 @@
 				var seatMapEl	= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
 				var seatSheetEl	= seatMapEl.find(".seat_sheet");
 				var selMode		= seatMapEl.data("mode");
+				
+				clearInterval(_this.rollInterval);
 				
 				seatMapEl.attr("style", "");
 				seatMapEl.find(".boxbox_text1").hide();
