@@ -124,6 +124,32 @@ var seatCtl	= {
 	}
 };
 
+/* 변경 추가 ***************************************----------------------------****************/
+
+// ✅ slider1 요약 업데이트
+function updateSummary1(value) {
+	$(".slider1-summary .summary-content").text(value);
+  }
+  
+  // ✅ slider2 요약 업데이트
+  function updateSummary2(value) {
+	$(".slider2-summary .summary-content").text(value);
+  }
+  
+  // 라디오 선택 시 분기
+  $(document).on("change", ".slider1 input[type=radio]", function() {
+	let val = $(this).siblings("label").find(".foodsfst_txt1").text();
+	$(".slider1-summary .summary-content").text(val);
+  });
+  
+  $(document).on("change", ".slider2 input[type=radio]", function() {
+	let val = $(this).siblings("label").find(".foodsfst_txt1").text();
+	$(".slider2-summary .summary-content").text(val);
+  });
+
+/* 변경 ***************************************----------------------------****************/
+
+
 /*상단 셀렉트 그룹*/
 $(document).ready(function () {
 
@@ -152,6 +178,14 @@ $(document).ready(function () {
 		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
 
 		
+		/* 추가 ***************************************----------------------------****************/
+
+		$(".slider1-summary").hide();
+  		$(".slider2-summary").show();
+
+		/* 추가 ***************************************----------------------------****************/
+
+		
 	});
 
 	$(document).on("click", "#ags-wrap-back", function () {
@@ -176,6 +210,12 @@ $(document).ready(function () {
 		//alert("height_click1-"+height_click1 +", height_click2-"+height_click2);
 		//alert("height_ac1-"+height_ac1+", height_ac2-"+height_ac2);
 
+		/* 추가 ***************************************----------------------------****************/
+
+		/* 추가 ***************************************----------------------------****************/
+		$(".slider1-summary").show();
+ 		$(".slider2-summary").hide();
+		/* 추가 ***************************************----------------------------****************/
 
 
 	});
@@ -1395,27 +1435,53 @@ $(document).ready(function() {
 		});
 	});
 
-	$(document).on('click', '.demos_chk_box', function() {
-	    var $this = $(this);
-	    if ($this.hasClass('active')) {
-	        // 체크 해제 처리
-	        $this.removeClass('active');
-	        $this.find('.boy_face1').removeClass('active');
-	        $this.find('.chk_box_boxbox').hide();
-	        $this.find('div:last').text('');
-	        var idx = $this.index();
-	        $('.btn_foods_open').eq(idx).prop('checked', false);
-	        // 해제된 요소가 어떤 영역 안에 있는지 체크
-	        if ($this.closest('#boy1').length) {
-	            $('.top_txtp').text("아이가 좋아하는 TOP3");
-	        } else if ($this.closest('#boy2').length) {
-	            $('.top_txtp').text("여성이 좋아하는 TOP3");
-	        } else if ($this.closest('#boy3').length) {
-	            $('.top_txtp').text("남성이 좋아하는 TOP3");
-	        }
-	    }
+
+
+		$(document).on("click", ".slider1-summary .demos_chk_box", function() {
+			var $this = $(this);
+			if ($this.hasClass('active')) {
+				// 체크 해제 처리
+				$this.removeClass('active');
+				$this.find('.boy_face1').removeClass('active');
+				$this.find('.chk_box_boxbox').hide();
+				$this.find('div:last').text('');
+				var idx = $this.index();
+				$('.btn_foods_open').eq(idx).prop('checked', false);
+				// 해제된 요소가 어떤 영역 안에 있는지 체크
+				if ($this.closest('#boy1').length) {
+					$('.top_txtp').text("아이가 좋아하는 TOP3");
+				} else if ($this.closest('#boy2').length) {
+					$('.top_txtp').text("여성이 좋아하는 TOP3");
+				} else if ($this.closest('#boy3').length) {
+					$('.top_txtp').text("남성이 좋아하는 TOP3");
+				}
+			}
 	        updateSelectedCount();
-	    });
+		});
+
+		// slider2 사람별 메뉴 선택
+		$(document).on("click", ".slider2-summary .demos_chk_box", function() {
+			var $this = $(this);
+			if ($this.hasClass('active')) {
+				// 체크 해제 처리
+				$this.removeClass('active');
+				$this.find('.boy_face1').removeClass('active');
+				$this.find('.chk_box_boxbox').hide();
+				$this.find('div:last').text('');
+				var idx = $this.index();
+				$('.btn_foods_open').eq(idx).prop('checked', false);
+				// 해제된 요소가 어떤 영역 안에 있는지 체크
+				if ($this.closest('#boy1').length) {
+					$('.top_txtp').text("아이가 좋아하는 TOP3");
+				} else if ($this.closest('#boy2').length) {
+					$('.top_txtp').text("여성이 좋아하는 TOP3");
+				} else if ($this.closest('#boy3').length) {
+					$('.top_txtp').text("남성이 좋아하는 TOP3");
+				}
+			}
+				updateSelectedCount();										
+		});
+
 
     $(document).on('change', '#check9', function() {	
         if ($(this).is(':checked')) {
@@ -1464,4 +1530,10 @@ $(document).on('change', '#check9', function() {
 
 $(document).on("click", ".gnb-jinlogo", function () {
     window.location.href = "index_mrt7.html";
+});
+
+document.addEventListener("click", function(e) {
+  if (e.target.closest(".sound-btn")) {
+    play();
+  }
 });

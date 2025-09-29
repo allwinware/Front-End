@@ -38,22 +38,51 @@
 				}
 			}
 		</script>
+		<script>
+			function play() {
+				const audio = document.getElementById("audio_play");
+				audio.pause();
+				audio.currentTime = 0;
+				audio.play();
+			}
+
+			// .sound-btn 클릭 시 소리 재생
+			document.addEventListener("click", function(e) {
+				if (e.target.classList.contains("sound-btn")) {
+				play();
+				}
+			});
+			document.addEventListener("DOMContentLoaded", function() {
+				const boxes = document.querySelectorAll(".boxboxb");
+				boxes.forEach(function(box) {
+					box.addEventListener("click", function(e) {
+						// 클릭한 대상(e.target)이 boxboxb 자신이면 숨기기 + 소리 재생
+						if (e.target === box) {
+							this.style.display = "none";
+							play();
+						}
+						// 내부 div 등은 다른 기능 처리 가능
+					});
+				});
+			});			
+		</script>
 	</head>
 	<body>
-		<div class="allwin_demo">
-			
+		<audio id="audio_play" src="./resource/mouse.mp3"></audio>
+		<div class="allwin_demo">			
 		
 			<div class="select_next">
 				<a href="javascript:;" onclick="moveUrl();"></a>
 			</div>
+			
 			<div class="alpha">
-				<div class="adgif1 boxboxb">					
+				<div class="sound-btn adgif1 boxboxb">					
 					<img id="img" src="./resource/img/profile_img.jpg"></a>
 				</div>						
-				<div class="adgif2 boxboxb">
+				<div class="sound-btn adgif2 boxboxb">
 					<img id="img" src="./resource/img/profile_img.jpg"></a>
 				</div>
-				<div class="adgif3 boxboxb">
+				<div class="sound-btn adgif3 boxboxb">
 					<img id="img" src="./resource/img/profile_img.jpg"></a>
 				</div>			
 				<img id="img" src="./resource/img/mrt_7.png"></a>

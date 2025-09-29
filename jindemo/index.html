@@ -15,14 +15,44 @@
 	<script src='./resource/js/jquery.min.js'></script>
 	<script src="./resource/js/jin/alpha.mo.ui.js"></script>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	
+	<audio id='audio_play' src='./resource/mouse.mp3'></audio> 
+	<script type="text/javascript"> 
+		function play() { 
+			var audio = document.getElementById('audio_play'); 
+			if (audio.paused) { 
+				audio.play(); 
+			}else{ 
+				audio.pause(); 
+				audio.currentTime = 0 
+			} 
+		} 
+	</script>
+	
+		<script>
+			function play() {
+					const audio = document.getElementById("audio_play");
+					audio.pause();
+					audio.currentTime = 0;
+					audio.play();
+				}
+
+				document.addEventListener("click", function(e) {
+				const soundBtn = e.target.closest(".sound-btn");
+				if (soundBtn) {
+					play();
+				}
+				});
+		</script>
 </head>
 <!--
 <body onload="layerPop('popup_loading');">	
 -->
 <body style="overflow-y: hidden;">
+	<audio id="audio_play" src="./resource/mouse.mp3"></audio>
 	<div class="dimmed_transparent_bg"></div>
 
-	<div class="ags-wrap newui demos" purchase-container>
+	<div class="ags-wrap newui demos sound-btn" purchase-container>
 		<h1 class="site-name">올윈에어</h1>		
 		<div class="dimmed_bgs" style="display: none;"></div>
 		<header>
@@ -140,7 +170,7 @@
 				<div class="pay_content">
 					<div class="text_jinblue">묶음 할인 옵션 선택 후 좌석신청하기</div>
 					<div class="accordion">
-						<div class="accordion-item active">
+						<div class="accordion-item active sound-btn">
 							<div class="accordion-header">
 								<div>기본(선택 안함)</div> 
 								<div class="accordion-bet">
@@ -161,7 +191,7 @@
 							</div>
 						</div>
 
-						<div class="accordion-item">
+						<div class="accordion-item sound-btn">
 							<div class="accordion-header">
 								<div class="accor_txt1">아이동반 키즈팩</div> 
 								<div class="accor_txt2">솔로팩</div>
@@ -366,7 +396,7 @@
 							</div>
 						</div>
 
-						<div class="accordion-item ">
+						<div class="accordion-item sound-btn ">
 							<div class="accordion-header">
 								<div>좌석팩</div> 
 								<div class="accordion-bet">
@@ -395,7 +425,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item ">
+						<div class="accordion-item sound-btn ">
 							<div class="accordion-header">
 								<div>밀팩</div> 
 								<div class="accordion-bet">
@@ -424,7 +454,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item ">
+						<div class="accordion-item sound-btn ">
 							<div class="accordion-header">
 								<div>수하물팩</div> 
 								<div class="accordion-bet">
@@ -453,7 +483,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item ">
+						<div class="accordion-item sound-btn ">
 							<div class="accordion-header">
 								<div>라운지팩</div> 
 								<div class="accordion-bet">
@@ -492,7 +522,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item ">
+						<div class="accordion-item sound-btn ">
 							<div class="accordion-header">
 								<div>골프팩 베이직</div> 
 								<div class="accordion-bet">
@@ -521,7 +551,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item ">
+						<div class="accordion-item sound-btn ">
 							<div class="accordion-header">
 								<div>골프팩 스페셜(한정수량 판매)</div> 
 								<div class="accordion-bet">
