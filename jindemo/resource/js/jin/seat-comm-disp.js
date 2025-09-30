@@ -528,11 +528,11 @@ var commSeatDisp	= {
 		var html		= [];
 
 		if (prfrdRate) {
-			html.push('<rect class="'+rectClass+'" x="'+(topSeatPos.left-rectCorrectX)+'" y="'+(topSeatPos.top-rectCorrectY)+'" width="48" height="10" fill="rgb(255, 102, 0)"></rect>');
+			html.push('<rect class="'+rectClass+'" x="'+(topSeatPos.left-rectCorrectX)+'" y="'+(topSeatPos.top-rectCorrectY)+'" width="48" height="10" fill="rgb(217, 57, 57)"></rect>');
 			html.push('<text class="'+rectClass+'" x="'+(topSeatPos.left-textCorrectX)+'" y="'+(topSeatPos.top-textCorrectY)+'" width="50" font-size="9" fill="rgb(255, 255, 255)">AI '+(rcmndIdx+1)+'위'+prfrdRate.toFixed(1)+'</text>');
 		}
 		
-		html.push('<polygon class="'+boxClass+'" points="'+points.map(function(item){ return item.x+","+item.y }).join(" ")+'" stroke="rgb(255, 102, 0)" stroke-width="1.5" fill="none"></polygon>');
+		html.push('<polygon class="'+boxClass+'" points="'+points.map(function(item){ return item.x+","+item.y }).join(" ")+'" stroke="rgb(217, 57, 57)" stroke-width="1.5" fill="none"></polygon>');
 	
 		return html.join("");
 	}

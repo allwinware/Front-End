@@ -14,12 +14,28 @@
     <script src='./resource/js/jquery.min.js'></script>
     <script src="./resource/js/alpha.mo.ui.js"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+			function play() {
+					const audio = document.getElementById("audio_play");
+					audio.pause();
+					audio.currentTime = 0;
+					audio.play();
+				}
+
+				document.addEventListener("click", function(e) {
+				const soundBtn = e.target.closest(".sound-btn");
+				if (soundBtn) {
+					play();
+				}
+				});
+		</script>
 
 </head>
 
 <body style="overflow: hidden;">    
+	<audio id="audio_play" src="./resource/mouse.mp3"></audio>    
 	<div class="dimmed_bgs" style="display: block;"></div>
-    <div class="ags-wrap newui bag demos">
+    <div class="ags-wrap newui bag demos sound-btn">
         <h1 class="site-name">올윈에어</h1>        
 		<div class="dimmed_bg" style="display: none;"></div>
         <header>
@@ -28,14 +44,14 @@
 				<div class="gnb_menu">
                     <div class="finger_demo3"></div>
 					<div class="demo_gnb_menu1">
-						<div class="blue_text alpha_zero" >20,000 절약</div>
+						<div class="blue_text alpha_zero">20,000 절약</div>
 						<div class="alpha_zero">99,000 절약</div>
-						<div class="blue_text"></div>
+						<div class="blue_text"><span></span></div>
 					</div>
 					<div class="demo_gnb_menu2_3"></div>
 					<div class="demo_gnb_menu3">
-						<div>같이 앉는 좌석</div>
-						<div>맛있는 기내식</div>
+						<div onclick="window.location.href='index.html';">같이 앉는 좌석</div>
+						<div onclick="window.location.href='service_food.html';">맛있는 기내식</div>
 						<div class="blue_text">수하물 할인</div>
 					</div>
 				</div>				
@@ -43,7 +59,7 @@
 			</div>
 
 			<div class="select_boxbtn" >
-				<div class="select_backbtn active" >
+				<div class="select_backbtn active" flyInfo="1">
 					<button id="ags-wrap-back" class="btn_back_c">
 						<div class="boxbtn_flyb">
 							<div class="de_ways1">가는편</div>
@@ -53,7 +69,7 @@
 						</div>
 					</button>
 				</div>
-				<div class="select_comebtn">
+				<div class="select_comebtn" flyInfo="2">
 					<button id="ags-wrap" class="btn_come_c">
 						<div class="boxbtn_flyb">							
 							<div class="de_ways1">오는편</div>
@@ -84,16 +100,16 @@
 			</div>
 		</header>
         <div class="contents separate200 bagnewui" id="con_slider">
-            <div class="slider1">
+            <div class="slider1" segIdx="1">
                 <div class="bag_slider_box fst">
                     <div class="bag_slider_boxtxt fst">
                         <div>우선수하물 신청</div>
-                        <div>남은 수량 <span class="countdown_b">9</span></div>
+                        <div>남은 수량 <span class="countdown_b" remain="9">9</span></div>
                     </div>
                 </div>                
                 <div class="bag_slider_name">
                     <div class="bag_slider_name_line">
-                        <div class="bag_txt_same">
+                        <div class="bag_txt_same" style="display: none;">
                             <input type="checkbox" id="check5">
                             <label for="check5"><i></i><div><span class="blue_text"></span>전원 통일하기</div></label>
                         </div>
@@ -109,18 +125,18 @@
                             </div>                        
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="1">
                                     <div class="finger_fst1"></div>
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="2">
                                     <div class="demos_boxs_tx1">2개</div>
                                     <div class="demos_boxs_tx2">KRW 12,000</div>
                                     <div class="demos_boxs_tx3"></div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="3">
                                     <div class="demos_boxs_tx1">3개</div>
                                     <div class="demos_boxs_tx2">KRW 18,000</div>
                                     <div class="demos_boxs_tx3"></div>
@@ -137,18 +153,18 @@
                             </div>                        
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="1">
                                     <div class="finger_fst1"></div>
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="2">
                                     <div class="demos_boxs_tx1">2개</div>
                                     <div class="demos_boxs_tx2">KRW 12,000</div>
                                     <div class="demos_boxs_tx3"></div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="3">
                                     <div class="demos_boxs_tx1">3개</div>
                                     <div class="demos_boxs_tx2">KRW 18,000</div>
                                     <div class="demos_boxs_tx3"></div>
@@ -165,18 +181,18 @@
                             </div>                        
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="1">
                                     <div class="finger_fst1"></div>
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="2">
                                     <div class="demos_boxs_tx1">2개</div>
                                     <div class="demos_boxs_tx2">KRW 12,000</div>
                                     <div class="demos_boxs_tx3"></div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="3">
                                     <div class="demos_boxs_tx1">3개</div>
                                     <div class="demos_boxs_tx2">KRW 18,000</div>
                                     <div class="demos_boxs_tx3"></div>
@@ -188,16 +204,16 @@
                 </div>
                 
             </div>
-            <div class="slider2">
+            <div class="slider2" segIdx="2">
                 <div class="bag_slider_box fst">
                     <div class="bag_slider_boxtxt fst">
                         <div>우선수하물 신청</div>
-                        <div>남은 수량 9</div>
+                        <div>남은 수량 <span class="countdown_b" remain="9">9</span></div>
                     </div>
                 </div>                
                 <div class="bag_slider_name">
                     <div class="bag_slider_name_line">
-                        <div class="bag_txt_same">
+                        <div class="bag_txt_same" style="display: none;">
                             <input type="checkbox" id="check6">
                             <label for="check6"><i></i><div><span class="blue_text"></span>전원 통일하기</div></label>
                         </div>
@@ -213,17 +229,17 @@
                             </div>                        
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="1">
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="2">
                                     <div class="demos_boxs_tx1">2개</div>
                                     <div class="demos_boxs_tx2">KRW 12,000</div>
                                     <div class="demos_boxs_tx3"></div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="3">
                                     <div class="demos_boxs_tx1">3개</div>
                                     <div class="demos_boxs_tx2">KRW 18,000</div>
                                     <div class="demos_boxs_tx3"></div>
@@ -240,17 +256,17 @@
                             </div>                        
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="1">
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="2">
                                     <div class="demos_boxs_tx1">2개</div>
                                     <div class="demos_boxs_tx2">KRW 12,000</div>
                                     <div class="demos_boxs_tx3"></div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="3">
                                     <div class="demos_boxs_tx1">3개</div>
                                     <div class="demos_boxs_tx2">KRW 18,000</div>
                                     <div class="demos_boxs_tx3"></div>
@@ -267,17 +283,17 @@
                             </div>                        
                             <div class="bag_slider_name_box_2" style="display: none;">추가하기</div>
                             <div class="bag_slider_name_box_a">
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="1">
                                     <div class="demos_boxs_tx1">1개</div>
                                     <div class="demos_boxs_tx2">KRW 6,000</div>
                                     <div class="demos_boxs_tx3">주문 많아요</div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="2">
                                     <div class="demos_boxs_tx1">2개</div>
                                     <div class="demos_boxs_tx2">KRW 12,000</div>
                                     <div class="demos_boxs_tx3"></div>
                                 </div>
-                                <div class="demos_boxs">
+                                <div class="demos_boxs" qty="3">
                                     <div class="demos_boxs_tx1">3개</div>
                                     <div class="demos_boxs_tx2">KRW 18,000</div>
                                     <div class="demos_boxs_tx3"></div>
@@ -299,12 +315,12 @@
 				<div class="btf_a">
 					<div>
 						<span>LEE JIYOUNG</span>님
-						<span class="btf_a_people">4</span>인  
+						<span class="btf_a_people">3</span>인  
 					</div>
-					<div class="btf_a_txt">누적 KRW 15,000 절약중</div>
+					<div class="btf_a_txt"><span saving="30000">누적 KRW 105,000 절약중</span></div>
 				</div>
-				<div class="btf_bbtn active">
-					<div class="">다음</div> 
+				<div class="btf_bbtn" footerBtn="shift">
+					<div>다음</div> 
 				</div>				
 			</div>			
 			<div class="footer_contents">				
@@ -404,6 +420,12 @@
     </div>
 
     <script>
+	    String.prototype.comma = Number.prototype.comma = function() {
+		    var n = String(this).replace(/\,/g,'');
+		    return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
+		}
+	    
+	    
         document.addEventListener("DOMContentLoaded", () => {
             const runCounter = () => {
                 let num = 1;
@@ -420,6 +442,111 @@
 
             runCounter();
         });
+        
+        
+        var urlSearch	= new URLSearchParams(location.search);
+        var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+		var paramQty	= urlSearch.get('qty');						
+
+		if (paramQty) {
+			var	accSaving	= paramQty*25000;
+			
+			if (accSaving > 0) {
+				$(".demo_gnb_menu1 .blue_text > span").text(accSaving.comma()+" 절약");
+			}
+			
+			$(".foot_align .btf_a_txt > [saving]").text('누적 KRW '+(Number(saving)+accSaving).comma()+' 절약중');
+		}
+	    
+      	// 여정탭이동
+		$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
+			var segIdx		= $(this).parent().attr("flyInfo");
+
+			// 다음버튼 css 초기화
+			$("[footerBtn=shift]").removeClass("active");
+			
+			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".demos_boxs.active").get().reduce((acc,cur) => acc+Number($(cur).attr("qty") || 0),0);
+        	
+        	if (curSegQty > 0) {
+        		$("[footerBtn=shift]").addClass("active");
+        	} else {
+        		$("[footerBtn=shift]").removeClass("active");
+        	}
+		});
+      	
+      	
+        // 남은수량 및 절약금액
+        $(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
+        	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+        	var ramain		= $("[segIdx="+segIdx+"] .countdown_b");
+        	
+        	var isActive	= $(this).hasClass("active");
+        	var actQty		= $(this).attr("qty");
+
+        	if (isActive) {
+        		$(this).removeClass("active");
+        	} else {
+        		$(this).addClass("active").siblings().removeClass("active");
+        	}
+        	
+        	var remainCnt	= $(ramain).attr("remain");
+			var curSegQty	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active").get().reduce((acc,cur) => (acc+Number($(cur).attr("qty"))), 0);
+
+			$(ramain).text(Number(remainCnt)-curSegQty);
+			
+			if (curSegQty > 0) {
+        		$("[footerBtn=shift]").addClass("active");
+        	} else {
+        		$("[footerBtn=shift]").removeClass("active");
+        	}
+			
+			var actChk		= $(this).hasClass("active");
+			var actQtyLt	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active").get().map((e) => $(e).attr("qty")).filter((item, idx, self) => self.indexOf(item) == idx);
+
+			if (actQtyLt.length == 1) {
+				$("[segIdx="+segIdx+"] .bag_txt_same").data("sameQty", actQtyLt[0]).show().find(".blue_text").text(actQtyLt[0]+"개로 ");
+				
+				var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
+				var actBoxLt	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active").length;
+				
+				if (boxLt == actBoxLt) {
+					$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
+				} else {
+					$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+				}
+			} else {
+				$("[segIdx="+segIdx+"] .bag_txt_same").hide();
+			}
+        });
+        
+        
+        // 통일하기
+        $(document).on("click", ".bag_txt_same :checkbox", function () {
+        	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	        var actQty		= $("[segIdx="+segIdx+"] .bag_txt_same").data("sameQty");
+        	
+	        var isChecked	= $(this).is(":checked");
+	        
+	        if (isChecked) {
+	        	$("[segIdx="+segIdx+"] .bag_slider_name_box .demos_boxs[qty="+actQty+"]:not(.active)").trigger("click");
+	        } else {
+				$("[segIdx="+segIdx+"] .bag_slider_name_box .demos_boxs[qty="+actQty+"]").trigger("click");
+	        }
+        });
+        
+        
+      	// 다음버튼 클릭
+		$(document).on("click", "[footerBtn=shift]", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+
+			if (segIdx == 1) {
+				$("#ags-wrap").trigger("click");
+			}
+			
+			e.stopPropagation();
+		});
+        
+      	
     </script>
     
 
