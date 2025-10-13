@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-2.2.4.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<!--
+<body onload="layerPop('popup_loading');">	
+-->
+<body style="overflow-y: hidden;">
+	<div class="ags-wrap newui head demos">
+		<h1 class="site-name">올윈에어</h1>		
+		<div class="dimmed_bgs" style="display: none;"></div>
+		<header>
+			<div class="ags-header">
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="gnb_menu">
+					<div class="demo_gnb_menu1">
+						<div class="blue_text alpha_zero">20,000 절약</div>
+						<div class="alpha_zero">99,000 절약</div>
+						<div class="alpha_zero">99,000 절약</div>
+					</div>
+					<div class="demo_gnb_menu2_2"></div>
+					<div class="demo_gnb_menu3">
+						<div>예약자 확인</div>
+						<div class="blue_text">좌석 배정</div>
+						<div>탑승권 발급</div>
+					</div>
+				</div>				
+				<div class="gnb-jinlogo"></div>
+			</div>				
+			<div class="header_txt1">
+				<div class="header_txt_ai">
+                    <div>
+                        <img src="./resource/img/common/ai.png">
+                        <span class="top_txtp">더 넓게 앉는 블록좌석 선택</span>
+                    </div>
+                    <div>
+                        <span>예상비행시간</span>
+                        <span id="timer">05:50</span>
+                    </div>
+				</div>
+			</div>					
+			<div class="select_boxbtn" >
+				<div class="select_backbtn active" >
+					<button id="ags-wrap-back" class="btn_back_c">
+						<div class="boxbtn_flyb">
+							<div class="de_ways1">가는편</div>
+							<div class="de_ways2">인천 <span> ICN</span></div>
+							<div class="de_ways3">비행기이미지</div>
+							<div class="de_ways4">방콕 <span>BKK</span></div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</header>
+		<div class="find_txt" style="display: none;">가격대별 선호도 1위 그룹석을 찾았어요!</div>
+		<div class="contents separate200 ovrFlw" id="con_slider" >
+			<div class="slider1" >
+				<div id="lj_B737-800"></div>				
+			</div>
+
+			<div class="slider2">
+				<div id="lj_B777-200"></div>
+			</div>
+			
+		</div>
+				
+		<div class="demo_popup1">WOW! 아이동반 3인X 전 좌석 5,000씩=15,000 특별 할인!</div>
+
+		<!-- 밑에 바 -->
+		 <!-- 좌석 정했을때 -->
+		<div class="ags-summary" style="display: none;">	
+			<h4 class="sr-only">부가서비스 결제금액</h4>			
+			<div class="scroll_btn" style="display: none;">
+				<button autoRcmndBtn><span>AI추천 돌아가기</span></button>
+			</div>
+			<div class="scroll_btn" style="display: none;">
+				<button assignRcmndBtn><span>자동선택 돌아가기</span></button>
+			</div>
+			<div class="foot_align">
+				<div class="btn_footer_open"><span></span></div>
+				
+				<div class="btf_a">
+					<div>
+						<span>LEE JIYOUNG</span>님
+						<span class="btf_a_people" paxCnt>3</span>인  
+					</div>
+					<div class="btf_a_txt"><span style="visibility:hidden">절약중</span></div>
+				</div>
+				<!-- active 색 전환-->
+				<div class="btf_bbtn" footerBtn="shift">
+					<div>다음</div>
+				</div>				
+			</div>			
+			<div class="footer_contents">				
+				<a class="btn_footer_close">Close</a>
+				<div class="pay_content">
+					<div class="creditcard newui">
+						<div class="card_warp">
+							<div class="card_name">신청내역</div>
+							<div class="card_name_btn">
+								<div>
+									항공권
+								</div>
+								<div>
+									부가서비스
+								</div>
+							</div>
+							<div class="credit_box_btn" agrBtn style="display: none;"></div>
+						</div>
+						<div agrLt class="credit_agree_box_content dis on" style="display: block;">
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+							<!-- 사람 -->				   
+							<div class="bd_pxc">
+								<div class="ccd_man1"></div>
+							</div>
+
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+							<div class="bd_pxc">
+								<div class="ccd_man2"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="credit_total_footer">
+						<div class="credit_total">
+							<div>부가서비스 총 결제 금액</div>
+							<div class="credit_total_box3">
+								<div style="color: #469DD6; font-size: 11px; font-family: 'PretendardL';">KRW 8,000 절약↓</div>
+								<div style="font-size: 16px; font-family: 'PretendardB';">KRW76,000원</div>
+							</div>   
+						</div>
+						<div class="payment_btn0">
+							<div class="payment_btn1">바로결제</div>
+							<div class="payment_btn2 btn_footer_closex">확인했어요</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>			
+		
+		<!-- 첫화면 팝업뛰움 3:3 팝업 btn_demo_pop01-->
+		<div class="footer-first">
+			<div class="footer-first-pop">
+				<div class="footer-first_close">닫힘</div>
+
+				<div class="fd_contents">
+					<div class="fd_contents_txt1">LEE JIYOUNG님 2인</div>
+					<div class="fd_contents_txt2">좌석지정 후 모바일 탑승권발급이 가능해요!</div>
+					<div class="fd_contents_txt3">자유롭게 선택하세요!</div>
+					<div class="fd_contents_img01"></div>
+				</div>
+				
+				<div class="pay_pay_footer close_btn_1">					
+					<button class="btn_come_c">다음</button>					
+				</div>
+			</div>
+		</div>
+		<!-- 3:4:3 팝업btn_demo_pop02 -->
+		 
+		<div class="footer-twst" >
+			<div class="footer-twst-pop">
+				<div class="footer-first_close">닫힘</div>
+
+				<div class="fd_contents">
+					<div class="fd_contents_txt1">LEE JIYOUNG님.</div>
+					<div class="fd_contents_txt2">+ <span>1</span>좌석 선택이 완료되었습니다.</div>
+					
+					<div class="seat_sheet demopop">
+						<!-- 좌석 3개 -->
+						<ul class="seat_num wid120">
+							<li>
+                                <span><a href="#none" class="seat_btn seat_active">17A</a></span>
+                                <span><a href="#none" class="seat_btn seat_active_plus">17B</a></span>
+								<span><a href="#none" class="seat_btn seat_active_plus">17C</a></span>							
+                            </li>
+                        </ul>
+						<!-- 좌석 6개 -->
+						<ul class="seat_num" style="display: none;">
+                            <li>
+                                <span><a href="#none" class="seat_btn seat_active">17A</a></span>
+                                <span><a href="#none" class="seat_btn seat_active_plus">17B</a></span>
+								<span><a href="#none" class="seat_btn seat_active_plus">17C</a></span>
+								<span style="width: 10px;"></span>
+								<span><a href="#none" class="seat_btn seat_active">17A</a></span>
+                                <span><a href="#none" class="seat_btn seat_active_plus">17B</a></span>
+								<span><a href="#none" class="seat_btn seat_active_plus">17C</a></span>								
+                            </li>
+                        </ul>
+
+					</div>
+
+					<div class="fd_contents_txt3" style="margin-top: 0px;">
+						추가 1좌석 x KRW 40,000
+					</div>
+					<div class="fd_contents_txt5">
+						KRW 40,000
+					</div>
+				</div>
+				
+				<div class="pay_pay_footer close_btn_1">					
+					<button class="btn_come_c">다음</button>					
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-thir" >
+			<div class="footer-thir-pop">
+				<div class="footer-first_close">닫힘</div>
+
+				<div class="fd_contents">
+					<div class="fd_contents_txt1">LEE JIYOUNG님.</div>
+					<div class="fd_contents_txt2">2인이 총 <span>3</span>좌석을 넓게 사용하실 수 있습니다.</div>
+					
+					<div class="seat_sheet demopop">
+						<!-- 좌석 블럭 큰거 -->
+						<div class="ahahahah">								
+							<img src="./resource/img/block_img11.png">
+							<div class="ahahahah_txt1">								
+								<span>36D</span>
+								<span>36E</span>
+								<span>36F</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="fd_contents_txt3" style="margin-top: 0px;">
+						추가 1좌석 x KRW 40,000
+					</div>
+					<div class="fd_contents_txt5">
+						KRW 40,000
+					</div>
+				</div>
+				
+				<div class="pay_pay_footer close_btn_1">					
+					<button class="btn_come_c">다음</button>					
+				</div>
+			</div>
+		</div>
+
+	<script>		
+		$("#lj_B737-800").load("include/lj_B737-800.html");
+	</script>
+
+	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
+        <div class="loadinggif">
+            <!-- container -->
+            <div class="rader_popup"></div>  
+			<div class="load_popup"></div>  
+            <!-- //container -->
+        </div>
+    </article>
+</body>
+	<script>
+		$(document).ready(function(){
+		setTimeout(function(){
+			$(".footer-first-pop").addClass("active");	
+			$("body").css("overflow", "hidden");
+			$("html").css("overflow", "hidden");
+		}, 100); // 3초 후 실행
+		setTimeout(function(){	
+			$(".dimmed_bg, .dimmed_bgs").fadeIn(100); // 0.6초 동안 서서히 나타남
+		}, 100); // 3.5초 후 실행
+		});
+	</script>
+
+</html>

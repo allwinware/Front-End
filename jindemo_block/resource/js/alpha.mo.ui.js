@@ -235,7 +235,7 @@ $(document).ready(function () {
 			$(this).addClass("seat_active").find("span").hide();;
 		}
 	}); 
-	/*좌석선택 오렌지 플러스*/
+	/*좌석선택251013 오렌지 플러스*/
 
 	$(document).on("click", ".seat_btn.plus_block", function () {
 		var isActive	= $(this).hasClass("seat_active_plus");
@@ -245,7 +245,17 @@ $(document).ready(function () {
 			$(this).addClass("seat_active_plus").find("span").hide();;
 		}
 	});
-
+	/*좌석선택251013 블럭좌석 클릭*/
+	$(document).on("click", ".seat_block", function () {
+			var $this = $(this);
+			var isActive = $this.hasClass("seat_active");
+			var isActive	= $(this).hasClass("seat_active");
+			if (isActive) {
+				$this.removeClass("seat_active").find("span").show();
+			} else {
+				$this.addClass("seat_active").find("span").hide();
+			}
+		});
 	/*좌석선택 블루*/
 
 	$(document).on("click", ".seat_btn_blue", function () {
@@ -321,6 +331,14 @@ $(document).ready(function () {
 	});
 	$(document).on("click", ".btn_demo_pop02", function () {
 		$(".footer-twst-pop").addClass("active");					
+		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
+		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
+		
+	});
+
+	$(document).on("click", ".btn_demo_pop03", function () {
+		$(".footer-thir-pop").addClass("active");					
 		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
 		$("body").css("overflow", "hidden");
 		$("html").css("overflow", "hidden");
