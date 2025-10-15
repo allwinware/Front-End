@@ -1024,6 +1024,7 @@ $(document).on("click", ".btn_bags_close", function () {
 $(document).on("click", ".footer-first_close, .close_btn_1", function () {
     $(".footer-first-pop").removeClass("active");
 	$(".footer-twst-pop").removeClass("active");
+	$(".footer-thir-pop").removeClass("active");
     $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");
