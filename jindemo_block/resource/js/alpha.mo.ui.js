@@ -343,7 +343,29 @@ $(document).ready(function () {
 		$("body").css("overflow", "hidden");
 		$("html").css("overflow", "hidden");
 		
+	});	
+
+	$(document).on("click", ".btn_demo_pop04", function () {
+		$(".footer-fore-pop").addClass("active");					
+		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
+		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
+		
 	});
+
+	$(document).on("click", ".btn_demo_pop00", function () {
+		$(".footer-pops-slide").addClass("active");					
+		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
+		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
+		
+	});
+	$(document).on("click", ".close_btn_pop", function () {
+			$(".footer-pops-slide").removeClass("active");
+			$(".dimmed_bg, .dimmed_bgs").css("display", "none");	
+			$("body").css("overflow", "");
+			$("html").css("overflow", "");
+		});
 
 
 	/*푸터 그룹 팝업*/
@@ -414,6 +436,7 @@ $(document).ready(function () {
 		$("html").css("overflow", "");
 	});
 	
+
 	
 	/*상단 내려오는 슬라이드*/
 	$('.select_group_btn').click(function () {
@@ -1025,6 +1048,7 @@ $(document).on("click", ".footer-first_close, .close_btn_1", function () {
     $(".footer-first-pop").removeClass("active");
 	$(".footer-twst-pop").removeClass("active");
 	$(".footer-thir-pop").removeClass("active");
+	$(".footer-fore-pop").removeClass("active");
     $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");
