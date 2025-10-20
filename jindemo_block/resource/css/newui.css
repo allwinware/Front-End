@@ -5804,20 +5804,26 @@ input[type="radio"]:checked + label .check-circle {
   z-index: 903;
 }
 
+
 .footer-pops .footer-pops-slide {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 60vh;
-  background: #fff;
-  transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
-  transform: translateY(100%);  
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: auto; /* ← 고정값 대신 auto로 변경 */
+    max-height: 80vh; /* 너무 높아질 때 제한 (선택사항) */
+    background: #fff;
+    transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    transform: translateY(100%);
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    overflow-y: auto; /* 컨텐츠 많을 때 스크롤 생성 */
+    box-sizing: border-box;
 }
+
+
 .footer-pops .footer-pops-slide.active {
-    transform: translateY(42%);
+    transform: translateY(0%);
 }
 
 .footer-pops .footer-pops_close{
