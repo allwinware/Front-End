@@ -816,23 +816,39 @@ $(document).ready(function() {
         displayMessage('.m_csmsga' + (index + 1));
     });
 */
+
 });
 
+function toggleVisibility(div) {
+	var $folderContent = $(div).next('.folder-content');
+	var isActive = $folderContent.hasClass('folder-open');
 
+	// Close all folders
+	$('.folder-content').slideUp(200).removeClass('folder-open');
 
-  function toggleVisibility(div) {
-    var $folderContent = $(div).next('.folder-content');
-    var isActive = $folderContent.hasClass('folder-open');
+	// Remove "active" class from all qna-boxes
+	$('.qna-box').removeClass('active');
 
-    // Close all folders
-    $('.folder-content').slideUp(200).removeClass('folder-open');
-
-    // Remove "active" class from all qna-boxes
-    $('.qna-box').removeClass('active');
-
-    // Toggle the clicked folder's state
-    if (!isActive) {
-        $folderContent.slideDown(200).addClass('folder-open');
-        $(div).parent('.qna-box').addClass('active');
-    }
+	// Toggle the clicked folder's state
+	if (!isActive) {
+		$folderContent.slideDown(200).addClass('folder-open');
+		$(div).parent('.qna-box').addClass('active');
+	}
 }
+
+/*우선수하물 - 새로 만들시 지워도 됨. */
+$(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
+    // 클릭된 버튼
+    var $clicked = $(this);
+
+    // 같은 li 안의 demos_boxs 전체에서 active 제거
+    var $parentLi = $clicked.closest(".bag_slider_name_box");
+    $parentLi.find(".demos_boxs").removeClass("active");
+
+    // 클릭한 항목만 active 추가
+    $clicked.addClass("active");
+
+    // 선택된 개수 텍스트 갱신 (예: "합 1개")
+    var qty = $clicked.attr("qty");
+    $parentLi.find(".bag_slider_name_box_left_b").text("합 " + qty + "개");
+});
