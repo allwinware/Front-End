@@ -97,41 +97,43 @@
 	
 	
 	function changePaxCnt(paxCnt) {
-// 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-// 		var segCtl		= demoCtl.getSegCtl(segIdx);
-// 		var autoRcmnd	= segCtl.config.ASSIGN_INFO[0];
+		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+		var segCtl		= demoCtl.getSegCtl(segIdx);
 		
-// 		var paxList		= [];
+		var paxList		= [];
 		
-// 		for (var i=0; i<paxCnt; i++) {
-// 			paxList.push({
-// 				"rph": (i+1),
-// 				"givenName": (i+1),
-// 				"surname": "승객",
-// 				"paxType": "ADT",
-// 			});
-// 		}
+		for (var i=0; i<paxCnt; i++) {
+			paxList.push({
+				"rph": (i+1),
+				"givenName": (i+1),
+				"surname": "승객",
+				"paxType": "ADT",
+			});
+		}
 		
-// 		if (paxCnt == demoCtl.actPaxCnt) {
-// 			console.log("test")
-// 			return;
-// 		}
+		if (paxCnt == demoCtl.actPaxCnt) {
+			return;
+		}
 
-// 		// 설정초기화
-// 		var paxInfo		= segCtl.config.PAX_INFO;
+		if (paxCnt > 2) {
+			return;
+		}
 		
-// 		segCtl.setSeatPurchsInfo("rcmnd", paxInfo, null);
-// 		segCtl.setSeatPurchsInfo("plus", paxInfo, null);
+		// 설정초기화
+		var paxInfo		= segCtl.config.PAX_INFO;
 		
-// 		// paxList 재설정
-// 		segCtl.config.PAX_INFO.paxList	= paxList;
-// 		segCtl.init().then(() => {
-// 			// 1순위 무료좌석 설정
-// 			demoCtl.setAutoRcmndSeat(autoRcmnd);
+		segCtl.setSeatPurchsInfo("rcmnd", paxInfo, null);
+		segCtl.setSeatPurchsInfo("plus", paxInfo, null);
+		
+		// paxList 재설정
+		segCtl.config.PAX_INFO.paxList	= paxList;
+		segCtl.init().then(() => {
+			// 1순위 무료좌석 설정
+			demoCtl.setAutoRcmndSeat(segCtl.config.ASSIGN_INFO[0]);
 			
-// 			// block좌석 설정
-// 			demoCtl.setAutoBlockSeat();
-// 		});
+			// block좌석 설정
+			demoCtl.setAutoBlockSeat();
+		});
 	}
 	
 	
@@ -166,7 +168,7 @@
 				_this.setAutoRcmndSeat(autoRcmnd);
 				
 				// block좌석 설정
-				_this.setAutoBlockSeat();
+				_this.setAutoBlockSeat(2);
 			});
 			
 			_this.timer	= timerCtl();
@@ -204,50 +206,78 @@
 			seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, rcmndSeatLt));
 		},
 		// 대모 block추천 좌석 설정
-		setAutoBlockSeat	: function() {
+		setAutoBlockSeat	: function(paxCnt) {
 			var _this	= this;
 			
+			_this.actPaxCnt	= paxCnt;
+			
+			var initBlockSeatNoMap	= {
+				"1"	: () => ["36D"],
+				"2"	: () => ["36D","36E"],
+// 				"3"	: () => ["32A", "32B", "32C"],
+// 				"4"	: () => ["37A", "37B", "37C", "37D"]
+			}
+		
 			var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
 			var segCtl			= _this.getSegCtl(segIdx);
-
-			var seatList		= segCtl.config.SEAT_INFO.seatList;
 			var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
-			
-			var initAutoRcmnd	= segCtl.config.ASSIGN_INFO.filter((e) => e.findPtrn.every((seat) => ["36D","36E"].includes(seat.seatNo)))[0];
-			var autoBlockSeat	= initAutoRcmnd.findPtrn;
-			var autoFstSeatEl	= seatMap.find("[seatno="+autoBlockSeat[0].seatNo+"]");
 
-			// 추천 블락좌석
-			seatMap.find(".seat_block").css({top: (autoFstSeatEl.position().top-1)+"px", left: (autoFstSeatEl.position().left-1)+"px"})
-			seatMap.find(".seat_block").show();
-			seatMap.find(".seat_block").off().on("click", function() {
-				var isActive	= $(this).hasClass("seat_active");
-				
-				if (isActive) {
-					return;	
+			var paxList			= segCtl.config.PAX_INFO.paxList;
+			var seatList		= segCtl.config.SEAT_INFO.seatList;
+			var plusUnitCharge	= segCtl.config.plusCharge;
+			
+			var blockSeatNoLt	= initBlockSeatNoMap[paxCnt]();
+			var blockFstSeatEl	= seatMap.find("[seatno="+blockSeatNoLt[0]+"]");
+
+			var initAutoRcmnd	= segCtl.config.ASSIGN_INFO.filter((e) => e.findPtrn.every((seat) => blockSeatNoLt.includes(seat.seatNo)))[0];
+			
+			// 선택처리
+			segCtl.selRcmndSeat(initAutoRcmnd);
+			
+			var autoBlockSeat	= seatList.filter((e) => blockSeatNoLt.includes(e.seatNo));
+			var rowSeatLt		= seatList.filter((e) => autoBlockSeat.some((seat) => seat.rowIdx == e.rowIdx));
+			var rowLt			= rowSeatLt.map((e) => ({row: e.row, rowIdx: e.rowIdx})).sort((a, b) => a.rowIdx - b.rowIdx).map((e) => e.row).filter((item, idx, self) => self.indexOf(item) == idx);
+
+			var blockObj		= rowSeatLt.reduce((acc, cur, idx, arr) => {
+				if (!acc[cur.row+"-"+cur.blockIdx]) {
+					acc[cur.row+"-"+cur.blockIdx] = arr.filter((e) => e.row == cur.row && e.blockIdx == cur.blockIdx && e.seatStatus == "A" && !autoBlockSeat.some((seat) => seat.seatNo == e.seatNo));
 				}
+				return acc;
+			},{});
+
+			for (var i=0; i<rowLt.length; i++) {
+				var currRow					= rowLt[i];
+				var checkRowPlusSeat		= autoBlockSeat.filter((e) => e.row == currRow).some((e) => blockObj[e.row+"-"+e.blockIdx].length > 0);
+				var plusSeatLt				= [];
 				
-				// 선택처리
-				segCtl.selRcmndSeat(initAutoRcmnd);
-				
-				// plusSeat 선택처리
-				var plusSeatLt	= seatList.filter((e) => autoBlockSeat.some((seat) => seat.rowIdx == e.rowIdx && seat.blockIdx == e.blockIdx)).filter((e) => !autoBlockSeat.some((seat) => seat.seatNo == e.seatNo));
-				
-				for (var i=0; i<plusSeatLt.length; i++) {
-					seatMap.find("[seatno="+plusSeatLt[i].seatNo+"]").trigger("click");
+				if (checkRowPlusSeat) {
+					plusSeatLt				= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow && autoBlockSeat.some((seat) => seat.blockIdx == e.blockIdx));
+				} else {
+					var purchsedBlockSeatLt	= rowSeatLt.filter((e) => e.row == currRow && selSeatLt.some((seat) => seat.blockIdx == e.blockIdx));
+					var checkPurchsedBlock	= purchsedBlockSeatLt.every((e) => selSeatLt.some((seat) => seat.seatNo == e.seatNo));
+					
+					if (checkPurchsedBlock) {
+						plusSeatLt			= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow);
+					}
 				}
-				
-				// 선택완료 팝업
-				$(".footer-thir-pop").addClass("active");
-				$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
-				$("body").css("overflow", "hidden");
-				$("html").css("overflow", "hidden");
-				
-				seatMap.find(".ballon_box3").hide();
-			});
+
+				for (var j=0; j<plusSeatLt.length; j++) {
+					var target		= seatMap.find("[seatno="+plusSeatLt[j].seatNo+"]");
+					
+					target.addClass("plus_block").attr("onclick", "return false;").find("span").text(plusUnitCharge.comma()).removeClass("blind_box");
+					target.off().one("click", function() {
+						var seatNo			= $(this).attr("seatno");
+						var plusSeat		= plusSeatLt.filter((e) => e.seatNo == seatNo);
+
+						segCtl.selPlusSeat(plusSeat[0]);
+						_this.setSelContents();
+						$("[footerBtn=shift]").trigger("click");
+					});
+				}
+			}
 			
 			// 말풍선
-			seatMap.find(".ballon_box3").css({top: (autoFstSeatEl.position().top-50)+"px", left: (autoFstSeatEl.position().left-25)+"px"});
+			seatMap.find(".ballon_box3").css({top: (blockFstSeatEl.position().top-50)+"px", left: (blockFstSeatEl.position().left-25)+"px"});
 			seatMap.find(".ballon_box3").show();
 		},
 		// 자동추천 좌석 클릭
