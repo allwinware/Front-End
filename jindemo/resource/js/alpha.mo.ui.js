@@ -316,9 +316,6 @@ $(document).ready(function () {
 		$("html").css("overflow", "");
 	});
 
-	
-
-
 	/*demo*/
 	$(document).on("click", ".btn_demo_pop01", function () {
 		$(".footer-first-pop").addClass("active");					
@@ -1062,6 +1059,14 @@ $(document).on("click", ".footer-first_close, .close_btn_1", function () {
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");
 });
+
+$(document).on("click", ".footer-feets_close, .close_btn_2", function () {
+	$(".footer-feets-pop").removeClass("active");
+    $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
+	$("body").css("overflow", "");
+	$("html").css("overflow", "");
+});
+
 
 
 
