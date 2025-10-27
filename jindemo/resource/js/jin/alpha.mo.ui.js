@@ -268,13 +268,13 @@ $(document).ready(function () {
 		$(".dimmed_bg").css("display", "none");
 	});
 
-	$(document).on("click", ".btn_group_close,.btn_group_close_x", function () {
-		$(".ags-summary-first").removeClass("active");
-		$(".dimmed_bg").css("display", "none");
-		$(".dimmed_bgs").css("display", "none");
-		$("body").css("overflow", "");
-		$("html").css("overflow", "");
-	});
+//	$(document).on("click", ".btn_group_close,.btn_group_close_x", function () {
+//		$(".ags-summary-first").removeClass("active");
+//		$(".dimmed_bg").css("display", "none");
+//		$(".dimmed_bgs").css("display", "none");
+//		$("body").css("overflow", "");
+//		$("html").css("overflow", "");
+//	});
 
 	
 
@@ -1018,6 +1018,12 @@ $(document).on("click", ".btn_bags_close", function () {
 /*첫번째 팝업 닫기*/
 $(document).on("click", ".footer-first_close, .close_btn_1", function () {
     $(".footer-first-pop").removeClass("active");
+    $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
+	$("body").css("overflow", "");
+	$("html").css("overflow", "");
+});
+$(document).on("click", ".footer-feets_close, .close_btn_2", function () {
+	$(".footer-feets-pop").removeClass("active");
     $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");

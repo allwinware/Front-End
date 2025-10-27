@@ -700,7 +700,7 @@
 
 		<!-- 3:3 팝업 btn_demo_pop01-->
 		<div class="footer-feets">
-			<div class="footer-feets-pop active">
+			<div class="footer-feets-pop">
 				<div class="footer-feets_close">닫힘</div>
 				<div class="ai_contents">
 					<div class="ai_txt1">
@@ -746,14 +746,27 @@
 
 	<script>
 		$(document).ready(function(){
-		setTimeout(function(){
-			$(".ags-summary-first").addClass("active");	
-			$("body").css("overflow", "hidden");
-			$("html").css("overflow", "hidden");
-		}, 1000); // 3초 후 실행
-		setTimeout(function(){	
-			$(".dimmed_bg, .dimmed_bgs").fadeIn(300); // 0.6초 동안 서서히 나타남
-		}, 1500); // 3.5초 후 실행
+			setTimeout(function(){
+				$(".ags-summary-first").addClass("active");	
+				$("body").css("overflow", "hidden");
+				$("html").css("overflow", "hidden");
+				$(".dimmed_bg, .dimmed_bgs").fadeIn(300); // 0.6초 동안 서서히 나타남
+			}, 1000); // 3초 후 실행
+		});
+		
+		$(document).on("click", ".btn_group_close,.btn_group_close_x", function () {
+			$(".ags-summary-first").removeClass("active");
+			$(".dimmed_bg").css("display", "none");
+			$(".dimmed_bgs").css("display", "none");
+			$("body").css("overflow", "");
+			$("html").css("overflow", "");
+			
+			setTimeout(function(){
+				$(".footer-feets-pop").addClass("active");	
+				$("body").css("overflow", "hidden");
+				$("html").css("overflow", "hidden");
+				$(".dimmed_bg, .dimmed_bgs").fadeIn(300); // 0.6초 동안 서서히 나타남
+			}, 1000);
 		});
 	</script>
 	
