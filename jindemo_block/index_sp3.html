@@ -6,515 +6,20 @@
 	<meta name="viewport"
 		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
 	<title>AlphaSeat</title>
-	<link rel="stylesheet" href="./resource/css/animate.css">
 	<link rel="stylesheet" href="./resource/css/newui.css">
 	<link rel="stylesheet" href="./resource/css/content.css">
 	<link rel="stylesheet" href="./resource/css/reset.css">
 	<link rel="stylesheet" href="./resource/css/common.css">
-	
-	<script type="text/javascript" src="./resource/js/api/alpha-comm-api.js"></script>
-	<script type="text/javascript" src="./resource/js/api/seat-comm-api.js"></script>
-	<script type="text/javascript" src="./resource/js/api/seat-comm-disp.js"></script>
-	<script type="text/javascript" src="./resource/js/api/alpha-jin-api.js"></script>
-	<script type="text/javascript" src="./resource/js/api/alpha-jin-ptrn.js"></script>
-	<script type="text/javascript" src="./resource/js/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="./resource/js/alpha.mo.ui.js"></script>
-	
-<script type="text/javascript">
-//<![CDATA[
-	
-	String.prototype.comma = Number.prototype.comma = function() {
-	    var n = String(this).replace(/\,/g,'');
-	    return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
-	}
-	
-	var timerCtl	= function() {
-		var initialDuration = 5 * 60 * 1000;
-		var timerInterval;
-		var endTime;
-		var isRunning;
-		
-		return {
-			isRunning		: isRunning,
-			initializeTimer	: function() {
-				endTime		= new Date(new Date().getTime() + initialDuration);
-			},
-			updateDisplay	: function() {
-				const now 			= new Date().getTime(); 	// 현재 밀리초
-				const distance		= endTime - now; 			// 남은 밀리초
-	
-				// 시간이 0보다 작으면 0으로 고정
-			    const remainingTime = Math.max(0, distance);
-		        const minutes 		= Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-		        const seconds 		= Math.floor((remainingTime % (1000 * 60)) / 1000);
-
-		        $("[payment-container] [timer]").text(String(minutes).padStart(2, '0')+":"+String(seconds).padStart(2, '0'));
-	
-		        if (remainingTime <= 0 && isRunning) {
-		            clearInterval(timerInterval);
-		            isRunning = false;
-		        }
-			},
-			startTimer	: function() {
-				if (this.isRunning) {
-					return;
-				}
-				
-	            isRunning	= true;
-
-	            // 타이머 시작 시 남은 시간을 기준으로 endTime을 재설정
-	            const now = new Date().getTime();
-	            const currentRemaining = Math.max(0, endTime - now);		// 현재 남은 시간 밀리초
-	            endTime = new Date(now + currentRemaining); 				// 현재부터 남은 시간만큼 더한 시각
-
-	            timerInterval = setInterval(this.updateDisplay, 1000);		// 1초마다 업데이트
-			},
-			stopTimer	: function() {
-				clearInterval(timerInterval);
-		        this.isRunning = false;
-			},
-			resetTimer	: function() {
-				this.stopTimer();
-		        this.initializeTimer();
-			}
-		}
-	}
-	
-	window.onload	= function() {
-		var seatMap1	= $("#lj_B737-800").load("include/737-800.html");
-		
-		$.when(seatMap1).then(() => {
-			// 1.팝업 노출
-			setTimeout(() => {
-				demoCtl.onScreenLock();
-				$(".footer-first-pop").addClass("active");	
-				$("body").css("overflow", "hidden");
-				$("html").css("overflow", "hidden");
-				demoCtl.init();
-			},1000);
-		});
-	}
-	
-	
-	function changePaxCnt(paxCnt) {
-// 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-// 		var segCtl		= demoCtl.getSegCtl(segIdx);
-// 		var autoRcmnd	= segCtl.config.ASSIGN_INFO[0];
-		
-// 		var paxList		= [];
-		
-// 		for (var i=0; i<paxCnt; i++) {
-// 			paxList.push({
-// 				"rph": (i+1),
-// 				"givenName": (i+1),
-// 				"surname": "승객",
-// 				"paxType": "ADT",
-// 			});
-// 		}
-		
-// 		if (paxCnt == demoCtl.actPaxCnt) {
-// 			console.log("test")
-// 			return;
-// 		}
-
-// 		// 설정초기화
-// 		var paxInfo		= segCtl.config.PAX_INFO;
-		
-// 		segCtl.setSeatPurchsInfo("rcmnd", paxInfo, null);
-// 		segCtl.setSeatPurchsInfo("plus", paxInfo, null);
-		
-// 		// paxList 재설정
-// 		segCtl.config.PAX_INFO.paxList	= paxList;
-// 		segCtl.init().then(() => {
-// 			// 1순위 무료좌석 설정
-// 			demoCtl.setAutoRcmndSeat(autoRcmnd);
-			
-// 			// block좌석 설정
-// 			demoCtl.setAutoBlockSeat();
-// 		});
-	}
-	
-	
-	var demoCtl	= {
-		actPaxCnt	: 2,
-		segCtls		: {},
-		init	: function() {
-			var _this		= this;
-			var seatMapLt	= $("[seatMap]").get();
-			
-			for (var i=0; i<seatMapLt.length; i++) {
-				var segIdx	= $(seatMapLt[i]).attr("seatMap");
-				var acType	= $(seatMapLt[i]).attr("acType");
-
-				_this.setSegCtl(segIdx, acType);
-			}
-			
-			var segCtls		= Object.values(_this.segCtls)
-			var initList	= [];
-			
-			for (var i=0; i<segCtls.length; i++) {
-				initList.push(segCtls[i].init());
-			}
-			
-			// segCtls init done
-			$.when.apply($, initList).then(() => {
-				var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-				var segCtl		= _this.getSegCtl(segIdx);
-				var autoRcmnd	= segCtl.config.ASSIGN_INFO[0];
-
-				// 1순위 무료좌석 설정
-				_this.setAutoRcmndSeat(autoRcmnd);
-				
-				// block좌석 설정
-				_this.setAutoBlockSeat();
-			});
-			
-			_this.timer	= timerCtl();
-			_this.timer.initializeTimer();
-		},
-		// 대모 자동추천 좌석 설정
-		setAutoRcmndSeat	: function(autoRcmnd) {
-			var _this	= this;
-			
-			var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
-			var segCtl			= _this.getSegCtl(segIdx);
-			var rcmndSeatLt		= autoRcmnd.findPtrn;
-			
-			var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
-			var autoLstSeatEl	= seatMap.find("[seatno="+rcmndSeatLt.slice(-1)[0].seatNo+"]");
-			var autoFstSeatEl	= seatMap.find("[seatno="+rcmndSeatLt.slice(0, 1)[0].seatNo+"]");
-			
-			// 데모 자동추천 요소를 초기호 하기 위한 임시저장
-			segCtl.config.PAX_INFO.demoInit		= autoRcmnd;
-			
-			for (var i=0; i<rcmndSeatLt.length; i++) {
-				var target	= seatMap.find("[seatno="+rcmndSeatLt[i].seatNo+"]");
-				
-				target.addClass("seat_orange").find("span").text(0).removeClass("blind_box");
-				target.off().one("click", function() {
-					segCtl.selRcmndSeat(autoRcmnd);
-				});
-			}
-			
-			// 말풍선
-			seatMap.find(".ballon_box1").css({top: (autoFstSeatEl.position().top-50)+"px", left: (autoFstSeatEl.position().left-15)+"px"});
-			seatMap.find(".ballon_box1").show();
-			
-			// border
-			seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, rcmndSeatLt));
-		},
-		// 대모 block추천 좌석 설정
-		setAutoBlockSeat	: function() {
-			var _this	= this;
-			
-			var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
-			var segCtl			= _this.getSegCtl(segIdx);
-
-			var seatList		= segCtl.config.SEAT_INFO.seatList;
-			var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
-			
-			var initAutoRcmnd	= segCtl.config.ASSIGN_INFO.filter((e) => e.findPtrn.every((seat) => ["36D","36E"].includes(seat.seatNo)))[0];
-			var autoBlockSeat	= initAutoRcmnd.findPtrn;
-			var autoFstSeatEl	= seatMap.find("[seatno="+autoBlockSeat[0].seatNo+"]");
-
-			// 추천 블락좌석
-			seatMap.find(".seat_block").css({top: (autoFstSeatEl.position().top-1)+"px", left: (autoFstSeatEl.position().left-1)+"px"})
-			seatMap.find(".seat_block").show();
-			seatMap.find(".seat_block").off().on("click", function() {
-				var isActive	= $(this).hasClass("seat_active");
-				
-				if (isActive) {
-					return;	
-				}
-				
-				// 선택처리
-				segCtl.selRcmndSeat(initAutoRcmnd);
-				
-				// plusSeat 선택처리
-				var plusSeatLt	= seatList.filter((e) => autoBlockSeat.some((seat) => seat.rowIdx == e.rowIdx && seat.blockIdx == e.blockIdx)).filter((e) => !autoBlockSeat.some((seat) => seat.seatNo == e.seatNo));
-				
-				for (var i=0; i<plusSeatLt.length; i++) {
-					seatMap.find("[seatno="+plusSeatLt[i].seatNo+"]").trigger("click");
-				}
-				
-				// 선택완료 팝업
-				$(".footer-thir-pop").addClass("active");
-				$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
-				$("body").css("overflow", "hidden");
-				$("html").css("overflow", "hidden");
-				
-				seatMap.find(".ballon_box3").hide();
-			});
-			
-			// 말풍선
-			seatMap.find(".ballon_box3").css({top: (autoFstSeatEl.position().top-50)+"px", left: (autoFstSeatEl.position().left-25)+"px"});
-			seatMap.find(".ballon_box3").show();
-		},
-		// 자동추천 좌석 클릭
-		onAutoRcmndClick	: function(seatNo, type) {
-			var _this	= this;
-
-			var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
-			var segCtl			= _this.getSegCtl(segIdx);
-			var autoRcmnd		= segCtl.config.ASSIGN_INFO.filter((e) => e.findPtrn.some((seat) => seat.seatNo == seatNo))[0];
-			
-			if (!autoRcmnd) {
-				return;
-			}
-			var demoInit		= segCtl.config.PAX_INFO.demoInit;
-			var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
-
-			if (demoInit) {
-				demoInit.findPtrn.forEach((e) => seatMap.find("[seatno="+e.seatNo+"]").removeClass("seat_orange").find("span").html("").show());
-				demoInit		= null;
-			}
-			
-			// 선택처리
-			segCtl.selRcmndSeat(autoRcmnd);
-			
-			// border
-			seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, autoRcmnd.findPtrn));
-			
-			var selSeatChk		= segCtl.config.PAX_INFO.paxList.some((e) => e.selSeat);
-			
-			if (selSeatChk) {
-				$("[footerBtn=shift]").addClass("active");
-			} else {
-				$("[footerBtn=shift]").removeClass("active");
-			}
-			
-			_this.setSelContents();
-		},
-		// 데모 plus 좌석 설정
-		setPlusSeat		: function() {
-			var _this	= this;
-			
-			var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
-			var segCtl			= _this.getSegCtl(segIdx);
-			var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
-			
-			var paxList			= segCtl.config.PAX_INFO.paxList;
-			var seatList		= segCtl.config.SEAT_INFO.seatList;
-			var plusUnitCharge	= segCtl.config.plusCharge;
-
-			var selSeatLt		= paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
-			var rowSeatLt		= seatList.filter((e) => selSeatLt.some((seat) => seat.rowIdx == e.rowIdx));
-			var rowLt			= rowSeatLt.map((e) => ({row: e.row, rowIdx: e.rowIdx})).sort((a, b) => a.rowIdx - b.rowIdx).map((e) => e.row).filter((item, idx, self) => self.indexOf(item) == idx);
-
-			var blockObj		= rowSeatLt.reduce((acc, cur, idx, arr) => {
-				if (!acc[cur.row+"-"+cur.blockIdx]) {
-					acc[cur.row+"-"+cur.blockIdx] = arr.filter((e) => e.row == cur.row && e.blockIdx == cur.blockIdx && e.seatStatus == "A" && !selSeatLt.some((seat) => seat.seatNo == e.seatNo));
-				}
-				return acc;
-			},{});
-			
-			for (var i=0; i<rowLt.length; i++) {
-				var currRow					= rowLt[i];
-				var checkRowPlusSeat		= selSeatLt.filter((e) => e.row == currRow).every((e) => blockObj[e.row+"-"+e.blockIdx].length > 0);
-				var plusSeatLt				= [];
-				
-				if (checkRowPlusSeat) {
-					plusSeatLt				= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow && selSeatLt.some((seat) => seat.blockIdx == e.blockIdx));
-				} else {
-					var purchsedBlockSeatLt	= rowSeatLt.filter((e) => e.row == currRow && selSeatLt.some((seat) => seat.blockIdx == e.blockIdx));
-					var checkPurchsedBlock	= purchsedBlockSeatLt.every((e) => selSeatLt.some((seat) => seat.seatNo == e.seatNo));
-
-					if (checkPurchsedBlock) {
-						plusSeatLt			= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow);
-					}
-				}
-
-				// plus 좌석
-				for (var j=0; j<plusSeatLt.length; j++) {
-					var target	= seatMap.find("[seatno="+plusSeatLt[j].seatNo+"]");
-					
-					target.addClass("plus_block").attr("onclick", "").find("span").text(plusUnitCharge.comma()).removeClass("blind_box");
-					target.off().one("click", function() {
-						var seatNo			= $(this).attr("seatno");
-						var plusSeat		= plusSeatLt.filter((e) => e.seatNo == seatNo);
-						var rowBlockSeatLt	= selSeatLt.filter((e) => e.row == currRow).concat(plusSeat).sort((a,b) => a.colIdx - b.colIdx);
-
-						segCtl.selPlusSeat(plusSeat[0]);
-
-						// border
-						seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, rowBlockSeatLt));
-						
-						_this.setSelContents();
-					});
-				}
-				
-				// plus seat selRcmnd 속성에 추가
-				var selRcmnd	= segCtl.config.PAX_INFO.selRcmnd;
-				
-				if (selRcmnd) {
-					selRcmnd.plusSeatLt	= (selRcmnd.plusSeatLt) ? selRcmnd.plusSeatLt.concat(plusSeatLt) : plusSeatLt;
-				}
-			}
-		},
-		// 선택내용 contents apply
-		setSelContents	: function() {
-			var _this		= this;
-			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo"); 
-			
-			var segCtl		= _this.getSegCtl(segIdx);
-			var paxInfo		= segCtl.config.PAX_INFO;
-			
-			var selPlusLt	= paxInfo.selPlus || [];
-			var selSeatLt	= paxInfo.paxList.filter((e) => e.selSeat);
-
-			var totalCharge		= segCtl.getSelPlusCharge();
-			var purchsedSeatLt	= paxInfo.paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
-			var itgSeatList		= purchsedSeatLt.concat(selPlusLt).sort((a,b) => a.colIdx - b.colIdx);
-			var selPlusStatHtml	= commSeatDisp.getSelPlusStatHtml(paxInfo);
-
-			$("[selCnt]").text(selSeatLt.length);
-			$("[plusCnt]").text(selPlusLt.length);
-			$("[selPlusCnt]").text(itgSeatList.length);
-			$("[plusCharge]").text(totalCharge.comma());
-			$("[plusSeatLt]").html(selPlusStatHtml);
-			$("[selSeatLt]").html(selPlusStatHtml);
-			$("[selSeatNo]").html(itgSeatList.reduce((acc,cur) => acc += "<span>"+cur.seatNo+"</span>", ""));
-			
-			// 다음버튼 active변경
-			if (selPlusLt.length > 0 || selSeatLt.length > 0) {
-				$("[footerBtn=shift]").addClass("active");
-			} else {
-				$("[footerBtn=shift]").removeClass("active");
-			}
-		},
-		// 여정객체 설정
-		setSegCtl	: function(segIdx, acType) {
-			var _this	= this;
-			
-			var	paxList	= [{
-				"rph": "1",
-				"givenName": "JIYOUNG",
-				"surname": "LEE",
-				"paxType": "ADT",
-				"guardianYn": "N",
-				"birthday": "1989-05-31",
-				"age": 37,
-				"sex": "M",
-				"guestId": "MiFDSEQ-"
-			},{
-				"rph": "2",
-				"givenName": "SANGYOUNG",
-				"surname": "LEE",
-				"paxType": "ADT",
-				"guardianYn": "N",
-				"birthday": "1989-05-31",
-				"age": 37,
-				"sex": "M",
-				"guestId": "MiFDSEQ-"
-			}];
-			
-			var svcList		= ["seat"];
-			var configObj	= {
-				SEG_IDX		: segIdx,					// 여정 idx
-				PAX_INFO	: {paxList: paxList},		// 승객 정보
-				plusCharge	: 40000,
-				pathInfo	: {
-					seatChargePath	: "resource/json/seatCharge/"+acType,
-		            seatWeightPath	: "resource/json/weight/"+acType
-				}
-			}
-			
-			var svcAlphaApi		= {};
-			
-			function capitalize(str) {
-				return str.charAt(0).toUpperCase() + str.slice(1);
-			}
-			
-			function getOccupiedLt(segIdx) {
-				var occupiedLt	= {
-					"1"			: () => ["28A", "28B", "28C", "29A", "29D", "29E", "29F", "30D", "31A", "31B", "31F", "32C", "33D", "33E", "34A", "34B", "34C", "35F"],
-					"2"			: () => [],
-					"_default"	: () => []
-				}
-				
-				return (occupiedLt[segIdx] || occupiedLt["_default"])();
-			}
-			
-			for (var i=0; i<svcList.length; i++) {
-				svcAlphaApi		= $.extend(svcAlphaApi, window["comm"+capitalize(svcList[i])+"Api"]);
-			}
-			
-			_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, jinAlphaApi, jinAlphaPtrn, {config: configObj, svcList: svcList, occupiedLt: getOccupiedLt(segIdx)});
-		},
-		// 화면 Lock
-		onScreenLock	: function() {
-			$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
-		},
-		// 화면 UnLock
-		onScreenUnLock	: function() {
-			$(".dimmed_bgs").css("display", "none");
-		},
-		// 여정객체
-		getSegCtl	: function(segIdx) {
-			var _this	= this;
-			var segCtl	= _this.segCtls["seg"+segIdx+"AlphaCtl"];
-
-			return segCtl;
-		}
-	}
-	
-	
-	// 다음버튼 클릭
-	$(document).on("click", "[footerBtn=shift]", function(e){
-		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo"); 
-		var segCtl		= demoCtl.getSegCtl(segIdx);
-		var paxInfo		= segCtl.config.PAX_INFO;
-		
-		var selSeatLt	= paxInfo.paxList.filter((e) => e.selSeat);
-		var selPlus		= paxInfo.selPlus || [];
-		
-		if (selPlus.length <= 0 && selSeatLt.length <= 0) {
-			return;
-		}
-		
-		if (selSeatLt.length > 0 && selPlus.length <= 0) {
-			$(".footer-fore-pop").addClass("active");
-		} else {
-			$(".footer-twst-pop").addClass("active");
-		}
-		
-		$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
-		$("body").css("overflow", "hidden");
-		$("html").css("overflow", "hidden");
-		
-		e.stopPropagation();
-	});
-	
-	
-	// 확인버튼(결제내역) 클릭
-	$(document).on("click", "[footerBtn=payment]", function(e){
-		$("[purchase-container]").hide();
-		$("[payment-container]").show();
-		
-		demoCtl.timer.resetTimer();
-		demoCtl.timer.startTimer();
-		
-		e.stopPropagation();
-	});
-	
-	
-	// 확인버튼(결제내역) 클릭
-	$(document).on("click", "[payViewBackBtn]", function(e){
-		$("[purchase-container]").show();
-		$("[payment-container]").hide();
-		
-		demoCtl.timer.resetTimer();
-		
-		e.stopPropagation();
-	});
-	
-	
-//]]>
-</script>
+	<script src='./resource/js/jquery-2.2.4.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
-
+<!--
+<body onload="layerPop('popup_loading');">	
+-->
 <body style="overflow-y: hidden;">
-	<div class="ags-wrap newui head demos" purchase-container>
+	<div class="ags-wrap newui head demos">
 		<h1 class="site-name">올윈에어</h1>		
 		<div class="dimmed_bgs" style="display: none;"></div>
 		<header>
@@ -547,204 +52,240 @@
                     </div>
 				</div>
 			</div>					
-			<div class="select_boxbtn">
-				<div class="select_backbtn active" flyInfo="1">
+			<div class="select_boxbtn" >
+				<div class="select_backbtn active" >
 					<button id="ags-wrap-back" class="btn_back_c">
 						<div class="boxbtn_flyb">
 							<div class="de_ways1">가는편</div>
 							<div class="de_ways2">인천 <span> ICN</span></div>
 							<div class="de_ways3">비행기이미지</div>
-							<div class="de_ways4">괌 <span>GUM</span></div>
+							<div class="de_ways4">방콕 <span>BKK</span></div>
 						</div>
 					</button>
 				</div>
 			</div>
 		</header>
-
-		<div class="contents ovrFlw" id="con_slider" purchase-container="seat">>
-			<div class="slider1">
+		<div class="find_txt" style="display: none;">가격대별 선호도 1위 그룹석을 찾았어요!</div>
+		<div class="contents separate200 ovrFlw" id="con_slider" >
+			<div class="slider1" >
 				<div id="lj_B737-800"></div>				
 			</div>
-			<!-- 
+
 			<div class="slider2">
 				<div id="lj_B777-200"></div>
 			</div>
-			-->
+			
 		</div>
 				
+		<div class="demo_popup1">WOW! 아이동반 3인X 전 좌석 5,000씩=15,000 특별 할인!</div>
+
 		<!-- 밑에 바 -->
-		<div class="ags-summary">
+		 <!-- 좌석 정했을때 -->
+		<div class="ags-summary" style="display: none;">	
+			<h4 class="sr-only">부가서비스 결제금액</h4>			
+			<div class="scroll_btn" style="display: none;">
+				<button autoRcmndBtn><span>AI추천 돌아가기</span></button>
+			</div>
+			<div class="scroll_btn" style="display: none;">
+				<button assignRcmndBtn><span>자동선택 돌아가기</span></button>
+			</div>
 			<div class="foot_align">
 				<div class="btn_footer_open"><span></span></div>
+				
 				<div class="btf_a">
 					<div>
 						<span>LEE JIYOUNG</span>님
-						<span class="btf_a_people" paxCnt>1</span>인  
+						<span class="btf_a_people" paxCnt>3</span>인  
 					</div>
+					<div class="btf_a_txt"><span style="visibility:hidden">절약중</span></div>
 				</div>
+				<!-- active 색 전환-->
 				<div class="btf_bbtn" footerBtn="shift">
 					<div>다음</div>
-				</div>	
-			</div>	
-		</div>
+				</div>				
+			</div>			
+			<div class="footer_contents">				
+				<a class="btn_footer_close">Close</a>
+				<div class="pay_content">
+					<div class="creditcard newui">
+						<div class="card_warp">
+							<div class="card_name">신청내역</div>
+							<div class="card_name_btn">
+								<div>
+									항공권
+								</div>
+								<div>
+									부가서비스
+								</div>
+							</div>
+							<div class="credit_box_btn" agrBtn style="display: none;"></div>
+						</div>
+						<div agrLt class="credit_agree_box_content dis on" style="display: block;">
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+							<!-- 사람 -->				   
+							<div class="bd_pxc">
+								<div class="ccd_man1"></div>
+							</div>
+
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+							<div class="bd_pxc">
+								<div class="ccd_man2"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="credit_total_footer">
+						<div class="credit_total">
+							<div>부가서비스 총 결제 금액</div>
+							<div class="credit_total_box3">
+								<div style="color: #469DD6; font-size: 11px; font-family: 'PretendardL';">KRW 8,000 절약↓</div>
+								<div style="font-size: 16px; font-family: 'PretendardB';">KRW76,000원</div>
+							</div>   
+						</div>
+						<div class="payment_btn0">
+							<div class="payment_btn1">바로결제</div>
+							<div class="payment_btn2 btn_footer_closex">확인했어요</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>			
 		
 		<!-- 첫화면 팝업뛰움 3:3 팝업 btn_demo_pop01-->
 		<div class="footer-first">
 			<div class="footer-first-pop">
 				<div class="footer-first_close">닫힘</div>
+
 				<div class="fd_contents">
-					<div class="fd_contents_txt1">LEE JIYOUNG님<span paxCnt>2</span>인.</div>
+					<div class="fd_contents_txt1">LEE JIYOUNG님 2인</div>
 					<div class="fd_contents_txt2">좌석지정 후 모바일 탑승권발급이 가능해요!</div>
 					<div class="fd_contents_txt3">자유롭게 선택하세요!</div>
-					<div class="fd_contents_img06"></div>
-					<div class="fd_contents_txt4" style="visibility: hidden;">
-						🕒 고객님 옆좌석은 <span class="blue_text">10분</span> 동안만 타인지정이 안되도록 제어합니다. </i>
-					</div>
+					<div class="fd_contents_img01"></div>
 				</div>
+				
 				<div class="pay_pay_footer close_btn_1">					
 					<button class="btn_come_c">다음</button>					
 				</div>
 			</div>
 		</div>
-		
 		<!-- 3:4:3 팝업btn_demo_pop02 -->
-		<div class="footer-twst">
+		 
+		<div class="footer-twst" >
 			<div class="footer-twst-pop">
 				<div class="footer-first_close">닫힘</div>
+
 				<div class="fd_contents">
 					<div class="fd_contents_txt1">LEE JIYOUNG님.</div>
-					<div class="fd_contents_txt2">+ <span plusCnt>2</span>좌석 선택이 완료되었습니다.</div>
-					<div class="seat_sheet demopop" plusSeatLt>
-					<!--
-			        	##########################################################
-			        	### 선택좌석 영역
-			        	##########################################################
-		        	-->
+					<div class="fd_contents_txt2">+ <span>1</span>좌석 선택이 완료되었습니다.</div>
+					
+					<div class="seat_sheet demopop">
+						<!-- 좌석 2개 -->
+						<ul class="seat_num wid90">
+							<li>
+                                <span><a href="#none" class="seat_btn seat_active">17A</a></span>
+                                <span><a href="#none" class="seat_btn seat_active_plus">17B</a></span>								
+                            </li>
+                        </ul>
+						<!-- 좌석 3개 -->
+						<ul class="seat_num wid120" style="display: none;">
+							<li>
+                                <span><a href="#none" class="seat_btn seat_active">17A</a></span>
+                                <span><a href="#none" class="seat_btn seat_active_plus">17B</a></span>
+								<span><a href="#none" class="seat_btn seat_active_plus">17C</a></span>							
+                            </li>
+                        </ul>
+						<!-- 좌석 6개 -->
+						<ul class="seat_num" style="display: none;">
+                            <li>
+                                <span><a href="#none" class="seat_btn seat_active">17A</a></span>
+                                <span><a href="#none" class="seat_btn seat_active_plus">17B</a></span>
+								<span><a href="#none" class="seat_btn seat_active_plus">17C</a></span>
+								<span style="width: 10px;"></span>
+								<span><a href="#none" class="seat_btn seat_active">17A</a></span>
+                                <span><a href="#none" class="seat_btn seat_active_plus">17B</a></span>
+								<span><a href="#none" class="seat_btn seat_active_plus">17C</a></span>								
+                            </li>
+                        </ul>
+
 					</div>
+
 					<div class="fd_contents_txt3" style="margin-top: 0px;">
-						추가 <span plusCnt>2</span>좌석 x KRW 40,000
+						추가 1좌석 x KRW 40,000
 					</div>
 					<div class="fd_contents_txt5">
-						KRW <span plusCharge></span>
+						KRW 40,000
 					</div>
 				</div>
-				<div class="pay_pay_footer close_btn_1" footerBtn="payment">					
-					<button class="btn_come_c">확인</button>					
+				
+				<div class="pay_pay_footer close_btn_1">					
+					<button class="btn_come_c">다음</button>					
 				</div>
 			</div>
 		</div>
 
-		<div class="footer-thir">
+		<div class="footer-thir" >
 			<div class="footer-thir-pop">
 				<div class="footer-first_close">닫힘</div>
+
 				<div class="fd_contents">
 					<div class="fd_contents_txt1">LEE JIYOUNG님.</div>
-					<div class="fd_contents_txt2"><span paxCnt>2</span>인이 총 <span selPlusCnt>3</span>좌석을 넓게 사용하실 수 있습니다.</div>
+					<div class="fd_contents_txt2">2인이 총 <span>3</span>좌석을 넓게 사용하실 수 있습니다.</div>
+					
 					<div class="seat_sheet demopop">
 						<!-- 좌석 블럭 큰거 -->
 						<div class="ahahahah">								
-							<img src="/demo/jin/blockseat/img/block_img11.png">
-							<div class="ahahahah_txt1" selSeatNo>
-							<!--
-					        	##########################################################
-					        	### 선택좌석 영역
-					        	##########################################################
-				        	-->
-							</div>						
+							<img src="./resource/img/block_img11.png">
+							<div class="ahahahah_txt1">								
+								<span>36D</span>
+								<span>36E</span>
+								<span>36F</span>
+							</div>
 						</div>
 					</div>
+
 					<div class="fd_contents_txt3" style="margin-top: 0px;">
-						추가 <span plusCnt></span>좌석 x KRW 40,000
+						추가 1좌석 x KRW 40,000
 					</div>
 					<div class="fd_contents_txt5">
-						KRW <span plusCharge></span>
+						KRW 40,000
 					</div>
 				</div>
-				<div class="pay_pay_footer close_btn_1" footerBtn="payment">					
+				
+				<div class="pay_pay_footer close_btn_1">					
 					<button class="btn_come_c">다음</button>					
 				</div>
 			</div>
 		</div>
 
-		<!-- 추천좌석 선택완료 팝업 -->
-		<div class="footer-fore">
-			<div class="footer-fore-pop">
-				<div class="footer-first_close">닫힘</div>
-				<div class="fd_contents">
-					<div class="fd_contents_txt1">LEE JIYOUNG님 <span paxCnt>2</span>인.</div>
-					<div class="fd_contents_txt2"><span selCnt>2</span>좌석 선택이 완료되었습니다.</div>
-					<div class="seat_sheet demopop" selSeatLt>
-					<!--
-			        	##########################################################
-			        	### 선택좌석 영역
-			        	##########################################################
-		        	-->
-					</div>
-				</div>
-				<div class="pay_pay_footer close_btn_1" footerBtn="payment">					
-					<button class="btn_come_c">다음</button>					
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<!-- 결제하기 -->		
-	<div class="ags-wrap newui head demos" style="display: none;"payment-container>
-		<h1 class="site-name">올윈에어</h1>		
-		<header>
-			<div class="ags-header shadow">
-				<a href="javascript:;" class="btn_back" payViewBackBtn>뒤로가기</a>
-				<h2 class="page-name-card">결제하기</h2>			
-				<div class="gnb-jinlogo"></div>
-			</div>
-		</header>
-		<div class="jinblock_result_txt1">
-			<div class="fd_contents">
-				<div class="fd_contents_txt1" style="font-size: 14px;">LEE JIYOUNG님 결제내역</div>
-				<div class="seat_sheet demopop" plusSeatLt>
-				<!--
-		        	##########################################################
-		        	### 선택좌석 영역
-		        	##########################################################
-	        	-->
-				</div>
-				<div class="fd_contents_txt3" style="margin-top: 0px;">
-					추가 <span plusCnt>2</span>좌석 x KRW 40,000
-				</div>
-				<div class="fd_contents_txt5">
-					KRW <span plusCharge></span>
-				</div>
-				<div class="fd_contents_txt4" style="margin-top: 15px;">
-					🕒 결제 남은 시간 <span class="blue_text" timer>04:59</span></i>
-				</div>
-			</div>
-		</div>
-		
-		<div class="hagi">
-			<div style="display: flex; align-items: center;"><i style="font-weight: 600; margin-right: 3px;">ⓘ</i>유의사항</div>
-			<div class="acc_arrow"></div>
-		</div>
-		
-		<div class="silta_txt1">결제정보</div>
-		<div class="silta">
-			<div class="silta_txt2">
-				<div>최종 결제 금액</div>
-				<div>KRW <span plusCharge></span></div>
-			</div>
-			<div class="silta_txt3">
-				<div>
-					<div>총 금액</div>
-					<div><span plusCharge></span></div>
-				</div>
-				<div>
-					<div>할인금액</div>
-					<div>0</div>
-				</div>
-			</div>
-		</div>
-		<div class="pay_pay"><button type="button" onclick="location.href='index_st5.html'">결제하기</button></div>
-	</div>
-	
+	<script>		
+		$("#lj_B737-800").load("include/lj_B737-800.html");
+	</script>
+
 	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
         <div class="loadinggif">
             <!-- container -->
@@ -754,5 +295,17 @@
         </div>
     </article>
 </body>
+	<script>
+		$(document).ready(function(){
+		setTimeout(function(){
+			$(".footer-first-pop").addClass("active");	
+			$("body").css("overflow", "hidden");
+			$("html").css("overflow", "hidden");
+		}, 100); // 3초 후 실행
+		setTimeout(function(){	
+			$(".dimmed_bg, .dimmed_bgs").fadeIn(100); // 0.6초 동안 서서히 나타남
+		}, 100); // 3.5초 후 실행
+		});
+	</script>
 
 </html>
