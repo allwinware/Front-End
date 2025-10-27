@@ -182,7 +182,8 @@
 			var purchsedSeatNoMap	= {
 				"1"	: () => ["29A"],
 				"2"	: () => ["30E", "30F"],
-				"3"	: () => ["32A", "32B", "32C"]
+				"3"	: () => ["32A", "32B", "32C"],
+				"4"	: () => ["37A", "37B", "37C", "37D"]
 			}
 			
 			var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
@@ -249,36 +250,38 @@
 				var blockFstSeatEl		= seatMap.find("[seatno="+rowBlockSeatLt.slice(0, 1)[0].seatNo+"]");
 				
 				// x버튼
-				seatMap.find(".cancel_xx").css({top: (blockLstSeatEl.position().top-7)+"px", left: (blockLstSeatEl.position().left+blockLstSeatEl.width()-5)+"px"});
-				seatMap.find(".cancel_xx").show();
-				seatMap.find(".cancel_xx").one("click", () => {
-					var blockSeatLt	= seatList.filter((e) => plusSeatLt.some((seat) => seat.rowIdx == e.rowIdx && seat.blockIdx == e.blockIdx));
+				if (purchsSeatNoLt.length > 1) {
+					seatMap.find(".cancel_xx").css({top: (blockLstSeatEl.position().top-7)+"px", left: (blockLstSeatEl.position().left+blockLstSeatEl.width()-5)+"px"});
+					seatMap.find(".cancel_xx").show();
+					seatMap.find(".cancel_xx").one("click", () => {
+						var blockSeatLt	= seatList.filter((e) => plusSeatLt.some((seat) => seat.rowIdx == e.rowIdx && seat.blockIdx == e.blockIdx));
+						
+						for (var j=0; j<plusSeatLt.length; j++) {
+							var target		= seatMap.find("[seatno="+plusSeatLt[j].seatNo+"]");
+	
+							target.off().one("click", function() {
+								var seatNo		= $(this).attr("seatno");
+								var plusSeat	= plusSeatLt.filter((e) => e.seatNo == seatNo)[0];
+	
+								if (blockSeatLt.length == plusSeatLt.length) {
+									segCtl.selBlockSeat(plusSeatLt);
+								} else {
+									segCtl.selPlusSeat(plusSeat);
+								}
+								
+								_this.setSelContents();
+							});
+						}
+						
+						seatMap.find(".cancel_xx").hide();
+						seatMap.find(".ballon_box2").hide();
+						seatMap.find("svg").html("");
+					})
 					
-					for (var j=0; j<plusSeatLt.length; j++) {
-						var target		= seatMap.find("[seatno="+plusSeatLt[j].seatNo+"]");
-
-						target.off().one("click", function() {
-							var seatNo		= $(this).attr("seatno");
-							var plusSeat	= plusSeatLt.filter((e) => e.seatNo == seatNo)[0];
-
-							if (blockSeatLt.length == plusSeatLt.length) {
-								segCtl.selBlockSeat(plusSeatLt);
-							} else {
-								segCtl.selPlusSeat(plusSeat);
-							}
-							
-							_this.setSelContents();
-						});
-					}
-					
-					seatMap.find(".cancel_xx").hide();
-					seatMap.find(".ballon_box2").hide();
-					seatMap.find("svg").html("");
-				})
-				
-				// 말풍선
-				seatMap.find(".ballon_box2").css({top: (blockFstSeatEl.position().top-50)+"px", left: (blockFstSeatEl.position().left-35)+"px"});
-				seatMap.find(".ballon_box2").show();
+					// 말풍선
+					seatMap.find(".ballon_box2").css({top: (blockFstSeatEl.position().top-50)+"px", left: (blockFstSeatEl.position().left-35)+"px"});
+					seatMap.find(".ballon_box2").show();
+				}
 				
 				// border
 				seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, rowBlockSeatLt));
@@ -512,6 +515,7 @@
 					<div class="fd_contents_img01" target-pax="1"></div>
 					<div class="fd_contents_img04" target-pax="2" style="display: none;"></div>
 					<div class="fd_contents_img08" target-pax="3" style="display: none;"></div>
+					<div class="fd_contents_img08" target-pax="4" style="display: none;"></div>
 					
 					<div class="fd_contents_txt4">
 						🕒 고객님 옆좌석은 <span class="blue_text">10분</span> 동안만 타인지정이 안되도록 제어합니다. </i>
