@@ -216,7 +216,7 @@
 			
 			for (var i=0; i<rowLt.length; i++) {
 				var currRow					= rowLt[i];
-				var checkRowPlusSeat		= selSeatLt.filter((e) => e.row == currRow).every((e) => blockObj[e.row+"-"+e.blockIdx].length > 0);
+				var checkRowPlusSeat		= selSeatLt.filter((e) => e.row == currRow).some((e) => blockObj[e.row+"-"+e.blockIdx].length > 0);
 				var plusSeatLt				= [];
 				
 				if (checkRowPlusSeat) {
@@ -249,6 +249,8 @@
 				var blockLstSeatEl		= seatMap.find("[seatno="+rowBlockSeatLt.slice(-1)[0].seatNo+"]");
 				var blockFstSeatEl		= seatMap.find("[seatno="+rowBlockSeatLt.slice(0, 1)[0].seatNo+"]");
 				
+				seatMap.find(".cancel_xx").hide();
+				
 				// x버튼
 				if (purchsSeatNoLt.length > 1) {
 					seatMap.find(".cancel_xx").css({top: (blockLstSeatEl.position().top-7)+"px", left: (blockLstSeatEl.position().left+blockLstSeatEl.width()-5)+"px"});
@@ -277,11 +279,11 @@
 						seatMap.find(".ballon_box2").hide();
 						seatMap.find("svg").html("");
 					})
-					
-					// 말풍선
-					seatMap.find(".ballon_box2").css({top: (blockFstSeatEl.position().top-50)+"px", left: (blockFstSeatEl.position().left-35)+"px"});
-					seatMap.find(".ballon_box2").show();
 				}
+				
+				// 말풍선
+				seatMap.find(".ballon_box2").css({top: (blockFstSeatEl.position().top-50)+"px", left: (blockFstSeatEl.position().left-35)+"px"});
+				seatMap.find(".ballon_box2").show();
 				
 				// border
 				seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, rowBlockSeatLt));
