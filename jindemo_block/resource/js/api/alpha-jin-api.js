@@ -127,9 +127,10 @@ var jinAlphaApi	= {
 
 		var paxInfo		= _this.config.PAX_INFO;
 		var selRcmnd	= paxInfo.selRcmnd;
+		var selPaxLt	= paxInfo.paxList.filter((e) => e.selSeat);
 		
 		// 선택 초기화
-		if (selRcmnd) {
+		if (selRcmnd || selPaxLt.length > 0) {
 			_this.cancRcmndSeat();
 		}
 
@@ -148,6 +149,7 @@ var jinAlphaApi	= {
 		
 		demoCtl.setPlusSeat();
 		seatMap.find(".ballon_box1").hide();
+		seatMap.find(".ballon_box3").hide();
 	}
 	// auto 선택취소
 	// ##################################################################################################
