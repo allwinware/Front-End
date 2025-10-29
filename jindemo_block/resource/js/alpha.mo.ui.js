@@ -1076,7 +1076,7 @@ $(document).on("click", ".footer-first_close, .close_btn_1", function () {
 		$('.contents').css('overflow-y', 'scroll');
 		$('.seat_sheet_bg.ac1').css('height', '100%');
 		$('.seat_sheet_bg.ac1').css('margin-bottom', '100px');
-		
+		 console.log("test")
 		setTimeout(function(){
 			$('.ags-summary').fadeIn();
 		},500);
