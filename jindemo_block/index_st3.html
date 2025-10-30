@@ -318,12 +318,13 @@
 			
 			var segCtl		= _this.getSegCtl(segIdx);
 			var paxInfo		= segCtl.config.PAX_INFO;
-			var selPlus		= paxInfo.selPlus || [];
+			var seatInfo	= segCtl.config.SEAT_INFO;
 			
+			var selPlus		= paxInfo.selPlus || [];
 			var totalCharge		= segCtl.getSelPlusCharge();
 			var purchsedSeatLt	= paxInfo.paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
 			var itgSeatList		= purchsedSeatLt.concat(selPlus).sort((a,b) => a.colIdx - b.colIdx);
-			var selPlusStatHtml	= commSeatDisp.getSelPlusStatHtml(paxInfo);
+			var selPlusStatHtml	= commSeatDisp.getSelPlusStatHtml(paxInfo, seatInfo);
 			
 			$("[plusCnt]").text(selPlus.length);
 			$("[plusCharge]").text(totalCharge.comma());

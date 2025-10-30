@@ -391,6 +391,7 @@
 			
 			var segCtl		= _this.getSegCtl(segIdx);
 			var paxInfo		= segCtl.config.PAX_INFO;
+			var seatInfo	= segCtl.config.SEAT_INFO;
 			
 			var selPlusLt	= paxInfo.selPlus || [];
 			var selSeatLt	= paxInfo.paxList.filter((e) => e.selSeat);
@@ -398,7 +399,7 @@
 			var totalCharge		= segCtl.getSelPlusCharge();
 			var purchsedSeatLt	= paxInfo.paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
 			var itgSeatList		= purchsedSeatLt.concat(selPlusLt).sort((a,b) => a.colIdx - b.colIdx);
-			var selPlusStatHtml	= commSeatDisp.getSelPlusStatHtml(paxInfo);
+			var selPlusStatHtml	= commSeatDisp.getSelPlusStatHtml(paxInfo, seatInfo);
 
 			$("[selCnt]").text(selSeatLt.length);
 			$("[plusCnt]").text(selPlusLt.length);

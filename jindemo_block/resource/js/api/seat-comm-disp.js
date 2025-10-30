@@ -267,32 +267,38 @@ var commSeatDisp	= {
 	}
 	// 좌석선택 알림 팝업 좌석맵 html
 	// ##################################################################################################
-	,getSelPlusStatHtml	: function(paxInfo) {
+	,getSelPlusStatHtml	: function(paxInfo, seatInfo) {
+		var seatList		= seatInfo.seatList;
 		var selPlusLt		= paxInfo.selPlus || [];
 		var purchsedSeatLt	= paxInfo.paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
 		
-		var itgSeatList		= purchsedSeatLt.concat(selPlusLt).sort((a,b) => a.colIdx - b.colIdx);
-		var seatRows		= itgSeatList.map((e) => ({row: e.row, rowIdx: e.rowIdx})).sort((a, b) => a.rowIdx - b.rowIdx).map((e) => e.row).filter((item, idx, self) => self.indexOf(item) == idx);
-		var blockIdxLt		= itgSeatList.map((e) => e.blockIdx).filter((item, idx, self) => self.indexOf(item) == idx);
+		var fullSeatList	= purchsedSeatLt.concat(selPlusLt).sort((a,b) => a.colIdx - b.colIdx);
+		var seatRows		= fullSeatList.map((e) => ({row: e.row, rowIdx: e.rowIdx})).sort((a, b) => a.rowIdx - b.rowIdx).map((e) => e.row).filter((item, idx, self) => self.indexOf(item) == idx);
+		var blockIdxLt		= fullSeatList.map((e) => e.blockIdx).filter((item, idx, self) => self.indexOf(item) == idx);
 		
-		var styleWidth		= (itgSeatList.length > 2) ? "wid120" : "wid90";
+		var styleWidth		= (fullSeatList.length > 2) ? "wid120" : "wid90";
 		var html			= [];
 		
 		html.push('		<ul class="seat_num '+(blockIdxLt <= 1 ? styleWidth : "")+'">');
 		
 		// Rows
 		for (var i=0; i<seatRows.length; i++) {
-			var rowsSeatLt	= itgSeatList.filter((e) => e.row == seatRows[i]);
+			var rowsSeatLt	= seatList.filter((e) => e.row == seatRows[i]);
 			
 			html.push('		<li>');
 
 			// Rows > seatLt
 			for (var j=0; j<rowsSeatLt.length; j++) {
+				var checkedSeat	= fullSeatList.some((e) => e.seatNo == rowsSeatLt[j].seatNo);
 				var isPurchsed	= purchsedSeatLt.some((e) => e.seatNo == rowsSeatLt[j].seatNo);
-				
-				if (isPurchsed) {
+
+				if (!checkedSeat) {
+					html.push('		<span><a href="#none" class="seat_btn disabled_seat alpha_zero"></a></span>');
+				}
+				else if (isPurchsed) {
 					html.push('		<span><a href="#none" class="seat_btn seat_active">'+rowsSeatLt[j].seatNo+'</a></span>');
-				} else {
+				} 
+				else {
 					html.push('		<span><a href="#none" class="seat_btn seat_active_plus">'+rowsSeatLt[j].seatNo+'</a></span>');
 				}
 				
@@ -300,7 +306,7 @@ var commSeatDisp	= {
 					html.push('		<span style="width: 10px;"></span>');
 				}
 			}
-			
+
 			html.push('		</li>');
 		}
 		
