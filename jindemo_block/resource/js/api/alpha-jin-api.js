@@ -207,7 +207,8 @@ var jinAlphaApi	= {
 				target.addClass("seat_active").find("span").hide();
 				break;
 			case "rcmnd"	:
-				target.addClass("seat_active").find("span").hide();
+//				target.addClass("seat_active").find("span").hide();
+				target.addClass("seat_orange").find("span").text("무료").removeClass("blind_box");
 				target.attr("onclick", "return false");
 				break;
 		}

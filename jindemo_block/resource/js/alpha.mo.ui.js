@@ -227,24 +227,24 @@ $(document).ready(function () {
 
 	/*좌석선택 오렌지*/
 
-	$(document).on("click", ".seat_btn", function () {
-		var isActive	= $(this).hasClass("seat_active");
-		if (isActive) {
-			$(this).removeClass("seat_active").find("span").show();
-		} else {
-			$(this).addClass("seat_active").find("span").hide();;
-		}
-	}); 
+//	$(document).on("click", ".seat_btn", function () {
+//		var isActive	= $(this).hasClass("seat_active");
+//		if (isActive) {
+//			$(this).removeClass("seat_active").find("span").show();
+//		} else {
+//			$(this).addClass("seat_active").find("span").hide();;
+//		}
+//	}); 
 	/*좌석선택251013 오렌지 플러스*/
 
-	$(document).on("click", ".seat_btn.plus_block", function () {
-		var isActive	= $(this).hasClass("seat_active_plus");
-		if (isActive) {
-			$(this).removeClass("seat_active_plus").find("span").show();
-		} else {
-			$(this).addClass("seat_active_plus").find("span").hide();;
-		}
-	});
+//	$(document).on("click", ".seat_btn.plus_block", function () {
+//		var isActive	= $(this).hasClass("seat_active_plus");
+//		if (isActive) {
+//			$(this).removeClass("seat_active_plus").find("span").show();
+//		} else {
+//			$(this).addClass("seat_active_plus").find("span").hide();;
+//		}
+//	});
 	/*좌석선택251013 블럭좌석 클릭*/
 	$(document).on("click", ".seat_block", function () {
 			var $this = $(this);
@@ -1076,7 +1076,7 @@ $(document).on("click", ".footer-first_close, .close_btn_1", function () {
 		$('.contents').css('overflow-y', 'scroll');
 		$('.seat_sheet_bg.ac1').css('height', '100%');
 		$('.seat_sheet_bg.ac1').css('margin-bottom', '100px');
-		
+
 		setTimeout(function(){
 			$('.ags-summary').fadeIn();
 		},500);
