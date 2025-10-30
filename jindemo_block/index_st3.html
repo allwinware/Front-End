@@ -132,14 +132,14 @@
 			setTimeout(() => {
 				var purchsedSeatLt	= paxInfo.paxList.map((e) => e.selSeat).filter((seat) => seat);
 				
-				demoCtl.onScreenLock();
-				$(".footer-first-pop").find("[purchsedLt]").html(purchsedSeatLt.map((e) => e.seatNo).join(","));
-				$(".footer-first-pop").find("[class^=fd_contents_img]").hide().filter((i,e) => $(e).attr("target-pax") == paxCnt).show();
-				$(".footer-first-pop").addClass("active");	
+// 				demoCtl.onScreenLock();
+// 				$(".footer-first-pop").find("[purchsedLt]").html(purchsedSeatLt.map((e) => e.seatNo).join(","));
+// 				$(".footer-first-pop").find("[class^=fd_contents_img]").hide().filter((i,e) => $(e).attr("target-pax") == paxCnt).show();
+// 				$(".footer-first-pop").addClass("active");	
 				$("[footerBtn=shift]").removeClass("active");
 				
-				$("body").css("overflow", "hidden");
-				$("html").css("overflow", "hidden");
+// 				$("body").css("overflow", "hidden");
+// 				$("html").css("overflow", "hidden");
 			},100);
 		});
 	}
@@ -179,7 +179,7 @@
 		// 데모 구매된 좌석 설정
 		setPurchsSeat	: function(paxCnt) {
 			var _this	= this;
-			
+
 			_this.actPaxCnt	= paxCnt;
 			
 			var purchsedSeatNoMap	= {
@@ -187,9 +187,11 @@
 				"2"	: () => ["30E", "30F"],
 				"3"	: () => ["32A", "32B", "32C"],
 				"4"	: () => ["37A", "37B", "37C", "37D"],
-				"5"	: () => ["36A", "36B", "36C", "36D", "36E"],
+				"5"	: () => ["38A", "38B", "38C", "39A", "39B"],
 				"6"	: () => ["39A", "39B", "39C", "40A", "40B", "40C"],
-				"7"	: () => ["42A", "42B", "42C", "42D", "42E", "42F", "43A"]
+				"7"	: () => ["49A", "49B", "49C", "50A", "50B", "51A", "51B"],
+				"8"	: () => ["54A", "54B", "54E", "54F", "55A", "55B", "55E", "55F"],
+				"9"	: () => ["54A", "54B", "54C", "54D", "54E", "54F", "55A", "55B", "55C"]
 			}
 
 			var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
@@ -211,9 +213,7 @@
 			var selSeatLt		= paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
 			var rowSeatLt		= seatList.filter((e) => selSeatLt.some((seat) => seat.rowIdx == e.rowIdx));
 			var rowLt			= rowSeatLt.map((e) => ({row: e.row, rowIdx: e.rowIdx})).sort((a, b) => a.rowIdx - b.rowIdx).map((e) => e.row).filter((item, idx, self) => self.indexOf(item) == idx);
-			
 			var blockPlusLt		= [];
-			var blockSeatLt		= [];
 			
 			var blockObj		= rowSeatLt.reduce((acc, cur, idx, arr) => {
 				if (!acc[cur.row+"-"+cur.blockIdx]) {
@@ -226,13 +226,13 @@
 				var currRow					= rowLt[i];
 				var checkRowPlusSeat		= selSeatLt.filter((e) => e.row == currRow).some((e) => blockObj[e.row+"-"+e.blockIdx].length > 0);
 				var plusSeatLt				= [];
-				
+
 				if (checkRowPlusSeat) {
 					plusSeatLt				= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow && selSeatLt.some((seat) => seat.blockIdx == e.blockIdx && seat.row == e.row));
 				} else {
-					var purchsedBlockSeatLt	= rowSeatLt.filter((e) => e.row == currRow && selSeatLt.some((seat) => seat.blockIdx == e.blockIdx));
+					var purchsedBlockSeatLt	= rowSeatLt.filter((e) => e.row == currRow && selSeatLt.some((seat) => seat.blockIdx == e.blockIdx && seat.row == e.row));
 					var checkPurchsedBlock	= purchsedBlockSeatLt.every((e) => selSeatLt.some((seat) => seat.seatNo == e.seatNo));
-					
+
 					if (checkPurchsedBlock) {
 						plusSeatLt			= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow);
 					}
@@ -243,23 +243,29 @@
 					blockPlusLt		= blockPlusLt.concat(plusSeatLt);
 				}
 			}
-			
+
 			for (var j=0; j<blockPlusLt.length; j++) {
 				var target		= seatMap.find("[seatno="+blockPlusLt[j].seatNo+"]");
 				
 				target.addClass("plus_block").find("span").text(plusUnitCharge.comma()).removeClass("blind_box");
 				target.off().one("click", function() {
 					var seatNo			= $(this).attr("seatno");
-					var plusSeat		= blockPlusLt.filter((e) => e.seatNo == seatNo);
-
-					segCtl.selBlockSeat(blockPlusLt);
+					var plusSeat		= blockPlusLt.filter((e) => e.seatNo == seatNo)[0];
+					
+					if (purchsSeatNoLt.length > 1) {
+						segCtl.selBlockSeat(blockPlusLt);
+					} else {
+						segCtl.selPlusSeat(plusSeat);
+					}
+					
+					seatMap.find(".ballon_box2").hide();
+					
 					_this.setSelContents();
-					$("[footerBtn=shift]").trigger("click");
 				});
 			}
 			
-			var blockSeatLt		= selSeatLt.concat(blockPlusLt).sort((a,b) => a.rowIdx - b.rowIdx).sort((a,b) => a.colIdx - b.colIdx);
-			var fstRowSeat		= blockSeatLt.filter((e) => e.row == rowLt[0]).sort((a,b) => a.colIdx - b.colIdx);
+			var fullSeatLt		= selSeatLt.concat(blockPlusLt).sort((a,b) => a.rowIdx - b.rowIdx).sort((a,b) => a.colIdx - b.colIdx);
+			var fstRowSeat		= fullSeatLt.filter((e) => e.row == rowLt[0]).sort((a,b) => a.colIdx - b.colIdx);
 			var rowFstSeatEl	= seatMap.find("[seatno="+fstRowSeat[0].seatNo+"]");
 			var rowLstSeatEl	= seatMap.find("[seatno="+fstRowSeat[fstRowSeat.length-1].seatNo+"]");
 			
@@ -272,15 +278,16 @@
 				seatMap.find(".cancel_xx").css({top: (rowLstSeatEl.position().top-7)+"px", left: (rowLstSeatEl.position().left+rowLstSeatEl.width()-5)+"px"});
 				seatMap.find(".cancel_xx").show();
 				seatMap.find(".cancel_xx").one("click", () => {
-					var blockSeatLt	= seatList.filter((e) => plusSeatLt.some((seat) => seat.rowIdx == e.rowIdx && seat.blockIdx == e.blockIdx));
-
-					for (var j=0; j<plusSeatLt.length; j++) {
-						var target		= seatMap.find("[seatno="+plusSeatLt[j].seatNo+"]");
+					for (var j=0; j<blockPlusLt.length; j++) {
+						var target		= seatMap.find("[seatno="+blockPlusLt[j].seatNo+"]");
 
 						target.off().one("click", function() {
 							var seatNo		= $(this).attr("seatno");
-							var plusSeat	= plusSeatLt.filter((e) => e.seatNo == seatNo)[0];
+							var plusSeat	= blockPlusLt.filter((e) => e.seatNo == seatNo)[0];
 
+							var blockSeatLt	= seatList.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
+							var plusSeatLt	= blockPlusLt.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
+							
 							if (blockSeatLt.length == plusSeatLt.length) {
 								segCtl.selBlockSeat(plusSeatLt);
 							} else {
@@ -297,7 +304,7 @@
 				})
 				
 				// border
-				seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, blockSeatLt));
+				seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, fullSeatLt));
 			}
 			
 			// 말풍선
