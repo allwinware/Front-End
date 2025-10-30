@@ -237,33 +237,28 @@
 						plusSeatLt			= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow);
 					}
 				}
-
-				for (var j=0; j<plusSeatLt.length; j++) {
-					var target		= seatMap.find("[seatno="+plusSeatLt[j].seatNo+"]");
-					
-					target.addClass("plus_block").find("span").text(plusUnitCharge.comma()).removeClass("blind_box");
-					target.off().one("click", function() {
-						var seatNo			= $(this).attr("seatno");
-						var plusSeat		= plusSeatLt.filter((e) => e.seatNo == seatNo);
-						var rowBlockSeatLt	= selSeatLt.filter((e) => e.row == currRow).concat(plusSeat).sort((a,b) => a.colIdx - b.colIdx);
-
-						segCtl.selBlockSeat(plusSeatLt);
-						_this.setSelContents();
-						$("[footerBtn=shift]").trigger("click");
-					});
-				}
 				
-				var rowBlockSeatLt	= selSeatLt.filter((e) => e.row == currRow).concat(plusSeatLt).sort((a,b) => a.colIdx - b.colIdx);
-				
-				if (rowBlockSeatLt.length > 0) {
-					blockSeatLt		= blockSeatLt.concat(rowBlockSeatLt);
-				}
-				
+				// plus좌석 concat
 				if (plusSeatLt.length > 0) {
 					blockPlusLt		= blockPlusLt.concat(plusSeatLt);
 				}
 			}
 			
+			for (var j=0; j<blockPlusLt.length; j++) {
+				var target		= seatMap.find("[seatno="+blockPlusLt[j].seatNo+"]");
+				
+				target.addClass("plus_block").find("span").text(plusUnitCharge.comma()).removeClass("blind_box");
+				target.off().one("click", function() {
+					var seatNo			= $(this).attr("seatno");
+					var plusSeat		= blockPlusLt.filter((e) => e.seatNo == seatNo);
+
+					segCtl.selBlockSeat(blockPlusLt);
+					_this.setSelContents();
+					$("[footerBtn=shift]").trigger("click");
+				});
+			}
+			
+			var blockSeatLt		= selSeatLt.concat(blockPlusLt).sort((a,b) => a.rowIdx - b.rowIdx).sort((a,b) => a.colIdx - b.colIdx);
 			var fstRowSeat		= blockSeatLt.filter((e) => e.row == rowLt[0]).sort((a,b) => a.colIdx - b.colIdx);
 			var rowFstSeatEl	= seatMap.find("[seatno="+fstRowSeat[0].seatNo+"]");
 			var rowLstSeatEl	= seatMap.find("[seatno="+fstRowSeat[fstRowSeat.length-1].seatNo+"]");
@@ -274,7 +269,6 @@
 			
 			// x버튼
 			if (purchsSeatNoLt.length > 1) {
-				console.log("plusSeatLt", plusSeatLt)
 				seatMap.find(".cancel_xx").css({top: (rowLstSeatEl.position().top-7)+"px", left: (rowLstSeatEl.position().left+rowLstSeatEl.width()-5)+"px"});
 				seatMap.find(".cancel_xx").show();
 				seatMap.find(".cancel_xx").one("click", () => {
