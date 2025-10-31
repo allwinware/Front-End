@@ -310,6 +310,7 @@ var commSeatDisp	= {
 		var seatRows		= fullSeatList.map((e) => ({row: e.row, rowIdx: e.rowIdx})).sort((a, b) => a.rowIdx - b.rowIdx).map((e) => e.row).filter((item, idx, self) => self.indexOf(item) == idx);
 		var blockIdxLt		= fullSeatList.map((e) => e.blockIdx).filter((item, idx, self) => self.indexOf(item) == idx);
 		
+		var plusUnitCharge	= demoCtl.getSegCtl(segIdx).config.plusCharge;
 		var seatMap			= _this.getApplyTarget("seat", "seatMap", segIdx);
 		var styleWidth		= (fullSeatList.length > 2) ? "wid120" : "wid90";
 		var html			= [];
@@ -340,7 +341,7 @@ var commSeatDisp	= {
 					if (isPlusAct) {
 						html.push('	<span><a href="#none" class="seat_btn seat_active_plus">'+rowsSeatLt[j].seatNo+'</a></span>');
 					} else {
-						html.push('	<span><a href="#none" class="seat_btn plus_block"></a></span>');
+						html.push('	<span><a href="#none" class="seat_btn plus_block" style="line-height: 55px;"><span>'+plusUnitCharge.comma()+'</span></a></span>');
 					}
 				}
 				
