@@ -46,6 +46,38 @@ var commSeatDisp	= {
 			}
 		}
 	}
+	// 개별선택맵 갱신
+	// ##################################################################################################
+	,updateBasicSeltHtml	: function(segIdx, seatInfo, paxInfo) {
+		var _this	= this;
+		
+		var seatList	= seatInfo.seatList;
+		var paxList		= paxInfo.paxList;
+		
+		var seatMap		= _this.getApplyTarget("seat", "seatMap", segIdx);
+		
+		// 좌석 행반복
+		for (var i=0; i<seatList.length; i++) {
+			var seatNo		= seatList[i].seatNo;
+			var charge		= parseInt(seatList[i].charge);
+			var seatStatus	= seatList[i].seatStatus;
+			
+			var paxSelSeat	= paxList.filter((e) => e.selSeat && e.selSeat.seatNo == seatNo)[0];
+			var onclick		= "";
+			
+			if (paxSelSeat) {
+				onclick		= "demoCtl.onManualSeatClick('"+seatNo+"', 'canc', '"+paxSelSeat.rph+"');";
+			} else {
+				onclick		= "demoCtl.onManualSeatClick('"+seatNo+"', 'sel');";
+			}
+			
+			if (seatStatus == "A" & parseInt(charge) > 0) {
+				seatMap.find("[seatno="+seatNo+"]").attr("onclick", onclick).removeClass("seat_orange").find("span").addClass("blind_box");
+			} else {
+				seatMap.find("[seatno="+seatNo+"]").addClass("disabled_seat");
+			}
+		}
+	}
 	// 테두리 html
 	// ##################################################################################################
 	,getBlockBorderHtml	: function(segIdx, seatList) {
@@ -314,36 +346,32 @@ var commSeatDisp	= {
 		
 		return html.join("");	
 	}
-	// 좌석선택 알림 팝업 좌석맵 html
+	// 직접선택 좌석 x버튼 html
 	// ##################################################################################################
-	,getAlphaSelSeatMapHtml	: function(segIdx, segInfo, paxInfo, seatInfo) {
+	,getBasicSeltCancBtnHtml	: function(segIdx, paxList) {
 		var _this	= this;
 		
-		var airType		= segInfo.airType.toLowerCase();
-		var selMode		= _this.getApplyTarget("seat", "seatMap", segIdx).data("mode");
-		var chdMode		= _this.getApplyTarget("popup", "selSeatMap", segIdx).data("chdMode");
-
-		var html		= "";
-
-		switch (selMode) {
-			case "rcmnd"	:
-				if (typeof(window[airType+"AlphaDisp"].getAutoSelSeatMapHtml) == "function") {
-					html	= window[airType+"AlphaDisp"].getAutoSelSeatMapHtml(segIdx, segInfo, paxInfo, seatInfo, chdMode);
-				}
-				break;
-			case "assign"	:
-				if (typeof(window[airType+"AlphaDisp"].getAutoSelSeatMapHtml) == "function") {
-					html	= window[airType+"AlphaDisp"].getAutoSelSeatMapHtml(segIdx, segInfo, paxInfo, seatInfo, chdMode);
-				}
-				break;
-			case "each"	:
-				if (typeof(window[airType+"AlphaDisp"].getEachSelSeatMapHtml) == "function") {
-					html	= window[airType+"AlphaDisp"].getEachSelSeatMapHtml(segIdx, segInfo, paxInfo, chdMode);
-				}
-				break;
+		var seatMap		= _this.getApplyTarget("seat", "seatMap", segIdx);
+		var html		= [];
+	
+		for (var i=0; i<paxList.length; i++) {
+			var paxInfo		= paxList[i];
+			var selSeat		= paxInfo.selSeat;
+			
+			if (!selSeat) {
+				continue;
+			}
+			
+			var seatNo		= selSeat.seatNo;
+			var seatEl		= seatMap.find("[seatno="+seatNo+"]");
+	
+			var btnStyle	= "top:"+(seatEl.position().top-12)+"px; left:"+(seatEl.position().left-9)+"px";	
+			var cancClick	= "demoCtl.onManualSeatClick('"+seatNo+"', 'canc', '"+paxInfo.rph+"');";
+			
+			html.push('<div class="xx_rader" canc-seatno="'+seatNo+'" style="'+btnStyle+'" onclick="'+cancClick+'">x버튼</div>');
 		}
-		
-		return html;
+
+		return html.join("");
 	}
 	// 적용대상 조회
 	// ##################################################################################################

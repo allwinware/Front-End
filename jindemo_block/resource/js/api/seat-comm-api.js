@@ -49,11 +49,16 @@ var commSeatApi	= {
 				}
 				
 				// 좌석맵설정 
-				_this.setSeatDispInfo("seat"	, "seatCharge");
+				_this.setSeatDispInfo("seat", "seatCharge");
 				
 				if (!_this.config.purchsed) {
-					_this.setSeatDispInfo("seat"	, "autoRcmnd");
+					_this.setSeatDispInfo("seat", "autoRcmnd");
 				}
+				
+				if (!_this.config.purchsed && paxCnt <= 1) {
+					_this.setSeatDispInfo("seat", "basicSelt");
+				}
+				
 
 				deferred.resolve("seat-policy-valid-response");
 			})
@@ -106,6 +111,13 @@ var commSeatApi	= {
 				break;
 			case "autoRcmnd"	:
 				commSeatDisp.updateAutoRcmndHtml(segIdx, _this.config.SEAT_INFO);
+				break;
+			case "basicSelt"	:
+				commSeatDisp.updateBasicSeltHtml(segIdx, _this.config.SEAT_INFO, _this.config.PAX_INFO);
+				break;
+			case "basicSeltCancBtn"	:
+				html	= commSeatDisp.getBasicSeltCancBtnHtml(segIdx, _this.config.PAX_INFO.paxList);
+				applyTarget.html(html);
 				break;
 		}
 	}
