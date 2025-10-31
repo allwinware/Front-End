@@ -764,7 +764,14 @@
 		}
 		
 		if (selSeatLt.length > 0 && selPlus.length <= 0) {
+			var delIdx	= $(".footer-fore-pop").find(".seat_active:first").parent().index();
+			
 			$(".footer-fore-pop").addClass("active");
+			$(".footer-fore-pop").find("li span").each((i, e) => { 
+				if (i<delIdx) {
+					$(e).remove();
+				}
+			})
 		} else {
 			var delIdx	= $(".footer-twst-pop").find(".seat_active:first").parent().index();
 			
