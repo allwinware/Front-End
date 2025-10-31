@@ -299,7 +299,9 @@ var commSeatDisp	= {
 	}
 	// 좌석선택 알림 팝업 좌석맵 html
 	// ##################################################################################################
-	,getSelPlusStatHtml	: function(paxInfo, seatInfo) {
+	,getSelPlusStatHtml	: function(segIdx, paxInfo, seatInfo) {
+		var _this			= this;
+		
 		var seatList		= seatInfo.seatList;
 		var selPlusLt		= paxInfo.selPlus || [];
 		var purchsedSeatLt	= paxInfo.paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
@@ -308,10 +310,12 @@ var commSeatDisp	= {
 		var seatRows		= fullSeatList.map((e) => ({row: e.row, rowIdx: e.rowIdx})).sort((a, b) => a.rowIdx - b.rowIdx).map((e) => e.row).filter((item, idx, self) => self.indexOf(item) == idx);
 		var blockIdxLt		= fullSeatList.map((e) => e.blockIdx).filter((item, idx, self) => self.indexOf(item) == idx);
 		
+		var seatMap			= _this.getApplyTarget("seat", "seatMap", segIdx);
 		var styleWidth		= (fullSeatList.length > 2) ? "wid120" : "wid90";
 		var html			= [];
 		
-		html.push('		<ul class="seat_num '+(blockIdxLt <= 1 ? styleWidth : "")+'">');
+//		html.push('		<ul class="seat_num '+(blockIdxLt <= 1 ? styleWidth : "")+'">');
+		html.push('		<ul class="seat_num">');
 		
 		// Rows
 		for (var i=0; i<seatRows.length; i++) {
@@ -325,13 +329,19 @@ var commSeatDisp	= {
 				var isPurchsed	= purchsedSeatLt.some((e) => e.seatNo == rowsSeatLt[j].seatNo);
 
 				if (!checkedSeat) {
-					html.push('		<span><a href="#none" class="seat_btn disabled_seat alpha_zero"></a></span>');
+					html.push('		<span><a href="#none" class="seat_btn disabled_seat"></a></span>');
 				}
 				else if (isPurchsed) {
 					html.push('		<span><a href="#none" class="seat_btn seat_active">'+rowsSeatLt[j].seatNo+'</a></span>');
 				} 
 				else {
-					html.push('		<span><a href="#none" class="seat_btn seat_active_plus">'+rowsSeatLt[j].seatNo+'</a></span>');
+					var isPlusAct	= seatMap.find("[seatNo="+rowsSeatLt[j].seatNo+"]").hasClass("seat_active_plus");
+					
+					if (isPlusAct) {
+						html.push('	<span><a href="#none" class="seat_btn seat_active_plus">'+rowsSeatLt[j].seatNo+'</a></span>');
+					} else {
+						html.push('	<span><a href="#none" class="seat_btn plus_block"></a></span>');
+					}
 				}
 				
 				if (rowsSeatLt[j+1] && rowsSeatLt[j].blockIdx != rowsSeatLt[j+1].blockIdx) {

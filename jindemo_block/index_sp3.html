@@ -330,7 +330,7 @@
 			segCtl.setSeatPurchsInfo("rcmnd", paxInfo, null);
 			segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
 			
-// 			_this.setContentsInfo(segIdx);
+			_this.setSelContents();
 			
 			$("[footerBtn=shift]").removeClass("oranc");
 		},
@@ -492,6 +492,7 @@
 					
 						if (plusSeat) {
 							seatMap.find("[seatno="+plusSeat.seatNo+"]").removeClass("seat_orange seat_active plus_block seat_active_plus").find("span").html("").show();
+							seatMap.find("[seatno="+plusSeat.seatNo+"]").off().attr("onclick", "demoCtl.onManualSeatClick('"+plusSeat.seatNo+"', 'sel');");
 							segCtl.setSeatPurchsInfo("plus", paxInfo, selPlus.filter((e) => e.seatNo != plusSeat.seatNo));
 						}
 					}
@@ -508,6 +509,8 @@
 			}
 			
 			seatMap.find(".ballon_box1").hide();
+			
+			_this.setSelContents();
 		},
 		// 데모 plus 좌석 설정
 		setPlusSeat		: function() {
@@ -643,7 +646,7 @@
 			var totalCharge		= segCtl.getSelPlusCharge();
 			var purchsedSeatLt	= paxInfo.paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
 			var itgSeatList		= purchsedSeatLt.concat(selPlusLt).sort((a,b) => a.colIdx - b.colIdx);
-			var selPlusStatHtml	= commSeatDisp.getSelPlusStatHtml(paxInfo, seatInfo);
+			var selPlusStatHtml	= commSeatDisp.getSelPlusStatHtml(segIdx, paxInfo, seatInfo);
 
 			$("[selCnt]").text(selSeatLt.length);
 			$("[plusCnt]").text(selPlusLt.length);
@@ -752,35 +755,25 @@
 	
 	// 다음버튼 클릭
 	$(document).on("click", "[footerBtn=shift]", function(e){
-		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo"); 
-		var segCtl		= demoCtl.getSegCtl(segIdx);
-		var paxInfo		= segCtl.config.PAX_INFO;
+		var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo"); 
+		var segCtl			= demoCtl.getSegCtl(segIdx);
+		var paxInfo			= segCtl.config.PAX_INFO;
 		
-		var selSeatLt	= paxInfo.paxList.filter((e) => e.selSeat);
-		var selPlus		= paxInfo.selPlus || [];
+		var selSeatLt		= paxInfo.paxList.filter((e) => e.selSeat);
+		var selPlus			= paxInfo.selPlus || [];
+		var plusSeatNoLt	= selPlus.map((e) => e.seatNo);
 		
-		if (selPlus.length <= 0 && selSeatLt.length <= 0) {
+		var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+		var actPlusLt		= seatMap.find("[seatNo].seat_active_plus");
+		
+		if (selSeatLt.length <= 0) {
 			return;
 		}
 		
-		if (selSeatLt.length > 0 && selPlus.length <= 0) {
-			var delIdx	= $(".footer-fore-pop").find(".seat_active:first").parent().index();
-			
+		if (actPlusLt.length <= 0) {
 			$(".footer-fore-pop").addClass("active");
-			$(".footer-fore-pop").find("li span").each((i, e) => { 
-				if (i<delIdx) {
-					$(e).remove();
-				}
-			})
 		} else {
-			var delIdx	= $(".footer-twst-pop").find(".seat_active:first").parent().index();
-			
 			$(".footer-twst-pop").addClass("active");
-			$(".footer-twst-pop").find("li span").each((i, e) => { 
-				if (i<delIdx) {
-					$(e).remove();
-				}
-			})
 		}
 		
 		$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
