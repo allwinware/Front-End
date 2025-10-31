@@ -320,6 +320,7 @@
 				
 					if (plusSeat) {
 						seatMap.find("[seatno="+plusSeat.seatNo+"]").removeClass("seat_orange seat_active plus_block seat_active_plus").find("span").html("").show();
+						seatMap.find("[seatno="+plusSeat.seatNo+"]").attr("onclick", "demoCtl.onManualSeatClick('"+plusSeat.seatNo+"', 'sel');");
 						segCtl.setSeatPurchsInfo("plus", paxInfo, selPlus.filter((e) => e.seatNo != plusSeat.seatNo));
 					}
 				}
@@ -765,7 +766,14 @@
 		if (selSeatLt.length > 0 && selPlus.length <= 0) {
 			$(".footer-fore-pop").addClass("active");
 		} else {
+			var delIdx	= $(".footer-twst-pop").find(".seat_active:first").parent().index();
+			
 			$(".footer-twst-pop").addClass("active");
+			$(".footer-twst-pop").find("li span").each((i, e) => { 
+				if (i<delIdx) {
+					$(e).remove();
+				}
+			})
 		}
 		
 		$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
