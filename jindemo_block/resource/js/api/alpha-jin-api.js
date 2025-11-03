@@ -1,25 +1,36 @@
 var jinAlphaApi	= {
 	// block 선택
 	// ##################################################################################################
-	selBlockSeat	: function(plusSeatLt, type) {
+	selBlockSeat	: function(plusSeatLt) {
 		var _this		= this;
 
 		var paxInfo		= _this.config.PAX_INFO;
+		var seatList	= _this.config.SEAT_INFO.seatList;
 		var selBlock	= paxInfo.selBlock;
 		
-		// ### 블락선택 초기화 ###
 		if (selBlock) {
-			_this.setSeatPurchsInfo("block", paxInfo, null);
+			plusSeatLt	= selBlock.concat(plusSeatLt);
 		}
 
 		var segIdx		= _this.config.SEG_IDX;
 		var seatMap		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
-		
+		var blockChkLt	= [];
+
+		for (var i=0; i<plusSeatLt.length; i++) {
+			var plusSeat	= plusSeatLt[i];
+			var blockSeatLt	= seatList.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
+			var blockPlusLt	= plusSeatLt.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
+			
+			if (blockSeatLt.length == blockPlusLt.length) {
+				blockChkLt.push(plusSeat);
+			}
+		}
+
 		// ### 블락선택 설정 ###
-		_this.setSeatPurchsInfo("block", paxInfo, plusSeatLt);
+		_this.setSeatPurchsInfo("block", paxInfo, blockChkLt);
 		
 		for (var i=0; i<plusSeatLt.length; i++) {
-			_this.selPlusSeat(plusSeatLt[i], type);
+			_this.selPlusSeat(plusSeatLt[i]);
 		}
 		
 		seatMap.find(".cancel_xx").hide();
@@ -27,15 +38,22 @@ var jinAlphaApi	= {
 	}
 	// block 선택취소
 	// ##################################################################################################
-	,cacnBlockSeat	: function() {
+	,cacnBlockSeat	: function(plusSeatLt) {
 		var _this		= this;
 
 		var paxInfo		= _this.config.PAX_INFO;
 		var selBlock	= paxInfo.selBlock;
 		
-		for (var i=0; i<selBlock.length; i++) {
-			_this.cancPlusSeat(selBlock[i]);
+		for (var i=0; i<plusSeatLt.length; i++) {
+			_this.cancPlusSeat(plusSeatLt[i]);
 		}
+		
+		if (selBlock) {
+			plusSeatLt	= selBlock.filter((e) => !plusSeatLt.some((seat) => seat.seatNo == e.seatNo));
+		}
+		
+		// ### 블락선택 설정 ###
+		_this.setSeatPurchsInfo("block", paxInfo, plusSeatLt);
 	}
 	// block > 좌석 선택
 	,selPlusSeat	: function(plusSeat) {
@@ -51,12 +69,15 @@ var jinAlphaApi	= {
 		}
 		
 		var segIdx		= _this.config.SEG_IDX;
-		var plusLt		= selPlus.concat(plusSeat);
+		var checkPlus	= selPlus.some((e) => e.seatNo == plusSeat.seatNo);
+		var plusLt		= (checkPlus) ? selPlus : selPlus.concat(plusSeat);
 		
 		var seatList	= _this.config.SEAT_INFO.seatList
 		var seatMap		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+		var selMode		= seatMap.data("mode");
 		
 		var blockSeatLt	= seatList.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
+		var plusSeatLt	= selBlock.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
 		var target		= seatMap.find("[seatno="+plusSeat.seatNo+"]");
 
 		// ### 플러스선택 설정 ###
@@ -64,61 +85,73 @@ var jinAlphaApi	= {
 
 		target.addClass("seat_active_plus").find("span").hide();
 		target.off().one("click", function() {
-			if (blockSeatLt.length == selBlock.length) {
-				_this.cacnBlockSeat();
+			if (blockSeatLt.length == plusSeatLt.length) {
+				_this.cacnBlockSeat(plusSeatLt);
 			} else {
 				_this.cancPlusSeat(plusSeat);
+			}
+			
+			if (selMode == "semiAuto") {
+				seatMap.find("[semiCancBtn]").show();
 			}
 			
 			demoCtl.setSelContents();
 		});
 		
-		var selSeatLt	= paxInfo.paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
-		var itgSeatLt	= selSeatLt.filter((e) => e.row == plusSeat.row).concat(plusLt).sort((a,b) => a.colIdx - b.colIdx);
+//		var selSeatLt	= paxInfo.paxList.filter((e) => e.selSeat).map((e) => e.selSeat);
+//		var itgSeatLt	= selSeatLt.filter((e) => e.row == plusSeat.row).concat(plusLt).sort((a,b) => a.colIdx - b.colIdx);
 		
 		// border
-		if (!_this.config.purchsed) {
-			seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, itgSeatLt));
-		}
+//		if (!_this.config.purchsed) {
+//			seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, itgSeatLt));
+//		}
 	}
 	// block > 좌석 선택취소
-	,cancPlusSeat	: function(plusSeat, type) {
+	,cancPlusSeat	: function(plusSeat) {
 		var _this		= this;
 
 		var segIdx		= _this.config.SEG_IDX;
 		var paxInfo		= _this.config.PAX_INFO;
 		
 		var selBlock	= paxInfo.selBlock || [];
-		var selRcmnd	= paxInfo.selRcmnd;
+//		var selRcmnd	= paxInfo.selRcmnd;
 		var selPlus		= paxInfo.selPlus;
 		var plusLt		= selPlus.filter((e) => e.seatNo != plusSeat.seatNo);
 		
 		var seatList	= _this.config.SEAT_INFO.seatList
 		var seatMap		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+		var selMode		= seatMap.data("mode");
 
 		var blockSeatLt	= seatList.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
+		var plusSeatLt	= selBlock.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
 		var target		= seatMap.find("[seatno="+plusSeat.seatNo+"]");
 		
 		target.removeClass("seat_active_plus").find("span").show();
 		target.off().one("click", function() {
-			if (blockSeatLt.length == selBlock.length) {
-				_this.selBlockSeat(selBlock);
+			if (blockSeatLt.length == plusSeatLt.length) {
+				_this.selBlockSeat(plusSeatLt);
 			} else {
 				_this.selPlusSeat(plusSeat);
+			}
+			
+			if (selMode == "semiAuto") {
+				seatMap.find("[semiCancBtn]").hide();
 			}
 			
 			demoCtl.setSelContents();
 		});
 		
 		// border
-		if (_this.config.purchsed) {
+//		if (_this.config.purchsed) {
 			seatMap.find("svg").html("");
-		} else {
-			seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, selRcmnd.findPtrn));
-		}
+//		} else {
+//			seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, selRcmnd.findPtrn));
+//		}
 		
 		// 선택 초기화
-		_this.setSeatPurchsInfo("plus", paxInfo, plusLt);
+		if (_this.config.purchsed) {
+			_this.setSeatPurchsInfo("plus", paxInfo, plusLt);
+		}
 	}
 	// auto 선택
 	// ##################################################################################################
@@ -146,7 +179,7 @@ var jinAlphaApi	= {
 		for (var i=0; i<rcmndSeatLt.length; i++) {
 			_this.selSeat(paxList[i], rcmndSeatLt[i], "rcmnd");
 		}
-		
+
 		demoCtl.setPlusSeat();
 		seatMap.find(".ballon_box1").hide();
 		seatMap.find(".ballon_box3").hide();
@@ -160,10 +193,8 @@ var jinAlphaApi	= {
 		var paxInfo		= _this.config.PAX_INFO;
 		
 		var paxList		= paxInfo.paxList;
-		var selRcmnd	= paxInfo.selRcmnd; 
-		
+		var selPlus		= paxInfo.selPlus || [];
 		var seatMap		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
-		var plusSeatLt	= selRcmnd.plusSeatLt;
 		
 		// 승객 좌석 구매취소
 		for (var i=0; i<paxList.length; i++) {
@@ -174,10 +205,10 @@ var jinAlphaApi	= {
 				_this.cancSeat(currPax, seatInfo, "rcmnd");
 			}
 		}
-		
+
 		// auto > plus 좌석 초기화
-		for (var i=0; i<plusSeatLt.length; i++) {
-			var plusSeat	= plusSeatLt[i];
+		for (var i=0; i<selPlus.length; i++) {
+			var plusSeat	= selPlus[i];
 			var target		= seatMap.find("[seatno="+plusSeat.seatNo+"]");
 		
 			if (plusSeat) {
@@ -207,9 +238,12 @@ var jinAlphaApi	= {
 				target.addClass("seat_active").find("span").hide();
 				break;
 			case "rcmnd"	:
-//				target.addClass("seat_active").find("span").hide();
-				target.addClass("seat_orange").find("span").text("무료").removeClass("blind_box");
+				target.addClass("seat_active").find("span").hide();
 				target.attr("onclick", "return false");
+				break;
+			case "manual"	:
+				target.addClass("seat_active").find("span").hide();
+				target.attr("onclick", "demoCtl.onManualSeatClick('"+seatInfo.seatNo+"', 'canc', '"+paxInfo.rph+"')");
 				break;
 		}
 	}
@@ -224,11 +258,15 @@ var jinAlphaApi	= {
 
 		// ### 좌석 취소 ###
 		_this.setSeatPurchsInfo("seat", paxInfo, null);
-		
+
 		switch (type) {
 			case "rcmnd"	:
 				target.removeClass("seat_orange seat_active plus_block seat_active_plus").find("span").html("").show();
 				target.attr("onclick", "demoCtl.onAutoRcmndClick('"+seatInfo.seatNo+"', 'sel');");
+				break;
+			case "manual"	:
+				target.removeClass("seat_orange seat_active plus_block seat_active_plus").find("span").html("").show();
+				target.attr("onclick", "demoCtl.onManualSeatClick('"+seatInfo.seatNo+"', 'sel');");
 				break;
 		}
 	}
