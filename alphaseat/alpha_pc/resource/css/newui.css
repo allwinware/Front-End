@@ -2461,11 +2461,46 @@ header{
     align-items: center;
 }
 .bag_txt_same input[type="checkbox"] {
-    margin-right: 3px;
-    accent-color: #f5581a;
-    width: 15px;
-    height: 15px;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #aaa;
+  margin-right: 3px;
+  border-radius: 3px;
+  background: #fff;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: background 0.2s;
 }
+
+/* 체크된 상태일 때: 배경색 */
+.bag_txt_same input[type="checkbox"]:checked {
+  background: #FF4F24;
+  border-color: #FF4F24;
+}
+
+/* 체크된 상태에서 체크표시(체크 마크) */
+.bag_txt_same input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+/* 아이콘(체크마크) 오버랩용 relative 필요 */
+.bag_txt_same input[type="checkbox"] {
+  position: relative;
+}
+
+
 
 .countdown_b{
 	margin-left: 2px;
