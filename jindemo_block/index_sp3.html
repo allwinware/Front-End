@@ -119,7 +119,7 @@
 			return;
 		}
 		
-		if (paxCnt > 2) {
+		if (paxCnt > 4) {
 			return;
 		}
 
@@ -550,7 +550,12 @@
 					var checkPurchsedBlock	= purchsedBlockSeatLt.every((e) => selSeatLt.some((seat) => seat.seatNo == e.seatNo));
 
 					if (checkPurchsedBlock) {
-						plusSeatLt			= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow);
+						var otherSeatLt		= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow);
+						var cleanBlockChk	= seatList.filter((e) => e.row == currRow && otherSeatLt.some((seat) => seat.blockIdx == e.blockIdx)).every((e) => e.seatStatus == "A");
+
+						if (cleanBlockChk) {
+							plusSeatLt		= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow);
+						}
 					}
 				}
 				
