@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ko" style="overflow: hidden;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <title>AlphaSeat</title>
+    <link rel="stylesheet" href="./resource/css/newui.css">
+    <link rel="stylesheet" href="./resource/css/content.css">
+    <link rel="stylesheet" href="./resource/css/reset.css">
+    <link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-3.4.1.min.js'></script>
+    <script src='./resource/js/jquery.min.js'></script>
+    <script src="./resource/js/alpha.mo.ui.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script>
+			function play() {
+					const audio = document.getElementById("audio_play");
+					audio.pause();
+					audio.currentTime = 0;
+					audio.play();
+				}
+
+				document.addEventListener("click", function(e) {
+				const soundBtn = e.target.closest(".sound-btn");
+				if (soundBtn) {
+					play();
+				}
+				});
+		</script>
+
+</head>
+
+<body style="overflow: hidden;">
+	<audio id="audio_play" src="./resource/mouse.mp3"></audio>    
+	<div class="dimmed_bgs" ></div>
+    <div class="ags-wrap newui food demos sound-btn">
+        <h1 class="site-name">올윈에어</h1>
+        <header>
+			<div class="ags-header">
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="gnb_menu">
+                    <div class="finger_demo2"></div>
+					<div class="demo_gnb_menu1">
+						<div class="blue_text alpha_zero" >20,000 절약</div>
+						<div class="alpha_zero">99,000 절약</div>
+						<div class="alpha_zero">99,000 절약</div>
+					</div>
+					<div class="demo_gnb_menu2_2"></div>
+					<div class="demo_gnb_menu3">
+						<div class="blue_text">같이 앉는 좌석</div>
+						<div>맛있는 기내식</div>
+						<div>수하물 할인</div>
+					</div>
+				</div>				
+				<div class="gnb-jinlogo"></div>
+			</div>
+			<div class="select_boxbtn" >
+				<div class="select_backbtn active" >
+					<button id="ags-wrap-back" class="btn_back_c">
+						<div class="boxbtn_flyb">
+							<div class="de_ways1">가는편</div>
+							<div class="de_ways2">인천 <span> ICN</span></div>
+							<div class="de_ways3">비행기이미지</div>
+							<div class="de_ways4">방콕 <span>BKK</span></div>
+						</div>
+					</button>
+				</div>
+				<div class="select_comebtn">
+					<button id="ags-wrap" class="btn_come_c">
+						<div class="boxbtn_flyb">							
+							<div class="de_ways1">오는편</div>
+							<div class="de_ways2">방콕 <span> BKK</span></div>
+							<div class="de_ways3">비행기이미지</div>
+							<div class="de_ways4">인천 <span>ICN</span></div>
+						</div>
+					</button>
+				</div>
+			</div>
+            <div class="header_txt1">
+				<div class="header_txt_ai">
+                    <div>
+                        <img src="./resource/img/common/ai.png">
+                        <span class="top_txtp">아이가 좋아하는 TOP3!</span>
+                    </div>
+                    <div>
+                        <span>예상비행시간</span>
+                        <span id="timer">05:50</span>
+                    </div>
+				</div>
+			</div>
+		</header>
+        <div class="contents separate200 foodnewui" id="con_slider">
+            <div class="slider1">
+                <div class="foodsfst_text"><i></i>공항·기내에서는 기내식 구매가 불가해요.</div>
+                <div class="foodsfst" style="display: block;">
+                    <ul>
+                        <li>
+                            <div class="finger_food1"></div>
+                            <input type="radio" id="chk1" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk1" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_12.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">소시지 오므라이스 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            아이가 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <div class="finger_food2"></div>
+                            <input type="radio" id="chk2" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_13.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 햄버그덮밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 12,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            아이 인기
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk3" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk3" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_16.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 김치볶음밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 12,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            아이가 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk4" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk4" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_13.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">마제소바<span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            아이가 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk5" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk5" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_07.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">유부초밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 9,900</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            여성이 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk6" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk6" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_02.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 비빔밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            남성이 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk7" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk7" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_18.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 낙지덮밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            여성이 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk8" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk8" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_03.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">불고기샌드위치 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            남성이 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        
+                        <li>
+                            <input type="radio" id="chk9" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk9" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_04.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 불고기덮밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            남성이 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+            
+                        <li>
+                            <input type="radio" id="chk10" name="foods_slider1" class="btn_foods_open">
+                            <label for="chk10" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_15.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">열무비빔국수 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            여성이 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                    </ul>                                       
+                </div>
+                <div class="cscenter" style="display: none;">
+                    고객센터 : 1522-4148 (평일 10:00 ~ 17:00)
+                </div>                
+            </div>
+            <div class="slider2">
+                <div class="foodsfst_text"><i></i>공항·기내에서는 기내식 구매가 불가해요.</div>
+                <div class="foodsfst" style="display: block;">
+                    <ul>
+                        <li>
+                            <div class="finger_food1"></div>
+                            <input type="radio" id="chk1_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk1_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_12.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">소시지 오므라이스 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            아이가 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <div class="finger_food2"></div>
+                            <input type="radio" id="chk2_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk2_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_13.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 햄버그덮밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 12,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            아이 인기
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk3_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk3_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_16.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 김치볶음밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 12,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            아이가 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk4_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk4_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_13.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">마제소바<span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            아이가 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk5_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk5_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_07.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">유부초밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 9,900</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            여성이 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk6_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk6_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_02.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 비빔밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            남성이 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk7_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk7_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_18.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 낙지덮밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            여성이 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="chk8_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk8_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_03.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">불고기샌드위치 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            남성이 가장 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                        
+                        <li>
+                            <input type="radio" id="chk9_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk9_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_04.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">승무원용 불고기덮밥 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            남성이 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+            
+                        <li>
+                            <input type="radio" id="chk10_2" name="foods_slider2" class="btn_foods_open">
+                            <label for="chk10_2" class="">
+                                <div class="foodsfst_divd">
+                                    <div class="foodsfst_medal"></div>
+                                    <img src="resource/img/food/img_jin_15.jpg">
+                                    <div class="foodsfst_txt">
+                                        <div class="foodsfst_txt1">열무비빔국수 <span style="font-weight: 600;">ⓘ</span></div>
+                                        <div class="foodsfst_txt2">
+                                            <span class="foods_pay_b"><span style="font-family: 'PretendardL';">KRW</span> 13,000</span>
+                                        </div>
+                                        <div class="foodsfst_txt3" >
+                                            여성이 좋아해요!
+                                        </div>
+                                        
+                                        <a onclick="layerPop('foods_pop01');" style="display: none;">
+                                            <span class="ico_detail"></span>
+                                        </a>                                
+                                    </div>
+                                </div>
+                                <div class="foodsfst_click">
+                                    <div class="check-circle"></div>
+                                </div>                                            
+                            </label>
+                        </li>
+                    </ul>                                       
+                </div>
+                <div class="cscenter" style="display: none;">
+                    고객센터 : 1522-4148 (평일 10:00 ~ 17:00)
+                </div>                
+            </div>
+        </div>
+        
+        <!----------------------------------------------->
+        
+		<div class="ags-summary foods slider1-summary">	
+			<h4 class="sr-only">부가서비스 결제금액</h4>
+            <div class="summary-content"></div>
+                <div class="demos_chk_name">
+                    <div class="demos_chk_name1">
+                        <div>0/3 선택</div>
+                        <div class="bag_txt_same">
+                                <input type="checkbox" id="check9">
+                                <label for="check9"><i></i><div>메뉴 통일하기</div></label>
+                        </div>
+
+                    </div>
+                    <div class="demos_chk_name2">
+                        <div class="demos_chk_box" id="boy1">
+                            <div class="chk_box_boyface">
+                                <span class="boy_face1"></span>KIM JINYOUNG
+                                <span class="chk_box_boxbox" style="display: none;"></span>
+                            </div>
+                            <div>
+                                <span class="boy_face0"></span>
+                            </div>
+                        </div>
+                        <div class="demos_chk_box" id="boy2">
+                            <div>LEE JIYOUNG
+                                <span class="chk_box_boxbox" style="display: none;"></span>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="demos_chk_box" id="boy3">
+                            <div>KIM SUNGJIN
+                                <span class="chk_box_boxbox" style="display: none;"></span>
+                            </div>
+                            <div></div>
+                        </div>            
+                    </div>
+                </div>
+            
+			<div class="foot_align">
+				<div class="btn_footer_open"><span></span></div>
+				
+				<div class="btf_a">
+					<div>
+						<span>LEE JIYOUNG</span>님
+						<span class="btf_a_people">4</span>인  
+					</div>
+					<div class="btf_a_txt">누적 15,000 절약중</div>
+				</div>
+				<!--이건 반대임... active를 없애면 파랭이가 나옴-->
+				<div class="btf_bbtn active">
+					<div class="btn_group_open_twst" onclick='window.location.href = "service_baggage.html";'>다음</div>
+				</div>				
+			</div>			
+			<div class="footer_contents">				
+				<a class="btn_footer_close">Close</a>
+				<div class="pay_content">
+					<div class="creditcard newui">
+						<div class="card_warp">
+							<div class="card_name">신청내역</div>
+							<div class="card_name_btn">
+								<div>
+									항공권
+								</div>
+								<div>
+									부가서비스
+								</div>
+							</div>
+							<div class="credit_box_btn" agrBtn style="display: none;"></div>
+						</div>
+						<div agrLt class="credit_agree_box_content dis on" style="display: block;">
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+							<!-- 사람 -->				   
+							<div class="bd_pxc">
+								<div class="ccd_man1"></div>								
+							</div>
+
+                            <!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+                            <div class="bd_pxc">
+								<div class="ccd_man2"></div>								
+							</div>
+						</div>
+					</div>
+					
+					<div class="credit_total_footer">
+						<div class="credit_total">
+							<div>부가서비스 총 결제 금액</div>
+							<div class="credit_total_box3">								
+								<div style="font-size: 16px; font-family: 'PretendardB';">KRW 589,000원</div>
+                                <div style="color: #666; font-size: 11px; font-family: 'PretendardL';">KRW 105,000 절약</div>
+							</div>   
+						</div>
+						<div class="payment_btn0">
+							<div class="payment_btn1">바로결제</div>
+							<div class="payment_btn2 btn_footer_closex">확인했어요</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+        <div class="ags-summary foods slider2-summary" style="display:none;">	
+			<h4 class="sr-only">부가서비스 결제금액</h4>
+            <div class="summary-content"></div>
+            <div class="demos_chk_name">
+                <div class="demos_chk_name1">
+                    <div>0/3 선택</div>
+                    <div class="bag_txt_same">
+                            <input type="checkbox" id="check9">
+                            <label for="check9"><i></i><div>메뉴 통일하기</div></label>
+                    </div>
+
+                </div>
+                <div class="demos_chk_name2">
+                    <div class="demos_chk_box" id="boy1">
+                        <div class="chk_box_boyface">
+                            <span class="boy_face1"></span>KIM JINYOUNG
+                            <span class="chk_box_boxbox" style="display: none;"></span>
+                        </div>
+                        <div>
+                            <span class="boy_face0"></span>
+                        </div>
+                    </div>
+                    <div class="demos_chk_box" id="boy2">
+                        <div>LEE JIYOUNG
+                            <span class="chk_box_boxbox" style="display: none;"></span>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="demos_chk_box" id="boy3">
+                        <div>KIM SUNGJIN
+                            <span class="chk_box_boxbox" style="display: none;"></span>
+                        </div>
+                        <div></div>
+                    </div>            
+                </div>
+            </div>
+
+			<div class="foot_align">
+				<div class="btn_footer_open"><span></span></div>
+				
+				<div class="btf_a">
+					<div>
+						<span>LEE JIYOUNG</span>님
+						<span class="btf_a_people">4</span>인  
+					</div>
+					<div class="btf_a_txt">누적 15,000 절약중</div>
+				</div>
+				<!--이건 반대임... active를 없애면 파랭이가 나옴-->
+				<div class="btf_bbtn active">
+					<div class="btn_group_open_twst" onclick='window.location.href = "service_baggage.html";'>다음</div>
+				</div>				
+			</div>			
+			<div class="footer_contents">				
+				<a class="btn_footer_close">Close</a>
+				<div class="pay_content">
+					<div class="creditcard newui">
+						<div class="card_warp">
+							<div class="card_name">신청내역</div>
+							<div class="card_name_btn">
+								<div>
+									항공권
+								</div>
+								<div>
+									부가서비스
+								</div>
+							</div>
+							<div class="credit_box_btn" agrBtn style="display: none;"></div>
+						</div>
+						<div agrLt class="credit_agree_box_content dis on" style="display: block;">
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+							<!-- 사람 -->				   
+							<div class="bd_pxc">
+								<div class="ccd_man1"></div>								
+							</div>
+
+                            <!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+                            <div class="bd_pxc">
+								<div class="ccd_man2"></div>								
+							</div>
+						</div>
+					</div>
+					
+					<div class="credit_total_footer">
+						<div class="credit_total">
+							<div>부가서비스 총 결제 금액</div>
+							<div class="credit_total_box3">								
+								<div style="font-size: 16px; font-family: 'PretendardB';">KRW 589,000원</div>
+                                <div style="color: #666; font-size: 11px; font-family: 'PretendardL';">KRW 105,000 절약</div>
+							</div>   
+						</div>
+						<div class="payment_btn0">
+							<div class="payment_btn1">바로결제</div>
+							<div class="payment_btn2 btn_footer_closex">확인했어요</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>	
+    <!----------------------------------------------->
+    </div>
+    <!--버튼 1개 맨 밑-->
+    <div class="pay_pay newui" style="display: none;">
+        <button type="button" class="">결제하기</button>
+    </div>
+    <!--버튼 2개 맨 밑-->
+    <div class="pay_pay newui" style="display: none;">
+        <button type="button" class="pay_ment_btn1">건너띄기</button>
+        <!--opnge 빼면 그레이색-->
+        <button type="button" class="pay_ment_btn2 opnge">가는편 메뉴 선택</button>
+    </div>
+
+    <article id="foods_pop01" class="layer_popup alert foodspop"  tabindex="0" >
+        <div class="wrapper_popup">
+            <!-- header -->
+            <div class="popup_header">
+                <!-- title -->
+                <div class="grp_title_popup">
+                    <div class="box_button">
+                        <button type="button" class="btn_close_popup" title="닫기">닫기</button>
+                    </div>
+                </div>
+                <!-- //title -->
+            </div>
+            <!-- container -->
+            <div class="popup_body">
+                <!-- content -->
+                <div class="popup_content">
+                        <div class="popup_con_txt">
+                            <div class="foodspop_img">
+                                <img src="resource/img/food/img_est_01.jpg">
+                            </div>
+                            <div>구름 위의 샌드위치</div>
+                            <div>
+                                <span class="foods_pay_b">9,000</span>
+                                <span class="foods_pay_a">12,000</span>                                
+                            </div>
+                        </div>
+                        <div class="popup_con_txt_2">
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+
+                        </div>  
+                        <div class="popup_con_txt_3">
+                            *알레르기 유발 재료 - 치즈, 우유, 밀
+                        </div>   
+                </div>
+                <div class="pay_exr">
+                    <div class="pay_exr_btn"><button type="button" class="pay_exr_pay btn_close_popup_x">확인</button></div>
+                </div>
+                <!-- //content -->
+            </div>
+            <!-- //container -->
+        </div>
+    </article>
+    <article id="foods_pop02" class="layer_popup alert foodspop"  tabindex="0" >
+        <div class="wrapper_popup">
+            <!-- header -->
+            <div class="popup_header">
+                <!-- title -->
+                <div class="grp_title_popup">
+                    <div class="box_button">
+                        <button type="button" class="btn_close_popup" title="닫기">닫기</button>
+                    </div>
+                </div>
+                <!-- //title -->
+            </div>
+            <!-- container -->
+            <div class="popup_body">
+                <!-- content -->
+                <div class="popup_content">
+                        <div class="popup_con_txt">
+                            <div class="foodspop_img">
+                                <img src="resource/img/food/img_a_jeju.jpg">
+                            </div>
+                            <div>구름 위의 샌드위치</div>
+                            <div>
+                                <span class="foods_pay_b">9,000</span>
+                                <span class="foods_pay_a">12,000</span>                                
+                            </div>
+                        </div>
+                        <div class="popup_con_txt_2">
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+
+                        </div>  
+                        <div class="popup_con_txt_3">
+                            *알레르기 유발 재료 - 치즈, 우유, 밀
+                        </div>   
+                </div>
+                <div class="pay_exr">
+                    <div class="pay_exr_btn"><button type="button" class="pay_exr_pay btn_close_popup_x">확인</button></div>
+                </div>
+                <!-- //content -->
+            </div>
+            <!-- //container -->
+        </div>
+    </article>
+    <article id="foods_pop03" class="layer_popup alert foodspop"  tabindex="0" >
+        <div class="wrapper_popup">
+            <!-- header -->
+            <div class="popup_header">
+                <!-- title -->
+                <div class="grp_title_popup">
+                    <div class="box_button">
+                        <button type="button" class="btn_close_popup" title="닫기">닫기</button>
+                    </div>
+                </div>
+                <!-- //title -->
+            </div>
+            <!-- container -->
+            <div class="popup_body">
+                <!-- content -->
+                <div class="popup_content">
+                        <div class="popup_con_txt">
+                            <div class="foodspop_img">
+                                <img src="resource/img/food/img_a_airseoul.jpg">
+                            </div>
+                            <div>구름 위의 샌드위치</div>
+                            <div>
+                                <span class="foods_pay_b">9,000</span>
+                                <span class="foods_pay_a">12,000</span>                                
+                            </div>
+                        </div>
+                        <div class="popup_con_txt_2">
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+                            구름 위에서 즐기는 햄치즈/참치마요 닭가슴살 클럽 샌드위치<br>
+
+                        </div>  
+                        <div class="popup_con_txt_3">
+                            *알레르기 유발 재료 - 치즈, 우유, 밀
+                        </div>   
+                </div>
+                <div class="pay_exr">
+                    <div class="pay_exr_btn"><button type="button" class="pay_exr_pay btn_close_popup_x">확인</button></div>
+                </div>
+                <!-- //content -->
+            </div>
+            <!-- //container -->
+        </div>
+    </article>
+
+    <article id="no_image" class="layer_popup alert"  tabindex="0" >
+        <div class="wrapper_popup"> 
+            <!-- header -->
+            <div class="popup_header">
+                <!-- title -->
+                <div class="grp_title_popup">
+                    <div class="box_button">
+                        <button type="button" class="btn_close_popup" title="닫기">닫기</button>
+                    </div>
+                </div>
+                <!-- //title -->
+            </div>
+            <!-- container -->
+            <div class="popup_body">
+                <!-- content -->
+                <div class="popup_content">
+                        <div class="popup_con_txt">
+                            <div class="no_image">이미지</div>
+                        </div> 
+                </div>
+                <div class="pay_exr">
+                    <div class="pay_exr_btn"><button type="button" class="pay_exr_pay btn_close_popup_x">확인</button></div>
+                </div>
+                <!-- //content -->
+            </div>
+            <!-- //container -->
+        </div>
+    </article>
+
+</body>
+
+</html>
