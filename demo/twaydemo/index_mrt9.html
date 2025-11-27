@@ -14,14 +14,16 @@
 	<script src='./resource/js/jquery.min.js'></script>
 	<script src="./resource/js/tway/alpha.mo.ui.js"></script>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-
-
 <script>
+
 function play() {
-	const audio = document.getElementById("audio_play");
-	audio.pause();
-	audio.currentTime = 0;
-	audio.play();
+	var audio = document.getElementById('audio_play'); 
+	if (audio.paused) {
+		audio.play();
+	} else{
+		audio.pause();
+		audio.currentTime = 0
+	}
 }
 
 $(document).ready(function() {
@@ -200,10 +202,10 @@ $(document).ready(function() {
 						<img src="./resource/img/common/hd_move_01.gif">
 					</div>
 					<div class="ai_txt4">아이와 같이 앉으시겠습니까?</div>
-<!-- 					<div class="ai_txt5">[아이동반 특별할인] 왕복 지정 시 KRW 40,000 절약돼요!</div> -->
+<!-- 				<div class="ai_txt5">[아이동반 특별할인] 왕복 지정 시 KRW 40,000 절약돼요!</div> -->
 				</div>
 				<div class="pay_pay_footer close_btn_1">
-					<button class="btn_come_c">네</button>
+					<button class="btn_come_c cls-btn">네</button>
 				</div>
 			</div>
 		</div>
@@ -358,7 +360,7 @@ $(document).ready(function() {
 				$(".dimmed_bg, .dimmed_bgs").fadeIn(0); // 0.6초 동안 서서히 나타남
 			}, 0); // 3초 후 실행
 		});
-		$(document).on("click", ".btn_group_close,.btn_group_close_x", function () {
+		$(document).on("click", ".btn_group_close,.btn_group_close_x, .cls-btn", function () {
 			$(".ags-summary-first").removeClass("active");
 			$(".dimmed_bg").css("display", "none");
 			$(".dimmed_bgs").css("display", "none");
@@ -1501,13 +1503,13 @@ $(document).ready(function() {
 	</script>
 
 	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
-        <div class="loadinggif">
-            <!-- container -->
-            <div class="rader_popup"></div>
+		<div class="loadinggif">
+			<!-- container -->
+			<div class="rader_popup"></div>
 			<div class="load_popup"></div>
-            <!-- //container -->
-        </div>
-    </article>
+			<!-- //container -->
+		</div>
+	</article>
 </body>
 
 </html>
