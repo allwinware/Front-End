@@ -96,9 +96,13 @@ window.onload	= function() {
 
 
 function changePaxCnt(paxCnt) {
-	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+//	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	var segIdx		= $(".header_txt2").attr("flyInfo");
+
 	var segCtl		= demoCtl.getSegCtl(segIdx);
 	var paxList		= [];
+
+console.log("st3 - changePaxCnt args paxCnt : "+paxCnt);
 
 	for (var i=0; i<paxCnt; i++) {
 		paxList.push({
@@ -108,6 +112,9 @@ function changePaxCnt(paxCnt) {
 			"paxType": "ADT",
 		});
 	}
+
+console.log(JSON.stringify(paxList, undefined, 4));
+console.log("demoCtl.actPaxCnt : "+demoCtl.actPaxCnt);
 
 	if (paxCnt == demoCtl.actPaxCnt) {
 		return;
@@ -186,7 +193,8 @@ var demoCtl	= {
 			"8"	: () => ["27A", "27B", "27E", "27F", "28A", "28B", "28E", "28F"],
 			"9"	: () => ["27A", "27B", "27C", "27D", "27E", "27F", "28A", "28B", "28C"]
 		}
-		var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
+//		var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
+		var segIdx			= $(".header_txt2").attr("flyInfo");
 		var segCtl			= _this.getSegCtl(segIdx);
 		var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
 
@@ -298,7 +306,8 @@ var demoCtl	= {
 	// 선택내용 contents apply
 	setSelContents	: function() {
 		var _this		= this;
-		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+//		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+		var segIdx		= $(".header_txt2").attr("flyInfo");
 
 		var segCtl		= _this.getSegCtl(segIdx);
 		var paxInfo		= segCtl.config.PAX_INFO;
@@ -316,8 +325,10 @@ var demoCtl	= {
 
 		// 다음버튼 active변경
 		if (selPlus.length > 0) {
+console.log("setSelContents > if (selPlus.length > 0)");
 			$("[footerBtn=shift]").addClass("active");
 		} else {
+console.log("setSelContents > else");
 			$("[footerBtn=shift]").removeClass("active");
 		}
 	},
@@ -389,7 +400,8 @@ var demoCtl	= {
 
 // 다음버튼 클릭
 $(document).on("click", "[footerBtn=shift]", function(e){
-	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+//	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	var segIdx		= $(".header_txt2").attr("flyInfo");
 	var segCtl		= demoCtl.getSegCtl(segIdx);
 	var paxInfo		= segCtl.config.PAX_INFO;
 	var selPlus		= paxInfo.selPlus || [];
@@ -409,12 +421,15 @@ $(document).on("click", "[footerBtn=shift]", function(e){
 
 // 확인버튼(결제내역) 클릭
 $(document).on("click", "[footerBtn=payment]", function(e){
+
+	window.location.href	= 'index_st4.html';
+/*
 	$("[purchase-container]").hide();
 	$("[payment-container]").show();
 	demoCtl.timer.resetTimer();
 	demoCtl.timer.startTimer();
-
 	e.stopPropagation();
+*/
 });
 
 
@@ -492,7 +507,8 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 						<div onclick="window.location.href='index_st4.html';" >탑승권 발급</div>
 					</div>
 				</div>
-				<div class="select_boxbtn" style="display: none;">
+<!--
+				<div class="select_boxbtn">
 					<div class="select_backbtn active" flyInfo="1">
 						<button id="ags-wrap-back" class="btn_back_c">
 							<div class="boxbtn_flyb">
@@ -512,6 +528,7 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 						</button>
 					</div>
 				</div>
+-->
 				<div class="header_txt1">
 					<div class="header_txt_ai">
 						<div>
@@ -524,7 +541,7 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 						</div>
 					</div>
 				</div>
-				<div class="header_txt2">
+				<div class="header_txt2" flyInfo="1">
 					<div>ICN - CXR</div>
 				</div>
 			</header>
