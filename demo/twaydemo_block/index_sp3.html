@@ -77,7 +77,7 @@ var timerCtl	= function() {
 }
 
 window.onload	= function() {
-	var seatMap1	= $("#lj_B737-800").load("include/737-800.html");
+	var seatMap1	= $("#tw_TWB737").load("include/TWB737.html");
 
 	$.when(seatMap1).then(() => {
 		// 1.팝업 노출
@@ -93,7 +93,6 @@ window.onload	= function() {
 		},1000);
 	});
 }
-
 
 function changePaxCnt(paxCnt) {
 	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
@@ -678,10 +677,11 @@ var demoCtl	= {
 
 		function getOccupiedLt(segIdx) {
 			var occupiedLt	= {
-				"1"			: () => ["28A", "28B", "28C", "29D", "29E", "29F", "31A", "31B", "34F", "33D", "33E", "34A", "34B", "34C", "42D", "42E", "42F", "43A", "43B", "43C", "47D", "48A", "48B", "52A", "52B", "52C", "52D", "52E", "52F", "59D", "59E", "59F" ],
+				"1"			: () => ["1A","1B","1C","2D","2E","2F","4A","4B","7F","6D","6E","7A","7B","7C","15D","15E","15F","16A","16B","16C","20D","21A","21B","25A","25B","25C","25D","25E","25F","32D","32E","32F"],
 				"2"			: () => [],
 				"_default"	: () => []
 			}
+
 
 			return (occupiedLt[segIdx] || occupiedLt["_default"])();
 		}
@@ -876,7 +876,7 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 			</header>
 			<div class="contents ovrFlw" id="con_slider" purchase-container="seat">
 				<div class="slider1">
-					<div id="lj_B737-800"></div>
+					<div id="tw_TWB737"></div>
 				</div>
 				<!--
 				<div class="slider2">
