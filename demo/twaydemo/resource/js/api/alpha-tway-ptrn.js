@@ -1,4 +1,4 @@
-var jinAlphaPtrn	= {
+var twayAlphaPtrn	= {
 	// 좌석 블락정보 설정
 	// ##################################################################################################
 	getAlphaSeatConfig	: function() {
@@ -6,8 +6,7 @@ var jinAlphaPtrn	= {
 		
 		var seatList	= _this.config.SEAT_INFO.seatList;
 		var seatConfig	= _this.config.PTRN_INFO.seatConfig.split("-");
-		
-		var hasSeltLt	= seatList.filter(function(item){ return item.seatStatus == "A" && item.charge > 0 });
+
 		var rowArr		= seatList.map(function(item){ return item.row });
 		var duplRowArr	= rowArr.filter(function(item, idx, self){ return self.indexOf(item) == idx })
 		
@@ -44,9 +43,6 @@ var jinAlphaPtrn	= {
 		
 		// seatConfig 설정
 		_this.config.SEAT_INFO.seatConfig	= seatConfig;
-		
-		// 구매좌석이 있는지 여부
-		_this.config.SEAT_INFO.hasSelSeat	= (hasSeltLt.length > 0) ? true : false;
 	}
 	// 좌석패턴 조회
 	// ##################################################################################################
@@ -57,14 +53,17 @@ var jinAlphaPtrn	= {
 		var areaZoneInfoMap		= ptrnInfo.areaZoneInfoMap;																	// area 존(zone)정보
 		var specialZoneInfoMap	= ptrnInfo.specialZoneInfoMap;																// 특별 존(zone)정보
 		var weightPtrnInfoList	= ptrnInfo.weightPtrnInfoList;																// 패턴정보 리스트
-			
-		// 존(zone)설정
-		var areaZoneInfoList	= _this.getAlphaAreaZoneInfoList(areaZoneInfoMap, specialZoneInfoMap);
+		var sldOutRcmndCnt		= ptrnInfo.sldOutRcmndCnt;																	// 매진후 추천갯수
+		
+		// 패턴정보 리스트
+		var areaZoneInfoList	= _this.getAlphaAreaZoneInfoList(areaZoneInfoMap, specialZoneInfoMap);						// 존(zone)설정
+		var areaFindPtrnList	= [];
 
-		// 구역(area) 반복
+		// 등급(grade) 반복
 		for (var i=0; i<areaZoneInfoList.length; i++) {
 			var areaZoneInfo			= areaZoneInfoList[i];
 			var weightPtrnMstSn			= areaZoneInfo.weightPtrnMstSn;
+			var sldOutRcmndYn			= areaZoneInfo.sldOutRcmndYn; 
 			var ptrnInfoList			= weightPtrnInfoList.filter(function(item){ return item.weightPtrnMstSn == weightPtrnMstSn });
 
 			// 맵핑되는 패턴리스트가 없는경우
@@ -74,15 +73,32 @@ var jinAlphaPtrn	= {
 			
 			// 패턴 찾기
 			var findPtrnList			= _this.getAlphaSeatFindPtrn(areaZoneInfo, ptrnInfoList);
-			// 등급별 패천 추천
+			// 패턴 추천
 			var rcmndPtrnList			= _this.getAlphaSeatRcmndPtrn(areaZoneInfo, findPtrnList);
-			// 등급별 추천정보 설정
+			// 추천정보 설정
 			_this.config.RCMND_INFO		= _this.config.RCMND_INFO.concat(rcmndPtrnList);
+			
+			// 매진후 추천처리
+			if (sldOutRcmndYn == "Y") {
+				areaFindPtrnList		= areaFindPtrnList.concat(findPtrnList).sort(function(a, b){ return b.totalWeight - a.totalWeight });
+			}
+		}
+		
+		// 추천갯수체크(soldOut)
+		if (_this.config.RCMND_INFO.length <= 0) {
+			for (var i=0; i<areaFindPtrnList.length; i++) {
+				var findCnt			= i+1;
+				var findPtrnInfo	= areaFindPtrnList[i];
+				
+				if (findCnt <= sldOutRcmndCnt) {
+					_this.config.RCMND_INFO.push($.extend({}, findPtrnInfo, {sdtYn:"Y"}));
+				}
+			}
 		}
 		
 		// 선호율 계산
 		var rcmndInfo			= _this.config.RCMND_INFO;
-		
+
 		var maxWeight			= Math.max.apply(null, rcmndInfo.map(function(item){ return item.totalWeight }));			// 패턴 최대값
 		var minWeight			= Math.min.apply(null, rcmndInfo.map(function(item){ return item.totalWeight }));			// 패턴 최소값
 		
@@ -93,15 +109,12 @@ var jinAlphaPtrn	= {
 			// 계산식 : (패턴 weight - 패턴최소값) * (선호율 최대값 - 선호율 최소값) / (패턴 최대값 - 패턴최소값) + 선호율 최소값
 			rcmndInfo[r].prfrdRate	= ((rcmndInfo[r].totalWeight - minWeight) * (maxPrfrdRate - minPrfrdRate) / (maxWeight - minWeight) + minPrfrdRate) || maxPrfrdRate;
 		}
-		
+
 		// sort
 		_this.config.RCMND_INFO.sort(function(a, b){ return b.prfrdRate - a.prfrdRate });
 		
 		// rank
 		_this.config.RCMND_INFO.reduce(function(acc,cur,idx){ return acc.concat($.extend(cur, {rank: idx+1}))}, []); 
-		
-		// 추천좌석이 있는지 여부
-		_this.config.SEAT_INFO.hasRcmnd	= (rcmndInfo.length > 0) ? true : false;
 	}
 	// 지정패턴 조회
 	// ##################################################################################################
@@ -112,7 +125,6 @@ var jinAlphaPtrn	= {
 		var areaZoneInfoMap		= JSON.parse(JSON.stringify(ptrnInfo.areaZoneInfoMap || null));
 		var specialZoneInfoMap	= JSON.parse(JSON.stringify(ptrnInfo.specialZoneInfoMap || null));
 		
-		var weightPtrnMstSn		= ptrnInfo.weightPtrnMstSn;
 		var weightPtrnInfoList	= ptrnInfo.weightPtrnInfoList;
 		
 		// 존(zone)설정
@@ -215,10 +227,10 @@ var jinAlphaPtrn	= {
 		
 		var colArr			= (areaZoneInfo) ? areaZoneInfo.seatList.map(function(item){ return item.col }) : _this.config.SEAT_INFO.seatList.map(function(item){ return item.col });
 		var duplColArr		= colArr.filter(function(item, idx, self){ return self.indexOf(item) == idx }).sort();
-		
+
 		var areaSeatObj		= (areaZoneInfo) ? areaZoneInfo.seatObj : _this.config.SEAT_INFO.seatObj;  
 		var findPtrnList	= [];
-
+		
 		// 패턴리스트 반복
 		for (var i=0; i<ptrnInfoList.length; i++) {
 			var ptrnInfo		= ptrnInfoList[i];
@@ -248,7 +260,7 @@ var jinAlphaPtrn	= {
 						var ptrnColIdx	= ptrnSeat[c].col-1;
 						var ptrnColNm	= duplColArr[ptrnColIdx]; 
 						var seatInfo	= areaSeatObj[ptrnRow+"-"+ptrnColNm];
-
+							
 						// 좌석체크
 						if (!seatInfo) {
 							continue;
@@ -279,11 +291,11 @@ var jinAlphaPtrn	= {
 					var intrfWeight	= _this.getIntrfWeightCalc(ptrnSeatInfo, findPtrn);
 					var ptrnCalc	= _this.gatPtrnWeightCalc(findPtrn, ptrnGroupCd, ptrnSeatLocType, ptrnSeatDirType, seatConfig, ptrnWeight, intrfWeight, rmnRcmndChk);
 
-					findPtrnList.push($.extend({gradeCd: gradeCd}, ptrnCalc))
+					findPtrnList.push($.extend({gradeCd: gradeCd}, ptrnCalc));
 				}
 			}
 		}
-		
+
 		// 패턴 가중치 기준으로 정렬
 		return findPtrnList.sort(function(a, b){ return b.totalWeight - a.totalWeight });
 	}
@@ -308,11 +320,11 @@ var jinAlphaPtrn	= {
 
 		var colArr			= calcSeatList.map(function(item){ return item.col });
 		var duplColArr		= colArr.filter(function(item, idx, self){ return self.indexOf(item) == idx }).sort();
-		
+
 		var ignoreIntrfInfo	= _this.config.PTRN_INFO.ignoreIntrfInfoMap;
 		var intrfDupChkist	= [];
 		var intrfWeight		= 0;
-		
+
 		// Row 반복
 		for (var r=0; r<duplRowArr.length; r++) {
 			var ptrnRow		= duplRowArr[r];
@@ -360,7 +372,7 @@ var jinAlphaPtrn	= {
 	// ##################################################################################################
 	,gatPtrnWeightCalc	: function(findPtrn, ptrnGroupCd, ptrnSeatLocType, ptrnSeatDirType, seatConfig, ptrnWeight, intrfWeight, rmnRcmndChk) {
 		var _this			= this;
-		
+
 		var ptrnInfo		= _this.config.PTRN_INFO;
 		var seatWeightList	= ptrnInfo.seatWeightList;
 		
@@ -370,7 +382,7 @@ var jinAlphaPtrn	= {
 			
 			findPtrn[i].totalValue	= (seatWeight) ? seatWeight.totalValue : 0;
 		}
-		
+
 		var postionWeightCalc		= findPtrn.reduce(function(acc, cur){ return acc + cur.totalValue }, 0);
 		var priceWeightCalc			= findPtrn.reduce(function(acc, cur){ return acc + cur.charge }, 0);
 		var patternWeightCalc		= ptrnWeight * (1-intrfWeight);
@@ -424,7 +436,7 @@ var jinAlphaPtrn	= {
 
 		return assignPtrnList;
 	}
-	// 등급별 패턴 추천  
+	// 패턴 추천 랭크적용  
 	// ##################################################################################################
 	,getAlphaSeatRcmndPtrn	: function(areaZoneInfo, findPtrnList) {
 		var _this 			= this;
@@ -440,14 +452,14 @@ var jinAlphaPtrn	= {
 		// 창가,복도,왼쪽,오른쪽 그룹 패턴추천
 		specialPtrnList	= _this.getAlphaSeatSpecialPtrn(areaZoneInfo, specialPtrnList, specialCntInfo, specialChkList, rcmndPtrnList, specialGrpInfo)
 		specialPtrnList	= _this.getAlphaSeatSpecialPtrn(areaZoneInfo, specialPtrnList, specialCntInfo, specialChkList, rcmndPtrnList);
-
+		
 		var normalPtrnList	= findPtrnList;
 		var normalTotalCnt	= areaZoneInfo.totalRcmndCnt-rcmndPtrnList.length;
 		var noramlGrpInfo	= normalPtrnList.reduce(function(acc,cur){ acc[cur.groupCd] = 0; return acc }, {});
 		
 		var normalCntInfo	= {totalCnt:0};
 		var normalChkList	= $.extend([], specialChkList);				// 패턴중복 체크리스트
-
+		
 		// 일반그룹 패턴추천
 		normalPtrnList	= _this.getAlphaSeatNormalPtrn(areaZoneInfo, normalPtrnList, normalCntInfo, normalTotalCnt, normalChkList, rcmndPtrnList, noramlGrpInfo);
 		normalPtrnList	= _this.getAlphaSeatNormalPtrn(areaZoneInfo, normalPtrnList, normalCntInfo, normalTotalCnt, normalChkList, rcmndPtrnList);
@@ -477,7 +489,7 @@ var jinAlphaPtrn	= {
 			
 			var findPtrn		= findPtrnInfo.findPtrn;
 			var seatNoList		= findPtrn.map(function(item){ return item.seatNo });
-
+			
 			// 유아동반 좌석 블록체크
 			if (!_this.isValidInfantSeatBlock(findPtrn)) {
 				continue;
@@ -528,7 +540,7 @@ var jinAlphaPtrn	= {
 					continue;
 				}
 			}
-
+			
 			if (windowRcmndCnt && seatLocType == "WINDOW") {
 				specialCntInfo.windowCnt++;
 			}
@@ -540,7 +552,7 @@ var jinAlphaPtrn	= {
 			if (specialGrpInfo && specialGrpInfo.hasOwnProperty(groupCd)) {
 				specialGrpInfo[groupCd]++;
 			}
-
+			
 			// 패턴 추가 
 			rcmndPtrnList.push(findPtrnInfo);
 			// 적용패턴 index 체크
@@ -638,6 +650,21 @@ var jinAlphaPtrn	= {
 		
 		return true;
 	}
+	// 유아동반 승객이 비상구석을 선택했는지 체크 (선택좌석)					- true: 예약가능	/	false: 예약불가능
+	// ##################################################################################################
+	,isValidInfantNoMask	:function(paxInfo, seatInfo) {
+		var _this	= this;
+		
+		var checkGuardian		= (paxInfo.guardianYn == "Y") ? true : false; 
+		var checkNoMask			= (seatInfo.locAttrList) ? seatInfo.locAttrList.some(function(item){ return item.locCode == "G" }) : false;
+		
+		// 유아동반승객 노마스크좌석 예약불가능
+		if (checkGuardian && checkNoMask) {
+			return false;
+		}
+		
+		return true;
+	}
 	// 유아동반 승객이 선택한 블럭에 다른유아동반승객이 있는지 체크 (선택좌석)		- true: 예약가능	/	false: 예약불가능
 	// ##################################################################################################
 	,isValidInfantBlock	: function(paxInfo, seatInfo) {
@@ -673,7 +700,7 @@ var jinAlphaPtrn	= {
 				selInfantSeatCnt++;
 			}
 		}
-		
+
 		// 유아동반 예약좌석이 있거나  구매선택한 유아동반 승객의 block이 겹치는지 체크
 		return (infantSeatCnt <= 0 && selInfantSeatCnt <= 0);
 	}
@@ -713,7 +740,7 @@ var jinAlphaPtrn	= {
 			}
 		}
 
-		// 선택 열(row)의 유아동반 예약좌석이+구매선택한 유아동반 승객의 합이 2명 이하인지 체크 
+		// 선택 열(row)의 유아동반 예약좌석이+구매선택한 유아동반 승객의 합이 2보다 작은지 체크 
 		return (infantSeatCnt+selInfantSeatCnt < 2);
 	}
 	// 소아승객이 비상구석을 선택했는지 체크	(선택좌석) 					- true: 예약가능	/	false: 예약불가능
@@ -721,7 +748,7 @@ var jinAlphaPtrn	= {
 	,isValidChildEmerg	: function(paxInfo, seatInfo) {
 		var _this	= this;
 		
-		var checkAge	= (paxInfo.paxType == "ADT" && ((paxInfo.age) ? paxInfo.age < 15 : false));
+		var checkAge	= (paxInfo.paxType == "ADT" && ((paxInfo.age) ? paxInfo.age < 15 : true));
 		var checkChild	= (paxInfo.paxType != "ADT") ? true : false; 
 		var checkEmerg	= (seatInfo.locAttrList) ? seatInfo.locAttrList.some(function(item){ return item.locCode == "E" }) : false;
 		
@@ -737,7 +764,7 @@ var jinAlphaPtrn	= {
 	,isValidChildGuardian	: function(paxInfo, seatInfo) {
 		var _this	= this;
 		
-		var checkChild	= (paxInfo.paxType != "ADT") ? true : false; 
+		var checkChild	= (paxInfo.paxType != "ADT") ? true : false;
 		var checkEmerg	= (seatInfo.locAttrList) ? seatInfo.locAttrList.some(function(item){ return item.locCode == "E" }) : false;
 
 		// 성인 일반좌석 예약가능
@@ -761,7 +788,7 @@ var jinAlphaPtrn	= {
 
 		var seatList		= _this.config.SEAT_INFO.seatList;
 		var infantPaxCnt	= _this.config.PAX_INFO.paxList.filter(function(item){ return item.guardianYn == "Y" }).length;	// 유아동반 승객 cnt
-	
+		
 		var blockObj		= matchPtrn.reduce(function(acc,cur){
 			var emergCheck	= (cur.locAttrList) ? cur.locAttrList.some(function(item){ return item.locCode == "E" }) : false;
 			
@@ -773,9 +800,10 @@ var jinAlphaPtrn	= {
 		
 		var blockCnt		= Object.values(blockObj).length;
 		var emergSeatCnt	= matchPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) }).length;
-		var generalSeatCnt	= matchPtrn.length - emergSeatCnt;
-		
-		// 비상구좌석 보다 유아동반 승객수가 크면 예약불가능
+		var noMaskSeatCnt	= matchPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "G" }) : false) }).length;
+		var generalSeatCnt	= matchPtrn.length - emergSeatCnt - noMaskSeatCnt;
+
+		// 선택가능한 좌석보다 유아동반 승객수가 크면 예약불가능
 		if (generalSeatCnt < infantPaxCnt) {
 			return false;
 		}
@@ -787,7 +815,7 @@ var jinAlphaPtrn	= {
 		
 		// 유아동반 예약좌석 미포함 block cnt
 		var infantCleanBlockCnt	= 0;
-		
+
 		// block만큼 반복
 		Object.keys(blockObj).forEach(function(key) {
 			var infantSeatCheck	= blockObj[key].some(function(item){ return item.seatStatus == "3" });
@@ -799,7 +827,7 @@ var jinAlphaPtrn	= {
 
 		// 유아동반 승객 수보다 예약가능한 좌석block 수가 많은지 체크
 		return (infantCleanBlockCnt >= infantPaxCnt);
-	}	
+	}
 	// 유아동반 그룹이 예약 가능한지 체크 (그룹좌석)						- true: 예약가능	/	false: 예약불가능
 	// ##################################################################################################
 	,isValidInfantSeatRow	: function(matchPtrn) {
@@ -850,7 +878,7 @@ var jinAlphaPtrn	= {
 		
 		var paxList		= _this.config.PAX_INFO.paxList;
 		
-		var checkAge	= paxList.some(function(item){ return item.paxType == "ADT" && ((item.age) ? item.age < 15 : false) });
+		var checkAge	= paxList.some(function(item){ return item.paxType == "ADT" && ((item.age) ? item.age < 15 : true) });
 		var checkChild	= paxList.some(function(item){ return item.paxType != "ADT" });
 		var checkEmerg	= matchPtrn.some(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) });
 	
@@ -864,7 +892,7 @@ var jinAlphaPtrn	= {
 			return true;
 		}
 		
-		var childCnt		= paxList.filter(function(item){ return item.paxType != "ADT" }).length;
+		var childCnt		= paxList.filter(function(item){ return item.paxType != "ADT" || (item.paxType == "ADT" && ((item.age) ? item.age < 15 : true)) }).length;
 		var emergSeatCnt	= matchPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) }).length;
 		var generalSeatCnt	= matchPtrn.length - emergSeatCnt;
 
@@ -894,7 +922,7 @@ var jinAlphaPtrn	= {
 		}
 		
 		var infantCnt		= paxList.filter(function(item){ return item.guardianYn == "Y" }).length;
-		var childCnt		= paxList.filter(function(item){ return item.paxType != "ADT" }).length;
+		var childCnt		= paxList.filter(function(item){ return item.paxType != "ADT" || (item.paxType == "ADT" && ((item.age) ? item.age < 15 : true)) }).length;
 		var emergSeatCnt	= matchPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) }).length;
 		var generalSeatCnt	= matchPtrn.length - emergSeatCnt;
 

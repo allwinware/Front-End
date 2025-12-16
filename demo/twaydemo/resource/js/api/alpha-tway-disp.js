@@ -1,7 +1,7 @@
-var jinAlphaDisp	= {
+var twayAlphaDisp	= {
 	// 설정 정보
 	config	: {
-		name	: "alpha-jinair-display"
+		name	: "alpha-tway-display"
 	}
 	//추천 좌석선택 노티팝업 > 좌석맵 html 생성
 	// ##################################################################################################
@@ -20,7 +20,7 @@ var jinAlphaDisp	= {
 		var blockArr	= seatConfig.reduce(function(acc,cur){ acc.push(duplColArr.splice(0, Number(cur))); return acc; }, []);
 
 		var itryText	= (segIdx == 1) ? "가는편" : "오는편";
-		var ulClass		= (seatInfo.acType == "777-200ER") ? "sc_343" : "";
+		var ulClass		= "";
 		
 		var html		= [];
 		
@@ -29,8 +29,16 @@ var jinAlphaDisp	= {
 			itryText	= segInfo.flyNum;
 		}
 		
-		if (seatInfo.acType == "777-200ER") {
-			ulClass		= "lj_B777-200";
+		if (seatInfo.acType == "A333" || seatInfo.acType == "A333L" || seatInfo.acType == "333Y" || seatInfo.acType == "333X") {
+			ulClass		= "tw_A333";
+		}
+		
+		if (seatInfo.acType == "A332" || seatInfo.acType == "A332L" || seatInfo.acType == "332CL") {
+			ulClass		= "tw_A332";
+		}
+
+		if (seatInfo.acType == "77WBL" || seatInfo.acType == "77WAL" ) {
+			ulClass		= "sc_343";
 		}
 		
 		html.push('<ul class="seat_num '+ulClass+'">');
@@ -181,7 +189,15 @@ var jinAlphaDisp	= {
 			itryText	= segInfo.flyNum;
 		}
 		
-		if (seatInfo.acType == "777-200ER") {
+		if (seatInfo.acType == "A333" || seatInfo.acType == "A333L" || seatInfo.acType == "333Y" || seatInfo.acType == "333X") {
+			ulClass		= "tw_A333";
+		}
+		
+		if (seatInfo.acType == "A332" || seatInfo.acType == "A332L" || seatInfo.acType == "332CL") {
+			ulClass		= "tw_A332";
+		}
+
+		if (seatInfo.acType == "77WBL" || seatInfo.acType == "77WAL") {
 			ulClass		= "sc_343";
 		}
 		
@@ -367,7 +383,7 @@ var jinAlphaDisp	= {
 		var bagType			= bagInfo.bagType;
 		var freeBag			= Number(bagInfo.freeBag);
 		var addPolicy		= (bagInfo.addPolicy) ? bagInfo.addPolicy.purchaseableYn : "N";
-
+		
 		var html			= [];
 		
 		html.push('<ul>');
@@ -384,7 +400,7 @@ var jinAlphaDisp	= {
 			var paidBag		= (segPurchs) ? segPurchs.reduce(function(acc,cur){
 				return acc + cur.paidBag.reduce(function(acc2,cur2){ return acc2+Number(cur2.val || 0) },0)
 			},0) : 0;
-
+	
 			var onPlusClick		= "apiCtl.onBagPerPaxClick('"+segIdx+"','"+paxInfo.rph+"','plus')";
 			var onMinusClick	= "apiCtl.onBagPerPaxClick('"+segIdx+"','"+paxInfo.rph+"','minus')";
 		
@@ -397,7 +413,7 @@ var jinAlphaDisp	= {
 			html.push('		<div class="baggagep_sum">');
 			html.push('			<div class="baggagep_txt2_img '+(paidBag > 0 ? "cancel" : "")+'">추가</div>');
 			html.push('			<div class="baggagep_btn_chk">');
-
+	
 			if ((paidBag+freeBag) < saleMax && (paidBag == 0 || addPolicy == "Y")) {
 				html.push('				<span><button class="decrease_btn" onclick="'+onMinusClick+'" minusbtn>-</button></span>');
 			} else {
@@ -422,7 +438,7 @@ var jinAlphaDisp	= {
 			if ((paidBag+freeBag) < saleMax && (paidBag == 0 || addPolicy == "Y")) {
 				html.push('	<div class="baggagep_pay gab1" charge>0</div>');
 			} else {
-				html.push('	<div class="baggagep_reserv">'+paidBag+bagType+' 구매</div>');
+				html.push('	<div class="baggagep_reserv">'+paidBag+bagType+'</div>');
 			}
 			
 			html.push('	</div>');
