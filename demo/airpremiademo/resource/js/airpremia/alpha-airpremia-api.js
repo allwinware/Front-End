@@ -1,4 +1,4 @@
-var jinAlphaApi	= {
+var airpremiaAlphaApi	= {
 	// 비상구 좌석 동의체크		- true: 비상구동의좌석	/ false: 일반좌석
 	// ##################################################################################################
 	isValidEmergAgree	: function(seatList) {

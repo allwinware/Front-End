@@ -1,4 +1,4 @@
-var jinAlphaDisp	= {
+var airpremiaAlphaDisp	= {
 	// 설정 정보
 	config	: {
 		name	: "alpha-jinair-display"
@@ -20,8 +20,6 @@ var jinAlphaDisp	= {
 		var blockArr	= seatConfig.reduce(function(acc,cur){ acc.push(duplColArr.splice(0, Number(cur))); return acc; }, []);
 
 		var itryText	= (segIdx == 1) ? "가는편" : "오는편";
-		var ulClass		= (seatInfo.acType == "777-200ER") ? "sc_343" : "";
-		
 		var html		= [];
 		
 		// 편명사용체크
@@ -29,11 +27,7 @@ var jinAlphaDisp	= {
 			itryText	= segInfo.flyNum;
 		}
 		
-		if (seatInfo.acType == "777-200ER") {
-			ulClass		= "lj_B777-200";
-		}
-		
-		html.push('<ul class="seat_num '+ulClass+'">');
+		html.push('<ul class="seat_num yp_HL838">');
 		html.push('	<div class="gotoback">'+itryText+'</div>');
 
 		// 추천 좌석선택 노티 팝업 좌석맵
@@ -181,10 +175,6 @@ var jinAlphaDisp	= {
 			itryText	= segInfo.flyNum;
 		}
 		
-		if (seatInfo.acType == "777-200ER") {
-			ulClass		= "sc_343";
-		}
-		
 		html.push('<div class="popup_con1">');
 		html.push('	<div class="pay_way save">');
 		html.push('		<div>');
@@ -202,7 +192,7 @@ var jinAlphaDisp	= {
 		html.push('		<span currseat>['+selSeatLt[0].seatNo+']</span>'+seatGuide);
 		html.push('	</div>');
 		html.push('	<div class="popup_con2">');
-		html.push('		<ul class="seat_num '+ulClass+'">');
+		html.push('		<ul class="seat_num yp_HL838">');
 		
 		// 추천 좌석선택 노티 팝업 좌석맵
 		for (var i=0; i<selSeatRows.length; i++) {

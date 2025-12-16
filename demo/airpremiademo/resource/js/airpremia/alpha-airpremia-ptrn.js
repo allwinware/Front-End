@@ -1,4 +1,4 @@
-var jinAlphaPtrn	= {
+var airpremiaAlphaPtrn	= {
 	// 좌석 블락정보 설정
 	// ##################################################################################################
 	getAlphaSeatConfig	: function() {
@@ -52,14 +52,14 @@ var jinAlphaPtrn	= {
 	// ##################################################################################################
 	,getAlphaSeatPtrn	: function() {
 		var _this			= this;
-		var ptrnInfo		= _this.config.PTRN_INFO;
-		
+	
+		var ptrnInfo			= _this.config.PTRN_INFO;
 		var areaZoneInfoMap		= ptrnInfo.areaZoneInfoMap;																	// area 존(zone)정보
 		var specialZoneInfoMap	= ptrnInfo.specialZoneInfoMap;																// 특별 존(zone)정보
 		var weightPtrnInfoList	= ptrnInfo.weightPtrnInfoList;																// 패턴정보 리스트
 			
-		// 존(zone)설정
-		var areaZoneInfoList	= _this.getAlphaAreaZoneInfoList(areaZoneInfoMap, specialZoneInfoMap);
+		// 패턴정보 리스트
+		var areaZoneInfoList	= _this.getAlphaAreaZoneInfoList(areaZoneInfoMap, specialZoneInfoMap);						// 존(zone)설정
 
 		// 구역(area) 반복
 		for (var i=0; i<areaZoneInfoList.length; i++) {
@@ -88,7 +88,7 @@ var jinAlphaPtrn	= {
 		
 		var maxPrfrdRate		= ptrnInfo.maxPrfrdRate;																	// 선호율 최대값
 		var minPrfrdRate		= ptrnInfo.minPrfrdRate;																	// 선호율 최소값
-		
+
 		for (var r=0; r<rcmndInfo.length; r++) {
 			// 계산식 : (패턴 weight - 패턴최소값) * (선호율 최대값 - 선호율 최소값) / (패턴 최대값 - 패턴최소값) + 선호율 최소값
 			rcmndInfo[r].prfrdRate	= ((rcmndInfo[r].totalWeight - minWeight) * (maxPrfrdRate - minPrfrdRate) / (maxWeight - minWeight) + minPrfrdRate) || maxPrfrdRate;
@@ -106,28 +106,11 @@ var jinAlphaPtrn	= {
 	// 지정패턴 조회
 	// ##################################################################################################
 	,getAlphaAssignPtrn	: function() {
-		var _this				= this;
-		var ptrnInfo			= _this.config.PTRN_INFO;
+		var _this		= this;
+		var ptrnInfo	= _this.config.PTRN_INFO;
 
-		var areaZoneInfoMap		= JSON.parse(JSON.stringify(ptrnInfo.areaZoneInfoMap || null));
-		var specialZoneInfoMap	= JSON.parse(JSON.stringify(ptrnInfo.specialZoneInfoMap || null));
-		
-		var weightPtrnMstSn		= ptrnInfo.weightPtrnMstSn;
-		var weightPtrnInfoList	= ptrnInfo.weightPtrnInfoList;
-		
-		// 존(zone)설정
-		var areaZoneInfoList	= _this.getAlphaAreaZoneInfoList(areaZoneInfoMap, specialZoneInfoMap);
-		var findPtrnList		= [];
-		
-		// 구역(area) 반복
-		for (var i=0; i<areaZoneInfoList.length; i++) {
-			var areaZoneInfo	= areaZoneInfoList[i];
-			var areaPtrnMstSn	= areaZoneInfo.weightPtrnMstSn;
-			var areaPtrnList	= weightPtrnInfoList.filter(function(item){ return item.weightPtrnMstSn == areaPtrnMstSn });
-
-			findPtrnList		= findPtrnList.concat(_this.getAlphaSeatFindPtrn(areaZoneInfo, areaPtrnList));
-		}
-		
+		// 패턴 찾기
+		var findPtrnList				= _this.getAlphaSeatFindPtrn(null, ptrnInfo.weightPtrnInfoList);
 		// 지정 패천 추천
 		var assignPtrnList				= _this.getAlphaSeatAssignPtrn(findPtrnList);
 		// 지정 추천정보 설정
@@ -713,7 +696,7 @@ var jinAlphaPtrn	= {
 			}
 		}
 
-		// 선택 열(row)의 유아동반 예약좌석이+구매선택한 유아동반 승객의 합이 2명 이하인지 체크 
+		// 선택 열(row)의 유아동반 예약좌석이+구매선택한 유아동반 승객의 합이 2보다 작은지 체크 
 		return (infantSeatCnt+selInfantSeatCnt < 2);
 	}
 	// 소아승객이 비상구석을 선택했는지 체크	(선택좌석) 					- true: 예약가능	/	false: 예약불가능
@@ -721,7 +704,7 @@ var jinAlphaPtrn	= {
 	,isValidChildEmerg	: function(paxInfo, seatInfo) {
 		var _this	= this;
 		
-		var checkAge	= (paxInfo.paxType == "ADT" && ((paxInfo.age) ? paxInfo.age < 15 : false));
+		var checkAge	= (paxInfo.paxType == "ADT" && ((paxInfo.age) ? paxInfo.age < 15 : true));
 		var checkChild	= (paxInfo.paxType != "ADT") ? true : false; 
 		var checkEmerg	= (seatInfo.locAttrList) ? seatInfo.locAttrList.some(function(item){ return item.locCode == "E" }) : false;
 		
@@ -748,6 +731,7 @@ var jinAlphaPtrn	= {
 		var paxList		= _this.config.PAX_INFO.paxList;
 		var adtPaxCnt	= paxList.filter(function(item){ return item.paxType == "ADT" }).length;
 		var selEmergCnt	= paxList.filter(function(item){ return item.selSeat && ((item.selSeat.locAttrList) ? item.selSeat.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) }).length;
+
 		
 		// ADT승객 - 비상구선택 승객 - (자신)
 //		return ((adtPaxCnt-selEmergCnt-1) >= 0); 
@@ -850,7 +834,7 @@ var jinAlphaPtrn	= {
 		
 		var paxList		= _this.config.PAX_INFO.paxList;
 		
-		var checkAge	= paxList.some(function(item){ return item.paxType == "ADT" && ((item.age) ? item.age < 15 : false) });
+		var checkAge	= paxList.some(function(item){ return item.paxType == "ADT" && ((item.age) ? item.age < 15 : true) });
 		var checkChild	= paxList.some(function(item){ return item.paxType != "ADT" });
 		var checkEmerg	= matchPtrn.some(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) });
 	
@@ -864,7 +848,7 @@ var jinAlphaPtrn	= {
 			return true;
 		}
 		
-		var childCnt		= paxList.filter(function(item){ return item.paxType != "ADT" }).length;
+		var childCnt		= paxList.filter(function(item){ return item.paxType != "ADT" || (item.paxType == "ADT" && ((item.age) ? item.age < 15 : true)) }).length;
 		var emergSeatCnt	= matchPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) }).length;
 		var generalSeatCnt	= matchPtrn.length - emergSeatCnt;
 
@@ -879,7 +863,7 @@ var jinAlphaPtrn	= {
 		var paxList		= _this.config.PAX_INFO.paxList;
 		
 		var checkInfant	= paxList.some(function(item){ return item.guardianYn == "Y" });
-		var checkAge	= paxList.some(function(item){ return item.paxType == "ADT" && ((item.age) ? item.age < 15 : false) });
+		var checkAge	= paxList.some(function(item){ return item.paxType == "ADT" && ((item.age) ? item.age < 15 : true) });
 		var checkChild	= paxList.some(function(item){ return item.paxType != "ADT" });
 		var checkEmerg	= matchPtrn.some(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) });
 	
@@ -894,11 +878,11 @@ var jinAlphaPtrn	= {
 		}
 		
 		var infantCnt		= paxList.filter(function(item){ return item.guardianYn == "Y" }).length;
-		var childCnt		= paxList.filter(function(item){ return item.paxType != "ADT" }).length;
+		var childCnt		= paxList.filter(function(item){ return item.paxType != "ADT" || (item.paxType == "ADT" && ((item.age) ? item.age < 15 : true)) }).length;
 		var emergSeatCnt	= matchPtrn.filter(function(item){ return ((item.locAttrList) ? item.locAttrList.some(function(cur){ return cur.locCode == "E" }) : false) }).length;
 		var generalSeatCnt	= matchPtrn.length - emergSeatCnt;
 
-		// 비상구 포함 패턴일 경우 소아,유아동반 승객 cnt보다 일반좌석 cnt가 커야한다 
+		// 비상구 포함 패턴일 경우 소아를 케어할 어른이 한명이 있어야 하는 정책으로 일반좌석 cnt가 소아의 cnt보다 커야한다 
 		return (generalSeatCnt > (childCnt+infantCnt));
 	}
 }
