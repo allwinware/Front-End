@@ -13,6 +13,27 @@
 				var mode		= urlSearch.get('mode');						
 				window.location.href	= "index_nol8_1.html?mode="+mode;
 			}
+			
+		
+			function getDocumentHeight() {
+				const body 		= document.body;
+				const html 		= document.documentElement;
+				const height	= Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight,html.offsetHeight);
+				
+				return height;
+			}
+
+			window.addEventListener('load', function() {
+				const target = document.querySelector('.alpha');
+				if (target) {
+					const offsetPosition = getDocumentHeight() / 3;
+
+					window.scrollTo({
+						top : offsetPosition,
+						behavior : 'smooth'
+					});
+				}
+			});
 		</script>
 	</head>
 	<body>
