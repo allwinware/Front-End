@@ -193,7 +193,7 @@
 					<div class="btf_a_txt"><span saving="0"></span></div>
 				</div>
 				<div class="btf_bbtn" footerBtn="shift">
-					<div onclick="location.href='index_mrt11.html';">다음</div>
+					<div>다음</div>
 				</div>				
 			</div>			
 			<div class="footer_contents">				
@@ -323,22 +323,56 @@
 		});
 	 
 	 	
-	 	// 승캑클릭
-	 	$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
+	 	// 승객클릭
+	 	$(document).on("click", ".demos_boxs", function() {
 	 		
 	 	});
 	 	
 	 	
-		// 통일하기
-		
-		
+	 	// 개수 추가(+)
+	 	$(document).on("click", ".ap_bag_box_chka_3", function() {
+	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	 		
+	 		var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+	 		var targetPax	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active");
+	 		
+	 		var currQty		= ++(targetQty.data("qty") || 0);
+	 		
+	 		targetQty.data("qty", currQty);
+	 		targetPax.data("qty", currQty);
+	 		
+	 		
+	 	});
 	 	
-		// 추가하기
+	 	
+	 	// 개수 빼기(-)
+	 	$(document).on("click", ".ap_bag_box_chka_1", function() {
+	 		
+	 	});
+	 	
+	 	
+		// 모든 탑승객에 적용하기
+		$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
+			
+		});
 		
 		
+		// 다음버튼 클릭
+		$(document).on("click", "[footerBtn=shift]", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+
+			if (segIdx == 1) {
+				$("#ags-wrap").trigger("click");
+			} else {
+				var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+	         	var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+	        	
+				window.location.href = "index_mrt11.html";
+			}
+			
+			e.stopPropagation();
+		});
 		
-		
-	    
 	    
     </script>
     
