@@ -417,10 +417,19 @@ $(document).ready(function() {
 
 			apiCtl.onSeatMapTypeChange(segIdx, "rcmnd");
 
+			var cssObj		= {
+				"will-change"					: "transform",
+			  	"transform"						: "scale(0.3) rotate(0.001deg) translateZ(0)",
+				"transform-origin"				: "center center",
+			  	"transition"					: "transform 2.0s ease-out",
+				"-webkit-backface-visibility"	: "hidden",
+			 	"backface-visibility"			: "hidden",	
+			}
+		
 			seatMapEl.find(".finger").hide();
 			seatMapEl.attr("style", "");
-// 			seatSheetEl.removeClass("scale").css({"transition": "all 2.0s ease", "-webkit-transition": "all 2.0s ease", "transform": "matrix(0.3,0,0,0.3,0,0) translateZ(0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0) translateZ(0)", "top": ""});
-			seatSheetEl.removeClass("scale").attr("style","");
+			seatSheetEl.removeClass("scale").css(cssObj);
+// 			seatSheetEl.removeClass("scale").attr("style","");
 			seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 
 			// zoomOut end
@@ -648,9 +657,18 @@ $(document).ready(function() {
 				$(".demo_popup1").hide();
 				$(".ags-summary").show();
 
+				var cssObj		= {
+					"will-change"					: "transform",
+				  	"transform"						: "matrix(1,0,0,1,0,"+zoomInTop+")"+" rotate(0.001deg) translateZ(0)",
+					"transform-origin"				: "center center",
+				  	"transition"					: "transform 2.0s ease",
+					"-webkit-backface-visibility"	: "hidden",
+				 	"backface-visibility"			: "hidden",	
+				}
+			
 				// 좌석맵 확대
 				seatMapEl.attr("style", "height: 100%; margin-bottom: 100px;");
-				seatSheetEl.addClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(1,0,0,1,0,"+zoomInTop+")", "-webkit-transform": "matrix(1,0,0,1,0,"+zoomInTop+")"}).siblings().hide();
+				seatSheetEl.addClass("scale").css(cssObj).siblings().hide();
 				seatSheetEl.find("[seatno]:not(.childseatno) > span").removeClass("blind_box");
 				seatMapEl.parent().find(".cscenter").css("visibility", "visible");
 
@@ -723,8 +741,18 @@ $(document).ready(function() {
 
 				seatMapEl.attr("style", "");
 				seatMapEl.find(".finger").hide();
-// 				seatSheetEl.removeClass("scale").css({"transition": "all 2.0s ease-out", "-webkit-transition": "all 2.0s ease-out", "transform": "matrix(0.3,0,0,0.3,0,0) translateZ(0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0) translateZ(0)", "top": ""});
-				seatSheetEl.removeClass("scale").attr("style","");
+				
+				var cssObj		= {
+					"will-change"					: "transform",
+				  	"transform"						: "scale(0.3) rotate(0.001deg) translateZ(0)",
+					"transform-origin"				: "center center",
+				  	"transition"					: "transform 2.0s ease-out",
+					"-webkit-backface-visibility"	: "hidden",
+				 	"backface-visibility"			: "hidden",	
+				}
+				
+				seatSheetEl.removeClass("scale").css(cssObj);
+// 				seatSheetEl.removeClass("scale").attr("style","");
 				seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 
 				// zoomOut end
