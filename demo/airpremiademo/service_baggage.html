@@ -131,17 +131,17 @@
             <div class="slider2" segIdx="2">
                 <div class="bag_slider_box">                    
                     <div class="slider_box_line">
-						<div class="demos_boxs" qty="1">
+						<div class="demos_boxs active" qty="0">
                             <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                            <div class="demos_boxs_tx2">23KG 1개</div>                            
                         </div>  
-                        <div class="demos_boxs" qty="2">
+                        <div class="demos_boxs" qty="0">
                             <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                            <div class="demos_boxs_tx2">23KG 1개</div>                            
                         </div> 
-                        <div class="demos_boxs" qty="3">
+                        <div class="demos_boxs" qty="0">
                             <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                            <div class="demos_boxs_tx2">23KG 1개</div>                            
                         </div>                                              
                     </div>
                 </div>
@@ -190,7 +190,7 @@
 						<span>LEE JIYOUNG</span>님
 						<span class="btf_a_people">3</span>인  
 					</div>
-					<div class="btf_a_txt"><span saving="30000">누적 30,000 절약중</span></div>
+					<div class="btf_a_txt"><span saving="0"></span></div>
 				</div>
 				<div class="btf_bbtn" footerBtn="shift">
 					<div onclick="location.href='index_mrt11.html';">다음</div>
@@ -282,7 +282,58 @@
     </div>
 
     <script>
-                    
+	    String.prototype.comma = Number.prototype.comma = function() {
+		    var n = String(this).replace(/\,/g,'');
+		    return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
+		}
+	    
+	    
+	    document.addEventListener("DOMContentLoaded", () => {
+	        const runCounter = () => {
+	            let num = 1;
+	            let counter = document.getElementById("counter0");
+	            let interval = setInterval(() => {
+	                counter.textContent = String(num).padStart(2, "0");
+	                num++;
+	                if (num > 28) {
+	                    clearInterval(interval);
+	                    setTimeout(runCounter, 3000); // 3초 후 다시 시작
+	                }
+	            }, 50);
+	        };
+	
+	        runCounter();
+	    });
+	    
+	    
+	 	// 여정탭이동
+		$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
+			var segIdx		= $(this).parent().attr("flyInfo");
+
+			// 다음버튼 css 초기화
+			$("[footerBtn=shift]").removeClass("active");
+			
+			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+        	
+        	if (curSegQty > 0) {
+        		$("[footerBtn=shift]").addClass("active");
+        	} else {
+        		$("[footerBtn=shift]").removeClass("active");
+        	}
+		});
+	 
+	 	
+		// 통일하기
+		
+		
+	 	
+		// 추가하기
+		
+		
+		
+		
+	    
+	    
     </script>
     
 
