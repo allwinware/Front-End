@@ -419,16 +419,12 @@ $(document).ready(function() {
 
 			seatMapEl.find(".finger").hide();
 			seatMapEl.attr("style", "");
-			seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+			seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": "0px"});
 			seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 
 			// zoomOut end
 			seatSheetEl.off().on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (e) => {
 				segCtl.config.PAX_INFO.paxList	= paxList;
-
-				if (seatSheetEl.data("changedTop")) {
-					seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s"}).offset(seatSheetEl.data("changedTop"));
-				}
 
 				seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
 				seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
@@ -726,17 +722,13 @@ $(document).ready(function() {
 
 				seatMapEl.attr("style", "");
 				seatMapEl.find(".finger").hide();
-				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": "0px"});
 				seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 
 				// zoomOut end
 				seatSheetEl.off().on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (e) => {
 					if ($(e.target).hasClass("seat_active")) {
 						return;
-					}
-
-					if (seatSheetEl.data("changedTop")) {
-						seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s"}).offset(seatSheetEl.data("changedTop"));
 					}
 
 					seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
