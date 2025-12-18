@@ -130,7 +130,10 @@ function changePaxCnt(paxCnt) {
 
 		// 최초팝업 초기화
 		setTimeout(() => {
+			var purchsedSeatLt	= paxInfo.paxList.map((e) => e.selSeat).filter((seat) => seat);
+			
 			$("[footerBtn=shift]").removeClass("active");
+			$(".footer-first-pop").find("[purchsedLt]").html(purchsedSeatLt.map((e) => e.seatNo).join(","));
 		},100);
 	});
 }
@@ -190,6 +193,7 @@ var demoCtl	= {
 		var seatList		= segCtl.config.SEAT_INFO.seatList;
 		var plusUnitCharge	= segCtl.config.plusCharge;
 		var purchsSeatNoLt	= purchsedSeatNoMap[paxCnt]();
+		
 		for (var i=0; i<purchsSeatNoLt.length; i++) {
 			var paxInfo		= paxList[i];
 			var seatInfo	= seatList.filter((e) => e.seatNo == purchsSeatNoLt[i])[0];
