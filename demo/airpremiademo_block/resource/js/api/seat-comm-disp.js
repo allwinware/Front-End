@@ -308,12 +308,11 @@ var commSeatDisp	= {
 		
 		var fullSeatList	= purchsedSeatLt.concat(selPlusLt).sort((a,b) => a.colIdx - b.colIdx);
 		var seatRows		= fullSeatList.map((e) => ({row: e.row, rowIdx: e.rowIdx})).sort((a, b) => a.rowIdx - b.rowIdx).map((e) => e.row).filter((item, idx, self) => self.indexOf(item) == idx);
-		var blockIdxLt		= fullSeatList.map((e) => e.blockIdx).filter((item, idx, self) => self.indexOf(item) == idx);
 		
 		var plusUnitCharge	= demoCtl.getSegCtl(segIdx).config.plusCharge;
 		var seatMap			= _this.getApplyTarget("seat", "seatMap", segIdx);
 
-				var html			= [];
+		var html			= [];
 		
 		html.push('		<ul class="seat_num">');
 		

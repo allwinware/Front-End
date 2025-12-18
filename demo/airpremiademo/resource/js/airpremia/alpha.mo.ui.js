@@ -1028,6 +1028,12 @@ $(document).on("click", ".footer-feets_close, .close_btn_2", function () {
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");
 });
+$(document).on("click", ".footer-feets_close, .close_btn_3", function () {
+	$(".footer-first-pop").removeClass("active");
+    $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
+	$("body").css("overflow", "");
+	$("html").css("overflow", "");
+});
 
 
 
