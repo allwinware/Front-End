@@ -14,85 +14,85 @@
 		<script type="text/javascript" src="./resource/js/api/alpha-comm-api.js"></script>
 		<script type="text/javascript" src="./resource/js/api/seat-comm-api.js"></script>
 		<script type="text/javascript" src="./resource/js/api/seat-comm-disp.js"></script>
-		<script type="text/javascript" src="./resource/js/api/alpha-jin-api.js"></script>
-		<script type="text/javascript" src="./resource/js/api/alpha-jin-ptrn.js"></script>
+		<script type="text/javascript" src="./resource/js/api/alpha-airpremia-api.js"></script>
+		<script type="text/javascript" src="./resource/js/api/alpha-airpremia-ptrn.js"></script>
 		<script type="text/javascript" src="./resource/js/jquery-3.4.1.min.js"></script>
 		<script type="text/javascript" src="./resource/js/alpha.mo.ui.js"></script>
 
 <script type="text/javascript">
 //<![CDATA[
 
-String.prototype.comma = Number.prototype.comma = function() {
-	var n = String(this).replace(/\,/g,'');
-	return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
-}
+	String.prototype.comma = Number.prototype.comma = function() {
+		var n = String(this).replace(/\,/g,'');
+		return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
+	}
 
-var timerCtl	= function() {
-	var initialDuration = 5 * 60 * 1000;
-	var timerInterval;
-	var endTime;
-	var isRunning;
-
-	return {
-		isRunning		: isRunning,
-		initializeTimer	: function() {
-			endTime		= new Date(new Date().getTime() + initialDuration);
-		},
-		updateDisplay	: function() {
-			const now 			= new Date().getTime(); 	// 현재 밀리초
-			const distance		= endTime - now; 			// 남은 밀리초
-
-			// 시간이 0보다 작으면 0으로 고정
-			const remainingTime = Math.max(0, distance);
-			const minutes 		= Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-			const seconds 		= Math.floor((remainingTime % (1000 * 60)) / 1000);
-			$("[payment-container] [timer]").text(String(minutes).padStart(2, '0')+":"+String(seconds).padStart(2, '0'));
-
-			if (remainingTime <= 0 && isRunning) {
+	var timerCtl	= function() {
+		var initialDuration = 5 * 60 * 1000;
+		var timerInterval;
+		var endTime;
+		var isRunning;
+	
+		return {
+			isRunning		: isRunning,
+			initializeTimer	: function() {
+				endTime		= new Date(new Date().getTime() + initialDuration);
+			},
+			updateDisplay	: function() {
+				const now 			= new Date().getTime(); 	// 현재 밀리초
+				const distance		= endTime - now; 			// 남은 밀리초
+	
+				// 시간이 0보다 작으면 0으로 고정
+				const remainingTime = Math.max(0, distance);
+				const minutes 		= Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+				const seconds 		= Math.floor((remainingTime % (1000 * 60)) / 1000);
+				$("[payment-container] [timer]").text(String(minutes).padStart(2, '0')+":"+String(seconds).padStart(2, '0'));
+	
+				if (remainingTime <= 0 && isRunning) {
+					clearInterval(timerInterval);
+					isRunning = false;
+				}
+			},
+			startTimer	: function() {
+				if (this.isRunning) {
+					return;
+				}
+	
+				isRunning	= true;
+				// 타이머 시작 시 남은 시간을 기준으로 endTime을 재설정
+				const now = new Date().getTime();
+				const currentRemaining = Math.max(0, endTime - now);		// 현재 남은 시간 밀리초
+				endTime = new Date(now + currentRemaining); 				// 현재부터 남은 시간만큼 더한 시각
+				timerInterval = setInterval(this.updateDisplay, 1000);		// 1초마다 업데이트
+			},
+			stopTimer	: function() {
 				clearInterval(timerInterval);
-				isRunning = false;
+				this.isRunning = false;
+			},
+			resetTimer	: function() {
+				this.stopTimer();
+				this.initializeTimer();
 			}
-		},
-		startTimer	: function() {
-			if (this.isRunning) {
-				return;
-			}
-
-			isRunning	= true;
-			// 타이머 시작 시 남은 시간을 기준으로 endTime을 재설정
-			const now = new Date().getTime();
-			const currentRemaining = Math.max(0, endTime - now);		// 현재 남은 시간 밀리초
-			endTime = new Date(now + currentRemaining); 				// 현재부터 남은 시간만큼 더한 시각
-			timerInterval = setInterval(this.updateDisplay, 1000);		// 1초마다 업데이트
-		},
-		stopTimer	: function() {
-			clearInterval(timerInterval);
-			this.isRunning = false;
-		},
-		resetTimer	: function() {
-			this.stopTimer();
-			this.initializeTimer();
 		}
 	}
-}
 
-window.onload	= function() {
-	var seatMap1	= $("#YPHL838").load("include/YPHL838.html");
-
-	$.when(seatMap1).then(() => {
-		// 1.팝업 노출
-		setTimeout(() => {
-			demoCtl.onScreenLock();
-			$(".footer-first-pop").addClass("active");
-			$("body").css("overflow", "hidden");
-			$("html").css("overflow", "hidden");
-			$(".seat_sheet_bg.ac1").css('height', "100%");
-			$(".seat_sheet_bg.ac1").css('margin-bottom', "100px");
-
-			demoCtl.init();
-		},1000);
-	});
-}
+	window.onload	= function() {
+		var seatMap1	= $("#YPHL838").load("include/789B.html");
+	
+		$.when(seatMap1).then(() => {
+			// 1.팝업 노출
+			setTimeout(() => {
+				demoCtl.onScreenLock();
+				$(".footer-first-pop").addClass("active");
+				$("body").css("overflow", "hidden");
+				$("html").css("overflow", "hidden");
+				$(".seat_sheet_bg.ac1").css('height', "100%");
+				$(".seat_sheet_bg.ac1").css('margin-bottom', "100px");
+	
+				demoCtl.init();
+			},1000);
+		});
+	}
 
 
 function changePaxCnt(paxCnt) {
@@ -112,6 +112,11 @@ function changePaxCnt(paxCnt) {
 	if (paxCnt == demoCtl.actPaxCnt) {
 		return;
 	}
+	
+	if (paxCnt > 4) {
+		return;
+	}
+
 	// 설정초기화
 	var paxInfo		= segCtl.config.PAX_INFO;
 
@@ -125,16 +130,7 @@ function changePaxCnt(paxCnt) {
 
 		// 최초팝업 초기화
 		setTimeout(() => {
-			var purchsedSeatLt	= paxInfo.paxList.map((e) => e.selSeat).filter((seat) => seat);
-
-// 				demoCtl.onScreenLock();
-// 				$(".footer-first-pop").find("[purchsedLt]").html(purchsedSeatLt.map((e) => e.seatNo).join(","));
-// 				$(".footer-first-pop").find("[class^=fd_contents_img]").hide().filter((i,e) => $(e).attr("target-pax") == paxCnt).show();
-// 				$(".footer-first-pop").addClass("active");
 			$("[footerBtn=shift]").removeClass("active");
-
-// 				$("body").css("overflow", "hidden");
-// 				$("html").css("overflow", "hidden");
 		},100);
 	});
 }
@@ -176,15 +172,15 @@ var demoCtl	= {
 		_this.actPaxCnt	= paxCnt;
 
 		var purchsedSeatNoMap	= {
-			"1"	: () => ["2A"],
-			"2"	: () => ["3E", "3F"],
-			"3"	: () => ["5A", "5B", "5C"],
-			"4"	: () => ["10A", "10B", "10C", "10D"],
-			"5"	: () => ["11A", "11B", "11C", "11A", "11B"],
-			"6"	: () => ["12A", "12B", "12C", "13A", "13B", "13C"],
-			"7"	: () => ["22A", "22B", "22C", "23A", "23B", "24A", "24B"],
-			"8"	: () => ["27A", "27B", "27E", "27F", "28A", "28B", "28E", "28F"],
-			"9"	: () => ["27A", "27B", "27C", "27D", "27E", "27F", "28A", "28B", "28C"]
+			"1"	: () => ["14A"],
+			"2"	: () => ["14B", "14B"],
+			"3"	: () => ["16A", "16B", "16C"],
+// 			"4"	: () => ["10A", "10B", "10C", "10D"],
+// 			"5"	: () => ["11A", "11B", "11C", "11A", "11B"],
+// 			"6"	: () => ["12A", "12B", "12C", "13A", "13B", "13C"],
+// 			"7"	: () => ["22A", "22B", "22C", "23A", "23B", "24A", "24B"],
+// 			"8"	: () => ["27A", "27B", "27E", "27F", "28A", "28B", "28E", "28F"],
+// 			"9"	: () => ["27A", "27B", "27C", "27D", "27E", "27F", "28A", "28B", "28C"]
 		}
 		var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
 		var segCtl			= _this.getSegCtl(segIdx);
@@ -357,7 +353,7 @@ var demoCtl	= {
 
 		function getOccupiedLt(segIdx) {
 			var occupiedLt	= {
-				"1"			: () => ["1A","1B","1C","2D","2E","2F","4A","4B","7F","6D","6E","7A","7B","7C","15D","15E","15F","16A","16B","16C","20D","21A","21B","25A","25B","25C","25D","25E","25F","32D","32E","32F"],
+				"1"			: () => ["10A","10B","10C","10E","10F","10G","10J","11C","11D","11E","11F","11G","11H","11J","12C","12J","18A","18B","18F","18G", "26A","26B","26C","26D","26E","27D","27E","31G","31H","31J","37H","37J"],
 				"2"			: () => [],
 				"_default"	: () => []
 			}
@@ -369,7 +365,7 @@ var demoCtl	= {
 			svcAlphaApi		= $.extend(svcAlphaApi, window["comm"+capitalize(svcList[i])+"Api"]);
 		}
 
-		_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, jinAlphaApi, jinAlphaPtrn, {config: configObj, svcList: svcList, occupiedLt: getOccupiedLt(segIdx)});
+		_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, airpremiaAlphaApi, airpremiaAlphaPtrn, {config: configObj, svcList: svcList, occupiedLt: getOccupiedLt(segIdx)});
 	},
 	// 화면 Lock
 	onScreenLock	: function() {
