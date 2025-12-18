@@ -427,9 +427,18 @@
 		document.addEventListener("saved:update", () => {
 			var saving		= Number($(".foot_align .btf_a_txt > span").data("savingAmount") || 0);
 			var savedQty	= $(".demos_boxs").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
-				
-			$(".demo_gnb_menu1 .blue_text > span").text((savedQty*50000).comma()+" 절약");
-			$(".foot_align .btf_a_txt > span").text("누적 KRW "+(saving+(savedQty*50000)).comma()+" 절약중");
+			var savedAmt	= savedQty*50000;
+			
+			$(".demo_gnb_menu1 .blue_text > span").text(savedAmt.comma()+" 절약");
+			$(".foot_align .btf_a_txt > span").text("누적 KRW "+(saving+savedAmt).comma()+" 절약중");
+			
+			if (savedAmt > 0) {
+				$(".demo_gnb_menu1 .blue_text > span").show();
+				$(".foot_align .btf_a_txt > span").show();
+			} else {
+				$(".demo_gnb_menu1 .blue_text > span").hide();
+				$(".foot_align .btf_a_txt > span").hide();
+			}
 		});
 		
 		
