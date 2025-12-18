@@ -29,6 +29,8 @@ var commSeatApi	= {
 				if (e.seatStatus == "A") {
 					e.charge		= 70000;
 				}
+				
+				console.log(e.seatNo + "/" + e.chrage);
 			})
 			
 			var paxCnt		= paxList.length;

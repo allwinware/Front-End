@@ -28,7 +28,7 @@ var commSeatApi	= {
 				}
 			})
 			
-			var paxCnt			= paxList.length;
+			var paxCnt		= paxList.length;
 			var reqList		= [];
 			
 			reqList.push(_this.reqWeightInfo(paxCnt));
