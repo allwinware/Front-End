@@ -325,7 +325,13 @@
 	 	
 	 	// 승객클릭
 	 	$(document).on("click", ".demos_boxs", function() {
+	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
 	 		
+	 		var paxBox		= $("[segIdx="+segIdx+"]").find(".slider_box_line");
+			var currSclLeft	= $("[segIdx="+segIdx+"]").find(".slider_box_line").scrollLeft();
+			var currPaxLeft	= $(this).position().left;
+				
+			paxBox.get(0).scrollTo({left: (currSclLeft+currPaxLeft), behavior: 'smooth'});
 	 	});
 	 	
 	 	
