@@ -30,7 +30,7 @@ var commSeatApi	= {
 					e.charge		= 70000;
 				}
 				
-				console.log(e.seatNo + "/" + e.chrage);
+				console.log(e.seatNo + "/" + e.charge);
 			})
 			
 			var paxCnt		= paxList.length;
