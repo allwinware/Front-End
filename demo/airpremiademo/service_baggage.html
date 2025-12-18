@@ -358,6 +358,26 @@
 	 	// 개수 빼기(-)
 	 	$(document).on("click", ".ap_bag_box_chka_1", function() {
 	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	 		
+	 		var targetPlus	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_3");
+	 		var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+	 		var targetPax	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active");
+	 		
+	 		var currQty		= Number(targetQty.data("qty") || 0) - 1;
+	 		var freeQty		= 1;
+	 		var minQty		= 0;
+	 		
+	 		if (currQty <= minQty) {
+	 			$(this).removeClass("active");
+	 		}
+	 		
+	 		if (currQty < minQty) {
+	 			return;
+	 		}
+	 		
+	 		targetPlus.addClass("active");
+	 		targetQty.data("qty", currQty).text(currQty);
+	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
 	 	});
 	 	
 	 	
