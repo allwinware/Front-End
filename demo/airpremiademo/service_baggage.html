@@ -31,7 +31,7 @@
 				<div class="finger_demo1" style="display: none;"></div>
                 <div class="demo_gnb_menu1">
 					<div></div>
-					<div class="blue_text"><span style="visibility: hidden;"></span></div>
+					<div class="blue_text"><span></span></div>
 				</div>
 				<div class="demo_gnb_menu2_2"></div> 
 				<div class="demo_gnb_menu3">
@@ -190,7 +190,7 @@
 						<span>LEE JIYOUNG</span>님
 						<span class="btf_a_people">3</span>인  
 					</div>
-					<div class="btf_a_txt"><span saving="0"></span></div>
+					<div class="btf_a_txt"><span></span></div>
 				</div>
 				<div class="btf_bbtn" footerBtn="shift">
 					<div>다음</div>
@@ -360,6 +360,8 @@
 	 		targetMinus.addClass("active");
 	 		targetQty.data("qty", currQty).text(currQty);
 	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+	 		
+	 		document.dispatchEvent(new CustomEvent("saved:update"));
 	 	});
 	 	
 	 	
@@ -386,6 +388,8 @@
 	 		targetPlus.addClass("active");
 	 		targetQty.data("qty", currQty).text(currQty);
 	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+	 		
+	 		document.dispatchEvent(new CustomEvent("saved:update"));
 	 	});
 	 	
 	 	
@@ -400,6 +404,8 @@
 			var freeQty		= 1;
 			
 			targetPaxLt.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+			
+			document.dispatchEvent(new CustomEvent("saved:update"));
 		});
 		
 		
@@ -410,9 +416,6 @@
 			if (segIdx == 1) {
 				$("#ags-wrap").trigger("click");
 			} else {
-				var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
-	         	var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
-	        	
 				window.location.href = "index_mrt11.html";
 			}
 			
@@ -420,6 +423,16 @@
 		});
 		
 	    
+		// 절약금액 변경
+		document.addEventListener("saved:update", () => {
+			var saving		= $(".foot_align .btf_a_txt > [saving]").data("savedAmount");
+			
+			$(".demo_gnb_menu1 .blue_text > span").text((actQty*50000).comma()+" 절약");
+			
+			
+		});
+		
+		
     </script>
     
 
