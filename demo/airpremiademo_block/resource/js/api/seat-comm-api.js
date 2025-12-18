@@ -27,7 +27,7 @@ var commSeatApi	= {
 				}
 				
 				if (e.seatStatus == "A") {
-					e.charge		= 40000;
+					e.charge		= 70000;
 				}
 			})
 			
