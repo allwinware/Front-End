@@ -329,9 +329,11 @@
 	 		
 	 		var paxBox		= $("[segIdx="+segIdx+"]").find(".slider_box_line");
 			var currSclLeft	= $("[segIdx="+segIdx+"]").find(".slider_box_line").scrollLeft();
+
 			var currPaxLeft	= $(this).position().left;
-				
-			paxBox.get(0).scrollTo({left: (currSclLeft+currPaxLeft), behavior: 'smooth'});
+			var paddingLeft	= ($(window).width()-$(this).width()) / 2 - Number(paxBox.css("padding-left").replace("px",""));
+			
+			paxBox.get(0).scrollTo({left: (currSclLeft+currPaxLeft-paddingLeft), behavior: 'smooth'});
 	 	});
 	 	
 	 	
