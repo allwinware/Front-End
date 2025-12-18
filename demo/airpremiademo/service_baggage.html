@@ -382,8 +382,16 @@
 	 	
 	 	
 		// 모든 탑승객에 적용하기
-		$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
+		$(document).on("click", ".ap_bag_exptxt2", function() {
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
 			
+			var targetPaxLt	= $("[segIdx="+segIdx+"]").find(".demos_boxs");
+			var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+			
+			var currQty		= Number(targetQty.data("qty") || 0);
+			var freeQty		= 1;
+			
+			targetPaxLt.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
 		});
 		
 		
