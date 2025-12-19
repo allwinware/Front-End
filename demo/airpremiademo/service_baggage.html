@@ -17,6 +17,7 @@
 </head>
 
 <body style="overflow: hidden;"> 
+	<audio id="audio_play" src="./resource/mouse.mp3"></audio>    
 	<div class="dimmed_bgs" ></div>
     <div class="ags-wrap newui bag demos sound-btn">
         <h1 class="site-name">올윈에어</h1>        
@@ -29,9 +30,8 @@
 			<div class="gnb_menu">
 				<div class="finger_demo1" style="display: none;"></div>
                 <div class="demo_gnb_menu1">
-                        <div></div>
-						<div class="blue_text"><span style="visibility: visible;">150,000 절약</span></div>
-						
+					<div></div>
+					<div class="blue_text"><span style="visibility: hidden;"></span></div>
 				</div>
 				<div class="demo_gnb_menu2_2"></div> 
 				<div class="demo_gnb_menu3">
@@ -82,17 +82,17 @@
             <div class="slider1" segIdx="1">
                 <div class="bag_slider_box">                    
                     <div class="slider_box_line">
-						<div class="demos_boxs" qty="1">
+						<div class="demos_boxs active">
                             <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                            <div class="demos_boxs_tx2">23KG <span>1</span>개</div>                            
                         </div>  
-                        <div class="demos_boxs" qty="2">
-                            <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                        <div class="demos_boxs">
+                            <div class="demos_boxs_tx1">SUNGJIN KIM</div>
+                            <div class="demos_boxs_tx2">23KG <span>1</span>개</div>                            
                         </div> 
-                        <div class="demos_boxs" qty="3">
-                            <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                        <div class="demos_boxs">
+                            <div class="demos_boxs_tx1">JINYOUNG KIM</div>
+                            <div class="demos_boxs_tx2">23KG <span>1</span>개</div>                            
                         </div>                                              
                     </div>
                 </div>
@@ -131,17 +131,17 @@
             <div class="slider2" segIdx="2">
                 <div class="bag_slider_box">                    
                     <div class="slider_box_line">
-						<div class="demos_boxs" qty="1">
+						<div class="demos_boxs active">
                             <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                            <div class="demos_boxs_tx2">23KG <span>1</span>개</div>                            
                         </div>  
-                        <div class="demos_boxs" qty="2">
+                        <div class="demos_boxs">
                             <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                            <div class="demos_boxs_tx2">23KG <span>1</span>개</div>                            
                         </div> 
-                        <div class="demos_boxs" qty="3">
+                        <div class="demos_boxs">
                             <div class="demos_boxs_tx1">JIYOUNG LEE</div>
-                            <div class="demos_boxs_tx2">23KG 2개</div>                            
+                            <div class="demos_boxs_tx2">23KG <span>1</span>개</div>                            
                         </div>                                              
                     </div>
                 </div>
@@ -190,10 +190,10 @@
 						<span>LEE JIYOUNG</span>님
 						<span class="btf_a_people">3</span>인  
 					</div>
-					<div class="btf_a_txt"><span saving="30000">누적 30,000 절약중</span></div>
+					<div class="btf_a_txt"><span style="visibility: hidden;" data-savingAmount></span></div>
 				</div>
 				<div class="btf_bbtn" footerBtn="shift">
-					<div onclick="location.href='index_mrt11.html';">다음</div>
+					<div>다음</div>
 				</div>				
 			</div>			
 			<div class="footer_contents">				
@@ -282,7 +282,166 @@
     </div>
 
     <script>
-                    
+	    String.prototype.comma = Number.prototype.comma = function() {
+		    var n = String(this).replace(/\,/g,'');
+		    return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
+		}
+	    
+	    
+	    document.addEventListener("DOMContentLoaded", () => {
+	        const runCounter = () => {
+	            let num = 1;
+	            let counter = document.getElementById("counter0");
+	            let interval = setInterval(() => {
+	                counter.textContent = String(num).padStart(2, "0");
+	                num++;
+	                if (num > 28) {
+	                    clearInterval(interval);
+	                    setTimeout(runCounter, 3000); // 3초 후 다시 시작
+	                }
+	            }, 50);
+	        };
+	
+	        runCounter();
+	    });
+	    
+	    
+	 	// 여정탭이동
+		$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
+			var segIdx		= $(this).parent().attr("flyInfo");
+
+			// 다음버튼 css 초기화
+			$("[footerBtn=shift]").removeClass("active");
+			
+			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+        	
+        	if (curSegQty > 0) {
+        		$("[footerBtn=shift]").addClass("active");
+        	} else {
+        		$("[footerBtn=shift]").removeClass("active");
+        	}
+		});
+	 
+	 	
+	 	// 승객클릭
+	 	$(document).on("click", ".demos_boxs", function() {
+	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	 		
+	 		var paxBox		= $("[segIdx="+segIdx+"]").find(".slider_box_line");
+			var currSclLeft	= $("[segIdx="+segIdx+"]").find(".slider_box_line").scrollLeft();
+
+			var currPaxLeft	= $(this).position().left;
+			var paddingLeft	= ($(window).width()-$(this).width()) / 2 - Number(paxBox.css("padding-left").replace("px",""));
+			
+			paxBox.get(0).scrollTo({left: (currSclLeft+currPaxLeft-paddingLeft-10), behavior: 'smooth'});
+	 	});
+	 	
+	 	
+	 	// 개수 추가(+)
+	 	$(document).on("click", ".ap_bag_box_chka_3", function() {
+	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	 		
+	 		var targetMinus	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_1");
+	 		var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+	 		var targetPax	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active");
+	 		
+	 		var currQty		= Number(targetQty.data("qty") || 0) + 1;
+	 		var freeQty		= 1;
+	 		var maxQty		= 2;
+	 		
+	 		if (currQty >= maxQty) {
+	 			$(this).removeClass("active");
+	 		}
+	 		
+	 		if (currQty > maxQty) {
+	 			return;
+	 		}
+	 		
+	 		targetMinus.addClass("active");
+	 		targetQty.data("qty", currQty).text(currQty);
+	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+	 		
+	 		document.dispatchEvent(new CustomEvent("saved:update"));
+	 	});
+	 	
+	 	
+	 	// 개수 빼기(-)
+	 	$(document).on("click", ".ap_bag_box_chka_1", function() {
+	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	 		
+	 		var targetPlus	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_3");
+	 		var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+	 		var targetPax	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active");
+	 		
+	 		var currQty		= Number(targetQty.data("qty") || 0) - 1;
+	 		var freeQty		= 1;
+	 		var minQty		= 0;
+	 		
+	 		if (currQty <= minQty) {
+	 			$(this).removeClass("active");
+	 		}
+	 		
+	 		if (currQty < minQty) {
+	 			return;
+	 		}
+	 		
+	 		targetPlus.addClass("active");
+	 		targetQty.data("qty", currQty).text(currQty);
+	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+	 		
+	 		document.dispatchEvent(new CustomEvent("saved:update"));
+	 	});
+	 	
+	 	
+		// 모든 탑승객에 적용하기
+		$(document).on("click", ".ap_bag_exptxt2", function() {
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			
+			var targetPaxLt	= $("[segIdx="+segIdx+"]").find(".demos_boxs");
+			var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+			
+			var currQty		= Number(targetQty.data("qty") || 0);
+			var freeQty		= 1;
+			
+			targetPaxLt.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+			
+			document.dispatchEvent(new CustomEvent("saved:update"));
+		});
+		
+		
+		// 다음버튼 클릭
+		$(document).on("click", "[footerBtn=shift]", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+
+			if (segIdx == 1) {
+				$("#ags-wrap").trigger("click");
+			} else {
+				window.location.href = "index_mrt11.html";
+			}
+			
+			e.stopPropagation();
+		});
+		
+	    
+		// 절약금액 변경
+		document.addEventListener("saved:update", () => {
+			var saving		= Number($(".foot_align .btf_a_txt > span").data("savingAmount") || 0);
+			var savedQty	= $(".demos_boxs").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+			var savedAmt	= savedQty*50000;
+			
+			$(".demo_gnb_menu1 .blue_text > span").text(savedAmt.comma()+" 절약");
+			$(".foot_align .btf_a_txt > span").text("누적 KRW "+(saving+savedAmt).comma()+" 절약중");
+			
+			if (savedAmt > 0) {
+				$(".demo_gnb_menu1 .blue_text > span").css("visibility","visible");
+				$(".foot_align .btf_a_txt > span").css("visibility","visible");
+			} else {
+				$(".demo_gnb_menu1 .blue_text > span").css("visibility","hidden");
+				$(".foot_align .btf_a_txt > span").css("visibility","hidden");
+			}
+		});
+		
+		
     </script>
     
 

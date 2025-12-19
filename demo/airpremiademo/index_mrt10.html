@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="./resource/css/animate.css">
 	<script src='./resource/js/jquery-3.4.1.min.js'></script>
 	<script src='./resource/js/jquery.min.js'></script>
-	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="./resource/js/airpremia/alpha.mo.ui.js"></script>
 	<!-- js 퍼블꺼로 바꿈 밑에 스크립트 잠시 w주석 처리함. -->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	
@@ -34,7 +34,7 @@
 				<div class="finger_demo1" style="display: none;"></div>
 				<div class="demo_gnb_menu1">
                         <div></div>
-						<div class="blue_text" style="text-indent: -9999em;">ㅇㅇㅇ</div>
+						<div class="blue_text" style="text-indent: -9999em;"></div>
 				</div>
 				<div class="demo_gnb_menu2"></div> 
 				<div class="demo_gnb_menu3">
@@ -77,10 +77,10 @@
 		<div class="find_txt" style="display: none;">가격대별 선호도 1위 그룹석을 찾았어요!</div>
 		<div class="contents separate200" id="con_slider" purchase-container="seat">
 			<div class="slider1">
-				<div id="yp_HL838"></div>
+				<div id="yp_789B"></div>
 			</div>
 			<div class="slider2">
-				<div id="yp_HL838"></div>
+				<div id="yp_789C"></div>
 			</div>
 		</div>
 		
@@ -132,7 +132,7 @@
 				<div class="ai_contents">
 					<div class="ai_txt1">
 						<img src="./resource/img/common/ai.png">
-						<span>LEE JIYOUN님 아이동반 3인,</span>
+						<span>LEE JIYOUN님 아이동반 4인,</span>
 					</div>
 					<div class="ai_txt3">
 						공항에서 좌석지정 시 떨어져 앉을 확률 <span>85%</span>입니다.
@@ -267,6 +267,19 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="footer-first">
+			<div class="footer-first-pop">
+				<div class="footer-first_close">닫힘</div>
+				<div class="mrt_popupimg2"></div>
+				<div class="mrt_popupimg3"></div>
+				<div class="mrt_popupimg4"></div>
+				<div class="pay_pay_footer close_btn_1">
+					<button class="btn_come_c">다음</button>
+				</div>
+			</div>
+		</div>
+		
 		<!-- 3:4:3 팝업btn_demo_pop02 -->
 		<div class="footer-twst" style="display: none;">
 			<div class="footer-twst-pop">
@@ -280,12 +293,6 @@
 
 
 	<script>	
-	
-		$("#yp_HL838").load("include/yp_HL838.html")
-		$("#yp_HL851").load("include/yp_HL851.html")
-		
-		
-		
 		$(document).ready(function(){
 			setTimeout(function(){
 				$(".ags-summary-first").addClass("active");	
@@ -300,17 +307,15 @@
 			$(".dimmed_bgs").css("display", "none");
 			$("body").css("overflow", "");
 			$("html").css("overflow", "");
-			
 		});
 	</script>
-	<!--
 	
-	<script type="text/javascript" src="./resource/js/tway/alpha-comm-api.js"></script>
-	<script type="text/javascript" src="./resource/js/tway/seat-comm-api.js"></script>
-	<script type="text/javascript" src="./resource/js/tway/seat-comm-disp.js"></script>
-	<script type="text/javascript" src="./resource/js/tway/alpha-tway-api.js"></script>
-	<script type="text/javascript" src="./resource/js/tway/alpha-tway-disp.js"></script>
-	<script type="text/javascript" src="./resource/js/tway/alpha-tway-ptrn.js"></script>
+	<script type="text/javascript" src="./resource/js/airpremia/alpha-comm-api.js"></script>
+	<script type="text/javascript" src="./resource/js/airpremia/seat-comm-api.js"></script>
+	<script type="text/javascript" src="./resource/js/airpremia/seat-comm-disp.js"></script>
+	<script type="text/javascript" src="./resource/js/airpremia/alpha-airpremia-api.js"></script>
+	<script type="text/javascript" src="./resource/js/airpremia/alpha-airpremia-disp.js"></script>
+	<script type="text/javascript" src="./resource/js/airpremia/alpha-airpremia-ptrn.js"></script>
 	
 	<script>
 		String.prototype.comma = Number.prototype.comma = function() {
@@ -319,8 +324,8 @@
 		}
 		
 		window.onload	= function() {
-			var seatMap1	= $("#tw_TWB737").load("include/TWB737.html");
-			var seatMap2	= $("#tw_A333").load("include/A333.html");
+			var seatMap1	= $("#yp_789B").load("include/789B.html");
+			var seatMap2	= $("#yp_789C").load("include/789C.html");
 			
 			$.when(seatMap1, seatMap2).then(() => {
 				setTimeout(() => {
@@ -352,16 +357,12 @@
 			
 			seatMapEl.find(".finger").hide();
 			seatMapEl.attr("style", "");
-			seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+			seatSheetEl.removeClass("scale").attr("style","");
 			seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 		
 			// zoomOut end
 			seatSheetEl.off().on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (e) => {
 				segCtl.config.PAX_INFO.paxList	= paxList;
-
-				if (seatSheetEl.data("changedTop")) {
-					seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s"}).offset(seatSheetEl.data("changedTop"));
-				}
 
 				seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
 				seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
@@ -431,6 +432,18 @@
 					"sex": "F",
 					"guestId": "MSFBRFQ-",
 					"title": "MS"
+				},
+				{
+					"rph": "4",
+					"givenName": "HYUNJI",
+					"surname": "PARK",
+					"paxType": "ADT",
+					"guardianYn": "N",
+					"birthday": "1989-08-04",
+					"age": 36,
+					"sex": "F",
+					"guestId": "MSFBRFQ-",
+					"title": "MS"
 				}];
 				
 				var svcList		= ["seat"];
@@ -438,8 +451,8 @@
 					SEG_IDX		: segIdx,					// 여정 idx
 					PAX_INFO	: {paxList: paxList},		// 승객 정보
 					pathInfo	: {
-			            seatChargePath	: "resource/json/tway/seatCharge/"+acType,
-			            seatWeightPath	: "resource/json/tway/weight/"+acType
+			            seatChargePath	: "resource/json/airpremia/seatCharge/"+acType,
+			            seatWeightPath	: "resource/json/airpremia/weight/"+acType
 					}
 				}
 				
@@ -449,11 +462,21 @@
 					return str.charAt(0).toUpperCase() + str.slice(1);
 				}
 				
+				function getOccupiedLt(segIdx) {
+					var occupiedLt	= {
+						"1"			: () => ["10A","10B","10C","10E","10F","10G","10J","11C","11D","11E","11F","11G","11H","11J","12C","12J","18A","18B","18F","18G"],
+						"2"			: () => [],
+						"_default"	: () => []
+					}
+
+					return (occupiedLt[segIdx] || occupiedLt["_default"])();
+				}
+				
 				for (var i=0; i<svcList.length; i++) {
 					svcAlphaApi		= $.extend(svcAlphaApi, window["comm"+capitalize(svcList[i])+"Api"]);
 				}
 				
-				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, twayAlphaApi, twayAlphaPtrn, {config: configObj, svcList: svcList});
+				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, airpremiaAlphaApi, airpremiaAlphaPtrn, {config: configObj, svcList: svcList, occupiedLt: getOccupiedLt(segIdx)});
 				_this.segCtls["seg"+segIdx+"AlphaCtl"].init();
 			},
 			// 여정탭변경
@@ -637,7 +660,8 @@
 				
 				seatMapEl.attr("style", "");
 				seatMapEl.find(".finger").hide();
-				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+// 				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+				seatSheetEl.removeClass("scale").attr("style","");
 				seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 				
 				// zoomOut end
@@ -646,10 +670,6 @@
 						return;
 					}
 
-					if (seatSheetEl.data("changedTop")) {
-						seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s"}).offset(seatSheetEl.data("changedTop"));
-					}
-					
 					seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
 					seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
 					seatSheetEl.find("[seatno]:not(.childseatno) > span").addClass("blind_box");
@@ -1250,11 +1270,11 @@
 				},0);
 				
 				if (totalCharge > 0) {
-					$(".demo_gnb_menu1 .blue_text > span").css("visibility","visible").text(totalCharge.comma()+" 절약");
-					$(".foot_align .btf_a_txt > span").css("visibility","visible").text("KRW "+totalCharge.comma());
+// 					$(".demo_gnb_menu1 .blue_text > span").css("visibility","visible").text(totalCharge.comma()+" 절약");
+// 					$(".foot_align .btf_a_txt > span").css("visibility","visible").text("KRW "+totalCharge.comma());
 				} else {
-					$(".demo_gnb_menu1 .blue_text > span").css("visibility","hidden");
-					$(".foot_align .btf_a_txt > span").css("visibility","hidden");
+// 					$(".demo_gnb_menu1 .blue_text > span").css("visibility","hidden");
+// 					$(".foot_align .btf_a_txt > span").css("visibility","hidden");
 				}
 				
 			},
@@ -1410,7 +1430,7 @@
 			if (segIdx == 1) {
 				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg2").show();
 			} else {
-				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg3").show();
+				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg4").show();
 			}
 			
 			$(".footer-first-pop").addClass("active");
@@ -1429,13 +1449,13 @@
 			if (segIdx == 1) {
 				apiCtl.flyTabChange(2);
 			} else {
-				window.location.href = "service_food.html";
+				window.location.href = "service_baggage.html";
 			}
 		});
 		
 		
 	</script>
--->
+
 	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
         <div class="loadinggif">
             <!-- container -->
