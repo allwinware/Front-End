@@ -402,6 +402,20 @@
 		});
 		
 		
+		// 다음버튼 클릭
+		$(document).on("click", "[footerBtn=shift]", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+
+			if (segIdx == 1) {
+				$("#ags-wrap").trigger("click");
+			} else {
+				window.location.href = "service_insurance.html";
+			}
+			
+			e.stopPropagation();
+		});
+		
+		
 		// 절약금액 변경
 		document.addEventListener("saved:update", () => {
 			var urlSearch	= new URLSearchParams(location.search);
