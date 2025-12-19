@@ -4831,16 +4831,19 @@ html, body{
 /*--------------------------------------------------------------*/
 
 /*항공기 이미지 작게 */
-.scale_s{
-	will-change:auto;
-	transform: scale(0.3) rotate(.001deg);
-	-webkit-transform: scale(0.3) rotate(.001deg);
+.scale {
+  transition: transform 1.5s ease;
+  transform: scale(1) rotate(0.001deg) translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
-
-/*항공기 이미지 크게 */
-.scale{
-	transform: scale(1) rotate(.001deg);
-	
+.scale_s {
+  will-change: transform;
+  transform: scale(0.3) rotate(0.001deg) translateZ(0);
+  transform-origin: center center;
+  transition: transform 1.5s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .page-wrapper .btn {
@@ -7400,6 +7403,12 @@ input[id="food_item_btn2"]:checked + label i{
 	width: 100%;
 	height: 100%;
 }
+.mrt_popupimg4{
+	background: url(../img/mrt_popupimg4.png) no-repeat center 35px / 287px 202px ;
+	width: 100%;
+	height: 100%;
+}
+
 .ags-summary-group .btn_group_close {
 	position: absolute;
 	color: #fff;

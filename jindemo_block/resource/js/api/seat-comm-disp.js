@@ -313,6 +313,7 @@ var commSeatDisp	= {
 		var plusUnitCharge	= demoCtl.getSegCtl(segIdx).config.plusCharge;
 		var seatMap			= _this.getApplyTarget("seat", "seatMap", segIdx);
 		var styleWidth		= (fullSeatList.length > 2) ? "wid120" : "wid90";
+		
 		var html			= [];
 		
 //		html.push('		<ul class="seat_num '+(blockIdxLt <= 1 ? styleWidth : "")+'">');
