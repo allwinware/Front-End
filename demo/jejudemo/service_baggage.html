@@ -47,7 +47,7 @@
 			<div class="gnb_menu">
 				<div class="demo_gnb_menu2_2"></div>
 				<div class="demo_gnb_menu3">
-					<div onclick="window.location.href='index.html';" >좌석</div>
+					<div onclick="window.location.href='index_mrt12.html';" >좌석</div>
 					<div onclick="window.location.href='service_baggage.html';" class="blue_text">수하물</div>
 					<div onclick="window.location.href='service_food.html';">기내식</div>
 					<div onclick="window.location.href='service_insurance.html';">여행보험</div>
@@ -182,15 +182,99 @@
 						</div>						
 					</div>
 					<div class="bag_jj_img1"></div>
-					<div class="bag_jj_img2">
-
-				</div>
+					<div class="bag_jj_img2"></div>
 				</div>
 				
 
 			</div>
 			<div class="slider2" segIdx="2">
-
+				<div class="bag_slider_box">
+					<div class="slider_box_line">
+						<div class="demos_boxs active" qty="1">
+							<div class="demos_boxs_tx1">1</div>
+							<div class="demos_boxs_tx4">LEE/JIYOUNG</div>
+						</div>
+						<div class="demos_boxs" qty="2">
+							<div class="demos_boxs_tx1">2</div>
+							<div class="demos_boxs_tx4">KIM/SUNGJIN</div>
+						</div>
+						<div class="demos_boxs" qty="3">
+							<div class="demos_boxs_tx1">3</div>
+							<div class="demos_boxs_tx4">KIM/JIWAN</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="bag_txt_center">
+					<div class="bag_jj_txt">
+						<i></i>위탁 수하물
+					</div>
+					<div class="bag_jj_contens">
+						<div class="bag_jj_box active">
+							<div class="bag_jj_boxa">
+								<div class="bag_jj_box1_1">15KG</div>
+								<div class="bag_jj_box1_2">|</div>
+								<div class="bag_jj_box1_3"> 운임에 포함</div>							
+							</div>
+							<div class="bag_jj_boxb">
+								0원
+							</div>
+						</div>
+						<div class="bag_jj_box">
+							<div class="bag_recomand">추천</div>
+							<div class="bag_jj_boxa">
+								<div class="bag_jj_box1_1">+5KG</div>
+								<div class="bag_jj_box1_2">|</div>
+								<div class="bag_jj_box1_3">총 20KG</div>							
+							</div>
+							<div class="bag_jj_boxb">
+								0원
+							</div>
+						</div>
+						<div class="bag_jj_box">
+							<div class="bag_jj_boxa">
+								<div class="bag_jj_box1_1">+10KG</div>
+								<div class="bag_jj_box1_2">|</div>
+								<div class="bag_jj_box1_3">총 25KG</div>							
+							</div>
+							<div class="bag_jj_boxb">
+								120,000원
+							</div>
+						</div>
+						<div class="bag_jj_box">
+							<div class="bag_jj_boxa">
+								<div class="bag_jj_box1_1">+15KG</div>
+								<div class="bag_jj_box1_2">|</div>
+								<div class="bag_jj_box1_3">총 30KG</div>							
+							</div>
+							<div class="bag_jj_boxb">
+								180,000원
+							</div>
+						</div>
+						<div class="bag_jj_box">
+							<div class="bag_jj_boxa">
+								<div class="bag_jj_box1_1">+20KG</div>
+								<div class="bag_jj_box1_2">|</div>
+								<div class="bag_jj_box1_3">총 35KG</div>							
+							</div>
+							<div class="bag_jj_boxb">
+								240,000원
+							</div>
+						</div>
+						<div class="bag_jj_box">
+							<div class="bag_jj_boxa">
+								<div class="bag_jj_box1_1">+25KG</div>
+								<div class="bag_jj_box1_2">|</div>
+								<div class="bag_jj_box1_3">총 40KG</div>							
+							</div>
+							<div class="bag_jj_boxb">
+								300,000원
+							</div>
+						</div>						
+					</div>
+					<div class="bag_jj_img1"></div>
+					<div class="bag_jj_img2"></div>
+				</div>
 			</div>
 		</div>
 
@@ -206,8 +290,7 @@
 						<span class="btf_a_people">3</span>인
 					</div>
 					<div class="price_display_tw2">
-						<div>KRW</div>
-						<div class="price_amount_tw2" id="priceAmount_tw2">55,000 절약중</div>
+						<div class="price_amount_tw2"><span style="visibility: hidden;" data-savingAmount></span></div>
 					</div>
 				</div>
 				<div class="btf_bbtn" footerBtn="shift">
@@ -349,11 +432,11 @@
 			
 			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
        	
-       	if (curSegQty > 0) {
-       		$("[footerBtn=shift]").addClass("active");
-       	} else {
-       		$("[footerBtn=shift]").removeClass("active");
-       	}
+	       	if (curSegQty > 0) {
+	       		$("[footerBtn=shift]").addClass("active");
+	       	} else {
+	       		$("[footerBtn=shift]").removeClass("active");
+	       	}
 		});
 	 
 	 	
@@ -365,83 +448,19 @@
 			var currSclLeft	= $("[segIdx="+segIdx+"]").find(".slider_box_line").scrollLeft();
 
 			var currPaxLeft	= $(this).position().left;
-			var paddingLeft	= ($(window).width()-$(this).width()) / 2 - Number(paxBox.css("padding-left").replace("px",""));
+			var paddingLeft	= ($(window).width()+$(this).width()) / 2;
 			
-			paxBox.get(0).scrollTo({left: (currSclLeft+currPaxLeft-paddingLeft+10), behavior: 'smooth'});
+			paxBox.get(0).scrollTo({left: (currPaxLeft-paddingLeft), behavior: 'smooth'});
 	 	});
 	 	
 	 	
-	 	// 개수 추가(+)
-	 	$(document).on("click", ".ap_bag_box_chka_3", function() {
+	 	// 수하물클릭
+	 	$(document).on("click", ".bag_jj_box", function() {
 	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
 	 		
-	 		var targetMinus	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_1");
-	 		var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
-	 		var targetPax	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active");
 	 		
-	 		var currQty		= Number(targetQty.data("qty") || 0) + 1;
-	 		var freeQty		= 1;
-	 		var maxQty		= 2;
-	 		
-	 		if (currQty >= maxQty) {
-	 			$(this).removeClass("active");
-	 		}
-	 		
-	 		if (currQty > maxQty) {
-	 			return;
-	 		}
-	 		
-	 		targetMinus.addClass("active");
-	 		targetQty.data("qty", currQty).text(currQty);
-	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
-	 		
-	 		document.dispatchEvent(new CustomEvent("saved:update"));
 	 	});
 	 	
-	 	
-	 	// 개수 빼기(-)
-	 	$(document).on("click", ".ap_bag_box_chka_1", function() {
-	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-	 		
-	 		var targetPlus	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_3");
-	 		var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
-	 		var targetPax	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active");
-	 		
-	 		var currQty		= Number(targetQty.data("qty") || 0) - 1;
-	 		var freeQty		= 1;
-	 		var minQty		= 0;
-	 		
-	 		if (currQty <= minQty) {
-	 			$(this).removeClass("active");
-	 		}
-	 		
-	 		if (currQty < minQty) {
-	 			return;
-	 		}
-	 		
-	 		targetPlus.addClass("active");
-	 		targetQty.data("qty", currQty).text(currQty);
-	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
-	 		
-	 		document.dispatchEvent(new CustomEvent("saved:update"));
-	 	});
-	 	
-	 	
-		// 모든 탑승객에 적용하기
-		$(document).on("click", ".ap_bag_exptxt2", function() {
-			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-			
-			var targetPaxLt	= $("[segIdx="+segIdx+"]").find(".demos_boxs");
-			var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
-			
-			var currQty		= Number(targetQty.data("qty") || 0);
-			var freeQty		= 1;
-			
-			targetPaxLt.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
-			
-			document.dispatchEvent(new CustomEvent("saved:update"));
-		});
-		
 		
 		// 다음버튼 클릭
 		$(document).on("click", "[footerBtn=shift]", function(e){
@@ -450,7 +469,7 @@
 			if (segIdx == 1) {
 				$("#ags-wrap").trigger("click");
 			} else {
-				window.location.href = "index_mrt11.html";
+				window.location.href = "service_food.html";
 			}
 			
 			e.stopPropagation();
