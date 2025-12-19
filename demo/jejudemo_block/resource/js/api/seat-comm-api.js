@@ -25,10 +25,6 @@ var commSeatApi	= {
 				if (occupiedLt.includes(e.seatNo)) {
 					e.seatStatus	= ".";
 				}
-				
-				if (e.seatStatus == "A") {
-					e.charge		= 40000;
-				}
 			})
 			
 			var paxCnt		= paxList.length;
