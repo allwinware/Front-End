@@ -281,6 +281,22 @@
         <button type="button" class="pay_ment_btn2 opnge">가는편 메뉴 선택</button>
     </div>
 
+	<script>
+		function play() {
+			const audio = document.getElementById("audio_play");
+			audio.pause();
+			audio.currentTime = 0;
+			audio.play();
+		}
+
+		document.addEventListener("click", function(e) {
+			const soundBtn = e.target.closest(".sound-btn");
+			if (soundBtn) {
+				play();
+			}
+		});
+	</script>
+	
     <script>
 	    String.prototype.comma = Number.prototype.comma = function() {
 		    var n = String(this).replace(/\,/g,'');

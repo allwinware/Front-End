@@ -14,28 +14,6 @@
 	<script src='./resource/js/jquery.min.js'></script>
 	<script src="./resource/js/jeju/alpha.mo.ui.js"></script>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-
-function play() {
-	var audio = document.getElementById('audio_play'); 
-	if (audio.paused) {
-		audio.play();
-	} else{
-		audio.pause();
-		audio.currentTime = 0
-	}
-}
-
-$(document).ready(function() {
-	document.addEventListener("click", function(e) {
-		const soundBtn = e.target.closest(".sound-btn");
-		if (soundBtn) {
-			play();
-		}
-	});
-});
-
-</script>
 </head>
 <!--
 <body onload="layerPop('popup_loading');">
@@ -330,7 +308,26 @@ $(document).ready(function() {
 
 		});
 	</script>
-
+	<script>
+		function play() {
+			var audio = document.getElementById('audio_play'); 
+			if (audio.paused) {
+				audio.play();
+			} else{
+				audio.pause();
+				audio.currentTime = 0
+			}
+		}
+		
+		$(document).ready(function() {
+			document.addEventListener("click", function(e) {
+				const soundBtn = e.target.closest(".sound-btn");
+				if (soundBtn) {
+					play();
+				}
+			});
+		});
+	</script>
 
 	<script type="text/javascript" src="./resource/js/jeju/alpha-comm-api.js"></script>
 	<script type="text/javascript" src="./resource/js/jeju/seat-comm-api.js"></script>

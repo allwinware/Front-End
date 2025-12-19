@@ -309,6 +309,27 @@
 			$("html").css("overflow", "");
 		});
 	</script>
+	<script>
+		function play() {
+			var audio = document.getElementById('audio_play'); 
+			if (audio.paused) {
+				audio.play();
+			} else{
+				audio.pause();
+				audio.currentTime = 0
+			}
+		}
+		
+		$(document).ready(function() {
+			document.addEventListener("click", function(e) {
+				const soundBtn = e.target.closest(".sound-btn");
+				if (soundBtn) {
+					play();
+				}
+			});
+		});
+	</script>
+	
 	
 	<script type="text/javascript" src="./resource/js/airpremia/alpha-comm-api.js"></script>
 	<script type="text/javascript" src="./resource/js/airpremia/seat-comm-api.js"></script>
