@@ -315,184 +315,134 @@
 	</div>
 
 	<script>
-		String.prototype.comma = Number.prototype.comma = function() {
-			var n = String(this).replace(/\,/g,'');
-			return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
+	
+	   String.prototype.comma = Number.prototype.comma = function() {
+		    var n = String(this).replace(/\,/g,'');
+		    return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
 		}
-
-
-		document.addEventListener("DOMContentLoaded", () => {
-			const runCounter = () => {
-				let num = 1;
-				let counter = document.getElementById("counter0");
-				let interval = setInterval(() => {
-					counter.textContent = String(num).padStart(2, "0");
-					num++;
-					if (num > 28) {
-						clearInterval(interval);
-						setTimeout(runCounter, 3000); // 3초 후 다시 시작
-					}
-				}, 50);
-			};
-
-			runCounter();
-		});
-
-
-		// 여정탭이동
+	    
+	    
+	    document.addEventListener("DOMContentLoaded", () => {
+	        const runCounter = () => {
+	            let num = 1;
+	            let counter = document.getElementById("counter0");
+	            let interval = setInterval(() => {
+	                counter.textContent = String(num).padStart(2, "0");
+	                num++;
+	                if (num > 28) {
+	                    clearInterval(interval);
+	                    setTimeout(runCounter, 3000); // 3초 후 다시 시작
+	                }
+	            }, 50);
+	        };
+	
+	        runCounter();
+	    });
+	    
+	    
+	 	// 여정탭이동
 		$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
 			var segIdx		= $(this).parent().attr("flyInfo");
 
 			// 다음버튼 css 초기화
 			$("[footerBtn=shift]").removeClass("active");
-
+			
 			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
-
-			if (curSegQty > 0) {
-				$("[footerBtn=shift]").addClass("active");
-			} else {
-				$("[footerBtn=shift]").removeClass("active");
-			}
+       	
+       	if (curSegQty > 0) {
+       		$("[footerBtn=shift]").addClass("active");
+       	} else {
+       		$("[footerBtn=shift]").removeClass("active");
+       	}
 		});
+	 
+	 	
+	 	// 승객클릭
+	 	$(document).on("click", ".demos_boxs", function() {
+	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	 		
+	 		var paxBox		= $("[segIdx="+segIdx+"]").find(".slider_box_line");
+			var currSclLeft	= $("[segIdx="+segIdx+"]").find(".slider_box_line").scrollLeft();
 
-
-		// 수하물 선택
-		$(document).on("click", ".slider_box_line .demos_boxs", function () {
+			var currPaxLeft	= $(this).position().left;
+			var paddingLeft	= ($(window).width()-$(this).width()) / 2 - Number(paxBox.css("padding-left").replace("px",""));
+			
+			paxBox.get(0).scrollTo({left: (currSclLeft+currPaxLeft-paddingLeft+10), behavior: 'smooth'});
+	 	});
+	 	
+	 	
+	 	// 개수 추가(+)
+	 	$(document).on("click", ".ap_bag_box_chka_3", function() {
+	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	 		
+	 		var targetMinus	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_1");
+	 		var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+	 		var targetPax	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active");
+	 		
+	 		var currQty		= Number(targetQty.data("qty") || 0) + 1;
+	 		var freeQty		= 1;
+	 		var maxQty		= 2;
+	 		
+	 		if (currQty >= maxQty) {
+	 			$(this).removeClass("active");
+	 		}
+	 		
+	 		if (currQty > maxQty) {
+	 			return;
+	 		}
+	 		
+	 		targetMinus.addClass("active");
+	 		targetQty.data("qty", currQty).text(currQty);
+	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+	 		
+	 		document.dispatchEvent(new CustomEvent("saved:update"));
+	 	});
+	 	
+	 	
+	 	// 개수 빼기(-)
+	 	$(document).on("click", ".ap_bag_box_chka_1", function() {
+	 		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	 		
+	 		var targetPlus	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_3");
+	 		var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+	 		var targetPax	= $("[segIdx="+segIdx+"]").find(".demos_boxs.active");
+	 		
+	 		var currQty		= Number(targetQty.data("qty") || 0) - 1;
+	 		var freeQty		= 1;
+	 		var minQty		= 0;
+	 		
+	 		if (currQty <= minQty) {
+	 			$(this).removeClass("active");
+	 		}
+	 		
+	 		if (currQty < minQty) {
+	 			return;
+	 		}
+	 		
+	 		targetPlus.addClass("active");
+	 		targetQty.data("qty", currQty).text(currQty);
+	 		targetPax.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+	 		
+	 		document.dispatchEvent(new CustomEvent("saved:update"));
+	 	});
+	 	
+	 	
+		// 모든 탑승객에 적용하기
+		$(document).on("click", ".ap_bag_exptxt2", function() {
 			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-
-			// 문구설정
-			$(this).siblings().get().forEach((cur,idx) => {
-				$(cur).find(".demos_boxs_tx3").text($(cur).find(".demos_boxs_tx3").data("msg") || "");
-			});
-
-			var actQty		= Number($(this).attr("qty"));
-			var actWgt		= $(this).find(".demos_boxs_tx1").text();
-			var actQtyLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty")).get().map((e) => $(e).data("qty")).filter((item, idx, self) => self.indexOf(item) == idx);
-
-			$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
-
-			if (actQtyLt.length == 1) {
-				var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
-				var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == actQty).length;
-
-				if (boxLt == actBoxLt) {
-					$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
-				} else {
-					$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
-				}
-			}
-
-			//if (actQty) {
-			//	$(this).find(".demos_boxs_tx3").text("공항보다 "+(actQty*25000).comma()+"절약");
-			//}
-
-			$("[segIdx="+segIdx+"] .bag_txt_same").show().find(".blue_text").text(actWgt);
+			
+			var targetPaxLt	= $("[segIdx="+segIdx+"]").find(".demos_boxs");
+			var targetQty	= $("[segIdx="+segIdx+"]").find(".ap_bag_box_chka_2");
+			
+			var currQty		= Number(targetQty.data("qty") || 0);
+			var freeQty		= 1;
+			
+			targetPaxLt.data("qty", currQty).find(".demos_boxs_tx2 span").text(freeQty+currQty);
+			
+			document.dispatchEvent(new CustomEvent("saved:update"));
 		});
-
-
-		// 통일하기
-		$(document).on("click", ".bag_txt_same :checkbox", function () {
-			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-			var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
-
-			if (actBag.length <= 0) {
-				alert("먼저 위에서 수하물 옵션을 선택해주세요.");
-				return;
-			}
-
-			var isChecked	= $(this).is(":checked");
-
-			if (isChecked) {
-				$("[segIdx="+segIdx+"] .bag_slider_boxbox .bag_slider_name_box_2").trigger("click");
-			} else {
-				$("[segIdx="+segIdx+"] .bag_slider_boxbox .bag_slider_name_box_2_1").trigger("click");
-			}
-		});
-
-
-		// 추가하기
-		$(document).on("click", ".bag_slider_boxbox .bag_slider_name_box_2", function () {
-			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-			var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
-
-			if (actBag.length <= 0) {
-				alert("먼저 위에서 수하물 옵션을 선택해주세요.");
-				return;
-			}
-
-			var atcBagQty	= Number($(actBag).attr("qty"));
-			var actBagTxt	= $(actBag).find(".demos_boxs_tx1").text()+"("+$(actBag).find(".demos_boxs_tx2").text()+")";
-
-			$(this).hide().data("qty", atcBagQty);
-			$(this).next("").html('<div class="bag_slider_name_box_2_1_txt">'+actBagTxt+'</div><div class="bag_slider_name_box_2_1_img"></div>').show();
-
-			var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
-			var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
-
-			$(".demo_gnb_menu1 .blue_text > span").text((actQty*25000).comma()+" 절약");
-			$(".foot_align .btf_a_txt > span").text("누적 KRW "+(Number(saving)+(actQty*25000)).comma()+" 절약중");
-
-			if (actQty > 0) {
-				$(".demo_gnb_menu1 .blue_text > span").show();
-			}
-
-			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
-
-			if (curSegQty > 0) {
-				$("[footerBtn=shift]").addClass("active");
-			} else {
-				$("[footerBtn=shift]").removeClass("active");
-			}
-
-			var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
-			var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == atcBagQty).length;
-
-			if (boxLt == actBoxLt) {
-				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
-			} else {
-				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
-			}
-		});
-
-
-		// 추가하기 취소
-		$(document).on("click", ".bag_slider_boxbox .bag_slider_name_box_2_1", function () {
-			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-
-			$(this).html("").hide();
-			$(this).prev().data("qty", null).show();
-
-			var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
-			var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
-
-			$(".demo_gnb_menu1 .blue_text > span").text((actQty*25000).comma()+" 절약");
-			$(".foot_align .btf_a_txt > span").text("누적 KRW "+(Number(saving)+(actQty*25000)).comma()+" 절약중");
-
-			if (actQty <= 0) {
-				$(".demo_gnb_menu1 .blue_text > span").hide();
-			}
-
-			var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
-
-			if (curSegQty > 0) {
-				$("[footerBtn=shift]").addClass("active");
-			} else {
-				$("[footerBtn=shift]").removeClass("active");
-			}
-
-			var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
-			var atcBagQty	= Number($(actBag).attr("qty"));
-			var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
-			var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == atcBagQty).length;
-
-			if (boxLt == actBoxLt) {
-				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
-			} else {
-				$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
-			}
-		});
-
-
+		
+		
 		// 다음버튼 클릭
 		$(document).on("click", "[footerBtn=shift]", function(e){
 			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
@@ -500,159 +450,31 @@
 			if (segIdx == 1) {
 				$("#ags-wrap").trigger("click");
 			} else {
-				var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
-				var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
-
-				window.location.href = "service_insurance.html?qty="+actQty;
+				window.location.href = "index_mrt11.html";
 			}
-
+			
 			e.stopPropagation();
 		});
-
-
-	   // 가운데로 스크롤하는 함수 251118-------------------------------------------------------------------
-		function centerActiveBox() {
-			const sliderLine = document.querySelector('.slider_box_line');
-			const activeBox = document.querySelector('.demos_boxs.active');
-
-			if (activeBox && sliderLine) {
-				// 박스의 위치와 컨테이너의 중심 계산
-				const boxLeft = activeBox.offsetLeft;
-				const boxWidth = activeBox.offsetWidth;
-				const containerWidth = sliderLine.offsetWidth;
-
-				// 박스를 가운데로 보내기 위한 스크롤 위치 계산
-				const scrollPosition = boxLeft - (containerWidth / 2) + (boxWidth / 2);
-
-				sliderLine.scrollTo({
-					left: scrollPosition,
-					behavior: 'smooth'
-				});
+		
+	    
+		// 절약금액 변경
+		document.addEventListener("saved:update", () => {
+			var saving		= Number($(".foot_align .btf_a_txt > span").data("savingAmount") || 0);
+			var savedQty	= $(".demos_boxs").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+			var savedAmt	= savedQty*50000;
+			
+			$(".demo_gnb_menu1 .blue_text > span").text(savedAmt.comma()+" 절약");
+			$(".foot_align .btf_a_txt > span").text("누적 KRW "+(saving+savedAmt).comma()+" 절약중");
+			
+			if (savedAmt > 0) {
+				$(".demo_gnb_menu1 .blue_text > span").css("visibility","visible");
+				$(".foot_align .btf_a_txt > span").css("visibility","visible");
+			} else {
+				$(".demo_gnb_menu1 .blue_text > span").css("visibility","hidden");
+				$(".foot_align .btf_a_txt > span").css("visibility","hidden");
 			}
-		}
-
-		// 페이지 로드 시
-		document.addEventListener('DOMContentLoaded', function() {
-			const firstBox = document.querySelector('.demos_boxs');
-
-			// 첫 번째 박스에 active 추가
-			if (firstBox) {
-				firstBox.classList.add('active');
-				// 렌더링 완료 후 가운데로
-				setTimeout(centerActiveBox, 100);
-			}
-
-			// 모든 박스에 클릭 이벤트 추가
-			document.querySelectorAll('.demos_boxs').forEach(box => {
-				box.addEventListener('click', function() {
-					// 모든 active 제거
-					document.querySelectorAll('.demos_boxs').forEach(b => {
-						b.classList.remove('active');
-					});
-
-					// 클릭한 박스에 active 추가
-					this.classList.add('active');
-
-					// 가운데로 스크롤
-					centerActiveBox();
-				});
-			});
 		});
-		// 초기 적용
-$(document).ready(function() {
-	// 수하물 슬라이더가 있을 때만 실행
-	if ($(".slider1 #range_tw").length > 0) {
-		const initialValue = Number($(".slider1 #range_tw").val());
-		update_tw(initialValue);
-		updateSliderBG_tw();
-	}
-});
-
-function calculatePrice_tw(kg) {
-	const extra = kg - 15;
-	return (extra / 5) * 55000;
-}
-
-function formatPrice_tw(price) {
-	return price.toLocaleString('ko-KR');
-}
-
-function update_tw(val) {
-	let extra = val - 15;
-
-	// 현재 active 영역 찾기
-	var activeSlider = $(".select_boxbtn .active").attr("flyInfo");
-	var targetSlider = activeSlider == "1" ? ".slider1" : ".slider2";
-
-	if (extra === 0) {
-		$(targetSlider + " #finalText_tw").text("15KG");
-		$(targetSlider + " .demos_boxs.active .demos_boxs_tx2").text("15KG");
-	} else {
-		$(targetSlider + " #finalText_tw").text("15KG + " + extra + "KG");
-		$(targetSlider + " .demos_boxs.active .demos_boxs_tx2").text("15KG + " + extra + "KG");
-	}
-
-	// 가격 업데이트
-	const price = calculatePrice_tw(val);
-	$(targetSlider + " #priceAmount_tw").text(formatPrice_tw(price));
-	$("#priceAmount_tw2").text(formatPrice_tw(price));
-
-	$(targetSlider + " #kgList_tw .kg_item_tw").removeClass("active_tw");
-	$(targetSlider + ' #kgList_tw .kg_item_tw[data-value="' + val + '"]').addClass("active_tw");
-}
-
-function updateSliderBG_tw() {
-	// 현재 active 영역 찾기
-	var activeSlider = $(".select_boxbtn .active").attr("flyInfo");
-	var targetSlider = activeSlider == "1" ? ".slider1" : ".slider2";
-
-	const slider = $(targetSlider + " #range_tw")[0];
-	if (!slider) return; // 슬라이더가 없으면 종료
-
-	const min = Number(slider.min);
-	const max = Number(slider.max);
-	const val = Number(slider.value);
-
-	const percent = ((val - min) / (max - min)) * 100;
-
-	const imgPath = "resource/img/bg_range_slider.png";
-
-	const bgValue = `
-		linear-gradient(to right,
-			rgba(255,255,255,0) 0%,
-			rgba(255,255,255,0) ${percent}%,
-			#f1d8d8 ${percent}%,
-			#f1d8d8 100%
-		),
-		url('${imgPath}') left center / auto 100% repeat-x
-	`;
-
-	$(targetSlider + " #range_tw").css("background", bgValue);
-}
-
-// 각 탭의 슬라이더에 이벤트 바인딩
-$(".slider1 #range_tw, .slider2 #range_tw").on("input", function () {
-	update_tw(Number($(this).val()));
-	updateSliderBG_tw();
-});
-
-$(".slider1 .kg_item_tw, .slider2 .kg_item_tw").on("click", function () {
-	const val = $(this).data("value");
-	var activeSlider = $(".select_boxbtn .active").attr("flyInfo");
-	var targetSlider = activeSlider == "1" ? ".slider1" : ".slider2";
-
-	$(targetSlider + " #range_tw").val(val);
-	update_tw(val);
-	updateSliderBG_tw();
-});
-
-// 초기 적용
-if ($(".slider1 #range_tw").length > 0) {
-	update_tw(Number($(".slider1 #range_tw").val()));
-	updateSliderBG_tw();
-}
-
-
+		
 	</script>
 
 
