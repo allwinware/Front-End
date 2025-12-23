@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<link rel="stylesheet" href="./resource/css/animate.css">
+	<script src='./resource/js/jquery-2.2.4.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/jeju/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<!--
+<body onload="layerPop('popup_loading');">
+-->
+<body style="overflow-y: hidden;">
+	<audio id="audio_play" src="./resource/mouse.mp3"></audio>
+	<div class="dimmed_transparent_bg"></div>
+
+	<div class="ags-wrap newui demos sound-btn" purchase-container>
+		<h1 class="site-name">올윈에어</h1>
+		<div class="dimmed_bgs" style="display: none;"></div>
+		<header>
+			<div class="ags-header">
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="ags-header-logo"></div>
+				
+			</div>
+			<div class="gnb_menu">
+				<div class="demo_gnb_menu2"></div>
+				<div class="demo_gnb_menu3">
+					<div class="blue_text">좌석</div>
+					<div onclick="window.location.href='service_baggage.html';">수하물</div>
+					<div onclick="window.location.href='service_food.html';">기내식</div>
+					<div onclick="window.location.href='service_insurance.html';">여행보험</div>
+				</div>
+			</div>
+			<div class="select_boxbtn">
+				<div class="select_backbtn active" flyInfo="1">
+					<button id="ags-wrap-back" class="btn_back_c">
+						<div class="boxbtn_flyb">
+							<div class="de_ways1">가는 편 </div>
+							<div class="de_ways2">ICN</div>
+							<div class="de_ways3">-</div>
+							<div class="de_ways4">BKK</div>
+						</div>
+					</button>
+				</div>
+				<div class="select_comebtn" flyInfo="2">
+					<button id="ags-wrap" class="btn_come_c">
+						<div class="boxbtn_flyb">
+							<div class="de_ways1">오는 편 </div>
+							<div class="de_ways2">BKK</div>
+							<div class="de_ways3">-</div>
+							<div class="de_ways4">ICN</div>
+						</div>
+					</button>
+				</div>
+			</div>
+			<div class="header_txt">
+				<div class="header_txt_ai">
+					<img src="./resource/img/common/ai.png">
+					<span>좌석 배치도에서 좌석위치 선택</span>
+				</div>
+				<!--프리뷰버튼-->
+				<div class="header_txt_btn" style="display: none;">
+					<span>-</span>
+					<span>전체좌석</span>
+				</div>
+			</div>
+		</header>
+		<div class="find_txt" style="display: none;">가격대별 선호도 1위 그룹석을 찾았어요!</div>
+		<div class="contents separate200" id="con_slider" purchase-container="seat">
+			<div class="slider1">
+				<div id="7c_738A"></div>
+			</div>
+			<div class="slider2">
+				<div id="7c_738C"></div>
+			</div>
+		</div>
+
+		<div class="cscenter" style="display: none;">
+			고객센터 : 1522-4148 (평일 10:00 ~ 17:00)
+		</div>
+
+		<div class="no-item" >
+			<!--
+			경고 이미지
+			<div class="ico-wrap"></div>
+			수하물
+			<div class="icoh-baggage"></div>
+			기내식
+			<div class="icoh-meal"></div>
+			-->
+			<!-- 좌석 -->
+			<div class="icoh-seat" style="display: none;"></div>
+
+			<div class="alert-title" style="display: none;">
+				항공기 출발 시간이 임박하여<br>
+				사전 좌석을 구매할 수 없습니다.
+			</div>
+			<div class="alert-text" style="display: none;">
+				출발 24시간전까지 구매 가능<br>
+				단, 최초 출발 2일 후부터는 오는 편 구매 불가
+			</div>
+			<button class="pay_dibtn" style="display: none;">
+				난 버튼입니다.
+			</button>
+		</div>
+		<div class="no-item" style="display:none;">
+			<div class="ico-wrap"></div>
+			<div class="alert-title">
+				사전 좌석을 구매할 수 없습니다.
+			</div>
+			<div class="alert-text">
+				사전 좌석은 <i class="text-red">항공기 출발 24시간전까지만 구매</i> 가능합니다.<br>
+				(예 : 5월 5일 출발인 경우 5월 4일까지 구매 가능)
+
+			</div>
+		</div>
+
+		<!-- 첫화면 팝업뛰움 -->
+		<div class="ags-summary-first" style="display: block;">
+			<h4 class="sr-only">부가서비스 번들</h4>
+			<div class="footer_contents_group">
+				<span class="btn_group_close">Close</span>
+				<div class="ai_contents">
+					<div class="ai_txt1">
+						<img src="./resource/img/common/ai.png">
+						<span>LEE JIYOUN님 아이동반 3인,</span>
+					</div>
+					<div class="ai_txt3">
+						공항에서 좌석지정 시 떨어져 앉을 확률 <span>85%</span>입니다.
+					</div>
+					<div class="ai_img3">
+						<img src="./resource/img/common/hd_move_01.gif">
+					</div>
+					<div class="ai_txt4">아이와 같이 앉으시겠습니까?</div>
+<!-- 				<div class="ai_txt5">[아이동반 특별할인] 왕복 지정 시 KRW 40,000 절약돼요!</div> -->
+				</div>
+				<div class="pay_pay_footer close_btn_1">
+					<button class="btn_come_c cls-btn">네</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- 좌석 정했을때 -->
+		<div class="ags-summary" style="display: none;">
+			<h4 class="sr-only">부가서비스 결제금액</h4>
+			<div class="scroll_btn" style="display: none;">
+				<button autoRcmndBtn><span>AI추천 돌아가기</span></button>
+			</div>
+			<div class="scroll_btn" style="display: none;">
+				<button assignRcmndBtn><span>자동선택 돌아가기</span></button>
+			</div>
+			<div class="foot_align">
+				<div class="btn_footer_open" style="pointer-events: none;"><span></span></div>
+
+				<div class="btf_a">
+					<div>
+						<span>LEE JIYOUNG</span>님
+						<span class="btf_a_people" paxCnt>3</span>인
+					</div>
+					<div class="btf_a_txt"><span style="visibility:hidden">절약중</span></div>
+				</div>
+				<div class="btf_bbtn" footerBtn="shift">
+					<div>다음</div>
+				</div>
+			</div>
+			<div class="footer_contents">
+				<a class="btn_footer_close">Close</a>
+				<div class="pay_content">
+					<div class="creditcard newui">
+						<div class="card_warp">
+							<div class="card_name">신청내역</div>
+							<div class="card_name_btn">
+								<div>
+									항공권
+								</div>
+								<div>
+									부가서비스
+								</div>
+							</div>
+							<div class="credit_box_btn" agrBtn style="display: none;"></div>
+						</div>
+						<div agrLt class="credit_agree_box_content dis on" style="display: block;">
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w" style="display: none;"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+							<!-- 사람 -->
+							<div class="bd_pxc">
+								<div class="ccd_man1"></div>
+							</div>
+
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>태국 BKK</span>
+									</div>
+									<div class="air_logo jinair_w" style="display: none;"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>10/01 09:15</div>
+									<div>(단위 KRW)</div>
+								</div>
+							</div>
+							<div class="bd_pxc">
+								<div class="ccd_man2"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="credit_total_footer">
+						<div class="credit_total">
+							<div>부가서비스 총 결제 금액</div>
+							<div class="credit_total_box3">
+								<div style="color: #469DD6; font-size: 11px; font-family: 'PretendardL';">KRW 8,000 절약↓</div>
+								<div style="font-size: 16px; font-family: 'PretendardB';">KRW76,000원</div>
+							</div>
+						</div>
+						<div class="payment_btn0">
+							<div class="payment_btn1">바로결제</div>
+							<div class="payment_btn2 btn_footer_closex">확인했어요</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 3:3 팝업 btn_demo_pop01-->
+		<div class="footer-feets">
+			<div class="footer-feets-pop">
+				<div class="footer-feets_close">닫힘</div>
+				<div class="ai_contents">
+					<div class="ai_txt1">
+						<img src="./resource/img/common/ai.png">
+						<span>LEE JIYOUN님 아이동반 3인,</span>
+					</div>
+					<div class="ai_txt3">
+						공항에서 좌석지정 시 떨어져 앉을 확률 <span>85%</span>입니다.
+					</div>
+					<div class="ai_img3">
+						<img src="./resource/img/common/hd_move_01.gif">
+					</div>
+					<div class="ai_txt4">아이와 같이 앉으시겠습니까?</div>
+<!--					<div class="ai_txt5">[아이동반 특별할인] 왕복 지정 시 KRW 40,000 절약돼요!</div> -->
+				</div>
+				<div class="pay_pay_footer close_btn_2">
+					<button class="btn_come_c">네</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-first">
+			<div class="footer-first-pop">
+				<div class="footer-first_close">닫힘</div>
+				<div class="mrt_popupimg2"></div>
+				<div class="mrt_popupimg3"></div>
+				<div class="pay_pay_footer close_btn_1">
+					<button class="btn_come_c">다음</button>
+				</div>
+			</div>
+		</div>
+		<!-- 3:4:3 팝업btn_demo_pop02 -->
+		<div class="footer-twst" style="display: none;">
+			<div class="footer-twst-pop">
+				<div class="footer-first_close">닫힘</div>
+				<div class="mrt_popupimg3"></div>
+				<div class="pay_pay_footer close_btn_1" onclick="window.location.href='service_food.html';">
+					<button class="btn_come_c">다음</button>
+				</div>
+			</div>
+		</div>
+
+
+	<script>
+		$(document).ready(function(){
+			setTimeout(function(){
+				$(".ags-summary-first").addClass("active");
+				$("body").css("overflow", "hidden");
+				$("html").css("overflow", "hidden");
+				$(".dimmed_bg, .dimmed_bgs").fadeIn(0); // 0.6초 동안 서서히 나타남
+			}, 0); // 3초 후 실행
+		});
+		$(document).on("click", ".btn_group_close,.btn_group_close_x, .cls-btn", function () {
+			$(".ags-summary-first").removeClass("active");
+			$(".dimmed_bg").css("display", "none");
+			$(".dimmed_bgs").css("display", "none");
+			$("body").css("overflow", "");
+			$("html").css("overflow", "");
+
+		});
+	</script>
+	<script>
+		function play() {
+			var audio = document.getElementById('audio_play'); 
+			if (audio.paused) {
+				audio.play();
+			} else{
+				audio.pause();
+				audio.currentTime = 0
+			}
+		}
+		
+		$(document).ready(function() {
+			document.addEventListener("click", function(e) {
+				const soundBtn = e.target.closest(".sound-btn");
+				if (soundBtn) {
+					play();
+				}
+			});
+		});
+	</script>
+
+	<script type="text/javascript" src="./resource/js/jeju/alpha-comm-api.js"></script>
+	<script type="text/javascript" src="./resource/js/jeju/seat-comm-api.js"></script>
+	<script type="text/javascript" src="./resource/js/jeju/seat-comm-disp.js"></script>
+	<script type="text/javascript" src="./resource/js/jeju/alpha-jeju-api.js"></script>
+	<script type="text/javascript" src="./resource/js/jeju/alpha-jeju-disp.js"></script>
+	<script type="text/javascript" src="./resource/js/jeju/alpha-jeju-ptrn.js"></script>
+
+	<script>
+		String.prototype.comma = Number.prototype.comma = function() {
+		    var n = String(this).replace(/\,/g,'');
+		    return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
+		}
+		
+		window.onload	= function() {
+			var seatMap1	= $("#7c_738A").load("include/738A.html");
+			var seatMap2	= $("#7c_738C").load("include/738C.html");
+			
+			$.when(seatMap1, seatMap2).then(() => {
+				setTimeout(() => {
+					apiCtl.init();
+				}, 1000)
+			});
+		}
+		
+		function changePaxCntPattern(paxCnt) {
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			var segCtl		= apiCtl.getSegCtl(segIdx);
+			var paxList		= [];
+			
+			for (var i=0; i<paxCnt; i++) {
+				paxList.push({
+					"rph": (i+1),
+					"givenName": (i+1),
+					"surname": "승객",
+					"paxType": "ADT",
+				});
+			}
+
+			apiCtl.onSelSeatClean(segIdx);
+			
+			var seatMapEl	= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+			var seatSheetEl	= seatMapEl.find(".seat_sheet");
+			
+			apiCtl.onSeatMapTypeChange(segIdx, "rcmnd");
+			
+			seatMapEl.find(".finger").hide();
+			seatMapEl.attr("style", "");
+			seatSheetEl.removeClass("scale").attr("style","");
+			seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
+		
+			// zoomOut end
+			seatSheetEl.off().on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (e) => {
+				segCtl.config.PAX_INFO.paxList	= paxList;
+
+				seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
+				seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
+				seatSheetEl.find("[seatno]:not(.childseatno) > span").addClass("blind_box");
+				seatSheetEl.siblings().fadeIn();
+				commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html("");
+				
+				$(".demo_popup1").show();
+				$(".ags-summary").hide();
+				
+				segCtl.init();
+			})
+			
+			commSeatDisp.getApplyTarget("purchase", ".header_txt_btn").hide();
+		}
+		
+		var apiCtl	= {
+			segCtls		: {},
+			init		: function() {
+				var _this		= this;
+				var seatMapLt	= $("[seatMap]").get();
+
+				for (var i=0; i<seatMapLt.length; i++) {
+					var segIdx		= $(seatMapLt[i]).attr("seatMap");
+					var acType		= $(seatMapLt[i]).attr("acType");
+
+					// segCtl 생성
+					_this.setSegCtl(segIdx, acType);
+				}
+			},
+			// 여정객체 설정
+			setSegCtl	: function(segIdx, acType) {
+				var _this	= this;
+				
+				var	paxList	= [{
+					"rph": "1",
+					"givenName": "JIYOUNG",
+					"surname": "KIM",
+					"paxType": "CHD",
+					"guardianYn": "N",
+					"birthday": "2022-05-31",
+					"age": 3,
+					"sex": "F",
+					"guestId": "MiFDSEQ-",
+					"title": "MISS"
+				},
+				{
+					"rph": "2",
+					"givenName": "HYUNWOO",
+					"surname": "JUNG",
+					"paxType": "ADT",
+					"guardianYn": "N",
+					"birthday": "1983-11-24",
+					"age": 41,
+					"sex": "M",
+					"guestId": "MCFBRFQ-",
+					"title": "MR"
+				},
+				{
+					"rph": "3",
+					"givenName": "MYUNGJA",
+					"surname": "PARK",
+					"paxType": "ADT",
+					"guardianYn": "N",
+					"birthday": "1952-08-04",
+					"age": 73,
+					"sex": "F",
+					"guestId": "MSFBRFQ-",
+					"title": "MS"
+				}];
+				
+				var svcList		= ["seat"];
+				var configObj	= {
+					SEG_IDX		: segIdx,					// 여정 idx
+					PAX_INFO	: {paxList: paxList},		// 승객 정보
+					pathInfo	: {
+			            seatChargePath	: "resource/json/jeju/seatCharge/"+acType,
+			            seatWeightPath	: "resource/json/jeju/weight/"+acType
+					}
+				}
+				
+				var svcAlphaApi		= {};
+				
+				function capitalize(str) {
+					return str.charAt(0).toUpperCase() + str.slice(1);
+				}
+				
+				function getOccupiedLt(segIdx) {
+					var occupiedLt	= {
+						"1"			: () => ["1A","2C","2E","2F","3F","4D","4F","5C","5F","7A","7F","8D","9F","10A","10B"],
+						"2"			: () => ["6A","6B","6C","7A"],
+						"_default"	: () => []
+					}
+
+					return (occupiedLt[segIdx] || occupiedLt["_default"])();
+				}
+				
+				for (var i=0; i<svcList.length; i++) {
+					svcAlphaApi		= $.extend(svcAlphaApi, window["comm"+capitalize(svcList[i])+"Api"]);
+				}
+				
+				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, jejuAlphaApi, jejuAlphaPtrn, {config: configObj, svcList: svcList, occupiedLt: getOccupiedLt(segIdx)});
+				_this.segCtls["seg"+segIdx+"AlphaCtl"].init();
+			},
+			// 여정탭변경
+			flyTabChange	: function(segIdx) {
+				var _this	= this;
+
+				var segCtl			= _this.getSegCtl(segIdx);
+				var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var isZoomIn		= seatMap.find(".seat_sheet").hasClass("scale");
+				var selMode			= seatMap.data("mode");
+				
+				// 좌석맵 css 초기화
+				commSeatDisp.getApplyTarget("seat", "seatMap").attr("style", "");
+			
+				// 다음버튼 css 초기화
+				$("[footerBtn=shift]").removeClass("active");
+				
+				// 가는편,오는편 슬라이드
+				if (segIdx == 1) {
+					$(".contents").removeClass("active");
+				} else {
+					$(".contents").addClass("active");
+				}
+				
+				var selSeat		= segCtl.config.PAX_INFO.paxList.some(function(item){ return item.selSeat });
+				var rcmndInfo	= segCtl.config.RCMND_INFO;
+				
+				if (isZoomIn) {
+					$(".header_txt_btn").show();
+					seatMap.attr("style", "height: 100%; margin-bottom: 100px;");
+					$(".demo_popup1").hide();
+					$(".ags-summary").show();
+				} else {
+					$(".header_txt_btn").hide();
+					seatMap.css("height", $("header").height() + seatMap.find(".seat_sheet").height()*0.3 + seatMap.find(".airplane_loca > div:last").height()+"px");
+					$(".demo_popup1").show();
+					$(".ags-summary").hide();
+				}
+				
+				if (selSeat) {
+					$("[footerBtn=shift]").addClass("active");
+				}
+				
+				// 버튼처리
+				switch (selMode) {
+					case "rcmnd"	:
+						$("[autoRcmndBtn]").parent().hide();
+						$("[assignRcmndBtn]").parent().hide();
+						break;
+					case "assign"	:
+						if (segCtl.config.RCMND_INFO.length > 0) {
+							$("[autoRcmndBtn]").parent().show();
+						}
+						$("[assignRcmndBtn]").parent().hide();
+						break;
+					case "each"	:
+						if (segCtl.config.ASSIGN_INFO.length > 0) {
+							$("[assignRcmndBtn]").parent().show();
+						} 
+						else if (segCtl.config.RCMND_INFO.length > 0) {
+							$("[autoRcmndBtn]").parent().show();
+						}
+						else {
+							$("[autoRcmndBtn]").parent().hide();
+						}
+						break;
+				}
+
+				_this.onClosePopup();
+				
+				commSeatDisp.getApplyTarget("purchase", "[paxCnt]").text(segCtl.config.PAX_INFO.paxList.length);
+				commSeatDisp.getApplyTarget("purchase", "[flyInfo="+segIdx+"]").siblings().removeClass("active");
+				commSeatDisp.getApplyTarget("purchase", "[flyInfo="+segIdx+"]").addClass("active");
+				
+// 				$(".ags-foods-group").removeClass("active");
+			},
+			// 프리뷰 확대	
+			previewZoomIn	: function(segIdx, seatNo, areaCd) {
+				var _this	= this;
+				
+				var segCtl			= _this.getSegCtl(segIdx);
+				var seatList		= segCtl.config.SEAT_INFO.seatList;
+				var autoRcmndList	= segCtl.config.RCMND_INFO;
+				var seatMapEl		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var selMode			= seatMapEl.data("mode");
+				
+				var seatMapEl		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var seatInfo		= seatList.filter((e) => e.seatNo == seatNo)[0];
+				var prevRowSeat		= seatList.filter((e) => e.rowIdx == seatInfo.rowIdx-1)[0];
+				
+				var rcmndInfo		= autoRcmndList.filter(function(item){ return item.gradeCd == areaCd })[0];
+				
+				var windowHght		= $(window).height();
+				var scrollTop		= $(window).scrollTop();
+				var headerHght		= $("header").height();
+				
+				var seatSheetEl		= seatMapEl.find(".seat_sheet");
+				var seatMapHght		= seatSheetEl.height();
+				var seatMapTop		= Number(seatSheetEl.css("top").replace("px",""));
+				var targetSeatEl	= (prevRowSeat) ? seatMapEl.find("[seatno="+prevRowSeat.seatNo+"]") : seatMapEl.find("[seatno="+seatInfo.seatNo+"]");
+				var targetTop		= (targetSeatEl.position().top/0.3);
+				
+				var maxTop			= (-seatMapTop+seatMapHght)-(windowHght+headerHght);
+				var zoomInTop		= (targetTop < maxTop) ? -(seatMapTop+targetTop-scrollTop) : -(seatMapTop+maxTop-scrollTop-27);
+				
+				$(".demo_popup1").hide();
+				$(".ags-summary").show();
+				
+				// 좌석맵 확대
+				seatMapEl.attr("style", "height: 100%; margin-bottom: 100px;");
+				seatSheetEl.addClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(1,0,0,1,0,"+zoomInTop+")", "-webkit-transform": "matrix(1,0,0,1,0,"+zoomInTop+")"}).siblings().hide();
+				seatSheetEl.find("[seatno]:not(.childseatno) > span").removeClass("blind_box");
+				seatMapEl.parent().find(".cscenter").css("visibility", "visible");
+				
+				_this.onScreenLock();
+
+				// zoomIn end
+				seatSheetEl.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function() {
+					seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
+
+					_this.onScreenUnLock();
+					
+					var seatMapPosTop	= seatSheetEl.position().top;
+					var htmlScrollTop	= $("html").scrollTop();
+					var borderHtml		= [];
+					
+					for (var i=0; i<autoRcmndList.length; i++) {
+						borderHtml.push(commSeatDisp.getRcmndBorderHtml(segIdx, autoRcmndList[i], i));
+					}
+					
+					
+					if (_this.rollInterval) {
+						clearInterval(_this.rollInterval);
+					}
+								
+					
+					seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s", "transform": "matrix(1,0,0,1,0,0)", "-webkit-transform": "matrix(1,0,0,1,0,0)", "top": "0px"});
+					$("html").scrollTop(Math.abs(seatMapPosTop-htmlScrollTop)+10);
+					commSeatDisp.getApplyTarget("purchase", ".header_txt_btn").fadeIn();
+					
+					// rcmnd boarder
+					if (selMode == "rcmnd") {
+						commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html(borderHtml.join(""));
+					}
+
+					if (selMode == "each") {
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+					}
+					
+					
+					var radarHtml	= [];
+					
+					// 레이더
+					for (var i=0; i<autoRcmndList.length; i++) {
+						var autoRcmnd	= autoRcmndList[i];
+						var lastSeat	= autoRcmnd.findPtrn[autoRcmnd.findPtrn.length-1];
+						var seatEl		= seatMapEl.find("[seatno="+lastSeat.seatNo+"]");
+
+						var radarTop	= seatEl.position().top+seatEl.height()-15;
+						var radarLeft	= seatEl.position().left+seatEl.width()-20;
+						var onclick		= "apiCtl.onRcmndSeatClick('"+segIdx+"', '"+autoRcmnd.gradeCd+"', '"+autoRcmnd.rank+"', 'sel');";
+						
+						radarHtml.push('<div class="finger" onclick="'+onclick+'" style="top: '+radarTop+'px; left: '+radarLeft+'px;"></div>');
+					}
+					
+					seatMapEl.find("[rcmndBtn]").html(radarHtml.join("")).show();
+				});
+			},
+			// 프리뷰 축소
+			previewZoomOut	: function(segIdx) {
+				var _this	= this;
+				
+				var segCtl		= _this.getSegCtl(segIdx);
+				var seatList	= segCtl.config.SEAT_INFO.seatList;
+				
+				var seatMapEl	= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var seatSheetEl	= seatMapEl.find(".seat_sheet");
+				var selMode		= seatMapEl.data("mode");
+				
+				clearInterval(_this.rollInterval);
+				
+				seatMapEl.attr("style", "");
+				seatMapEl.find(".finger").hide();
+// 				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+				seatSheetEl.removeClass("scale").attr("style","");
+				seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
+				
+				// zoomOut end
+				seatSheetEl.off().on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (e) => {
+					if ($(e.target).hasClass("seat_active")) {
+						return;
+					}
+
+					seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
+					seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
+					seatSheetEl.find("[seatno]:not(.childseatno) > span").addClass("blind_box");
+					seatSheetEl.siblings().fadeIn();
+					commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html("");
+					
+					if (selMode != "rcmnd") {
+						commSeatDisp.getApplyTarget("seat", "autoRcmndMark", segIdx).hide();
+					}
+					
+					$(".demo_popup1").show();
+					$(".ags-summary").hide();
+				})
+				
+				commSeatDisp.getApplyTarget("purchase", ".header_txt_btn").hide();
+			},
+			// 좌석구매 초기화 
+			onSelSeatClean	: function(segIdx) {
+				var _this			= this;
+
+				var segCtl			= _this.getSegCtl(segIdx);
+				var paxInfo			= segCtl.config.PAX_INFO;
+				var paxList			= paxInfo.paxList;
+				
+				var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var selSeatMap		= commSeatDisp.getApplyTarget("popup", "selSeatMap", segIdx);
+				var selMode			= seatMap.data("mode");
+
+				// 반자동 좌석선택 effect clear
+				if (_this.effectInterval) {
+					clearInterval(_this.effectInterval);
+				}
+				
+				for (var i=0; i<paxList.length; i++) {
+					var currPax		= paxList[i];
+					var selSeat		= currPax.selSeat;
+
+					if (selSeat) {
+						seatMap.find("[seatno="+selSeat.seatNo+"]").removeClass("seat_active seat_active_pink").find("span").show();
+						segCtl.setSeatPurchsInfo("seat", currPax, null);
+					}
+				}
+
+				// 승객 좌석구매 초기화 
+				segCtl.setSeatPurchsInfo("rcmnd", paxInfo, null);
+				segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+				
+				_this.setContentsInfo(segIdx);
+				
+				$("[footerBtn=shift]").removeClass("active");
+			},
+			// 좌석맵 선택타입 변경
+			onSeatMapTypeChange	: function(segIdx, selMode) {
+				var _this		= this;
+				
+				var segCtl		= _this.getSegCtl(segIdx);
+				var paxCnt		= segCtl.config.PAX_INFO.paxList.length;
+				
+				var seatMap		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var isZoomIn	= seatMap.find(".seat_sheet").hasClass("scale");
+				
+				var borderHtml	= [];
+				
+				// 반자동 좌석선택 effect clear
+				if (_this.effectInterval) {
+					clearInterval(_this.effectInterval);
+				}
+				
+				seatMap.find("[semiCancBtn]").hide();
+				seatMap.data("mode", selMode);
+
+				// 좌석맵 변경
+				switch (selMode) {
+					case "rcmnd"	:
+						if (seatMap.find(".finger").attr("rcmnd") == "Y") {
+							seatMap.find(".finger").show();
+						}
+						
+						if (paxCnt <= 1) {
+							segCtl.setSeatDispInfo("seat", "basicSelt");
+						} else {
+							segCtl.setSeatDispInfo("seat", "semiRcmnd");
+						}
+						
+						segCtl.setSeatDispInfo("seat", "autoRcmnd");
+						commSeatDisp.getApplyTarget("seat", "basicSeltCancBtn", segIdx).hide();
+						
+						for (var i=0; i<segCtl.config.RCMND_INFO.length; i++) {
+							if (isZoomIn) {
+								borderHtml.push(commSeatDisp.getRcmndBorderHtml(segIdx, segCtl.config.RCMND_INFO[i], i));
+							}
+						}
+						
+						$("[autoRcmndBtn]").parent().hide();
+						$("[assignRcmndBtn]").parent().hide();
+						break;
+					case "assign"	:
+						segCtl.setSeatDispInfo("seat", "semiRcmnd");
+						
+						commSeatDisp.getApplyTarget("seat", "basicSeltCancBtn", segIdx).hide();
+						$("[assignRcmndBtn]").parent().hide();
+
+						if (segCtl.config.RCMND_INFO.length > 0) {
+							$("[autoRcmndBtn]").parent().show();
+						}
+						break;
+					case "each"	:
+						segCtl.setSeatDispInfo("seat", "basicSelt");
+						
+						commSeatDisp.getApplyTarget("seat", "basicSeltCancBtn", segIdx).show();
+						$("[autoRcmndBtn]").parent().hide();
+						
+						if (segCtl.config.ASSIGN_INFO.length > 0) {
+							$("[assignRcmndBtn]").parent().show();
+						} 
+						else if (segCtl.config.RCMND_INFO.length > 0) {
+							$("[autoRcmndBtn]").parent().show();
+						}
+						break;
+				}
+				
+				commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html(borderHtml.join(""));
+			},
+			// 자동추천 좌석 클릭
+			onRcmndSeatClick	: function(segIdx, gradeCd, rank, type) {
+				var _this 			= this;
+				var segCtl			= _this.getSegCtl(segIdx);
+				
+				var segInfo			= segCtl.config.SEG_INFO;
+				var paxList			= segCtl.config.PAX_INFO.paxList.filter((e) => !(e.airService && e.airService.seat && e.airService.seat.some((seat) => seat.segmentId == segInfo.segmentId)));
+				var rcmndList		= segCtl.config.RCMND_INFO;
+				var rcmndInfo		= rcmndList.filter(function(item){ return item.gradeCd == gradeCd && item.rank == rank })[0];
+				
+				var selRcmnd		= segCtl.config.PAX_INFO.selRcmnd;
+				var selSeatMap		= commSeatDisp.getApplyTarget("popup", "selSeatMap", segCtl.config.SEG_IDX);
+				
+				var emergCheck		= false;
+				var passCheck		= true;
+				
+				// 선택체크
+				if (selRcmnd && selRcmnd.gradeCd == gradeCd && selRcmnd.rank == rank) {
+					return;
+				}
+
+				// 유아동반 블락에 점유된 좌석이 있으면 안내
+				if (type == "sel" && typeof(segCtl.isValidInfantBlockNoti) == "function" && !segCtl.isValidInfantBlockNoti(null, rcmndInfo.findPtrn)) {
+					return;
+				}
+
+				// 비상구 우선배정 동의 체크
+				if (type == "sel" && typeof(segCtl.isValidEmergPrioritySeat) == "function" && segCtl.isValidEmergPrioritySeat(rcmndInfo.findPtrn)) {
+					passCheck	= false;
+					return;
+				}
+				
+				// 비상구동의 체크
+				if (type == "sel" && segCtl.isValidEmergAgree(rcmndInfo.findPtrn)) {
+					passCheck	= false;
+					emergCheck	= true;
+					return;
+				}
+
+				// 민트존 첫 열에 체크
+				if (type == "sel" && typeof(segCtl.isValidFRSeat) == "function" && segCtl.isValidFRSeat(rcmndInfo.findPtrn)) {
+					passCheck	= false;
+				}
+				
+				// 등받이좌석 체크
+				if (type == "sel" && typeof(segCtl.isValidZeroZoneSeat) == "function" && segCtl.isValidZeroZoneSeat(rcmndInfo.findPtrn)) {
+					passCheck	= false;
+				}
+
+				// 좌선선택 진행여부
+				if (!passCheck) {
+					return;
+				}
+				
+				// 구매,취소 처리
+				switch (type) {
+					case "sel"	:
+						// ### 자동추천좌석 구매 ###
+						segCtl.selAlphaSeat(rcmndInfo, "rcmnd");
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+						break;
+					case "seltd"	:
+						// ### 자동추천좌석 구매 ###
+						segCtl.selAlphaSeat(rcmndInfo, "rcmnd");
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+						break;
+					case "callback"	:
+						// ### 자동추천좌석 구매 ###
+						segCtl.selAlphaSeat(rcmndInfo, "rcmnd");
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+						break;
+					case "canc"	:
+						// ### 자동추천좌석 취소 ###
+						segCtl.cancAlphaSeat("rcmnd");
+						break;
+				}
+				
+				// 선택좌석 체크
+				var selCheck	= paxList.some(function(item){ return item.selSeat });
+
+				if (selCheck) {
+					$("[footerBtn]").addClass("active");
+				} else {
+					$("[footerBtn]").removeClass("active");
+				}
+				
+				_this.setContentsInfo(segIdx);
+			},
+			// 반자동추천 좌석 클릭
+			onAssignSeatClick	: function(segIdx, seatNo, type) {
+				var _this			= this;
+				var segCtl			= _this.getSegCtl(segIdx);
+				
+				var segInfo			= segCtl.config.SEG_INFO;
+				var paxList			= segCtl.config.PAX_INFO.paxList.filter((e) => !(e.airService && e.airService.seat && e.airService.seat.some((seat) => seat.segmentId == segInfo.segmentId)));
+
+				// 단체그룹 반자동 패턴추출
+				if (paxList.length > 9) {
+					segCtl.getGroupAssignFindPtrn(seatNo, paxList.length);
+				} 
+					
+				var assignInfo		= segCtl.config.ASSIGN_INFO.filter((e) => e.findPtrn.some((seat) => seat.seatNo == seatNo))[0];
+				var assignCntChk	= (assignInfo) ? ((assignInfo.findPtrn.length == paxList.length) ? true : false) : false;
+				
+				var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var selSeatMap		= commSeatDisp.getApplyTarget("popup", "selSeatMap", segIdx);
+				var selMode			= seatMap.data("mode");
+
+				var emergCheck		= false;
+				var passCheck		= true;
+				
+				// 모드확인
+				if (selMode != "assign") {
+					_this.onSeatMapTypeChange(segIdx, "assign");
+				}
+				
+				// 비상구 우선배정 동의 체크
+				if (type == "sel" && assignInfo && typeof(segCtl.isValidEmergPrioritySeat) == "function" && segCtl.isValidEmergPrioritySeat(assignInfo.findPtrn)) {
+					passCheck	= false;
+					return;
+				}
+				
+				// 비상구동의 체크
+				if (type == "sel" && assignInfo && segCtl.isValidEmergAgree(assignInfo.findPtrn)) {
+					passCheck	= false;
+					emergCheck	= true;
+					return;
+				}
+
+				// 유아동반 블락에 점유된 좌석이 있으면 안내
+				if (type == "sel" && assignInfo && typeof(segCtl.isValidInfantBlockNoti) == "function" && !segCtl.isValidInfantBlockNoti(null, assignInfo.findPtrn)) {
+					return;
+				}
+				
+				// 민트존 첫 열에 체크
+				if (type == "sel" && assignInfo && typeof(segCtl.isValidFRSeat) == "function" && segCtl.isValidFRSeat(assignInfo.findPtrn)) {
+					passCheck	= false;
+				}
+				
+				// 등받이좌석 체크
+				if (type == "sel" && assignInfo && typeof(segCtl.isValidZeroZoneSeat) == "function" && segCtl.isValidZeroZoneSeat(assignInfo.findPtrn)) {
+					passCheck	= false;
+				} 
+				
+				// 좌선선택 진행여부
+				if (!passCheck) {
+					return;
+				}
+				
+				// 구매,취소 처리
+				switch (type) {
+					case "sel"	:
+						// ### 반자동추천 구매 ###
+						if (assignInfo && assignCntChk) {
+							segCtl.selAlphaSeat(assignInfo, "assign");
+							commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html(commSeatDisp.getRcmndBorderHtml(segIdx, assignInfo));
+							
+							_this.onAssignSelSeatEffect(segIdx, seatNo);
+						} 
+						// ### 단체 반자동추천 구매 ### 
+						else if (assignInfo && !assignCntChk) {
+							$("[popup-type=groupAssignChangeNoti]").find("[assign-cnt]").text(assignInfo.findPtrn.length+"자리");
+							_this.onOpenPopup("groupAssignChangeNoti").then(function(data){
+								if (data == "keep") {
+									segCtl.selAlphaSeat(assignInfo, "each");
+									segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+
+									_this.onSeatMapTypeChange(segIdx, "each");
+								}
+								
+								_this.onClosePopup("groupAssignChangeNoti");
+							})
+						}
+						else {
+							_this.onOpenPopup("assignEmptyChangeNoti").then(function(data){
+								if (data == "canc") {
+									_this.onSelSeatClean(segIdx);
+									_this.onSeatMapTypeChange(segIdx, "each");
+									_this.onEachSeatClick(segIdx, seatNo, "sel");
+								}
+								
+								_this.onClosePopup("assignEmptyChangeNoti");
+							})
+						}
+						break;
+					case "seltd"	:
+						// ### 반자동추천 구매 ###
+						if (assignInfo && assignCntChk) {
+							segCtl.selAlphaSeat(assignInfo, "assign");
+
+							commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html(commSeatDisp.getRcmndBorderHtml(segIdx, assignInfo));
+							_this.onAssignSelSeatEffect(segIdx, seatNo);
+						} 
+						break;
+					case "callback"	:
+						// ### 반자동추천 구매 ###
+						if (assignInfo && assignCntChk) {
+							segCtl.selAlphaSeat(assignInfo, "assign");
+							commSeatDisp.getApplyTarget("seat", "rcmndBorder", segIdx).html(commSeatDisp.getRcmndBorderHtml(segIdx, assignInfo));
+							
+							_this.onAssignSelSeatEffect(segIdx, seatNo);
+						} 
+						// ### 단체 반자동추천 구매 ### 
+						else if (assignInfo && !assignCntChk) {
+							$("[popup-type=groupAssignChangeNoti]").find("[assign-cnt]").text(assignInfo.findPtrn.length+"자리");
+							_this.onOpenPopup("groupAssignChangeNoti").then(function(data){
+								if (data == "keep") {
+									segCtl.selAlphaSeat(assignInfo, "each");
+									segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+
+									_this.onSeatMapTypeChange(segIdx, "each");
+								}
+								
+								_this.onClosePopup("groupAssignChangeNoti");
+							})
+						}
+						else {
+							_this.onOpenPopup("assignEmptyChangeNoti").then(function(data){
+								if (data == "canc") {
+									_this.onSelSeatClean(segIdx);
+									_this.onSeatMapTypeChange(segIdx, "each");
+									_this.onEachSeatClick(segIdx, seatNo, "sel");
+								}
+								
+								_this.onClosePopup("assignEmptyChangeNoti");
+							})
+						}
+						break;
+				}
+				
+				// 선택좌석 체크
+				var selCheck	= paxList.some(function(item){ return item.selSeat });
+
+				if (selCheck) {
+					$("[footerBtn=shift]").addClass("active");
+				} else {
+					$("[footerBtn=shift]").removeClass("active");
+				}
+				
+				_this.setContentsInfo(segIdx);
+			},
+			// 수동추천 좌석 효과
+			onAssignSelSeatEffect	: function(segIdx, seatNo) {
+				var _this		= this;
+				var segCtl		= _this.getSegCtl(segIdx);
+				
+				// 반자동 좌석선택 clear
+				if (_this.effectInterval) {
+					clearInterval(_this.effectInterval);
+				}
+				
+				var segInfo		= segCtl.config.SEG_INFO;
+				var paxList		= segCtl.config.PAX_INFO.paxList.filter((e) => !(e.airService && e.airService.seat && e.airService.seat.some((seat) => seat.segmentId == segInfo.segmentId))); 
+				var seatObj		= segCtl.config.SEAT_INFO.seatObj;
+				var seatList	= paxList.map(function(item){ return item.selSeat });
+
+				var rowArr		= seatList.map(function(item){ return {row: item.row, rowIdx: item.rowIdx} });
+				var rowArrSort	= rowArr.sort(function(a, b){ return a.rowIdx - b.rowIdx }).map(function(item){ return item.row });
+				var duplRowArr	= rowArrSort.filter(function(item, idx, self){ return self.indexOf(item) == idx });
+				
+				var seatMap		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var effectList	= [];
+				var intervalCnt	= 0;
+				
+				for (var i=0; i<duplRowArr.length; i++) {
+					var row			= duplRowArr[i];
+					var rowSeatList	= seatList.filter(function(item){ return item.row == row }).sort(function(a, b){ return a.colIdx - b.colIdx });
+
+					for (var j=0; j<rowSeatList.length; j++) {
+						effectList.push(rowSeatList[j].seatNo);
+					}
+				}
+
+				// 자동추천 x버튼 초기화
+				seatMap.find("[semiCancBtn]").html("").show();
+
+				// // 자동추천 전체취소 x버튼
+				var fstRowSeat		= seatList.filter(function(item){ return item.row == duplRowArr[0] }).sort(function(a, b){ return a.colIdx - b.colIdx });
+				var strdSeatEl		= seatMap.find("[seatno="+fstRowSeat[fstRowSeat.length-1].seatNo+"]");
+				
+				var semiAutoBtnSt	= "top:"+(strdSeatEl.position().top-12)+"px; left:"+(strdSeatEl.position().left+strdSeatEl.width()-9)+"px";	
+				var multiCanc		= "apiCtl.onSelSeatClean("+segIdx+"); apiCtl.onSeatMapTypeChange("+segIdx+", 'each');";
+				
+				seatMap.find("[semiCancBtn]").append('<div class="xx_rader oran" style="'+semiAutoBtnSt+'" onclick="'+multiCanc+'">x버튼</div>')
+				
+				// 좌석선택 효과
+				_this.effectInterval	= setInterval(function(){
+					if (effectList.length <= intervalCnt) {
+						clearInterval(_this.effectInterval);
+						return;
+					}
+					
+					var seatNo		= effectList[intervalCnt];
+					var seatEl		= seatMap.find("[seatno="+seatNo+"]");
+					var paxInfo		= paxList.filter((e) => e.selSeat && e.selSeat.seatNo == seatNo)[0];
+					
+					var btnStyle	= "top:"+(seatEl.position().top-12)+"px; left:"+(seatEl.position().left-9)+"px";	
+					var cancClick	= "apiCtl.onEachSeatClick('"+segIdx+"', '"+seatNo+"', 'canc', '"+paxInfo.rph+"')";
+					
+					seatMap.find("[semiCancBtn]").append('<div class="xx_rader middle" canc-seatno="'+seatNo+'" style="'+btnStyle+'" onclick="'+cancClick+'">x버튼</div>');
+					
+					seatEl.addClass("seat_active").find("span").hide();
+					intervalCnt++;
+				}, 150);
+			},
+			// 개별선택 좌석 클릭
+			onEachSeatClick	: function(segIdx, seatNo, type, paxRph) {
+				var _this	 		= this;
+				var segCtl			= _this.getSegCtl(segIdx);
+				
+				var segInfo			= segCtl.config.SEG_INFO;
+				var paxList			= segCtl.config.PAX_INFO.paxList.filter((e) => !(e.airService && e.airService.seat && e.airService.seat.some((seat) => seat.segmentId == segInfo.segmentId)));
+				var seatList		= segCtl.config.SEAT_INFO.seatList;
+				
+				var isSelSeat		= paxList.every(function(item){ return item.selSeat });
+				var seatInfo		= seatList.filter(function(item){ return item.seatNo == seatNo })[0];
+				
+				var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+				var selSeatMap		= commSeatDisp.getApplyTarget("popup", "selSeatMap", segIdx);
+				var selMode			= seatMap.data("mode");
+
+				var emergCheck		= false;
+				var passCheck		= true;
+				
+				// 1인승객은 좌석 초기화
+				if (paxList.length == 1) {
+					_this.onSelSeatClean(segIdx);
+					_this.onSeatMapTypeChange(segIdx, "each");
+				}
+				
+				var adtPaxList		= paxList.filter(function(item){ return (item.paxType == "ADT" && item.guardianYn != "Y" && !item.selSeat) });
+				var checkedPax		= $(".footer_contents :checkbox[name=footerDtPaxGrp"+segIdx+"]:checked");
+				var paxInfo			= {};
+				
+				if (paxRph) {
+					paxInfo			= paxList.filter(function(item){ return item.rph == paxRph })[0];
+				} else {
+					if (checkedPax.length > 0) {
+						paxInfo		= paxList.filter(function(item){ return item.rph == checkedPax.attr("paxrph") })[0];
+					} else {
+						paxInfo		= (adtPaxList.length > 0) ? adtPaxList[0] : paxList.filter(function(item){ return !item.selSeat })[0];
+					}
+				}
+
+				// 모든승객 구매체크
+				if (type == "sel" && checkedPax.length <= 0 && isSelSeat && paxList.length > 1) {
+					return;
+				}
+
+				// 유아동반 비상구좌석 체크
+				if (type == "sel" && !segCtl.isValidInfantEmerg(paxInfo, seatInfo)) {
+					return;
+				}
+
+				// 유아동반 노마스크좌석 체크
+				if (type == "sel" && typeof(segCtl.isValidInfantNoMask) == "function" && !segCtl.isValidInfantNoMask(paxInfo, seatInfo)) {
+					return;
+				}
+				
+				// 유아동반 블락 체크
+				if (type == "sel" && !segCtl.isValidInfantBlock(paxInfo, seatInfo)) {
+					return;
+				}
+
+				// 유아동반 Row 체크
+				if (type == "sel" && !segCtl.isValidInfantRow(paxInfo, seatInfo)) {
+					return;
+				}
+				
+				// 소아 비상구좌석 체크
+				if (type == "sel" && !segCtl.isValidChildEmerg(paxInfo, seatInfo)) {
+					return;
+				}
+
+				// 소아 성인동반 체크
+				// ->2025-06-10 valid pass처리(무조건 true)
+				if (type == "sel" && !segCtl.isValidChildGuardian(paxInfo, seatInfo)) {
+					return;
+				}
+
+				// 유아동반승객 선택좌석 블락에 점유좌석체크
+				if (type == "sel" && typeof(segCtl.isValidInfantBlockNoti) == "function" && !segCtl.isValidInfantBlockNoti(paxInfo, new Array(seatInfo))) {
+					return;
+				}
+				
+				// 비상구 우선배정 체크
+				if (type == "sel" && typeof(segCtl.isValidEmergPrioritySeat) == "function" && segCtl.isValidEmergPrioritySeat(new Array(seatInfo))) {
+					passCheck	= false;
+					return;
+				}
+				
+				// 비상구동의 체크
+				if (type == "sel" && segCtl.isValidEmergAgree(new Array(seatInfo))) {
+					passCheck	= false;
+					emergCheck	= true;
+					return;
+				}
+
+				// 민트존 첫 열에 체크
+				if (type == "sel" && typeof(segCtl.isValidFRSeat) == "function" && segCtl.isValidFRSeat(new Array(seatInfo))) {
+					passCheck	= false;
+				}
+				
+				// 등받이좌석 체크
+				if (type == "sel" && typeof(segCtl.isValidZeroZoneSeat) == "function" && segCtl.isValidZeroZoneSeat(new Array(seatInfo))) {
+					passCheck	= false;
+				}
+
+				// 좌선선택 진행여부
+				if (!passCheck) {
+					return;
+				}
+				
+				// 모드확인
+				if (selMode != "each") {
+					_this.onSeatMapTypeChange(segIdx, "each");
+				}
+				
+				// 선택확정 초기화
+// 				selSeatMap.hide().html("");
+// 				segCtl.config.PAX_INFO.selComplete	= false;
+				
+				if (paxInfo.selSeat) {
+					segCtl.cancSeat(paxInfo, paxInfo.selSeat, "each");
+				}
+				
+				// 구매,취소 처리
+				switch (type) {
+					case "sel"	:
+						// ### 개별선택좌석 구매 ###
+						segCtl.selSeat(paxInfo, seatInfo, "each");
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+						break;
+					case "seltd"	:
+						// ### 개별선택좌석 구매 ###
+						segCtl.selSeat(paxInfo, seatInfo, "each");
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+						break;
+					case "callback"	:
+						// ### 개별선택좌석 구매 ###
+						segCtl.selSeat(paxInfo, seatInfo, "each");
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+						break;
+					case "canc"	:
+						// ### 개별선택좌석 취소 ###
+						segCtl.cancSeat(paxInfo, seatInfo, "each");
+						segCtl.setSeatDispInfo("seat", "basicSeltCancBtn");
+						break;
+				}
+				
+				// 선택좌석 체크
+				var selCheck	= paxList.some(function(item){ return item.selSeat });
+				var selSeatList	= paxList.filter(function(item){ return item.selSeat }).map(function(item){ return item.selSeat });
+				
+				for (var i=0; i<selSeatList.length; i++) {
+					seatMap.find("[seatno="+selSeatList[i].seatNo+"]").removeClass("seat_active_pink").addClass("seat_active");
+				}
+				
+				if (selCheck) {
+					$("[footerBtn=shift]").addClass("active");
+				} else {
+					$("[footerBtn=shift]").removeClass("active");
+				}
+				
+				_this.setContentsInfo(segIdx);
+			},
+			// 서비스 선택반영
+			setContentsInfo	: function(segIdx) {
+				var _this	= this;
+				
+				var segCtl		= _this.getSegCtl(segIdx);
+				var totalCharge	= Object.values(_this.segCtls).reduce(function(acc,cur){
+					var selCnt		= cur.config.PAX_INFO.paxList.filter((e) => e.selSeat).length;
+					return acc+(selCnt > 0 ? selCnt*5000 : 0)
+				},0);
+				
+				if (totalCharge > 0) {
+// 					$(".demo_gnb_menu1 .blue_text > span").css("visibility","visible").text(totalCharge.comma()+" 절약");
+// 					$(".foot_align .btf_a_txt > span").css("visibility","visible").text("KRW "+totalCharge.comma());
+				} else {
+// 					$(".demo_gnb_menu1 .blue_text > span").css("visibility","hidden");
+// 					$(".foot_align .btf_a_txt > span").css("visibility","hidden");
+				}
+				
+			},
+			// 팝업open
+			onOpenPopup	: function(popupType) {
+				var _this		= this;
+				
+				var popup		= $("[popup-type="+popupType+"]");
+				var dimmed		= popup.find(".dimmed"); 
+				
+				var deferred	= $.Deferred();
+				
+				if (popup.length > 0) {
+					// dimmed 개수 확인 후 추가
+					if (dimmed.length == 0) {
+						popup.prepend('<div class="dimmed" style="display:block; height:'+$("body").get(0).scrollHeight+'px"/>');
+					} else {
+						dimmed.css({"display":"block", "height": $("body").get(0).scrollHeight});
+					}
+					
+					popup.find(".btn_close_popup, .btn_close_popup_x").off("click").on("click", function() {
+						_this.onClosePopup(popupType);
+					});
+					
+					popup.find("[callbackBtn]").off("click").on("click", function() {
+						deferred.resolve($(this).attr("callbackBtn"));
+					});
+					
+					popup.fadeIn();
+				}
+				
+				return deferred;
+			},
+			// 팝업close
+			onClosePopup	: function(popupType) {
+				var popup		= popupType ? $("[popup-type="+popupType+"]") : $("[popup-type]");
+
+				if (popup.length > 0) {
+					popup.fadeOut(300);
+					popup.find(".dimmed_bg").css("display","none");
+				}
+			},
+			// 화면 Lock
+			onScreenLock	: function() {
+				$(".dimmed_transparent_bg").css({"display": "block", "height": $("body").get(0).scrollHeight});			
+			},
+			// 화면 UnLock
+			onScreenUnLock	: function() {
+				$(".dimmed_transparent_bg").css("display", "none");
+			},
+			// 여정객체
+			getSegCtl	: function(segIdx) {
+				var _this	= this;
+				var segCtl	= _this.segCtls["seg"+segIdx+"AlphaCtl"];
+
+				return segCtl;
+			}
+		}
+		
+		// 여정리스트 클릭
+		$(document).on("click", ".select_boxbtn > div", function(e){
+			var segIdx		= $(this).attr("flyInfo");
+			var isActive	= $(this).hasClass("active");
+			
+			if (isActive) {
+				return;
+			}
+			
+			apiCtl.flyTabChange(segIdx);
+			$(".btn_foods_close").trigger("click");
+			e.stopPropagation();
+		});
+		
+		// 전체좌석 클릭
+		$(document).on("click", ".header_txt_btn", function(e){
+			var segIdx	= $(".select_boxbtn > div.active").attr("flyInfo");
+			
+			apiCtl.previewZoomOut(segIdx);
+		});
+		
+		// 프리뷰 클릭
+		$(document).on("click", ".seat_sheet_recom_box a", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			var seatMap		= $("[seatMap="+segIdx+"]");
+			
+			var segCtl		= apiCtl.getSegCtl(segIdx);
+			var seatList	= segCtl.config.SEAT_INFO.seatList;
+			
+			var scrollTop	= $(window).scrollTop();
+			var clientY		= e.clientY;
+			var rank		= e.rank;
+			
+			var areaCd		= $(e.target).attr("areacd");
+			var areaNm		= $(e.target).attr("areanm");
+			
+			for (var i=0; i<seatList.length; i++) {
+				var seatNo		= seatList[i].seatNo;
+				var top			= seatMap.find("[seatno="+seatNo+"]").offset().top;
+				var height		= seatMap.find("[seatno="+seatNo+"]").height();
+				
+				if (scrollTop+clientY < (top+height-15)) {
+					apiCtl.previewZoomIn(segIdx, seatNo, areaCd);
+					break;
+				}
+			}
+			
+			e.stopPropagation();
+		});
+		
+		// AI추천 돌아가기
+		$(document).on("click", "[autoRcmndBtn]", function() {
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			var segCtl		= apiCtl.getSegCtl(segIdx);
+			
+			var seatMap		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+			var isZoomIn	= seatMap.find(".seat_sheet").hasClass("scale");
+			var selMode		= seatMap.data("mode");
+
+			if (!isZoomIn) {
+				commSeatDisp.getApplyTarget("seat", "autoRcmndMark", segIdx).show();
+			} else {
+				commSeatDisp.getApplyTarget("seat", "autoRcmndMark", segIdx).hide();
+			}
+			
+			apiCtl.onSelSeatClean(segIdx);
+			apiCtl.onSeatMapTypeChange(segIdx, "rcmnd");
+		});
+		
+		// 자동선택 돌아가기
+		$(document).on("click", "[assignRcmndBtn]", function() {
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			var segCtl		= apiCtl.getSegCtl(segIdx);
+			
+			var seatMap		= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
+			var selMode		= seatMap.data("mode");
+
+			apiCtl.onSelSeatClean(segIdx);
+			apiCtl.onSeatMapTypeChange(segIdx, "assign");
+		});
+		
+		// 다음버튼 클릭
+		$(document).on("click", "[footerBtn=shift]", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+			var segCtl		= apiCtl.getSegCtl(segIdx);
+			var paxInfo		= segCtl.config.PAX_INFO;
+			var isSelSeat	= paxInfo.paxList.some(function(item){ return item.selSeat }); 
+			
+			// 선택확정 체크
+			if (!isSelSeat) {
+				return;
+			}
+			
+			if (segIdx == 1) {
+				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg2").show();
+			} else {
+				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg2").show();
+			}
+			
+			$(".footer-first-pop").addClass("active");
+			$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
+			$("body").css("overflow", "hidden");
+			$("html").css("overflow", "hidden");
+			
+			e.stopPropagation();
+		});
+		
+		
+		// 선택완료 > 다음버튼 클릭
+		$(document).on("click", ".footer-first .pay_pay_footer", function(e){
+			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+
+			if (segIdx == 1) {
+				apiCtl.flyTabChange(2);
+			} else {
+				window.location.href = "service_baggage.html";
+			}
+		});
+		
+		
+	</script>
+
+	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
+		<div class="loadinggif">
+			<!-- container -->
+			<div class="rader_popup"></div>
+			<div class="load_popup"></div>
+			<!-- //container -->
+		</div>
+	</article>
+</body>
+
+</html>
