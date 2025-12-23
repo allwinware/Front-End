@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko" style="overflow: hidden;">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-3.4.1.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script>
+			function play() {
+					const audio = document.getElementById("audio_play");
+					audio.pause();
+					audio.currentTime = 0;
+					audio.play();
+				}
+
+				document.addEventListener("click", function(e) {
+				const soundBtn = e.target.closest(".sound-btn");
+				if (soundBtn) {
+					play();
+				}
+				});
+		</script>
+</head>
+
+<body style="overflow: hidden;">
+	<audio id="audio_play" src="./resource/mouse.mp3"></audio>
+	<div class="dimmed_bgs" ></div>
+	<div class="ags-wrap newui food demos sound-btn">
+		<h1 class="site-name">올윈에어</h1>
+		<div class="dimmed_bg" style="display: none;"></div>
+		<header>
+			<div class="tway_sun"></div>
+			<div class="ags-header">
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="ags-header-logo"></div>				
+			</div>
+			<div class="gnb_menu">
+				<div class="demo_gnb_menu2_4"></div>
+				<div class="demo_gnb_menu3">
+					<div onclick="window.location.href='index.html';" >좌석</div>
+					<div onclick="window.location.href='service_baggage.html';" >수하물</div>
+					<div onclick="window.location.href='service_food.html';" >기내식</div>
+					<div onclick="window.location.href='service_insurance.html';" class="blue_text">여행보험</div>
+				</div>
+			</div>
+		</header>
+		<div class="contents insurnewui" >
+			
+			<div class="jj_insure1"></div>
+
+
+		</div>
+
+		<!--하단내용--------------------------------------------->
+
+		<div class="ags-summary " style="height: 112px;">
+
+			<div class="jj_bottom_btn1">
+				<div>여행자 보험이 필요없으신가요?</div>
+				<div onclick="window.location.href='index_mrt13.html';">건너뛰기</div>
+			</div>
+			<div class="jj_bottom_num">
+				<div>총 결제 금액</div>
+				<div>1,174,450원 <i class="jj_bottom_num_icon"></i></div>
+			</div>
+			<div class="pay_pay_footer close_btn_1">					
+				<a href="#none">다음</a>					
+			</div>
+		</div>
+	<!----------------------------------------------->
+		<div class="ags_bags_contents" >
+			<div class="scroll_btn" style="display: none;">
+				<a href="#none" class="btn_bags_open">골프여행이신가요?</a>
+			</div>
+			<div class="bags_contents_group">
+				<a class="btn_bags_close">Close</a>
+				<div class="bagss_golf">
+					<div class="bd_golf">
+						<div class="ccd_man3"></div>
+					</div>
+					<div class="bd_golf">
+						<div class="ccd_man4"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!--버튼 1개 맨 밑-->
+	<div class="pay_pay newui" style="display: none;">
+		<button type="button" class="">결제하기</button>
+	</div>
+	<!--버튼 2개 맨 밑-->
+	<div class="pay_pay newui" style="display: none;">
+		<button type="button" class="pay_ment_btn1">건너띄기</button>
+		<!--opnge 빼면 그레이색-->
+		<button type="button" class="pay_ment_btn2 opnge">가는편 메뉴 선택</button>
+	</div>
+
+<script>
+
+String.prototype.comma = Number.prototype.comma = function() {
+	var n = String(this).replace(/\,/g,'');
+	return n.match(RegExp('^[0-9]{'+(n.length%3||3)+'}|[0-9]{3}','g'));
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+	const runCounter = () => {
+		let num = 1;
+		let counter = document.getElementById("counter0");
+
+		// counter 요소가 있을 때만 실행
+		if (!counter) {
+			console.log('counter0 요소를 찾을 수 없습니다.');
+			return;
+		}
+
+		let interval = setInterval(() => {
+			counter.textContent = String(num).padStart(2, "0");
+			num++;
+			if (num > 28) {
+				clearInterval(interval);
+				setTimeout(runCounter, 3000);
+			}
+		}, 50);
+	};
+
+	runCounter();
+});
+
+
+// 여정탭이동
+$(document).on("click", "#ags-wrap, #ags-wrap-back", function() {
+	var segIdx		= $(this).parent().attr("flyInfo");
+
+	// 다음버튼 css 초기화
+	$("[footerBtn=shift]").removeClass("active");
+
+	var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+
+	if (curSegQty > 0) {
+		$("[footerBtn=shift]").addClass("active");
+	} else {
+		$("[footerBtn=shift]").removeClass("active");
+	}
+});
+
+
+// 수하물 선택
+$(document).on("click", ".slider_box_line .demos_boxs", function () {
+	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+
+	// 문구설정
+	$(this).siblings().get().forEach((cur,idx) => {
+		$(cur).find(".demos_boxs_tx3").text($(cur).find(".demos_boxs_tx3").data("msg") || "");
+	});
+
+	var actQty		= Number($(this).attr("qty"));
+	var actWgt		= $(this).find(".demos_boxs_tx1").text();
+	var actQtyLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty")).get().map((e) => $(e).data("qty")).filter((item, idx, self) => self.indexOf(item) == idx);
+
+	$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+
+	if (actQtyLt.length == 1) {
+		var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
+		var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == actQty).length;
+
+		if (boxLt == actBoxLt) {
+			$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
+		} else {
+			$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+		}
+	}
+
+	//if (actQty) {
+	//	$(this).find(".demos_boxs_tx3").text("공항보다 "+(actQty*25000).comma()+"절약");
+	//}
+
+	$("[segIdx="+segIdx+"] .bag_txt_same").show().find(".blue_text").text(actWgt);
+});
+
+
+// 통일하기
+$(document).on("click", ".bag_txt_same :checkbox", function () {
+	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
+
+	if (actBag.length <= 0) {
+		alert("먼저 위에서 수하물 옵션을 선택해주세요.");
+		return;
+	}
+
+	var isChecked	= $(this).is(":checked");
+
+	if (isChecked) {
+		$("[segIdx="+segIdx+"] .bag_slider_boxbox .bag_slider_name_box_2").trigger("click");
+	} else {
+		$("[segIdx="+segIdx+"] .bag_slider_boxbox .bag_slider_name_box_2_1").trigger("click");
+	}
+});
+
+
+// 추가하기
+$(document).on("click", ".bag_slider_boxbox .bag_slider_name_box_2", function () {
+	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+	var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
+
+	if (actBag.length <= 0) {
+		alert("먼저 위에서 수하물 옵션을 선택해주세요.");
+		return;
+	}
+
+	var atcBagQty	= Number($(actBag).attr("qty"));
+	var actBagTxt	= $(actBag).find(".demos_boxs_tx1").text()+"("+$(actBag).find(".demos_boxs_tx2").text()+")";
+
+	$(this).hide().data("qty", atcBagQty);
+	$(this).next("").html('<div class="bag_slider_name_box_2_1_txt">'+actBagTxt+'</div><div class="bag_slider_name_box_2_1_img"></div>').show();
+
+	var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+	var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+
+	$(".demo_gnb_menu1 .blue_text > span").text((actQty*25000).comma()+" 절약");
+	$(".foot_align .btf_a_txt > span").text("누적 KRW "+(Number(saving)+(actQty*25000)).comma()+" 절약중");
+
+	if (actQty > 0) {
+		$(".demo_gnb_menu1 .blue_text > span").show();
+	}
+
+	var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+
+	if (curSegQty > 0) {
+		$("[footerBtn=shift]").addClass("active");
+	} else {
+		$("[footerBtn=shift]").removeClass("active");
+	}
+
+	var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
+	var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == atcBagQty).length;
+
+	if (boxLt == actBoxLt) {
+		$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
+	} else {
+		$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+	}
+});
+
+
+// 추가하기 취소
+$(document).on("click", ".bag_slider_boxbox .bag_slider_name_box_2_1", function () {
+	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+
+	$(this).html("").hide();
+	$(this).prev().data("qty", null).show();
+
+	var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+	var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+
+	$(".demo_gnb_menu1 .blue_text > span").text((actQty*25000).comma()+" 절약");
+	$(".foot_align .btf_a_txt > span").text("누적 KRW "+(Number(saving)+(actQty*25000)).comma()+" 절약중");
+
+	if (actQty <= 0) {
+		$(".demo_gnb_menu1 .blue_text > span").hide();
+	}
+
+	var curSegQty	=  $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+
+	if (curSegQty > 0) {
+		$("[footerBtn=shift]").addClass("active");
+	} else {
+		$("[footerBtn=shift]").removeClass("active");
+	}
+
+	var actBag		= $("[segIdx="+segIdx+"] .slider_box_line .demos_boxs.active");
+	var atcBagQty	= Number($(actBag).attr("qty"));
+	var boxLt		= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box").length;
+	var actBoxLt	= $("[segIdx="+segIdx+"]").find(".bag_slider_name_box_2").filter((i,e) => $(e).data("qty") == atcBagQty).length;
+
+	if (boxLt == actBoxLt) {
+		$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", true);
+	} else {
+		$("[segIdx="+segIdx+"] .bag_txt_same :checkbox").prop("checked", false);
+	}
+});
+
+// 다음버튼 클릭
+$(document).on("click", "[footerBtn=shift]", function(e){
+	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+
+	if (segIdx == 1) {
+		$("#ags-wrap").trigger("click");
+	} else {
+		var saving		= $(".foot_align .btf_a_txt > [saving]").attr("saving");
+		var actQty		= $("[segIdx]").find(".bag_slider_name_box_2").get().reduce((acc,cur) => acc+Number($(cur).data("qty") || 0),0);
+
+		window.location.href = "index_mrt12.html?qty="+actQty;
+	}
+
+	e.stopPropagation();
+});
+
+
+// 가운데로 스크롤하는 함수 251118-------------------------------------------------------------------
+function centerActiveBox() {
+	const sliderLine = document.querySelector('.slider_box_line');
+	const activeBox = document.querySelector('.demos_boxs.active');
+
+	if (activeBox && sliderLine) {
+		// 박스의 위치와 컨테이너의 중심 계산
+		const boxLeft = activeBox.offsetLeft;
+		const boxWidth = activeBox.offsetWidth;
+		const containerWidth = sliderLine.offsetWidth;
+
+		// 박스를 가운데로 보내기 위한 스크롤 위치 계산
+		const scrollPosition = boxLeft - (containerWidth / 2) + (boxWidth / 2);
+
+		sliderLine.scrollTo({
+			left: scrollPosition,
+			behavior: 'smooth'
+		});
+	}
+}
+
+// 페이지 로드 시
+document.addEventListener('DOMContentLoaded', function() {
+	const firstBox = document.querySelector('.demos_boxs');
+
+	// 첫 번째 박스에 active 추가
+	if (firstBox) {
+		firstBox.classList.add('active');
+		// 렌더링 완료 후 가운데로
+		setTimeout(centerActiveBox, 100);
+	}
+
+	// 모든 박스에 클릭 이벤트 추가
+	document.querySelectorAll('.demos_boxs').forEach(box => {
+		box.addEventListener('click', function() {
+			// 모든 active 제거
+			document.querySelectorAll('.demos_boxs').forEach(b => {
+				b.classList.remove('active');
+			});
+
+			// 클릭한 박스에 active 추가
+			this.classList.add('active');
+
+			// 가운데로 스크롤
+			centerActiveBox();
+		});
+	});
+});
+// 초기 적용
+$(document).ready(function() {
+	const initialValue = Number($("#range_tw").val());
+	update_tw(initialValue);
+	updateSliderBG_tw();
+});
+
+function calculatePrice_tw(kg) {
+	const extra = kg - 15;
+	return (extra / 5) * 55000;
+}
+
+function formatPrice_tw(price) {
+	return price.toLocaleString('ko-KR');
+}
+
+function update_tw(val) {
+	let extra = val - 15;
+
+	if (extra === 0) {
+		$("#finalText_tw").text("15KG");
+		// 이 줄 삭제 또는 주석처리
+		// $(".demos_boxs.active .demos_boxs_tx2").text("15KG");
+	} else {
+		$("#finalText_tw").text("15KG + " + extra + "KG");
+		// 이 줄 삭제 또는 주석처리
+		// $(".demos_boxs.active .demos_boxs_tx2").text("15KG + " + extra + "KG");
+	}
+
+	// 가격 업데이트
+	const price = calculatePrice_tw(val);
+	$("#priceAmount_tw").text(formatPrice_tw(price));
+	$("#priceAmount_tw2").text(formatPrice_tw(price));
+
+	$("#kgList_tw .kg_item_tw").removeClass("active_tw");
+	$('#kgList_tw .kg_item_tw[data-value="' + val + '"]').addClass("active_tw");
+}
+
+function updateSliderBG_tw() {
+	const slider = $("#range_tw")[0];
+	const min = Number(slider.min);
+	const max = Number(slider.max);
+	const val = Number(slider.value);
+
+	const percent = ((val - min) / (max - min)) * 100;
+
+	const imgPath = "resource/img/bg_range_slider.png";
+
+	const bgValue = `
+		linear-gradient(to right,
+			rgba(255,255,255,0) 0%,
+			rgba(255,255,255,0) ${percent}%,
+			#f1d8d8 ${percent}%,
+			#f1d8d8 100%
+		),
+		url('${imgPath}') left center / auto 100% repeat-x
+	`;
+
+	$("#range_tw").css("background", bgValue);
+}
+
+$("#range_tw").on("input", function () {
+	update_tw(Number($(this).val()));
+	updateSliderBG_tw();
+});
+
+$(".kg_item_tw").on("click", function () {
+	const val = $(this).data("value");
+	$("#range_tw").val(val);
+	update_tw(val);
+	updateSliderBG_tw();
+});
+
+// 초기 적용
+update_tw(Number($("#range_tw").val()));
+updateSliderBG_tw();
+
+
+</script>
+
+
+	</body>
+
+</html>
