@@ -14,8 +14,8 @@
 		<script type="text/javascript" src="./resource/js/api/alpha-comm-api.js"></script>
 		<script type="text/javascript" src="./resource/js/api/seat-comm-api.js"></script>
 		<script type="text/javascript" src="./resource/js/api/seat-comm-disp.js"></script>
-		<script type="text/javascript" src="./resource/js/api/alpha-jin-api.js"></script>
-		<script type="text/javascript" src="./resource/js/api/alpha-jin-ptrn.js"></script>
+		<script type="text/javascript" src="./resource/js/api/alpha-jeju-api.js"></script>
+		<script type="text/javascript" src="./resource/js/api/alpha-jeju-ptrn.js"></script>
 		<script type="text/javascript" src="./resource/js/jquery-3.4.1.min.js"></script>
 		<script type="text/javascript" src="./resource/js/alpha.mo.ui.js"></script>
 
@@ -77,7 +77,7 @@ var timerCtl	= function() {
 }
 
 window.onload	= function() {
-	var seatMap1	= $("#tw_TWB737").load("include/TWB737.html");
+	var seatMap1	= $("#7c_738A").load("include/738A.html");
 
 	$.when(seatMap1).then(() => {
 		// 1.팝업 노출
@@ -96,13 +96,9 @@ window.onload	= function() {
 
 
 function changePaxCnt(paxCnt) {
-//	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-	var segIdx		= $(".header_txt2").attr("flyInfo");
-
+	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
 	var segCtl		= demoCtl.getSegCtl(segIdx);
 	var paxList		= [];
-
-console.log("st3 - changePaxCnt args paxCnt : "+paxCnt);
 
 	for (var i=0; i<paxCnt; i++) {
 		paxList.push({
@@ -113,12 +109,14 @@ console.log("st3 - changePaxCnt args paxCnt : "+paxCnt);
 		});
 	}
 
-console.log(JSON.stringify(paxList, undefined, 4));
-console.log("demoCtl.actPaxCnt : "+demoCtl.actPaxCnt);
-
 	if (paxCnt == demoCtl.actPaxCnt) {
 		return;
 	}
+	
+	if (paxCnt > 4) {
+		return;
+	}
+
 	// 설정초기화
 	var paxInfo		= segCtl.config.PAX_INFO;
 
@@ -133,15 +131,9 @@ console.log("demoCtl.actPaxCnt : "+demoCtl.actPaxCnt);
 		// 최초팝업 초기화
 		setTimeout(() => {
 			var purchsedSeatLt	= paxInfo.paxList.map((e) => e.selSeat).filter((seat) => seat);
-
-// 				demoCtl.onScreenLock();
-// 				$(".footer-first-pop").find("[purchsedLt]").html(purchsedSeatLt.map((e) => e.seatNo).join(","));
-// 				$(".footer-first-pop").find("[class^=fd_contents_img]").hide().filter((i,e) => $(e).attr("target-pax") == paxCnt).show();
-// 				$(".footer-first-pop").addClass("active");
+			
 			$("[footerBtn=shift]").removeClass("active");
-
-// 				$("body").css("overflow", "hidden");
-// 				$("html").css("overflow", "hidden");
+			$(".footer-first-pop").find("[purchsedLt]").html(purchsedSeatLt.map((e) => e.seatNo).join(","));
 		},100);
 	});
 }
@@ -183,18 +175,17 @@ var demoCtl	= {
 		_this.actPaxCnt	= paxCnt;
 
 		var purchsedSeatNoMap	= {
-			"1"	: () => ["2A"],
-			"2"	: () => ["3E", "3F"],
-			"3"	: () => ["5A", "5B", "5C"],
-			"4"	: () => ["10A", "10B", "10C", "10D"],
-			"5"	: () => ["11A", "11B", "11C", "11A", "11B"],
-			"6"	: () => ["12A", "12B", "12C", "13A", "13B", "13C"],
-			"7"	: () => ["22A", "22B", "22C", "23A", "23B", "24A", "24B"],
-			"8"	: () => ["27A", "27B", "27E", "27F", "28A", "28B", "28E", "28F"],
-			"9"	: () => ["27A", "27B", "27C", "27D", "27E", "27F", "28A", "28B", "28C"]
+			"1"	: () => ["14A"],
+			"2"	: () => ["14B", "14B"],
+			"3"	: () => ["16A", "16B", "16C"],
+			"4"	: () => ["20A", "20B", "20C", "20D"],
+// 			"5"	: () => ["11A", "11B", "11C", "11A", "11B"],
+// 			"6"	: () => ["12A", "12B", "12C", "13A", "13B", "13C"],
+// 			"7"	: () => ["22A", "22B", "22C", "23A", "23B", "24A", "24B"],
+// 			"8"	: () => ["27A", "27B", "27E", "27F", "28A", "28B", "28E", "28F"],
+// 			"9"	: () => ["27A", "27B", "27C", "27D", "27E", "27F", "28A", "28B", "28C"]
 		}
-//		var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
-		var segIdx			= $(".header_txt2").attr("flyInfo");
+		var segIdx			= $(".select_boxbtn > div.active").attr("flyInfo");
 		var segCtl			= _this.getSegCtl(segIdx);
 		var seatMap			= commSeatDisp.getApplyTarget("seat", "seatMap", segIdx);
 
@@ -202,6 +193,7 @@ var demoCtl	= {
 		var seatList		= segCtl.config.SEAT_INFO.seatList;
 		var plusUnitCharge	= segCtl.config.plusCharge;
 		var purchsSeatNoLt	= purchsedSeatNoMap[paxCnt]();
+		
 		for (var i=0; i<purchsSeatNoLt.length; i++) {
 			var paxInfo		= paxList[i];
 			var seatInfo	= seatList.filter((e) => e.seatNo == purchsSeatNoLt[i])[0];
@@ -219,6 +211,7 @@ var demoCtl	= {
 			}
 			return acc;
 		},{});
+		
 		for (var i=0; i<rowLt.length; i++) {
 			var currRow					= rowLt[i];
 			var checkRowPlusSeat		= selSeatLt.filter((e) => e.row == currRow).some((e) => blockObj[e.row+"-"+e.blockIdx].length > 0);
@@ -238,6 +231,7 @@ var demoCtl	= {
 				blockPlusLt		= blockPlusLt.concat(plusSeatLt);
 			}
 		}
+		
 		for (var j=0; j<blockPlusLt.length; j++) {
 			var target		= seatMap.find("[seatno="+blockPlusLt[j].seatNo+"]");
 
@@ -306,8 +300,7 @@ var demoCtl	= {
 	// 선택내용 contents apply
 	setSelContents	: function() {
 		var _this		= this;
-//		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-		var segIdx		= $(".header_txt2").attr("flyInfo");
+		var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
 
 		var segCtl		= _this.getSegCtl(segIdx);
 		var paxInfo		= segCtl.config.PAX_INFO;
@@ -325,10 +318,8 @@ var demoCtl	= {
 
 		// 다음버튼 active변경
 		if (selPlus.length > 0) {
-console.log("setSelContents > if (selPlus.length > 0)");
 			$("[footerBtn=shift]").addClass("active");
 		} else {
-console.log("setSelContents > else");
 			$("[footerBtn=shift]").removeClass("active");
 		}
 	},
@@ -352,7 +343,7 @@ console.log("setSelContents > else");
 		var configObj	= {
 			SEG_IDX		: segIdx,					// 여정 idx
 			PAX_INFO	: {paxList: paxList},		// 승객 정보
-			plusCharge	: 40000,
+			plusCharge	: 70000,
 			purchsed	: true,
 			pathInfo	: {
 				seatChargePath	: "resource/json/seatCharge/"+acType,
@@ -368,7 +359,7 @@ console.log("setSelContents > else");
 
 		function getOccupiedLt(segIdx) {
 			var occupiedLt	= {
-				"1"			: () => ["1A","1B","1C","2D","2E","2F","4A","4B","7F","6D","6E","7A","7B","7C","15D","15E","15F","16A","16B","16C","20D","21A","21B","25A","25B","25C","25D","25E","25F","32D","32E","32F"],
+				"1"			: () => ["10A","10B","10C","10E","10F","10G","10J","11C","11D","11E","11F","11G","11H","11J","12C","12J","18A","18B","18F","18G"],
 				"2"			: () => [],
 				"_default"	: () => []
 			}
@@ -380,7 +371,7 @@ console.log("setSelContents > else");
 			svcAlphaApi		= $.extend(svcAlphaApi, window["comm"+capitalize(svcList[i])+"Api"]);
 		}
 
-		_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, jinAlphaApi, jinAlphaPtrn, {config: configObj, svcList: svcList, occupiedLt: getOccupiedLt(segIdx)});
+		_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, jejuAlphaApi, jejuAlphaPtrn, {config: configObj, svcList: svcList, occupiedLt: getOccupiedLt(segIdx)});
 	},
 	// 화면 Lock
 	onScreenLock	: function() {
@@ -400,8 +391,7 @@ console.log("setSelContents > else");
 
 // 다음버튼 클릭
 $(document).on("click", "[footerBtn=shift]", function(e){
-//	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-	var segIdx		= $(".header_txt2").attr("flyInfo");
+	var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
 	var segCtl		= demoCtl.getSegCtl(segIdx);
 	var paxInfo		= segCtl.config.PAX_INFO;
 	var selPlus		= paxInfo.selPlus || [];
@@ -421,19 +411,12 @@ $(document).on("click", "[footerBtn=shift]", function(e){
 
 // 확인버튼(결제내역) 클릭
 $(document).on("click", "[footerBtn=payment]", function(e){
-
-	window.location.href	= 'index_st4.html';
-/*
-	$("[purchase-container]").hide();
-	$("[payment-container]").show();
-	demoCtl.timer.resetTimer();
-	demoCtl.timer.startTimer();
-	e.stopPropagation();
-*/
+	window.location.href	= 'index_st5.html';
 });
 
 
 // 확인버튼(결제내역) 클릭
+/* 
 $(document).on("click", "[payViewBackBtn]", function(e){
 	$("[purchase-container]").show();
 	$("[payment-container]").hide();
@@ -442,7 +425,7 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 
 	e.stopPropagation();
 });
-
+	*/
 
 //]]>
 </script>
@@ -484,7 +467,7 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 
 			<div class="contents ovrFlw" id="con_slider" purchase-container="seat">
 				<div class="slider1" >
-					<div id="tw_TWB737"></div>
+					<div id="7c_738A"></div>
 				</div>
 				<!--
 				<div class="slider2">
@@ -567,6 +550,7 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 		</div>
 
 		<!-- 결제하기 -->
+		<!--
 		<div class="ags-wrap newui head demos" style="display: none;"payment-container>
 			<h1 class="site-name">올윈에어</h1>
 			<header>
@@ -580,11 +564,11 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 				<div class="fd_contents">
 					<div class="fd_contents_txt1" style="font-size: 14px;">LEE JIYOUNG님 결제내역</div>
 					<div class="seat_sheet demopop" plusSeatLt>
-					<!--
+					
 						##########################################################
 						### 선택좌석 영역
 						##########################################################
-					-->
+						
 					</div>
 					<div class="fd_contents_txt3" style="margin-top: 0px;">
 						추가 <span plusCnt>1</span>좌석 x KRW 40,000
@@ -622,6 +606,8 @@ $(document).on("click", "[payViewBackBtn]", function(e){
 			</div>
 			<div class="pay_pay"><button type="button" onclick="location.href='index_st5.html'">결제하기</button></div>
 		</div>
+		-->
+		
 		<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
 			<div class="loadinggif">
 				<!-- container -->
