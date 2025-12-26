@@ -133,7 +133,6 @@
 				var purchsedSeatLt	= paxInfo.paxList.map((e) => e.selSeat).filter((seat) => seat);
 				
 				$("[footerBtn=shift]").removeClass("active");
-				$(".footer-first-pop").find("[purchsedLt]").html(purchsedSeatLt.map((e) => e.seatNo).join(","));
 			},100);
 		});
 	}
@@ -176,7 +175,7 @@
 	
 			var purchsedSeatNoMap	= {
 				"1"	: () => ["14A"],
-				"2"	: () => ["14B", "14B"],
+				"2"	: () => ["14A", "14B"],
 				"3"	: () => ["16A", "16B", "16C"],
 				"4"	: () => ["20A", "20B", "20C", "20D"],
 	// 			"5"	: () => ["11A", "11B", "11C", "11A", "11B"],
@@ -263,7 +262,7 @@
 	
 			// x버튼
 			if (purchsSeatNoLt.length > 1) {
-				seatMap.find(".cancel_xx").css({top: (rowLstSeatEl.position().top-7)+"px", left: (rowLstSeatEl.position().left+rowLstSeatEl.width()-5)+"px"});
+				seatMap.find(".cancel_xx").css({top: (rowLstSeatEl.position().top)+"px", left: (rowLstSeatEl.position().left+rowLstSeatEl.width())+"px"});
 				seatMap.find(".cancel_xx").show();
 				seatMap.find(".cancel_xx").one("click", () => {
 					for (var j=0; j<blockPlusLt.length; j++) {

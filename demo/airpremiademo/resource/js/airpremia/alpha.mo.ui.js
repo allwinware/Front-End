@@ -1029,7 +1029,7 @@ $(document).on("click", ".footer-feets_close, .close_btn_2", function () {
 	$("html").css("overflow", "");
 });
 $(document).on("click", ".footer-feets_close, .close_btn_3", function () {
-	$(".footer-first-pop").removeClass("active");
+	$(".ags-summary-first").removeClass("active");
     $(".dimmed_bg, .dimmed_bgs").css("display", "none");	
 	$("body").css("overflow", "");
 	$("html").css("overflow", "");
