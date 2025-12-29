@@ -215,13 +215,15 @@
 				var currRow					= rowLt[i];
 				var checkRowPlusSeat		= selSeatLt.filter((e) => e.row == currRow).some((e) => blockObj[e.row+"-"+e.blockIdx].length > 0);
 				var plusSeatLt				= [];
+				
 				if (checkRowPlusSeat) {
 					plusSeatLt				= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow && selSeatLt.some((seat) => seat.blockIdx == e.blockIdx && seat.row == e.row));
 				} else {
 					var purchsedBlockSeatLt	= rowSeatLt.filter((e) => e.row == currRow && selSeatLt.some((seat) => seat.blockIdx == e.blockIdx && seat.row == e.row));
 					var checkPurchsedBlock	= purchsedBlockSeatLt.every((e) => selSeatLt.some((seat) => seat.seatNo == e.seatNo));
+					
 					if (checkPurchsedBlock) {
-						plusSeatLt			= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow);
+						plusSeatLt			= Object.values(blockObj).reduce((acc,cur, idx) => { if (idx < 1) acc.concat(cur) },[]).filter((e) => e.row == currRow);
 					}
 				}
 	
