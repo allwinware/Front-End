@@ -133,7 +133,6 @@
 				var purchsedSeatLt	= paxInfo.paxList.map((e) => e.selSeat).filter((seat) => seat);
 				
 				$("[footerBtn=shift]").removeClass("active");
-				$(".footer-first-pop").find("[purchsedLt]").html(purchsedSeatLt.map((e) => e.seatNo).join(","));
 			},100);
 		});
 	}
@@ -176,7 +175,7 @@
 	
 			var purchsedSeatNoMap	= {
 				"1"	: () => ["14A"],
-				"2"	: () => ["14B", "14B"],
+				"2"	: () => ["14A", "14B"],
 				"3"	: () => ["16A", "16B", "16C"],
 				"4"	: () => ["20A", "20B", "20C", "20D"],
 	// 			"5"	: () => ["11A", "11B", "11C", "11A", "11B"],
@@ -263,38 +262,38 @@
 	
 			// x버튼
 			if (purchsSeatNoLt.length > 1) {
-				seatMap.find(".cancel_xx").css({top: (rowLstSeatEl.position().top-7)+"px", left: (rowLstSeatEl.position().left+rowLstSeatEl.width()-5)+"px"});
-				seatMap.find(".cancel_xx").show();
-				seatMap.find(".cancel_xx").one("click", () => {
-					for (var j=0; j<blockPlusLt.length; j++) {
-						var target		= seatMap.find("[seatno="+blockPlusLt[j].seatNo+"]");
-						target.off().one("click", function() {
-							var seatNo		= $(this).attr("seatno");
-							var plusSeat	= blockPlusLt.filter((e) => e.seatNo == seatNo)[0];
-							var blockSeatLt	= seatList.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
-							var plusSeatLt	= blockPlusLt.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
+// 				seatMap.find(".cancel_xx").css({top: (rowLstSeatEl.position().top+5)+"px", left: (rowLstSeatEl.position().left+rowLstSeatEl.width())-18+"px"});
+// 				seatMap.find(".cancel_xx").show();
+// 				seatMap.find(".cancel_xx").one("click", () => {
+// 					for (var j=0; j<blockPlusLt.length; j++) {
+// 						var target		= seatMap.find("[seatno="+blockPlusLt[j].seatNo+"]");
+// 						target.off().one("click", function() {
+// 							var seatNo		= $(this).attr("seatno");
+// 							var plusSeat	= blockPlusLt.filter((e) => e.seatNo == seatNo)[0];
+// 							var blockSeatLt	= seatList.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
+// 							var plusSeatLt	= blockPlusLt.filter((e) => e.rowIdx == plusSeat.rowIdx && e.blockIdx == plusSeat.blockIdx);
 	
-							if (blockSeatLt.length == plusSeatLt.length) {
-								segCtl.selBlockSeat(plusSeatLt);
-							} else {
-								segCtl.selPlusSeat(plusSeat);
-							}
+// 							if (blockSeatLt.length == plusSeatLt.length) {
+// 								segCtl.selBlockSeat(plusSeatLt);
+// 							} else {
+// 								segCtl.selPlusSeat(plusSeat);
+// 							}
 	
-							_this.setSelContents();
-						});
-					}
+// 							_this.setSelContents();
+// 						});
+// 					}
 	
-					seatMap.find(".cancel_xx").hide();
-					seatMap.find(".ballon_box2").hide();
-					seatMap.find("svg").html("");
-				})
+// 					seatMap.find(".cancel_xx").hide();
+// 					seatMap.find(".ballon_box2").hide();
+// 					seatMap.find("svg").html("");
+// 				})
 	
 				// border
-				seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, fullSeatLt));
+// 				seatMap.find("svg").html(commSeatDisp.getBlockBorderHtml(segIdx, fullSeatLt));
 			}
 	
 			// 말풍선
-			seatMap.find(".ballon_box2").css({top: (rowFstSeatEl.position().top-50)+"px", left: (rowFstSeatEl.position().left-35)+"px"});
+			seatMap.find(".ballon_box2").css({top: (rowFstSeatEl.position().top-38)+"px", left: (rowFstSeatEl.position().left-45)+"px"});
 			seatMap.find(".ballon_box2").show();
 		},
 		// 선택내용 contents apply
