@@ -1417,26 +1417,36 @@
 		
 		// 다음버튼 클릭
 		$(document).on("click", "[footerBtn=shift]", function(e){
+// 			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
+// 			var segCtl		= apiCtl.getSegCtl(segIdx);
+// 			var paxInfo		= segCtl.config.PAX_INFO;
+// 			var isSelSeat	= paxInfo.paxList.some(function(item){ return item.selSeat }); 
+			
+// 			// 선택확정 체크
+// 			if (!isSelSeat) {
+// 				return;
+// 			}
+			
+// 			if (segIdx == 1) {
+// 				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg2").show();
+// 			} else {
+// 				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg4").show();
+// 			}
+			
+// 			$(".footer-first-pop").addClass("active");
+// 			$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
+// 			$("body").css("overflow", "hidden");
+// 			$("html").css("overflow", "hidden");
+			
+			
+			//팝업 스킵
 			var segIdx		= $(".select_boxbtn > div.active").attr("flyInfo");
-			var segCtl		= apiCtl.getSegCtl(segIdx);
-			var paxInfo		= segCtl.config.PAX_INFO;
-			var isSelSeat	= paxInfo.paxList.some(function(item){ return item.selSeat }); 
-			
-			// 선택확정 체크
-			if (!isSelSeat) {
-				return;
-			}
-			
+
 			if (segIdx == 1) {
-				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg2").show();
+				apiCtl.flyTabChange(2);
 			} else {
-				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg4").show();
+				window.location.href = "service_baggage.html";
 			}
-			
-			$(".footer-first-pop").addClass("active");
-			$(".dimmed_bgs").css({"display": "block", "height": $("body").get(0).scrollHeight});			
-			$("body").css("overflow", "hidden");
-			$("html").css("overflow", "hidden");
 			
 			e.stopPropagation();
 		});
