@@ -249,7 +249,7 @@ var airpremiaAlphaPtrn	= {
 						}
 						
 						// 패턴좌석 push
-						if (ptrnSeat[c].type == "PTRN" && seatInfo.seatStatus == "A" /*&& seatInfo.charge > 0)*/ {
+						if (ptrnSeat[c].type == "PTRN" && seatInfo.seatStatus == "A" /*&& seatInfo.charge > 0*/) {
 							findPtrn.push(seatInfo);
 						}
 					}
