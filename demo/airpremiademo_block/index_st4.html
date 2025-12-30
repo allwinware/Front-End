@@ -223,7 +223,7 @@
 					var checkPurchsedBlock	= purchsedBlockSeatLt.every((e) => selSeatLt.some((seat) => seat.seatNo == e.seatNo));
 					
 					if (checkPurchsedBlock) {
-						plusSeatLt			= Object.values(blockObj).reduce((acc,cur, idx) => { if (idx < 1) acc.concat(cur) },[]).filter((e) => e.row == currRow);
+						plusSeatLt			= Object.values(blockObj).reduce((acc,cur) => acc.concat(cur),[]).filter((e) => e.row == currRow).filter((e,i) => i<3);
 					}
 				}
 	
