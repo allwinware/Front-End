@@ -4826,17 +4826,25 @@ html, body{
 /*--------------------------------------------------------------*/
 
 /*항공기 이미지 작게 */
-.scale_s{
-	will-change:auto;
-	transform: scale(0.3) rotate(.001deg);
-	-webkit-transform: scale(0.3) rotate(.001deg);
+
+.scale_s {
+    will-change: transform;
+    transform: scale(0.3) rotate(0.001deg) translateZ(0);
+	-webkit-transform: scale(0.3) rotate(0.001deg) translateZ(0);
+    transform-origin: center center;
+    /*transition: transform 1s ease-out;*/
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+   
+}
+/*항공기 이미지 크게 */
+
+.scale {
+    transform: scale(1) rotate(0.001deg) translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
-/*항공기 이미지 크게 */
-.scale{
-	transform: scale(1) rotate(.001deg);
-	
-}
 
 .page-wrapper .btn {
 	position: absolute;
@@ -7489,8 +7497,7 @@ input[id="food_item_btn2"]:checked + label i{
 	position: absolute;
     top: -50px;
     left: 20px;
-    width: 140px;
-    height: 31px;
+    padding: 4px 12px;
     background-color: #fff;
     border-radius: 15px;
     display: flex;
@@ -7521,6 +7528,16 @@ input[id="food_item_btn2"]:checked + label i{
 	width: 9px;
 	height: 12px;
 	margin-right: 3px;
+}
+.tp_txt1 .dc_icon1{
+	background: url(../img/common/ico_primia_left_c.png) no-repeat left / 7px 10px !important;
+
+	width: 7px !important;
+	height: 10px !important;
+}
+.tp_txt2{
+	font-size: 10px;
+	color: #999;
 }
 
 /*---------------------------------------------------------*/
@@ -8193,12 +8210,12 @@ input[id="food_item_btn2"]:checked + label i{
 	right: unset;
 	font-size: 11px;
 	color: #aaa;
-	padding-right: 25px;
-	background: url(../img/common/up_arrow.png) no-repeat right 0 top -4px / 22px 22px;
+	padding-right: 25px;	
+	background: url(../img/common/down_arrow.png) no-repeat right 0 top -4px / 22px 22px;
 	
 }
 .creditcard .card_warp .credit_box_btn.on{
-	background: url(../img/common/down_arrow.png) no-repeat right 0 top -4px / 22px 22px;
+	background: url(../img/common/up_arrow.png) no-repeat right 0 top -4px / 22px 22px;
 }
 
 
@@ -8400,6 +8417,7 @@ input[id="food_item_btn2"]:checked + label i{
 	justify-content: space-between;
 	padding: 5px 20px 5px 20px;
 	line-height: 20px;
+	align-items: center;
 }
 .credit_agree_box_content .card_box2 .card_box2_a{
 	font-family: 'PretendardB';
@@ -8423,6 +8441,11 @@ input[id="food_item_btn2"]:checked + label i{
 	font-family:'PretendardB';
 	color: #222;
 }
+.card_box_name{
+	color: #f5581a !important;
+	font-size: 11px;
+}
+
 .credit_agree_box_content .card_box3{		
 	display: flex;
 	justify-content: space-between;
