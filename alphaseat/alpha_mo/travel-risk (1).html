@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>여행 리스크</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    width: 320px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  /* 헤더 */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .header-left { display: flex; align-items: center; gap: 8px; }
+  .ai-badge {
+    background: #4f6ef7; color: #fff;
+    font-size: 11px; font-weight: 700;
+    padding: 2px 6px; border-radius: 4px;
+  }
+  .header-title { font-size: 13px; font-weight: 600; color: #222; }
+  .header-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #e8eeff; display: flex; align-items: center;
+    justify-content: center; font-size: 14px;
+  }
+
+  /* 서브타이틀 */
+  .subtitle {
+    text-align: center;
+    padding: 14px 16px 8px;
+    font-size: 13px; color: #444;
+  }
+  .subtitle .highlight { color: #ff3b3b; font-weight: 700; font-size: 15px; }
+
+  /* ===== PHASE 1 ===== */
+  #phase1 { padding: 8px 16px 16px; }
+
+  .keywords-line {
+    text-align: center;
+    font-size: 14px; color: #ff5500;
+    font-weight: 600; letter-spacing: 0.3px;
+    height: 22px; overflow: hidden;
+  }
+  .keyword-word {
+    display: inline-block;
+    opacity: 0; transform: translateY(8px);
+  }
+  .keyword-word.visible { animation: wordIn 0.3s forwards; }
+  @keyframes wordIn { to { opacity: 1; transform: translateY(0); } }
+
+  .dots-anim { color: #ff5500; }
+  .dots-anim::after {
+    content: '';
+    animation: dots 1.2s steps(4, end) infinite;
+  }
+  @keyframes dots {
+    0%   { content: ''; }
+    25%  { content: '·'; }
+    50%  { content: '··'; }
+    75%  { content: '···'; }
+    100% { content: '···'; }
+  }
+
+  .tags-row {
+    display: flex; justify-content: center;
+    gap: 16px; margin-top: 12px;
+    padding-top: 10px; border-top: 1px solid #f0f0f0;
+  }
+  .tag-item {
+    display: flex; align-items: center;
+    gap: 4px; font-size: 11px; color: #888;
+  }
+
+  /* ===== PHASE 2 ===== */
+  #phase2 { padding: 8px 16px 16px; display: none; }
+
+  .section-label { font-size: 12px; color: #888; margin-bottom: 14px; font-weight: 500; }
+
+  /* 5.0 레이블 바 위 오른쪽 */
+  .bar-top-row {
+    display: flex; justify-content: flex-end;
+    margin-bottom: 3px;
+  }
+  .bar-top-value { font-size: 13px; font-weight: 800; color: #ff2222; }
+
+  /* 50칸 바 */
+  .risk-bar {
+    display: flex; gap: 2px;
+    height: 18px; border-radius: 10px; overflow: hidden;
+  }
+  .bar-seg { flex: 1; }
+
+  /* 1.0 삼각 마커 */
+  .bar-marker-row { position: relative; height: 24px; margin-top: 2px; }
+  .avg-marker {
+    position: absolute;
+    /* 10번째 칸 중심 = (9.5/50) = 19% */
+    left: 19%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .avg-arrow {
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 7px solid #aaa;
+  }
+  .avg-label { font-size: 9px; color: #999; white-space: nowrap; margin-top: 1px; }
+
+  /* 하단 태그 */
+  .risk-tags {
+    display: flex; gap: 14px; align-items: center;
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .risk-tag { display: flex; align-items: center; gap: 4px; font-size: 11px; }
+  .t-icon { font-size: 13px; }
+  .t-name { color: #222; font-weight: 600; }
+  .badge {
+    font-size: 10px; font-weight: 700;
+    padding: 1px 5px; border-radius: 8px;
+    opacity: 0; transform: translateY(5px);
+    transition: opacity 0.35s, transform 0.35s;
+    display: inline-block;
+  }
+  .badge.show { opacity: 1; transform: translateY(0); }
+  .badge-high { background: #ffe0e0; color: #ff2222; }
+  .badge-mid  { background: #fff3dc; color: #f07700; }
+  .badge-low  { background: #e6f9f0; color: #1aaa6a; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <div class="header-left">
+      <span class="ai-badge">AI</span>
+      <span class="header-title">이지영님 3인 · 방콕 7월 여행</span>
+    </div>
+    <div class="header-icon">👤</div>
+  </div>
+
+  <div class="subtitle">
+    여행 평균 리스크 대비 <span class="highlight">2.5배</span> 에요.
+  </div>
+
+  <!-- Phase 1 -->
+  <div id="phase1">
+    <div class="keywords-line">
+      <span class="keyword-word" id="kw0">방콕,</span>
+      <span class="keyword-word" id="kw1">&nbsp;7월,</span>
+      <span class="keyword-word" id="kw2">&nbsp;아이동반,</span>
+      <span class="keyword-word" id="kw3">&nbsp;5일간</span>
+      <span class="dots-anim"></span>
+    </div>
+    <div class="tags-row">
+      <div class="tag-item"><span>🚑</span><span>해외진료비</span></div>
+      <div class="tag-item"><span>파손도난</span></div>
+      <div class="tag-item"><span>비행지연</span></div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div id="phase2">
+    <div class="section-label">일행</div>
+
+    <div class="bar-top-row">
+      <span class="bar-top-value">5.0</span>
+    </div>
+
+    <div class="risk-bar" id="riskBar"></div>
+
+    <div class="bar-marker-row">
+      <div class="avg-marker">
+        <div class="avg-arrow"></div>
+        <div class="avg-label">1.0 여행 평균</div>
+      </div>
+    </div>
+
+    <div class="risk-tags">
+      <div class="risk-tag">
+        <span class="t-icon">🚑</span>
+        <span class="t-name">해외진료비</span>
+        <span class="badge badge-high" id="b0">높음</span>
+      </div>
+      <div class="risk-tag">
+        <span class="t-name">파손도난</span>
+        <span class="badge badge-mid" id="b1">주의</span>
+      </div>
+      <div class="risk-tag">
+        <span class="t-name">비행지연</span>
+        <span class="badge badge-low" id="b2">낮음</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 50칸 그라데이션 바 (노랑 → 빨강)
+const bar = document.getElementById('riskBar');
+for (let i = 0; i < 50; i++) {
+  const seg = document.createElement('div');
+  seg.className = 'bar-seg';
+  const t = i / 49;
+  const g = Math.round(210 * (1 - t));
+  seg.style.background = `rgb(255,${g},0)`;
+  bar.appendChild(seg);
+}
+
+// Phase1 키워드 순차 등장
+['kw0','kw1','kw2','kw3'].forEach((id, i) => {
+  setTimeout(() => document.getElementById(id).classList.add('visible'), 200 + i * 250);
+});
+
+// 1.5초 후 Phase2
+setTimeout(() => {
+  document.getElementById('phase1').style.display = 'none';
+  document.getElementById('phase2').style.display = 'block';
+
+  // 배지 순차 등장
+  ['b0','b1','b2'].forEach((id, i) => {
+    setTimeout(() => document.getElementById(id).classList.add('show'), 300 + i * 280);
+  });
+}, 1500);
+</script>
+</body>
+</html>
