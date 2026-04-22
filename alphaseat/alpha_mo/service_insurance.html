@@ -79,8 +79,60 @@
 			<div class="notice-track" id="noticeTrack"></div>
 		</div>
 
-		<div>
-			<div></div>
+		<div class="header_insure">
+			<div class="header_insure_cen">
+				<span class="ai-badge">AI</span>
+				<span class="header_insure_txt">이지영님 3인 · 방콕 7월 여행</span>
+			</div>
+			<div class="header_insure_btn">👤</div>
+		</div>
+		<!-- 서브타이틀 -->
+		<div class="header_subtitle">
+			여행 평균 리스크 대비 <span class="highlight">2.5배</span> 에요.
+		</div>
+		<!-- 중간: 키워드 or 그래프 -->
+		<div class="content-area">
+
+			<!-- 키워드 (처음엔 보임) -->
+			<div id="keywordsBlock">
+				방콕,7월,아이동반,5일간
+				<span class="dots-anim"></span>
+			</div>
+
+			<!-- 그래프 (1.5초 후 대체) -->
+			<div id="graphBlock">
+				<div class="section-label">일행</div>
+				<div class="bar-top-row">
+					<span class="bar-top-value">5.0</span>
+				</div>
+				<div class="bar-marker-up">
+					<div class="avg-marker">
+						<div class="avg-arrow"></div>
+					</div>
+				</div>
+				<div class="risk-bar" id="riskBar"></div>
+				<div class="bar-marker-row">
+					<div class="avg-marker">
+						<div class="avg-label">1.0 여행 평균</div>
+					</div>
+				</div>
+			</div>
+			 <!-- 하단 태그 (항상 존재, 배지만 나중에 등장) -->
+			<div class="tags-row">
+				<div class="risk-tag">
+					<span class="t-icon">🚑</span>
+					<span class="t-name">해외진료비</span>
+					<span class="badge badge-high" id="b0">높음</span>
+				</div>
+					<div class="risk-tag">
+					<span class="t-name">파손도난</span>
+					<span class="badge badge-mid" id="b1">주의</span>
+				</div>
+					<div class="risk-tag">
+					<span class="t-name">비행지연</span>
+					<span class="badge badge-low" id="b2">낮음</span>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -93,46 +145,85 @@
         </div>
     </article>
 </body>
+<script>
+    /*보험 함수*/
+    const notices = [
+        {
+            text: "이**님 | 구토 설사로 인한 탈수증상으로 입원/검사",
+            amount: "125만원 보상"
+        }, {
+            text: "박**님 | 방콕 여행 중 오토바이 사고 응급실 치료",
+            amount: "340만원 보상"
+        }, {
+            text: "김**님 | 수하물 분실로 인한 여행용품 긴급 구매",
+            amount: "89만원 보상"
+        }, {
+            text: "최**님 | 비행기 지연으로 인한 추가 숙박비 발생",
+            amount: "42만원 보상"
+        }, {
+            text: "정**님 | 해외 치과 응급 치료 (방콕 치료 포함)",
+            amount: "210만원 보상"
+        }
+    ];
 
+    let noticeIdx = 0;
+    const track = document.getElementById('noticeTrack');
 
-	<script>				
-	/*보험 함수*/
-		const notices = [
-		{ text: "이**님 | 구토 설사로 인한 탈수증상으로 입원/검사", amount: "125만원 보상" },
-		{ text: "박**님 | 방콕 여행 중 오토바이 사고 응급실 치료", amount: "340만원 보상" },
-		{ text: "김**님 | 수하물 분실로 인한 여행용품 긴급 구매", amount: "89만원 보상" },
-		{ text: "최**님 | 비행기 지연으로 인한 추가 숙박비 발생", amount: "42만원 보상" },
-		{ text: "정**님 | 해외 치과 응급 치료 (방콕 치료 포함)", amount: "210만원 보상" },
-		];
+    function buildNotice() {
+        track.innerHTML = '';
+        [0, 1, 2].forEach(offset => {
+            const d = notices[(noticeIdx + offset) % notices.length];
+            const el = document.createElement('div');
+            el.className = 'notice-item';
+            el.innerHTML = `<span class="notice-text">${d.text}</span><span class="notice-amount">${d.amount}</span>`;
+            track.appendChild(el);
+        });
+        track.style.transition = 'none';
+        track.style.transform = 'translateY(0)';
+    }
 
-		let noticeIdx = 0;
-		const track = document.getElementById('noticeTrack');
+    function cycleNotice() {
+        track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        track.style.transform = 'translateY(-36px)';
+        setTimeout(() => {
+            noticeIdx = (noticeIdx + 1) % notices.length;
+            buildNotice();
+        }, 520);
+    }
 
-		function buildNotice() {
-		track.innerHTML = '';
-		[0, 1, 2].forEach(offset => {
-			const d = notices[(noticeIdx + offset) % notices.length];
-			const el = document.createElement('div');
-			el.className = 'notice-item';
-			el.innerHTML = `<span class="notice-text">${d.text}</span><span class="notice-amount">${d.amount}</span>`;
-			track.appendChild(el);
-		});
-		track.style.transition = 'none';
-		track.style.transform = 'translateY(0)';
-		}
+    buildNotice();
+    setInterval(cycleNotice, 2500);
 
-		function cycleNotice() {
-		track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-		track.style.transform = 'translateY(-36px)';
-		setTimeout(() => {
-			noticeIdx = (noticeIdx + 1) % notices.length;
-			buildNotice();
-		}, 520);
-		}
+    // 50칸 그라데이션 바 생성 (노랑 → 빨강)
+    const bar = document.getElementById('riskBar');
+    for (let i = 0; i < 30; i++) {
+        const seg = document.createElement('div');
+        seg.className = 'bar-seg';
+        const t = i / 49;
+        seg.style.background = `rgb(255,${Math.round(210 * (1 - t))},0)`;
+        bar.appendChild(seg);
+    }
 
-		buildNotice();
-		setInterval(cycleNotice, 2500);
+    // Phase1: 키워드 순차 등장
 
-			</script>
+    // 1.5초 후: 키워드 숨기고 그래프 등장, 배지 순차 등장
+    setTimeout(() => {
+        document
+            .getElementById('keywordsBlock')
+            .style
+            .display = 'none';
+        document
+            .getElementById('graphBlock')
+            .style
+            .display = 'block';
+
+        ['b0', 'b1', 'b2'].forEach((id, i) => {
+            setTimeout(
+                () => document.getElementById(id).classList.add('show'),
+                300 + i * 280
+            );
+        });
+    }, 1500);
+</script>
 
 </html>

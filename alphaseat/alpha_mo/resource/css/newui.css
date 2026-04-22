@@ -4832,7 +4832,8 @@
     padding: 6px 0 6px 0px;
 	margin-top: 60px;
 }
-.email-wrap {	
+.email-wrap {
+	position: relative;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -4841,7 +4842,6 @@
     padding: 8px 10px;
     width: 100%;
     max-width: 400px;
-	margin: 0 auto;
     margin-top: 15px;
 }
 
@@ -4850,12 +4850,12 @@
     min-width: 0;
     border: none;
     outline: none;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .at {
     color: #888;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 #domain-txt {
@@ -4863,7 +4863,7 @@
     min-width: 0;
     border: none;
     outline: none;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .domain-btn {
@@ -4885,7 +4885,7 @@
     display: none;
     position: absolute;
     right: 0;
-    top: calc(100% + 4px);
+    bottom: calc(0% + -38px);
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -4914,7 +4914,7 @@
     border-bottom: 1px solid #f0f0f0;
 }
 
-/*보험관리*/
+/*보험롤링관리*/
 
 .notice-wrap {
   background: #f5f5f5;
@@ -4926,6 +4926,7 @@
   position: relative;
   margin: 10px;
   margin-top: 60px;
+
 }
 .notice-track {
   display: flex;
@@ -4958,13 +4959,156 @@
   white-space: nowrap;
 }
 
+/*보험 헤더*/
 
 
+.header_insure {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+}
+.header_insure_cen{
+	margin: 0 auto;	
+    display: flex;
+    align-items: center;
+}
+.ai-badge {
+    background: #1d85ff;
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 5px;
+    border-radius: 4px;
+}
+.header_insure_txt{
+	font-size: 15px;
+	color: #222;
+	margin-left: 5px;
+}
 
+  /* 서브타이틀 */
+.header_subtitle {
+    text-align: center;
+    padding: 14px 16px 8px;
+    font-size: 13px;
+    color: #444;
+}
+.header_subtitle .highlight {
+    color: #ff3b3b;
+    font-weight: 700;
+    font-size: 15px;
+}
 
+.content-area {
+    padding: 8px 16px 0;
+    min-height: 52px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin: 10px;
+}
 
+/* 키워드 줄 */
+#keywordsBlock {
+    text-align: center;
+    font-size: 14px;
+    color: #ff5500;
+    letter-spacing: 0.3px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.keyword-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(8px);
+}
+.keyword-word.visible {
+    animation: wordIn 0.3s forwards;
+}
+@keyframes wordIn {
+    to {opacity: 1; transform: translateY(0);}
+}
 
+.dots-anim {
+    color: #ff5500;
+}
+.dots-anim::after {
+    content: '';
+    animation: dots 1.2s steps(4, end) infinite;
+}
+  @keyframes dots {
+    0%  { content: ''; }
+    25% { content: '·'; }
+    50% { content: '··'; }
+    75% { content: '···'; }
+  }
 
+  /* 그래프 블록 */
+  #graphBlock {
+    display: none;
+    padding-bottom: 4px;
+  }
+
+  .section-label { font-size: 12px; color: #888; margin-bottom: 0; font-weight: 500; }
+
+  .bar-top-row {
+    display: flex; justify-content: flex-end;
+    margin-bottom: 3px;
+  }
+  .bar-top-value { font-size: 13px; font-weight: 800; color: #ff2222; }
+
+  .risk-bar {
+    display: flex; gap: 2px;
+    height: 18px; border-radius: 10px; overflow: hidden;
+	border: 4px solid #eee;
+  }
+  .bar-seg { flex: 1; }
+
+  .bar-marker-up {
+    position: relative;
+    height: 10px;
+}
+.bar-marker-row {
+    position: relative;
+    height: 24px;
+    margin-top: 2px;
+}
+  .avg-marker {
+    position: absolute;
+    left: 19%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .avg-arrow {
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid #ccc;
+  }
+  .avg-label { font-size: 9px; color: #999; white-space: nowrap; margin-top: 1px; }
+
+  /* ===== 하단 태그 (항상 보임) ===== */
+  .tags-row {
+    display: flex; gap: 14px; align-items: center;
+    margin: 10px 16px 16px;
+    padding-top: 10px; border-top: 1px solid #f0f0f0;
+  }
+  .risk-tag { display: flex; align-items: center; gap: 4px; font-size: 11px; }
+  .t-icon { font-size: 13px; }
+  .t-name { color: #222; font-weight: 600; }
+
+  .badge {
+    font-size: 10px; font-weight: 700;
+    padding: 1px 5px; border-radius: 8px;
+    opacity: 0; transform: translateY(5px);
+    transition: opacity 0.35s, transform 0.35s;
+    display: inline-block;
+  }
+  .badge.show { opacity: 1; transform: translateY(0); }
+  .badge-high { background: #ffe0e0; color: #ff2222; }
+  .badge-mid  { background: #fff3dc; color: #f07700; }
+  .badge-low  { background: #e6f9f0; color: #1aaa6a; }
 
 
 
