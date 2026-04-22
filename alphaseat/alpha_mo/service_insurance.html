@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-2.2.4.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+<!--
+<body onload="layerPop('popup_loading');">	
+-->
+<body>
+	<div class="ags-wrap newui">
+		<h1 class="site-name">올윈에어</h1>		
+		<div class="dimmed_bgs" style="display: none;"></div>
+		<header>
+			<div class="ags-header">
+				<div class="gnb_menu insure">
+					<a href="index.html" >좌석지정</a>
+					<a href="service_baggage.html" class="">수하물</a>
+					<a href="service_food.html" class="">기내식</a>
+					<a href="#" class="active">여행보험</a>
+				</div>
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="gnb-wrap">					
+					<ul>						
+						<li>
+							<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+							<div id="gnb-2dp" class="gnb-2dp-wrap">
+								<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>								
+								<p class="welcome-msg">안녕하세요. <br>
+								<span class="customer-name">ALLWIN AIR</span>님</p>
+								<ul class="depth1">
+									<li>
+										<a href="#none" target="_self">항공 부가서비스 사전 신청</a>
+									</li>
+									<li class="new active">
+										<a href="#none" target="_self">기내 면세품 예약</a>
+									</li>
+									<li>
+										<a href="#none" target="_self">마이페이지</a>
+										<ul class="depth2">
+											<li>
+												<a href="mypage.html" target="_self">- 부가서비스 신청내역</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="#none" target="_self">고객센터</a>
+										<ul class="depth2">
+											<li>
+												<a href="cscenter.html" target="_self">- 공지사항</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="fnb">
+									<li><a href="#none" target="_self">개인정보취급방침</a></li>
+									<li class="center_txt">고객센터 : 1522-4148(평일 10:00 ~ 17:00)</li>										
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>		
+		<!-- 롤링 배너 -->
+		<div class="notice-wrap">
+			<div class="notice-track" id="noticeTrack"></div>
+		</div>
+
+		<div>
+		</div>
+	</div>
+
+
+	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
+        <div class="loadinggif">
+            <!-- container -->
+            <div class="rader_popup"></div>  
+			<div class="load_popup"></div>  
+            <!-- //container -->
+        </div>
+    </article>
+</body>
+
+
+	<script>				
+	/*보험 함수*/
+		const notices = [
+		{ text: "이**님 | 구토 설사로 인한 탈수증상으로 입원/검사", amount: "125만원 보상" },
+		{ text: "박**님 | 방콕 여행 중 오토바이 사고 응급실 치료", amount: "340만원 보상" },
+		{ text: "김**님 | 수하물 분실로 인한 여행용품 긴급 구매", amount: "89만원 보상" },
+		{ text: "최**님 | 비행기 지연으로 인한 추가 숙박비 발생", amount: "42만원 보상" },
+		{ text: "정**님 | 해외 치과 응급 치료 (방콕 치료 포함)", amount: "210만원 보상" },
+		];
+
+		let noticeIdx = 0;
+		const track = document.getElementById('noticeTrack');
+
+		function buildNotice() {
+		track.innerHTML = '';
+		[0, 1, 2].forEach(offset => {
+			const d = notices[(noticeIdx + offset) % notices.length];
+			const el = document.createElement('div');
+			el.className = 'notice-item';
+			el.innerHTML = `<span class="notice-text">${d.text}</span><span class="notice-amount">${d.amount}</span>`;
+			track.appendChild(el);
+		});
+		track.style.transition = 'none';
+		track.style.transform = 'translateY(0)';
+		}
+
+		function cycleNotice() {
+		track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+		track.style.transform = 'translateY(-36px)';
+		setTimeout(() => {
+			noticeIdx = (noticeIdx + 1) % notices.length;
+			buildNotice();
+		}, 520);
+		}
+
+		buildNotice();
+		setInterval(cycleNotice, 2500);
+
+			</script>
+
+</html>
