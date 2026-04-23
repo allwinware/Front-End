@@ -5006,6 +5006,7 @@
 	border: 1px solid #ddd;
 	border-radius: 8px;
 	margin: 10px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
 /* 키워드 줄 */
@@ -5038,35 +5039,58 @@
     content: '';
     animation: dots 1.2s steps(4, end) infinite;
 }
-  @keyframes dots {
-    0%  { content: ''; }
-    25% { content: '·'; }
-    50% { content: '··'; }
-    75% { content: '···'; }
-  }
+@keyframes dots {
+    0% {
+        content: '';
+    }
+    25% {
+        content: '·';
+    }
+    50% {
+        content: '··';
+    }
+    75% {
+        content: '···';
+    }
+}
 
-  /* 그래프 블록 */
-  #graphBlock {
+/* 그래프 블록 */
+#graphBlock {
     display: none;
     padding-bottom: 4px;
-  }
+}
 
-  .section-label { font-size: 12px; color: #888; margin-bottom: 0; font-weight: 500; }
+.section-label {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 0;
+    font-weight: 500;
+}
 
-  .bar-top-row {
-    display: flex; justify-content: flex-end;
+.bar-top-row {
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 3px;
-  }
-  .bar-top-value { font-size: 13px; font-weight: 800; color: #ff2222; }
+}
+.bar-top-value {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ff2222;
+}
 
-  .risk-bar {
-    display: flex; gap: 2px;
-    height: 18px; border-radius: 10px; overflow: hidden;
-	border: 4px solid #eee;
-  }
-  .bar-seg { flex: 1; }
+.risk-bar {
+    display: flex;
+    gap: 2px;
+    height: 18px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 4px solid #eee;
+}
+.bar-seg {
+    flex: 1;
+}
 
-  .bar-marker-up {
+.bar-marker-up {
     position: relative;
     height: 10px;
 }
@@ -5075,43 +5099,136 @@
     height: 24px;
     margin-top: 2px;
 }
-  .avg-marker {
+.avg-marker {
     position: absolute;
     left: 19%;
     transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .avg-arrow {
-    width: 0; height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.avg-arrow {
+    width: 0;
+    height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-top: 7px solid #ccc;
-  }
-  .avg-label { font-size: 9px; color: #999; white-space: nowrap; margin-top: 1px; }
+}
+.avg-label {
+    font-size: 9px;
+    color: #999;
+    white-space: nowrap;
+    margin-top: 1px;
+}
 
-  /* ===== 하단 태그 (항상 보임) ===== */
-  .tags-row {
-    display: flex; gap: 14px; align-items: center;
-    margin: 10px 16px 16px;
-    padding-top: 10px; border-top: 1px solid #f0f0f0;
-  }
-  .risk-tag { display: flex; align-items: center; gap: 4px; font-size: 11px; }
-  .t-icon { font-size: 13px; }
-  .t-name { color: #222; font-weight: 600; }
+/* ===== 하단 태그 (항상 보임) ===== */
+.tags-row {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+    justify-content: center;
+    width: 90%;
+}
 
-  .badge {
-    font-size: 10px; font-weight: 700;
-    padding: 1px 5px; border-radius: 8px;
-    opacity: 0; transform: translateY(5px);
+.risk-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+}
+.t-icon {
+    font-size: 13px;
+}
+.t-name {
+    color: #888;
+}
+
+.badge {
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(5px);
     transition: opacity 0.35s, transform 0.35s;
     display: inline-block;
-  }
-  .badge.show { opacity: 1; transform: translateY(0); }
-  .badge-high { background: #ffe0e0; color: #ff2222; }
-  .badge-mid  { background: #fff3dc; color: #f07700; }
-  .badge-low  { background: #e6f9f0; color: #1aaa6a; }
+}
+
+.badge.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.badge-high {
+    background: #ffe0e0;
+    color: #ff2222;
+}
+.badge-mid {
+    background: #fff3dc;
+    color: #f07700;
+}
+.badge-low {
+    background: #e6f9f0;
+    color: #1aaa6a;
+}
 
 
+.insure_heart {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.insure_heart_title {
+    font-size: 12px;
+    color: #999;
+    letter-spacing: -0.2px;
+    font-family: 'PretendardR';
+}
+.insure_heart_title span{
+	color: #378ADD;
+}
+.insure_heart_flex {
+    display: flex;
+}
+
+.pct-big {
+    font-size: 52px;
+    color: #378ADD;
+    line-height: 1;
+    text-align: center;
+    transition: color 0.3s;
+}
+.pct-sign {
+    font-size: 20px;
+    color: #378ADD;
+    vertical-align: middle;
+    /* 숫자랑 높이 맞춤 */
+}
+
+
+    .heart-svg { overflow: visible; }
+
+    .replay-btn {
+      margin-top: 0.5rem;
+      padding: 10px 28px;
+      border: 1.5px solid #378ADD;
+      border-radius: 999px;
+      background: transparent;
+      color: #378ADD;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .replay-btn:hover {
+      background: #378ADD;
+      color: #fff;
+    }
 
 
 @media (max-width: 376px) {

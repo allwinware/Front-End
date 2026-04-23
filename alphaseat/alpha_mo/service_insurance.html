@@ -124,16 +124,66 @@
 					<span class="t-name">해외진료비</span>
 					<span class="badge badge-high" id="b0">높음</span>
 				</div>
-					<div class="risk-tag">
+				<div class="risk-tag">
 					<span class="t-name">파손도난</span>
 					<span class="badge badge-mid" id="b1">주의</span>
 				</div>
-					<div class="risk-tag">
+				<div class="risk-tag">
 					<span class="t-name">비행지연</span>
 					<span class="badge badge-low" id="b2">낮음</span>
 				</div>
 			</div>
 		</div>
+
+		<div class="insure_heart">
+			<div class="insure_heart_flex">
+				<div class="pct-big">
+					<span id="pctLabel">0</span><span class="pct-sign">%</span>
+				</div>
+
+				<svg class="heart-svg" width="50" height="46" viewBox="0 0 160 148" style="width: 50px;">
+					<defs>
+						<clipPath id="heartClip">
+							<path d="M80,130 C80,130 10,80 10,42 C10,20 28,6 50,6 C62,6 72,12 80,20 C88,12 98,6 110,6 C132,6 150,20 150,42 C150,80 80,130 80,130 Z"/>
+						</clipPath>
+						<linearGradient id="fillGrad" x1="0" y1="1" x2="0" y2="0">
+							<stop offset="0%" stop-color="#378ADD"/>
+							<stop id="fillStop" offset="0%" stop-color="#378ADD"/>
+							<stop id="emptyStop" offset="0%" stop-color="transparent"/>
+							<stop offset="100%" stop-color="transparent"/>
+						</linearGradient>
+					</defs>
+
+					<!-- 하트 외곽선 -->
+					<path 
+						d="M80,130 C80,130 10,80 10,42 C10,20 28,6 50,6 C62,6 72,12 80,20 C88,12 98,6 110,6 C132,6 150,20 150,42 C150,80 80,130 80,130 Z"
+						fill="none"
+						stroke="#378ADD"
+						stroke-width="3.5"
+						stroke-linejoin="round"/>
+
+					<!-- 채움 영역 -->
+					<rect
+						x="0"
+						y="0"
+						width="160"
+						height="148"
+						fill="url(#fillGrad)"
+						clip-path="url(#heartClip)"/>
+				</svg>
+			</div>
+			
+			<span class="insure_heart_title">AI 맞춤플랜 가입 시, 일행평균 안심지수가 
+				<span id="titlePct">0</span>
+				<span>%</span>
+				로 상승해요.
+			</span>
+			<div>
+				♡ AI불루하트 안심지수 ⓘ  
+			</div>
+			<button class="replay-btn" id="replayBtn" onclick="startAnimation()" style="display: none;">↺ 다시 재생</button>
+		</div>
+
 	</div>
 
 	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
@@ -146,7 +196,7 @@
     </article>
 </body>
 <script>
-    /*보험 함수*/
+    /*보험 맨위 헤더 롤링 함수*/
     const notices = [
         {
             text: "이**님 | 구토 설사로 인한 탈수증상으로 입원/검사",
@@ -194,7 +244,8 @@
     buildNotice();
     setInterval(cycleNotice, 2500);
 
-    // 50칸 그라데이션 바 생성 (노랑 → 빨강)
+
+    // 50칸 그라데이션 바 생성 (노랑 → 빨강)--------------------------------------------------------
     const bar = document.getElementById('riskBar');
     for (let i = 0; i < 30; i++) {
         const seg = document.createElement('div');
@@ -224,6 +275,54 @@
             );
         });
     }, 1500);
+
+	//하트 채우기
+	const pctLabel = document.getElementById('pctLabel');
+	const fillStop = document.getElementById('fillStop');
+	const emptyStop = document.getElementById('emptyStop');
+
+	const TARGET = 85;
+	const DURATION = 2000; // ms
+	let animTimer = null;
+
+	function easeOutCubic(t) {
+		return 1 - Math.pow(1 - t, 3);
+	}
+
+	function update(val) {
+		const pct = Math.round(val);
+		pctLabel.textContent = pct;
+		titlePct.textContent = pct;
+		const offset = pct + '%';
+		fillStop.setAttribute('offset', offset);
+		emptyStop.setAttribute('offset', offset);
+	}
+
+	function startAnimation() {
+		if (animTimer) 
+			cancelAnimationFrame(animTimer);
+		update(0);
+
+		const startTime = performance.now();
+
+		function tick(now) {
+			const elapsed = now - startTime;
+			const progress = Math.min(elapsed / DURATION, 1);
+			const eased = easeOutCubic(progress);
+			update(eased * TARGET);
+
+			if (progress < 1) {
+				animTimer = requestAnimationFrame(tick);
+			}
+		}
+
+		animTimer = requestAnimationFrame(tick);
+	}
+
+	// 페이지 로드 후 자동 시작
+	window.addEventListener('load', () => {
+		setTimeout(startAnimation, 400);
+	});
 </script>
 
 </html>
