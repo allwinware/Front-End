@@ -926,3 +926,4 @@ $(document).ready(function() {
         $('.baggagep_advimg').css('border-bottom', 'unset');
     }
 });
+

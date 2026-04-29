@@ -1,14 +1,11 @@
  /*사이트 이름*/
-
 html, body{
 	overflow-x: hidden;
 	max-width:100%;
-	overscroll-behavior-y: none;
 }
 .digits:before{
 	content: "￦";
 }
-
 .exit-row{
 	padding: 10px 0 5px;
 }
@@ -43,7 +40,7 @@ html, body{
     /* position: absolute; */
     top: 17px;
     margin: 0 auto;
-    margin-top: 18px;
+    margin-top: 18px; 
     width: 250px;
     color: #000;
 	line-height: 18px;
@@ -1903,7 +1900,10 @@ html, body{
 	background: url(../img/common/symbol_flight-way_ze.png) no-repeat center /80px 17px;
 	top: 14px;
 }
-
+.air_logo.parata{	
+	background: url(../img/common/symbol_flight-way_we.png) no-repeat center /80px 12px;
+	height: 25px;
+}
 
 /*여행사 로고 */
 .travel_logo{
@@ -4829,17 +4829,25 @@ html, body{
 /*--------------------------------------------------------------*/
 
 /*항공기 이미지 작게 */
-.scale_s{
-	will-change:auto;
-	transform: scale(0.3) rotate(.001deg);
-	-webkit-transform: scale(0.3) rotate(.001deg);
+
+.scale_s {
+    will-change: transform;
+    transform: scale(0.3) rotate(0.001deg) translateZ(0);
+	-webkit-transform: scale(0.3) rotate(0.001deg) translateZ(0);
+    transform-origin: center center;
+    /*transition: transform 1s ease-out;*/
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+   
+}
+/*항공기 이미지 크게 */
+
+.scale {
+    transform: scale(1) rotate(0.001deg) translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
-/*항공기 이미지 크게 */
-.scale{
-	transform: scale(1) rotate(.001deg);
-	
-}
 
 .page-wrapper .btn {
 	position: absolute;
@@ -5903,7 +5911,7 @@ html, body{
 	display: flex;
 	justify-content: space-between;
     align-items: center;
-	padding: 10px 16px;
+	padding: 10px 10px;
 }
 
 .foods_content ul li div:nth-child(1) span{
@@ -5955,7 +5963,7 @@ html, body{
 .foods_choice1 ,.foods_choice2{
 	display: flex;
 	align-items: center;
-	padding: 0 16px;
+	padding: 0 10px;
 	width: 100%;
 	height: 50px;
 	border-bottom: 1px solid #eee;
@@ -5965,9 +5973,7 @@ html, body{
 .foods_choice1 span{
 	color: #f5581a;
 }
-.foods_txt02{
-	margin-left: 5px;
-}
+
 
 
 .foods_circleimg{
@@ -7486,6 +7492,58 @@ input[id="food_item_btn2"]:checked + label i{
 	line-height: 15px;
 }
 
+/*--골프스크롤-------------------------------------------------------*/
+
+.ags-summary .scroll_golfbtn{
+	position: absolute;
+    top: -50px;
+    left: 20px;
+    padding: 4px 12px;
+    background-color: #fff;
+    border-radius: 15px;
+    display: flex;
+    color: #ff6600;
+	-webkit-box-shadow: 0 4px 7px 1px #bbb;
+	-moz-box-shadow: 0 4px 7px 1px #bbb;
+	box-shadow: 0 4px 7px 1px #bbb;
+	line-height: 36px;
+}
+
+.ags-summary .scroll_golfbtn button{
+	margin: 0 auto;
+	font-size: 13px;
+	font-family: 'PretendardM';
+	display: flex;
+	align-items: center;
+}
+.ags-summary .scroll_golfbtn .dc_icon2{
+	background: url(../img/common/icon_fistbag_v2.png) no-repeat center 2px / 10px 16px;
+	display: inline-block;
+	width: 10px;
+	height: 24px;
+	margin-right: 3px;
+}
+.ags-summary .scroll_golfbtn .dc_icon1{
+	background: url(../img/common/ico_primia_left_c.png) no-repeat left / 9px 12px;
+	display: inline-block;
+	width: 9px;
+	height: 12px;
+	margin-right: 3px;
+}
+.tp_txt1 .dc_icon1{
+	background: url(../img/common/ico_primia_left_c.png) no-repeat left / 7px 10px !important;
+
+	width: 7px !important;
+	height: 10px !important;
+}
+.tp_txt2{
+	font-size: 10px;
+	color: #999;
+}
+
+/*---------------------------------------------------------*/
+
+
 
 .ags-summary .foot_align{
 	display: flex;
@@ -8093,14 +8151,9 @@ input[id="food_item_btn2"]:checked + label i{
 	display: flex;
 	flex-direction: column;
     text-align: center;
-	position: absolute;
 	background-color: #fff;
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	left: 50%;
-    top: 40%;
     width: 100%;
+	margin-top: 50px;
 }
 .no-item-time .ico-wrap{
 	margin-top: 80px;
@@ -8153,12 +8206,12 @@ input[id="food_item_btn2"]:checked + label i{
 	right: unset;
 	font-size: 11px;
 	color: #aaa;
-	padding-right: 25px;
-	background: url(../img/common/up_arrow.png) no-repeat right 0 top -4px / 22px 22px;
+	padding-right: 25px;	
+	background: url(../img/common/down_arrow.png) no-repeat right 0 top -4px / 22px 22px;
 	
 }
 .creditcard .card_warp .credit_box_btn.on{
-	background: url(../img/common/down_arrow.png) no-repeat right 0 top -4px / 22px 22px;
+	background: url(../img/common/up_arrow.png) no-repeat right 0 top -4px / 22px 22px;
 }
 
 
@@ -8360,6 +8413,7 @@ input[id="food_item_btn2"]:checked + label i{
 	justify-content: space-between;
 	padding: 5px 20px 5px 20px;
 	line-height: 20px;
+	align-items: center;
 }
 .credit_agree_box_content .card_box2 .card_box2_a{
 	font-family: 'PretendardB';
@@ -8383,6 +8437,11 @@ input[id="food_item_btn2"]:checked + label i{
 	font-family:'PretendardB';
 	color: #222;
 }
+.card_box_name{
+	color: #f5581a !important;
+	font-size: 11px;
+}
+
 .credit_agree_box_content .card_box3{		
 	display: flex;
 	justify-content: space-between;
@@ -8458,6 +8517,7 @@ input[id="food_item_btn2"]:checked + label i{
 	font-family: 'PretendardB';
 	width: 140px;
 	color: #222;
+	letter-spacing: -0.3px;
 }
 .credit_agree_box_content .card_box5 .card_box5_b{
 	width: 100%;
@@ -8472,6 +8532,68 @@ input[id="food_item_btn2"]:checked + label i{
 	color: #222;
 }
 .credit_agree_box_content .card_box5 .card_box5_b .card_box5_bi div:nth-child(2){
+	text-align: right;
+	font-family:'PretendardB';
+	color: #222;
+}
+
+.credit_agree_box_content .card_box6{		
+	display: flex;
+	justify-content: space-between;
+	font-size: 13px;
+	padding: 5px 20px 5px 20px;	
+	line-height: 25px;
+	color: #222;
+}
+.credit_agree_box_content .card_box6 .card_box6_a{
+	font-family: 'PretendardB';
+	width: 140px;
+	color: #222;
+}
+.credit_agree_box_content .card_box6 .card_box6_b{
+	width: 100%;
+}
+.credit_agree_box_content .card_box6 .card_box6_b .card_box6_bi{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.credit_agree_box_content .card_box6 .card_box6_b .card_box6_bi div:nth-child(1){
+	width: 100px;
+	color: #222;
+}
+.credit_agree_box_content .card_box6 .card_box6_b .card_box6_bi div:nth-child(2){
+	text-align: right;
+	font-family:'PretendardB';
+	color: #222;
+}
+
+.credit_agree_box_content .card_box7{		
+	display: flex;
+	justify-content: space-between;
+	font-size: 13px;
+	padding: 5px 20px 5px 20px;	
+	line-height: 25px;
+	color: #222;
+}
+.credit_agree_box_content .card_box7 .card_box7_a{
+	font-family: 'PretendardB';
+	width: 140px;
+	color: #222;
+}
+.credit_agree_box_content .card_box7 .card_box7_b{
+	width: 100%;
+}
+.credit_agree_box_content .card_box7 .card_box7_b .card_box7_bi{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.credit_agree_box_content .card_box7 .card_box7_b .card_box7_bi div:nth-child(1){
+	width: 100px;
+	color: #222;
+}
+.credit_agree_box_content .card_box7 .card_box7_b .card_box7_bi div:nth-child(2){
 	text-align: right;
 	font-family:'PretendardB';
 	color: #222;

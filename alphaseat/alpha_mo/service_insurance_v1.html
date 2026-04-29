@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-2.2.4.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+<!--
+<body onload="layerPop('popup_loading');">	
+-->
+<body>
+	<div class="ags-wrap newui">
+		<h1 class="site-name">올윈에어</h1>		
+		<div class="dimmed_bgs" style="display: none;"></div>
+		<header>
+			<div class="ags-header">
+				<div class="gnb_menu insure">
+					<a href="index.html" >좌석지정</a>
+					<a href="service_baggage.html" class="">수하물</a>
+					<a href="service_food.html" class="">기내식</a>
+					<a href="#" class="active">여행보험</a>
+				</div>
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="gnb-wrap">					
+					<ul>						
+						<li>
+							<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+							<div id="gnb-2dp" class="gnb-2dp-wrap">
+								<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>								
+								<p class="welcome-msg">안녕하세요. <br>
+								<span class="customer-name">ALLWIN AIR</span>님</p>
+								<ul class="depth1">
+									<li>
+										<a href="#none" target="_self">항공 부가서비스 사전 신청</a>
+									</li>
+									<li class="new active">
+										<a href="#none" target="_self">기내 면세품 예약</a>
+									</li>
+									<li>
+										<a href="#none" target="_self">마이페이지</a>
+										<ul class="depth2">
+											<li>
+												<a href="mypage.html" target="_self">- 부가서비스 신청내역</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="#none" target="_self">고객센터</a>
+										<ul class="depth2">
+											<li>
+												<a href="cscenter.html" target="_self">- 공지사항</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="fnb">
+									<li><a href="#none" target="_self">개인정보취급방침</a></li>
+									<li class="center_txt">고객센터 : 1522-4148(평일 10:00 ~ 17:00)</li>										
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>		
+		<!-- 롤링 배너 -->
+		<div class="notice-wrap">
+			<div class="notice-track" id="noticeTrack"></div>
+		</div>
+
+		<div class="header_insure">
+			<div class="header_insure_cen">
+				<span class="ai-badge">AI</span>
+				<span class="header_insure_txt">이지영님 3인 · 방콕 7월 여행</span>
+			</div>
+			<div class="header_insure_btn">👤</div>
+		</div>
+		<!-- 서브타이틀 -->
+		<div class="header_subtitle">
+			여행 평균 리스크 대비 <span class="highlight">2.5배</span> 에요.
+		</div>
+		<!-- 중간: 키워드 or 그래프 -->
+		<div class="content-area">
+
+			<!-- 키워드 (처음엔 보임) -->
+			<div id="keywordsBlock">
+				방콕,7월,아이동반,5일간
+				<span class="dots-anim"></span>
+			</div>
+
+			<!-- 그래프 (1.5초 후 대체) -->
+			<div id="graphBlock">
+				<div class="section-label">일행</div>
+				<div class="bar-top-row">
+					<span class="bar-top-value">5.0</span>
+				</div>
+				<div class="bar-marker-up">
+					<div class="avg-marker">
+						<div class="avg-arrow"></div>
+					</div>
+				</div>
+				<div class="risk-bar" id="riskBar"></div>
+				<div class="bar-marker-row">
+					<div class="avg-marker">
+						<div class="avg-label">1.0 여행 평균</div>
+					</div>
+				</div>
+			</div>
+			 <!-- 하단 태그 (항상 존재, 배지만 나중에 등장) -->
+			<div class="tags-row">
+				<div class="risk-tag">
+					<span class="t-icon">🚑</span>
+					<span class="t-name">해외진료비</span>
+					<span class="badge badge-high" id="b0">높음</span>
+				</div>
+				<div class="risk-tag">
+					<span class="t-name">파손도난</span>
+					<span class="badge badge-mid" id="b1">주의</span>
+				</div>
+				<div class="risk-tag">
+					<span class="t-name">비행지연</span>
+					<span class="badge badge-low" id="b2">낮음</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="insure_heart">
+			<div class="insure_heart_flex">
+				<div class="pct-big">
+					<span id="pctLabel">0</span><span class="pct-sign">%</span>
+				</div>
+
+				<svg class="heart-svg" width="50" height="46" viewBox="0 0 160 148" style="width: 50px;">
+					<defs>
+						<clipPath id="heartClip">
+							<path d="M80,130 C80,130 10,80 10,42 C10,20 28,6 50,6 C62,6 72,12 80,20 C88,12 98,6 110,6 C132,6 150,20 150,42 C150,80 80,130 80,130 Z"/>
+						</clipPath>
+						<linearGradient id="fillGrad" x1="0" y1="1" x2="0" y2="0">
+							<stop offset="0%" stop-color="#378ADD"/>
+							<stop id="fillStop" offset="0%" stop-color="#378ADD"/>
+							<stop id="emptyStop" offset="0%" stop-color="transparent"/>
+							<stop offset="100%" stop-color="transparent"/>
+						</linearGradient>
+					</defs>
+
+					<!-- 하트 외곽선 -->
+					<path 
+						d="M80,130 C80,130 10,80 10,42 C10,20 28,6 50,6 C62,6 72,12 80,20 C88,12 98,6 110,6 C132,6 150,20 150,42 C150,80 80,130 80,130 Z"
+						fill="none"
+						stroke="#378ADD"
+						stroke-width="3.5"
+						stroke-linejoin="round"/>
+
+					<!-- 채움 영역 -->
+					<rect
+						x="0"
+						y="0"
+						width="160"
+						height="148"
+						fill="url(#fillGrad)"
+						clip-path="url(#heartClip)"/>
+				</svg>
+			</div>
+			
+			<span class="insure_heart_title">AI 맞춤플랜 가입 시, 일행평균 안심지수가 
+				<span id="titlePct">0</span>
+				<span>%</span>
+				로 상승해요.
+			</span>
+			<button class="safe-index-btn">
+				<!--이미지로하자-->
+				<span class="icon-heart">♡</span>
+				<span class="safe-index-txt">AI 블루하트 안심지수</span>
+				<span class="icon-info">i</span>
+			</button>
+			<button class="replay-btn" id="replayBtn" onclick="startAnimation()" style="display: none;">↺ 다시 재생</button>
+		</div>
+
+	</div>
+
+	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
+        <div class="loadinggif">
+            <!-- container -->
+            <div class="rader_popup"></div>  
+			<div class="load_popup"></div>  
+            <!-- //container -->
+        </div>
+    </article>
+</body>
+<script>
+    /*보험 맨위 헤더 롤링 함수*/
+    const notices = [
+        {
+            text: "이**님 | 구토 설사로 인한 탈수증상으로 입원/검사",
+            amount: "125만원 보상"
+        }, {
+            text: "박**님 | 방콕 여행 중 오토바이 사고 응급실 치료",
+            amount: "340만원 보상"
+        }, {
+            text: "김**님 | 수하물 분실로 인한 여행용품 긴급 구매",
+            amount: "89만원 보상"
+        }, {
+            text: "최**님 | 비행기 지연으로 인한 추가 숙박비 발생",
+            amount: "42만원 보상"
+        }, {
+            text: "정**님 | 해외 치과 응급 치료 (방콕 치료 포함)",
+            amount: "210만원 보상"
+        }
+    ];
+
+    let noticeIdx = 0;
+    const track = document.getElementById('noticeTrack');
+
+    function buildNotice() {
+        track.innerHTML = '';
+        [0, 1, 2].forEach(offset => {
+            const d = notices[(noticeIdx + offset) % notices.length];
+            const el = document.createElement('div');
+            el.className = 'notice-item';
+            el.innerHTML = `<span class="notice-text">${d.text}</span><span class="notice-amount">${d.amount}</span>`;
+            track.appendChild(el);
+        });
+        track.style.transition = 'none';
+        track.style.transform = 'translateY(0)';
+    }
+
+    function cycleNotice() {
+        track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        track.style.transform = 'translateY(-36px)';
+        setTimeout(() => {
+            noticeIdx = (noticeIdx + 1) % notices.length;
+            buildNotice();
+        }, 520);
+    }
+
+    buildNotice();
+    setInterval(cycleNotice, 2500);
+
+
+    // 50칸 그라데이션 바 생성 (노랑 → 빨강)--------------------------------------------------------
+    const bar = document.getElementById('riskBar');
+    for (let i = 0; i < 30; i++) {
+        const seg = document.createElement('div');
+        seg.className = 'bar-seg';
+        const t = i / 49;
+        seg.style.background = `rgb(255,${Math.round(210 * (1 - t))},0)`;
+        bar.appendChild(seg);
+    }
+
+    // Phase1: 키워드 순차 등장
+
+    // 1.5초 후: 키워드 숨기고 그래프 등장, 배지 순차 등장
+    setTimeout(() => {
+        document
+            .getElementById('keywordsBlock')
+            .style
+            .display = 'none';
+        document
+            .getElementById('graphBlock')
+            .style
+            .display = 'block';
+
+        ['b0', 'b1', 'b2'].forEach((id, i) => {
+            setTimeout(
+                () => document.getElementById(id).classList.add('show'),
+                300 + i * 280
+            );
+        });
+    }, 1500);
+
+	//하트 채우기
+	const pctLabel = document.getElementById('pctLabel');
+	const fillStop = document.getElementById('fillStop');
+	const emptyStop = document.getElementById('emptyStop');
+
+	const TARGET = 85;
+	const DURATION = 2000; // ms
+	let animTimer = null;
+
+	function easeOutCubic(t) {
+		return 1 - Math.pow(1 - t, 3);
+	}
+
+	function update(val) {
+		const pct = Math.round(val);
+		pctLabel.textContent = pct;
+		titlePct.textContent = pct;
+		const offset = pct + '%';
+		fillStop.setAttribute('offset', offset);
+		emptyStop.setAttribute('offset', offset);
+	}
+
+	function startAnimation() {
+		if (animTimer) 
+			cancelAnimationFrame(animTimer);
+		update(0);
+
+		const startTime = performance.now();
+
+		function tick(now) {
+			const elapsed = now - startTime;
+			const progress = Math.min(elapsed / DURATION, 1);
+			const eased = easeOutCubic(progress);
+			update(eased * TARGET);
+
+			if (progress < 1) {
+				animTimer = requestAnimationFrame(tick);
+			}
+		}
+
+		animTimer = requestAnimationFrame(tick);
+	}
+
+	// 페이지 로드 후 자동 시작
+	window.addEventListener('load', () => {
+		setTimeout(startAnimation, 400);
+	});
+</script>
+
+</html>

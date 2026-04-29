@@ -754,3 +754,78 @@ $(document).on("click", ".bag_slider_name_box .demos_boxs", function () {
     var qty = $clicked.attr("qty");
     $parentLi.find(".bag_slider_name_box_left_b").text("합 " + qty + "개");
 });
+
+
+/*골프 */
+$(document).ready(function() {
+    // 체크박스 변경 이벤트 (라벨 클릭 시 자동으로 발생)
+    $('.checkbox-spd').on('change', function() {
+        var $checkbox = $(this);
+        var $label = $checkbox.next('.checkbox-label-spd');
+        
+        if ($checkbox.is(':checked')) {
+            // 다른 모든 체크박스 해제
+            $('.checkbox-spd').not($checkbox).each(function() {
+                $(this).prop('checked', false);
+                $(this).next('.checkbox-label-spd').removeClass('active');
+            });
+            
+            // 현재 체크박스 활성화
+            $label.addClass('active');
+        } else {
+            $label.removeClass('active');
+        }
+    });
+
+    // 토글 버튼 클릭 이벤트
+    $('.toggle-btn-spd').click(function(e) {
+        e.stopPropagation(); // 이벤트 버블링 방지
+        
+        var $btn = $(this);
+        var $currentItem = $btn.closest('.item-spd');
+        var $currentDetail = $currentItem.find('.detail-spd');
+        var $ico = $btn.find('.ico');
+        
+        if ($currentDetail.is(':visible')) {
+            // 현재 열린 항목 닫기
+            $currentDetail.slideUp(250);
+            $btn.removeClass('active');
+            $ico.removeClass('icoup').addClass('icodown');
+        } else {
+            // 다른 모든 항목 닫기
+            $('.item-spd').each(function() {
+                if (this !== $currentItem[0]) { // 현재 항목 제외
+                    var $otherDetail = $(this).find('.detail-spd');
+                    var $otherBtn = $(this).find('.toggle-btn-spd');
+                    var $otherIco = $otherBtn.find('.ico');
+                    
+                    if ($otherDetail.is(':visible')) {
+                        $otherDetail.slideUp(250);
+                        $otherBtn.removeClass('active');
+                        $otherIco.removeClass('icoup').addClass('icodown');
+                    }
+                }
+            });
+            
+            // 현재 항목 열기
+            $currentDetail.slideDown(250);
+            $btn.addClass('active');
+            $ico.removeClass('icodown').addClass('icoup');
+        }
+    });
+
+    // 체크박스 라벨 클릭 시 이벤트 버블링 방지
+    $('.checkbox-label-spd').click(function(e) {
+        e.stopPropagation();
+    });
+
+    // 초기화: 모든 detail을 닫힌 상태로 설정
+    $('.detail-spd').hide();
+    $('.toggle-btn-spd').removeClass('active');
+    $('.toggle-btn-spd .ico').removeClass('icoup').addClass('icodown');
+    
+    // 골프백 관련 스타일 처리
+    if ($('.baggagep_golf').css('display') === 'block') {
+        $('.baggagep_advimg').css('border-bottom', 'unset');
+    }
+});

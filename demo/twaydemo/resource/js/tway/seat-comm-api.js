@@ -5,7 +5,7 @@ var commSeatApi	= {
 		var _this	= this;
 
 		var paxList			= _this.config.PAX_INFO.paxList;
-		var paxCnt			= paxList.length;
+		var occupiedLt		= _this.occupiedLt || [];
 		
 		// seatApi config object 초기화
 		_this.config.SEAT_INFO		= {};
@@ -21,6 +21,14 @@ var commSeatApi	= {
 			_this.config.SEAT_INFO.seatObj	= chargeData.seatMap.seatRowList.reduce((acc,cur) => { cur.seatInfoList.forEach((seat) => acc[seat.row+'-'+seat.col] = seat); return acc; }, {});
 			_this.config.SEAT_INFO.acType	= chargeData.seatMap.acType || "";
 
+			// occupiedLt 설정
+			_this.config.SEAT_INFO.seatList.forEach((e) => {
+				if (occupiedLt.includes(e.seatNo)) {
+					e.seatStatus	= ".";
+				}
+			})
+					
+			var paxCnt		= paxList.length;
 			var reqList		= [];
 			
 			reqList.push(_this.reqWeightInfo(paxCnt));

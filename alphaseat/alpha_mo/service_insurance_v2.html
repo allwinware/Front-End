@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/insurance.css">
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-2.2.4.min.js'></script>
+	<script src='./resource/js/jquery.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+<!--
+<body onload="layerPop('popup_loading');">	
+-->
+<body>
+	<div class="ags-wrap newui insurerisk">
+		<h1 class="site-name">올윈에어</h1>		
+		<div class="dimmed_bgs" style="display: none;"></div>
+		<header>
+			<div class="ags-header">
+				<div class="gnb_menu insure">
+					<a href="index.html" >좌석지정</a>
+					<a href="service_baggage.html" class="">수하물</a>
+					<a href="service_food.html" class="">기내식</a>
+					<a href="#" class="active">여행보험</a>
+				</div>
+				<a href="javascript:history.back();" class="btn_back">뒤로가기</a>
+				<div class="gnb-wrap">					
+					<ul>						
+						<li>
+							<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+							<div id="gnb-2dp" class="gnb-2dp-wrap">
+								<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>								
+								<p class="welcome-msg">안녕하세요. <br>
+								<span class="customer-name">ALLWIN AIR</span>님</p>
+								<ul class="depth1">
+									<li>
+										<a href="#none" target="_self">항공 부가서비스 사전 신청</a>
+									</li>
+									<li class="new active">
+										<a href="#none" target="_self">기내 면세품 예약</a>
+									</li>
+									<li>
+										<a href="#none" target="_self">마이페이지</a>
+										<ul class="depth2">
+											<li>
+												<a href="mypage.html" target="_self">- 부가서비스 신청내역</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="#none" target="_self">고객센터</a>
+										<ul class="depth2">
+											<li>
+												<a href="cscenter.html" target="_self">- 공지사항</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="fnb">
+									<li><a href="#none" target="_self">개인정보취급방침</a></li>
+									<li class="center_txt">고객센터 : 1522-4148(평일 10:00 ~ 17:00)</li>										
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--사람 몇명 가는곳 월-->
+			<div class="header_insure">
+				<div class="header_insure_txt">이지영님 3인 · 방콕 7월 여행</div>			
+				<div class="header_insure_btn">내 정보</div>
+			</div>
+		</header>		
+
+		<div class="outer-risk">
+			<div class="top-row-risk">
+				<p class="top-title-risk">실제, 많은 분들이
+					<b>보상</b>을 받으셨어요!</p>
+				<span class="user-count-risk">
+					<svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+						<circle cx="8" cy="5.5" r="3" fill="#185FA5"/>
+						<path
+							d="M2 13c0-3.314 2.686-5 6-5s6 1.686 6 5"
+							stroke="#185FA5"
+							stroke-width="1.5"
+							stroke-linecap="round"/>
+					</svg>
+					13,224
+				</span>
+			</div>
+			<div class="box-risk">
+				<div class="tabs-risk">
+					<div class="tab-risk active-risk" id="tab-0">해외의료</div>
+					<div class="tab-risk" id="tab-1">파손도난</div>
+					<div class="tab-risk" id="tab-2">지연결항</div>
+				</div>
+				<div class="chart-wrap-risk" id="chartArea">
+					<div class="bars-risk" id="barsEl"></div>
+					<div class="vline-risk" id="vline"></div>
+					<div class="connector-risk" id="connector"></div>
+					<div class="dot-risk" id="dot"></div>
+					<div class="tooltip-card-risk" id="tooltip">
+						<span class="tooltip-name-risk" id="ttName"></span>
+						<span class="tooltip-amount-risk" id="ttAmount"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header_insure_center">
+			<div class="header_insure_cen" >
+				<div class="ai-badge">AI</div>
+				<div class="header_insure_txt2">이번 <span>방콕</span>여행을 대비해 드립니다.</div>
+			</div>
+		</div>
+		
+		<div class="outer-wrap">
+			<div class="gauge-container" id="gaugeContainer"></div>
+		</div>
+		<div class="twoarrow-icon">
+			<svg viewBox="0 0 40 42" xmlns="http://www.w3.org/2000/svg" width="20" height="17">
+				<polygon points="4,2 36,2 20,22" fill="#bbb"/>
+				<polygon points="4,20 36,20 20,40" fill="#888"/>
+			</svg>
+		</div>
+		<div class="">
+			<div class="header_insure_txt3">
+			<i class="icon-check">
+				<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" width="10" height="10">
+				<polyline points="1,5 4,8 9,2" fill="none" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</i>
+  			31개 넉넉한 <b>안심보장</b>을 담았어요</div>
+			<div class="header_insure_txt4"><span>이지영</span>님 일행의 건강 · 시간 · 재산은 소중합니다.</div>
+		</div>
+		<div class="wrap_cva">
+			<div class="top-bar_cva">
+				<span class="top-left_cva">보상빈도(31)순</span>
+				<div class="top-right_cva" id="tierToggle">
+					<span class="tier-label_cva" id="tierLabel">고급형</span>
+					<svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path
+						d="M1 1l5 4.5L1 10"
+						stroke="currentColor"
+						stroke-width="1.4"
+						stroke-linecap="round"/></svg>
+				</div>
+			</div>
+			<div id="listWrap"></div>
+			<button class="show-more-btn_cva" id="showMoreBtn">
+				<span id="showMoreTxt">전체보기</span>
+				<svg id="showMoreIcon" width="11" height="11" viewBox="0 0 11 11" fill="none"><path
+					d="M1 3l4.5 5L10 3"
+					stroke="currentColor"
+					stroke-width="1.4"
+					stroke-linecap="round"/></svg>
+			</button>
+		</div>
+
+	</div>
+
+	<article id="popup_loading"  class="layer_popup alert"  tabindex="0" >
+        <div class="loadinggif">
+            <!-- container -->
+            <div class="rader_popup"></div>  
+			<div class="load_popup"></div>  
+            <!-- //container -->
+        </div>
+    </article>
+</body>
+<script>
+
+	    const tiers = ['고급형', '표준형', '실속형'];
+    let tierIdx = 0;
+    let expanded = false;
+    let openSlide = null;
+    let rollingTimer = null;
+    let rollingPaused = false;
+
+    const coverages = [
+      { id: 'main', shield: true, title: '주계약', sub: null, amounts: ['3억원', '2억원', '1억원'], desc: '여행 중 발생하는 모든 사고에 대한 기본 보상입니다. 사망·후유장해 시 지급됩니다.' },
+      { id: 1, title: '해외의료 상해', sub: '실손', amounts: ['7,000만원', '5,000만원', '3,000만원'], desc: '해외에서 상해 사고로 인한 의료비를 실제 지출액 기준으로 보상합니다.' },
+      { id: 2, title: '휴대품 손해', sub: '개당 20만원, 휴대폰 10만원', amounts: ['150만원', '100만원', '50만원'], desc: '여행 중 소지한 물품의 파손·분실 피해를 보상합니다. 단, 현금·유가증권 제외.' },
+      { id: 3, title: '해외의료 질병', sub: '실손', amounts: ['7,000만원', '5,000만원', '3,000만원'], desc: '해외 여행 중 질병으로 인한 의료비를 실손 기준으로 보상합니다.' },
+      { id: 4, title: '항공기/수하물 지연', sub: null, amounts: ['80만원', '60만원', '40만원'], desc: '항공편 지연 또는 수하물 지연으로 발생한 추가 비용을 보상합니다. (6시간 이상)' },
+      { id: 5, title: '(귀국 후) 국내의료 상해', sub: '실손', amounts: ['5,000만원', '3,000만원', '1,500만원'], desc: '귀국 후 여행 중 발생한 상해에 대한 국내 의료비를 보상합니다.' },
+      { id: 6, title: '배상책임', sub: null, amounts: ['1억원', '7,000만원', '5,000만원'], desc: '여행 중 타인에게 피해를 입혀 법적 배상 책임이 생긴 경우 보상합니다.' },
+      { id: 7, title: '항공기 납치', sub: null, amounts: ['500만원', '300만원', '200만원'], desc: '항공기 납치로 인한 비용 및 정신적 피해를 보상합니다.' },
+      { id: 8, title: '스키·보드 배상책임', sub: null, amounts: ['3,000만원', '2,000만원', '1,000만원'], desc: '스키·스노보드 중 타인에게 부상을 입혀 발생하는 배상 책임을 보상합니다.' },
+      { id: 9, title: '여행 취소', sub: null, amounts: ['100만원', '70만원', '50만원'], desc: '불가피한 사유로 여행을 취소한 경우 기납부 비용을 보상합니다.' },
+      { id: 10, title: '여권 분실', sub: null, amounts: ['20만원', '15만원', '10만원'], desc: '해외 여행 중 여권 분실 시 재발급 비용을 보상합니다.' },
+    ];
+
+    const DEFAULT_COUNT = 6;
+
+    function renderList(animate) {
+      const wrap = document.getElementById('listWrap');
+      const items = expanded ? coverages : coverages.slice(0, DEFAULT_COUNT);
+      wrap.innerHTML = '';
+
+      items.forEach((cov, i) => {
+        const rowWrap = document.createElement('div');
+        rowWrap.className = 'row-wrap_cva';
+
+        const badgeHTML = cov.shield
+          ? `<div class="badge-wrap_cva">
+			<svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+				<path d="M11 2L4 5v6c0 4.1 3.1 7.9 7 8.9 3.9-1 7-4.8 7-8.9V5L11 2z" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.2"/>
+				<line x1="7.5" y1="11" x2="14.5" y2="11" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round"/>
+				<line x1="11" y1="7.5" x2="11" y2="14.5" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round"/>
+				</svg></div>`
+          : `<div class="badge-wrap_cva"><div class="badge-num_cva">${cov.id}</div></div>`;
+
+        const subHTML = cov.sub ? `<span class="row-sub_cva">${cov.sub}</span>` : '';
+
+        rowWrap.innerHTML = `
+          <div class="row_cva">
+            <div class="row-left_cva">
+              ${badgeHTML}
+              <span class="row-title_cva">${cov.title}</span>${subHTML}
+            </div>
+            <div class="row-right_cva">
+              <span class="row-amount_cva">${cov.amounts[tierIdx]}</span>
+              <button class="chevron-btn_cva" aria-label="상세보기">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="slide-box_cva" id="slide-${cov.id}">
+            <div class="slide-inner_cva"><p>${cov.desc}</p></div>
+          </div>
+        `;
+
+        rowWrap.querySelector('.row-right_cva').addEventListener('click', () => toggleSlide(cov.id));
+        wrap.appendChild(rowWrap);
+
+        if (animate) {
+          setTimeout(() => rowWrap.classList.add('visible_cva'), i * 80);
+        } else {
+          rowWrap.classList.add('visible_cva');
+        }
+      });
+    }
+
+    function toggleSlide(id) {
+      const slide = document.getElementById('slide-' + id);
+      if (!slide) return;
+      if (openSlide && openSlide !== id) {
+        const prev = document.getElementById('slide-' + openSlide);
+        if (prev) prev.style.maxHeight = '0';
+      }
+      if (openSlide === id) {
+        slide.style.maxHeight = '0';
+        openSlide = null;
+        rollingPaused = false;
+        scheduleRolling(5000);
+      } else {
+        slide.style.maxHeight = slide.scrollHeight + 'px';
+        openSlide = id;
+        rollingPaused = true;
+        clearTimeout(rollingTimer);
+      }
+    }
+
+    function updateAmounts() {
+      const items = expanded ? coverages : coverages.slice(0, DEFAULT_COUNT);
+      document.querySelectorAll('.row-amount_cva').forEach((el, i) => {
+        if (items[i]) el.textContent = items[i].amounts[tierIdx];
+      });
+      document.getElementById('tierLabel').textContent = tiers[tierIdx];
+    }
+
+    function scheduleRolling(delay) {
+      clearTimeout(rollingTimer);
+      if (rollingPaused) return;
+      rollingTimer = setTimeout(() => {
+        if (rollingPaused) return;
+        tierIdx = (tierIdx + 1) % tiers.length;
+        updateAmounts();
+        scheduleRolling(5000);
+      }, delay);
+    }
+
+    document.getElementById('tierToggle').addEventListener('click', () => {
+      clearTimeout(rollingTimer);
+      rollingPaused = false;
+      tierIdx = (tierIdx + 1) % tiers.length;
+      updateAmounts();
+      scheduleRolling(5000);
+    });
+
+    document.getElementById('showMoreBtn').addEventListener('click', () => {
+      expanded = !expanded;
+      openSlide = null;
+      rollingPaused = false;
+      renderList(false);
+      document.getElementById('showMoreTxt').textContent = expanded ? '닫기' : '전체보기';
+      document.getElementById('showMoreIcon').innerHTML = expanded
+        ? `<path d="M1 8l4.5-5L10 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>`
+        : `<path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>`;
+    });
+
+    renderList(true);
+    scheduleRolling(5000);
+
+
+	//중간 반원 그래프
+		
+	/* ══════════════════════════════════════════════
+	★ 설정 — 여기만 수정하세요
+	══════════════════════════════════════════════ */
+	const AGE_GROUP = '아이';
+	/* 아이: 15세 이하 | 성인: 70세 이하 | 윗어른: 70세 이상 */
+
+	const DATA = [
+	{
+		id: 'disease',
+		label: '질병상해',
+		score: 4.5,
+		riskLabels: ['낮은 편','보통','조금걱정','걱정','많이 걱정'],
+		showMedical: true
+	},
+	{
+		id: 'damage',
+		label: '파손도난',
+		score: 3.7,
+		riskLabels: ['낮은 편','보통','조금주의','주의','많이 주의'],
+		showMedical: false
+	},
+	{
+		id: 'delay',
+		label: '지연결항',
+		score: 1.9,
+		riskLabels: ['낮은 편','보통','조금걱정','걱정','많이 걱정'],
+		showMedical: false
+	}
+	];
+	/* ══════════════════════════════════════════════ */
+
+	function getColor(score) {
+	if (score < 1) return '#F5C800';
+	if (score < 2) return '#F5A623';
+	if (score < 3) return '#E8612A';
+	if (score < 4) return '#D0021B';
+	return '#9B0014';
+	}
+
+	function getRiskText(score, labels) {
+	/* 0~1 → 0번, 1~2 → 1번, ..., 4~5 → 4번 */
+	const idx = Math.max(0, Math.min(Math.floor(score), 4));
+	return labels[idx];
+	}
+
+	function getMedicalText(score, group) {
+	if (score < 1.0) return '';
+	if (score < 2.0) return `(${group}) 의료대비 필요`;
+	if (score < 3.0) return `(${group}) 의료대비 권장`;
+	if (score < 4.0) return `(${group}) 의료대비 적극 권장`;
+	return `(${group}) 의료대비 필수`;
+	}
+
+	/* 점수(0~5) → 바늘 각도
+	바늘은 12시(위)가 기본 → -90°=9시, +90°=3시
+	0점=-90°, 5점=+90° */
+	function scoreToAngle(score) {
+	return -90 + (score / 5) * 180;
+	}
+
+	/* 도넛 호 path */
+	function arcPath(cx, cy, r, a1, a2, thick) {
+	const d = n => n * Math.PI / 180;
+	const ro = r, ri = r - thick;
+	const x1 = cx + ro*Math.cos(d(a1)), y1 = cy + ro*Math.sin(d(a1));
+	const x2 = cx + ro*Math.cos(d(a2)), y2 = cy + ro*Math.sin(d(a2));
+	const x3 = cx + ri*Math.cos(d(a2)), y3 = cy + ri*Math.sin(d(a2));
+	const x4 = cx + ri*Math.cos(d(a1)), y4 = cy + ri*Math.sin(d(a1));
+	const lg = (a2-a1) > 180 ? 1 : 0;
+	return `M${x1} ${y1} A${ro} ${ro} 0 ${lg} 1 ${x2} ${y2} L${x3} ${y3} A${ri} ${ri} 0 ${lg} 0 ${x4} ${y4}Z`;
+	}
+
+	/* SVG 게이지 생성
+	중심(cx=90, cy=96): viewBox 맨 아래 = 반원이 위쪽으로 열림(9시~3시)
+	호 각도: -180°(9시) ~ 0°(3시)
+	바늘: 12시(위) 방향이 기본 → rotate(-90)=9시, rotate(+90)=3시
+	중심 원 없음 */
+	function buildSVG(id) {
+	const cx = 90, cy = 96, r = 86, thick = 24;
+
+	const segs = [
+		{ a1:-180, a2:-144, color:'#F5C800' },
+		{ a1:-144, a2:-108, color:'#F5A623' },
+		{ a1:-108, a2: -72, color:'#E8612A' },
+		{ a1: -72, a2: -36, color:'#D0021B' },
+		{ a1: -36, a2:   0, color:'#9B0014' },
+	];
+
+	const arcs = segs.map(s =>
+		`<path d="${arcPath(cx,cy,r,s.a1,s.a2,thick)}" fill="${s.color}"/>`
+	).join('');
+
+	/* 바늘: 12시(위) 기준으로 그려져 있음
+		tip = cy-80(위), base = cy(중심축)
+		rotate(-90)이면 9시, rotate(+90)이면 3시 */
+	const needle = `
+	<g id="needle_${id}" transform="rotate(-90,${cx},${cy})">
+	<polygon points="${cx},${cy-80} ${cx-3},${cy} ${cx+3},${cy}"
+		fill="#1c1c1c" opacity="0.87"/>
+	<polygon points="${cx},${cy-80} ${cx-0.75},${cy} ${cx+0.75},${cy}"
+		fill="#ffffff" opacity="0.38"/>
+	</g>`;
+
+	return `<svg viewBox="0 0 180 96" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+	<defs>
+		<filter id="ns_${id}" x="-30%" y="-30%" width="160%" height="160%">
+		<feDropShadow dx="0.5" dy="1" stdDeviation="1.2"
+			flood-color="#000" flood-opacity="0.2"/>
+		</filter>
+	</defs>
+	${arcs}
+	<g filter="url(#ns_${id})">${needle}</g>
+	</svg>`;
+	}
+
+	/* 카드 빌드 */
+	function buildCards() {
+	const wrap = document.getElementById('gaugeContainer');
+	DATA.forEach(d => {
+		const col = getColor(d.score);
+		const el = document.createElement('div');
+		el.className = 'gauge-item';
+		el.innerHTML = `
+		<div class="gauge-title">
+			${d.label}&nbsp;<span class="risk-label" style="color:${col}">${getRiskText(d.score,d.riskLabels)}</span>
+		</div>
+		<div class="gauge-svg-wrap">${buildSVG(d.id)}</div>
+		<div class="score-num" id="sc_${d.id}" style="color:${col}"></div>
+		<div class="sub-msg"   id="mt_${d.id}"></div>
+		`;
+		wrap.appendChild(el);
+	});
+	}
+
+	function setNeedle(id, deg) {
+	const el = document.getElementById('needle_'+id);
+	if (el) el.setAttribute('transform', `rotate(${deg},90,96)`);
+	}
+
+	const easeOut = t => 1 - Math.pow(1-t, 3);
+
+	function animateGauge(d, delay) {
+	const target = scoreToAngle(d.score);
+	setTimeout(() => {
+		let phase=1, t0=null;
+		function tick(ts) {
+		if (!t0) t0=ts;
+		const elapsed=ts-t0;
+		if (phase===1) {
+			/* 1단계: 9시(-90°)→3시(+90°)→9시 왕복 스캔 */
+			const t=Math.min(elapsed/1000,1);
+			setNeedle(d.id, -90 + Math.abs(Math.sin(t*Math.PI))*180);
+			t<1 ? requestAnimationFrame(tick) : (phase=2,t0=null,requestAnimationFrame(tick));
+		} else if (phase===2) {
+			/* 2단계: 목표로 감속 이동 */
+			const t=Math.min(elapsed/900,1);
+			setNeedle(d.id, -90 + easeOut(t)*(target+90));
+			t<1 ? requestAnimationFrame(tick) : (phase=3,t0=null,requestAnimationFrame(tick));
+		} else if (phase===3) {
+			/* 3단계: 미동 후 정지 */
+			const t=Math.min(elapsed/700,1);
+			setNeedle(d.id, target + Math.sin(t*Math.PI*4)*(1-t)*5);
+			if (t<1) { requestAnimationFrame(tick); }
+			else {
+			setNeedle(d.id, target);
+			const sc=document.getElementById('sc_'+d.id);
+			const mt=document.getElementById('mt_'+d.id);
+			if (sc) { sc.textContent=d.score.toFixed(1); sc.style.opacity='1'; }
+			if (mt && d.showMedical) { mt.textContent=getMedicalText(d.score,AGE_GROUP); mt.style.opacity='1'; }
+			}
+		}
+		}
+		requestAnimationFrame(tick);
+	}, delay);
+	}
+
+	buildCards();
+	DATA.forEach((d,i) => animateGauge(d, i*280));
+
+	// 맨위에 막대그래프 
+	const SHOW_MS = 2500;
+    const FADE_MS = 300;
+    const BAR_COUNT = 50;
+
+    const data = {
+      0: [
+        { name: "정**님 | 고열·복통 입원치료..", amount: "129만원 보상", barPos: 0.18 },
+        { name: "최**님 | 맹장수술 응급입원..", amount: "320만원 보상", barPos: 0.36 },
+        { name: "이**님 | 스키 타다 골절 입원..", amount: "540만원 보상", barPos: 0.54 },
+        { name: "박**님 | 건널목 교통사고로..", amount: "1,530만원 보상", barPos: 0.72 },
+        { name: "김**님 | 오토바이 교통사고...", amount: "2,850만원 보상", barPos: 0.90 },
+      ],
+      1: [
+        { name: "오**님 | 수하물 분실..", amount: "46만원 보상", barPos: 0.18 },
+        { name: "이**님 | 여행 중 카메라 파손..", amount: "85만원 보상", barPos: 0.36 },
+        { name: "장**님 | 귀중품 파손..", amount: "130만원 보상", barPos: 0.54 },
+        { name: "조**님 | 전자기기 도난..", amount: "175만원 보상", barPos: 0.72 },
+        { name: "한**님 | 노트북 도난 피해..", amount: "210만원 보상", barPos: 0.90 },
+      ],
+      2: [
+        { name: "윤**님 | 항공편 4시간 지연..", amount: "32만원 보상", barPos: 0.18 },
+        { name: "문**님 | 연결편 지연 8시간..", amount: "41만원 보상", barPos: 0.36 },
+        { name: "강**님 | 결항으로 숙박 추가..", amount: "58만원 보상", barPos: 0.54 },
+        { name: "권**님 | 악천후 결항 대기..", amount: "67만원 보상", barPos: 0.72 },
+        { name: "신**님 | 허리케인으로 결항..", amount: "95만원 보상", barPos: 0.90 },
+      ]
+    };
+
+    function barHeightAt(pos) {
+      return 0.04 + Math.pow(pos, 1.7) * 0.88;
+    }
+
+    const barsEl = document.getElementById('barsEl');
+    const vlineEl = document.getElementById('vline');
+    const dotEl = document.getElementById('dot');
+    const connectorEl = document.getElementById('connector');
+    const tooltipEl = document.getElementById('tooltip');
+    const ttName = document.getElementById('ttName');
+    const ttAmount = document.getElementById('ttAmount');
+    const chartArea = document.getElementById('chartArea');
+    const tabs = [0,1,2].map(i => document.getElementById('tab-' + i));
+
+    const barHeights = [];
+    for (let i = 0; i < BAR_COUNT; i++) {
+      const pos = i / (BAR_COUNT - 1);
+      barHeights.push(barHeightAt(pos));
+    }
+
+    function buildBars() {
+      barsEl.innerHTML = '';
+      barHeights.forEach(h => {
+        const bar = document.createElement('div');
+        bar.className = 'bar-risk';
+        bar.style.height = (h * 100) + '%';
+        barsEl.appendChild(bar);
+      });
+    }
+    buildBars();
+
+    function getBarEls() { return barsEl.querySelectorAll('.bar-risk'); }
+
+    function posToBarIdx(pos) {
+      return Math.round(pos * (BAR_COUNT - 1));
+    }
+
+    function barIdxToX(barIdx) {
+      const areaW = chartArea.offsetWidth;
+      const barW = areaW / BAR_COUNT;
+      return barIdx * barW + barW / 2;
+    }
+
+    function showItem(tab, itemIdx) {
+      const item = data[tab][itemIdx];
+      const barIdx = posToBarIdx(item.barPos);
+      const areaW = chartArea.offsetWidth;
+      const areaH = chartArea.offsetHeight;
+      const x = barIdxToX(barIdx);
+      const bH = barHeights[barIdx];
+      const barTopY = areaH * (1 - bH);
+
+      const allBars = getBarEls();
+      allBars.forEach((b, i) => {
+        b.style.background = i === barIdx ? '#E24B4A' : '#c8d9ec';
+      });
+
+      vlineEl.style.display = 'block';
+      vlineEl.style.left = x + 'px';
+      vlineEl.style.height = (bH * areaH) + 'px';
+
+      dotEl.style.display = 'block';
+      dotEl.style.left = x + 'px';
+      dotEl.style.top = (barTopY - 6) + 'px';
+
+      ttName.textContent = item.name;
+      ttAmount.textContent = item.amount;
+      tooltipEl.style.display = 'flex';
+      tooltipEl.style.opacity = '0';
+      tooltipEl.style.left = '0px';
+      tooltipEl.style.top = '0px';
+
+      requestAnimationFrame(() => {
+        const tw = tooltipEl.offsetWidth;
+        const th = tooltipEl.offsetHeight;
+        const MARGIN = 8;
+        const tooltipTopY = Math.max(MARGIN, barTopY - th - 16);
+
+        let tooltipLeft = x - tw / 2;
+        if (tooltipLeft < MARGIN) tooltipLeft = MARGIN;
+        if (tooltipLeft + tw > areaW - MARGIN) tooltipLeft = areaW - tw - MARGIN;
+
+        const connTop = tooltipTopY + th;
+        const connH = barTopY - connTop;
+
+        tooltipEl.style.left = tooltipLeft + 'px';
+        tooltipEl.style.top = tooltipTopY + 'px';
+
+        connectorEl.style.display = 'block';
+        connectorEl.style.left = x + 'px';
+        connectorEl.style.top = connTop + 'px';
+        connectorEl.style.height = Math.max(0, connH) + 'px';
+
+        requestAnimationFrame(() => { tooltipEl.style.opacity = '1'; });
+      });
+    }
+
+    function hideAll(cb) {
+      tooltipEl.style.opacity = '0';
+      getBarEls().forEach(b => b.style.background = '#c8d9ec');
+      setTimeout(() => {
+        tooltipEl.style.display = 'none';
+        vlineEl.style.display = 'none';
+        dotEl.style.display = 'none';
+        connectorEl.style.display = 'none';
+        cb && cb();
+      }, FADE_MS);
+    }
+
+    let currentTab = 0, currentItem = 0, timer = null;
+    function setActiveTab(idx) { tabs.forEach((t, i) => t.classList.toggle('active-risk', i === idx)); }
+
+    function nextStep() {
+      showItem(currentTab, currentItem);
+      timer = setTimeout(() => {
+        hideAll(() => {
+          currentItem++;
+          if (currentItem >= data[currentTab].length) {
+            currentItem = 0;
+            currentTab = (currentTab + 1) % 3;
+            setActiveTab(currentTab);
+          }
+          nextStep();
+        });
+      }, SHOW_MS);
+    }
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => {
+        clearTimeout(timer);
+        hideAll(() => { currentTab = i; currentItem = 0; setActiveTab(i); nextStep(); });
+      });
+    });
+
+    setTimeout(nextStep, 400);
+
+
+    /*보험 맨위 헤더 롤링 함수*/
+    const notices = [
+        {
+            text: "이**님 | 구토 설사로 인한 탈수증상으로 입원/검사",
+            amount: "125만원 보상"
+        }, {
+            text: "박**님 | 방콕 여행 중 오토바이 사고 응급실 치료",
+            amount: "340만원 보상"
+        }, {
+            text: "김**님 | 수하물 분실로 인한 여행용품 긴급 구매",
+            amount: "89만원 보상"
+        }, {
+            text: "최**님 | 비행기 지연으로 인한 추가 숙박비 발생",
+            amount: "42만원 보상"
+        }, {
+            text: "정**님 | 해외 치과 응급 치료 (방콕 치료 포함)",
+            amount: "210만원 보상"
+        }
+    ];
+
+    let noticeIdx = 0;
+    const track = document.getElementById('noticeTrack');
+
+    function buildNotice() {
+        track.innerHTML = '';
+        [0, 1, 2].forEach(offset => {
+            const d = notices[(noticeIdx + offset) % notices.length];
+            const el = document.createElement('div');
+            el.className = 'notice-item';
+            el.innerHTML = `<span class="notice-text">${d.text}</span><span class="notice-amount">${d.amount}</span>`;
+            track.appendChild(el);
+        });
+        track.style.transition = 'none';
+        track.style.transform = 'translateY(0)';
+    }
+
+    function cycleNotice() {
+        track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        track.style.transform = 'translateY(-36px)';
+        setTimeout(() => {
+            noticeIdx = (noticeIdx + 1) % notices.length;
+            buildNotice();
+        }, 520);
+    }
+
+    buildNotice();
+    setInterval(cycleNotice, 2500);
+
+
+    // 50칸 그라데이션 바 생성 (노랑 → 빨강)--------------------------------------------------------
+    const bar = document.getElementById('riskBar');
+    for (let i = 0; i < 30; i++) {
+        const seg = document.createElement('div');
+        seg.className = 'bar-seg';
+        const t = i / 49;
+        seg.style.background = `rgb(255,${Math.round(210 * (1 - t))},0)`;
+        bar.appendChild(seg);
+    }
+
+    // Phase1: 키워드 순차 등장
+
+    // 1.5초 후: 키워드 숨기고 그래프 등장, 배지 순차 등장
+    setTimeout(() => {
+        document
+            .getElementById('keywordsBlock')
+            .style
+            .display = 'none';
+        document
+            .getElementById('graphBlock')
+            .style
+            .display = 'block';
+
+        ['b0', 'b1', 'b2'].forEach((id, i) => {
+            setTimeout(
+                () => document.getElementById(id).classList.add('show'),
+                300 + i * 280
+            );
+        });
+    }, 1500);
+
+	//하트 채우기
+	const pctLabel = document.getElementById('pctLabel');
+	const fillStop = document.getElementById('fillStop');
+	const emptyStop = document.getElementById('emptyStop');
+
+	const TARGET = 85;
+	const DURATION = 2000; // ms
+	let animTimer = null;
+
+	function easeOutCubic(t) {
+		return 1 - Math.pow(1 - t, 3);
+	}
+
+	function update(val) {
+		const pct = Math.round(val);
+		pctLabel.textContent = pct;
+		titlePct.textContent = pct;
+		const offset = pct + '%';
+		fillStop.setAttribute('offset', offset);
+		emptyStop.setAttribute('offset', offset);
+	}
+
+	function startAnimation() {
+		if (animTimer) 
+			cancelAnimationFrame(animTimer);
+		update(0);
+
+		const startTime = performance.now();
+
+		function tick(now) {
+			const elapsed = now - startTime;
+			const progress = Math.min(elapsed / DURATION, 1);
+			const eased = easeOutCubic(progress);
+			update(eased * TARGET);
+
+			if (progress < 1) {
+				animTimer = requestAnimationFrame(tick);
+			}
+		}
+
+		animTimer = requestAnimationFrame(tick);
+	}
+
+	// 페이지 로드 후 자동 시작
+	window.addEventListener('load', () => {
+		setTimeout(startAnimation, 400);
+	});
+</script>
+
+</html>

@@ -193,7 +193,7 @@ $(document).ready(function() {
 				<div class="ai_contents">
 					<div class="ai_txt1">
 						<img src="./resource/img/common/ai.png">
-						<span>LEE JIYOUN님 아이동반 3인,</span>
+						<span>LEE JIYOUN님 아이동반 4인,</span>
 					</div>
 					<div class="ai_txt3">
 						공항에서 좌석지정 시 떨어져 앉을 확률 <span>85%</span>입니다.
@@ -334,11 +334,13 @@ $(document).ready(function() {
 				<div class="footer-first_close">닫힘</div>
 				<div class="mrt_popupimg2"></div>
 				<div class="mrt_popupimg3"></div>
+				<div class="mrt_popupimg4"></div>
 				<div class="pay_pay_footer close_btn_1">
 					<button class="btn_come_c">다음</button>
 				</div>
 			</div>
 		</div>
+		
 		<!-- 3:4:3 팝업btn_demo_pop02 -->
 		<div class="footer-twst" style="display: none;">
 			<div class="footer-twst-pop">
@@ -418,16 +420,12 @@ $(document).ready(function() {
 
 			seatMapEl.find(".finger").hide();
 			seatMapEl.attr("style", "");
-			seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+			seatSheetEl.removeClass("scale").attr("style","");
 			seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 
 			// zoomOut end
 			seatSheetEl.off().on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (e) => {
 				segCtl.config.PAX_INFO.paxList	= paxList;
-
-				if (seatSheetEl.data("changedTop")) {
-					seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s"}).offset(seatSheetEl.data("changedTop"));
-				}
 
 				seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
 				seatSheetEl.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd");
@@ -497,6 +495,18 @@ $(document).ready(function() {
 					"sex": "F",
 					"guestId": "MSFBRFQ-",
 					"title": "MS"
+				},
+				{
+					"rph": "4",
+					"givenName": "HYUNJI",
+					"surname": "PARK",
+					"paxType": "ADT",
+					"guardianYn": "N",
+					"birthday": "1989-08-04",
+					"age": 36,
+					"sex": "F",
+					"guestId": "MSFBRFQ-",
+					"title": "MS"
 				}];
 
 				var svcList		= ["seat"];
@@ -515,11 +525,21 @@ $(document).ready(function() {
 					return str.charAt(0).toUpperCase() + str.slice(1);
 				}
 
+				function getOccupiedLt(segIdx) {
+					var occupiedLt	= {
+						"1"			: () => ["1A", "1B", "1C", "2A", "3D", "3E", "6A", "6B", "8A", "9A", "9B", "9C", "14D", "14E", "22A", "22B", "24D", "24E", "24F"],
+						"2"			: () => ["7A", "7B", "7C", "7D", "7E", "7F", "8A", "8B", "11E", "11F", "11G", "11H", "12G", "12H", "32G", "32H"],
+						"_default"	: () => []
+					}
+					
+					return (occupiedLt[segIdx] || occupiedLt["_default"])();
+				}
+				
 				for (var i=0; i<svcList.length; i++) {
 					svcAlphaApi		= $.extend(svcAlphaApi, window["comm"+capitalize(svcList[i])+"Api"]);
 				}
 
-				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, twayAlphaApi, twayAlphaPtrn, {config: configObj, svcList: svcList});
+				_this.segCtls["seg"+segIdx+"AlphaCtl"] = $.extend({}, commAlphaApi, svcAlphaApi, twayAlphaApi, twayAlphaPtrn, {config: configObj, svcList: svcList, occupiedLt: getOccupiedLt(segIdx)});
 				_this.segCtls["seg"+segIdx+"AlphaCtl"].init();
 			},
 			// 여정탭변경
@@ -703,17 +723,14 @@ $(document).ready(function() {
 
 				seatMapEl.attr("style", "");
 				seatMapEl.find(".finger").hide();
-				seatSheetEl.removeClass("scale").css({"transition-duration": "2s", "-webkit-transition-duration": "2s", "transform": "matrix(0.3,0,0,0.3,0,0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0)", "top": ""});
+// 				seatSheetEl.removeClass("scale").css({"transition": "all 2.0s ease-out", "-webkit-transition": "all 2.0s ease-out", "transform": "matrix(0.3,0,0,0.3,0,0) translateZ(0)", "-webkit-transform": "matrix(0.3,0,0,0.3,0,0) translateZ(0)", "top": ""});
+				seatSheetEl.removeClass("scale").attr("style","");
 				seatMapEl.parent().find(".cscenter").css("visibility", "hidden");
 
 				// zoomOut end
 				seatSheetEl.off().on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (e) => {
 					if ($(e.target).hasClass("seat_active")) {
 						return;
-					}
-
-					if (seatSheetEl.data("changedTop")) {
-						seatSheetEl.css({"transition-duration": "0s", "-webkit-transition-duration": "0s"}).offset(seatSheetEl.data("changedTop"));
 					}
 
 					seatMapEl.css("height", $("header").height() + seatSheetEl.height()*0.3 + $(".airplane_loca > div:last").height());
@@ -1474,7 +1491,7 @@ $(document).ready(function() {
 			}
 
 			if (segIdx == 1) {
-				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg2").show();
+				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg4").show();
 			} else {
 				$(".footer-first-pop [class*=mrt_popupimg]").hide().filter(".mrt_popupimg3").show();
 			}
