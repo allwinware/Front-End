@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>보험 보장 목록</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', sans-serif; background: #f5f8ff; display: flex; justify-content: center; padding: 2rem 1rem; min-height: 100vh; }
+    .wrap_cva { font-family: inherit; width: 100%; max-width: 600px; padding: 15px; }
+    .top-bar_cva { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 0.5px solid #e0e0e0; margin-bottom: 4px; }
+    .top-left_cva { font-size: 14px; color: #1a1a1a; font-weight: 500; }
+    .top-right_cva { display: flex; align-items: center; gap: 4px; font-size: 14px; color: #222; cursor: pointer; user-select: none; }
+    .tier-label_cva { font-size: 14px; font-weight: 500; color: #222; }
+    .row-wrap_cva { opacity: 0; transform: translateY(-10px); transition: opacity 0.35s ease, transform 0.35s ease; }
+    .row-wrap_cva.visible_cva { opacity: 1; transform: translateY(0); }
+    .row-wrap_cva.hidden_cva { display: none; }
+    .row_cva { display: flex; align-items: center; justify-content: space-between; padding: 13px 0; border-bottom: 0.5px solid #e8e8e8; }
+    .row-left_cva { display: flex; align-items: center; gap: 10px; }
+    .badge-wrap_cva { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .badge-num_cva { width: 20px; height: 20px; border-radius: 5px; background: #1d85ff; color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+    .row-title_cva { font-size: 14px; color: #1a1a1a; }
+    .row-sub_cva { font-size: 11px; color: #999; margin-left: 4px; }
+    .row-right_cva { display: flex; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; padding: 6px 0 6px 12px; }
+    .row-amount_cva { font-size: 14px; font-weight: 500; color: #1d85ff; }
+    .chevron-btn_cva { background: none; border: none; cursor: pointer; padding: 0; display: flex; align-items: center; color: #999; pointer-events: none; }
+    .slide-box_cva { overflow: hidden; max-height: 0; transition: max-height 0.35s ease; }
+    .slide-inner_cva { padding: 12px 14px; background: #eef6ff; border-radius: 8px; margin: 4px 0 8px; }
+    .slide-inner_cva p { font-size: 13px; color: #666; line-height: 1.6; }
+    .show-more-btn_cva { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 16px auto 0; padding: 9px 24px; border: 0.5px solid #ccc; border-radius: 50px; background: #fff; font-size: 14px; color: #666; cursor: pointer; font-family: inherit; }
+    .show-more-btn_cva:hover { background: #f5f8ff; }
+  </style>
+</head>
+<body>
+<div class="wrap_cva">
+
+  <!-- 상단 바 -->
+  <div class="top-bar_cva">
+    <span class="top-left_cva">보상빈도(31)순</span>
+    <div class="top-right_cva" id="tierToggle">
+      <span class="tier-label_cva" id="tierLabel">고급형</span>
+      <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+
+  <!-- 목록 -->
+  <div id="listWrap">
+
+    <!-- 주계약 -->
+    <div class="row-wrap_cva" data-index="0">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <path d="M11 2L4 5v6c0 4.1 3.1 7.9 7 8.9 3.9-1 7-4.8 7-8.9V5L11 2z" fill="#E6F1FB" stroke="#1d85ff" stroke-width="1.2"/>
+              <line x1="7.5" y1="11" x2="14.5" y2="11" stroke="#1d85ff" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="11" y1="7.5" x2="11" y2="14.5" stroke="#1d85ff" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="row-title_cva">주계약</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide('main')">
+          <span class="row-amount_cva" data-amounts="3억원|2억원|1억원">3억원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-main">
+        <div class="slide-inner_cva"><p>여행 중 발생하는 모든 사고에 대한 기본 보상입니다. 사망·후유장해 시 지급됩니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 1. 해외의료 상해 -->
+    <div class="row-wrap_cva" data-index="1">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">1</div></div>
+          <span class="row-title_cva">해외의료 상해</span><span class="row-sub_cva">실손</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(1)">
+          <span class="row-amount_cva" data-amounts="7,000만원|5,000만원|3,000만원">7,000만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-1">
+        <div class="slide-inner_cva"><p>해외에서 상해 사고로 인한 의료비를 실제 지출액 기준으로 보상합니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 2. 휴대품 손해 -->
+    <div class="row-wrap_cva" data-index="2">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">2</div></div>
+          <span class="row-title_cva">휴대품 손해</span><span class="row-sub_cva">개당 20만원, 휴대폰 10만원</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(2)">
+          <span class="row-amount_cva" data-amounts="150만원|100만원|50만원">150만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-2">
+        <div class="slide-inner_cva"><p>여행 중 소지한 물품의 파손·분실 피해를 보상합니다. 단, 현금·유가증권 제외.</p></div>
+      </div>
+    </div>
+
+    <!-- 3. 해외의료 질병 -->
+    <div class="row-wrap_cva" data-index="3">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">3</div></div>
+          <span class="row-title_cva">해외의료 질병</span><span class="row-sub_cva">실손</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(3)">
+          <span class="row-amount_cva" data-amounts="7,000만원|5,000만원|3,000만원">7,000만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-3">
+        <div class="slide-inner_cva"><p>해외 여행 중 질병으로 인한 의료비를 실손 기준으로 보상합니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 4. 항공기/수하물 지연 -->
+    <div class="row-wrap_cva" data-index="4">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">4</div></div>
+          <span class="row-title_cva">항공기/수하물 지연</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(4)">
+          <span class="row-amount_cva" data-amounts="80만원|60만원|40만원">80만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-4">
+        <div class="slide-inner_cva"><p>항공편 지연 또는 수하물 지연으로 발생한 추가 비용을 보상합니다. (6시간 이상)</p></div>
+      </div>
+    </div>
+
+    <!-- 5. 국내의료 상해 -->
+    <div class="row-wrap_cva" data-index="5">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">5</div></div>
+          <span class="row-title_cva">(귀국 후) 국내의료 상해</span><span class="row-sub_cva">실손</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(5)">
+          <span class="row-amount_cva" data-amounts="5,000만원|3,000만원|1,500만원">5,000만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-5">
+        <div class="slide-inner_cva"><p>귀국 후 여행 중 발생한 상해에 대한 국내 의료비를 보상합니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 6. 배상책임 (전체보기 이후) -->
+    <div class="row-wrap_cva hidden_cva" data-index="6" data-extra="true">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">6</div></div>
+          <span class="row-title_cva">배상책임</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(6)">
+          <span class="row-amount_cva" data-amounts="1억원|7,000만원|5,000만원">1억원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-6">
+        <div class="slide-inner_cva"><p>여행 중 타인에게 피해를 입혀 법적 배상 책임이 생긴 경우 보상합니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 7. 항공기 납치 -->
+    <div class="row-wrap_cva hidden_cva" data-index="7" data-extra="true">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">7</div></div>
+          <span class="row-title_cva">항공기 납치</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(7)">
+          <span class="row-amount_cva" data-amounts="500만원|300만원|200만원">500만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-7">
+        <div class="slide-inner_cva"><p>항공기 납치로 인한 비용 및 정신적 피해를 보상합니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 8. 스키·보드 배상책임 -->
+    <div class="row-wrap_cva hidden_cva" data-index="8" data-extra="true">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">8</div></div>
+          <span class="row-title_cva">스키·보드 배상책임</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(8)">
+          <span class="row-amount_cva" data-amounts="3,000만원|2,000만원|1,000만원">3,000만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-8">
+        <div class="slide-inner_cva"><p>스키·스노보드 중 타인에게 부상을 입혀 발생하는 배상 책임을 보상합니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 9. 여행 취소 -->
+    <div class="row-wrap_cva hidden_cva" data-index="9" data-extra="true">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">9</div></div>
+          <span class="row-title_cva">여행 취소</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(9)">
+          <span class="row-amount_cva" data-amounts="100만원|70만원|50만원">100만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-9">
+        <div class="slide-inner_cva"><p>불가피한 사유로 여행을 취소한 경우 기납부 비용을 보상합니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 10. 여권 분실 -->
+    <div class="row-wrap_cva hidden_cva" data-index="10" data-extra="true">
+      <div class="row_cva">
+        <div class="row-left_cva">
+          <div class="badge-wrap_cva"><div class="badge-num_cva">10</div></div>
+          <span class="row-title_cva">여권 분실</span>
+        </div>
+        <div class="row-right_cva" onclick="toggleSlide(10)">
+          <span class="row-amount_cva" data-amounts="20만원|15만원|10만원">20만원</span>
+          <button class="chevron-btn_cva" aria-label="상세보기">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="slide-box_cva" id="slide-10">
+        <div class="slide-inner_cva"><p>해외 여행 중 여권 분실 시 재발급 비용을 보상합니다.</p></div>
+      </div>
+    </div>
+
+  </div><!-- /listWrap -->
+
+  <!-- 전체보기 버튼 -->
+  <button class="show-more-btn_cva" id="showMoreBtn">
+    <span id="showMoreTxt">전체보기</span>
+    <svg id="showMoreIcon" width="11" height="11" viewBox="0 0 11 11" fill="none">
+      <path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+</div><!-- /wrap_cva -->
+
+<script>
+  const tiers = ['고급형', '표준형', '실속형'];
+  let tierIdx = 0;
+  let expanded = false;
+  let openSlide = null;
+  let rollingTimer = null;
+  let rollingPaused = false;
+
+  /* 진입 애니메이션: 기본 노출 행(0~5)만 순차적으로 */
+  const defaultRows = document.querySelectorAll('.row-wrap_cva:not([data-extra])');
+  defaultRows.forEach((row, i) => {
+    setTimeout(() => row.classList.add('visible_cva'), i * 80);
+  });
+
+  /* 슬라이드 토글 */
+  function toggleSlide(id) {
+    const slide = document.getElementById('slide-' + id);
+    if (!slide) return;
+    if (openSlide !== null && openSlide !== id) {
+      const prev = document.getElementById('slide-' + openSlide);
+      if (prev) prev.style.maxHeight = '0';
+    }
+    if (openSlide === id) {
+      slide.style.maxHeight = '0';
+      openSlide = null;
+      rollingPaused = false;
+      scheduleRolling(5000);
+    } else {
+      slide.style.maxHeight = slide.scrollHeight + 'px';
+      openSlide = id;
+      rollingPaused = true;
+      clearTimeout(rollingTimer);
+    }
+  }
+
+  /* 등급 금액 업데이트 */
+  function updateAmounts() {
+    document.querySelectorAll('.row-amount_cva').forEach(el => {
+      const amounts = el.dataset.amounts.split('|');
+      el.textContent = amounts[tierIdx] || '';
+    });
+    document.getElementById('tierLabel').textContent = tiers[tierIdx];
+  }
+
+  /* 롤링 */
+  function scheduleRolling(delay) {
+    clearTimeout(rollingTimer);
+    if (rollingPaused) return;
+    rollingTimer = setTimeout(() => {
+      if (rollingPaused) return;
+      tierIdx = (tierIdx + 1) % tiers.length;
+      updateAmounts();
+      scheduleRolling(5000);
+    }, delay);
+  }
+
+  /* 등급 수동 클릭 */
+  document.getElementById('tierToggle').addEventListener('click', () => {
+    clearTimeout(rollingTimer);
+    rollingPaused = false;
+    tierIdx = (tierIdx + 1) % tiers.length;
+    updateAmounts();
+    scheduleRolling(5000);
+  });
+
+  /* 전체보기 / 닫기 */
+  document.getElementById('showMoreBtn').addEventListener('click', () => {
+    expanded = !expanded;
+    const extraRows = document.querySelectorAll('.row-wrap_cva[data-extra]');
+
+    if (expanded) {
+      extraRows.forEach((row, i) => {
+        row.classList.remove('hidden_cva');
+        setTimeout(() => row.classList.add('visible_cva'), i * 60);
+      });
+    } else {
+      /* 열린 슬라이드 닫기 */
+      if (openSlide !== null) {
+        const prev = document.getElementById('slide-' + openSlide);
+        if (prev) prev.style.maxHeight = '0';
+        openSlide = null;
+        rollingPaused = false;
+      }
+      extraRows.forEach(row => {
+        row.classList.remove('visible_cva');
+        row.classList.add('hidden_cva');
+      });
+    }
+
+    document.getElementById('showMoreTxt').textContent = expanded ? '닫기' : '전체보기';
+    document.getElementById('showMoreIcon').innerHTML = expanded
+      ? `<path d="M1 8l4.5-5L10 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>`
+      : `<path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>`;
+  });
+
+  scheduleRolling(5000);
+</script>
+</body>
+</html>

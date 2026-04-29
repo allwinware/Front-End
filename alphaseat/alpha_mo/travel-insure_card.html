@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>보험 카드</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: #f0f2f5;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ───── 카드 전체 ───── */
+    .insure-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px 16px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 0.35s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ───── 카드 바디: 왼쪽 + 오른쪽 ───── */
+    .card-body {
+      display: flex;
+      align-items: stretch;
+      gap: 16px;
+    }
+
+    /* ════════════════════════════
+       왼쪽 영역
+    ════════════════════════════ */
+    .card-left {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* 왼쪽 위: 이름 + 체크박스 */
+    .card-left-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #d0d0d0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .checkbox.checked {
+      background: #4A90D9;
+      border-color: #4A90D9;
+    }
+
+    .checkbox.checked::after {
+      content: '';
+      width: 5px;
+      height: 9px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translateY(-1px);
+      display: block;
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .user-info {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* 왼쪽 아래: 그래프 영역 */
+    .card-left-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* 프로그레스 바 */
+    .progress-wrap {
+      position: relative;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 25px;
+      background: #eee;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #5BA4F5, #3E7FD6);
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: absolute;
+      top: 0; left: 0;
+    }
+
+    /* 1단계 고정 % 텍스트 (바 안쪽 왼쪽) */
+    .bar-before-pct {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 4;
+    }
+    .bar-before-pct.visible { opacity: 1; }
+
+    /* 1단계 구분선 (바 끝 고정, 바 안쪽) */
+    .bar-divider {
+      position: absolute;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: rgba(255,255,255,0.85);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 3;
+    }
+    .bar-divider.visible { opacity: 1; }
+
+    /* 하트 + afterPct 표시 (바 안쪽) */
+    .heart-marker {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .heart-marker.visible { opacity: 1; }
+
+    /* 밑에 텍스트 라벨 영역 */
+    .progress-labels {
+      position: relative;
+      height: 28px;
+      margin-top: 6px;
+    }
+
+    .label-before, .label-after {
+      position: absolute;
+      top: 0;
+      font-size: 11px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .label-before {
+      color: #e05a5a;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .label-before.visible { opacity: 1; }
+
+    .label-after {
+      color: #4A90D9;
+      font-weight: 600;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .label-after.visible { opacity: 1; }
+
+    /* ════════════════════════════
+       오른쪽 영역
+    ════════════════════════════ */
+    .card-right {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .plan-info {
+      text-align: right;
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .plan-info.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .ai-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: #4A90D9;
+      margin-bottom: 2px;
+    }
+
+    .plan-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 2px;
+    }
+
+    .plan-price {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .plan-price strong {
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    /* 초기화 버튼 */
+    .reset-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: #f5f5f5;
+      cursor: pointer;
+      color: #aaa;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.15s, color 0.15s;
+      align-self: flex-end;
+    }
+
+    .reset-btn:hover { background: #e8e8e8; color: #666; }
+  </style>
+</head>
+<body>
+
+<script>
+  // ══════════════════════════════════════════
+  //  카드 데이터 — 여기서 값을 수정하세요
+  // ══════════════════════════════════════════
+  const cards = [
+    {
+      name: 'LEESIHYUNG',
+      info: '37세, 기본 보장',
+      beforePct: 56,       // 1단계: 프로그레스바가 처음 이동할 %
+      afterPct: 90,        // 2단계: 1.5초 후 이동할 %
+      diffPct: 34,         // 증가 표시 수치
+      planType: '실속형',
+      planName: 'AI 실속형(1억)',
+      price: '15,000원',
+      period: '5일',
+    },
+    {
+      name: 'KIMJIYEON',
+      info: '29세, 기본 보장',
+      beforePct: 48,
+      afterPct: 82,
+      diffPct: 34,
+      planType: '실속형',
+      planName: 'AI 실속형(5천)',
+      price: '9,800원',
+      period: '5일',
+    },
+  ];
+
+  // ══════════════════════════════════════════
+  //  카드 생성 함수
+  // ══════════════════════════════════════════
+  function createCard(data, index) {
+    const card = document.createElement('div');
+    card.className = 'insure-card';
+    card.style.animationDelay = (index * 0.12) + 's';
+
+    card.innerHTML = `
+      <div class="card-body">
+
+        <!-- ── 왼쪽 ── -->
+        <div class="card-left">
+
+          <!-- 왼쪽 위: 체크박스 + 이름 -->
+          <div class="card-left-top">
+            <div class="checkbox checked" data-checkbox></div>
+            <span class="user-name">${data.name}</span>
+            <span class="user-info">${data.info}</span>
+          </div>
+
+          <!-- 왼쪽 아래: 그래프 -->
+          <div class="card-left-bottom">
+
+            <!-- 프로그레스 바 -->
+            <div class="progress-wrap">
+              <div class="progress-track">
+                <div class="progress-bar" data-bar></div>
+                <!-- 1단계 고정 % -->
+                <span class="bar-before-pct" data-before-pct></span>
+                <!-- 1단계 구분선 -->
+                <div class="bar-divider" data-divider></div>
+                <!-- 하트 + afterPct (바 안쪽) -->
+                <div class="heart-marker" data-heart style="left:-9999px">♡ <span data-heart-pct></span></div>
+              </div>
+            </div>
+
+            <!-- 밑에 텍스트 라벨 -->
+            <div class="progress-labels">
+              <span class="label-before" data-label-before>가입 전 →</span>
+              <span class="label-after" data-label-after>(+${data.diffPct}%▲)${data.planType}</span>
+            </div>
+
+          </div><!-- /card-left-bottom -->
+        </div><!-- /card-left -->
+
+        <!-- ── 오른쪽 ── -->
+        <div class="card-right">
+
+          <!-- 플랜 정보 -->
+          <div class="plan-info" data-plan-info>
+            <div class="ai-badge">AI</div>
+            <div class="plan-name">${data.planName}</div>
+            <div class="plan-price"><strong>${data.price}</strong>/${data.period}</div>
+          </div>
+
+          <!-- 초기화 버튼 -->
+          <button class="reset-btn" data-reset title="초기화">↺</button>
+
+        </div><!-- /card-right -->
+
+      </div><!-- /card-body -->
+    `;
+
+    // ── 요소 참조 ──
+    const bar         = card.querySelector('[data-bar]');
+    const heart       = card.querySelector('[data-heart]');
+    const heartPct    = card.querySelector('[data-heart-pct]');
+    const divider     = card.querySelector('[data-divider]');
+    const beforePct   = card.querySelector('[data-before-pct]');
+    const lblBefore   = card.querySelector('[data-label-before]');
+    const lblAfter    = card.querySelector('[data-label-after]');
+    const planInfo    = card.querySelector('[data-plan-info]');
+    const checkbox    = card.querySelector('[data-checkbox]');
+    const resetBtn    = card.querySelector('[data-reset]');
+
+    let animated = false;
+
+    function animate() {
+      if (animated) return;
+      animated = true;
+
+      // 1단계: beforePct까지 바 이동
+      setTimeout(() => {
+        bar.style.width = data.beforePct + '%';
+
+        // 바 이동 완료 후 (transition 0.8s 끝나면)
+        setTimeout(() => {
+          // 56% 텍스트 바 안 왼쪽에 고정
+          beforePct.textContent = data.beforePct + '%';
+          beforePct.style.left = 'calc(' + data.beforePct + '% - 46px)';
+          beforePct.classList.add('visible');
+
+          // 구분선 (바 끝 = beforePct 위치)
+          divider.style.left = data.beforePct + '%';
+          divider.classList.add('visible');
+
+          // 가입 전 라벨 (바 아래, beforePct 위치 중앙)
+          lblBefore.style.left = data.beforePct + '%';
+          lblBefore.classList.add('visible');
+
+          // 잠깐 멈춤 후 2단계
+          setTimeout(() => {
+            // 2단계: afterPct까지 바 이동
+            bar.style.width = data.afterPct + '%';
+            lblAfter.style.left = data.afterPct + '%';
+
+            // 바 이동 완료 후 (0.8s transition 대기) — 위치 세팅도 여기서
+            setTimeout(() => {
+              // 위치 먼저 세팅 (아직 opacity 0)
+              heart.style.left = 'calc(' + data.afterPct + '% - 52px)';
+              heartPct.textContent = data.afterPct + '%';
+
+              // 다음 프레임에서 fade in (위치 적용 후)
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  heart.classList.add('visible');
+                });
+              });
+
+              // 잠깐 후 라벨 등장
+              setTimeout(() => {
+                lblAfter.classList.add('visible');
+                setTimeout(() => {
+                  planInfo.classList.add('visible');
+                }, 300);
+              }, 300);
+            }, 850);
+
+          }, 700); // 1단계 멈춤 시간
+
+        }, 850); // 1단계 transition 대기
+
+      }, 200);
+    }
+
+    function reset() {
+      animated = false;
+      bar.style.width = '0%';
+      heart.style.left = '-9999px';   // 화면 밖으로 숨김
+      heart.classList.remove('visible');
+      divider.style.left = '0%';
+      divider.classList.remove('visible');
+      beforePct.classList.remove('visible');
+      lblBefore.classList.remove('visible');
+      lblAfter.classList.remove('visible');
+      planInfo.classList.remove('visible');
+      setTimeout(animate, 200);
+    }
+
+    // 체크박스 토글
+    checkbox.addEventListener('click', () => checkbox.classList.toggle('checked'));
+
+    // 초기화
+    resetBtn.addEventListener('click', reset);
+
+    // 뷰포트 진입 시 자동 시작
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { animate(); observer.disconnect(); }
+    }, { threshold: 0.3 });
+    observer.observe(card);
+
+    return card;
+  }
+
+  // ── 카드 렌더 ──
+  document.addEventListener('DOMContentLoaded', () => {
+    cards.forEach((data, i) => document.body.appendChild(createCard(data, i)));
+  });
+</script>
+
+</body>
+</html>
