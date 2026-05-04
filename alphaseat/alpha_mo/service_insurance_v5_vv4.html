@@ -80,7 +80,19 @@
 				<div class="header_insure_btn">내 정보</div>
 			</div>
 		</header>		
+		
 
+		<div class="header_insure_center">
+			<div class="header_insure_cen" >
+				<div class="ai-badge">AI</div>
+				<div class="header_insure_txt2">이번 <span>방콕</span>여행을 대비해 드립니다.</div>
+			</div>
+		</div>
+
+		<div class="outer-wrap">
+			<div class="gauge-container" id="gaugeContainer"></div>
+		</div>		
+		<!-- -->
 		<div class="outer-risk">
 			<div class="top-row-risk">
 				<p class="top-title-risk">실제, 많은 분들이
@@ -166,16 +178,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="header_insure_center">
-			<div class="header_insure_cen" >
-				<div class="ai-badge">AI</div>
-				<div class="header_insure_txt2">이번 <span>방콕</span>여행을 대비해 드립니다.</div>
-			</div>
-		</div>
 		
-		<div class="outer-wrap">
-			<div class="gauge-container" id="gaugeContainer"></div>
-		</div>
 		<div class="twoarrow-icon">
 			<svg viewBox="0 0 40 42" xmlns="http://www.w3.org/2000/svg" width="20" height="17">
 				<polygon points="4,2 36,2 20,22" fill="#bbb"/>
@@ -442,6 +445,8 @@
 			<div class="herat_number">
 				<!-- ===== _heart 하단 바 ===== -->
 				<div class="bottom-bar_heart">
+					<!-- 닫기 버튼: aip-open 시에만 표시 -->
+					<a class="aip-close" id="aipClose" style="display:none;"></a>
 					<div class="bar-top_heart">
 						<div class="bar-left_heart">
 						<div class="plan-badge_heart">
@@ -483,6 +488,63 @@
 					</div>  <!-- bottom-bar_heart 끝 -->
 				</div>
 			</div>
+
+			<!-- ===== AI 판단 결과 패널 ===== -->
+			<div class="aip-panel" id="aipPanel">
+				<div class="aip-scroll">
+
+					<div class="aip-persons">
+						<div class="aip-row">
+							<div class="aip-row-left">
+								<span class="aip-chk on"></span>
+								<div class="aip-pinfo"><div class="aip-pname">LEESIHYUNG</div><div class="aip-pprice">26,000원/4일</div></div>
+							</div>
+							<div class="aip-row-right">
+								<button class="aip-tier aip-blue"><span class="aip-ai">AI</span> 고급형 3억</button>
+								<div class="aip-insight"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg><span>아이,의료대비</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+							</div>
+						</div>
+						<div class="aip-row">
+							<div class="aip-row-left">
+								<span class="aip-chk on"></span>
+								<div class="aip-pinfo"><div class="aip-pname">LEEJIYOUNG</div><div class="aip-pprice">18,000원/4일</div></div>
+							</div>
+							<div class="aip-row-right">
+								<button class="aip-tier aip-green"><span class="aip-ai">AI</span> 표준형 2억</button>
+								<div class="aip-insight"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg><span>34세,균형보장</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+							</div>
+						</div>
+						<div class="aip-row">
+							<div class="aip-row-left">
+								<span class="aip-chk on"></span>
+								<div class="aip-pinfo"><div class="aip-pname">KIMJINHUG</div><div class="aip-pprice">12,000원/4일</div></div>
+							</div>
+							<div class="aip-row-right">
+								<button class="aip-tier aip-orange"><span class="aip-ai">AI</span> 실속형 1억</button>
+								<div class="aip-insight"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg><span>36세,기본보장</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="aip-total">
+						<div><span class="aip-total-label">3인 합계</span><br><span class="aip-total-price">56,000원/5일</span></div>
+						<div class="aip-insurer"><svg width="14" height="14" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="4" fill="#E04020"/><text x="11" y="15" text-anchor="middle" fill="white" font-size="7" font-weight="bold" font-family="sans-serif">라이나</text></svg><span>라이나손보</span></div>
+					</div>
+					<div class="aip-divider"></div>
+					<div class="aip-agree-wrap">
+						<div class="aip-agree-all" id="aipAgreeAll"><span class="aip-chk" id="aipChkAll"></span><span class="aip-agree-txt">모두 동의합니다.</span></div>
+					</div>
+					<div class="aip-terms">
+						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">약관 동의</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">단체(취급) 여행보험 가입 규약</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">단체여행보험약관 대리 체결 확인</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">개인정보 제3자 제공 동의</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+					</div>
+
+				</div><!-- /aip-scroll -->
+			</div><!-- /aip-panel -->
+			<!-- ===== //AI 판단 결과 패널 ===== -->
+
 			<div class="bar_heart_footer">
 				<div class="foot_align">
 					<div class="btf_graybtn">
@@ -500,118 +562,6 @@
 					</div>				
 				</div>
 			</div>		
-			<!-- ===== AI 판단 결과 패널 ===== -->
-			<div class="aip-panel" id="aipPanel">
-				<a class="aip-close" id="aipClose">✕ 닫기</a>
-
-				<!-- 인원 목록 -->
-				<div class="aip-persons">
-
-					<div class="aip-row">
-						<div class="aip-row-left">
-							<span class="aip-chk on"></span>
-							<div class="aip-pinfo">
-								<div class="aip-pname">LEESIHYUNG</div>
-								<div class="aip-pprice">26,000원/4일</div>
-							</div>
-						</div>
-						<div class="aip-row-right">
-							<button class="aip-tier aip-blue"><span class="aip-ai">AI</span> 고급형 3억</button>
-							<div class="aip-insight">
-								<svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg>
-								<span>아이,의료대비</span>
-								<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
-							</div>
-						</div>
-					</div>
-
-					<div class="aip-row">
-						<div class="aip-row-left">
-							<span class="aip-chk on"></span>
-							<div class="aip-pinfo">
-								<div class="aip-pname">LEEJIYOUNG</div>
-								<div class="aip-pprice">18,000원/4일</div>
-							</div>
-						</div>
-						<div class="aip-row-right">
-							<button class="aip-tier aip-green"><span class="aip-ai">AI</span> 표준형 2억</button>
-							<div class="aip-insight">
-								<svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg>
-								<span>34세,균형보장</span>
-								<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
-							</div>
-						</div>
-					</div>
-
-					<div class="aip-row">
-						<div class="aip-row-left">
-							<span class="aip-chk on"></span>
-							<div class="aip-pinfo">
-								<div class="aip-pname">KIMJINHUG</div>
-								<div class="aip-pprice">12,000원/4일</div>
-							</div>
-						</div>
-						<div class="aip-row-right">
-							<button class="aip-tier aip-orange"><span class="aip-ai">AI</span> 실속형 1억</button>
-							<div class="aip-insight">
-								<svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg>
-								<span>36세,기본보장</span>
-								<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
-							</div>
-						</div>
-					</div>
-
-				</div><!-- /aip-persons -->
-
-				<!-- 합계 -->
-				<div class="aip-total">
-					<div>
-						<span class="aip-total-label">3인 합계</span><br>
-						<span class="aip-total-price">56,000원/5일</span>
-					</div>
-					<div class="aip-insurer">
-						<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="4" fill="#E04020"/><text x="11" y="15" text-anchor="middle" fill="white" font-size="7" font-weight="bold" font-family="sans-serif">라이나</text></svg>
-						<span>라이나손보</span>
-					</div>
-				</div>
-
-				<div class="aip-divider"></div>
-
-				<!-- 모두 동의 -->
-				<div class="aip-agree-wrap">
-					<div class="aip-agree-all" id="aipAgreeAll">
-						<span class="aip-chk" id="aipChkAll"></span>
-						<span class="aip-agree-txt">모두 동의합니다.</span>
-					</div>
-				</div>
-
-				<!-- 약관 -->
-				<div class="aip-terms">
-					<div class="aip-term-row">
-						<span class="aip-chk aip-tc"></span>
-						<span class="aip-term-txt">약관 동의</span>
-						<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg>
-					</div>
-					<div class="aip-term-row">
-						<span class="aip-chk aip-tc"></span>
-						<span class="aip-term-txt">단체(취급) 여행보험 가입 규약</span>
-						<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg>
-					</div>
-					<div class="aip-term-row">
-						<span class="aip-chk aip-tc"></span>
-						<span class="aip-term-txt">단체여행보험약관 대리 체결 확인</span>
-						<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg>
-					</div>
-					<div class="aip-term-row">
-						<span class="aip-chk aip-tc"></span>
-						<span class="aip-term-txt">개인정보 제3자 제공 동의</span>
-						<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg>
-					</div>
-				</div>
-
-			</div><!-- /aip-panel -->
-			<!-- ===== //AI 판단 결과 패널 ===== -->
-
 			<div class="footer_contents">				
 				<a class="btn_footer_close">Close</a>
 				<div class="pay_content">
@@ -830,9 +780,9 @@
 	</div>
 	
     <!-- 안심지수 팝업 -->
-    <div class="overlay_heart" id="infoOverlay_heart" onclick="if(event.target===this)this.classList.remove('show_heart')">
+    <div class="overlay_heart" id="infoOverlay_heart">
       <div class="popup_heart">
-        <button class="popup-x_heart" onclick="document.getElementById('infoOverlay_heart').classList.remove('show_heart')">✕</button>
+        <button class="popup-x_heart" onclick="document.getElementById('infoOverlay_heart').classList.remove('show_heart');document.body.classList.remove('no-scroll')">✕</button>
         <p class="popup-title_heart">안심지수란?</p>
         <p class="popup-body_heart">
           AI가 여행 리스크 정도와 플랜 별 보장 충분성을 반영해 산정한 참고용 확률지수입니다.<br><br>
@@ -856,159 +806,8 @@
 	
 </body>
 <script>
-	 /* ===== _heart 하단 바 JS ===== */
-    (function() {
-      var HEART_TOP = 4.5;
-      var HEART_BOTTOM = 25.5;
-      var HEART_H = HEART_BOTTOM - HEART_TOP;
-      var TARGET = 85;
-      var cur = 35;
 
-      function setPct(pct) {
-        var el = document.getElementById('numDisplay_heart');
-        if (el) el.textContent = pct;
-        var fillH = HEART_H * (pct / 100);
-        var fillY = HEART_BOTTOM - fillH;
-        var emptyH = HEART_H - fillH;
-        var fr = document.getElementById('fillRect_heart');
-        var er = document.getElementById('emptyRect_heart');
-        if (fr) { fr.setAttribute('y', fillY); fr.setAttribute('height', fillH); }
-        if (er) { er.setAttribute('y', HEART_TOP); er.setAttribute('height', emptyH); }
-      }
-
-      setPct(35);
-
-      function anim() {
-        if (cur >= TARGET) { setPct(TARGET); return; }
-        cur++;
-        setPct(cur);
-        setTimeout(anim, 28);
-      }
-      setTimeout(anim, 500);
-
-      var inner = document.getElementById('rollingInner_heart');
-      var ri = 0;
-      setInterval(function() {
-        ri = (ri + 1) % 3;
-        if (inner) inner.style.transform = 'translateY(-' + (ri * 18) + 'px)';
-      }, 3000);
-
-      var infoBtn = document.getElementById('infoBtn_heart');
-      if (infoBtn) {
-        infoBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var ov = document.getElementById('infoOverlay_heart');
-          if (ov) ov.classList.add('show_heart');
-        });
-      }
-    })();
-    /* ===== //_heart 하단 바 JS ===== */
-
-	/* ── 보상 슬라이드 리스트 ── */
-    const tiers = ['고급형', '표준형', '실속형'];
-    let tierIdx = 0;
-    let expanded = false;
-    let openSlide = null;
-    let rollingTimer = null;
-    let rollingPaused = false;
-
-    /* 진입 애니메이션: 기본 노출 행 순차 등장 */
-    document.querySelectorAll('.row-wrap_cva:not([data-extra])').forEach((row, i) => {
-      setTimeout(() => row.classList.add('visible_cva'), i * 80);
-    });
-
-    const coverages_UNUSED = [
-      { id: 'main', shield: true, title: '주계약', sub: null, amounts: ['3억원', '2억원', '1억원'], desc: '여행 중 발생하는 모든 사고에 대한 기본 보상입니다. 사망·후유장해 시 지급됩니다.' },
-      { id: 1, title: '해외의료 상해', sub: '실손', amounts: ['7,000만원', '5,000만원', '3,000만원'], desc: '해외에서 상해 사고로 인한 의료비를 실제 지출액 기준으로 보상합니다.' },
-      { id: 2, title: '휴대품 손해', sub: '개당 20만원, 휴대폰 10만원', amounts: ['150만원', '100만원', '50만원'], desc: '여행 중 소지한 물품의 파손·분실 피해를 보상합니다. 단, 현금·유가증권 제외.' },
-      { id: 3, title: '해외의료 질병', sub: '실손', amounts: ['7,000만원', '5,000만원', '3,000만원'], desc: '해외 여행 중 질병으로 인한 의료비를 실손 기준으로 보상합니다.' },
-      { id: 4, title: '항공기/수하물 지연', sub: null, amounts: ['80만원', '60만원', '40만원'], desc: '항공편 지연 또는 수하물 지연으로 발생한 추가 비용을 보상합니다. (6시간 이상)' },
-      { id: 5, title: '(귀국 후) 국내의료 상해', sub: '실손', amounts: ['5,000만원', '3,000만원', '1,500만원'], desc: '귀국 후 여행 중 발생한 상해에 대한 국내 의료비를 보상합니다.' },
-      { id: 6, title: '배상책임', sub: null, amounts: ['1억원', '7,000만원', '5,000만원'], desc: '여행 중 타인에게 피해를 입혀 법적 배상 책임이 생긴 경우 보상합니다.' },
-      { id: 7, title: '항공기 납치', sub: null, amounts: ['500만원', '300만원', '200만원'], desc: '항공기 납치로 인한 비용 및 정신적 피해를 보상합니다.' },
-      { id: 8, title: '스키·보드 배상책임', sub: null, amounts: ['3,000만원', '2,000만원', '1,000만원'], desc: '스키·스노보드 중 타인에게 부상을 입혀 발생하는 배상 책임을 보상합니다.' },
-      { id: 9, title: '여행 취소', sub: null, amounts: ['100만원', '70만원', '50만원'], desc: '불가피한 사유로 여행을 취소한 경우 기납부 비용을 보상합니다.' },
-      { id: 10, title: '여권 분실', sub: null, amounts: ['20만원', '15만원', '10만원'], desc: '해외 여행 중 여권 분실 시 재발급 비용을 보상합니다.' },
-    ];
-    /* coverages_UNUSED: 데이터는 HTML data-amounts 속성에 직접 기재됨 */
-
-    function toggleSlide(id) {
-      const slide = document.getElementById('slide-' + id);
-      if (!slide) return;
-      if (openSlide && openSlide !== id) {
-        const prev = document.getElementById('slide-' + openSlide);
-        if (prev) prev.style.maxHeight = '0';
-      }
-      if (openSlide === id) {
-        slide.style.maxHeight = '0';
-        openSlide = null;
-        rollingPaused = false;
-        scheduleRolling(5000);
-      } else {
-        slide.style.maxHeight = slide.scrollHeight + 'px';
-        openSlide = id;
-        rollingPaused = true;
-        clearTimeout(rollingTimer);
-      }
-    }
-
-    function updateAmounts() {
-      document.querySelectorAll('.row-amount_cva').forEach(el => {
-        const amounts = el.dataset.amounts.split('|');
-        el.textContent = amounts[tierIdx] || '';
-      });
-      document.getElementById('tierLabel').textContent = tiers[tierIdx];
-    }
-
-    function scheduleRolling(delay) {
-      clearTimeout(rollingTimer);
-      if (rollingPaused) return;
-      rollingTimer = setTimeout(() => {
-        if (rollingPaused) return;
-        tierIdx = (tierIdx + 1) % tiers.length;
-        updateAmounts();
-        scheduleRolling(5000);
-      }, delay);
-    }
-
-    document.getElementById('tierToggle').addEventListener('click', () => {
-      clearTimeout(rollingTimer);
-      rollingPaused = false;
-      tierIdx = (tierIdx + 1) % tiers.length;
-      updateAmounts();
-      scheduleRolling(5000);
-    });
-
-    document.getElementById('showMoreBtn').addEventListener('click', () => {
-      expanded = !expanded;
-      const extraRows = document.querySelectorAll('.row-wrap_cva[data-extra]');
-      if (expanded) {
-        extraRows.forEach((row, i) => {
-          row.classList.remove('hidden_cva');
-          setTimeout(() => row.classList.add('visible_cva'), i * 60);
-        });
-      } else {
-        if (openSlide !== null) {
-          const prev = document.getElementById('slide-' + openSlide);
-          if (prev) prev.style.maxHeight = '0';
-          openSlide = null;
-          rollingPaused = false;
-        }
-        extraRows.forEach(row => {
-          row.classList.remove('visible_cva');
-          row.classList.add('hidden_cva');
-        });
-      }
-      document.getElementById('showMoreTxt').textContent = expanded ? '닫기' : '전체보기';
-      document.getElementById('showMoreIcon').innerHTML = expanded
-        ? `<path d="M1 8l4.5-5L10 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>`
-        : `<path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>`;
-    });
-
-    scheduleRolling(5000);
-
-
-	//중간 반원 그래프
+	//반원 그래프
 		
 	/* ══════════════════════════════════════════════
 	★ 설정 — 여기만 수정하세요
@@ -1021,32 +820,32 @@
 		id: 'disease',
 		label: '질병상해',
 		score: 4.5,
-		riskLabels: ['낮은 편','보통','조금걱정','걱정','많이 걱정'],
+		riskLabels: ['낮은 편','보통','조금걱정','걱정','많이걱정'],
 		showMedical: true
 	},
 	{
 		id: 'damage',
 		label: '파손도난',
 		score: 3.7,
-		riskLabels: ['낮은 편','보통','조금주의','주의','많이 주의'],
+		riskLabels: ['낮은 편','보통','조금주의','주의','많이주의'],
 		showMedical: false
 	},
 	{
 		id: 'delay',
 		label: '지연결항',
 		score: 1.9,
-		riskLabels: ['낮은 편','보통','조금걱정','걱정','많이 걱정'],
+		riskLabels: ['낮은 편','보통','조금걱정','걱정','많이걱정'],
 		showMedical: false
 	}
 	];
 	/* ══════════════════════════════════════════════ */
 
 	function getColor(score) {
-	if (score < 1) return '#F5C800';
-	if (score < 2) return '#F5A623';
-	if (score < 3) return '#E8612A';
-	if (score < 4) return '#D0021B';
-	return '#9B0014';
+	if (score < 1) return '#FFE101';
+	if (score < 2) return '#FFBB01';
+	if (score < 3) return '#FF8C00';
+	if (score < 4) return '#FF6811';
+	return '#FF1613';
 	}
 
 	function getRiskText(score, labels) {
@@ -1091,11 +890,11 @@
 	const cx = 90, cy = 96, r = 86, thick = 24;
 
 	const segs = [
-		{ a1:-180, a2:-144, color:'#F5C800' },
-		{ a1:-144, a2:-108, color:'#F5A623' },
-		{ a1:-108, a2: -72, color:'#E8612A' },
-		{ a1: -72, a2: -36, color:'#D0021B' },
-		{ a1: -36, a2:   0, color:'#9B0014' },
+		{ a1:-180, a2:-144, color:'#FFE101' },
+		{ a1:-144, a2:-108, color:'#FFBB01' },
+		{ a1:-108, a2: -72, color:'#FF8C00' },
+		{ a1: -72, a2: -36, color:'#FF6811' },
+		{ a1: -36, a2:   0, color:'#FF1613' },
 	];
 
 	const arcs = segs.map(s =>
@@ -1188,6 +987,8 @@
 
 	buildCards();
 	DATA.forEach((d,i) => animateGauge(d, i*280));
+
+
 
 	// 맨위에 막대그래프 
 	const SHOW_MS = 2500;
@@ -1345,248 +1146,253 @@
 
 
 
+	 /* ===== _heart 하단 바 JS ===== */
+    (function() {
+      var HEART_TOP = 4.5;
+      var HEART_BOTTOM = 25.5;
+      var HEART_H = HEART_BOTTOM - HEART_TOP;
+      var TARGET = 85;
+      var cur = 35;
+
+      function setPct(pct) {
+        var el = document.getElementById('numDisplay_heart');
+        if (el) el.textContent = pct;
+        var fillH = HEART_H * (pct / 100);
+        var fillY = HEART_BOTTOM - fillH;
+        var emptyH = HEART_H - fillH;
+        var fr = document.getElementById('fillRect_heart');
+        var er = document.getElementById('emptyRect_heart');
+        if (fr) { fr.setAttribute('y', fillY); fr.setAttribute('height', fillH); }
+        if (er) { er.setAttribute('y', HEART_TOP); er.setAttribute('height', emptyH); }
+      }
+
+      setPct(35);
+
+      function anim() {
+        if (cur >= TARGET) { setPct(TARGET); return; }
+        cur++;
+        setPct(cur);
+        setTimeout(anim, 28);
+      }
+      setTimeout(anim, 500);
+
+      var inner = document.getElementById('rollingInner_heart');
+      var ri = 0;
+      setInterval(function() {
+        ri = (ri + 1) % 3;
+        if (inner) inner.style.transform = 'translateY(-' + (ri * 18) + 'px)';
+      }, 3000);
+
+      var infoBtn = document.getElementById('infoBtn_heart');
+      if (infoBtn) {
+        infoBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var ov = document.getElementById('infoOverlay_heart');
+          if (ov) ov.classList.add('show_heart');
+          document.body.classList.add('no-scroll');
+        });
+      }
+    })();
+    /* ===== //_heart 하단 바 JS ===== */
+
+	/* ── 보상 슬라이드 리스트 ── */
+    const tiers = ['고급형', '표준형', '실속형'];
+    let tierIdx = 0;
+    let expanded = false;
+    let openSlide = null;
+    let rollingTimer = null;
+    let rollingPaused = false;
+
+    /* 진입 애니메이션: 기본 노출 행 순차 등장 */
+    document.querySelectorAll('.row-wrap_cva:not([data-extra])').forEach((row, i) => {
+      setTimeout(() => row.classList.add('visible_cva'), i * 80);
+    });
+
+    const coverages_UNUSED = [
+      { id: 'main', shield: true, title: '주계약', sub: null, amounts: ['3억원', '2억원', '1억원'], desc: '여행 중 발생하는 모든 사고에 대한 기본 보상입니다. 사망·후유장해 시 지급됩니다.' },
+      { id: 1, title: '해외의료 상해', sub: '실손', amounts: ['7,000만원', '5,000만원', '3,000만원'], desc: '해외에서 상해 사고로 인한 의료비를 실제 지출액 기준으로 보상합니다.' },
+      { id: 2, title: '휴대품 손해', sub: '개당 20만원, 휴대폰 10만원', amounts: ['150만원', '100만원', '50만원'], desc: '여행 중 소지한 물품의 파손·분실 피해를 보상합니다. 단, 현금·유가증권 제외.' },
+      { id: 3, title: '해외의료 질병', sub: '실손', amounts: ['7,000만원', '5,000만원', '3,000만원'], desc: '해외 여행 중 질병으로 인한 의료비를 실손 기준으로 보상합니다.' },
+      { id: 4, title: '항공기/수하물 지연', sub: null, amounts: ['80만원', '60만원', '40만원'], desc: '항공편 지연 또는 수하물 지연으로 발생한 추가 비용을 보상합니다. (6시간 이상)' },
+      { id: 5, title: '(귀국 후) 국내의료 상해', sub: '실손', amounts: ['5,000만원', '3,000만원', '1,500만원'], desc: '귀국 후 여행 중 발생한 상해에 대한 국내 의료비를 보상합니다.' },
+      { id: 6, title: '배상책임', sub: null, amounts: ['1억원', '7,000만원', '5,000만원'], desc: '여행 중 타인에게 피해를 입혀 법적 배상 책임이 생긴 경우 보상합니다.' },
+      { id: 7, title: '항공기 납치', sub: null, amounts: ['500만원', '300만원', '200만원'], desc: '항공기 납치로 인한 비용 및 정신적 피해를 보상합니다.' },
+      { id: 8, title: '스키·보드 배상책임', sub: null, amounts: ['3,000만원', '2,000만원', '1,000만원'], desc: '스키·스노보드 중 타인에게 부상을 입혀 발생하는 배상 책임을 보상합니다.' },
+      { id: 9, title: '여행 취소', sub: null, amounts: ['100만원', '70만원', '50만원'], desc: '불가피한 사유로 여행을 취소한 경우 기납부 비용을 보상합니다.' },
+      { id: 10, title: '여권 분실', sub: null, amounts: ['20만원', '15만원', '10만원'], desc: '해외 여행 중 여권 분실 시 재발급 비용을 보상합니다.' },
+    ];
+    /* coverages_UNUSED: 데이터는 HTML data-amounts 속성에 직접 기재됨 */
+
+    function toggleSlide(id) {
+      const slide = document.getElementById('slide-' + id);
+      if (!slide) return;
+      if (openSlide && openSlide !== id) {
+        const prev = document.getElementById('slide-' + openSlide);
+        if (prev) prev.style.maxHeight = '0';
+      }
+      if (openSlide === id) {
+        slide.style.maxHeight = '0';
+        openSlide = null;
+        rollingPaused = false;
+        scheduleRolling(5000);
+      } else {
+        slide.style.maxHeight = slide.scrollHeight + 'px';
+        openSlide = id;
+        rollingPaused = true;
+        clearTimeout(rollingTimer);
+      }
+    }
+
+    function updateAmounts() {
+      document.querySelectorAll('.row-amount_cva').forEach(el => {
+        const amounts = el.dataset.amounts.split('|');
+        el.textContent = amounts[tierIdx] || '';
+      });
+      document.getElementById('tierLabel').textContent = tiers[tierIdx];
+    }
+
+    function scheduleRolling(delay) {
+      clearTimeout(rollingTimer);
+      if (rollingPaused) return;
+      rollingTimer = setTimeout(() => {
+        if (rollingPaused) return;
+        tierIdx = (tierIdx + 1) % tiers.length;
+        updateAmounts();
+        scheduleRolling(5000);
+      }, delay);
+    }
+
+    document.getElementById('tierToggle').addEventListener('click', () => {
+      clearTimeout(rollingTimer);
+      rollingPaused = false;
+      tierIdx = (tierIdx + 1) % tiers.length;
+      updateAmounts();
+      scheduleRolling(5000);
+    });
+
+    document.getElementById('showMoreBtn').addEventListener('click', () => {
+      expanded = !expanded;
+      const extraRows = document.querySelectorAll('.row-wrap_cva[data-extra]');
+      if (expanded) {
+        extraRows.forEach((row, i) => {
+          row.classList.remove('hidden_cva');
+          setTimeout(() => row.classList.add('visible_cva'), i * 60);
+        });
+      } else {
+        if (openSlide !== null) {
+          const prev = document.getElementById('slide-' + openSlide);
+          if (prev) prev.style.maxHeight = '0';
+          openSlide = null;
+          rollingPaused = false;
+        }
+        extraRows.forEach(row => {
+          row.classList.remove('visible_cva');
+          row.classList.add('hidden_cva');
+        });
+      }
+      document.getElementById('showMoreTxt').textContent = expanded ? '닫기' : '전체보기';
+      document.getElementById('showMoreIcon').innerHTML = expanded
+        ? `<path d="M1 8l4.5-5L10 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>`
+        : `<path d="M1 3l4.5 5L10 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>`;
+    });
+
+    scheduleRolling(5000);
+
 </script>
 
-<style>
-/* ================================================================
-   AI 판단 결과 패널 (v4 추가분) - 클래스명 aip- 접두사로 충돌 방지
-   ================================================================ */
-
-/* 1. bar_heart_footer: 항상 fixed 하단 고정 */
-.bar_heart_footer {
-  position: fixed !important;
-  bottom: 0; left: 0; right: 0;
-  background: #fff;
-  z-index: 300;
-}
-
-/* 2. footer_contents: content.css 원본 방식 유지
-   (top:101% 기본 → ags-summary.active 시 top:11% 로 슬라이드업)
-   alpha.mo.ui.js 없으므로 JS로 .active 토글 */
-
-/* 3. aip-panel: 기본 숨김 */
-.aip-panel {
-  display: none;
-  background: #fff;
-}
-
-/* 4. ags-summary aip-open 상태:
-   bar_heart_footer 바로 위에서 flex column으로 확장
-   bottom-bar_heart(herat_number)는 상단 고정
-   aip-panel은 가운데 스크롤
-   bar_heart_footer는 건드리지 않음 */
-.ags-summary.insurerisk.aip-open {
-  position: fixed !important;
-  bottom: var(--aip-bar-h, 60px) !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: calc(80vh - var(--aip-bar-h, 60px)) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  z-index: 200;
-  background: #fff;
-  overflow: hidden;
-  transition: height 0.35s cubic-bezier(0.4,0,0.2,1);
-}
-.ags-summary.insurerisk.aip-open .herat_number {
-  flex-shrink: 0;
-}
-.ags-summary.insurerisk.aip-open .aip-panel {
-  display: block;
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-/* 5. aip-close: 맨 위 닫기 버튼 */
-.aip-close {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 10px 16px 6px;
-  font-size: 13px;
-  color: #888;
-  cursor: pointer;
-  text-decoration: none;
-  flex-shrink: 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-/* 6. 인원 목록 */
-.aip-persons { padding: 2px 0; }
-.aip-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 16px; border-bottom: 1px solid #f5f5f5; gap: 8px;
-}
-.aip-row:last-child { border-bottom: none; }
-.aip-row-left  { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
-.aip-row-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-
-/* 체크박스 */
-.aip-chk {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 20px; height: 20px; border-radius: 50%;
-  border: 2px solid #ddd; background: #fff;
-  flex-shrink: 0; cursor: pointer; box-sizing: border-box;
-}
-.aip-chk.on { border-color: #1d85ff; background: #1d85ff; }
-.aip-chk.on::after {
-  content: ''; display: block;
-  width: 5px; height: 9px;
-  border: 2px solid #fff; border-top: none; border-left: none;
-  transform: rotate(45deg) translate(-1px, -1px);
-}
-.aip-pinfo  { min-width: 0; }
-.aip-pname  { font-size: 12px; font-weight: 700; color: #222; }
-.aip-pprice { font-size: 11px; color: #666; margin-top: 2px; }
-
-/* 등급 버튼 */
-.aip-tier {
-  display: inline-flex; align-items: center; gap: 3px;
-  padding: 5px 9px; border-radius: 20px; font-size: 11px; font-weight: 700;
-  border: none; cursor: pointer; white-space: nowrap;
-}
-.aip-ai { background: rgba(255,255,255,0.3); border-radius: 3px; padding: 0 3px; font-size: 9px; font-weight: 800; line-height: 14px; }
-.aip-blue   { background: #1d85ff; color: #fff; }
-.aip-green  { background: #34a853; color: #fff; }
-.aip-orange { background: #f5a623; color: #fff; }
-
-.aip-insight { display: flex; align-items: center; gap: 3px; }
-.aip-insight span { font-size: 11px; color: #444; white-space: nowrap; }
-
-/* 합계 */
-.aip-total {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 16px;
-}
-.aip-total-label { font-size: 12px; color: #888; }
-.aip-total-price { font-size: 13px; font-weight: 800; color: #111; }
-.aip-insurer { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #888; }
-
-/* 동의 + 약관 */
-.aip-agree-wrap { padding: 10px 16px 6px; }
-.aip-agree-all  { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.aip-agree-txt  { font-size: 14px; font-weight: 700; color: #222; }
-.aip-terms { padding: 0 16px 8px; }
-.aip-term-row {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 0; border-bottom: 1px solid #f5f5f5;
-}
-.aip-term-row:last-child { border-bottom: none; }
-.aip-term-txt { flex: 1; font-size: 12px; color: #555; }
-</style>
-
 <script>
-/* ================================================================
-   AI 판단 결과보기 + 동그라미(btn_footer_open) JS
-   alpha.mo.ui.js 없으므로 직접 구현
-   ================================================================ */
 (function () {
-
-  var summary  = document.querySelector('.ags-summary.insurerisk');
   var bar      = document.querySelector('.bar_heart_footer');
   var aipPanel = document.getElementById('aipPanel');
   var aipClose = document.getElementById('aipClose');
   var aiBtn    = document.querySelector('.btf_bbtn button');
-  var openBtn  = document.querySelector('.btn_footer_open');
-  var closeBtn = document.querySelector('.btn_footer_close');
 
-  /* bar_heart_footer 높이 → CSS 변수로 */
   function setBarH() {
     if (bar) document.documentElement.style.setProperty('--aip-bar-h', bar.offsetHeight + 'px');
   }
   setBarH();
   window.addEventListener('resize', setBarH);
 
-  /* ── btf_bbtn: AI 판단 결과 슬라이드업 ── */
+  var summary  = document.querySelector('.ags-summary.insurerisk');
+
+  var dimmed = document.querySelector('.dimmed_bgs');
+
   function openAip() {
-    if (!summary || !aipPanel) return;
-    setBarH();
-    /* footer_contents 먼저 닫기 */
-    summary.classList.remove('active');
-    /* aip-open */
-    summary.classList.add('aip-open');
+    summary.classList.add('aip-ready');
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        summary.classList.add('aip-open');
+      });
+    });
     if (aiBtn) aiBtn.textContent = '안심 가입하기';
+    if (dimmed) dimmed.style.display = 'block';
+    var closeEl = document.getElementById('aipClose');
+    if (closeEl) closeEl.style.display = 'block';
     runHeartAnim();
   }
-
   function closeAip() {
-    if (!summary) return;
+    /* herat_number만 보이는 위치로 CSS 변수 설정 후 aip-open 제거 → transition 발동 */
+    var heratH = document.querySelector('.herat_number').offsetHeight;
+    var barH   = bar ? bar.offsetHeight : 0;
+    document.documentElement.style.setProperty('--aip-close-top', 'calc(100% - ' + (heratH + barH) + 'px)');
+    summary.classList.add('aip-closing');
     summary.classList.remove('aip-open');
-    if (aiBtn) aiBtn.textContent = 'AI 판단 결과보기';
-    heartDone = false;
+    setTimeout(function () {
+      summary.classList.remove('aip-ready');
+      summary.classList.remove('aip-closing');
+      if (aiBtn) aiBtn.textContent = 'AI 판단 결과보기';
+      if (dimmed) dimmed.style.display = 'none';
+      var closeEl = document.getElementById('aipClose');
+      if (closeEl) closeEl.style.display = 'none';
+      heartDone = false;
+    }, 600);
   }
 
-  if (aiBtn) {
-    aiBtn.addEventListener('click', function () {
-      summary.classList.contains('aip-open') ? closeAip() : openAip();
-    });
-  }
+  if (aiBtn) aiBtn.addEventListener('click', function () {
+    if (summary.classList.contains('aip-open')) {
+      /* 안심 가입하기 상태 → URL 이동 */
+      window.location.href = 'https://www.allwinair.com/';
+    } else {
+      openAip();
+    }
+  });
   if (aipClose) aipClose.addEventListener('click', closeAip);
 
-  /* ── btn_footer_open: footer_contents 슬라이드업 (content.css .active 방식) ── */
-  if (openBtn) {
-    openBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      closeAip(); /* AI 패널 닫기 */
-      summary.classList.toggle('active');
-    });
-  }
-  if (closeBtn) {
-    closeBtn.addEventListener('click', function () {
-      summary.classList.remove('active');
-    });
-  }
+  /* btn_footer_close 클릭 후 aip-open 상태면 dimmed 다시 살리기
+     (alpha.mo.ui.js가 dimmed_bgs를 none으로 끄기 때문) */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.btn_footer_close')) {
+      setTimeout(function () {
+        if (summary.classList.contains('aip-open') && dimmed) {
+          dimmed.style.display = 'block';
+        }
+      }, 10);
+    }
+  });
 
-  /* ── 하트 애니메이션 ── */
+
   var heartDone = false;
   function runHeartAnim() {
     if (heartDone) return;
     heartDone = true;
-    var HT=4.5, HB=25.5, HH=HB-HT, cur=0, TGT=85;
-    var fr = document.getElementById('aipFillRect');
-    var er = document.getElementById('aipEmptyRect');
-    var nm = document.getElementById('aipPctNum');
-    function draw(p) {
-      var fh=HH*(p/100), fy=HB-fh;
-      if(fr){ fr.setAttribute('y',fy); fr.setAttribute('height',fh); }
-      if(er){ er.setAttribute('y',HT); er.setAttribute('height',HH-fh); }
-      if(nm) nm.textContent = Math.round(p);
-    }
+    var HT=4.5,HB=25.5,HH=HB-HT,cur=0,TGT=85;
+    var fr=document.getElementById('aipFillRect');
+    var er=document.getElementById('aipEmptyRect');
+    var nm=document.getElementById('aipPctNum');
+    function draw(p){var fh=HH*(p/100),fy=HB-fh;if(fr){fr.setAttribute('y',fy);fr.setAttribute('height',fh);}if(er){er.setAttribute('y',HT);er.setAttribute('height',HH-fh);}if(nm)nm.textContent=Math.round(p);}
     draw(0);
-    function step(){ cur+=1.5; draw(Math.min(cur,TGT)); if(cur<TGT) setTimeout(step,18); }
-    setTimeout(step, 200);
+    function step(){cur+=1.5;draw(Math.min(cur,TGT));if(cur<TGT)setTimeout(step,18);}
+    setTimeout(step,200);
   }
 
-  /* ── 체크박스 ── */
   document.querySelectorAll('.aip-persons .aip-chk').forEach(function(el){
-    el.addEventListener('click', function(){ el.classList.toggle('on'); });
+    el.addEventListener('click',function(){el.classList.toggle('on');});
   });
-
-  var allChk  = document.getElementById('aipChkAll');
-  var termChk = document.querySelectorAll('.aip-tc');
-
-  termChk.forEach(function(el){
-    el.addEventListener('click', function(){
-      el.classList.toggle('on');
-      syncAll();
-    });
-  });
-
-  if (allChk) {
-    allChk.addEventListener('click', function(){
-      var on = !allChk.classList.contains('on');
-      on ? allChk.classList.add('on') : allChk.classList.remove('on');
-      termChk.forEach(function(el){ on ? el.classList.add('on') : el.classList.remove('on'); });
-    });
-  }
-
-  function syncAll() {
-    if (!allChk) return;
-    var all = Array.from(termChk).every(function(el){ return el.classList.contains('on'); });
-    all ? allChk.classList.add('on') : allChk.classList.remove('on');
-  }
-
+  var allChk=document.getElementById('aipChkAll');
+  var termChk=document.querySelectorAll('.aip-tc');
+  termChk.forEach(function(el){el.addEventListener('click',function(){el.classList.toggle('on');syncAll();});});
+  if(allChk){allChk.addEventListener('click',function(){var on=!allChk.classList.contains('on');on?allChk.classList.add('on'):allChk.classList.remove('on');termChk.forEach(function(el){on?el.classList.add('on'):el.classList.remove('on');});});}
+  function syncAll(){if(!allChk)return;Array.from(termChk).every(function(el){return el.classList.contains('on');})?allChk.classList.add('on'):allChk.classList.remove('on');}
 })();
 </script>
 

@@ -70,6 +70,7 @@
 .header_insure_center{
 	display: flex;
 	justify-content: center;
+    padding: 15px 0 10px;
 }
 .header_insure_cen{
 	display: flex;
@@ -409,15 +410,15 @@
 .outer-risk {
     width: 100%;
     max-width: 600px;
-    padding: 1.2rem;
+    padding: 10px 15px;
 	margin: 0 auto;
 }
 .top-row-risk {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0.9rem;
-	
 	font-family: 'PretendardR';
 }
 .top-title-risk {
@@ -431,40 +432,42 @@
     font-weight: 600;
 }
 .user-count-risk {
+    position: absolute;
+    right: 0;
     font-size: 13px;
-    color: #185FA5;
+    color: #666;
     display: flex;
     align-items: center;
     gap: 5px;
 }
 .box-risk {
-    background: #EEF6FF;
-    border: 1px solid #B5D4F4;
+    background: #F8FBFD;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.13);
     border-radius: 16px;
     overflow: hidden;
 }
 .tabs-risk {
     display: flex;
-    border-bottom: 1.5px solid #c5d8ef;
-    padding: 0 1.4rem;
+    padding: 5px 10px;
 }
 .tab-risk {
     font-size: 14px;
-    color: #7a99bb;
-    padding: 10px 14px;
+    color: #888;
+    margin: 5px;
+    padding: 5px 0;
     cursor: pointer;
     border-bottom: 2.5px solid transparent;
     margin-bottom: -1.5px;
     transition: color 0.2s, border-color 0.2s;
 }
 .tab-risk.active-risk {
-    color: #185FA5;
-    border-bottom: 2.5px solid #185FA5;
+    color: #222;
+    border-bottom: 2.5px solid #222;
 }
 .chart-wrap-risk {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 128px;
 }
 .bars-risk {
     position: absolute;
@@ -511,6 +514,7 @@
     display: none;
     transform: translateX(-50%);
 }
+/*말풍선*/
 .tooltip-card-risk {
     position: absolute;
     background: #fff;
@@ -531,7 +535,7 @@
     font-size: 12.5px;
 }
 .tooltip-amount-risk {
-    color: #185FA5;
+    color: #1080ff;
     font-size: 14px;
 }
 
@@ -543,7 +547,6 @@
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  margin-top: 20px;
 }
 
 .gauge-container {
@@ -553,8 +556,9 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  width: 100%;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  /*width: 100%;*/
+  box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.13);
+  margin: 5px 15px;
 }
 
 .gauge-item {
@@ -598,22 +602,36 @@
 }
 
 .score-num {
-  font-size: clamp(18px, 5.5vw, 26px);
-  margin-top: 2px;
-  min-height: 30px;
-  opacity: 0;
-  transition: opacity 0.4s;
+    position: relative;
+    font-size: 14px;
+    font-family: 'Labdigital';
+    font-weight: 600;
+    margin-top: 2px;
+    min-height: 30px;
+    opacity: 0;
+    transition: opacity 0.4s;
+
+}
+
+.score-num-img {
+    position: absolute;
+    border: 1px solid #ddd;
+    border-radius: 50%;
 }
 
 .sub-msg {
-  font-size: clamp(9px, 2.6vw, 11px);
-  color: #4A9CC8;
+  font-size: 9px;
+  color: #1A85FF;
   margin-top: 2px;
   min-height: 15px;
   text-align: center;
   opacity: 0;
   transition: opacity 0.5s;
   white-space: nowrap;
+  border: 1px solid #1A85FF;
+  border-radius: 4px;
+  padding: 4px;  
+  font-family: 'PretendardSB';
 }
 
 /*맨밑 슬라이드 리스트*/
@@ -825,13 +843,13 @@
     gap: 8px;
 }
 .heart-wrap_heart {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 38px;
     flex-shrink: 0;
 }
 .heart-svg_heart {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 47px;
     overflow: visible;
 }
 .num-block_heart {
@@ -1017,3 +1035,108 @@
     color: #fff;
     font-family: 'PretendardM';
 }
+
+/* 하단 바 제어
+ags-summary: aip-open 시 fixed + flex column으로 확장 */
+.ags-summary.insurerisk.aip-ready {
+  position: fixed !important;
+  top: 101% !important;
+  left: 0; right: 0;
+  height: 85vh;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 950;
+  background: #fff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  box-shadow: 0 -2px 9px rgba(0,0,0,0.13);
+  overflow: hidden;
+  transition: top 600ms cubic-bezier(0.86, 0, 0.07, 1);
+}
+.ags-summary.insurerisk.aip-open {
+  top: 15% !important;
+}
+.ags-summary.insurerisk.aip-closing {
+  top: var(--aip-close-top, calc(100% - 80px)) !important;
+}
+/* herat_number: 상단 고정 */
+.ags-summary.insurerisk.aip-ready .herat_number {
+  flex-shrink: 0;
+}
+/* aip-panel: 기본 숨김, aip-open 시 flex:1로 가운데 채움 */
+.aip-panel {
+  display: none;
+  background: #fff;
+  flex-direction: column;
+  overflow: hidden;
+}
+.ags-summary.insurerisk.aip-ready .aip-panel {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+/* bar_heart_footer: 항상 fixed 하단 고정 */
+.bar_heart_footer {
+  position: fixed !important;
+  bottom: 0; left: 0; right: 0;
+  background: #fff;
+  z-index: 200;
+}
+
+
+/* footer_contents: aip-open 시 z-index만 올려서 dimmed_bgs 위에 표시 */
+.footer_contents {
+  z-index: 950 !important;
+}
+/* overlay_heart 열릴 때 스크롤 막기 */
+body.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+.aip-close {
+  display: block;
+  margin: 0 auto;
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
+  background: url(../img/common/fold_btn.png) no-repeat left / 60px 30px;
+  text-indent: -999px;
+  cursor: pointer;
+}
+.aip-scroll { flex: 1; overflow-y: auto; min-height: 0; }
+.aip-persons { padding: 2px 0; }
+.aip-row { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid #f5f5f5; gap:8px; }
+.aip-row:last-child { border-bottom:none; }
+.aip-row-left  { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
+.aip-row-right { display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.aip-chk {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:20px; height:20px; border-radius:50%;
+  border:2px solid #ddd; background:#fff;
+  flex-shrink:0; cursor:pointer; box-sizing:border-box;
+}
+.aip-chk.on { border-color:#1d85ff; background:#1d85ff; }
+.aip-chk.on::after { content:''; display:block; width:5px; height:9px; border:2px solid #fff; border-top:none; border-left:none; transform:rotate(45deg) translate(-1px,-1px); }
+.aip-pinfo { min-width:0; }
+.aip-pname  { font-size:12px; font-weight:700; color:#222; }
+.aip-pprice { font-size:11px; color:#666; margin-top:2px; }
+.aip-tier { display:inline-flex; align-items:center; gap:3px; padding:5px 9px; border-radius:20px; font-size:11px; font-weight:700; border:none; cursor:pointer; white-space:nowrap; }
+.aip-ai { background:rgba(255,255,255,0.3); border-radius:3px; padding:0 3px; font-size:9px; font-weight:800; line-height:14px; }
+.aip-blue   { background:#1d85ff; color:#fff; }
+.aip-green  { background:#34a853; color:#fff; }
+.aip-orange { background:#f5a623; color:#fff; }
+.aip-insight { display:flex; align-items:center; gap:3px; }
+.aip-insight span { font-size:11px; color:#444; white-space:nowrap; }
+.aip-total { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; }
+.aip-total-label { font-size:12px; color:#888; }
+.aip-total-price { font-size:13px; font-weight:800; color:#111; }
+.aip-insurer { display:flex; align-items:center; gap:4px; font-size:11px; color:#888; }
+.aip-divider { height:1px; background:#f0f0f0; margin:0 16px; }
+.aip-agree-wrap { padding:10px 16px 6px; }
+.aip-agree-all  { display:flex; align-items:center; gap:8px; cursor:pointer; }
+.aip-agree-txt  { font-size:14px; font-weight:700; color:#222; }
+.aip-terms { padding:0 16px 8px; }
+.aip-term-row { display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid #f5f5f5; }
+.aip-term-row:last-child { border-bottom:none; }
+.aip-term-txt { flex:1; font-size:12px; color:#555; }
