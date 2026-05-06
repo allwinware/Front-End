@@ -96,7 +96,7 @@
 .twoarrow-icon {
     display: flex; 
     justify-content: center;
-    margin: 15px;
+    margin: 5px 10px 20px;
 }
 
 .header_insure_txt3{
@@ -442,7 +442,7 @@
 }
 .box-risk {
     background: #F8FBFD;
-    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.13);
+        box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.13);
     border-radius: 16px;
     overflow: hidden;
 }
@@ -451,18 +451,21 @@
     padding: 5px 10px;
 }
 .tab-risk {
-    font-size: 14px;
+    font-size: 11px;
     color: #888;
     margin: 5px;
     padding: 5px 0;
     cursor: pointer;
     border-bottom: 2.5px solid transparent;
     margin-bottom: -1.5px;
-    transition: color 0.2s, border-color 0.2s;
+    transition: color 0.2s, border-color 0.2s;    
+	font-family: 'PretendardR';
 }
 .tab-risk.active-risk {
     color: #222;
     border-bottom: 2.5px solid #222;
+    
+	font-family: 'PretendardM';
 }
 .chart-wrap-risk {
     position: relative;
@@ -480,7 +483,7 @@
     height: 100%;
 }
 .bar-risk {
-    border-radius: 2px 2px 0 0;
+    border-radius: 1px 2px 0 0;
     flex: 1;
     min-width: 0;
     background: #c8d9ec;
@@ -490,7 +493,7 @@
     position: absolute;
     bottom: 0;
     width: 1.5px;
-    background: #E24B4A;
+    background: #1080ff;
     pointer-events: none;
     display: none;
     transform: translateX(-50%);
@@ -498,7 +501,7 @@
 .connector-risk {
     position: absolute;
     width: 1.5px;
-    background: #E24B4A;
+    background: #1080ff;
     pointer-events: none;
     display: none;
     transform: translateX(-50%);
@@ -508,7 +511,7 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #E24B4A;
+    background: #1080ff;
     border: 2.5px solid #EEF6FF;
     pointer-events: none;
     display: none;
@@ -519,8 +522,8 @@
     position: absolute;
     background: #fff;
     border: 1px solid #cde3f8;
-    border-radius: 10px;
-    padding: 9px 16px;
+    border-radius: 4px;
+    padding: 5px 10px;
     font-size: 13px;
     display: none;
     align-items: center;
@@ -532,11 +535,11 @@
 }
 .tooltip-name-risk {
     color: #666;
-    font-size: 12.5px;
+    font-size: 10px;
 }
 .tooltip-amount-risk {
     color: #1080ff;
-    font-size: 14px;
+    font-size: 10px;
 }
 
 /*움직움직 반원그래프 ------------------------------------------------------*/
@@ -784,7 +787,7 @@
     z-index: 900;   
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
-}
+} 
 .bar-top_heart {
     display: flex;
     align-items: stretch;
@@ -869,17 +872,23 @@
     color: #1d85ff;
 }
 .index-label_heart {
+    position:relative; 
+    width:100%;
+    height: 15px;
     font-size: 10px;
     color: #888;
+    gap: 3px;
+    white-space: nowrap;    
     display: flex;
     align-items: center;
-    gap: 3px;
-    white-space: nowrap;
+    justify-content: space-around;
 }
 .info-btn_heart {
+    position:absolute; 
+    right:0; top:50%; 
+    transform:translateY(-50%);
     width: 14px;
     height: 14px;
-    border: 1px solid #bbb;
     border-radius: 50%;
     font-size: 9px;
     color: #999;
@@ -1040,7 +1049,7 @@
 ags-summary: aip-open 시 fixed + flex column으로 확장 */
 .ags-summary.insurerisk.aip-ready {
   position: fixed !important;
-  top: 101% !important;
+  top: var(--aip-start-top, calc(100% - 80px)) !important;
   left: 0; right: 0;
   height: 85vh;
   display: flex !important;
@@ -1059,11 +1068,9 @@ ags-summary: aip-open 시 fixed + flex column으로 확장 */
 .ags-summary.insurerisk.aip-closing {
   top: var(--aip-close-top, calc(100% - 80px)) !important;
 }
-/* herat_number: 상단 고정 */
 .ags-summary.insurerisk.aip-ready .herat_number {
   flex-shrink: 0;
 }
-/* aip-panel: 기본 숨김, aip-open 시 flex:1로 가운데 채움 */
 .aip-panel {
   display: none;
   background: #fff;
@@ -1075,25 +1082,21 @@ ags-summary: aip-open 시 fixed + flex column으로 확장 */
   flex: 1;
   min-height: 0;
 }
-/* bar_heart_footer: 항상 fixed 하단 고정 */
 .bar_heart_footer {
   position: fixed !important;
   bottom: 0; left: 0; right: 0;
   background: #fff;
   z-index: 200;
 }
-
-
-/* footer_contents: aip-open 시 z-index만 올려서 dimmed_bgs 위에 표시 */
 .footer_contents {
   z-index: 950 !important;
 }
-/* overlay_heart 열릴 때 스크롤 막기 */
 body.no-scroll {
   overflow: hidden;
   position: fixed;
   width: 100%;
 }
+/* aip-close 버튼 */
 .aip-close {
   display: block;
   margin: 0 auto;
@@ -1103,19 +1106,16 @@ body.no-scroll {
   background: url(../img/common/fold_btn.png) no-repeat left / 60px 30px;
   text-indent: -999px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
-.aip-scroll { flex: 1; overflow-y: auto; min-height: 0; }
+/* aip-scroll */
+.aip-scroll { flex: 1; overflow-y: auto; min-height: 0; margin-bottom: 80px;}
 .aip-persons { padding: 2px 0; }
 .aip-row { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid #f5f5f5; gap:8px; }
 .aip-row:last-child { border-bottom:none; }
 .aip-row-left  { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
 .aip-row-right { display:flex; align-items:center; gap:6px; flex-shrink:0; }
-.aip-chk {
-  display:inline-flex; align-items:center; justify-content:center;
-  width:20px; height:20px; border-radius:50%;
-  border:2px solid #ddd; background:#fff;
-  flex-shrink:0; cursor:pointer; box-sizing:border-box;
-}
+.aip-chk { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; border:2px solid #ddd; background:#fff; flex-shrink:0; cursor:pointer; box-sizing:border-box; }
 .aip-chk.on { border-color:#1d85ff; background:#1d85ff; }
 .aip-chk.on::after { content:''; display:block; width:5px; height:9px; border:2px solid #fff; border-top:none; border-left:none; transform:rotate(45deg) translate(-1px,-1px); }
 .aip-pinfo { min-width:0; }
@@ -1140,3 +1140,157 @@ body.no-scroll {
 .aip-term-row { display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid #f5f5f5; }
 .aip-term-row:last-child { border-bottom:none; }
 .aip-term-txt { flex:1; font-size:12px; color:#555; }
+
+
+
+/*하단 중요안내 약관보기 버튼*/
+.insur_bottom_exp{
+    margin: 30px 0 20px;
+    background-color: #F1F4F5;
+}
+.insur_bottom_btn{
+    display: flex;
+}
+.insur_bottom_btn div:nth-child(1){
+    margin: 15px 5px 10px 15px;
+}
+.insur_bottom_btn div:nth-child(2){
+    margin: 15px 15px 10px 5px;
+}
+.insur_bbtn{
+    background-color: #fff;
+    border: 1px solid #888;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100%;
+    font-size: 13px;
+	font-family: 'PretendardSB';
+    color: #222;
+}
+.insur_callcenter{
+    margin: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #888;
+    border-radius: 4px;
+    display: flex;   
+    flex-direction: column;
+    padding: 10px;
+    line-height: 20px;
+}
+
+.insur_callep1{
+    font-size: 15px;
+    font-family: 'PretendardSB';
+    color: #222;
+    display: flex;
+    align-items: center;
+}
+.insur_callep1 i{    
+    display: inline-block;
+    background: url("../img/common/phone_icon.png") no-repeat center / 14px 14px;
+    height: 14px;
+    width: 14px;
+    margin-right: 3px;
+}
+.insur_callep2{
+    font-size: 15px;
+    font-family: 'PretendardSB';
+    color: #222;
+}
+.insur_callep3 {
+    font-size: 13px;
+    font-family: 'PretendardR';
+    color: #888;
+}
+
+.insurance-notice {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    line-height: 1.4;
+}
+
+.insurance-notice h2 {
+    font-size: 15px;
+    margin-bottom: 24px;
+    color: #222;
+    font-family: 'PretendardSB';
+}
+
+.insurance-notice dl {
+    margin: 0;
+}
+
+.insurance-notice dt {
+    font-family: 'PretendardSB';
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #222;
+}
+
+.insurance-notice dd {
+    margin: 0 0 12px;
+    color: #555;
+}
+
+/*맨 밑 제휴*/
+.insurance-footer {
+  padding: 20px 15px;
+  color: #666;
+  line-height: 1.6;
+}
+.award-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    font-family: 'PretendardB';
+}
+.award-icon {
+    width: 41px;
+    height: auto;
+    flex-shrink: 0;
+}
+.award-text p {
+    margin: 0;
+    font-size: 11px;
+    color: #222;
+}
+.brand-title {
+    font-size: 18px;
+    color: #222;
+    margin-bottom: 36px;
+    line-height: 1.2;
+}
+
+.business-info,.company-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    font-size: 11px;
+}
+
+.business-info p,.company-info p {
+    margin: 0;
+    font-size: 11px;
+}
+
+.customer-center {
+    font-family: 'PretendardB';
+}
+.copyright {
+    margin: 0;
+    font-size: 12px;
+    font-family: 'PretendardB';
+}
+
+@media (max-width: 321px) {
+    .rolling-msg_heart {
+        font-size: 10px;
+    }
+}
