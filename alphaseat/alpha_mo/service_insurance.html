@@ -77,7 +77,7 @@
 			<!--사람 몇명 가는곳 월-->
 			<div class="header_insure">
 				<div class="header_insure_txt">이지영님 3인 · 방콕 7월 여행</div>			
-				<div class="header_insure_btn">내 정보</div>
+				<div class="header_insure_btn">내 정보<i></i></div>
 			</div>
 		</header>		
 		
@@ -103,13 +103,19 @@
 				<div class="gauge-item">
 					<div class="gauge-title">파손도난&nbsp;<span class="risk-label" id="rl_damage"></span></div>
 					<div class="gauge-svg-wrap" id="svg_damage"></div>
-					<div class="score-num" id="sc_damage"></div>
+					<div class="score-num" id="sc_damage">
+						<span class="score-num-txt"></span>
+						<div class="score-num-img"></div>
+					</div>
 					<div class="sub-msg" id="mt_damage"></div>
 				</div>
 				<div class="gauge-item">
 					<div class="gauge-title">지연결항&nbsp;<span class="risk-label" id="rl_delay"></span></div>
 					<div class="gauge-svg-wrap" id="svg_delay"></div>
-					<div class="score-num" id="sc_delay"></div>
+					<div class="score-num" id="sc_delay">
+						<span class="score-num-txt"></span>
+						<div class="score-num-img"></div>
+					</div>
 					<div class="sub-msg" id="mt_delay"></div>
 				</div>
 			</div>
@@ -119,17 +125,7 @@
 			<div class="top-row-risk">
 				<p class="top-title-risk">실제, 많은 분들이
 					<b>보상</b>을 받으셨어요!</p>
-				<span class="user-count-risk">
-					<svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-						<circle cx="8" cy="5.5" r="3" fill="#185FA5"/>
-						<path
-							d="M2 13c0-3.314 2.686-5 6-5s6 1.686 6 5"
-							stroke="#185FA5"
-							stroke-width="1.5"
-							stroke-linecap="round"/>
-					</svg>
-					13,224
-				</span>
+				<span class="user-count-risk"><i></i>13,224</span>
 			</div>
 			<div class="box-risk">
 				<div class="tabs-risk">
@@ -585,31 +581,59 @@
 						<div class="aip-row">
 							<div class="aip-row-left">
 								<span class="aip-chk on"></span>
-								<div class="aip-pinfo"><div class="aip-pname">LEESIHYUNG</div><div class="aip-pprice">26,000원/4일</div></div>
+								<div class="aip-pinfo"><div class="aip-pname">LEESIHYUNG</div><div class="aip-pprice"><span>26,000원</span>/<span>4일</span></div></div>
 							</div>
-							<div class="aip-row-right">
-								<button class="aip-tier aip-blue"><span class="aip-ai">AI</span> 고급형 3억</button>
-								<div class="aip-insight"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg><span>아이,의료대비</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+							<div class="aip-row-dol">
+								<div class="aip-row-right_v1">
+									<button class="aip-tier aip-blue" data-tiers="고급형 3억|표준형 2억|실속형 1억" data-idx="0"><span class="aip-ai">AI</span> <span class="tier-txt">고급형 3억</span></button>
+									<div class="aip-insight" onclick="cycleTier(this)">
+										<svg width="13" height="13" viewBox="0 0 20 20" fill="none">
+											<path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg>
+											<span>아이,의료대비</span>
+											
+									</div>
+								</div>
+								<div class="aip-row-right_v2">
+									<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#888" stroke-width="1.5" stroke-linecap="round"></path></svg>
+								</div>
 							</div>
 						</div>
 						<div class="aip-row">
 							<div class="aip-row-left">
 								<span class="aip-chk on"></span>
-								<div class="aip-pinfo"><div class="aip-pname">LEEJIYOUNG</div><div class="aip-pprice">18,000원/4일</div></div>
+								<div class="aip-pinfo"><div class="aip-pname">LEEJIYOUNG</div><div class="aip-pprice"><span>18,000원</span>/<span>4일</span></div></div>
 							</div>
-							<div class="aip-row-right">
-								<button class="aip-tier aip-green"><span class="aip-ai">AI</span> 표준형 2억</button>
-								<div class="aip-insight"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg><span>34세,균형보장</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+							<div class="aip-row-dol">
+								<div class="aip-row-right_v1">
+									<button class="aip-tier aip-blue" data-tiers="고급형 3억|표준형 2억|실속형 1억" data-idx="1"><span class="aip-ai">AI</span> <span class="tier-txt">표준형 2억</span></button>
+									<div class="aip-insight" onclick="cycleTier(this)">
+										<svg width="13" height="13" viewBox="0 0 20 20" fill="none">
+											<path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg>
+										<span>34세,균형보장</span>
+									</div>
+								</div>
+								<div class="aip-row-right_v2">
+									<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#888" stroke-width="1.5" stroke-linecap="round"></path></svg>
+								</div>
 							</div>
 						</div>
 						<div class="aip-row">
 							<div class="aip-row-left">
 								<span class="aip-chk on"></span>
-								<div class="aip-pinfo"><div class="aip-pname">KIMJINHUG</div><div class="aip-pprice">12,000원/4일</div></div>
+								<div class="aip-pinfo"><div class="aip-pname">KIMJINHUG</div><div class="aip-pprice"><span>12,000원</span>/<span>4일</span></div></div>
 							</div>
-							<div class="aip-row-right">
-								<button class="aip-tier aip-orange"><span class="aip-ai">AI</span> 실속형 1억</button>
-								<div class="aip-insight"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg><span>36세,기본보장</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+							<div class="aip-row-dol">
+								<div class="aip-row-right_v1">
+									<button class="aip-tier aip-blue" data-tiers="고급형 3억|표준형 2억|실속형 1억" data-idx="2"><span class="aip-ai">AI</span> <span class="tier-txt">실속형 1억</span></button>
+									<div class="aip-insight" onclick="cycleTier(this)">
+										<svg width="13" height="13" viewBox="0 0 20 20" fill="none">
+											<path d="M10 17C10 17 2 12 2 7C2 4.8 3.9 3 6 3C7.5 3 8.7 3.7 10 4.8C11.3 3.7 12.5 3 14 3C16.1 3 18 4.8 18 7C18 12 10 17 10 17Z" fill="#1d85ff"/></svg>
+										<span>36세,기본보장</span>
+									</div>
+								</div>
+								<div class="aip-row-right_v2">
+									<svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#888" stroke-width="1.5" stroke-linecap="round"></path></svg>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -935,14 +959,14 @@
 		label: '파손도난',
 		score: 3.7,
 		riskLabels: ['낮은 편','보통','조금주의','주의','많이주의'],
-		showMedical: false
+		showMedical: true
 	},
 	{
 		id: 'delay',
 		label: '지연결항',
 		score: 1.9,
 		riskLabels: ['낮은 편','보통','조금걱정','걱정','많이걱정'],
-		showMedical: false
+		showMedical: true
 	}
 	];
 	/* ══════════════════════════════════════════════ */
@@ -1551,7 +1575,18 @@
   }
 
   document.querySelectorAll('.aip-persons .aip-chk').forEach(function(el){
-    el.addEventListener('click',function(){el.classList.toggle('on');});
+    el.addEventListener('click',function(){
+      el.classList.toggle('on');
+      var row = el.closest('.aip-row');
+      var rowDol = row && row.querySelector('.aip-row-dol');
+      if (rowDol) {
+        if (el.classList.contains('on')) {
+          rowDol.classList.remove('aip-row-dol--off');
+        } else {
+          rowDol.classList.add('aip-row-dol--off');
+        }
+      }
+    });
   });
   var allChk=document.getElementById('aipChkAll');
   var termChk=document.querySelectorAll('.aip-tc');
@@ -1594,4 +1629,23 @@
 })();
 </script>
 
+
+<script>
+function cycleTier(el) {
+  /* 새 구조(.aip-row-dol)와 구 구조(.aip-row-right) 모두 지원 */
+  var container = el.closest('.aip-row-dol') || el.closest('.aip-row-right');
+  var btn = container.querySelector('.aip-tier');
+  var tiers = btn.dataset.tiers.split('|');
+  var idx   = (parseInt(btn.dataset.idx) + 1) % tiers.length;
+  btn.dataset.idx = idx;
+  btn.querySelector('.tier-txt').textContent = tiers[idx];
+  /* idx===0 이면 AI 배지 표시, 아니면 숨김 */
+  var ai = btn.querySelector('.aip-ai');
+  if (ai) ai.style.display = idx === 0 ? '' : 'none';
+  /* 색상 클래스 업데이트 */
+  btn.classList.remove('aip-blue', 'aip-green', 'aip-orange');
+  var colors = ['aip-blue', 'aip-green', 'aip-orange'];
+  btn.classList.add(colors[idx]);
+}
+</script>
 </html>
