@@ -21,6 +21,8 @@
 <body onload="layerPop('popup_loading');">	
 -->
 <body>
+<style>
+</style>
 	<div class="ags-wrap newui insurerisk">
 		<h1 class="site-name">올윈에어</h1>		
 		<div class="dimmed_bgs" style="display: none;"></div>
@@ -77,7 +79,7 @@
 			<!--사람 몇명 가는곳 월-->
 			<div class="header_insure">
 				<div class="header_insure_txt">이지영님 3인 · 방콕 7월 여행</div>			
-				<div class="header_insure_btn">내 정보<i></i></div>
+				<div class="header_insure_btn" id="myInfoBtn">내 정보<i></i></div>
 			</div>
 		</header>		
 		
@@ -639,18 +641,26 @@
 					</div>
 
 					<div class="aip-total">
-						<div><span class="aip-total-label">3인 합계</span><br><span class="aip-total-price">56,000원/5일</span></div>
-						<div class="aip-insurer"><svg width="14" height="14" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="4" fill="#E04020"/><text x="11" y="15" text-anchor="middle" fill="white" font-size="7" font-weight="bold" font-family="sans-serif">라이나</text></svg><span>라이나손보</span></div>
+						<div class="aip-total-txt">
+							<div class="aip-total-txt_fst">
+								<span class="aip-total-label">3인 합계</span>
+								<span class="aip-total-price">56,000원 <span>/5일</span></span>
+							</div>
+							<div class="aip-total-txt_twi">
+								(1인 하루 약 3,400원)
+							</div>
+						</div>
+						<div class="aip-insurer"></div>
 					</div>
 					<div class="aip-divider"></div>
 					<div class="aip-agree-wrap">
 						<div class="aip-agree-all" id="aipAgreeAll"><span class="aip-chk" id="aipChkAll"></span><span class="aip-agree-txt">모두 동의합니다.</span></div>
 					</div>
-					<div class="aip-terms">
-						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">약관 동의</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">단체(취급) 여행보험 가입 규약</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">단체여행보험약관 대리 체결 확인</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">개인정보 제3자 제공 동의</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+					<div class="aip-divider"></div>
+					<div class="aip-terms">						
+						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">단체(취급) 여행보험 가입 규약</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">단체여행보험약관 대리 체결 확인</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+						<div class="aip-term-row"><span class="aip-chk aip-tc"></span><span class="aip-term-txt">개인정보 제3자 제공 동의</span><svg width="6" height="10" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg></div>
 					</div>
 
 				</div><!-- /aip-scroll -->
@@ -908,6 +918,81 @@
          팝업 영역
          ================================================================ -->
 
+
+    <!-- 내 정보 슬라이드 패널 -->
+    <div class="myinfo-overlay" id="myInfoOverlay"></div>
+    <div class="myinfo-panel" id="myInfoPanel">
+      <div class="myinfo-handle"></div>
+      <div class="myinfo-header">
+        <span class="myinfo-title">가입정보 입력 <span class="myinfo-req">(필수)</span></span>
+        <button class="myinfo-close" id="myInfoClose">✕</button>
+      </div>
+      <p class="myinfo-desc">보험료 산정과 AI 추천을 위해 여행기간, 가입자 정보를 입력해주세요.</p>
+      <div class="myinfo-body">
+        <div class="myinfo-row">
+          <div class="myinfo-label-wrap">
+            <span class="myinfo-label">여행기간</span>
+            <button type="button" class="myinfo-info-btn" id="tripDateInfoBtn">ⓘ</button>
+          </div>
+          <div class="myinfo-date-wrap">
+            <div class="myinfo-date-box">
+              <input type="date" class="myinfo-date-input" id="tripStartDate">
+              <span class="myinfo-date-ph" id="tripStartPh">출발일 입력</span>
+            </div>
+            <span class="myinfo-date-dash">~</span>
+            <div class="myinfo-date-box">
+              <input type="date" class="myinfo-date-input" id="tripEndDate">
+              <span class="myinfo-date-ph" id="tripEndPh">귀국일 입력</span>
+            </div>
+          </div>
+        </div>
+        <div class="myinfo-section-title">가입자 정보</div>
+        <div class="myinfo-person">
+          <div class="myinfo-person-name">LEE SIHYEONG</div>
+          <div class="myinfo-person-row">
+            <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)">
+            <div class="myinfo-gender-wrap">
+              <button type="button" class="myinfo-gender active">남</button>
+              <button type="button" class="myinfo-gender">여</button>
+            </div>
+          </div>
+        </div>
+        <div class="myinfo-person">
+          <div class="myinfo-person-name">LEE JIYOUNG</div>
+          <div class="myinfo-person-row">
+            <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)">
+            <div class="myinfo-gender-wrap">
+              <button type="button" class="myinfo-gender active">남</button>
+              <button type="button" class="myinfo-gender">여</button>
+            </div>
+          </div>
+        </div>
+        <div class="myinfo-person">
+          <div class="myinfo-person-name">KIM JINHUI</div>
+          <div class="myinfo-person-row">
+            <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)">
+            <div class="myinfo-gender-wrap">
+              <button type="button" class="myinfo-gender active">남</button>
+              <button type="button" class="myinfo-gender">여</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="myinfo-confirm-btn">입력 완료</button>
+    </div>
+
+    <!-- 여행기간 안내 팝업 (overlay_heart 방식 재사용) -->
+    <div class="overlay_heart" id="tripDateInfoOverlay">
+      <div class="popup_heart">
+        <button class="popup-x_heart" id="tripDateInfoClose">✕</button>
+        <p class="popup-title_heart">여행기간 안내</p>
+        <p class="popup-body_heart">
+          12개월 이내에 출발하는 일정만 가입이 가능합니다.<br><br>
+          여행기간은 주거지를 출발하여 여행을 마친 후 주거지에 도착할 때까지의 기간으로 설정해 주세요.
+        </p>
+      </div>
+    </div>
+
     <!-- 안심지수 팝업 -->
     <div class="overlay_heart" id="infoOverlay_heart">
       <div class="popup_heart">
@@ -925,17 +1010,61 @@
     <div class="overlay_imp" id="importantOverlay">
       <div class="popup_imp">
         <button class="popup-x_imp" id="importantClose">✕</button>
-        <p class="popup-title_imp">중요안내</p>
+        <p class="popup-title_imp">보험계약 중요 안내 사항</p>
         <div class="popup-body_imp">
-          <p>· 주식회사 올윈에는 보험계약자를 주식회사 올윈에어로, 피보험자 및 수익자를 "주식회사 올윈에어가(이) 제공하는 알선, 주최서비스의 제공을 받는 자"로 하는 단체여행보험계약을 체결할 수 있습니다. 단, 보험금의 종류가 사망보험금인 경우에는 그 보험수익자를 피보험자의 법정상속인으로 합니다.</p>
-          <p>· 주식회사올윈에어가(이) 제공하는 알선, 주최서비스의 제공을 받는 자는 제 1항의 보험계약에 따른 내용을 주식회사 올윈에어가(이) 제공하는 범주 내에서 자유롭게 선택할 수 있으며 보험료를 직접 보험회사에 (또는 주식회사 올윈에어에) 납부해야 합니다.</p>
-          <p>· 제 2항에 따라 보험료를 납부한 회원은 계약자의 권리를 행사할 수 있습니다.</p>
-          <p>· 보험계약에 관한 세부내용은 보험사가 제공하는 보험약관에 따릅니다.</p>
+			<p>・가입상품 : 라이나손해보험Chubb해외여행보험<br>
+				・보험료 납입기간 : 일시납<br>
+				・보험기간 : 2026년 0월 0일~0000년 0월 0일</p>
+
+			<strong>알릴 의무</strong>
+
+			<p><strong>[계약 전 알릴 의무]</strong><br>
+			계약 전 알릴 의무사항은 회사가 보험계약의 청약을 인수하는데 필요한 자료이므로 보험계약자 및 피보험자는 사실대로 알려야 합니다. 위 사항에 대하여 만약 사실대로 알리지 않거나 사실과 다르게 알린 경우에는 보험가입이 거절될 수 있으며, 특히 그 내용이 [중요한 사항]에 해당하는 경우에는 보험계약자 또는 피보험자의 의사와 관계없이 보험약관상 [계약 전 알릴 의무 위반의 효과]조항에 의해 계약이 해지되거나 보장이 제한될 수 있습니다.</p>
+
+			<p><strong>[계약 후 알릴 의무]</strong><br>
+			보험계약자 또는 피보험자는 보험기간 중 아래와 같은 변경이 발생한 경우 지체 없이 회사에 알려야 합니다. 알리지 않은 경우 보험금 지급이 제한될 수 있습니다.<br>
+			1. 보험증권 등에 기재된 직업 또는 직무의 변경<br>
+				&nbsp;&nbsp;가. 현재의 직업 또는 직무가 변경된 경우<br>
+				&nbsp;&nbsp;나. 직업이 없는 자가 취직한 경우<br>
+				&nbsp;&nbsp;다. 현재의 직업을 그만둔 경우<br>
+			2. 보험증권 등에 기재된 피보험자의 운전 목적이 변경된 경우 (자가용에서 영업용으로 변경, 영업용에서 자가용으로 변경 등)<br>
+			3. 보험증권 등에 기재된 피보험자의 운전여부가 변경된 경우 (비운전자에서 운전자로 변경, 운전자에서 비운전자로 변경 등)<br>
+			4. 이륜자동차 (자동차관리법상 이륜차로 분류되는 삼륜 또는 사륜의 자동차를 포함) 또는 원동기장치 자전거(전동킥보드, 전동이륜평행차, 전동기의 동력만으로 움직일 수 있는 자전거 등 개인형 이동장치를 포함)를 계속적으로 사용(직업, 직무 또는 동호회 활동과 출퇴근 용도 등으로 주로 사용하게 되는 경우에 한함)하게 된 경우 (다만, 전동휠체어, 의료용 스쿠터 등 보행보조용 의지차는 제외합니다.) 위험이 감소된 경우 보험료를 감액하고 이후 기간 보장을 위한 재원인 책임준비금 등의 차이로 인하여 발생한 정산금액을 환급하여 드립니다. 위험이 증가된 경우 보험료의 증액 또는 정산금액의 추가 납입을 요구할 수 있습니다. 회사는 계약 후 알릴 의무를 이행하지 않았을 때 손해의 발생여부에 관계없이 그 사실을 안 날부터 1개월 이내에 이 계약을 해지할 수 있습니다.
+			<p><strong>[일]</strong><br>
+			보상받을에 의 세계 기계에 의보상할라고 관련보여가 상관됩니다.<br>
+			의료선이에서보다 포함상으로 연속, 관련기에서는 보험으로의 선택됩니다.</p>
+
+			<strong>합리적 결과</strong>
+
+			<p>상업보험소비자에서 제공되는 금융소비자 보호에 관한 법률 검토로써, 통보 사항들의 마주에도, 관련 관련상으로 적절모인에서 모든 이해이 관련 최합으로 이 관련 서비스의 남비이 적절 보험의 전달보험의 관련 경우의 사항에 설안되어 이 설명이 상호 복직이 전달될의 사항의 다합니다. 관련, 하이나 전성관련 모임을 지칭하는 계약, 관련기에 모임 내의에서 이는 보험상품에서라이 적용관련 계층에 해석할 보안에 보전을 부합됩니다.</p>
+
+			<strong>보험상품 지급부자산 아래의 사항</strong>
+			<ul>
+				<li>보험계약자가 대면에 의상을 이내 및에 전반이 사이며 보험상품에서의 적용 및 또는 및 전반에보험 서비스상의 적용합니다.</li>
+				<li>부대의 경우에서 부대, 세력의 전국에 서비스에서는 부대에 기록에서, 상황에서, 그렇게하여 이런다고 관련하면 세상 서비스관련에서 적용되어는 다음을 적용 관련보험에 관련합니다.</li>
+				<li>경험이 전반과 상관보험상품 관련된 경우에 서비스에서 관련 전반의 서비스보험 관련, 발전의 서비스상관 보험상품의 확인됩니다.</li>
+				<li>부대 전반의 경우의 보험상품 서비스의 적용됩니다.</li>
+				<li>마케팅, 광고적 부정대적의 파악, 나에서, 사이에, 특혜 적용됩니다.</li>
+				<li>서비스 대한의 관련상품에 관련사이에서 나에서는 합니다.</li>
+			</ul>
+
+			<strong>계약자 의무 및 보험회사의 권한</strong>
+			<p>보험계약의 내용상황의 적용에서의 관련 보험사항이에서 기재에 관련의 상황에서의 취득 계약에서 경우에 이상이 해당 사업상에 전달됩니다. 이 상황 위원의 이 상황보험에서 관련적인 대상에서의 적절한 이상의 보험기금의 관련상 보험게약의 특이가 모든 수 있습니다.</p>
+
+			<strong>계약자 권한</strong>
+			<p>보험계약 전 경우에서 적용되는 관련된 계약에 적용을 위한 보험의바른 서비스에 적절합니다.<br>
+			특이하여 이메인, 상관상으로에 모든 상관세계에서에서 서비스에 관련이상 보험에 서비스에 의하여 이는 계약에서는 이에서는 보험상의 적절함에 있도록합니다.<br>
+			가우쪽 상고의 계약에서에 계약에서의 관련 상관계약에서에 이에서는 계약에 관련하여 보험상품에서를 이에서는 이에서는 상관됩니다.</p>
+
+			<strong>보험금지급거절에 대한 사내</strong>
+			<p>보험계약에서의 적합하며 규정에 보험법에 보험서비스가 보험에 의한 경우에서의 보험상품을 나서서 보험계약의 보험에서 관련이 보험계약에서의 경우를 이에서서의 보험특이하면 보험계약에서의 보험의 보험서비스에서에 이상을 보험에서의 규정의 보험계약에 적용됩니다.</p>
+
+			<strong>부분초 보험사에서 관련 사내</strong>
+			<p>보험계약에서의 적합하면 규정에 경우에서 모든 교육보험에대한바와,<br>
         </div>
         <button class="popup-confirm_imp" id="importantConfirm">확인</button>
       </div>
-    </div>
-
+    </div>	
 </body>
 <script>
 /* ================================================================
@@ -1503,6 +1632,7 @@
 
   var dimmed = document.querySelector('.dimmed_bgs');
 
+  var _aipScrollY = 0;
   function openAip() {
     var heratH = document.querySelector('.herat_number').offsetHeight;
     var barH   = bar ? bar.offsetHeight : 0;
@@ -1518,6 +1648,12 @@
     var closeEl = document.getElementById('aipClose');
     if (closeEl) closeEl.style.display = 'block';
     runHeartAnim();
+    /* 바깥 스크롤 막기 */
+    _aipScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + _aipScrollY + 'px';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
   }
   function closeAip() {
     /* herat_number만 보이는 위치로 CSS 변수 설정 후 aip-open 제거 → transition 발동 */
@@ -1526,6 +1662,12 @@
     document.documentElement.style.setProperty('--aip-close-top', 'calc(100% - ' + (heratH + barH) + 'px)');
     summary.classList.add('aip-closing');
     summary.classList.remove('aip-open');
+    /* 바깥 스크롤 복구 */
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    window.scrollTo(0, _aipScrollY);
     setTimeout(function () {
       summary.classList.remove('aip-ready');
       summary.classList.remove('aip-closing');
@@ -1647,5 +1789,57 @@ function cycleTier(el) {
   var colors = ['aip-blue', 'aip-green', 'aip-orange'];
   btn.classList.add(colors[idx]);
 }
+
+(function(){
+  var panel   = document.getElementById('myInfoPanel');
+  var overlay = document.getElementById('myInfoOverlay');
+  var openBtn = document.getElementById('myInfoBtn');
+  var closeBtn= document.getElementById('myInfoClose');
+  var confirmBtn = document.querySelector('.myinfo-confirm-btn');
+
+  function open()  { overlay.classList.add('show'); panel.classList.add('show'); }
+  function close() { overlay.classList.remove('show'); panel.classList.remove('show'); }
+
+  if(openBtn)    openBtn.addEventListener('click', open);
+  if(closeBtn)   closeBtn.addEventListener('click', close);
+  if(overlay)    overlay.addEventListener('click', close);
+  if(confirmBtn) confirmBtn.addEventListener('click', close);
+
+  // 여행기간 ⓘ
+  var tBtn  = document.getElementById('tripDateInfoBtn');
+  var tOv   = document.getElementById('tripDateInfoOverlay');
+  var tClose= document.getElementById('tripDateInfoClose');
+  // 날짜 placeholder 처리
+  function bindDatePh(inputId, phId) {
+    var inp = document.getElementById(inputId);
+    var ph  = document.getElementById(phId);
+    if (!inp || !ph) return;
+    inp.addEventListener('change', function() {
+      if (this.value) {
+        this.setAttribute('data-has-value','1');
+        ph.style.display = 'none';
+      } else {
+        this.removeAttribute('data-has-value');
+        ph.style.display = '';
+      }
+    });
+  }
+  bindDatePh('tripStartDate','tripStartPh');
+  bindDatePh('tripEndDate','tripEndPh');
+
+  if(tBtn)   tBtn.addEventListener('click',  function(e){ e.stopPropagation(); tOv.classList.add('show_heart'); });
+  if(tClose) tClose.addEventListener('click', function(){ tOv.classList.remove('show_heart'); });
+  if(tOv)    tOv.addEventListener('click',    function(e){ if(e.target===this) this.classList.remove('show_heart'); });
+
+  // 성별 토글
+  document.querySelectorAll('.myinfo-gender-wrap').forEach(function(wrap){
+    wrap.querySelectorAll('.myinfo-gender').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        wrap.querySelectorAll('.myinfo-gender').forEach(function(b){ b.classList.remove('active'); });
+        this.classList.add('active');
+      });
+    });
+  });
+})();
 </script>
 </html>
