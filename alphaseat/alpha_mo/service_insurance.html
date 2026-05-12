@@ -17,6 +17,9 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 </head>
+<!--
+<body onload="layerPop('popup_loading');">	
+-->
 <body>
 	<div class="ags-wrap newui insurerisk">
 		<h1 class="site-name">올윈에어</h1>		
@@ -561,9 +564,9 @@
 							<span class="pct-sign_heart">%</span>
 							</div>
 						</div>
-						<div class="index-label_heart">
+						<div class="index-label_heart" style="position:relative; width:100%;">
 							<div id="heartLabelTxt">가입 전 안심지수</div>
-							<span class="info-btn_heart" id="infoBtn_heart">ⓘ</span>
+							<span class="info-btn_heart" id="infoBtn_heart" style="position:absolute; right:0; top:50%; transform:translateY(-50%);">ⓘ</span>
 						</div>
 						</div>
 					</div>  <!-- bottom-bar_heart 끝 -->
@@ -938,6 +941,7 @@
       <a class="aip-close" id="myInfoHandle"></a>
       <div class="myinfo-header">
         <span class="myinfo-title">가입정보 입력 <span class="myinfo-req">(필수)</span></span>
+        <button class="myinfo-close" id="myInfoClose">✕</button>
       </div>
       <p class="myinfo-desc">보험료 산정과 AI 추천을 위해 여행기간, 가입자 정보를 입력해주세요.</p>
       <div class="myinfo-body">
@@ -972,7 +976,7 @@
         <div class="myinfo-person">
           <div class="myinfo-person-name">LEE JIYOUNG</div>
           <div class="myinfo-person-row">
-            <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)">
+            <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)" inputmode="numeric" maxlength="8">
             <div class="myinfo-gender-wrap">
               <button type="button" class="myinfo-gender active">남</button>
               <button type="button" class="myinfo-gender">여</button>
@@ -982,7 +986,7 @@
         <div class="myinfo-person">
           <div class="myinfo-person-name">KIM JINHUI</div>
           <div class="myinfo-person-row">
-            <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)">
+            <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)" inputmode="numeric" maxlength="8">
             <div class="myinfo-gender-wrap">
               <button type="button" class="myinfo-gender active">남</button>
               <button type="button" class="myinfo-gender">여</button>
@@ -1116,9 +1120,7 @@
         </div>
         <button class="popup-confirm_imp" id="importantConfirm">확인</button>
       </div>
-    </div>	
-
-
+    </div>
 <script>
 (function(){
   /* 약관 팝업 열기 */
@@ -1215,6 +1217,13 @@
   }
   bindDatePh('tripStartDate','tripStartPh');
   bindDatePh('tripEndDate','tripEndPh');
+
+  // 생년월일 숫자만 + 8자리 제한
+  document.querySelectorAll('.myinfo-birth-input:not([readonly])').forEach(function(inp){
+    inp.addEventListener('input', function(){
+      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8);
+    });
+  });
 
   // 성별 토글
   document.querySelectorAll('.myinfo-gender-wrap').forEach(function(wrap){
