@@ -694,8 +694,8 @@
 					</div>
 					
 					<a href="#none" class="btn_footer_open"></a>
-					<!--btf_bbtn oranc 오렌지 색상-->
-					<div class="btf_bbtn">
+					<!--btf_bbtn_oneway-->
+					<div class="btf_bbtn_oneway">
 						<button>AI 판단 결과보기</button>
 					</div>				
 				</div>
@@ -1044,17 +1044,36 @@
             <button type="button" class="myinfo-info-btn" id="tripDateInfoBtn">ⓘ</button>
           </div>
           <div class="myinfo-date-wrap">
-            <div class="myinfo-date-box">
-              <input type="date" class="myinfo-date-input" id="tripStartDate">
-              <span class="myinfo-date-ph" id="tripStartPh">출발일 입력</span>
-            </div>
+            <button type="button" class="myinfo-date-btn" id="tripStartBtn">
+              <span class="myinfo-date-btn-txt" id="tripStartTxt">출발일 입력</span>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M3 8h14" stroke="#bbb" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
             <span class="myinfo-date-dash">~</span>
-            <div class="myinfo-date-box">
-              <input type="date" class="myinfo-date-input" id="tripEndDate">
-              <span class="myinfo-date-ph" id="tripEndPh">귀국일 입력</span>
-            </div>
+            <button type="button" class="myinfo-date-btn" id="tripEndBtn">
+              <span class="myinfo-date-btn-txt" id="tripEndTxt">귀국일 입력</span>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M3 8h14" stroke="#bbb" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
           </div>
         </div>
+
+        <!-- 출발/도착 예정 시간 -->
+        <div class="myinfo-row">
+          <div class="myinfo-label-wrap">
+            <span class="myinfo-label">출발 · 도착 예정 시간</span>
+          </div>
+          <div class="myinfo-date-wrap">
+            <button type="button" class="myinfo-date-btn" id="tripStartTimeBtn">
+              <span class="myinfo-date-btn-txt" id="tripStartTimeTxt">출발 예정</span>
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#bbb" stroke-width="1.5"/><path d="M10 7v3.5l2.5 1.5" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <span class="myinfo-date-dash">~</span>
+            <button type="button" class="myinfo-date-btn" id="tripEndTimeBtn">
+              <span class="myinfo-date-btn-txt" id="tripEndTimeTxt">도착 예정</span>
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#bbb" stroke-width="1.5"/><path d="M10 7v3.5l2.5 1.5" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
         <div class="myinfo-section-title">가입자 정보</div>
         <div class="myinfo-person">
           <div class="myinfo-person-name">LEE SIHYEONG</div>
@@ -1214,6 +1233,314 @@
         <button class="popup-confirm_imp" id="importantConfirm">확인</button>
       </div>
     </div>
+
+
+<!-- 시간 피커 -->
+<div class="timepicker-overlay" id="timepickerOverlay">
+  <div class="timepicker-panel">
+    <div class="timepicker-title-bar">
+      <span class="timepicker-title" id="timepickerTitle">출발 예정 시간</span>
+      <button class="timepicker-close" id="timepickerClose">✕</button>
+    </div>
+    <div class="timepicker-scroll-wrap">
+      <div class="timepicker-col" id="timepickerHour"></div>
+      <span class="timepicker-colon">:</span>
+      <div class="timepicker-col" id="timepickerMin"></div>
+    </div>
+    <button class="timepicker-confirm" id="timepickerConfirm">확인</button>
+  </div>
+</div>
+
+<!-- 전체화면 날짜 피커 -->
+<!-- 귀국일 전용 슬라이드 패널 (가입자정보 제외) -->
+<div class="myinfo-overlay" id="onewayOverlay"></div>
+<div class="myinfo-panel" id="onewayPanel">
+  <a class="aip-close" id="onewayHandle"></a>
+  <div class="myinfo-header">
+    <span class="myinfo-title">여행기간 입력 <span class="myinfo-req">(필수)</span></span>
+  </div>
+  <p class="myinfo-desc">보험료 산정과 AI 추천을 위해 여행기간을 입력해주세요.</p>
+  <div class="myinfo-body">
+    <div class="myinfo-row">
+      <div class="myinfo-label-wrap">
+        <span class="myinfo-label">여행기간</span>
+        <button type="button" class="myinfo-info-btn" id="onewayDateInfoBtn">ⓘ</button>
+      </div>
+      <div class="myinfo-date-wrap">
+        <button type="button" class="myinfo-date-btn" id="onewayStartBtn">
+          <span class="myinfo-date-btn-txt" id="onewayStartTxt">출발일 입력</span>
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M3 8h14" stroke="#bbb" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <span class="myinfo-date-dash">~</span>
+        <button type="button" class="myinfo-date-btn" id="onewayEndBtn">
+          <span class="myinfo-date-btn-txt" id="onewayEndTxt">귀국일 입력</span>
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M3 8h14" stroke="#bbb" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="myinfo-row">
+      <div class="myinfo-label-wrap">
+        <span class="myinfo-label">출발 · 도착 예정 시간</span>
+      </div>
+      <div class="myinfo-date-wrap">
+        <button type="button" class="myinfo-date-btn" id="onewayStartTimeBtn">
+          <span class="myinfo-date-btn-txt" id="onewayStartTimeTxt">출발 예정</span>
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#bbb" stroke-width="1.5"/><path d="M10 7v3.5l2.5 1.5" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <span class="myinfo-date-dash">~</span>
+        <button type="button" class="myinfo-date-btn" id="onewayEndTimeBtn">
+          <span class="myinfo-date-btn-txt" id="onewayEndTimeTxt">도착 예정</span>
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#bbb" stroke-width="1.5"/><path d="M10 7v3.5l2.5 1.5" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="myinfo-confirm-btn" id="onewayConfirmBtn">입력 완료</button>
+</div>
+<div class="datepicker-overlay" id="datepickerOverlay">
+  <div class="datepicker-panel">
+    <div class="datepicker-header">
+      <button class="datepicker-prev" id="datepickerPrev">&#8249;</button>
+      <span class="datepicker-title" id="datepickerTitle"></span>
+      <button class="datepicker-next" id="datepickerNext">&#8250;</button>
+    </div>
+    <div class="datepicker-weekdays">
+      <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+    </div>
+    <div class="datepicker-grid" id="datepickerGrid"></div>
+    <div class="datepicker-footer">
+      <button class="datepicker-cancel" id="datepickerCancel">취소</button>
+      <button class="datepicker-confirm" id="datepickerConfirm">확인</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* 날짜 버튼 */
+.myinfo-date-btn{flex:1;display:flex;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:8px;background:#fff;padding:0 10px;height:40px;cursor:pointer;gap:6px;}
+.myinfo-date-btn-txt{font-size:13px;color:#bbb;flex:1;text-align:left;}
+.myinfo-date-btn-txt.selected{color:#222;}
+
+/* 피커 오버레이 */
+.datepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:flex-end;justify-content:center;}
+.datepicker-overlay.show{display:flex;}
+.datepicker-panel{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 32px;}
+.datepicker-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.datepicker-prev,.datepicker-next{background:none;border:none;font-size:28px;color:#555;cursor:pointer;padding:0 8px;line-height:1;}
+.datepicker-title{font-size:16px;font-weight:700;color:#111;}
+.datepicker-weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:8px;}
+.datepicker-weekdays span{font-size:12px;color:#999;padding:4px 0;}
+.datepicker-weekdays span:first-child{color:#f55;}
+.datepicker-weekdays span:last-child{color:#55f;}
+.datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:20px;}
+.dp-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:14px;color:#222;border-radius:50%;cursor:pointer;border:none;background:none;width:100%;}
+.dp-day:not(.empty):not(.disabled):hover{background:#f0f6ff;}
+.dp-day.today{font-weight:700;color:#1d85ff;}
+.dp-day.selected{background:#1d85ff !important;color:#fff !important;}
+.dp-day.disabled{color:#ddd;cursor:default;pointer-events:none;}
+.dp-day.empty{pointer-events:none;}
+.dp-day.sun{color:#f55;}
+.dp-day.sat{color:#55f;}
+.datepicker-footer{display:flex;gap:10px;}
+.datepicker-cancel,.datepicker-confirm{flex:1;height:48px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;}
+.datepicker-cancel{background:#f1f4f5;color:#666;}
+.datepicker-confirm{background:#1d85ff;color:#fff;}
+</style>
+
+<style>
+/* 시간 피커 */
+.timepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:flex-end;justify-content:center;}
+.timepicker-overlay.show{display:flex;}
+.timepicker-panel{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 32px;}
+.timepicker-title-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.timepicker-title{font-size:16px;font-weight:700;color:#111;}
+.timepicker-close{background:none;border:none;font-size:18px;color:#999;cursor:pointer;padding:0;}
+.timepicker-scroll-wrap{position:relative;display:flex;align-items:center;justify-content:center;gap:0;height:200px;overflow:hidden;margin-bottom:24px;}
+.timepicker-col{flex:1;overflow-y:scroll;height:200px;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;text-align:center;}
+.timepicker-col::-webkit-scrollbar{display:none;}
+.timepicker-col-item{height:44px;line-height:44px;font-size:20px;color:#ccc;scroll-snap-align:center;transition:color .15s,font-weight .15s;}
+.timepicker-col-item.active{color:#111;font-weight:700;font-size:22px;}
+.timepicker-col-pad{height:78px;}
+.timepicker-colon{font-size:24px;font-weight:700;color:#333;flex-shrink:0;padding:0 8px;align-self:center;}
+.timepicker-confirm{width:100%;height:50px;border:none;border-radius:12px;background:#1d85ff;color:#fff;font-size:16px;font-weight:700;cursor:pointer;}
+</style>
+
+
+<script>
+(function(){
+  var overlay    = document.getElementById('datepickerOverlay');
+  var grid       = document.getElementById('datepickerGrid');
+  var titleEl    = document.getElementById('datepickerTitle');
+  var prevBtn    = document.getElementById('datepickerPrev');
+  var nextBtn    = document.getElementById('datepickerNext');
+  var cancelBtn  = document.getElementById('datepickerCancel');
+  var confirmBtn = document.getElementById('datepickerConfirm');
+  var startBtn   = document.getElementById('tripStartBtn');
+  var endBtn     = document.getElementById('tripEndBtn');
+
+  var curYear, curMonth, selectedDate, targetField;
+  var today = new Date(); today.setHours(0,0,0,0);
+
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  function formatDate(y,m,d){ return y+'.'+pad(m+1)+'.'+pad(d); }
+
+  function render(){
+    titleEl.textContent = curYear+'년 '+(curMonth+1)+'월';
+    var firstDow = new Date(curYear, curMonth, 1).getDay();
+    var daysInMonth = new Date(curYear, curMonth+1, 0).getDate();
+    grid.innerHTML = '';
+
+    for(var i=0; i<firstDow; i++){
+      var emp = document.createElement('button');
+      emp.className='dp-day empty'; emp.disabled=true;
+      grid.appendChild(emp);
+    }
+    for(var d=1; d<=daysInMonth; d++){
+      (function(dd){
+        var btn = document.createElement('button');
+        btn.className = 'dp-day';
+        btn.textContent = dd;
+        var thisDate = new Date(curYear, curMonth, dd);
+        var dow = thisDate.getDay();
+        if(dow===0) btn.classList.add('sun');
+        if(dow===6) btn.classList.add('sat');
+        if(thisDate.getTime() < today.getTime()) btn.classList.add('disabled');
+        if(thisDate.getTime()===today.getTime()) btn.classList.add('today');
+        if(selectedDate && thisDate.getTime()===selectedDate.getTime()) btn.classList.add('selected');
+        btn.addEventListener('click', function(){
+          selectedDate = new Date(curYear, curMonth, dd);
+          render();
+        });
+        grid.appendChild(btn);
+      })(d);
+    }
+  }
+
+  var targetPanel = 'trip';
+  function openPicker(field, panel){
+    targetField = field;
+    targetPanel = panel || 'trip';
+    var now = new Date();
+    curYear = now.getFullYear(); curMonth = now.getMonth(); selectedDate = null;
+    render();
+    overlay.classList.add('show');
+  }
+
+  prevBtn.addEventListener('click', function(){ if(--curMonth<0){curMonth=11;curYear--;} render(); });
+  nextBtn.addEventListener('click', function(){ if(++curMonth>11){curMonth=0;curYear++;} render(); });
+  cancelBtn.addEventListener('click', function(){ overlay.classList.remove('show'); });
+  overlay.addEventListener('click', function(e){ if(e.target===this) overlay.classList.remove('show'); });
+
+  confirmBtn.addEventListener('click', function(){
+    overlay.classList.remove('show');
+    if(!selectedDate) return;
+    var str = formatDate(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+    var prefix = targetPanel === 'oneway' ? 'oneway' : 'trip';
+    var txtId = (targetField==='start') ? prefix+'StartTxt' : prefix+'EndTxt';
+    var txtEl = document.getElementById(txtId);
+    if(txtEl){ txtEl.textContent = str; txtEl.classList.add('selected'); }
+  });
+
+  if(startBtn) startBtn.addEventListener('click', function(){ openPicker('start','trip'); });
+  if(endBtn)   endBtn.addEventListener('click',   function(){ openPicker('end','trip'); });
+
+  // oneway 버튼 연결
+  var owStartBtn = document.getElementById('onewayStartBtn');
+  var owEndBtn   = document.getElementById('onewayEndBtn');
+  if(owStartBtn) owStartBtn.addEventListener('click', function(){ openPicker('start','oneway'); });
+  if(owEndBtn)   owEndBtn.addEventListener('click',   function(){ openPicker('end','oneway'); });
+})();
+</script>
+
+
+<!-- 입력 안내 알림 팝업 -->
+<div class="overlay_imp" id="onewayAlertOverlay" style="z-index:10000;">
+  <div class="popup_imp" style="text-align:center;">
+    <p class="popup-title_imp" style="margin-bottom:12px;">입력해 주세요</p>
+    <p class="popup-body_imp" id="onewayAlertMsg" style="margin-bottom:0;"></p>
+    <button class="popup-confirm_imp" id="onewayAlertConfirm" style="margin-top:16px;">확인</button>
+  </div>
+</div>
+
+<script>
+/* ── oneway 패널 ── */
+(function(){
+  var panel      = document.getElementById('onewayPanel');
+  var overlay    = document.getElementById('onewayOverlay');
+  var handleBtn  = document.getElementById('onewayHandle');
+  var confirmBtn = document.getElementById('onewayConfirmBtn');
+  var infoBtn    = document.getElementById('onewayDateInfoBtn');
+  var alertOv    = document.getElementById('onewayAlertOverlay');
+  var alertMsg   = document.getElementById('onewayAlertMsg');
+  var alertOk    = document.getElementById('onewayAlertConfirm');
+  var _scrollY   = 0;
+
+  function openOneway(){
+    _scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + _scrollY + 'px';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    overlay.classList.add('show');
+    panel.classList.add('show');
+  }
+  function closeOneway(){
+    overlay.classList.remove('show');
+    panel.classList.remove('show');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    window.scrollTo(0, _scrollY);
+  }
+  function showAlert(msg){
+    alertMsg.textContent = msg;
+    alertOv.classList.add('show_imp');
+  }
+
+  alertOk.addEventListener('click', function(){ alertOv.classList.remove('show_imp'); });
+
+  /* btf_bbtn_oneway 클릭 → openOneway */
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.btf_bbtn_oneway')) openOneway();
+  });
+
+  if(handleBtn) handleBtn.addEventListener('click', closeOneway);
+  if(overlay)   overlay.addEventListener('click', closeOneway);
+
+  /* 피커 버튼 연결 - 이미 datepicker/timepicker IIFE에서 처리하므로 여기선 생략 */
+
+  /* 입력완료 → 검증 → openAip */
+  if(confirmBtn) confirmBtn.addEventListener('click', function(){
+    var startTxt = document.getElementById('onewayStartTxt');
+    var endTxt   = document.getElementById('onewayEndTxt');
+    if(!startTxt.classList.contains('selected')){
+      showAlert('출발일을 입력해 주세요.'); return;
+    }
+    if(!endTxt.classList.contains('selected')){
+      showAlert('귀국일을 입력해 주세요.'); return;
+    }
+    /* 패널/오버레이 닫고 body 스타일 초기화 → openAip 직접 호출 */
+    panel.classList.remove('show');
+    overlay.classList.remove('show');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    setTimeout(function(){
+      if(typeof window.openAip === 'function') window.openAip();
+    }, 400);
+  });
+
+  /* 여행기간 ⓘ → 기존 팝업 재사용 */
+  if(infoBtn) infoBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var tOv = document.getElementById('tripDateInfoOverlay');
+    if(tOv) tOv.classList.add('show_heart');
+  });
+})();
+</script>
+
 </body>
 <script>
 (function(){
@@ -1306,8 +1633,6 @@
       else { this.removeAttribute('data-has-value'); ph.style.display=''; }
     });
   }
-  bindDatePh('tripStartDate','tripStartPh');
-  bindDatePh('tripEndDate','tripEndPh');
 
   // 생년월일 숫자만 + 8자리 제한
   document.querySelectorAll('.myinfo-birth-input:not([readonly])').forEach(function(inp){
@@ -1894,7 +2219,7 @@
   var dimmed = document.querySelector('.dimmed_bgs');
 
   var _aipScrollY = 0;
-  function openAip() {
+  window.openAip = function openAip() {
     var heratH = document.querySelector('.herat_number').offsetHeight;
     var barH   = bar ? bar.offsetHeight : 0;
     document.documentElement.style.setProperty('--aip-start-top', 'calc(100% - ' + (heratH + barH) + 'px)');
@@ -2048,5 +2373,113 @@ function cycleTier(el) {
   var colors = ['aip-blue', 'aip-green', 'aip-orange'];
   btn.classList.add(colors[idx]);
 }
+
+/* ── 시간 피커 ── */
+(function(){
+  var overlay    = document.getElementById('timepickerOverlay');
+  var titleEl    = document.getElementById('timepickerTitle');
+  var hourCol    = document.getElementById('timepickerHour');
+  var minCol     = document.getElementById('timepickerMin');
+  var closeBtn   = document.getElementById('timepickerClose');
+  var confirmBtn = document.getElementById('timepickerConfirm');
+  var startTimeBtn = document.getElementById('tripStartTimeBtn');
+  var endTimeBtn   = document.getElementById('tripEndTimeBtn');
+  var targetTimeField;
+
+  function pad(n){ return n<10?'0'+n:''+n; }
+
+  function buildCol(el, max, step){
+    el.innerHTML = '<div class="timepicker-col-pad"></div>';
+    for(var i=0; i<max; i+=step){
+      var div = document.createElement('div');
+      div.className = 'timepicker-col-item';
+      div.textContent = pad(i);
+      el.appendChild(div);
+    }
+    el.innerHTML += '<div class="timepicker-col-pad"></div>';
+  }
+
+  function getSelected(col){
+    var items = col.querySelectorAll('.timepicker-col-item');
+    var colTop = col.getBoundingClientRect().top;
+    var center = colTop + col.clientHeight/2;
+    var best = 0, bestDist = 9999;
+    items.forEach(function(item, idx){
+      var rect = item.getBoundingClientRect();
+      var dist = Math.abs(rect.top + rect.height/2 - center);
+      if(dist < bestDist){ bestDist=dist; best=idx; }
+    });
+    return items[best] ? items[best].textContent : '00';
+  }
+
+  function updateActive(col){
+    var items = col.querySelectorAll('.timepicker-col-item');
+    var colTop = col.getBoundingClientRect().top;
+    var center = colTop + col.clientHeight/2;
+    items.forEach(function(item){
+      var rect = item.getBoundingClientRect();
+      var dist = Math.abs(rect.top + rect.height/2 - center);
+      item.classList.toggle('active', dist < 22);
+    });
+  }
+
+  function scrollToIndex(col, idx){
+    col.scrollTop = idx * 44;
+  }
+
+  var targetTimePanel = 'trip';
+  function openTimePicker(field, panel){
+    targetTimeField = field;
+    targetTimePanel = panel || 'trip';
+    titleEl.textContent = field==='start' ? '출발 예정 시간' : '도착 예정 시간';
+    buildCol(hourCol, 24, 1);
+    buildCol(minCol,  60, 30);
+    overlay.classList.add('show');
+    setTimeout(function(){
+      scrollToIndex(hourCol, 0);
+      scrollToIndex(minCol,  0);
+      updateActive(hourCol);
+      updateActive(minCol);
+    }, 50);
+  }
+
+  [hourCol, minCol].forEach(function(col){
+    col.addEventListener('scroll', function(){
+      clearTimeout(col._st);
+      updateActive(col);
+      col._st = setTimeout(function(){
+        var items = col.querySelectorAll('.timepicker-col-item');
+        var idx = Math.round(col.scrollTop / 44);
+        idx = Math.max(0, Math.min(idx, items.length-1));
+        col.scrollTo({top: idx*44, behavior:'smooth'});
+        setTimeout(function(){ updateActive(col); }, 200);
+      }, 120);
+    });
+  });
+
+  closeBtn.addEventListener('click', function(){ overlay.classList.remove('show'); });
+  overlay.addEventListener('click', function(e){ if(e.target===this) overlay.classList.remove('show'); });
+
+  confirmBtn.addEventListener('click', function(){
+    var h = getSelected(hourCol);
+    var m = getSelected(minCol);
+    var str = h + ':' + m;
+    var tprefix = targetTimePanel === 'oneway' ? 'oneway' : 'trip';
+    var txtId = (targetTimeField==='start') ? tprefix+'StartTimeTxt' : tprefix+'EndTimeTxt';
+    var txtEl = document.getElementById(txtId);
+    if(txtEl){ txtEl.textContent = str; txtEl.classList.add('selected'); }
+    overlay.classList.remove('show');
+  });
+
+  if(startTimeBtn) startTimeBtn.addEventListener('click', function(){ openTimePicker('start','trip'); });
+  if(endTimeBtn)   endTimeBtn.addEventListener('click',   function(){ openTimePicker('end','trip'); });
+
+  // oneway 버튼 연결
+  var owStartTimeBtn = document.getElementById('onewayStartTimeBtn');
+  var owEndTimeBtn   = document.getElementById('onewayEndTimeBtn');
+  if(owStartTimeBtn) owStartTimeBtn.addEventListener('click', function(){ openTimePicker('start','oneway'); });
+  if(owEndTimeBtn)   owEndTimeBtn.addEventListener('click',   function(){ openTimePicker('end','oneway'); });
+})();
 </script>
+
 </html>
