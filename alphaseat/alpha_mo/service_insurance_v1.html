@@ -1044,15 +1044,15 @@
             <button type="button" class="myinfo-info-btn" id="tripDateInfoBtn">ⓘ</button>
           </div>
           <div class="myinfo-date-wrap">
-            <div class="myinfo-date-box">
-              <input type="date" class="myinfo-date-input" id="tripStartDate">
-              <span class="myinfo-date-ph" id="tripStartPh">출발일 입력</span>
-            </div>
+            <button type="button" class="myinfo-date-btn" id="tripStartBtn">
+              <span class="myinfo-date-btn-txt" id="tripStartTxt">출발일 입력</span>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M3 8h14" stroke="#bbb" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
             <span class="myinfo-date-dash">~</span>
-            <div class="myinfo-date-box">
-              <input type="date" class="myinfo-date-input" id="tripEndDate">
-              <span class="myinfo-date-ph" id="tripEndPh">귀국일 입력</span>
-            </div>
+            <button type="button" class="myinfo-date-btn" id="tripEndBtn">
+              <span class="myinfo-date-btn-txt" id="tripEndTxt">귀국일 입력</span>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M3 8h14" stroke="#bbb" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
           </div>
         </div>
         <div class="myinfo-section-title">가입자 정보</div>
@@ -1214,6 +1214,136 @@
         <button class="popup-confirm_imp" id="importantConfirm">확인</button>
       </div>
     </div>
+
+<!-- 전체화면 날짜 피커 -->
+<div class="datepicker-overlay" id="datepickerOverlay">
+  <div class="datepicker-panel">
+    <div class="datepicker-header">
+      <button class="datepicker-prev" id="datepickerPrev">&#8249;</button>
+      <span class="datepicker-title" id="datepickerTitle"></span>
+      <button class="datepicker-next" id="datepickerNext">&#8250;</button>
+    </div>
+    <div class="datepicker-weekdays">
+      <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+    </div>
+    <div class="datepicker-grid" id="datepickerGrid"></div>
+    <div class="datepicker-footer">
+      <button class="datepicker-cancel" id="datepickerCancel">취소</button>
+      <button class="datepicker-confirm" id="datepickerConfirm">확인</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* 날짜 버튼 */
+.myinfo-date-btn{flex:1;display:flex;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:8px;background:#fff;padding:0 10px;height:40px;cursor:pointer;gap:6px;}
+.myinfo-date-btn-txt{font-size:13px;color:#bbb;flex:1;text-align:left;}
+.myinfo-date-btn-txt.selected{color:#222;}
+
+/* 피커 오버레이 */
+.datepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:flex-end;justify-content:center;}
+.datepicker-overlay.show{display:flex;}
+.datepicker-panel{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 32px;}
+.datepicker-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.datepicker-prev,.datepicker-next{background:none;border:none;font-size:28px;color:#555;cursor:pointer;padding:0 8px;line-height:1;}
+.datepicker-title{font-size:16px;font-weight:700;color:#111;}
+.datepicker-weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:8px;}
+.datepicker-weekdays span{font-size:12px;color:#999;padding:4px 0;}
+.datepicker-weekdays span:first-child{color:#f55;}
+.datepicker-weekdays span:last-child{color:#55f;}
+.datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:20px;}
+.dp-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:14px;color:#222;border-radius:50%;cursor:pointer;border:none;background:none;width:100%;}
+.dp-day:not(.empty):not(.disabled):hover{background:#f0f6ff;}
+.dp-day.today{font-weight:700;color:#1d85ff;}
+.dp-day.selected{background:#1d85ff !important;color:#fff !important;}
+.dp-day.disabled{color:#ddd;cursor:default;pointer-events:none;}
+.dp-day.empty{pointer-events:none;}
+.dp-day.sun{color:#f55;}
+.dp-day.sat{color:#55f;}
+.datepicker-footer{display:flex;gap:10px;}
+.datepicker-cancel,.datepicker-confirm{flex:1;height:48px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;}
+.datepicker-cancel{background:#f1f4f5;color:#666;}
+.datepicker-confirm{background:#1d85ff;color:#fff;}
+</style>
+
+<script>
+(function(){
+  var overlay    = document.getElementById('datepickerOverlay');
+  var grid       = document.getElementById('datepickerGrid');
+  var titleEl    = document.getElementById('datepickerTitle');
+  var prevBtn    = document.getElementById('datepickerPrev');
+  var nextBtn    = document.getElementById('datepickerNext');
+  var cancelBtn  = document.getElementById('datepickerCancel');
+  var confirmBtn = document.getElementById('datepickerConfirm');
+  var startBtn   = document.getElementById('tripStartBtn');
+  var endBtn     = document.getElementById('tripEndBtn');
+
+  var curYear, curMonth, selectedDate, targetField;
+  var today = new Date(); today.setHours(0,0,0,0);
+
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  function formatDate(y,m,d){ return y+'.'+pad(m+1)+'.'+pad(d); }
+
+  function render(){
+    titleEl.textContent = curYear+'년 '+(curMonth+1)+'월';
+    var firstDow = new Date(curYear, curMonth, 1).getDay();
+    var daysInMonth = new Date(curYear, curMonth+1, 0).getDate();
+    grid.innerHTML = '';
+
+    for(var i=0; i<firstDow; i++){
+      var emp = document.createElement('button');
+      emp.className='dp-day empty'; emp.disabled=true;
+      grid.appendChild(emp);
+    }
+    for(var d=1; d<=daysInMonth; d++){
+      (function(dd){
+        var btn = document.createElement('button');
+        btn.className = 'dp-day';
+        btn.textContent = dd;
+        var thisDate = new Date(curYear, curMonth, dd);
+        var dow = thisDate.getDay();
+        if(dow===0) btn.classList.add('sun');
+        if(dow===6) btn.classList.add('sat');
+        if(thisDate.getTime() < today.getTime()) btn.classList.add('disabled');
+        if(thisDate.getTime()===today.getTime()) btn.classList.add('today');
+        if(selectedDate && thisDate.getTime()===selectedDate.getTime()) btn.classList.add('selected');
+        btn.addEventListener('click', function(){
+          selectedDate = new Date(curYear, curMonth, dd);
+          render();
+        });
+        grid.appendChild(btn);
+      })(d);
+    }
+  }
+
+  function openPicker(field){
+    targetField = field;
+    var now = new Date();
+    curYear = now.getFullYear(); curMonth = now.getMonth(); selectedDate = null;
+    render();
+    overlay.classList.add('show');
+  }
+
+  prevBtn.addEventListener('click', function(){ if(--curMonth<0){curMonth=11;curYear--;} render(); });
+  nextBtn.addEventListener('click', function(){ if(++curMonth>11){curMonth=0;curYear++;} render(); });
+  cancelBtn.addEventListener('click', function(){ overlay.classList.remove('show'); });
+  overlay.addEventListener('click', function(e){ if(e.target===this) overlay.classList.remove('show'); });
+
+  confirmBtn.addEventListener('click', function(){
+    overlay.classList.remove('show');
+    if(!selectedDate) return;
+    var str = formatDate(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+    var txtId = targetField==='start' ? 'tripStartTxt' : 'tripEndTxt';
+    var txtEl = document.getElementById(txtId);
+    txtEl.textContent = str;
+    txtEl.classList.add('selected');
+  });
+
+  if(startBtn) startBtn.addEventListener('click', function(){ openPicker('start'); });
+  if(endBtn)   endBtn.addEventListener('click',   function(){ openPicker('end'); });
+})();
+</script>
+
 </body>
 <script>
 (function(){
@@ -1306,8 +1436,6 @@
       else { this.removeAttribute('data-has-value'); ph.style.display=''; }
     });
   }
-  bindDatePh('tripStartDate','tripStartPh');
-  bindDatePh('tripEndDate','tripEndPh');
 
   // 생년월일 숫자만 + 8자리 제한
   document.querySelectorAll('.myinfo-birth-input:not([readonly])').forEach(function(inp){
