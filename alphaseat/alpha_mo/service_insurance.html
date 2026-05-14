@@ -17,11 +17,23 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <style>
-.ags-summary.insurerisk:not(.aip-ready):not(.aip-closing) {
-  position: fixed;
-  bottom: 0;
+/* 스크롤 튀어오름 방지: 항상 하단 고정 */
+.ags-summary.insurerisk {
+  position: fixed !important;
+  bottom: 0 !important;
   left: 0;
   right: 0;
+  top: auto !important;
+}
+/* 슬라이드 열릴 때: top으로 위치 제어, bottom 해제 */
+.ags-summary.insurerisk.aip-ready,
+.ags-summary.insurerisk.aip-closing {
+  bottom: auto !important;
+  top: var(--aip-start-top, calc(100% - 80px)) !important;
+}
+.ags-summary.insurerisk.aip-open {
+  top: 15% !important;
+  bottom: auto !important;
 }
 </style>
 </head>
