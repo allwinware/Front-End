@@ -328,14 +328,12 @@ $(document).ready(function () {
 	/*푸터 슬라이드 팝업*/
 	$(document).on("click", ".btn_footer_open", function () {
 		$(".ags-summary").addClass("active");
-		$(".footer_contents").slideDown(300)
 		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
 		$("body").css("overflow", "hidden");
 		$("html").css("overflow", "hidden");
 	});
 	$(document).on("click", ".btn_footer_close", function () {
 		$(".ags-summary").removeClass("active");
-		$(".footer_contents").slideUp(300)
 		$(".dimmed_bg, .dimmed_bgs").css("display", "none");
 		$("body").css("overflow", "");
 		$("html").css("overflow", "");
