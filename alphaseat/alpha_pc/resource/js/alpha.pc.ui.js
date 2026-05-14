@@ -829,3 +829,22 @@ $(document).ready(function() {
         $('.baggagep_advimg').css('border-bottom', 'unset');
     }
 });
+
+
+document.addEventListener('mouseover', function (e) {
+  if (e.target.closest('.info-icon')) {
+    const tooltip = document.querySelector('.info-tooltip');
+    const rect = e.target.closest('.info-icon').getBoundingClientRect();
+    tooltip.style.display = 'block';
+    tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 8) + 'px';
+    tooltip.style.left = (rect.left + window.scrollX + rect.width / 2) + 'px';
+    tooltip.style.transform = 'translateX(-50%)';
+  }
+});
+
+document.addEventListener('mouseout', function (e) {
+  if (e.target.closest('.info-icon')) {
+    const tooltip = document.querySelector('.info-tooltip');
+    tooltip.style.display = 'none';
+  }
+});

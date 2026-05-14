@@ -927,3 +927,47 @@ $(document).ready(function() {
     }
 });
 
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const infoBtn = document.getElementById('infoBtn');
+    const popup = document.getElementById('infoPopup');
+    const dimBg = document.querySelector('.dimmed_bgs');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openPopup() {
+        popup
+            .classList
+            .add('active');
+        dimBg.style.display = 'block'; // 기존 방식이 클래스면 classList.add('active') 로 바꾸세요
+    }
+    function closePopup() {
+        popup
+            .classList
+            .remove('active');
+        dimBg.style.display = 'none';
+    }
+
+    infoBtn.addEventListener('click', openPopup);
+    closeBtn.addEventListener('click', closePopup);
+    dimBg.addEventListener('click', closePopup);
+
+    function openPopup() {
+        popup
+            .classList
+            .add('active');
+        dimBg.style.display = 'block';
+        dimBg.style.zIndex = '902';
+    }
+    function closePopup() {
+        popup
+            .classList
+            .remove('active');
+        dimBg.style.display = 'none';
+        dimBg.style.zIndex = '900';
+    }
+
+});
+
