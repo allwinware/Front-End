@@ -16,26 +16,6 @@
 	<script src="./resource/js/alpha.mo.ui.js"></script>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 
-<style>
-/* 스크롤 튀어오름 방지: 항상 하단 고정 */
-.ags-summary.insurerisk {
-  position: fixed !important;
-  bottom: 0 !important;
-  left: 0;
-  right: 0;
-  top: auto !important;
-}
-/* 슬라이드 열릴 때: top으로 위치 제어, bottom 해제 */
-.ags-summary.insurerisk.aip-ready,
-.ags-summary.insurerisk.aip-closing {
-  bottom: auto !important;
-  top: var(--aip-start-top, calc(100% - 80px)) !important;
-}
-.ags-summary.insurerisk.aip-open {
-  top: 15% !important;
-  bottom: auto !important;
-}
-</style>
 </head>
 <!--
 <body onload="layerPop('popup_loading');">	
@@ -720,7 +700,7 @@
 					</div>				
 				</div>
 			</div>		
-			<div class="footer_contents">				
+			<div class="footer_contents" style="display: none;">				
 				<a class="btn_footer_close">Close</a>
 				<div class="pay_content">
 					<div class="creditcard newui">
@@ -1334,57 +1314,6 @@
     </div>
   </div>
 </div>
-
-<style>
-/* 날짜 버튼 */
-.myinfo-date-btn{flex:1;display:flex;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:8px;background:#fff;padding:0 10px;height:40px;cursor:pointer;gap:6px;}
-.myinfo-date-btn-txt{font-size:13px;color:#bbb;flex:1;text-align:left;}
-.myinfo-date-btn-txt.selected{color:#222;}
-
-/* 피커 오버레이 */
-.datepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:flex-end;justify-content:center;}
-.datepicker-overlay.show{display:flex;}
-.datepicker-panel{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 32px;}
-.datepicker-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.datepicker-prev,.datepicker-next{background:none;border:none;font-size:28px;color:#555;cursor:pointer;padding:0 8px;line-height:1;}
-.datepicker-title{font-size:16px;font-weight:700;color:#111;}
-.datepicker-weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:8px;}
-.datepicker-weekdays span{font-size:12px;color:#999;padding:4px 0;}
-.datepicker-weekdays span:first-child{color:#f55;}
-.datepicker-weekdays span:last-child{color:#55f;}
-.datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:20px;}
-.dp-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:14px;color:#222;border-radius:50%;cursor:pointer;border:none;background:none;width:100%;}
-.dp-day:not(.empty):not(.disabled):hover{background:#f0f6ff;}
-.dp-day.today{font-weight:700;color:#1d85ff;}
-.dp-day.selected{background:#1d85ff !important;color:#fff !important;}
-.dp-day.disabled{color:#ddd;cursor:default;pointer-events:none;}
-.dp-day.empty{pointer-events:none;}
-.dp-day.sun{color:#f55;}
-.dp-day.sat{color:#55f;}
-.datepicker-footer{display:flex;gap:10px;}
-.datepicker-cancel,.datepicker-confirm{flex:1;height:48px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;}
-.datepicker-cancel{background:#f1f4f5;color:#666;}
-.datepicker-confirm{background:#1d85ff;color:#fff;}
-</style>
-
-<style>
-/* 시간 피커 */
-.timepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:flex-end;justify-content:center;}
-.timepicker-overlay.show{display:flex;}
-.timepicker-panel{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 32px;}
-.timepicker-title-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
-.timepicker-title{font-size:16px;font-weight:700;color:#111;}
-.timepicker-close{background:none;border:none;font-size:18px;color:#999;cursor:pointer;padding:0;}
-.timepicker-scroll-wrap{position:relative;display:flex;align-items:center;justify-content:center;gap:0;height:200px;overflow:hidden;margin-bottom:24px;}
-.timepicker-col{flex:1;overflow-y:scroll;height:200px;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;text-align:center;}
-.timepicker-col::-webkit-scrollbar{display:none;}
-.timepicker-col-item{height:44px;line-height:44px;font-size:20px;color:#ccc;scroll-snap-align:center;transition:color .15s,font-weight .15s;}
-.timepicker-col-item.active{color:#111;font-weight:700;font-size:22px;}
-.timepicker-col-pad{height:78px;}
-.timepicker-colon{font-size:24px;font-weight:700;color:#333;flex-shrink:0;padding:0 8px;align-self:center;}
-.timepicker-confirm{width:100%;height:50px;border:none;border-radius:12px;background:#1d85ff;color:#fff;font-size:16px;font-weight:700;cursor:pointer;}
-</style>
-
 
 <script>
 (function(){
