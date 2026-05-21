@@ -337,139 +337,6 @@ $(document).ready(function () {
 		$("body").css("overflow", "");
 		$("html").css("overflow", "");
 	});
-
-	/*============================================
-	  여행보험 팝업 통합 관리
-	============================================*/
-
-	/* ── 공통 유틸 ── */
-	function popOpen(el)  { if(el) el.classList.add('show_heart');    bodyLock();   }
-	function popClose(el) { if(el) el.classList.remove('show_heart'); bodyUnlock(); }
-	function impOpen(el)  { if(el) el.classList.add('show_imp');      bodyLock();   }
-	function impClose(el) { if(el) el.classList.remove('show_imp');   bodyUnlock(); }
-
-	var _lockScrollY = 0;
-	function bodyLock() {
-		_lockScrollY = window.scrollY;
-		$('body').css({ position:'fixed', top: -_lockScrollY+'px', width:'100%', overflow:'hidden' });
-	}
-	function bodyUnlock() {
-		$('body').css({ position:'', top:'', width:'', overflow:'' });
-		window.scrollTo(0, _lockScrollY);
-	}
-
-	/* ── 안심지수 ⓘ ── */
-	$(document).on('click', '#infoBtn_heart', function(e) {
-		e.stopPropagation();
-		popOpen(document.getElementById('infoOverlay_heart'));
-	});
-	$(document).on('click', '#infoCloseBtn', function() {
-		popClose(document.getElementById('infoOverlay_heart'));
-	});
-	$(document).on('click', '#infoOverlay_heart', function(e) {
-		if(e.target === this) popClose(this);
-	});
-
-	/* ── 여행기간 ⓘ ── */
-	$(document).on('click', '#tripDateInfoBtn, #onewayDateInfoBtn', function(e) {
-		e.stopPropagation();
-		popOpen(document.getElementById('tripDateInfoOverlay'));
-	});
-	$(document).on('click', '#tripDateInfoClose', function() {
-		popClose(document.getElementById('tripDateInfoOverlay'));
-	});
-
-	/* ── 약관 팝업 ── */
-	$(document).on('click', '.term-detail-btn', function(e) {
-		e.stopPropagation();
-		var ov = document.getElementById('termOverlay_' + this.dataset.popup);
-		impOpen(ov);
-	});
-	$(document).on('click', '.term-popup-close', function() {
-		impClose(document.getElementById(this.dataset.overlay));
-	});
-	$(document).on('click', '.term-popup-confirm', function() {
-		var chks = document.querySelectorAll('.aip-tc');
-		var idx  = parseInt(this.dataset.tc);
-		if(chks[idx]) chks[idx].classList.add('on');
-		var allOn = Array.from(chks).every(function(c){ return c.classList.contains('on'); });
-		var allChk = document.getElementById('aipChkAll');
-		if(allChk){ allOn ? allChk.classList.add('on') : allChk.classList.remove('on'); }
-		impClose(document.getElementById(this.dataset.overlay));
-	});
-	$(document).on('click', '[id^="termOverlay_"]', function(e) {
-		if(e.target === this) impClose(this);
-	});
-
-	/* ── 중요안내 팝업 ── */
-	$(document).on('click', '#importantBtn', function() {
-		impOpen(document.getElementById('importantOverlay'));
-	});
-	$(document).on('click', '#importantClose, #importantConfirm', function() {
-		impClose(document.getElementById('importantOverlay'));
-	});
-
-	/* ── 알림 팝업 ── */
-	$(document).on('click', '#onewayAlertConfirm', function() {
-		impClose(document.getElementById('onewayAlertOverlay'));
-	});
-
-	/* ── 남/여 토글 ── */
-	$(document).on('click', '.myinfo-gender', function() {
-		$(this).addClass('active').siblings('.myinfo-gender').removeClass('active');
-	});
-
-	/* ── 내정보 슬라이드 ── */
-	$(document).on('click', '#myInfoBtn', function() {
-		$('#myInfoPanel').addClass('active');
-		$('.dimmed_bg, .dimmed_bgs').css('display', 'block');
-		$('body').css('overflow', 'hidden');
-		$('html').css('overflow', 'hidden');
-	});
-	$(document).on('click', '#myInfoHandle, #myInfoClose', function() {
-		$('#myInfoPanel').removeClass('active');
-		$('.dimmed_bg, .dimmed_bgs').css('display', 'none');
-		$('body').css('overflow', '');
-		$('html').css('overflow', '');
-	});
-	/* myInfoPanel 전용 입력완료 - onewayConfirmBtn 제외 */
-	$(document).on('click', '.myinfo-confirm-btn:not(#onewayConfirmBtn)', function() {
-		$('#myInfoPanel').removeClass('active');
-		$('.dimmed_bg, .dimmed_bgs').css('display', 'none');
-		$('body').css('overflow', '');
-		$('html').css('overflow', '');
-	});
-
-	/* ── AI버튼 클릭 → onewayPanel(여행기간) 먼저 → 입력완료 → openAip ── */
-	$(document).on('click', '.btf_bbtn_oneway button', function(e) {
-		e.stopPropagation();
-		$('#onewayPanel').addClass('active');
-		$('.dimmed_bg, .dimmed_bgs').css('display', 'block');
-		$('body').css('overflow', 'hidden');
-		$('html').css('overflow', 'hidden');
-	});
-	$(document).on('click', '#onewayHandle', function() {
-		$('#onewayPanel').removeClass('active');
-		$('.dimmed_bg, .dimmed_bgs').css('display', 'none');
-		$('body').css('overflow', '');
-		$('html').css('overflow', '');
-	});
-	$(document).on('click', '#onewayConfirmBtn', function() {
-		var startTxt = document.getElementById('onewayStartTxt');
-		var endTxt   = document.getElementById('onewayEndTxt');
-		var alertOv  = document.getElementById('onewayAlertOverlay');
-		var alertMsg = document.getElementById('onewayAlertMsg');
-		function showAlert(msg){ alertMsg.textContent=msg; alertOv.classList.add('show_imp'); }
-		if(!startTxt.classList.contains('selected')){ showAlert('출발일을 입력해 주세요.'); return; }
-		if(!endTxt.classList.contains('selected'))  { showAlert('귀국일을 입력해 주세요.'); return; }
-		$('#onewayPanel').removeClass('active');
-		$('.dimmed_bg, .dimmed_bgs').css('display', 'none');
-		$('body').css('overflow', '');
-		$('html').css('overflow', '');
-		setTimeout(function(){
-			if(typeof window.openAip === 'function') window.openAip();
-		}, 400);
-	});
 	
 	/*푸터 전체 슬라이드 팝업*/
 	$(document).on("click", ".blank_btn", function () {
@@ -1056,4 +923,48 @@ $(document).ready(function() {
     if ($('.baggagep_golf').css('display') === 'block') {
         $('.baggagep_advimg').css('border-bottom', 'unset');
     }
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const infoBtn = document.getElementById('infoBtn');
+    const popup = document.getElementById('infoPopup');
+    const dimBg = document.querySelector('.dimmed_bgs');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openPopup() {
+        popup
+            .classList
+            .add('active');
+        dimBg.style.display = 'block'; // 기존 방식이 클래스면 classList.add('active') 로 바꾸세요
+    }
+    function closePopup() {
+        popup
+            .classList
+            .remove('active');
+        dimBg.style.display = 'none';
+    }
+
+    infoBtn.addEventListener('click', openPopup);
+    closeBtn.addEventListener('click', closePopup);
+    dimBg.addEventListener('click', closePopup);
+
+    function openPopup() {
+        popup
+            .classList
+            .add('active');
+        dimBg.style.display = 'block';
+        dimBg.style.zIndex = '902';
+    }
+    function closePopup() {
+        popup
+            .classList
+            .remove('active');
+        dimBg.style.display = 'none';
+        dimBg.style.zIndex = '900';
+    }
+
 });
