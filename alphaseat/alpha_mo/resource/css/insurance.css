@@ -831,7 +831,7 @@
     background: #1d85ff;
     color: #fff;
     font-size: 10px;
-    padding: 4px 6px;
+    padding: 5px 6px;
     border-radius: 4px;
 }
 .plan-name_heart {
@@ -973,7 +973,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.4);
     z-index: 1100;
     align-items: flex-start;
     justify-content: center;
@@ -1411,13 +1411,16 @@ body.no-scroll {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.4);
     z-index: 1100;
     align-items: center;
     justify-content: center;
 }
 .overlay_imp.show_imp {
     display: flex;
+}
+.overlay_imp.show_imp .popup_imp {
+    transform: scale(1);
 }
 .popup_imp {
     background: #fff;
@@ -1492,10 +1495,9 @@ body.no-scroll {
 
 
 /*내정보 슬라이드 팝업*/
-.myinfo-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.2);z-index:901;}
-.myinfo-overlay.show{display:flex;align-items:flex-end;justify-content:center;}
-.myinfo-panel{position:relative;width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;z-index:901;max-height:85vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
-.myinfo-panel.show{transform:translateY(0);}
+
+.myinfo-panel{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;z-index:901;max-height:85vh;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.myinfo-panel.active{transform:translateX(-50%) translateY(0);}
 .myinfo-handle{width:36px;height:4px;background:#ddd;border-radius:2px;margin:10px auto 0;flex-shrink:0;}
 .myinfo-header{padding:0px 20px 2px;flex-shrink:0;}
 .myinfo-title{font-size:16px;font-weight:700;color:#111;}
@@ -1632,8 +1634,10 @@ body.no-scroll {
 .myinfo-date-btn-txt.selected{color:#222;}
 
 /* 피커 오버레이 */
-.datepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:flex-end;justify-content:center;}
+.datepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:9999;align-items:flex-end;justify-content:center;}
 .datepicker-overlay.show{display:flex;}
+.datepicker-panel{transform:translateY(100%);transition:transform 350ms cubic-bezier(.4,0,.2,1);}
+.datepicker-overlay.show .datepicker-panel{transform:translateY(0);}
 .datepicker-panel{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 32px;}
 .datepicker-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .datepicker-prev,.datepicker-next{background:none;border:none;font-size:28px;color:#555;cursor:pointer;padding:0 8px;line-height:1;}
@@ -1642,8 +1646,8 @@ body.no-scroll {
 .datepicker-weekdays span{font-size:12px;color:#999;padding:4px 0;}
 .datepicker-weekdays span:first-child{color:#f55;}
 .datepicker-weekdays span:last-child{color:#55f;}
-.datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:20px;}
-.dp-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:14px;color:#222;border-radius:50%;cursor:pointer;border:none;background:none;width:100%;}
+.datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(6,1fr);gap:4px;margin-bottom:20px;}
+.dp-day{display:flex;align-items:center;justify-content:center;font-size:14px;color:#222;border-radius:50%;cursor:pointer;border:none;background:none;width:100%;height:calc((min(100vw, 600px) - 40px) / 7);}
 .dp-day:not(.empty):not(.disabled):hover{background:#f0f6ff;}
 .dp-day.today{font-weight:700;color:#1d85ff;}
 .dp-day.selected{background:#1d85ff !important;color:#fff !important;}
@@ -1657,8 +1661,10 @@ body.no-scroll {
 .datepicker-confirm{background:#1d85ff;color:#fff;}
 
 /* 시간 피커 */
-.timepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:flex-end;justify-content:center;}
+.timepicker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:9999;align-items:flex-end;justify-content:center;}
 .timepicker-overlay.show{display:flex;}
+.timepicker-panel{transform:translateY(100%);transition:transform 350ms cubic-bezier(.4,0,.2,1);}
+.timepicker-overlay.show .timepicker-panel{transform:translateY(0);}
 .timepicker-panel{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 32px;}
 .timepicker-title-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
 .timepicker-title{font-size:16px;font-weight:700;color:#111;}

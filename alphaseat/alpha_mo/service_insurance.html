@@ -1385,6 +1385,24 @@
   confirmBtn.addEventListener('click', function(){
     overlay.classList.remove('show');
     if(!selectedDate) return;
+    /* 귀국일 검증 */
+    if(targetField === 'end'){
+      var prefix0 = targetPanel === 'oneway' ? 'oneway' : 'trip';
+      var startEl = document.getElementById(prefix0 + 'StartTxt');
+      var alertOv  = document.getElementById('onewayAlertOverlay');
+      var alertMsg = document.getElementById('onewayAlertMsg');
+      function showDateAlert(msg){ alertMsg.textContent=msg; alertOv.classList.add('show_imp'); }
+      if(!startEl || !startEl.classList.contains('selected')){
+        showDateAlert('출발일을 먼저 입력해 주세요.');
+        return;
+      }
+      var parts = startEl.textContent.split('.');
+      var startD = new Date(Number(parts[0]), Number(parts[1])-1, Number(parts[2]));
+      if(selectedDate < startD){
+        showDateAlert('귀국일은 출발일보다 나중의 날짜로 설정해야 합니다.');
+        return;
+      }
+    }
     var str = formatDate(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
     var prefix = targetPanel === 'oneway' ? 'oneway' : 'trip';
     var txtId = (targetField==='start') ? prefix+'StartTxt' : prefix+'EndTxt';
@@ -1413,206 +1431,11 @@
   </div>
 </div>
 
-<script>
-/* ── oneway 패널 ── */
-(function(){
-  var panel      = document.getElementById('onewayPanel');
-  var overlay    = document.getElementById('onewayOverlay');
-  var handleBtn  = document.getElementById('onewayHandle');
-  var confirmBtn = document.getElementById('onewayConfirmBtn');
-  var infoBtn    = document.getElementById('onewayDateInfoBtn');
-  var alertOv    = document.getElementById('onewayAlertOverlay');
-  var alertMsg   = document.getElementById('onewayAlertMsg');
-  var alertOk    = document.getElementById('onewayAlertConfirm');
-  var _scrollY   = 0;
 
-  function openOneway(){
-    _scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + _scrollY + 'px';
-    document.body.style.width = '100%';
-    document.body.style.overflow = 'hidden';
-    overlay.classList.add('show');
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        panel.classList.add('show');
-      });
-    });
-  }
-  function closeOneway(){
-    panel.classList.remove('show');
-    setTimeout(function(){
-      overlay.classList.remove('show');
-    }, 350);
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    document.body.style.overflow = '';
-    window.scrollTo(0, _scrollY);
-  }
-  function showAlert(msg){
-    alertMsg.textContent = msg;
-    alertOv.classList.add('show_imp');
-  }
-
-  alertOk.addEventListener('click', function(){ alertOv.classList.remove('show_imp'); });
-
-  /* btf_bbtn_oneway 클릭 → openOneway */
-  document.addEventListener('click', function(e){
-    if(e.target.closest('.btf_bbtn_oneway')) openOneway();
-  });
-
-  if(handleBtn) handleBtn.addEventListener('click', closeOneway);
-
-  /* 피커 버튼 연결 - 이미 datepicker/timepicker IIFE에서 처리하므로 여기선 생략 */
-
-  /* 입력완료 → 검증 → openAip */
-  if(confirmBtn) confirmBtn.addEventListener('click', function(){
-    var startTxt = document.getElementById('onewayStartTxt');
-    var endTxt   = document.getElementById('onewayEndTxt');
-    if(!startTxt.classList.contains('selected')){
-      showAlert('출발일을 입력해 주세요.'); return;
-    }
-    if(!endTxt.classList.contains('selected')){
-      showAlert('귀국일을 입력해 주세요.'); return;
-    }
-    /* 패널/오버레이 닫고 body 스타일 초기화 → openAip 직접 호출 */
-    panel.classList.remove('show');
-    overlay.classList.remove('show');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    document.body.style.overflow = '';
-    setTimeout(function(){
-      if(typeof window.openAip === 'function') window.openAip();
-    }, 400);
-  });
-
-  /* 여행기간 ⓘ → 기존 팝업 재사용 */
-  if(infoBtn) infoBtn.addEventListener('click', function(e){
-    e.stopPropagation();
-    var tOv = document.getElementById('tripDateInfoOverlay');
-    if(tOv) tOv.classList.add('show_heart');
-  });
-})();
-</script>
 
 </body>
-<script>
-(function(){
-  /* 약관 팝업 열기 */
-  document.querySelectorAll('.term-detail-btn').forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.stopPropagation();
-      var ov = document.getElementById('termOverlay_' + this.dataset.popup);
-      if(ov) ov.classList.add('show_imp');
-    });
-  });
 
-  /* 닫기 (✕) */
-  document.querySelectorAll('.term-popup-close').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.getElementById(this.dataset.overlay).classList.remove('show_imp');
-    });
-  });
 
-  /* 확인 → 해당 체크 on + 전체동의 갱신 + 닫기 */
-  document.querySelectorAll('.term-popup-confirm').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var chks = document.querySelectorAll('.aip-tc');
-      var idx  = parseInt(this.dataset.tc);
-      if(chks[idx]) chks[idx].classList.add('on');
-      var allOn = Array.from(chks).every(function(c){ return c.classList.contains('on'); });
-      var allChk = document.getElementById('aipChkAll');
-      if(allChk){ allOn ? allChk.classList.add('on') : allChk.classList.remove('on'); }
-      document.getElementById(this.dataset.overlay).classList.remove('show_imp');
-    });
-  });
-
-  /* 오버레이 배경 클릭 닫기 */
-  ['termOverlay_terms1','termOverlay_terms2','termOverlay_terms3'].forEach(function(id){
-    var ov = document.getElementById(id);
-    if(ov) ov.addEventListener('click', function(e){ if(e.target===this) this.classList.remove('show_imp'); });
-  });
-})();
-</script>
-<script>
-(function(){
-  var panel    = document.getElementById('myInfoPanel');
-  var overlay  = document.getElementById('myInfoOverlay');
-  var openBtn  = document.getElementById('myInfoBtn');
-  var closeBtn = document.getElementById('myInfoClose');
-  var confirmBtn = document.querySelector('.myinfo-confirm-btn');
-
-  var _myInfoScrollY = 0;
-  function openMyInfo() {
-    _myInfoScrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + _myInfoScrollY + 'px';
-    document.body.style.width = '100%';
-    document.body.style.overflow = 'hidden';
-    overlay.classList.add('show');
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        panel.classList.add('show');
-      });
-    });
-  }
-  function closeMyInfo() {
-    panel.classList.remove('show');
-    setTimeout(function(){
-      overlay.classList.remove('show');
-    }, 350);
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    document.body.style.overflow = '';
-    window.scrollTo(0, _myInfoScrollY);
-  }
-
-  var handleBtn = document.getElementById('myInfoHandle');
-  if(handleBtn)  handleBtn.addEventListener('click', closeMyInfo);
-  if(openBtn)    openBtn.addEventListener('click', openMyInfo);
-  if(closeBtn)   closeBtn.addEventListener('click', closeMyInfo);
-  if(confirmBtn) confirmBtn.addEventListener('click', closeMyInfo);
-
-  // 여행기간 ⓘ
-  var tBtn   = document.getElementById('tripDateInfoBtn');
-  var tOv    = document.getElementById('tripDateInfoOverlay');
-  var tClose = document.getElementById('tripDateInfoClose');
-  if(tBtn)   tBtn.addEventListener('click',  function(e){ e.stopPropagation(); tOv.classList.add('show_heart'); });
-  if(tClose) tClose.addEventListener('click', function(){ tOv.classList.remove('show_heart'); });
-  if(tOv)    tOv.addEventListener('click',    function(e){ if(e.target===this) this.classList.remove('show_heart'); });
-
-  // 날짜 placeholder
-  function bindDatePh(inputId, phId) {
-    var inp = document.getElementById(inputId);
-    var ph  = document.getElementById(phId);
-    if(!inp || !ph) return;
-    inp.addEventListener('change', function(){
-      if(this.value){ this.setAttribute('data-has-value','1'); ph.style.display='none'; }
-      else { this.removeAttribute('data-has-value'); ph.style.display=''; }
-    });
-  }
-
-  // 생년월일 숫자만 + 8자리 제한
-  document.querySelectorAll('.myinfo-birth-input:not([readonly])').forEach(function(inp){
-    inp.addEventListener('input', function(){
-      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8);
-    });
-  });
-
-  // 성별 토글
-  document.querySelectorAll('.myinfo-gender-wrap').forEach(function(wrap){
-    wrap.querySelectorAll('.myinfo-gender').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        wrap.querySelectorAll('.myinfo-gender').forEach(function(b){ b.classList.remove('active'); });
-        this.classList.add('active');
-      });
-    });
-  });
-})();
-</script>
 <script>
 /* ================================================================
    1. 반원 게이지 (gauge)
@@ -2026,34 +1849,6 @@
         if (inner) inner.style.transform = 'translateY(-' + (ri * 18) + 'px)';
       }, 3000);
 
-      var infoBtn = document.getElementById('infoBtn_heart');
-      var infoCloseBtn = document.getElementById('infoCloseBtn');
-      var scrollYHeart = 0;
-
-      function openHeartPopup() {
-        var ov = document.getElementById('infoOverlay_heart');
-        if (ov) ov.classList.add('show_heart');
-        scrollYHeart = window.scrollY;
-        document.body.style.position = 'fixed';
-        document.body.style.top = '-' + scrollYHeart + 'px';
-        document.body.style.width = '100%';
-        document.body.style.overflow = 'hidden';
-      }
-      function closeHeartPopup() {
-        var ov = document.getElementById('infoOverlay_heart');
-        if (ov) ov.classList.remove('show_heart');
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        window.scrollTo(0, scrollYHeart);
-      }
-
-      if (infoBtn) infoBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        openHeartPopup();
-      });
-      if (infoCloseBtn) infoCloseBtn.addEventListener('click', closeHeartPopup);
     })();
     /* ===== //_heart 하단 바 JS ===== */
 
@@ -2167,7 +1962,7 @@
   var bar      = document.querySelector('.bar_heart_footer');
   var aipPanel = document.getElementById('aipPanel');
   var aipClose = document.getElementById('aipClose');
-  var aiBtn    = document.querySelector('.btf_bbtn button');
+  var aiBtn    = document.querySelector('.btf_bbtn_oneway button');
 
   function setBarH() {
     if (bar) document.documentElement.style.setProperty('--aip-bar-h', bar.offsetHeight + 'px');
@@ -2226,13 +2021,12 @@
     }, 600);
   }
 
-  if (aiBtn) aiBtn.addEventListener('click', function () {
+  if (aiBtn) aiBtn.addEventListener('click', function (e) {
     if (summary.classList.contains('aip-open')) {
-      /* 안심 가입하기 상태 → URL 이동 */
-      window.location.href = 'https://www.allwinair.com/';
-    } else {
-      openAip();
+      /* 안심 가입하기 → 페이지 이동 */
+      window.location.href = 'service_complete_insure.html';
     }
+    /* aip-open 아닐때는 alpha_mo_ui.js의 btf_bbtn_oneway 핸들러가 처리 */
   });
   if (aipClose) aipClose.addEventListener('click', closeAip);
 
@@ -2287,35 +2081,7 @@
 /* ================================================================
    3. 중요안내 팝업 (important)
    ================================================================ */
-/* ===== 중요안내 팝업 ===== */
-(function () {
-  var btn     = document.getElementById('importantBtn');
-  var overlay = document.getElementById('importantOverlay');
-  var closeX  = document.getElementById('importantClose');
-  var confirm = document.getElementById('importantConfirm');
 
-  var scrollY = 0;
-  function openImp() {
-    scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + scrollY + 'px';
-    document.body.style.width = '100%';
-    document.body.style.overflow = 'hidden';
-    if (overlay) overlay.classList.add('show_imp');
-  }
-  function closeImp() {
-    if (overlay) overlay.classList.remove('show_imp');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    document.body.style.overflow = '';
-    window.scrollTo(0, scrollY);
-  }
-
-  if (btn)     btn.addEventListener('click', openImp);
-  if (closeX)  closeX.addEventListener('click', closeImp);
-  if (confirm) confirm.addEventListener('click', closeImp);
-})();
 </script>
 <script>
 function cycleTier(el) {
@@ -2411,7 +2177,7 @@ function cycleTier(el) {
       col._st = setTimeout(function(){
         var items = col.querySelectorAll('.timepicker-col-item');
         var idx = Math.round(col.scrollTop / 44);
-        idx = Math.max(0, Math.min(idx, items.length-1));
+        idx = Math.max(0, Math.min(idx, items.length-1)); 
         col.scrollTo({top: idx*44, behavior:'smooth'});
         setTimeout(function(){ updateActive(col); }, 200);
       }, 120);
