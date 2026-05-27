@@ -1622,25 +1622,25 @@
 
     const data = {
       0: [
-        { name: "정**님 | 고열·복통 입원치료..", amount: "129만원 보상", barPos: 0.18 },
-        { name: "최**님 | 맹장수술 응급입원..", amount: "320만원 보상", barPos: 0.36 },
-        { name: "이**님 | 스키 타다 골절 입원..", amount: "540만원 보상", barPos: 0.54 },
-        { name: "박**님 | 건널목 교통사고로..", amount: "1,530만원 보상", barPos: 0.72 },
-        { name: "김**님 | 오토바이 교통사고...", amount: "2,850만원 보상", barPos: 0.90 },
+        { name: "정**님 | 고열·복통 입원치료..", fullName: "정**님 | 고열·복통 입원치료로 입원비 지원", amount: "129만원 보상", barPos: 0.18 },
+        { name: "최**님 | 맹장수술 응급입원..", fullName: "최**님 | 맹장수술 응급입원으로 수술비 지원", amount: "320만원 보상", barPos: 0.36 },
+        { name: "이**님 | 스키 타다 골절 입원..", fullName: "이**님 | 스키 타다 골절 입원으로 치료비 지원", amount: "540만원 보상", barPos: 0.54 },
+        { name: "박**님 | 건널목 교통사고로..", fullName: "박**님 | 건널목 교통사고로 후유장해 보상", amount: "1,530만원 보상", barPos: 0.72 },
+        { name: "김**님 | 오토바이 교통사고...", fullName: "김**님 | 오토바이 교통사고로 중상해 보상", amount: "2,850만원 보상", barPos: 0.90 },
       ],
       1: [
-        { name: "오**님 | 수하물 분실..", amount: "46만원 보상", barPos: 0.18 },
-        { name: "이**님 | 여행 중 카메라 파손..", amount: "85만원 보상", barPos: 0.36 },
-        { name: "장**님 | 귀중품 파손..", amount: "130만원 보상", barPos: 0.54 },
-        { name: "조**님 | 전자기기 도난..", amount: "175만원 보상", barPos: 0.72 },
-        { name: "한**님 | 노트북 도난 피해..", amount: "210만원 보상", barPos: 0.90 },
+        { name: "오**님 | 수하물 분실..", fullName: "오**님 | 수하물 분실로 휴대품 손해 보상", amount: "46만원 보상", barPos: 0.18 },
+        { name: "이**님 | 여행 중 카메라 파손..", fullName: "이**님 | 여행 중 카메라 파손으로 수리비 지원", amount: "85만원 보상", barPos: 0.36 },
+        { name: "장**님 | 귀중품 파손..", fullName: "장**님 | 귀중품 파손으로 손해액 보상", amount: "130만원 보상", barPos: 0.54 },
+        { name: "조**님 | 전자기기 도난..", fullName: "조**님 | 전자기기 도난으로 휴대품 손해 보상", amount: "175만원 보상", barPos: 0.72 },
+        { name: "한**님 | 노트북 도난 피해..", fullName: "한**님 | 노트북 도난 피해로 실손 보상", amount: "210만원 보상", barPos: 0.90 },
       ],
       2: [
-        { name: "윤**님 | 항공편 4시간 지연..", amount: "32만원 보상", barPos: 0.18 },
-        { name: "문**님 | 연결편 지연 8시간..", amount: "41만원 보상", barPos: 0.36 },
-        { name: "강**님 | 결항으로 숙박 추가..", amount: "58만원 보상", barPos: 0.54 },
-        { name: "권**님 | 악천후 결항 대기..", amount: "67만원 보상", barPos: 0.72 },
-        { name: "신**님 | 허리케인으로 결항..", amount: "95만원 보상", barPos: 0.90 },
+        { name: "윤**님 | 항공편 4시간 지연..", fullName: "윤**님 | 항공편 4시간 지연으로 지연비 지원", amount: "32만원 보상", barPos: 0.18 },
+        { name: "문**님 | 연결편 지연 8시간..", fullName: "문**님 | 연결편 지연 8시간으로 추가비용 보상", amount: "41만원 보상", barPos: 0.36 },
+        { name: "강**님 | 결항으로 숙박 추가..", fullName: "강**님 | 결항으로 숙박 추가 발생해 보상", amount: "58만원 보상", barPos: 0.54 },
+        { name: "권**님 | 악천후 결항 대기..", fullName: "권**님 | 악천후 결항 대기로 지연 보상", amount: "67만원 보상", barPos: 0.72 },
+        { name: "신**님 | 허리케인으로 결항..", fullName: "신**님 | 허리케인으로 결항 발생해 보상", amount: "95만원 보상", barPos: 0.90 },
       ]
     };
 
@@ -1698,6 +1698,8 @@
       dotEl.style.top = (barTopY - 6) + 'px';
 
       ttName.textContent = item.name;
+      ttName.dataset.short = item.name;
+      ttName.dataset.full = item.fullName || item.name;
       ttAmount.textContent = item.amount;
       tooltipEl.style.display = 'flex';
       tooltipEl.style.opacity = '0';
@@ -1712,7 +1714,7 @@
 
         let tooltipLeft = x - tw / 2;
         if (tooltipLeft < MARGIN) tooltipLeft = MARGIN;
-        if (tooltipLeft + tw > areaW - MARGIN) tooltipLeft = areaW - tw - MARGIN;
+        if (tooltipLeft + tw > areaW - MARGIN) tooltipLeft = Math.max(MARGIN, areaW - tw - MARGIN);
 
         const connTop = tooltipTopY + th;
         const connH = barTopY - connTop;
@@ -1729,11 +1731,45 @@
       });
     }
 
+   /* tooltip 클릭 → 전체문장 표시 → 3초 후 다음 말풍선으로 자연스럽게 이동 */
+    let _tooltipClickTimer = null;
+    tooltipEl.style.cursor = 'pointer';
+    tooltipEl.addEventListener('click', function() {
+      var full = ttName.dataset.full;
+      if (!full) return;
+
+      // 이미 확장된 상태에서 또 누르면 중복 동작 방지
+      if (tooltipEl.classList.contains('expanded')) return;
+
+      /* 1. 자동 롤링 일시정지 (기존 타이머 제거) */
+      clearTimeout(timer);
+      if (_tooltipClickTimer) clearTimeout(_tooltipClickTimer);
+
+      /* 2. 말풍선 내용 확장 및 클래스 부여 */
+      ttName.textContent = full;
+      tooltipEl.classList.add('expanded');
+
+      /* 3. 3초(3000ms) 유지 후 자연스럽게 페이드아웃하며 다음 단계로 진행 */
+      _tooltipClickTimer = setTimeout(function() {
+        hideAll(function() {
+          currentItem++;
+          // 만약 현재 탭의 데이터 범위를 벗어나면 다음 탭으로 인덱스 전환
+          if (currentItem >= data[currentTab].length) {
+            currentItem = 0;
+            currentTab = (currentTab + 1) % 3;
+            setActiveTab(currentTab);
+          }
+          nextStep(); // 다음 말풍선 노출 및 자동 롤링 재개
+        });
+      }, 3000);
+    });
+
     function hideAll(cb) {
       tooltipEl.style.opacity = '0';
       getBarEls().forEach(b => b.style.background = '#c8d9ec');
       setTimeout(() => {
         tooltipEl.style.display = 'none';
+        tooltipEl.classList.remove('expanded');
         vlineEl.style.display = 'none';
         dotEl.style.display = 'none';
         connectorEl.style.display = 'none';

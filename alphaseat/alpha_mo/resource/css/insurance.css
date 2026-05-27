@@ -72,7 +72,7 @@
 .header_insure_btn i{
     display: block;
     cursor: pointer;
-    background: url(../img/common/down_arrow_v1.png) no-repeat center / 8px 5px;
+    background: url(https://cdn.ags-aws.com/alphaseat/mo/img/common/down_arrow_v1.png) no-repeat center / 8px 5px;
     width: 8px;
     margin-left: 4px;
 }
@@ -450,10 +450,9 @@
 }
 .user-count-risk i {
     display: block;
-    background: url(../img/common/saram_icon.png) no-repeat center / 8px 9px;
+    background: url(https://cdn.ags-aws.com/alphaseat/mo/img/common/saram_icon.png) no-repeat center / 8px 9px;
     width: 8px;
     height: 9px;
-
 }
 .box-risk {
     background: #F8FBFD;
@@ -544,9 +543,19 @@
     align-items: center;
     gap: 14px;
     white-space: nowrap;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     opacity: 0;
     transition: opacity 0.35s;
+}
+/* 클릭 후 전체문장 표시 시 두줄 */
+.tooltip-card-risk.expanded {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    white-space: normal;
+    max-width: 160px;
+    word-break: keep-all;
 }
 .tooltip-name-risk {
     color: #666;
@@ -1135,12 +1144,11 @@ body.no-scroll {
     width: 60px;
     height: 30px;
     border-radius: 5px;
-    background: url("../img/common/fold_btn.png") no-repeat left / 60px 30px;
+    background: url("https://cdn.ags-aws.com/alphaseat/mo/img/common/fold_btn.png") no-repeat left / 60px 30px;
     text-indent: -999px;
     cursor: pointer;
     margin-top: 10px;
     margin-bottom: 10px;
-
 }
 
 /* aip-scroll */
@@ -1225,7 +1233,7 @@ body.no-scroll {
 .aip-total-price span { font-size:11px; color:#888; letter-spacing: 1px;}
 
 .aip-insurer {     
-	background: url("../img/common/raina_s.png") no-repeat center / 80px 16px;
+	background: url("https://cdn.ags-aws.com/alphaseat/mo/img/common/raina_s.png") no-repeat center / 80px 16px;
     width: 80px;
 	height: 16px;
 }
@@ -1307,7 +1315,7 @@ body.no-scroll {
 }
 .insur_callep1 i{    
     display: inline-block;
-    background: url("../img/common/phone_icon.png") no-repeat center / 14px 14px;
+    background: url("https://cdn.ags-aws.com/alphaseat/mo/img/common/phone_icon.png") no-repeat center / 14px 14px;
     height: 14px;
     width: 14px;
     margin-right: 3px;
@@ -1496,9 +1504,9 @@ body.no-scroll {
 
 /*내정보 슬라이드 팝업*/
 
-.myinfo-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:900;}
-.myinfo-overlay.show{display:flex;align-items:flex-end;justify-content:center;}
-.myinfo-panel{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;z-index:901;max-height:85vh;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.myinfo-overlay{visibility:hidden;opacity:0;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:900;transition:visibility 0s 0.42s,opacity 0.42s ease;}
+.myinfo-overlay.show{visibility:visible;opacity:1;pointer-events:auto;transition-delay:0s;}
+.myinfo-panel{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;z-index:901;max-height:85vh;display:flex;flex-direction:column;will-change:transform;transition:transform 0.42s cubic-bezier(0.32,0.72,0,1);}
 .myinfo-panel.active{transform:translateX(-50%) translateY(0);}
 .myinfo-handle{width:36px;height:4px;background:#ddd;border-radius:2px;margin:10px auto 0;flex-shrink:0;}
 .myinfo-header{padding:0px 20px 2px;flex-shrink:0;}
@@ -1538,7 +1546,7 @@ body.no-scroll {
 /*부가서비스 신청완료*/
 
 .service_check_bule{
-    background: url(../img/common/war_check_blue.png) no-repeat center / 40px 40px;
+    background: url(https://cdn.ags-aws.com/alphaseat/mo/img/common/war_check_blue.png) no-repeat center / 40px 40px;
     width: 40px;
     height: 40px;
     margin: 0 auto;
@@ -1651,7 +1659,7 @@ body.no-scroll {
 .datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(6,1fr);gap:4px;margin-bottom:20px;}
 .dp-day{display:flex;align-items:center;justify-content:center;font-size:14px;color:#222;border-radius:50%;cursor:pointer;border:none;background:none;width:100%;height:calc((min(100vw, 600px) - 40px) / 7);}
 .dp-day:not(.empty):not(.disabled):hover{background:#f0f6ff;}
-.dp-day.today{font-weight:700;color:#1d85ff;}
+.dp-day.today{font-weight:700;color:#222;background:#f0f6ff;}
 .dp-day.selected{background:#1d85ff !important;color:#fff !important;}
 .dp-day.disabled{color:#ddd;cursor:default;pointer-events:none;}
 .dp-day.empty{pointer-events:none;}
@@ -1721,6 +1729,7 @@ body.no-scroll {
     max-width: 480px;
     margin: 0 auto;
     padding: 16px;
+    margin-bottom: 100px;
 }
 
 /* 상단 3개 버튼 */
@@ -1731,16 +1740,15 @@ body.no-scroll {
     margin-bottom: 24px;
 }
 .subscr-top-actions button {
-    background: #f4f5f7;
-    border: none;
-    border-radius: 8px;
-    padding: 14px 8px;
-    font-size: 14px;
+    border: 1px solid #888;
+    border-radius: 3px;
+    padding: 8px;
+    font-size: 13px;
     color: #222;
     font-weight: 500;
     cursor: pointer;
     line-height: 1.3;
-    font-family: inherit;
+	font-family: 'PretendardSB';
 }
 .subscr-top-actions button:active {
     background: #e9ebee;
@@ -1750,9 +1758,9 @@ body.no-scroll {
 .subscr-title {
     text-align: center;
     font-size: 18px;
-    font-weight: 700;
-    padding: 12px 0 24px;
-    color: #111;
+    padding: 12px 0 30px;
+    color: #111;    
+	font-family: 'PretendardSB';
 }
 
 /* 피보험자 블록 (복사용 단위) */
@@ -1760,19 +1768,18 @@ body.no-scroll {
     margin-bottom: 32px;
 }
 .subscr-person-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: #111;
-    margin-bottom: 14px;
+    margin-bottom: 14px;    
+	font-family: 'PretendardSB';
 }
 
 /* 정보 행 */
 .subscr-row {
     display: flex;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
-    min-height: 48px;
+    min-height: 43px;
 }
 .subscr-row:last-child {
     border-bottom: none;
@@ -1780,8 +1787,9 @@ body.no-scroll {
 .subscr-label {
     width: 100px;
     flex-shrink: 0;
-    font-size: 14px;
-    color: #6b7280;
+    font-size: 12px;    
+    color: #999;
+	font-family: 'PretendardR';
 }
 .subscr-label.subscr-required::before {
     content: '*';
@@ -1790,37 +1798,33 @@ body.no-scroll {
 }
 .subscr-value {
     flex: 1;
-    font-size: 14px;
+    font-size: 12px;    
+	font-family: 'PretendardSB';
     color: #222;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 /* 가입플랜보기 버튼 */
 .subscr-plan-btn {
-    background: #2563eb;
+    background: #1A85FF;
     color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 7px 12px;
-    font-size: 13px;
-    font-weight: 500;
+    border-radius: 4px;
+    padding: 7px 8px;
+    font-size: 11px;    
+	font-family: 'PretendardSB';
     cursor: pointer;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 4px;
-    font-family: inherit;
 }
 .subscr-plan-btn:active {
     background: #1d4ed8;
 }
-.subscr-plan-btn::after {
-    content: '›';
-    font-size: 16px;
-    line-height: 1;
-}
+
 
 /* 여행기간 (전체 너비) */
 .subscr-row-wide .subscr-value {
@@ -1830,7 +1834,7 @@ body.no-scroll {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
+    font-size: 12px;
     color: #222;
 }
 .subscr-period .subscr-tilde {
@@ -1839,19 +1843,6 @@ body.no-scroll {
 
 /* info 아이콘 */
 .subscr-info-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid #9ca3af;
-    color: #9ca3af;
-    font-size: 10px;
-    font-style: italic;
-    font-family: serif;
-    margin-left: 4px;
-    cursor: pointer;
 }
 
 /* 가입플랜 금액 강조 */
@@ -1867,6 +1858,8 @@ body.no-scroll {
     color: #222;
     font-weight: 500;
 }
+
+
 
 @media (max-width:321px){
   .rolling-msg_heart{font-size:10px;}
