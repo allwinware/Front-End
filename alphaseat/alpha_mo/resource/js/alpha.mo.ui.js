@@ -711,19 +711,29 @@ $(document).ready(function () {
 	/*약관동의*/
 	$(".credit_box_btn").click(function () {
 		var _self	= this;
-//alert(		$(_self).attr("agrBtn")	);
+		var $targetWarp = $(_self).closest('.card_warp');
+		var isOpening = false;
+		var hadOpenBefore = false;
+
 		$("div [agrLt]").each(function(idx, obj) {
 			if( _self == $("div [agrBtn]").get(idx) && $(obj).hasClass("on") == false) {
-				
+				isOpening = true;
 				$('.credit_box_btn').eq(idx).addClass('on');
 				$(obj).addClass("on").slideDown(300);
 			} else {
+				if ($(obj).hasClass("on")) hadOpenBefore = true;
 				$('.credit_box_btn').eq(idx).removeClass('on');
-				$(obj).removeClass("on").slideUp(300);				
-
+				$(obj).removeClass("on").slideUp(300);
 			}
-
 		});
+
+		if (isOpening && hadOpenBefore) {
+			setTimeout(function () {
+				$('html, body').animate({
+					scrollTop: $targetWarp.offset().top - 50
+				}, 300);
+			}, 320);
+		}
 	});
 
 	$(".block_group_btn").click(function () {
@@ -1054,3 +1064,5 @@ $(document).ready(function() {
         $('.baggagep_advimg').css('border-bottom', 'unset');
     }
 });
+
+	

@@ -500,8 +500,8 @@
 .bars-risk {
     position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: 5px;
+    right: 5px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -513,36 +513,24 @@
     flex: 0 ;
     min-width: 0;
     background: #c8d9ec;
-    transition: background 0.3s;
+    transition: background 0.3s, border-left-color 0.3s;
     border-left: 1px solid #c8d9ec;
 }
-.vline-risk {
-    position: absolute;
-    bottom: 0;
-    width: 1.5px;
+.bar-risk.is-active {
     background: #1080ff;
-    pointer-events: none;
-    display: none;
-    transform: translateX(-50%);
-}
-.connector-risk {
-    position: absolute;
-    width: 1.5px;
-    background: #1080ff;
-    pointer-events: none;
-    display: none;
-    transform: translateX(-50%);
+    border-left-color: #1080ff;
 }
 .dot-risk {
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #1080ff;
-    border: 2.5px solid #EEF6FF;
+    border: none;
     pointer-events: none;
     display: none;
-    transform: translateX(-50%);
+    z-index: 2;
+    transform: translate(-50%, 50%);
 }
 /*말풍선*/
 .tooltip-card-risk {
@@ -551,25 +539,87 @@
     border: 1px solid #cde3f8;
     border-radius: 4px;
     padding: 5px 10px;
-    font-size: 13px;
     display: none;
     align-items: center;
     gap: 14px;
     white-space: nowrap;
-    pointer-events: auto;
-    cursor: pointer;
+    pointer-events: none;
     opacity: 0;
-    transition: opacity 0.35s;
+    z-index: 3;
+    --tail-x: 50%;
+    --tail-y: 50%;
     box-shadow: 0px 3px 4px 0px #ddd;
 }
-/* 클릭 후 전체문장 표시 시 두줄 */
-.tooltip-card-risk.expanded {
+.tooltip-card-risk.tail-bottom::before,
+.tooltip-card-risk.tail-bottom::after,
+.tooltip-card-risk.tail-left::before,
+.tooltip-card-risk.tail-left::after,
+.tooltip-card-risk.tail-right::before,
+.tooltip-card-risk.tail-right::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+.tooltip-card-risk.tail-bottom::before {
+    bottom: -8px;
+    left: var(--tail-x);
+    transform: translateX(-50%);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid #cde3f8;
+}
+.tooltip-card-risk.tail-bottom::after {
+    bottom: -7px;
+    left: var(--tail-x);
+    transform: translateX(-50%);
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 8px solid #fff;
+}
+.tooltip-card-risk.tail-left::before {
+    left: -8px;
+    top: var(--tail-y);
+    transform: translateY(-50%);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 8px solid #cde3f8;
+}
+.tooltip-card-risk.tail-left::after {
+    left: -7px;
+    top: var(--tail-y);
+    transform: translateY(-50%);
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-right: 8px solid #fff;
+}
+.tooltip-card-risk.tail-right::before {
+    right: -8px;
+    top: var(--tail-y);
+    transform: translateY(-50%);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 8px solid #cde3f8;
+}
+.tooltip-card-risk.tail-right::after {
+    right: -7px;
+    top: var(--tail-y);
+    transform: translateY(-50%);
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 7px solid #fff;
+}
+.tooltip-card-risk.is-stacked {
     flex-direction: column;
     align-items: flex-start;
     gap: 2px;
     white-space: normal;
-    max-width: 160px;
+    max-width: 150px;
     word-break: keep-all;
+}
+.tooltip-card-risk.is-stacked .tooltip-amount-risk {
+    align-self: flex-end;
 }
 .tooltip-name-risk {
     color: #666;
@@ -1754,7 +1804,7 @@ body.no-scroll {
 }
 .insure-header i{
     display: block;
-    background: url("../img/common/raina_s.png") no-repeat center / 96px 20px;
+    background: url("https://cdn.ags-aws.com/alphaseat/mo/img/common/raina_s.png") no-repeat center / 96px 20px;
     width: 96px;
 	height: 20px;
 }
