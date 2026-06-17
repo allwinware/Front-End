@@ -2085,11 +2085,8 @@
     var barH   = bar ? bar.offsetHeight : 0;
     document.documentElement.style.setProperty('--aip-start-top', 'calc(100% - ' + (heratH + barH) + 'px)');
     summary.classList.add('aip-ready');
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        summary.classList.add('aip-open');
-      });
-    });
+	void summary.offsetHeight;  // ← transition 없이 off-screen 위치 확정
+	summary.classList.add('aip-transition', 'aip-open');
     if (aiBtn) aiBtn.textContent = '안심 가입하기';
     if (dimmed) dimmed.style.display = 'block';
     var closeEl = document.getElementById('aipClose');

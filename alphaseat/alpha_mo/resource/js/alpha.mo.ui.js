@@ -435,7 +435,12 @@ $(document).ready(function () {
 		$('html').css('overflow', '');
 	}
 	$(document).on('click', '#myInfoHandle, #myInfoClose', closeMyInfoPanel);
-	$(document).on('click', '.myinfo-confirm-btn:not(#onewayConfirmBtn)', closeMyInfoPanel);
+	$(document).on('click', '.myinfo-confirm-btn:not(#onewayConfirmBtn)', function() {
+    closeMyInfoPanel();
+    setTimeout(function() {
+        if (typeof window.openAip === 'function') window.openAip();
+    }, 100);  // myInfoPanel 닫힘 애니메이션 0.1s 대기
+})
 
 	/* ── AI버튼 클릭 → onewayPanel(여행기간) 먼저 → 입력완료 → openAip ── */
 	$(document).on('click', '.btf_bbtn_oneway button', function(e) {
