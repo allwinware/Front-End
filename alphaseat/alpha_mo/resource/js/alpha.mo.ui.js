@@ -325,7 +325,7 @@ $(document).ready(function () {
 	});
 
 	/*푸터 슬라이드 팝업*/
-	$(document).on("click", ".btn_footer_open", function () {
+	$(document).on("click", ".btn_footer_open", function (e) {
 		$(".ags-summary").addClass("active");
 		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
 		$("body").css("overflow", "hidden");
@@ -333,6 +333,21 @@ $(document).ready(function () {
 	});
 	$(document).on("click", ".btn_footer_close", function () {
 		$(".ags-summary").removeClass("active");
+		$(".dimmed_bg, .dimmed_bgs").css("display", "none");
+		$("body").css("overflow", "");
+		$("html").css("overflow", "");
+	});
+
+	$(document).on("click", ".btn_slide_open_ins", function (e) {
+		e.preventDefault();
+		var targetId = $(this).data("sheet");
+		$("#" + targetId).addClass("is-open");
+		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
+		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
+	});
+	$(document).on("click", ".btn_slide_close_ins", function () {
+		$(".slide-sheet_ins.is-open").removeClass("is-open");
 		$(".dimmed_bg, .dimmed_bgs").css("display", "none");
 		$("body").css("overflow", "");
 		$("html").css("overflow", "");
