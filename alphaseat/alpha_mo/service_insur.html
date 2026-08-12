@@ -5276,13 +5276,11 @@
 <!-- 슬라이드 시트: 손잡이 잡고 아래로 끌어서 닫기 -->
 <script>
 (function () {
-	var DRAG_CLOSE_MIN_PX   = 80;    // 최소 이만큼(px)은 내려야 닫힘 후보
-	var DRAG_CLOSE_RATIO    = 0.28;  // 시트 높이의 28% 이상 내리면 닫힘
+	var DRAG_ZONE_PX      = 40;   // 상단 이 영역(px)에서 터치가 시작돼야 드래그로 인정 (본문 스크롤 방해 안 하려고)
+	var DRAG_CLOSE_MIN_PX = 80;   // 최소 이만큼(px)은 내려야 닫힘 후보
+	var DRAG_CLOSE_RATIO  = 0.28; // 시트 높이의 28% 이상 내리면 닫힘
 
 	document.querySelectorAll('.slide-sheet_ins').forEach(function (sheet) {
-		var handle = sheet.querySelector('.slide-sheet_ins-handle-mask');
-		if (!handle) return;
-
 		var startY      = 0;
 		var currentY    = 0;
 		var dragging    = false;
@@ -5290,10 +5288,14 @@
 
 		function onStart(e) {
 			if (!sheet.classList.contains('is-open')) return;
+			var touchY = e.touches[0].clientY;
+			var rect   = sheet.getBoundingClientRect();
+			if (touchY - rect.top > DRAG_ZONE_PX) return; // 손잡이 영역 아니면 무시 → 본문 스크롤 그대로 동작
+
 			dragging    = true;
 			currentY    = 0;
 			sheetHeight = sheet.offsetHeight;
-			startY      = e.touches[0].clientY;
+			startY      = touchY;
 			sheet.style.transition = 'none'; // 손가락 따라 1:1로 움직이게, 애니메이션 끔
 		}
 
@@ -5323,10 +5325,10 @@
 			currentY = 0;
 		}
 
-		handle.addEventListener('touchstart', onStart, { passive: true });
-		handle.addEventListener('touchmove', onMove, { passive: true });
-		handle.addEventListener('touchend', onEnd);
-		handle.addEventListener('touchcancel', onEnd);
+		sheet.addEventListener('touchstart', onStart, { passive: true });
+		sheet.addEventListener('touchmove', onMove, { passive: true });
+		sheet.addEventListener('touchend', onEnd);
+		sheet.addEventListener('touchcancel', onEnd);
 	});
 })();
 </script>

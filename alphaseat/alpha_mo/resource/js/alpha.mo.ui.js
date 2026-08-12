@@ -1086,3 +1086,72 @@ $(document).ready(function() {
 });
 
 	
+
+/* ======================================================================
+   [추가] btn_footer_open 슬라이드 팝업(.footer_contents) — 손잡이 잡고
+   아래로 끌어서 닫기. 기존 열기/닫기 클릭 로직(위쪽 .btn_footer_open /
+   .btn_footer_close 핸들러)은 그대로 두고, 터치 드래그 기능만 새로 추가.
+   ====================================================================== */
+$(document).ready(function () {
+	var DRAG_ZONE_PX      = 40;   // 상단 이 영역(px)에서 터치가 시작돼야 드래그로 인정 (본문 스크롤 방해 안 하려고)
+	var DRAG_CLOSE_MIN_PX = 80;   // 최소 이만큼(px)은 내려야 닫힘 후보
+	var DRAG_CLOSE_RATIO  = 0.28; // 시트 높이의 28% 이상 내리면 닫힘
+
+	document.querySelectorAll('.footer_contents').forEach(function (sheet) {
+		var startY      = 0;
+		var currentY    = 0;
+		var dragging    = false;
+		var sheetHeight = 0;
+		var startTopPx  = 0;
+
+		function isOpen() {
+			var summary = sheet.closest('.ags-summary');
+			return !!(summary && summary.classList.contains('active'));
+		}
+
+		function onStart(e) {
+			if (!isOpen()) return;
+			var touchY = e.touches[0].clientY;
+			var rect   = sheet.getBoundingClientRect();
+			if (touchY - rect.top > DRAG_ZONE_PX) return; // 손잡이 영역 아니면 무시 → 본문 스크롤 그대로 동작
+
+			dragging    = true;
+			currentY    = 0;
+			sheetHeight = sheet.offsetHeight;
+			startY      = touchY;
+			startTopPx  = rect.top; // top이 %라서, 지금 실제 화면상 px 위치를 기준으로 계산
+			sheet.style.transition = 'none'; // 손가락 따라 1:1로 움직이게, 애니메이션 끔
+		}
+
+		function onMove(e) {
+			if (!dragging) return;
+			var delta = e.touches[0].clientY - startY;
+			if (delta < 0) delta = 0; // 위로는 못 끌리게 (아래로만 드래그 허용)
+			currentY = delta;
+			sheet.style.top = (startTopPx + delta) + 'px';
+		}
+
+		function onEnd() {
+			if (!dragging) return;
+			dragging = false;
+
+			var shouldClose = currentY > DRAG_CLOSE_MIN_PX &&
+				currentY > sheetHeight * DRAG_CLOSE_RATIO;
+
+			sheet.style.transition = '';   // 원래 CSS 트랜지션(600ms) 복구
+			void sheet.offsetHeight;        // 강제 리플로우: 복구된 트랜지션을 확실히 적용시킴
+			sheet.style.top = '';            // 인라인 top 제거 → active 클래스 값(11%)으로
+
+			if (shouldClose) {
+				var closeBtn = sheet.querySelector('.btn_footer_close');
+				if (closeBtn) closeBtn.click(); // 기존 닫기 로직 그대로 재사용 (딤드/스크롤 잠금 해제 포함)
+			}
+			currentY = 0;
+		}
+
+		sheet.addEventListener('touchstart', onStart, { passive: true });
+		sheet.addEventListener('touchmove', onMove, { passive: true });
+		sheet.addEventListener('touchend', onEnd);
+		sheet.addEventListener('touchcancel', onEnd);
+	});
+});
