@@ -343,14 +343,12 @@ $(document).ready(function () {
 		var targetId = $(this).data("sheet");
 		$("#" + targetId).addClass("is-open");
 		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
-		$("body").css("overflow", "hidden");
-		$("html").css("overflow", "hidden");
+		bodyLock();
 	});
 	$(document).on("click", ".btn_slide_close_ins", function () {
 		$(".slide-sheet_ins.is-open").removeClass("is-open");
 		$(".dimmed_bg, .dimmed_bgs").css("display", "none");
-		$("body").css("overflow", "");
-		$("html").css("overflow", "");
+		bodyUnlock();
 	});
 
 	/*============================================
