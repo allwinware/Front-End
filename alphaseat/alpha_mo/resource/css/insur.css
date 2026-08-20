@@ -1415,6 +1415,13 @@
     cursor: pointer;
     box-shadow: 0 1px 5px rgba(0,0,0,0.07);
 }
+.ai-plancard_ins-cta-note {
+    margin-top: 5px;
+    font-size: 11px;
+    font-family: 'PretendardR';
+    color: #222;
+    text-align: center;
+}
 
 /* ===== sheetPlanInfo (ⓘ 슬라이드) ===== */
 .planinfo-section {
@@ -2378,6 +2385,7 @@
     padding-bottom: 15px;
 }
 .cov-tab {
+    position: relative;
     flex: 0 0 auto;
     min-width: 100px;
     border: 1.5px solid #d7dee8;
@@ -2407,10 +2415,29 @@
     color: #222;
     white-space: nowrap;
 }
+/* 포커싱(선택) 상태일 때만 버튼 밑에 표시되는 보조 정보 (성별/나이, 보장개수 등) */
+.cov-tab-extra {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-top: 4px;
+    font-size: 11px;
+    font-family: 'PretendardM';
+    color: #1A85FF;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cov-tab.is-active .cov-tab-extra {
+    display: block;
+}
 
 /* 본문: 그라데이션 배경은 화면 양끝까지 꽉 채우고(bleed), 안쪽 카드들은 다시 20px 패딩으로 인셋 */
 .cov-main {
-    margin: 0 -20px;
+    margin: 15px -20px 0;
     padding: 25px 20px 20px;
     background: linear-gradient(180deg, #BDDCFF 0%, #fff 500px);
 }
