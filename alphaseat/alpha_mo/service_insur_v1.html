@@ -968,7 +968,11 @@
 		});
 	}
 	if (nextBtn) {
-		nextBtn.addEventListener('click', function () {
+		nextBtn.addEventListener('click', function (e) {
+			/* alpha.mo.ui.js가 .btf_bbtn_oneway button 클릭에 전역으로 붙여둔
+			   다른 페이지용(oneway 패널) 핸들러가 같이 반응해서 body 스크롤을
+			   잠근 채 안 풀리는 문제가 있어 버블링을 막아둠 */
+			e.stopPropagation();
 			if (!window.insV1TermsAgreed || !window.insV1TermsAgreed()) {
 				window.insV1NudgeTerms && window.insV1NudgeTerms();
 				return;
