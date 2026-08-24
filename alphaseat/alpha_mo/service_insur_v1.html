@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/insur_v1.css">
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<script src='./resource/js/jquery-3.4.1.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+</head>
+<body class="ins-v1-lock">
+	<div class="ags-wrap newui insurtst">
+		<h1 class="site-name">올윈에어</h1>
+		<div class="dimmed_bgs" style="display: none;"></div>
+		<header>
+			<div class="ags-header">
+				<div class="gnb_menu insure">
+					<a href="index.html ">좌석지정</a>
+					<a href="service_baggage.html" class="">수하물</a>
+					<a href="service_food.html" class="">기내식</a>
+					<a href="service_insurance.html" class="active">여행보험</a>
+				</div>
+				<div class="gnb-wrap newmyp">
+					<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+					<div id="gnb-2dp" class="gnb-2dp-wrap">
+						<div class="newmyp-dp1">
+							<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>
+							<div class="newmyp-pd1">
+								<div class="welcome-msg">
+									<span>안녕하세요.</span>
+								</div>
+								<div class="customer-name">
+									<span>이지영</span>님
+								</div>
+								<div class="newmyp-txt">
+									<div class="newmyp-txt1">좌석지정 / 수하물 / 기내식 / 여행보험 </div>
+									<div class="newmyp-txt2">공항에선 할인 안되고 구매하기 어려워요!</div>
+								</div>
+							</div>
+						</div>
+						<div class="newmyp-dp2">
+							<a class="newmyp-dp2_btn" href="index.html">
+								<div class="newmyp-dp2_btn_fst">
+									<i class="newmyp-dp2_btn_icon1"></i>
+									<span>사전예약하기</span>
+								</div>
+								<div><svg style="color: #888;" width="8" height="12" viewBox="0 0 9 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg></div>
+							</a>
+							<a class="newmyp-dp2_btn" href="mypage.html">
+								<div class="newmyp-dp2_btn_fst">
+									<i class="newmyp-dp2_btn_icon2"></i>
+									<span>예약내역 / 취소환불</span>
+								</div>
+								<div><svg style="color: #888;" width="8" height="12" viewBox="0 0 9 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg></div>
+							</a>
+							<a class="newmyp-dp2_btn" href="cscenter.html">
+								<div class="newmyp-dp2_btn_fst">
+									<i class="newmyp-dp2_btn_icon3"></i>
+									<span>고객센터</span>
+								</div>
+								<div><svg style="color: #888;" width="8" height="12" viewBox="0 0 9 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg></div>
+							</a>
+						</div>
+						<div class="newmyp-dp3">
+							<div class="newmyp-privacy">개인정보취급방침</div>
+						</div>
+						<div class="newmyp-dp4">
+							<div class="newmyp-center">
+								<div class="newmyp-center_txt1">
+									<div><i class="newmyp-center_icon3"></i>고객센터</div>
+									<div><span>1522-4148</span> <span>(평일 10:00~17:00)</span></div>
+								</div>
+								<div class="newmyp-center_txt2">
+									<div><i class="newmyp-center_icon4"></i>여행보험 문의</div>
+									<div><span>1566-5800</span> <span>(평일 09:00~18:00)</span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- 로딩: 진입 즉시 잠깐 보여주고 자동으로 사라짐 (인터랙션 없음) -->
+		<div class="ins-v1-loading" id="insV1Loading">
+			<div class="ins-v1-loading-badge">AI</div>
+			<p class="ins-v1-loading-text">
+				<span id="insV1LoadingRegion">프랑크푸르트</span> 여행에 맞는<br>
+				<b>보험을 찾고 있어요</b>
+			</p>
+			<div class="ins-v1-loading-dots"><span></span><span></span><span></span></div>
+		</div>
+
+		<div class="insure_body ins-v1-body" id="insV1Body">
+			<!-- 여행 정보 요약: 이미 갖고 있는 예약정보를 보여주기만 함 (입력 아님) -->
+			<div class="insure_topbar">
+				<div class="insurebar">
+					<div class="insurebartxt">
+						<i class="insurebar-plane">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+								<path transform="rotate(90 12 12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+							</svg>
+						</i>
+						<span class="insurebartxt-item">프랑크프루트・27.07.23~07.26(4일)</span>
+					</div>
+					<div class="insurebarbtn">
+						<span class="insurebarbtn-divider"></span>
+						<button type="button" class="insurebarbtn-toggle" id="tripDetailToggle" aria-expanded="false" aria-label="여행정보 상세 열기">
+							<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="ins-v1-tripdetail" id="tripDetail">
+				<div class="ins-v1-tripdetail-inner">
+					<div class="ins-v1-tripdetail-block">
+						<span class="ins-v1-tripdetail-icon">
+							<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 2v3M17 2v3M3.5 9h17M5 5h14a1.5 1.5 0 0 1 1.5 1.5V19A1.5 1.5 0 0 1 19 20.5H5A1.5 1.5 0 0 1 3.5 19V6.5A1.5 1.5 0 0 1 5 5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						</span>
+						<div class="ins-v1-tripdetail-text">
+							<div class="ins-v1-tripdetail-label">여행기간</div>
+							<div class="ins-v1-tripdetail-value">출발 2027.07.23(금) 00시부터<br>귀국 2027.07.26(월) 24시까지 <b>(3박4일)</b></div>
+						</div>
+					</div>
+					<div class="ins-v1-tripdetail-block">
+						<span class="ins-v1-tripdetail-icon">
+							<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20c0-3.6 2.9-6 5.5-6s5.5 2.4 5.5 6M17 11a3 3 0 1 0 0-6M16 14.2c2.4.3 4.5 2.4 4.5 5.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						</span>
+						<div class="ins-v1-tripdetail-text">
+							<div class="ins-v1-tripdetail-label">가입인원 3명</div>
+							<div class="ins-v1-tripdetail-value">LEE SIHYUNG, LEE JIYOUNG, KIM JINHUG</div>
+						</div>
+					</div>
+					<div class="ins-v1-tripdetail-note">
+						<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.6 2.6L16.5 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						예약하신 정보를 그대로 불러왔어요. 다시 입력하지 않아도 됩니다.
+					</div>
+				</div>
+			</div>
+
+			<!-- AI 추천 플랜: 인원 전체를 한 리스트로 노출 -->
+			<div class="ai-plancard_ins" id="aiPlanCard">
+				<div class="ai-plancard_ins-head">
+					<span class="ai-plancard_ins-badge">AI</span>
+					<span class="ai-plancard_ins-title">3인 맞춤플랜 추천</span>
+					<button type="button" class="icon-info-btn icon-info-btn--md btn_slide_open_ins" data-sheet="sheetPlanCompare" aria-label="플랜 한눈에 비교">?</button>
+				</div>
+				<div class="ins-v1-tierrow" id="tierRow"><!-- JS 생성: 실속/표준/고급 요금대 --></div>
+				<div class="ai-plancard_ins-body" id="aiPlanBody"><!-- JS 생성 --></div>
+
+				<div class="ai-plancard_ins-foot">
+					<div class="ai-plancard_ins-total">
+						<div>
+							<span class="ai-plancard_ins-total-main" id="aiPlanTotalStr">3인 56,000원</span>
+							<span class="ai-plancard_ins-days"> / 4일</span>
+						</div>
+					</div>
+					<div class="ai-plancard_ins-perday" id="aiPlanPerDay">(1인 1일 약 4,667원)</div>
+				</div>
+			</div>
+
+			<!-- 약관 동의: 전체동의 1개로 단순화, 상세는 접어서 -->
+			<div class="ins-terms_wrap" id="insTermsWrap">
+				<div class="ins-terms_head">
+					<button type="button" class="ins-terms_circle-btn" id="insTermsAllBtn" aria-label="모두 동의">
+						<span class="ins-terms_circle" id="insTermsAllCircle">
+							<svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						</span>
+					</button>
+					<span class="ins-terms_head-txt">가입 약관에 모두 동의합니다.</span>
+					<button type="button" class="ins-terms_toggle" id="insTermsToggle" aria-expanded="false" aria-label="접기/펴기">
+						<svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 9L7 4L12 9" stroke="#888" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</button>
+				</div>
+				<div class="ins-terms_list is-hidden" id="insTermsList">
+					<div class="ins-terms_item">
+						<button type="button" class="ins-terms_circle-btn" data-term-idx="0" aria-label="동의">
+							<span class="ins-terms_circle" data-circle="0"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+						</button>
+						<span class="ins-terms_item-txt">단체(취급) 여행보험 가입 규약</span>
+					</div>
+					<div class="ins-terms_item">
+						<button type="button" class="ins-terms_circle-btn" data-term-idx="1" aria-label="동의">
+							<span class="ins-terms_circle" data-circle="1"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+						</button>
+						<span class="ins-terms_item-txt">단체여행보험계약 대리 체결 확인</span>
+					</div>
+					<div class="ins-terms_item">
+						<button type="button" class="ins-terms_circle-btn" data-term-idx="2" aria-label="동의">
+							<span class="ins-terms_circle" data-circle="2"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+						</button>
+						<span class="ins-terms_item-txt">개인정보 제3자 제공 동의</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- 하단 신뢰 정보 섹션 -->
+			<div class="ins-footer_wrap">
+				<div class="ins-footer_btns">
+					<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetNotice">중요안내</button>
+					<a href="https://cdn.ags-aws.com/ags/info/ins/terms/lina/OTA_P.pdf" class="ins-footer_btn" target="_blank" rel="noopener">약관보기</a>
+					<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetFaq">여행보험 Q&amp;A</button>
+				</div>
+
+				<div class="ins-footer_callbox">
+					<div class="ins-footer_callbox-title">
+						<img src="https://cdn.ags-aws.com/alphaseat/mo/img/common/phone_icon.png" alt="전화" style="width:16px;height:16px;vertical-align:middle;">
+						라이나 손해보험 여행보험 콜센터
+					</div>
+					<div class="ins-footer_callbox-num">1566-5800</div>
+					<div class="ins-footer_callbox-hours">평일 : 09:00~18:00 (주말, 공휴일 제외)</div>
+				</div>
+
+				<div class="ins-footer_brandname">Chubb. Insured&trade;</div>
+				<div class="ins-footer_brand">
+					<img class="ins-footer_brand-badge" src="./resource/img/common/raina.png" alt="2023 대한민국 브랜드 명예의전당">
+					<div class="ins-footer_brand-txt">2023 대한민국 브랜드 명예의전당<br>여행보험 부문 수상</div>
+				</div>
+
+				<div class="ins-footer_legal">
+					(주) 올윈에어 여행보험 서비스는 라이나 손해보험과의 제휴로 제공됩니다.<br><br>
+					대리점(주식회사 올윈에어) 등록번호 제 7726020004호<br><br>
+					03156 서울시 종로구 삼봉로48 라이나타워 14, 15층<br>
+					대표자 모재경 | 사업자등록번호 116-84-00907<br>
+					고객센터 1566-5800
+				</div>
+
+				<div class="ins-footer_copy">© 2026 Chubb - All rights reserved.</div>
+			</div>
+		</div>
+
+		<!-- 중요안내 슬라이드 -->
+		<div class="slide-sheet_ins" id="sheetNotice">
+			<div class="slide-sheet_ins-handle-mask"></div>
+			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
+			<div class="slide-sheet_ins-body">
+				<div class="myinfo-header"><span class="myinfo-title">보험계약 중요 안내 사항</span></div>
+
+				<div class="ins-notice_top">
+					<p>· 가입상품 : 라이나손해보험Chubb해외여행보험</p>
+					<p>· 보험료 납입기간 : 일시납</p>
+					<p>· 보험기간 : 2027년 07월 23일~2027년 07월 26일</p>
+				</div>
+
+				<div class="ins-notice_section">
+					<div class="ins-notice_section-title">알릴 의무</div>
+					<div class="ins-notice_subtitle">[계약 전 알릴 의무]</div>
+					<p class="ins-notice_body">계약 전 알릴 의무사항은 회사가 보험계약의 청약을 인수하는데 필요한 자료이므로 보험계약자 및 피보험자는 사실대로 알려야 합니다. 사실대로 알리지 않거나 다르게 알린 경우 보험가입이 거절될 수 있으며, [중요한 사항]에 해당하는 경우 계약이 해지되거나 보장이 제한될 수 있습니다.</p>
+					<div class="ins-notice_subtitle">[계약 후 알릴 의무]</div>
+					<p class="ins-notice_body">보험계약자 또는 피보험자는 보험기간 중 직업·직무 등 중요사항이 변경된 경우 지체 없이 회사에 알려야 합니다. 알리지 않은 경우 보험금 지급이 제한될 수 있습니다.</p>
+				</div>
+
+				<div class="ins-notice_section">
+					<div class="ins-notice_section-title">청약의 철회</div>
+					<p class="ins-notice_body">일반금융소비자인 계약자는 보험증권을 받은 날부터 15일 이내(청약일로부터 30일 이내)에 청약을 철회할 수 있으며, 철회 접수일로부터 3영업일 이내에 보험료를 돌려드립니다. 단, 보장기간이 90일 이내인 계약 등은 청약을 철회할 수 없습니다.</p>
+				</div>
+
+				<div class="ins-notice_section">
+					<div class="ins-notice_section-title">보험금을 지급하지 아니하는 사유</div>
+					<p class="ins-notice_bullet">· 피보험자가 고의로 자신을 해친 경우 (심신상실 등으로 자유로운 의사결정이 불가한 경우는 제외)</p>
+					<p class="ins-notice_bullet">· 계약자 또는 보험수익자가 고의로 피보험자를 해친 경우</p>
+					<p class="ins-notice_bullet">· 피보험자의 임신, 출산(제왕절개 포함), 산후기</p>
+					<p class="ins-notice_bullet">· 전쟁, 외국의 무력행사, 혁명, 내란, 사변, 폭동</p>
+					<p class="ins-notice_note">* 자세한 내용은 보험약관을 참고하시기 바랍니다.</p>
+				</div>
+
+				<div class="ins-notice_section">
+					<div class="ins-notice_section-title">계약의 해지 및 보험료의 환급</div>
+					<p class="ins-notice_body">이 상품은 순수보장형 상품으로 만기 시 만기환급금이 없습니다. 계약해지 시 남은 미경과 기간에 대해 단기요율을 적용한 해지환급금을 돌려드리므로 납입하신 보험료보다 적거나 없을 수 있습니다.</p>
+				</div>
+
+				<div class="ins-notice_section">
+					<div class="ins-notice_section-title">여행보험 취소 방법</div>
+					<p class="ins-notice_bullet">· 여행출발 전 : 가입 후 받으신 SMS 가입정보 URL을 통해 취소 가능합니다.</p>
+					<p class="ins-notice_bullet">· 여행출발 후 : 라이나손해보험 여행보험 콜센터(1566-5800)로 문의해 주세요.</p>
+					<p class="ins-notice_note">※ 위 사항은 약관 내용을 요약 발췌한 것으로 세부 내용은 약관을 참조하시기 바랍니다.</p>
+				</div>
+			</div>
+			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
+		</div>
+
+		<!-- 여행보험 Q&A 슬라이드 -->
+		<div class="slide-sheet_ins" id="sheetFaq">
+			<div class="slide-sheet_ins-handle-mask"></div>
+			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
+			<div class="slide-sheet_ins-body">
+				<div class="myinfo-header"><span class="myinfo-title">여행보험 유의사항</span></div>
+				<div class="ins-faq_list">
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q1</span> 여행상품(항공권 등) 환불 및 일정변경 시 취소는?</div>
+						<div class="ins-faq_a">여행보험은 자동취소가 안되므로 별도로 취소해 주세요.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q2</span> 여행보험 취소 방법은?</div>
+						<div class="ins-faq_a">가입안내 SMS에서 URL 클릭&gt;마이페이지 방문&gt;구매내역에서 취소해 주세요. 또는 콜센터(1566-5800)로 문의해 주세요.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q3</span> 다른 보험판매채널에서 가입한 경우 취소는?</div>
+						<div class="ins-faq_a">가입한 채널에서만 취소가 가능합니다.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q4</span> 보상 안내는?</div>
+						<div class="ins-faq_a">가입확인서와 약관을 확인해 주세요.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q5</span> 실손 보험이 다수의 보험에 가입된 경우 중복보상은?</div>
+						<div class="ins-faq_a">보상 대상 의료비 및 책임액에 대하여 각 계약의 비례 분담액만을 지급합니다.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q6</span> 보상 항목이 여러 개인 경우 항목별 보상이 가능한지?</div>
+						<div class="ins-faq_a">보상 대상 항목이 여러 개라도 모두 보상해 드립니다.</div>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
+		</div>
+
+		<!-- 플랜 한눈에 비교 슬라이드 (실속/표준/고급 탭) -->
+		<div class="slide-sheet_ins" id="sheetPlanCompare">
+			<div class="slide-sheet_ins-handle-mask"></div>
+			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
+			<div class="slide-sheet_ins-body">
+				<div class="myinfo-header"><span class="myinfo-title">플랜 한눈에 비교</span></div>
+				<div class="plancompare_tabs" id="compareTabs"><!-- JS 생성 --></div>
+				<div class="plancompare_price-row" id="comparePriceRow"><!-- JS 생성 --></div>
+				<div class="plancompare_list" id="compareList"><!-- JS 생성 --></div>
+			</div>
+			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
+		</div>
+
+		<div class="ags-summary">
+			<div class="bar_heart_footer">
+				<div class="foot_align">
+					<div class="btf_graybtn">
+						<button type="button" id="skipInsuranceBtn">선택안함</button>
+					</div>
+					<a href="#none" class="btn_footer_open"></a>
+					<div class="btf_bbtn_oneway">
+						<button type="button" id="nextBtn">다음</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer_contents" style="opacity: 0;">
+				<a class="btn_footer_close">Close</a>
+				<div class="pay_content">
+					<div class="creditcard newui">
+						<div class="card_warp">
+							<div class="card_name">부가서비스 신청내역</div>
+							<div class="credit_box_btn" agrbtn="" style="display: none;"></div>
+						</div>
+						<div agrlt="" class="credit_agree_box_content dis on" style="display: block;">
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>싱카포르 SIN</span>
+									</div>
+									<div class="air_logo airpremia"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>05/01 09:15</div>
+									<div>7C1302</div>
+								</div>
+							</div>
+							<!-- 사람 -->
+							<div class="bd_px">
+								<div class="personer">
+									<input type="checkbox" id="input-check11" name="check-group2">
+									<label for="input-check11"><i class="ico"></i>LEE JIYOUNG</label>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">
+											<div class="gray_txt">
+												<span>3E</span>
+												<span class="card_box_name">(지니스트레치)</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">
+											<div><span>+1px(23kg) + 9kg</span></div>
+											<div>
+												<span>16,000</span>
+												<button class="new_xbtn">x</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--빠른 짐 찾기은 box5-->
+								<div class="card_box5">
+									<div class="card_box5_a">빠른 짐 찾기</div>
+									<div class="card_box5_b">
+										<div class="card_box5_bi">
+											<div><span>+1px(23kg) + 9kg</span></div>
+											<div>
+												<span>16,000</span>
+												<button class="new_xbtn">x</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--골프팩-->
+								<div class="card_box6">
+									<div class="card_box6_a">골프팩</div>
+									<div class="card_box6_b">
+										<div class="card_box6_bi">
+											<div class="gray_txt">
+												<span>+7kg</span>
+												<span class="card_box_name">(골프팩,여행가방)</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">
+											<div class="gray_txt">
+												<span>구름 위의 샌드위치샌드위치샌드위치</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--에어까페-->
+								<div class="card_box8">
+									<div class="card_box8_a">여행보험</div>
+									<div class="card_box8_b">
+										<div class="card_box8_bi">
+											<div><span>고급형</span></div>
+											<div>
+												<span>23,000</span>
+												<button class="new_xbtn">x</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--에어까페-->
+								<div class="card_box7">
+									<div class="card_box7_a">에어까페</div>
+									<div class="card_box7_b">
+										<div class="card_box7_bi">
+											<div class="gray_txt">
+												<span>산리오캐릭터즈 트래블 키트(마이멜로디)</span>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<input type="checkbox" id="input-check12" name="check-group2">
+									<label for="input-check12"><i class="ico"></i>LEE SANGHEE</label>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">
+											<div><button class="card_box_buy">구매하기</button></div>
+											<div><span>0</span></div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">
+											<div><button class="card_box_buy">구매하기</button></div>
+											<div><span>0</span></div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box5">
+									<div class="card_box5_a">빠른 짐 찾기</div>
+									<div class="card_box5_b">
+										<div class="card_box5_bi">
+											<div><button class="card_box_buy">구매하기</button></div>
+											<div><span>0</span></div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">
+											<div><button class="card_box_buy">구매하기</button></div>
+											<div><span>0</span></div>
+										</div>
+									</div>
+								</div>
+								<!--에어까페-->
+								<div class="card_box8">
+									<div class="card_box8_a">여행보험</div>
+									<div class="card_box8_b">
+										<div class="card_box8_bi">
+											<div><span>표준형</span></div>
+											<div>
+												<span>18,000</span>
+												<button class="new_xbtn">x</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이진희</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">
+											<div>
+												<span>4E</span>
+												<span class="card_box_name">(지니페스트)</span>
+											</div>
+											<div>
+												<span>11,000</span>
+												<button class="new_xbtn">x</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">
+											<div><button class="card_box_buy">구매하기</button></div>
+											<div><span>0</span></div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box8">
+									<div class="card_box8_a">여행보험</div>
+									<div class="card_box8_b">
+										<div class="card_box8_bi">
+											<div><button class="card_box_buy">구매하기</button></div>
+											<div><span>0</span></div>
+										</div>
+									</div>
+								</div>
+
+								<!--빠른 짐 찾기은 box5-->
+								<div class="card_box5">
+									<div class="card_box5_a">빠른 짐 찾기</div>
+									<div class="card_box5_b">
+										<div class="card_box5_bi">
+											<div><span>+1px(23kg) + 9kg</span></div>
+											<div>
+												<span>16,000</span>
+												<button class="new_xbtn">x</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이명진</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">
+											<div><span>4F</span></div>
+											<div>
+												<span>11,000</span>
+												<button class="new_xbtn">x</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">
+											<div><span>패밀리 세트</span></div>
+											<div>
+												<span>22,000</span>
+												<button class="new_xbtn">x</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 선나누기 <div class="liner_service"></div> -->
+							<!-- 목적지,항공편명,로고,시간-->
+							<div>
+								<div class="card_boxfst">
+									<div>
+										<span>인천 ICN</span>→
+										<span>싱카포르 SIN</span>
+									</div>
+									<div class="air_logo jeju"></div>
+								</div>
+								<div class="card_boxtwi">
+									<div>05/01 09:15</div>
+									<div>7C1302</div>
+								</div>
+							</div>
+							<div class="bd_px">
+								<div class="personer">
+									<span>이정갑</span>
+								</div>
+								<div class="card_box2">
+									<div class="card_box2_a">좌석지정</div>
+									<div class="card_box2_b">
+										<div class="card_box2_bi">
+											<div><span>3E</span></div>
+											<div><span>11,000</span></div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box3">
+									<div class="card_box3_a">수하물</div>
+									<div class="card_box3_b">
+										<div class="card_box3_bi">
+											<div><span>+10kg</span></div>
+											<div><span>16,000</span></div>
+										</div>
+									</div>
+								</div>
+								<div class="card_box4">
+									<div class="card_box4_a">기내식</div>
+									<div class="card_box4_b">
+										<div class="card_box4_bi">
+											<div><span>구름 위의 샌드위치</span></div>
+											<div><span>9,000</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 선나누기 --><div class="liner_service"></div>
+					</div>
+					<div class="credit_total">
+						<div>부가서비스 총 결제 금액</div>
+						<span class="credit_total_box2">76,000원</span>
+					</div>
+					<div class="payment_btn">다음</div>
+				</div>
+
+			</div>
+			</div>
+		</div>
+	</div>
+
+<script>
+/* ================================================================
+   로딩 화면: 1.6초 후 자동으로 사라짐 (인터랙션 불필요)
+   ================================================================ */
+(function () {
+	var loading = document.getElementById('insV1Loading');
+	if (!loading) return;
+	setTimeout(function () {
+		loading.classList.add('is-hidden');
+		document.body.classList.remove('ins-v1-lock');
+		setTimeout(function () { loading.style.display = 'none'; }, 450);
+	}, 1600);
+})();
+</script>
+
+<script>
+/* ================================================================
+   여행정보 상세 펼치기/접기 (이미 있는 예약정보 확인용, 입력 아님)
+   ================================================================ */
+(function () {
+	var toggle = document.getElementById('tripDetailToggle');
+	var panel  = document.getElementById('tripDetail');
+	if (!toggle || !panel) return;
+	toggle.addEventListener('click', function () {
+		var open = panel.classList.toggle('is-open');
+		toggle.setAttribute('aria-expanded', open);
+	});
+})();
+</script>
+
+<script>
+/* ================================================================
+   AI 추천 플랜: 인원 전체 리스트 + 실속/표준/고급 요금대
+   ================================================================ */
+(function () {
+	/* 그룹 전체가 하나의 플랜을 함께 선택 (같이 여행가는 사람들이 서로 다른 등급을 고르는 경우는 드묾) */
+	var PLANS = [
+		{ name: '실속형', coverage: '1억', aiScore: 84 },
+		{ name: '표준형', coverage: '2억', aiScore: 85 },
+		{ name: '고급형', coverage: '3억', aiScore: 86 }
+	];
+	var TRIP_DAYS = 4;
+	var RECOMMENDED_TIER = 1; /* AI 추천 등급 */
+	var selectedTier = RECOMMENDED_TIER;
+
+	var PERSONS = [
+		{ name: 'LEE SIHYUNG', gender: '남', age: 7, isChild: true,  checked: true, prices: [18000, 22000, 26000] },
+		{ name: 'LEE JIYOUNG', gender: '여', age: 38, isChild: false, checked: true, prices: [14000, 18000, 22000] },
+		{ name: 'KIM JINHUG',  gender: '남', age: 41, isChild: false, checked: true, prices: [12000, 16000, 20000] }
+	];
+
+	function fmt(n) { return n.toLocaleString('ko-KR'); }
+
+	function renderTierRow() {
+		var el = document.getElementById('tierRow');
+		if (!el) return;
+		el.innerHTML = PLANS.map(function (plan, i) {
+			var prices = PERSONS.map(function (p) { return p.prices[i]; });
+			var lo = Math.min.apply(null, prices);
+			var hi = Math.max.apply(null, prices);
+			var priceTxt = (lo === hi) ? fmt(lo) + '원' : fmt(lo) + '원~';
+			var badge = (i === RECOMMENDED_TIER) ? '<span class="ins-v1-tier-badge">AI 추천</span>' : '';
+			return '<div class="ins-v1-tier' + (i === selectedTier ? ' is-selected' : '') + '" data-tier-idx="' + i + '">' +
+				badge +
+				'<div class="ins-v1-tier-name">' + plan.name + '</div>' +
+				'<div class="ins-v1-tier-price">' + priceTxt + '</div>' +
+			'</div>';
+		}).join('');
+
+		el.querySelectorAll('.ins-v1-tier').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				selectedTier = parseInt(btn.getAttribute('data-tier-idx'), 10);
+				renderTierRow();
+				buildRows();
+				updateTotal();
+			});
+		});
+	}
+
+	function updateTotal() {
+		var checked = PERSONS.filter(function (p) { return p.checked; });
+		var total   = checked.reduce(function (s, p) { return s + p.prices[selectedTier]; }, 0);
+		var count   = checked.length;
+
+		var totalEl = document.getElementById('aiPlanTotalStr');
+		if (totalEl) totalEl.textContent = count + '인 ' + fmt(total) + '원';
+
+		var perEl = document.getElementById('aiPlanPerDay');
+		if (perEl) {
+			if (count > 0) {
+				perEl.textContent = '(1인 1일 약 ' + fmt(Math.round(total / count / TRIP_DAYS)) + '원)';
+				perEl.style.display = '';
+			} else {
+				perEl.style.display = 'none';
+			}
+		}
+
+		window.insV1Result = { count: count, total: total, days: TRIP_DAYS, plan: PLANS[selectedTier].name, persons: checked.map(function (p) { return { name: p.name, plan: PLANS[selectedTier].name, price: p.prices[selectedTier] }; }) };
+
+		/* 토스/카카오페이류 결제 버튼 패턴: CTA에 결제금액을 바로 노출 */
+		var nextBtn = document.getElementById('nextBtn');
+		if (nextBtn) nextBtn.textContent = count > 0 ? ('다음 · ' + fmt(total) + '원') : '다음';
+
+	}
+
+	var BABY_SVG = '<img src="./resource/img/common/child_icon1.png" alt="" width="18" height="18" style="vertical-align:middle">';
+
+	function buildRows() {
+		var body = document.getElementById('aiPlanBody');
+		if (!body) return;
+		body.innerHTML = '';
+
+		PERSONS.forEach(function (p, idx) {
+			var checkId = 'aiPlanChk' + idx;
+
+			var row = document.createElement('div');
+			row.className = 'ai-plancard_ins-row' + (!p.checked ? ' is-unchecked' : '');
+			row.setAttribute('data-idx', idx);
+
+			row.innerHTML = [
+				'<label class="ai-plancard_ins-check" for="', checkId, '">',
+					'<input type="checkbox" id="', checkId, '" class="ai-plancard_ins-checkbox"', (p.checked ? ' checked' : ''), '>',
+					'<span class="ai-plancard_ins-check-icon">',
+						'<svg width="10" height="10" viewBox="0 0 13 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+					'</span>',
+				'</label>',
+				'<div class="ai-plancard_ins-personinfo">',
+					'<div class="ai-plancard_ins-name">', p.name, '</div>',
+					'<div class="ai-plancard_ins-price">', fmt(p.prices[selectedTier]), '원 <span class="ai-plancard_ins-price-days">/ ', TRIP_DAYS, '일</span></div>',
+				'</div>',
+				'<div class="ai-plancard_ins-agegender">',
+					'<div class="ai-plancard_ins-meta">', p.gender, ' ', p.age, '세</div>',
+					(p.isChild ? BABY_SVG : ''),
+				'</div>'
+			].join('');
+
+			body.appendChild(row);
+
+			var chk = row.querySelector('.ai-plancard_ins-checkbox');
+			chk.addEventListener('change', function () {
+				PERSONS[idx].checked = chk.checked;
+				row.classList.toggle('is-unchecked', !chk.checked);
+				updateTotal();
+			});
+		});
+	}
+
+	renderTierRow();
+	buildRows();
+	updateTotal();
+
+	window.insV1GetSelectedTier = function () { return selectedTier; };
+})();
+</script>
+
+<script>
+/* ================================================================
+   플랜 한눈에 비교 팝업: 실속/표준/고급 탭 → 가격 + 보장내역 (약식)
+   기존 sheetCoverage(COV_DATA)의 실제 보장금액을 그대로 재사용
+   ================================================================ */
+(function () {
+	var PLAN_NAMES = ['실속형', '표준형', '고급형'];
+	var COMPARE_DATA = [
+		{ price: 12000, items: [
+			{ label: '상해사망·후유장해', amt: '1억원' },
+			{ label: '해외실손(질병)', amt: '3,000만원' },
+			{ label: '해외실손(상해)', amt: '3,000만원' },
+			{ label: '휴대품손해', amt: '50만원' },
+			{ label: '항공기·수하물지연', amt: '40만원' },
+			{ label: '구조송환비용', amt: '1,500만원' }
+		]},
+		{ price: 18000, items: [
+			{ label: '상해사망·후유장해', amt: '2억원' },
+			{ label: '해외실손(질병)', amt: '5,000만원' },
+			{ label: '해외실손(상해)', amt: '5,000만원' },
+			{ label: '휴대품손해', amt: '100만원' },
+			{ label: '항공기·수하물지연', amt: '60만원' },
+			{ label: '구조송환비용', amt: '3,000만원' }
+		]},
+		{ price: 26000, items: [
+			{ label: '상해사망·후유장해', amt: '3억원' },
+			{ label: '해외실손(질병)', amt: '7,000만원' },
+			{ label: '해외실손(상해)', amt: '7,000만원' },
+			{ label: '휴대품손해', amt: '150만원' },
+			{ label: '항공기·수하물지연', amt: '80만원' },
+			{ label: '구조송환비용', amt: '5,000만원' }
+		]}
+	];
+
+	function fmt(n) { return n.toLocaleString('ko-KR'); }
+
+	var tabsEl  = document.getElementById('compareTabs');
+	var priceEl = document.getElementById('comparePriceRow');
+	var listEl  = document.getElementById('compareList');
+	if (!tabsEl || !priceEl || !listEl) return;
+
+	var activeIdx = 1;
+
+	function render() {
+		tabsEl.innerHTML = PLAN_NAMES.map(function (name, i) {
+			return '<button type="button" class="plancompare_tab' + (i === activeIdx ? ' is-active' : '') + '" data-idx="' + i + '">' + name + '</button>';
+		}).join('');
+		tabsEl.querySelectorAll('.plancompare_tab').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				activeIdx = parseInt(btn.getAttribute('data-idx'), 10);
+				render();
+			});
+		});
+
+		var data = COMPARE_DATA[activeIdx];
+		priceEl.innerHTML =
+			'<span class="plancompare_price-name">' + PLAN_NAMES[activeIdx] + ' (1인 기준)</span>' +
+			'<span class="plancompare_price-amt">' + fmt(data.price) + '원<span> / 4일</span></span>';
+
+		listEl.innerHTML = data.items.map(function (it) {
+			return '<div class="plancompare_row"><span class="plancompare_row-label">' + it.label + '</span><span class="plancompare_row-amt">' + it.amt + '</span></div>';
+		}).join('');
+	}
+
+	/* 팝업이 열릴 때, 지금 그룹이 고른 등급 탭이 먼저 보이도록 */
+	document.querySelectorAll('[data-sheet="sheetPlanCompare"]').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			if (window.insV1GetSelectedTier) activeIdx = window.insV1GetSelectedTier();
+			render();
+		});
+	});
+
+	render();
+})();
+</script>
+
+<script>
+/* ================================================================
+   약관 동의 (단순화): 전체동의 1개 + 상세 접기/펴기
+   ================================================================ */
+(function () {
+	var TOTAL = 3;
+	var checked = [false, false, false];
+
+	var allCircle = document.getElementById('insTermsAllCircle');
+	var toggleBtn = document.getElementById('insTermsToggle');
+	var list      = document.getElementById('insTermsList');
+	var wrap      = document.getElementById('insTermsWrap');
+
+	function syncAll() {
+		var allChecked = checked.every(function (v) { return v; });
+		if (allCircle) {
+			allCircle.classList.toggle('is-checked', allChecked);
+			var path = allCircle.querySelector('path');
+			if (path) path.style.stroke = allChecked ? '#fff' : '#bbb';
+		}
+	}
+	function syncItem(idx, val) {
+		checked[idx] = val;
+		document.querySelectorAll('[data-circle="' + idx + '"]').forEach(function (circle) {
+			circle.classList.toggle('is-checked', val);
+			var path = circle.querySelector('path');
+			if (path) path.style.stroke = val ? '#fff' : '#bbb';
+		});
+		syncAll();
+	}
+
+	var allBtn = document.getElementById('insTermsAllBtn');
+	if (allBtn) {
+		allBtn.addEventListener('click', function () {
+			var newVal = !checked.every(function (v) { return v; });
+			for (var i = 0; i < TOTAL; i++) syncItem(i, newVal);
+			if (wrap) wrap.classList.remove('is-nudge');
+		});
+	}
+	document.querySelectorAll('[data-term-idx]').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			var idx = parseInt(btn.getAttribute('data-term-idx'), 10);
+			syncItem(idx, !checked[idx]);
+			if (wrap) wrap.classList.remove('is-nudge');
+		});
+	});
+	if (toggleBtn && list) {
+		toggleBtn.addEventListener('click', function () {
+			var collapsed = list.classList.toggle('is-hidden');
+			toggleBtn.classList.toggle('is-collapsed', collapsed);
+			toggleBtn.setAttribute('aria-expanded', !collapsed);
+		});
+	}
+
+	window.insV1TermsAgreed = function () { return checked.every(function (v) { return v; }); };
+	window.insV1NudgeTerms = function () {
+		if (!wrap) return;
+		wrap.classList.add('is-nudge');
+		wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		setTimeout(function () { wrap.classList.remove('is-nudge'); }, 1200);
+	};
+})();
+</script>
+
+<script>
+/* ================================================================
+   하단 CTA: 선택안함 / 다음 → 다음은 약관 동의 후 바로 가입완료로 이동
+   ================================================================ */
+(function () {
+	var skipBtn = document.getElementById('skipInsuranceBtn');
+	var nextBtn = document.getElementById('nextBtn');
+
+	if (skipBtn) {
+		skipBtn.addEventListener('click', function () {
+			if (window.confirm('여행보험 없이 진행할까요?\n출발 전까지 마이페이지에서 다시 가입하실 수 있어요.')) {
+				location.href = 'index.html';
+			}
+		});
+	}
+	if (nextBtn) {
+		nextBtn.addEventListener('click', function () {
+			if (!window.insV1TermsAgreed || !window.insV1TermsAgreed()) {
+				window.insV1NudgeTerms && window.insV1NudgeTerms();
+				return;
+			}
+			try {
+				localStorage.setItem('insV1Result', JSON.stringify(window.insV1Result || {}));
+			} catch (e) {}
+			location.href = 'service_complete_insure_v1.html';
+		});
+	}
+})();
+</script>
+</body>
+</html>
