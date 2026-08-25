@@ -1926,9 +1926,17 @@
 			onPick: function(date){
 				if(!rcStart || (rcStart && rcEnd)){
 					// 처음 선택하거나, 이미 둘 다 선택된 뒤 다시 누르면 새로 시작
+					if(date.getTime() < today.getTime()){
+						alert('오늘 이전 날짜는 출국일로 선택할 수 없습니다.');
+						return;
+					}
 					rcStart = date; rcEnd = null;
 				} else if(date.getTime() < rcStart.getTime()){
 					// 출국일보다 이른 날짜를 누르면 그 날짜를 새 출국일로
+					if(date.getTime() < today.getTime()){
+						alert('오늘 이전 날짜는 출국일로 선택할 수 없습니다.');
+						return;
+					}
 					rcStart = date; rcEnd = null;
 				} else {
 					rcEnd = date;

@@ -527,6 +527,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
+    color: #222;
+    border-radius: 50%;
     border: none;
     background: none;
     cursor: pointer;
@@ -534,60 +537,31 @@
     width: 100%;
     height: calc((min(100vw, 600px) - 40px) / 7);
 }
-.dp-day-num {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    font-size: 14px;
-    color: #222;
-}
-.dp-day.sun .dp-day-num {
+.dp-day.sun {
     color: #f55;
 }
-.dp-day.sat .dp-day-num {
+.dp-day.sat {
     color: #55f;
 }
-.dp-day.today .dp-day-num {
+.dp-day.today {
     font-weight: 700;
-}
-.dp-day:not(.empty):not(.disabled):hover .dp-day-num {
+    color: #222;
     background: #f0f6ff;
 }
-.dp-day.disabled {
-    pointer-events: none;
+.dp-day:not(.empty):not(.disabled):hover {
+    background: #f0f6ff;
 }
-.dp-day.disabled .dp-day-num {
+.dp-day.selected {
+    background: #1A85FF !important;
+    color: #fff !important;
+}
+.dp-day.disabled {
     color: #ddd;
+    cursor: default;
+    pointer-events: none;
 }
 .dp-day.empty {
     pointer-events: none;
-}
-.dp-day.in-range::before {
-    content: "";
-    position: absolute;
-    inset: 4px 0;
-    background: #eaf3ff;
-    z-index: 0;
-}
-.dp-day.range-start::before {
-    left: 50%;
-}
-.dp-day.range-end::before {
-    right: 50%;
-}
-.dp-day.range-start.range-end::before {
-    display: none;
-}
-.dp-day.range-start .dp-day-num,
-.dp-day.range-end .dp-day-num,
-.dp-day.selected .dp-day-num {
-    background: #1A85FF !important;
-    color: #fff !important;
 }
 .datepicker-hint {
     font-size: 12.5px;
@@ -616,6 +590,173 @@
 .datepicker-confirm {
     background: #1A85FF;
     color: #fff;
+}
+
+/* ===== 여행기간 테스트: 범위선택 캘린더 (.rc-) =====
+   기존 .datepicker-*(단일 날짜 선택)와는 별개 컴포넌트.
+   .dp-day는 gap:4px로 서로 떨어져 있어 셀 사이 "띠"를 이을 수 없어서,
+   .rc-day는 gap 없이 붙여놓고 각 셀 내부에서 배경(::before)으로 구간을 이어줌. */
+.rc-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    align-items: flex-end;
+    justify-content: center;
+}
+.rc-overlay.show {
+    display: flex;
+}
+.rc-panel {
+    transform: translateY(100%);
+    transition: transform 350ms cubic-bezier(.4,0,.2,1);
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 32px;
+}
+.rc-overlay.show .rc-panel {
+    transform: translateY(0);
+}
+.rc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.rc-prev,
+.rc-next {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #555;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+}
+.rc-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+}
+.rc-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    text-align: center;
+    margin-bottom: 8px;
+}
+.rc-weekdays span {
+    font-size: 12px;
+    color: #999;
+    padding: 4px 0;
+}
+.rc-weekdays span:first-child {
+    color: #f55;
+}
+.rc-weekdays span:last-child {
+    color: #55f;
+}
+.rc-grid {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-template-rows: repeat(6,1fr);
+    margin-bottom: 12px;
+}
+.rc-day {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    height: calc((min(100vw, 600px) - 40px) / 7);
+}
+.rc-day-num {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 14px;
+    color: #222;
+}
+.rc-day.sun .rc-day-num { color: #f55; }
+.rc-day.sat .rc-day-num { color: #55f; }
+.rc-day.today .rc-day-num {
+    font-weight: 700;
+}
+.rc-day:not(.empty):not(.disabled):hover .rc-day-num {
+    background: #f0f6ff;
+}
+.rc-day.disabled { pointer-events: none; }
+.rc-day.disabled .rc-day-num { color: #ddd; }
+.rc-day.empty { pointer-events: none; }
+
+/* 구간 띠: 시작~끝 사이(양끝 포함) 셀 배경을 이어 붙임 */
+.rc-day.in-range::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    background: #eaf3ff;
+    z-index: 0;
+}
+.rc-day.range-start::before {
+    left: 50%;
+}
+.rc-day.range-end::before {
+    right: 50%;
+}
+.rc-day.range-start.range-end::before {
+    display: none; /* 하루만 선택된 경우엔 띠 없이 원만 표시 */
+}
+.rc-day.range-start .rc-day-num,
+.rc-day.range-end .rc-day-num {
+    background: #1A85FF !important;
+    color: #fff !important;
+}
+.rc-hint {
+    font-size: 12.5px;
+    color: #888;
+    text-align: center;
+    margin: 0 0 14px;
+}
+.rc-footer {
+    display: flex;
+    gap: 10px;
+}
+.rc-cancel,
+.rc-confirm {
+    flex: 1;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+}
+.rc-cancel {
+    background: #f1f4f5;
+    color: #666;
+}
+.rc-confirm {
+    background: #1A85FF;
+    color: #fff;
+}
+.ins-date-btn--fixed {
+    color: #888;
+    background: #f6f7f9;
+    pointer-events: none;
 }
 
 /* 시간 피커 */
@@ -818,10 +959,10 @@
 }
 .ai-analysis_ins-img {
     display: block;
-    width: 150px;
-    max-width: 60%;
+    max-width: 65%;
     height: auto;
     margin: 0 auto;
+    width: 150px;
 }
 .ai-analysis_ins-chevron {
     flex-shrink: 0;
@@ -887,6 +1028,14 @@
     }
     .cov-head-sub {
         font-size: 9px !important;
+    }
+}
+@media (max-width: 320px) {
+    .slide-sheet_ins-body {
+        padding: 0 10px;
+    }
+    .myinfo-date-btn-txt.selected {
+        font-size: 11px;
     }
 }
 
