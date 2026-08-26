@@ -863,13 +863,15 @@
 
 /* ================= AI 여행 분석 카드 ================= */
 .ai-analysis_ins {
+    position: relative;
     width: 90%;
     margin: 0 auto;
     background: #fff;
     border-radius: 18px;
-    padding: 18px 18px 14px;
+    padding: 18px 18px 0;
     box-shadow: 0 4px 14px rgba(20,24,40,.06);
     box-sizing: border-box;
+    overflow: hidden;
 }
 .ai-analysis_ins-head {
     display: flex;
@@ -911,7 +913,7 @@
     position: relative;
     flex: 1;
     min-width: 0;
-    height: 150px;
+    height: 34px;
     overflow: hidden;
 }
 .ai-analysis_ins-slide {
@@ -963,7 +965,34 @@
     height: auto;
     margin: 0 auto;
     width: 180px;
-    margin-top:5px;
+}
+
+/* 이미지 롤링 영역: 정상 흐름으로 카드 맨 밑(bottom:0)까지 자연스럽게 붙임 */
+.ai-analysis_ins-imgroll {
+    margin-top: 12px;
+}
+.ai-analysis_ins-imgroll-viewport {
+    position: relative;
+    display: grid;
+}
+.ai-analysis_ins-img-slide {
+    grid-area: 1 / 1;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: transform 0.45s cubic-bezier(.16,.84,.44,1), opacity 0.45s cubic-bezier(.16,.84,.44,1);
+    pointer-events: none;
+}
+.ai-analysis_ins-img-slide.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.ai-analysis_ins-img-slide.is-leaving {
+    opacity: 0;
+    transform: translateY(-14px);
+    transition: transform 0.28s cubic-bezier(.4,0,1,1), opacity 0.28s cubic-bezier(.4,0,1,1);
 }
 .ai-analysis_ins-chevron {
     flex-shrink: 0;
@@ -994,7 +1023,9 @@
     #sheetPlanInfo,
     .ai-analysis_ins-bottom-track,
     .ai-analysis_ins-slide,
-    .ai-analysis_ins-slide.is-leaving {
+    .ai-analysis_ins-slide.is-leaving,
+    .ai-analysis_ins-img-slide,
+    .ai-analysis_ins-img-slide.is-leaving {
         transition-duration: 0.01ms !important;
     }
 }
@@ -1042,11 +1073,16 @@
 
 /* 하단 롤링: 보상 사례 티커, 아래→위로 3초마다 세로 슬라이드 (.rolling-msg_heart와 동일한 방식) */
 .ai-analysis_ins-bottom {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 14px;
+    z-index: 2;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 5px 14px;
-    background: #f1f4f5;
+    background: rgba(241, 244, 245, 0.7);
     border-radius: 20px;
 }
 .ai-analysis_ins-bottom-roll {
@@ -1079,8 +1115,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 12.5px;
-    color: #555;
+    color: #222;
     font-family: 'PretendardR';
+}
+.ai-analysis_ins-bottom .ai-analysis_ins-chevron {
+    color: #222;
 }
 .ai-analysis_ins-bottom-amt {
     flex-shrink: 0;
@@ -2390,6 +2429,8 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
 }
 .cov-tabs-wrap::-webkit-scrollbar {
     display: none;

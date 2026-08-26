@@ -149,34 +149,22 @@
 							<p class="ai-analysis_ins-text"><img class="ai-analysis_ins-text-icon" src="./resource/img/common/child_icon1.png" alt="">질병·상해 대비 필요 :
 								<b>여행평균보다 1.5배 높아요!</b>
 							</p>
-							<img
-								class="ai-analysis_ins-img"
-								src="./resource/img/common/insure_img01.png"
-								alt=""></div>
-							<div class="ai-analysis_ins-slide">
-								<p class="ai-analysis_ins-text">파손·도난 대비 필요 :
-									<b>여행평균보다 5.0배 높아요!</b>
-								</p>
-								<img
-									class="ai-analysis_ins-img"
-									src="./resource/img/common/insure_img02.png"
-									alt=""></div>
-								<div class="ai-analysis_ins-slide">
-									<p class="ai-analysis_ins-text">의료비용 부담 :
-										<b>여행평균보다 2.0배 높아요!</b>
-									</p>
-									<img
-										class="ai-analysis_ins-img"
-										src="./resource/img/common/insure_img03.png"
-										alt=""></div>
-									<div class="ai-analysis_ins-slide">
-										<p class="ai-analysis_ins-text">
-											<b>갑작스러운 항공기 지연·결항에 미리 대비하세요!</b>
-										</p>
-										<img
-											class="ai-analysis_ins-img"
-											src="./resource/img/common/insure_img04.png"
-											alt=""></div>
+						</div>
+						<div class="ai-analysis_ins-slide">
+							<p class="ai-analysis_ins-text">파손·도난 대비 필요 :
+								<b>여행평균보다 5.0배 높아요!</b>
+							</p>
+						</div>
+						<div class="ai-analysis_ins-slide">
+							<p class="ai-analysis_ins-text">의료비용 부담 :
+								<b>여행평균보다 2.0배 높아요!</b>
+							</p>
+						</div>
+						<div class="ai-analysis_ins-slide">
+							<p class="ai-analysis_ins-text">
+								<b>갑작스러운 항공기 지연·결항에 미리 대비하세요!</b>
+							</p>
+						</div>
 					</div>
 					<button
 						type="button"
@@ -238,6 +226,23 @@
 							stroke-linecap="round"
 							stroke-linejoin="round"/></svg>
 					</button>
+				</div>
+
+				<div class="ai-analysis_ins-imgroll" id="aiAnalysisImgRoll">
+					<div class="ai-analysis_ins-imgroll-viewport" id="aiAnalysisImgRollTrack">
+						<div class="ai-analysis_ins-img-slide is-active">
+							<img class="ai-analysis_ins-img" src="./resource/img/common/insure_img01.png" alt="">
+						</div>
+						<div class="ai-analysis_ins-img-slide">
+							<img class="ai-analysis_ins-img" src="./resource/img/common/insure_img02.png" alt="">
+						</div>
+						<div class="ai-analysis_ins-img-slide">
+							<img class="ai-analysis_ins-img" src="./resource/img/common/insure_img03.png" alt="">
+						</div>
+						<div class="ai-analysis_ins-img-slide">
+							<img class="ai-analysis_ins-img" src="./resource/img/common/insure_img04.png" alt="">
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="insure_sunicon">
@@ -2030,10 +2035,10 @@
 (function(){
 
 	/* 상단: 위로 사라지며 교체되는 크로스페이드 (transform + opacity) */
-	function makeCrossfadeLoop(viewportId, intervalMs){
+	function makeCrossfadeLoop(viewportId, intervalMs, slideSelector){
 		var viewport = document.getElementById(viewportId);
 		if(!viewport) return;
-		var slides = viewport.querySelectorAll('.ai-analysis_ins-slide');
+		var slides = viewport.querySelectorAll(slideSelector || '.ai-analysis_ins-slide');
 		if(!slides.length) return;
 		var idx = 0;
 
@@ -2087,8 +2092,11 @@
 		}, intervalMs);
 	}
 
-	// 상단: 문구+이미지 세트, 위로 사라지며 다음 세트로 교체
-	makeCrossfadeLoop('aiAnalysisRollTrack', 3000);
+	// 상단: 문구, 위로 사라지며 다음 문구로 교체
+	makeCrossfadeLoop('aiAnalysisRollTrack', 3000, '.ai-analysis_ins-slide');
+
+	// 이미지: 문구와 동일한 타이밍으로 별도 위치(하단 티커 아래)에서 함께 교체
+	makeCrossfadeLoop('aiAnalysisImgRollTrack', 3000, '.ai-analysis_ins-img-slide');
 
 	// 하단: 보상 사례 티커, 세로(translateY) 18px씩, 4개 + 복제 1개
 	makeLoop('aiBottomTrack', 'translateY', 18, 4, 3000);
