@@ -19,7 +19,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    border: none; 
     border-radius: 6px;
     background: transparent;
     color: #666;
@@ -113,7 +113,7 @@
 
 /* 가입정보 입력 (내정보) — service_insurance.html의 myinfo-* 형식 그대로 재사용 */
 .myinfo-header {
-    padding: 50px 0 25px;
+    padding: 50px 0 20px;
     flex-shrink: 0;
     text-align: center;
 }
@@ -128,12 +128,12 @@
     font-family: 'PretendardR';
 }
 .myinfo-desc {
-    font-size: 11px;
-    color: #666;
-    padding: 6px 0 20px;
+    font-size: 18px;
+    color: #1A85FF;
+    padding: 6px 0 30px;
     flex-shrink: 0;
     line-height: 18px;
-    font-family: 'PretendardR';
+    font-family: 'PretendardB';
     text-align: center;
 }
 .myinfo-row {
@@ -149,7 +149,7 @@
     font-size: 13px;
     color: #333;
     font-family: 'PretendardSB';
-    padding-bottom: 8px;
+    padding-bottom: 4px;
 }
 .myinfo-label.wid {
     width: 65px;
@@ -202,7 +202,7 @@
 }
 .myinfo-date-btn-txt {
     font-size: 13px;
-    color: #999;
+    color: #1A85FF;
     text-align: left;
     font-family: 'PretendardSB';
 }
@@ -363,7 +363,7 @@
     justify-content: space-between;
     border: none;
     background: none;
-    padding-bottom: 8px;
+    padding: 8px 2px;
     cursor: pointer;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -1021,7 +1021,8 @@
     #sheetFaq,
     #sheetInsur2,
     #sheetPlanInfo,
-    .ai-analysis_ins-bottom-track,
+    .ai-analysis_ins-bottom-item,
+    .ai-analysis_ins-bottom-item.is-leaving,
     .ai-analysis_ins-slide,
     .ai-analysis_ins-slide.is-leaving,
     .ai-analysis_ins-img-slide,
@@ -1086,19 +1087,32 @@
     border-radius: 20px;
 }
 .ai-analysis_ins-bottom-roll {
+    position: relative;
     flex: 1;
     min-width: 0;
     height: 18px;
     overflow: hidden;
 }
-.ai-analysis_ins-bottom-track {
-    transition: transform 0.5s cubic-bezier(.4,0,.2,1);
-}
 .ai-analysis_ins-bottom-item {
-    height: 18px;
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     gap: 6px;
+    visibility: hidden;
+    transform: translateY(14px);
+    transition: transform 0.45s cubic-bezier(.16,.84,.44,1);
+    pointer-events: none;
+}
+.ai-analysis_ins-bottom-item.is-active {
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.ai-analysis_ins-bottom-item.is-leaving {
+    visibility: visible;
+    transform: translateY(-14px);
+    transition: transform 0.28s cubic-bezier(.4,0,1,1);
 }
 .ai-analysis_ins-bottom-icon {
     flex-shrink: 0;
@@ -2177,6 +2191,7 @@
     display: none;
     z-index: 2;
     transform: translate(-50%, 50%);
+    transition: left 0.25s ease, bottom 0.25s ease;
 }
 /*말풍선*/
 .tooltip-card-risk {
@@ -2195,6 +2210,7 @@
     --tail-x: 50%;
     --tail-y: 50%;
     box-shadow: 0 3px 4px 0 #ddd;
+    transition: left 0.25s ease, top 0.25s ease, opacity 0.2s ease;
 }
 .tooltip-card-risk.tail-bottom::after,
 .tooltip-card-risk.tail-bottom::before,
@@ -2260,9 +2276,8 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 2px;
-    white-space: normal;
-    max-width: 150px;
-    word-break: keep-all;
+    white-space: nowrap;
+    max-width: 220px;
 }
 .tooltip-card-risk.is-stacked .tooltip-amount-risk {
     align-self: flex-end;
@@ -2391,7 +2406,12 @@
 }
 
 /* ===== sheetCoverage: 가입자 플랜별 보장내역 ===== */
-.cov-body {}
+/* cov-head + cov-tabs-wrap은 고정, cov-main만 세로 스크롤되도록 body를 flex column으로 재구성 */
+.cov-body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
 /* 우측 상단 보험사 로고: 원래 .ai-plancard_ins-logo는 카드 안쪽 기준이라
 		   시트(.slide-sheet_ins) 기준으로 위치만 다시 잡아준다 */
 #sheetCoverage .ai-plancard_ins-logo {
@@ -2400,6 +2420,7 @@
     z-index: 3;
 }
 .cov-head {
+    flex-shrink: 0;
     padding: 50px 0 4px;
     text-align: center;
 }
@@ -2426,7 +2447,9 @@
 }
 /* 인원 탭: 좌우 스크롤. 부모(.slide-sheet_ins-body)의 20px 인셋 그대로 사용 (bleed 안 함) */
 .cov-tabs-wrap {
+    flex-shrink: 0;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     touch-action: pan-x;
@@ -2492,6 +2515,10 @@
 
 /* 본문: 그라데이션 배경은 화면 양끝까지 꽉 채우고(bleed), 안쪽 카드들은 다시 20px 패딩으로 인셋 */
 .cov-main {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     margin: 15px -20px 0;
     padding: 25px 20px 20px;
     background: linear-gradient(180deg, #BDDCFF 0%, #fff 500px);
@@ -3027,7 +3054,7 @@
     from {
         transform: translateX(0);
     }
-    to { 
+    to {
         transform: translateX(-50%);
     }
 }
@@ -3307,6 +3334,7 @@
     font-size: 11.5px;
     color: #ff6600;
 }
+
 /* ==========================================================================
    [추가] .insure_cont 로딩바 (service_insur_v1.html의 .ins-v1-loading 디자인을
    그대로 가져오되, 전체화면 고정(position:fixed)이 아닌 .insure_cont 영역 안에서만
