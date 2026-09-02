@@ -69,6 +69,10 @@
     overflow-x: hidden;
     padding: 0 20px;
     margin-bottom: 20px;
+    scrollbar-width: none;
+}
+.slide-sheet_ins-body::-webkit-scrollbar {
+    display: none;
 }
 .slide-sheet_ins .btn_footer_close {
     position: absolute;
@@ -3399,5 +3403,174 @@
 @keyframes ins-loadingbar-dot {
     0%, 100% { opacity: 0.3; transform: translateY(0); }
     50% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* ===== sheetTerms: Chubb 해외여행보험 약관 전문 (원문 HTML의 class를 그대로 재사용, 라이트 톤으로만 스킨) ===== */
+.terms-doc {
+    padding-bottom: 10px;
+    font-family: 'PretendardR';
+    font-size: 13px;
+    color: #222;
+    line-height: 1.7;
+}
+.terms-doc .book { margin-bottom: 28px; }
+.terms-doc .book:last-child { margin-bottom: 0; }
+.terms-doc .book-title {
+    font-size: 16px;
+    font-family: 'PretendardB';
+    color: #222;
+    line-height: 1.35;
+    padding-bottom: 10px;
+    margin: 0 0 16px;
+    border-bottom: 2px solid #222;
+}
+.terms-doc .book-title em {
+    font-style: normal;
+    color: #1A85FF;
+}
+.terms-doc .part,
+.terms-doc .bupyo,
+.terms-doc .special {
+    margin-bottom: 20px;
+}
+.terms-doc .part-title,
+.terms-doc .special-title {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 14px;
+    font-family: 'PretendardSB';
+    color: #222;
+    margin: 0 0 10px;
+    padding: 8px 10px;
+    background: #F4F8FF;
+    border-radius: 8px;
+}
+.terms-doc .part-num,
+.terms-doc .special-num {
+    flex-shrink: 0;
+    font-family: 'PretendardSB';
+    color: #1A85FF;
+    font-size: 12px;
+    white-space: nowrap;
+}
+.terms-doc .part-intro {
+    margin: 0 0 10px;
+    color: #555;
+    font-size: 12.5px;
+}
+.terms-doc .clause { margin: 0 0 16px; }
+.terms-doc .clause h4 {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 13.5px;
+    font-family: 'PretendardSB';
+    color: #222;
+    margin: 0 0 6px;
+}
+.terms-doc .clause-tag {
+    flex-shrink: 0;
+    font-family: 'PretendardSB';
+    font-size: 11px;
+    color: #fff;
+    background: #222;
+    border-radius: 4px;
+    padding: 2px 6px;
+    white-space: nowrap;
+}
+.terms-doc .clause-body { font-size: 13px; color: #222; }
+.terms-doc .clause-body p { margin: 8px 0; }
+/* 원문의 중첩 목록(ol/ul + .mk 마커 + .tx 텍스트) 구조를 그대로 사용 */
+.terms-doc .clause-body ol,
+.terms-doc .clause-body ul,
+.terms-doc .part-intro ol,
+.terms-doc .part-intro ul {
+    list-style: none;
+    margin: 8px 0;
+    padding-left: 0;
+}
+.terms-doc .clause-body li,
+.terms-doc .part-intro li {
+    margin: 6px 0;
+    padding-left: 22px;
+    position: relative;
+}
+.terms-doc .clause-body li > .mk,
+.terms-doc .part-intro li > .mk {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: 'PretendardSB';
+    font-size: 0.9em;
+    color: #1A85FF;
+}
+.terms-doc .clause-body li ol,
+.terms-doc .clause-body li ul {
+    margin: 6px 0 4px;
+}
+.terms-doc .lv-circled > li { padding-left: 26px; }
+.terms-doc .note {
+    margin: 10px 0;
+    padding: 12px 14px;
+    background: #f6f8ff;
+    border-radius: 10px;
+    font-size: 12.5px;
+}
+.terms-doc .note-label {
+    display: block;
+    font-family: 'PretendardSB';
+    font-size: 11px;
+    color: #1A85FF;
+    margin-bottom: 4px;
+}
+.terms-doc .note-label::before { content: "※ "; }
+.terms-doc .note-body { color: #555; }
+.terms-doc .twrap {
+    overflow-x: auto;
+    margin: 10px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    -webkit-overflow-scrolling: touch;
+}
+.terms-doc table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 340px;
+    font-size: 11.5px;
+}
+.terms-doc thead th {
+    background: #F4F6F7;
+    padding: 9px 4px;
+    font-family: 'PretendardSB';
+    color: #222;
+    text-align: left;
+    white-space: nowrap;
+}
+.terms-doc tbody td {
+    padding: 9px 6px;
+    border-top: 1px solid #e5e5e5;
+    color: #222;
+    vertical-align: top;
+    line-height: 1.6;
+}
+.terms-doc .attach .book-title { border-bottom-color: #1A85FF; }
+
+/* sheetTerms: 본문은 iframe(OTA_P.html)이 통째로 채우고, 그 안에서 자체 스크롤 */
+.terms-sheet-body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+}
+.terms-sheet-body .myinfo-header {
+    flex-shrink: 0;
+    padding: 50px 20px 10px;
+}
+.terms-iframe {
+    flex: 1;
+    width: 100%;
+    border: 0;
 }
 /* ===== //_heart 하단 바 ===== */
