@@ -19,7 +19,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none; 
+    border: none;
     border-radius: 6px;
     background: transparent;
     color: #666;
@@ -274,9 +274,27 @@
     color: #1A85FF;
     font-weight: 700;
 }
+.myinfo-bottom-btn{
+    display: flex;
+}
+.myinfo-x-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;    
+    flex-shrink: 0;
+    height: 50px;
+    border: none;
+    background: #fff;
+    color: #1A85FF;    
+    font-size: 15px;
+    font-family: 'PretendardSB';
+    cursor: pointer;
+    border-top: 1px solid #1A85FF;
+}
 .myinfo-confirm-btn {
     display: block;
-    width: 100%;
+    width: 70%;
     flex-shrink: 0;
     height: 50px;
     border: none;
@@ -409,7 +427,7 @@
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.4);
-    z-index: 1300;
+    z-index: 10000;
     align-items: center;
     justify-content: center;
     padding: 24px;
@@ -666,6 +684,7 @@
     display: grid;
     grid-template-columns: repeat(7,1fr);
     grid-template-rows: repeat(6,1fr);
+    row-gap: 10px;
     margin-bottom: 12px;
 }
 .rc-day {
@@ -703,15 +722,71 @@
 .rc-day.disabled { pointer-events: none; }
 .rc-day.disabled .rc-day-num { color: #ddd; }
 .rc-day.empty { pointer-events: none; }
+.rc-day-tag {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: #1A85FF;
+    white-space: nowrap;
+}
+
+/* 연도 선택 그리드 (.rc-title 클릭 시 노출) */
+.rc-year-grid,
+.rc-month-grid {
+    display: none;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(3,1fr);
+    height: calc((min(100vw, 600px) - 40px) / 7 * 6 + 5 * 10px);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.rc-year,
+.rc-month {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    color: #222;
+    cursor: pointer;
+}
+.rc-year.active,
+.rc-month.active {
+    border-color: #1A85FF;
+    background: #1A85FF;
+    color: #fff;
+    font-weight: 700;
+}
+.rc-panel.picker-mode .rc-header {
+    justify-content: center;
+}
+.rc-panel.picker-mode .rc-weekdays,
+.rc-panel.picker-mode .rc-grid,
+.rc-panel.picker-mode .rc-prev,
+.rc-panel.picker-mode .rc-next,
+.rc-panel.picker-mode .rc-hint {
+    display: none;
+}
+.rc-panel.year-mode .rc-year-grid,
+.rc-panel.month-mode .rc-month-grid {
+    display: grid;
+    animation: rcYearGridIn 200ms ease;
+}
+@keyframes rcYearGridIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+}
 
 /* 구간 띠: 시작~끝 사이(양끝 포함) 셀 배경을 이어 붙임 */
 .rc-day.in-range::before {
     content: '';
     position: absolute;
-    top: 4px;
-    bottom: 4px;
+    top: 50%;
     left: 0;
     right: 0;
+    height: 34px;
+    transform: translateY(-50%);
     background: #eaf3ff;
     z-index: 0;
 }
@@ -3358,12 +3433,16 @@
    그대로 가져오되, 전체화면 고정(position:fixed)이 아닌 .insure_cont 영역 안에서만
    표시되도록 변경함. 배경은 흰색.
    ========================================================================== */
+.insure_cont {
+    position: relative;
+    min-height: 60vh;
+}
 .ins-loadingbar {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000;
+    z-index: 800;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -3570,6 +3649,92 @@
     line-height: 1.6;
 }
 .terms-doc .attach .book-title { border-bottom-color: #1A85FF; }
+.terms-doc table table { min-width: 0; margin: 8px 0; }
+.terms-doc table table th,
+.terms-doc table table td { font-size: 11px; }
+.terms-doc td.tblcell-nested { padding: 9px 6px 12px; }
+
+/* 원문의 세로 흐름도(예: 위험변경에 따른 계약변경 절차) */
+.terms-doc .flow {
+    margin: 10px 0;
+    padding: 12px 14px 4px;
+    background: #f6f8ff;
+    border-radius: 10px;
+}
+.terms-doc .flow-title {
+    font-family: 'PretendardSB';
+    font-size: 11px;
+    color: #1A85FF;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.terms-doc .flow-step {
+    background: #fff;
+    border: 1px solid #d7ddf0;
+    border-radius: 6px;
+    padding: 9px 10px;
+    font-size: 12px;
+    text-align: center;
+    color: #222;
+}
+.terms-doc .flow-arrow {
+    text-align: center;
+    color: #9aa5c8;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* 원문의 가로 기간(타임라인) 예시 - 보상대상기간/보장한도 복원 등, 화살표는 항상 위쪽 경계를 가리킴 */
+.terms-doc .timeline { margin: 14px 0 10px; overflow-x: auto; }
+.terms-doc .timeline-cap { text-align: center; font-size: 12px; color: #555; margin-bottom: 10px; }
+.terms-doc .timeline-bars { display: flex; min-width: 460px; }
+.terms-doc .timeline-bars > div {
+    flex: 1;
+    background: #eceef4;
+    border: 1px solid #ccc;
+    border-left: none;
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 11.5px;
+    color: #333;
+}
+.terms-doc .timeline-bars > div:first-child { border-left: 1px solid #ccc; }
+.terms-doc .timeline-sub { display: flex; min-width: 460px; }
+.terms-doc .timeline-sub > div {
+    flex: 1;
+    text-align: center;
+    padding: 4px 4px 0;
+    font-size: 11px;
+    color: #777;
+}
+.terms-doc .timeline-axis { position: relative; height: 40px; min-width: 460px; margin-top: 2px; }
+.terms-doc .timeline-tick {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 11px;
+    color: #333;
+    white-space: nowrap;
+}
+.terms-doc .timeline-tick::before { content: "↑"; color: #1A85FF; line-height: 1.1; font-size: 13px; }
+
+/* 원문의 박스형 계산식(예: 건강보험 본인부담률 =, 손해액 × 분수) */
+.terms-doc .calc-box {
+    margin: 10px 0;
+    padding: 12px 14px;
+    border: 1px dashed #bbb;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #222;
+    text-align: center;
+}
+.terms-doc .calc-frac { display: inline-block; text-align: center; vertical-align: middle; margin: 4px 6px; }
+.terms-doc .calc-frac .num { display: block; padding: 0 2px 4px; border-bottom: 1px solid #222; }
+.terms-doc .calc-frac .den { display: block; padding: 4px 2px 0; }
+
 
 /* sheetTerms: 본문은 iframe(OTA_P.html)이 통째로 채우고, 그 안에서 자체 스크롤 */
 .terms-sheet-body {
@@ -3587,4 +3752,3 @@
     width: 100%;
     border: 0;
 }
-/* ===== //_heart 하단 바 ===== */
