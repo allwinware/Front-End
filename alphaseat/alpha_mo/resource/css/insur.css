@@ -1139,6 +1139,7 @@
     border-radius: 20px;
 }
 .ai-analysis_ins-bottom-roll {
+    position: relative;
     flex: 1;
     min-width: 0;
     height: 18px;
@@ -1148,10 +1149,25 @@
     transition: transform 0.5s cubic-bezier(.4,0,.2,1);
 }
 .ai-analysis_ins-bottom-item {
-    height: 18px;
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     gap: 6px;
+    visibility: hidden;
+    transform: translateY(14px);
+    transition: transform 0.45s cubic-bezier(.16,.84,.44,1);
+    pointer-events: none;
+}
+.ai-analysis_ins-bottom-item.is-active {
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.ai-analysis_ins-bottom-item.is-leaving {
+    visibility: visible;
+    transform: translateY(-14px);
+    transition: transform 0.28s cubic-bezier(.4,0,1,1);
 }
 .ai-analysis_ins-bottom-icon {
     flex-shrink: 0;
