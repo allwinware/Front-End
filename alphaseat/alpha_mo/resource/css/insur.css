@@ -956,7 +956,7 @@
     margin: 0 auto;
     background: #fff;
     border-radius: 18px;
-    padding: 18px 18px 0;
+    padding: 18px 18px 18px;
     box-shadow: 0 4px 14px rgba(20,24,40,.06);
     box-sizing: border-box;
     overflow: hidden;
@@ -1001,7 +1001,7 @@
     position: relative;
     flex: 1;
     min-width: 0;
-    height: 34px;
+    height: 125px;
     overflow: hidden;
 }
 .ai-analysis_ins-slide {
@@ -1034,14 +1034,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
-    margin-bottom: 14px;
 }
 .ai-analysis_ins-text-icon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     display: inline-block;
     vertical-align: middle;
     margin-right: 4px;
+    margin-bottom: 3px;
 }
 .ai-analysis_ins-text b {
     color: #ff3b30;
@@ -1049,38 +1049,10 @@
 }
 .ai-analysis_ins-img {
     display: block;
-    max-width: 65%;
-    height: auto;
+    width: 250px;
+    height: 112px;
     margin: 0 auto;
-    width: 180px;
-}
-
-/* 이미지 롤링 영역: 정상 흐름으로 카드 맨 밑(bottom:0)까지 자연스럽게 붙임 */
-.ai-analysis_ins-imgroll {
-    margin-bottom: 6px;
-}
-.ai-analysis_ins-imgroll-viewport {
-    position: relative;
-    display: grid;
-}
-.ai-analysis_ins-img-slide {
-    grid-area: 1 / 1;
-    display: flex;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(14px);
-    transition: transform 0.45s cubic-bezier(.16,.84,.44,1), opacity 0.45s cubic-bezier(.16,.84,.44,1);
-    pointer-events: none;
-}
-.ai-analysis_ins-img-slide.is-active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-.ai-analysis_ins-img-slide.is-leaving {
-    opacity: 0;
-    transform: translateY(-14px);
-    transition: transform 0.28s cubic-bezier(.4,0,1,1), opacity 0.28s cubic-bezier(.4,0,1,1);
+    margin-bottom: -2px;
 }
 .ai-analysis_ins-chevron {
     flex-shrink: 0;
@@ -1106,15 +1078,12 @@
     }
 }
 @media (prefers-reduced-motion: reduce) {
-    #sheetFaq,
-    #sheetInsur2,
-    #sheetPlanInfo,
-    .ai-analysis_ins-bottom-item,
-    .ai-analysis_ins-bottom-item.is-leaving,
     .ai-analysis_ins-slide,
     .ai-analysis_ins-slide.is-leaving,
-    .ai-analysis_ins-img-slide,
-    .ai-analysis_ins-img-slide.is-leaving {
+    .ai-analysis_ins-bottom-track,
+    #sheetPlanInfo,
+    #sheetFaq,
+    #sheetInsur2 {
         transition-duration: 0.01ms !important;
     }
 }
@@ -1162,45 +1131,27 @@
 
 /* 하단 롤링: 보상 사례 티커, 아래→위로 3초마다 세로 슬라이드 (.rolling-msg_heart와 동일한 방식) */
 .ai-analysis_ins-bottom {
-    position: absolute;
-    left: 18px;
-    right: 18px;
-    bottom: 14px;
-    z-index: 2;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 5px 14px;
-    background: rgba(241, 244, 245, 0.7);
+    background: #f1f4f5;
     border-radius: 20px;
 }
 .ai-analysis_ins-bottom-roll {
-    position: relative;
     flex: 1;
     min-width: 0;
     height: 18px;
     overflow: hidden;
 }
+.ai-analysis_ins-bottom-track {
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+}
 .ai-analysis_ins-bottom-item {
-    position: absolute;
-    inset: 0;
+    height: 18px;
     display: flex;
     align-items: center;
     gap: 6px;
-    visibility: hidden;
-    transform: translateY(14px);
-    transition: transform 0.45s cubic-bezier(.16,.84,.44,1);
-    pointer-events: none;
-}
-.ai-analysis_ins-bottom-item.is-active {
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-.ai-analysis_ins-bottom-item.is-leaving {
-    visibility: visible;
-    transform: translateY(-14px);
-    transition: transform 0.28s cubic-bezier(.4,0,1,1);
 }
 .ai-analysis_ins-bottom-icon {
     flex-shrink: 0;
@@ -1216,17 +1167,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 12.5px;
-    color: #222;
+    font-size: 11px;
+    color: #555;
     font-family: 'PretendardR';
-}
-.ai-analysis_ins-bottom .ai-analysis_ins-chevron {
-    color: #222;
 }
 .ai-analysis_ins-bottom-amt {
     flex-shrink: 0;
     white-space: nowrap;
-    font-size: 12.5px;
+    font-size: 11px;
     color: #1A85FF;
     font-family: 'PretendardSB';
 }
