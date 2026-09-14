@@ -1233,14 +1233,14 @@
 				</div>
 				<div class="bh-summary-right">
 					<div class="bh-summary-group">
-						<svg class="bh-summary-heart" width="15" height="13.5" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<svg class="bh-summary-heart" width="22" height="18.5" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M13.5 20.5C13.5 20.5 1.5 13 1.5 7C1.5 4 4 1.5 7 1.5C9.2 1.5 11.3 2.8 13.5 4.6C15.7 2.8 17.8 1.5 20 1.5C23 1.5 25.5 4 25.5 7C25.5 13 13.5 20.5 13.5 20.5Z" fill="#FF523C" stroke="#FF523C" stroke-width="0.5"/>
 						</svg>
 						<span class="bh-summary-num bh-summary-num--red">35<span class="bh-summary-pct">%</span><span class="bh-summary-label bh-summary-label--red">가입전</span></span>
 					</div>
 					<img src="./resource/img/common/union.png" alt="" class="bh-summary-union">
 					<div class="bh-summary-group">
-						<svg class="bh-summary-heart" width="15" height="13.5" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<svg class="bh-summary-heart" width="22" height="18.5" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M13.5 20.5C13.5 20.5 1.5 13 1.5 7C1.5 4 4 1.5 7 1.5C9.2 1.5 11.3 2.8 13.5 4.6C15.7 2.8 17.8 1.5 20 1.5C23 1.5 25.5 4 25.5 7C25.5 13 13.5 20.5 13.5 20.5Z" fill="#13E0FF" stroke="#13E0FF" stroke-width="0.5"/>
 						</svg>
 						<span class="bh-summary-num bh-summary-num--blue">92<span class="bh-summary-pct">%</span><span class="bh-summary-label bh-summary-label--blue">가입시</span></span>
@@ -2223,7 +2223,10 @@
 
 		if (priceEl)    priceEl.innerHTML  = fmt(p.prices[p.curIdx]) + '원 <span class="ai-plancard_ins-price-days">/ ' + TRIP_DAYS + '일</span>';
 		if (pctEl)      pctEl.textContent    = 'AI 안심 ' + plan.aiScore + '%';
-		if (tierEl)     tierEl.textContent   = plan.name + ' ' + plan.coverage;
+		if (tierEl) {
+			tierEl.textContent = plan.name + ' ' + plan.coverage;
+			tierEl.classList.toggle('ai-plancard_ins-tier--sm', plan.name === '실속형');
+		}
 		if (planInfoEl) planInfoEl.classList.toggle('is-changed', isChanged);
 	}
 
@@ -2266,7 +2269,7 @@
 					'<button type="button" class="ai-plancard_ins-arrow" data-dir="-1">&#8249;</button>',
 					'<div class="ai-plancard_ins-plan-info', (isChanged ? ' is-changed' : ''), '">',
 						'<div class="ai-plancard_ins-pct">AI 안심 ', plan.aiScore, '%</div>',
-						'<div class="ai-plancard_ins-tier">', plan.name, ' ', plan.coverage, '</div>',
+						'<div class="ai-plancard_ins-tier', (plan.name === '실속형' ? ' ai-plancard_ins-tier--sm' : ''), '">', plan.name, ' ', plan.coverage, '</div>',
 					'</div>',
 					'<button type="button" class="ai-plancard_ins-arrow" data-dir="1">&#8250;</button>',
 				'</div>'
