@@ -848,3 +848,51 @@ document.addEventListener('mouseout', function (e) {
     tooltip.style.display = 'none';
   }
 });
+
+/* ============================================================
+   보험 (service_insure.html)
+   모바일 alpha.mo.ui.js에서 가져온 .btn_slide_open_ins / .slide-sheet_ins
+   마크업이 동작하는 데 필요한 최소 로직만 옮겨온 것입니다.
+   (alpha.mo.ui.js 전체를 로드하면 그 안의 layerPop()이 위에서 정의한
+   PC용 layerPop()을 덮어써서 다른 PC 팝업이 깨지므로, 여기 필요한
+   부분만 따로 둡니다.)
+   ============================================================ */
+$(document).ready(function () {
+  var $insureBody = $('.insure_body');
+  if (!$insureBody.length) return; // 보험 페이지가 아니면 아무 것도 하지 않음
+
+  var _lockScrollY = 0;
+  function bodyLock() {
+    _lockScrollY = window.scrollY;
+    $('body').css({ position: 'fixed', top: -_lockScrollY + 'px', width: '100%', overflow: 'hidden' });
+  }
+  function bodyUnlock() {
+    $('body').css({ position: '', top: '', width: '', overflow: '' });
+    window.scrollTo(0, _lockScrollY);
+  }
+
+  /* 딤/슬라이드시트/각종 오버레이(약관·안내·달력 팝업 등)가 화면 전체가 아니라
+     .insure_body 폭(=오른쪽 부가서비스 내역과 겹치지 않는 영역)에서만 뜨도록,
+     position:fixed는 유지한 채 left/width만 .insure_body 기준으로 동기화합니다. */
+  var $overlays = $('.slide-sheet_ins, .ins-terms_popup, .info-modal_ins, .datepicker-overlay, .timepicker-overlay, .rc-overlay');
+  function syncOverlayBounds() {
+    var rect = $insureBody[0].getBoundingClientRect();
+    $overlays.css({ left: rect.left + 'px', width: rect.width + 'px', right: 'auto' });
+  }
+  syncOverlayBounds();
+  $(window).on('resize', syncOverlayBounds);
+
+  $(document).on("click", ".btn_slide_open_ins", function (e) {
+    e.preventDefault();
+    var targetId = $(this).data("sheet");
+    syncOverlayBounds();
+    $("#" + targetId).addClass("is-open");
+    $(".dimmed_bg, .dimmed_bgs").css("display", "block");
+    bodyLock();
+  });
+  $(document).on("click", ".btn_slide_close_ins", function () {
+    $(".slide-sheet_ins.is-open").removeClass("is-open");
+    $(".dimmed_bg, .dimmed_bgs").css("display", "none");
+    bodyUnlock();
+  });
+});
