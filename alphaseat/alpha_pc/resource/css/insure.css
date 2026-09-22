@@ -22,6 +22,23 @@
     z-index: auto;
 }
 
+/* 하단 고정 바 : 선택안함 / AI맞춤플랜 가입 / 결제하기 (보험 페이지 전용 블루 톤,
+   기존 .menubox_btom_box1/box2의 크기·레이아웃은 그대로 두고 색상만 바꿉니다) */
+.menubox_btom_box1 {
+    color: #1A85FF;
+    border-color: #1A85FF;
+}
+.menubox_btom_box1:hover {
+    color: #fff;
+    background-color: #1A85FF;
+}
+.menubox_btom_box2 {
+    background-color: #1A85FF;
+}
+.menubox_btom_box2:not(:last-child) {
+    margin-right: 41px;
+}
+
 .insurebar-plane {
     display: inline-flex;
     align-items: center;
@@ -1350,7 +1367,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    height: 64px;
+    height: 75px;
     padding: 0 14px;
     background-color: #fff;
     box-sizing: border-box;
@@ -1446,7 +1463,8 @@
     border: 2px solid #1A85FF;
     border-radius: 4px;
     overflow: hidden;
-    width: 108px;
+    width: 140px;
+    height: 55px;
     background: linear-gradient(to top, #ECF5FF 0%, #fff 50%);
     transition: border-color 0.2s;
 }
@@ -1475,11 +1493,11 @@
 .ai-plancard_ins-plan-info {
     flex: 1;
     text-align: center;
-    padding: 6px 0;
+    padding: 9px 0;
     min-width: 0;
 }
 .ai-plancard_ins-pct {
-    font-size: 10px;
+    font-size: 12px;
     color: #1A85FF;
     font-family: 'PretendardR';
     line-height: 1.4;
@@ -1487,7 +1505,7 @@
     transition: color 0.2s;
 }
 .ai-plancard_ins-tier {
-    font-size: 14px;
+    font-size: 15px;
     color: #1A85FF;
     font-family: 'PretendardSB';
     line-height: 1.4;
@@ -1495,9 +1513,10 @@
     transition: color 0.2s;
     letter-spacing: -0.3px;
 }
-/* 실속형 5000만원처럼 글자수가 많은 플랜명만 폰트를 줄임 */
+/* 실속형 5000만원처럼 글자수가 많아도 폰트/버튼 크기를 줄이지 않고
+   .ai-plancard_ins-selector 폭(140px)을 넉넉히 잡아 그대로 유지합니다. */
 .ai-plancard_ins-tier--sm {
-    font-size: 10px;
+    font-size: 14.5px;
 }
 
 
@@ -1510,7 +1529,7 @@
 /* AI 추천 아닌 플랜 선택 시 톤다운 */
 .ai-plancard_ins-plan-info.is-changed .ai-plancard_ins-pct,
 .ai-plancard_ins-plan-info.is-changed .ai-plancard_ins-tier {
-    color: #555;
+    color: #222;
 }
 /* 체크 해제 상태에서는 위 톤다운보다 우선해서 회색 처리 */
 .ai-plancard_ins-row.is-unchecked .ai-plancard_ins-plan-info.is-changed .ai-plancard_ins-pct,
@@ -1521,6 +1540,7 @@
 .ai-plancard_ins-foot {
     padding: 10px 14px;
     background-color: #fff;
+    height: 47px;
 }
 .ai-plancard_ins-total {
     position: relative;
@@ -1550,7 +1570,7 @@
     gap: 3px;
 }
 .ai-plancard_ins-logo img {
-    height: 12px;
+    height: 18px;
     display: block;
 }
 .ai-plancard_ins-perday {
@@ -1574,7 +1594,7 @@
     border-radius: 6px;
     background: #fff;
     color: #222;
-    font-size: 12px;
+    font-size: 14px;
     height: 26px;
     font-family: 'PretendardR';
     cursor: pointer;
@@ -1582,7 +1602,7 @@
 }
 .ai-plancard_ins-cta-note {
     margin-top: 13px;
-    font-size: 11px;
+    font-size: 12px;
     font-family: 'PretendardR';
     color: #222;
     text-align: center;
@@ -3877,4 +3897,12 @@
 
 .insure_credit_total .insure_credit_total_box{
 	color: #222;
+}
+
+.gnb-header-bottom div .gnb-header-bottom-txt.active_insure {
+    color: #1A85FF;
+    border-bottom: 3px solid #1A85FF;
+    pointer-events: none;
+    cursor: default;
+
 }
