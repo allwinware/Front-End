@@ -6,7 +6,7 @@
 	<meta name="viewport"
 		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
 	<title>AlphaSeat</title>
-	<link rel="stylesheet" href="./resource/css/insur.css"> 
+	<link rel="stylesheet" href="./resource/css/insur_nol.css">
 	<link rel="stylesheet" href="./resource/css/newui.css">
 	<link rel="stylesheet" href="./resource/css/content.css">
 	<link rel="stylesheet" href="./resource/css/reset.css">
@@ -17,7 +17,7 @@
 <!--
 <body onload="layerPop('popup_loading');">	
 --> 
-<body> 
+<body>	
 	<div class="ags-wrap newui insurtst">
 		<h1 class="site-name">올윈에어</h1>		
 		<div class="dimmed_bgs" style="display: none;"></div>
@@ -27,7 +27,7 @@
 					<a href="index.html ">좌석지정</a>
 					<a href="service_baggage.html" class="">수하물</a>
 					<a href="service_food.html" class="">기내식</a>
-					<a href="service_insurance.html" class="active">여행보험</a>
+					<a href="service_insurance.html" class="active">여행자보험</a>
 				</div>
 				<div class="gnb-wrap newmyp">	
 					<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
@@ -42,7 +42,7 @@
 									<span >이지영</span>님
 								</div>
 								<div class="newmyp-txt">
-									<div class="newmyp-txt1">좌석지정 / 수하물 / 기내식 / 여행보험 </div>
+									<div class="newmyp-txt1">좌석지정 / 수하물 / 기내식 / 여행자보험 </div>
 
 									<div class="newmyp-txt2">공항에선 할인 안되고 구매하기 어려워요!</div>
 								</div>
@@ -88,7 +88,7 @@
 									<div><span>1522-4148</span> <span>(평일 10:00~17:00)</span></div>
 								</div>
 								<div class="newmyp-center_txt2">
-									<div><i class="newmyp-center_icon4"></i>여행보험 문의</div>
+									<div><i class="newmyp-center_icon4"></i>여행자보험 문의</div>
 									<div><span>1566-5800</span> <span>(평일 09:00~18:00)</span></div>
 								</div>
 							</div>
@@ -97,14 +97,83 @@
 				</div>
 			</div>
 		</header>
-		<!-- =============================================== ============
-		     메인 화면: 보험 상품 목록 + AI 추천 플랜 카드
-		     ============================================================ -->
 		<div class="insure_body">
-			<div class="insure_topbar">
+			<!-- ===== NOL: 여행자보험 플랜 선택 (신규) ===== -->
+			<div class="nol-hero">
+				<h2 class="nol-hero-title">여행자 보험,<br>정보 입력 없이 한번에 끝내기</h2>
+				<p class="nol-hero-sub">일정 전까지 100% 무료 취소!</p>
+				<div class="nol-hero-date">
+					<span id="nolDateRangeTxt">27.07.23 00:00~07.26 23:59 (5일)</span>
+					<button type="button" class="nol-hero-date-btn" id="nolDateChangeBtn">변경</button>
+				</div>
+			</div>
+
+			<div class="nol-plans-wrap">
+				<div class="nol-plans" id="nolPlans">
+					<div class="nol-plan-card" data-plan="basic">
+						<div class="nol-plan-badges">
+							<span class="nol-badge nol-badge-blue">실속형</span>
+						</div>
+						<h3 class="nol-plan-title">최저 가격으로 보장받는</h3>
+						<ul class="nol-plan-feats">
+							<li><span class="nol-feat-r">휴대폰 손해</span> <span class="nol-feat-sb">100만원 보장</span></li>
+							<li><span class="nol-feat-r">해외발생 질병 의료비</span> <span class="nol-feat-sb">5천만원 보장</span></li>
+						</ul>
+						<div class="nol-plan-price"><span class="nol-plan-price-label">성인 1인/3일</span> <span class="nol-plan-price-amt">11,027원</span></div>
+						<button type="button" class="nol-plan-cta" data-plan-cta="basic">
+							<svg class="nol-plan-cta-icon nol-plan-cta-icon--add" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="#1B1C1F" stroke-width="2" stroke-linecap="round"/></svg>
+							<img class="nol-plan-cta-icon nol-plan-cta-icon--cancel" src="./resource/img/common/img_inure_nol1.png" alt="">
+							<span class="nol-plan-cta-txt">실속형 추가하기</span>
+						</button>
+					</div>
+					<div class="nol-plan-card" data-plan="standard">
+						<div class="nol-plan-badges">
+							<span class="nol-badge nol-badge-blue">표준형</span>
+							<span class="nol-badge nol-badge-red">같은 지역 여행자 73% 선택</span>
+						</div>
+						<h3 class="nol-plan-title">합리적 가격에 보장받는</h3>
+						<ul class="nol-plan-feats">
+							<li><span class="nol-feat-r">휴대폰 손해</span> <span class="nol-feat-sb">120만원 보장</span></li>
+							<li><span class="nol-feat-r">해외발생 질병 의료비</span> <span class="nol-feat-sb">7천만원 보장</span></li>
+						</ul>
+						<div class="nol-plan-price"><span class="nol-plan-price-label">성인 1인/3일</span> <span class="nol-plan-price-amt">14,117원</span></div>
+						<button type="button" class="nol-plan-cta" data-plan-cta="standard">
+							<svg class="nol-plan-cta-icon nol-plan-cta-icon--add" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="#1B1C1F" stroke-width="2" stroke-linecap="round"/></svg>
+							<img class="nol-plan-cta-icon nol-plan-cta-icon--cancel" src="./resource/img/common/img_inure_nol1.png" alt="">
+							<span class="nol-plan-cta-txt">표준형 추가하기</span>
+						</button>
+					</div>
+					<div class="nol-plan-card" data-plan="premium">
+						<div class="nol-plan-badges">
+							<span class="nol-badge nol-badge-blue">고급형</span>
+						</div>
+						<h3 class="nol-plan-title">최대 3억까지 보장받는</h3>
+						<ul class="nol-plan-feats">
+							<li><span class="nol-feat-r">휴대폰 손해</span> <span class="nol-feat-sb">150만원 보장</span></li>
+							<li><span class="nol-feat-r">해외발생 질병 의료비</span> <span class="nol-feat-sb">1억원 보장</span></li>
+						</ul>
+						<div class="nol-plan-price"><span class="nol-plan-price-label">성인 1인/3일</span> <span class="nol-plan-price-amt">19,210원</span></div>
+						<button type="button" class="nol-plan-cta" data-plan-cta="premium">
+							<svg class="nol-plan-cta-icon nol-plan-cta-icon--add" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="#1B1C1F" stroke-width="2" stroke-linecap="round"/></svg>
+							<img class="nol-plan-cta-icon nol-plan-cta-icon--cancel" src="./resource/img/common/img_inure_nol1.png" alt="">
+							<span class="nol-plan-cta-txt">고급형 추가하기</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="nol-coverage-row">
+				<span class="nol-coverage-provider">라이나손해보험 제공</span>
+				<button type="button" class="nol-coverage-link btn_slide_open_ins" data-sheet="sheetNolCoverage">
+					36개 보장 항목 상세보기
+					<svg width="7" height="12" viewBox="0 0 9 14" fill="none"><path d="M1.5 1l6 6-6 6" stroke="#1B1C1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</button>
+			</div>
+			<!-- ===== // NOL 신규 영역 끝 ===== -->
+			<div class="insure_topbar" style="display:none;">
 				<div class="insurebar">
 					<div class="insurebartxt">
-						<i class="insurebar-plane" aria-hidden="true">
+						<i class="insurebar-plane">
 							<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
 								<path
 									transform="rotate(90 12 12)"
@@ -119,7 +188,7 @@
 						</div>
 					</div>
 					<div class="insurebarbtn">
-						<span class="insurebarbtn-divider" aria-hidden="true"></span>
+						<span class="insurebarbtn-divider"></span>
 						<button
 							type="button"
 							class="insurebarbtn-toggle btn_slide_open_ins"
@@ -152,34 +221,26 @@
 							<p class="ai-analysis_ins-text"><img class="ai-analysis_ins-text-icon" src="./resource/img/common/child_icon1.png" alt="">질병·상해 대비 필요 :
 								<b>여행평균보다 1.5배 높아요!</b>
 							</p>
-							<img
-								class="ai-analysis_ins-img"
-								src="./resource/img/common/insure_img01.png"
-								alt=""></div>
-							<div class="ai-analysis_ins-slide">
-								<p class="ai-analysis_ins-text">파손·도난 대비 필요 :
-									<b>여행평균보다 5.0배 높아요!</b>
-								</p>
-								<img
-									class="ai-analysis_ins-img"
-									src="./resource/img/common/insure_img02.png"
-									alt=""></div>
-								<div class="ai-analysis_ins-slide">
-									<p class="ai-analysis_ins-text">의료비용 부담 :
-										<b>여행평균보다 2.0배 높아요!</b>
-									</p>
-									<img
-										class="ai-analysis_ins-img"
-										src="./resource/img/common/insure_img03.png"
-										alt=""></div>
-									<div class="ai-analysis_ins-slide">
-										<p class="ai-analysis_ins-text">
-											<b>갑작스러운 항공기 지연·결항에 미리 대비하세요!</b>
-										</p>
-										<img
-											class="ai-analysis_ins-img"
-											src="./resource/img/common/insure_img04.png"
-											alt=""></div>
+							<img class="ai-analysis_ins-img" src="./resource/img/common/insure_img01.png" alt="">
+						</div>
+						<div class="ai-analysis_ins-slide">
+							<p class="ai-analysis_ins-text">파손·도난 대비 필요 :
+								<b>여행평균보다 5.0배 높아요!</b>
+							</p>
+							<img class="ai-analysis_ins-img" src="./resource/img/common/insure_img02.png" alt="">
+						</div>
+						<div class="ai-analysis_ins-slide">
+							<p class="ai-analysis_ins-text">의료비용 부담 :
+								<b>여행평균보다 2.0배 높아요!</b>
+							</p>
+							<img class="ai-analysis_ins-img" src="./resource/img/common/insure_img03.png" alt="">
+						</div>
+						<div class="ai-analysis_ins-slide">
+							<p class="ai-analysis_ins-text">
+								<b>갑작스러운 항공기 지연·결항에 미리 대비하세요!</b>
+							</p>
+							<img class="ai-analysis_ins-img" src="./resource/img/common/insure_img17.png" alt="">
+						</div>
 					</div>
 					<button
 						type="button"
@@ -232,7 +293,7 @@
 						data-sheet="sheetInsur2"
 						data-swap-order="true"
 						aria-label="보상사례 상세 보기">
-						
+
 						<div style="color:#d9d9d9; padding-right: 5px;">|</div>
 						<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path
 							d="M2 4l4 4 4-4"
@@ -279,7 +340,7 @@
 				<div class="ai-plancard_ins-foot">
 					<div class="ai-plancard_ins-total">
 						<div>
-							<span class="ai-plancard_ins-total-main" id="aiPlanTotalStr">3인 66,000원</span>
+							<span class="ai-plancard_ins-total-main" id="aiPlanTotalStr">3인 56,000원</span>
 							<span class="ai-plancard_ins-days"> / 4일</span>
 						</div>
 						<div class="ai-plancard_ins-logo">
@@ -292,113 +353,121 @@
 			</div>
 			<div class="ai-plancard_ins-cta-wrap">
 				<button type="button" class="ai-plancard_ins-cta btn_slide_open_ins"
-						data-sheet="sheetCoverage">가입자별 맞춤보장 36개 보기
+						data-sheet="sheetCoverage">맞춤보장 36개
 					<svg width="10" height="10" viewBox="0 0 12 12" fill="none">
 						<path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
 					</svg>
 				</button>
+				<div class="ai-plancard_ins-cta-note">*만나이 15세 미만은 34개 보장</div>
 			</div>
 			<!-- // AI 추천 안심플랜 카드 ─────────────────── -->
 		</div>
-
+		<div class="insure_cont" style="display:none;">
+			<!-- 로딩바 위치 -->
+			<!-- 로딩바: service_insur_v1.html의 로딩 디자인을 그대로 가져와 이 영역 안에서만 표시되도록 구성 -->
+			<div class="ins-loadingbar">
+				<div class="ins-loadingbar-badge">AI</div>
+				<p class="ins-loadingbar-text">
+					<span id="insLoadingRegion">텍스트 변경 가능</span><br>
+					<b>로딩중입니다.</b>
+				</p>
+				<div class="ins-loadingbar-dots"><span></span><span></span><span></span></div>
+			</div>
+		</div>
 		<!-- 약관 동의 섹션 ─────────────────── -->
-			<div class="ins-terms_wrap">
-			<!-- 모두 동의 헤더 -->
-			<div class="ins-terms_head">
-				<button type="button" class="ins-terms_circle-btn" id="insTermsAllBtn" aria-label="모두 동의">
-				<span class="ins-terms_circle" id="insTermsAllCircle">
-					<svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-					<path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-				</span>
-				</button>
-				<span class="ins-terms_head-txt">가입 약관에 모두 동의합니다.</span>
-				<button type="button" class="ins-terms_toggle" id="insTermsToggle" aria-expanded="true" aria-label="접기/펴기">
-				<svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-					<path d="M2 9L7 4L12 9" stroke="#888" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+		<div class="ins-terms_wrap">
+		<!-- 모두 동의 헤더 -->
+		<div class="ins-terms_head">
+			<button type="button" class="ins-terms_circle-btn" id="insTermsAllBtn" aria-label="모두 동의">
+			<span class="ins-terms_circle" id="insTermsAllCircle">
+				<svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+				<path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
-				</button>
+			</span>
+			</button>
+			<span class="ins-terms_head-txt">가입 약관에 모두 동의합니다.</span>
+			<button type="button" class="ins-terms_toggle is-collapsed" id="insTermsToggle" aria-expanded="false" aria-label="접기/펴기">
+			<svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+				<path d="M2 9L7 4L12 9" stroke="#888" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+			</button>
+		</div>
+		<!-- 항목 리스트 -->
+		<div class="ins-terms_list is-hidden" id="insTermsList">
+			<div class="ins-terms_item">
+			<button type="button" cla ss="ins-terms_circle-btn" data-term-idx="0" aria-label="동의">
+				<span class="ins-terms_circle" data-circle="0">
+				<svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+					<path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				</span>
+			</button>
+			<span class="ins-terms_item-txt">단체(취급) 여행자보험 가입 규약</span>
+			<button type="button" class="ins-terms_item-arrow" data-popup="termsPopup0" aria-label="내용 보기">
+				<svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
+			</button>
 			</div>
-			<!-- 항목 리스트 -->
-			<div class="ins-terms_list" id="insTermsList">
-				<div class="ins-terms_item">
-				<button type="button" class="ins-terms_circle-btn" data-term-idx="0" aria-label="동의">
-					<span class="ins-terms_circle" data-circle="0">
-					<svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-						<path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-					</span>
-				</button>
-				<span class="ins-terms_item-txt">단체(취급) 여행보험 가입 규약</span>
-				<button type="button" class="ins-terms_item-arrow" data-popup="termsPopup0" aria-label="내용 보기">
-					<svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
-				</button>
-				</div>
-				<div class="ins-terms_item">
-				<button type="button" class="ins-terms_circle-btn" data-term-idx="1" aria-label="동의">
-					<span class="ins-terms_circle" data-circle="1">
-					<svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-						<path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-					</span>
-				</button>
-				<span class="ins-terms_item-txt">단체여행보험계약 대리 체결 확인</span>
-				<button type="button" class="ins-terms_item-arrow" data-popup="termsPopup1" aria-label="내용 보기">
-					<svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
-				</button>
-				</div>
-				<div class="ins-terms_item">
-				<button type="button" class="ins-terms_circle-btn" data-term-idx="2" aria-label="동의">
-					<span class="ins-terms_circle" data-circle="2">
-					<svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-						<path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-					</span>
-				</button>
-				<span class="ins-terms_item-txt">개인정보 제3자 제공 동의</span>
-				<button type="button" class="ins-terms_item-arrow" data-popup="termsPopup2" aria-label="내용 보기">
-					<svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
-				</button>
-				</div>
+			<div class="ins-terms_item">
+			<button type="button" class="ins-terms_circle-btn" data-term-idx="1" aria-label="동의">
+				<span class="ins-terms_circle" data-circle="1">
+				<svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+					<path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				</span>
+			</button>
+			<span class="ins-terms_item-txt">단체여행자보험계약 대리 체결 확인</span>
+			<button type="button" class="ins-terms_item-arrow" data-popup="termsPopup1" aria-label="내용 보기">
+				<svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
+			</button>
 			</div>
+			<div class="ins-terms_item">
+			<button type="button" class="ins-terms_circle-btn" data-term-idx="2" aria-label="동의">
+				<span class="ins-terms_circle" data-circle="2">
+				<svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+					<path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				</span>
+			</button>
+			<span class="ins-terms_item-txt">개인정보 제3자 제공 동의</span>
+			<button type="button" class="ins-terms_item-arrow" data-popup="termsPopup2" aria-label="내용 보기">
+				<svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
+			</button>
 			</div>
-			<!-- // 약관 동의 섹션 ─────────────────── -->
+		</div>
+		</div>
+		<!-- // 약관 동의 섹션 ─────────────────── -->
 
 		<!-- 하단 정보 섹션 ─────────────────── -->
-		<!-- ============================================================
-		     하단 고정 푸터: 중요안내 / 여행보험 Q&A 버튼
-		     ============================================================ -->
 		<div class="ins-footer_wrap">
 			<!-- 3개 버튼 -->
 			<div class="ins-footer_btns">
 				<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetNotice">중요안내</button>
-				<a href="https://cdn.ags-aws.com/ags/info/ins/terms/lina/OTA_P.pdf" class="ins-footer_btn" target="_blank" rel="noopener">약관보기</a>
-				<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetFaq">여행보험 Q&A</button>
+				<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetTerms">약관보기</button>
+				<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetFaq">여행자보험 Q&A</button>
 			</div>
 
 			<!-- 콜센터 박스 -->
 			<div class="ins-footer_callbox">
 				<div class="ins-footer_callbox-title">
 					<img src="https://cdn.ags-aws.com/alphaseat/mo/img/common/phone_icon.png" alt="전화" style="width:16px;height:16px;vertical-align:middle;">
-					라이나 손해보험 여행보험 콜센터
+					라이나 손해보험 여행자보험 콜센터
 				</div>
-				<div class="ins-footer_callbox-num">1566-5800</div>
+				<div class="ins-footer_callbox-num">1666-5075</div>
 				<div class="ins-footer_callbox-hours">평일 : 09:00~18:00 (주말, 공휴일 제외)</div>
 			</div>
-
+			
+			<div class="ins-footer_brandname">Chubb. Insured™</div>
 			<!-- 어워드 -->
 			<div class="ins-footer_brand">
 				<img class="ins-footer_brand-badge" src="./resource/img/common/raina.png" alt="2023 대한민국 브랜드 명예의전당">
 				<div class="ins-footer_brand-txt">
-					2023 대한민국 브랜드 명예의전당<br>여행보험 부문 수상
+					2023 대한민국 브랜드 명예의전당<br>여행자보험 부문 수상
 				</div>
 			</div>
-			<div class="ins-footer_brandname">Chubb. Insured™</div>
 
 			<!-- 법적 고지 -->
 			<div class="ins-footer_legal">
-				(주) 올윈에어 여행보험 서비스는<br>
-				라이나 손해보험과의 제휴로 제공됩니다.<br><br>
+				(주) 올윈에어 여행자보험 서비스는 라이나 손해보험과의 제휴로 제공됩니다.<br>
 
 				대리점(주식회사 올윈에어) 등록번호 제 7726020004호<br><br>
 
@@ -412,12 +481,95 @@
 		</div>
 		<!-- // 하단 정보 섹션 ─────────────────── -->
 
+		<!-- ===== NOL: 하단 고정 CTA 바 ===== -->
+		<div class="nol-bottombar" id="nolBottombar">
+			<div class="nol-bottombar-total" id="nolBottombarTotal" style="display:none;">
+				<span class="nol-bottombar-total-label">총 보험료
+					<button type="button" class="nol-info-btn" id="nolPriceInfoBtn" aria-label="보험료 상세 보기">
+						<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="#9AA0A6" stroke-width="1.2"/><path d="M7 6.4v3.6" stroke="#9AA0A6" stroke-width="1.3" stroke-linecap="round"/><circle cx="7" cy="4.2" r="0.9" fill="#9AA0A6"/></svg>
+					</button>
+				</span>
+				<span class="nol-bottombar-total-value"><span id="nolBottombarPeople">성인 1인/3일</span><b id="nolBottombarAmt">0원</b></span>
+			</div>
+			<button type="button" class="nol-bottombar-cta" id="nolBottombarCta">보험 없이 결제하기</button>
+		</div>
+
+		<!-- ===== NOL: 36개 보장 항목 상세보기 시트 ===== -->
+		<div class="slide-sheet_ins nol-cov-sheet" id="sheetNolCoverage">
+			<div class="nol-cov-head">
+				<button type="button" class="nol-cov-close btn_slide_close_ins" aria-label="닫기">
+					<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2L2 14" stroke="#1B1C1F" stroke-width="1.6" stroke-linecap="round"/></svg>
+				</button>
+				<span class="nol-cov-head-title">보험 상세 보장 내역</span>
+			</div>
+			<div class="slide-sheet_ins-body nol-cov-body">
+				<p class="nol-cov-subtitle">상세 보장</p>
+				<ul class="nol-cov-notes">
+					<li>아이콘을 클릭하시면 보장내역에 대한 상세 안내를 보실 수 있습니다.</li>
+					<li>상기 가입금액을 한도로 약관상 지급기준에 따라 보상하여 드립니다.</li>
+					<li>천재지변으로 인한 상해 사망, 후유장해 및 상해 치료비 또한 위의 상해 담보금액과 동일하게 보상 됩니다.</li>
+				</ul>
+
+				<div class="nol-cov-select-wrap" id="nolCovSelectWrap">
+					<span class="nol-cov-select-label">가입자 선택</span>
+					<button type="button" class="nol-cov-select-btn" id="nolCovSelectBtn">
+						<span id="nolCovSelectTxt">15-70세 (LEE JIYOUNG, LEE JINOUNG)</span>
+						<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</button>
+					<div class="nol-cov-select-list" id="nolCovSelectList">
+						<button type="button" class="nol-cov-select-opt is-checked" data-val="0" data-label="15-70세 (LEE JIYOUNG, LEE JINOUNG)">
+							<span class="nol-cov-select-opt-check">✓</span>15-70세 (LEE JIYOUNG, LEE JINOUNG)
+						</button>
+						<button type="button" class="nol-cov-select-opt" data-val="1" data-label="0-14세 (KIM MINSOO)">
+							<span class="nol-cov-select-opt-check"></span>0-14세 (KIM MINSOO)
+						</button>
+					</div>
+				</div>
+
+				<div class="nol-cov-tabs" id="nolCovTabs">
+					<button type="button" class="nol-cov-tab is-active" data-cov-plan="basic">실속형</button>
+					<button type="button" class="nol-cov-tab" data-cov-plan="standard">표준형</button>
+					<button type="button" class="nol-cov-tab" data-cov-plan="premium">고급형</button>
+				</div>
+
+				<div class="nol-cov-list" id="nolCovList"><!-- JS 생성 --></div>
+			</div>
+			<button type="button" class="nol-cov-confirm btn_slide_close_ins">확인</button>
+		</div>
+
+		<!-- ===== NOL: 보험료 상세 팝업 (총 보험료 옆 물음표) ===== -->
+		<div class="nol-pricepop" id="nolPricePopup">
+			<div class="nol-pricepop-handle"></div>
+			<div class="nol-pricepop-title">보험료 상세</div>
+			<div class="nol-pricepop-sub">해외 여행자 보험</div>
+			<div class="nol-pricepop-list" id="nolPricePopupList"><!-- JS 생성 --></div>
+			<div class="nol-pricepop-total">
+				<span>총 보험료</span>
+				<b id="nolPricePopupTotal">0원</b>
+			</div>
+		</div>
+
+		<!-- ===== NOL: 종료일 변경 캘린더 ===== -->
+		<div class="nol-cal-overlay" id="nolCalOverlay">
+			<div class="nol-cal-panel">
+				<div class="nol-cal-head">
+					<button type="button" class="nol-cal-close" id="nolCalClose" aria-label="닫기">
+						<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2L2 14" stroke="#1B1C1F" stroke-width="1.6" stroke-linecap="round"/></svg>
+					</button>
+					<span class="nol-cal-head-title">종료일 변경</span>
+				</div>
+				<div class="nol-cal-weekdays">
+					<span class="is-sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span class="is-sat">토</span>
+				</div>
+				<div class="nol-cal-scroll" id="nolCalScroll"><!-- JS 생성 --></div>
+				<button type="button" class="nol-cal-confirm" id="nolCalConfirm" disabled>선택</button>
+			</div>
+		</div>
+		<!-- ===== // NOL 신규 오버레이 끝 ===== -->
+
 		<!-- 예약 요약 슬라이드 시트 #1: .ags-summary와 무관한 독립 컴포넌트 -->
-		<!-- ============================================================
-		     sheetInsur1: 가입정보 입력 (이름/생년월일/성별, 여행기간)
-		     ============================================================ -->
 		<div class="slide-sheet_ins" id="sheetInsur1">
-			<div class="slide-sheet_ins-handle-mask" aria-hidden="true"></div>
+			<div class="slide-sheet_ins-handle-mask"></div>
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<div class="myinfo-header">
@@ -453,6 +605,48 @@
 					</div>
 				</div>
 
+				<!-- 여행기간 테스트 위젯 A: 출국일→귀국일 순서로 탭하면 사이 구간이 띠로 이어짐 -->
+				<div class="myinfo-row">
+					<div class="myinfo-label-wrap">
+						<span class="myinfo-label">여행기간 (범위선택 테스트)</span>
+						<button type="button" class="myinfo-info-btn" id="rcInfoBtn">ⓘ</button>
+					</div>
+					<div class="myinfo-date-wrap ins-date-wrap">
+						<button type="button" class="ins-date-btn" id="rcStartBtn">
+							<span class="myinfo-date-btn-txt" id="rcStartTxt">출국일 선택</span>
+							<span class="ins-date-fixed">(00시부터)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#000" stroke-width="1.5"/><path d="M3 8h14" stroke="#000" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</button>
+						<span class="myinfo-date-dash">~</span>
+						<button type="button" class="ins-date-btn" id="rcEndBtn">
+							<span class="myinfo-date-btn-txt" id="rcEndTxt">귀국일 선택</span>
+							<span class="ins-date-fixed">(24시까지)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#000" stroke-width="1.5"/><path d="M3 8h14" stroke="#000" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</button>
+					</div>
+				</div>
+
+				<!-- 여행기간 테스트 위젯 B: 출국일은 오늘로 고정, 귀국일만 탭해서 선택 -->
+				<div class="myinfo-row">
+					<div class="myinfo-label-wrap">
+						<span class="myinfo-label">여행기간 (출국일고정 테스트)</span>
+						<button type="button" class="myinfo-info-btn" id="fcInfoBtn">ⓘ</button>
+					</div>
+					<div class="myinfo-date-wrap ins-date-wrap">
+						<span class="ins-date-btn ins-date-btn--fixed">
+							<span class="myinfo-date-btn-txt selected" id="fcStartTxt"></span>
+							<span class="ins-date-fixed">(00시부터)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#ccc" stroke-width="1.5"/><path d="M3 8h14" stroke="#ccc" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</span>
+						<span class="myinfo-date-dash">~</span>
+						<button type="button" class="ins-date-btn" id="fcEndBtn">
+							<span class="myinfo-date-btn-txt" id="fcEndTxt">귀국일 선택</span>
+							<span class="ins-date-fixed">(24시까지)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#000" stroke-width="1.5"/><path d="M3 8h14" stroke="#000" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</button>
+					</div>
+				</div>
+
 				<div class="myinfo-row ins-phone-row">
 					<span class="myinfo-label ins-phone-label">휴대폰번호</span>
 					<input type="tel" class="ins-phone-input" id="insPhoneInput" value="010-4827-4827" inputmode="numeric" maxlength="13">
@@ -473,6 +667,7 @@
 					<div class="myinfo-person-name">LEE JIYOUNG</div>
 					<div class="myinfo-person-row">
 						<input type="text" class="myinfo-birth-input" value="19880302" readonly>
+						<!-- <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)" inputmode="numeric" maxlength="8"> -->
 						<div class="myinfo-gender-wrap">
 							<button type="button" class="myinfo-gender active">남</button>
 							<button type="button" class="myinfo-gender">여</button>
@@ -490,15 +685,15 @@
 					</div>
 				</div>
 			</div>
-			<button type="button" class="myinfo-confirm-btn" id="insMyinfoConfirmBtn">확인했어요.</button>
+			<div class="myinfo-bottom-btn">
+				<a href="#none" class="myinfo-x-btn">가입안함</a>
+				<button type="button" class="myinfo-confirm-btn" id="insMyinfoConfirmBtn">입력완료</button>
+			</div>
 		</div>
 
 		<!-- 예약 요약 슬라이드 시트 #2: AI 분석 카드 상세 (일단 빈 슬라이드) -->
-		<!-- ============================================================
-		     sheetInsur2: 여행안심지수 상세 (리스크 분석 + 보상사례)
-		     ============================================================ -->
 		<div class="slide-sheet_ins" id="sheetInsur2">
-			<div class="slide-sheet_ins-handle-mask" aria-hidden="true"></div>
+			<div class="slide-sheet_ins-handle-mask"></div>
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<!-- 상단 헤더: AI 여행 분석 / 여행정보 / 예상 날씨 -->
@@ -508,7 +703,7 @@
 					</div>
 					<div class="ai-detail_meta">
 						<span>이지영님 3인</span>
-						<i class="ai-detail_plane" aria-hidden="true">
+						<i class="ai-detail_plane">
 							<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
 								<path
 									transform="rotate(90 12 12)"
@@ -697,13 +892,9 @@
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
 		</div>
 
-
 		<!-- 추천 안심플랜 ⓘ 설명 시트 ─────────── -->
-		<!-- ============================================================
-		     sheetPlanInfo: 추천 안심플랜/여행안심지수 안내 팝업
-		     ============================================================ -->
 		<div class="slide-sheet_ins" id="sheetPlanInfo">
-			<div class="slide-sheet_ins-handle-mask" aria-hidden="true"></div>
+			<div class="slide-sheet_ins-handle-mask"></div>
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<div class="planinfo-section">
@@ -733,11 +924,8 @@
 		</div>
 
 		<!-- 보장내역 시트 ──────────── -->
-		<!-- ============================================================
-		     sheetCoverage: 가입자별 맞춤보장 36개 상세 (탭 롤링)
-		     ============================================================ -->
 		<div class="slide-sheet_ins" id="sheetCoverage">
-			<div class="slide-sheet_ins-handle-mask" aria-hidden="true"></div>
+			<div class="slide-sheet_ins-handle-mask"></div>
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="ai-plancard_ins-logo">
 				<img src="./resource/img/common/raina_s.png" alt="라이나손보">
@@ -753,18 +941,22 @@
 						<button type="button" class="cov-tab" data-cov-idx="0">
 							<span class="cov-tab-name">LEE SIHYUNG</span>
 							<span class="cov-tab-plan">고급형 26,000원</span>
+							<span class="cov-tab-extra">남7세, 36개보장</span>
 						</button>
 						<button type="button" class="cov-tab" data-cov-idx="1">
 							<span class="cov-tab-name">LEE JIYOUNG</span>
 							<span class="cov-tab-plan">표준형 22,000원</span>
+							<span class="cov-tab-extra">여38세, 36개보장</span>
 						</button>
 						<button type="button" class="cov-tab" data-cov-idx="2">
 							<span class="cov-tab-name">KIM JINHUG</span>
 							<span class="cov-tab-plan">실속형 18,000원</span>
+							<span class="cov-tab-extra">남41세, 36개보장</span>
 						</button>
 						<button type="button" class="cov-tab" data-cov-idx="3">
 							<span class="cov-tab-name">KANG MINSU</span>
 							<span class="cov-tab-plan">실속형 18,000원</span>
+							<span class="cov-tab-extra">남29세, 36개보장</span>
 						</button>
 					</div>
 				</div>
@@ -774,15 +966,15 @@
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
 		</div>
 
-		<!-- 약관 팝업 1: 단체(취급) 여행보험 가입 규약 -->
+		<!-- 약관 팝업 1: 단체(취급) 여행자보험 가입 규약 -->
 		<div class="ins-terms_popup" id="termsPopup0">
 			<div class="ins-terms_popup-card">
 				<div class="ins-terms_popup-head">
-					<span class="ins-terms_popup-title">단체(취급) 여행보험 가입 규약</span>
+					<span class="ins-terms_popup-title">단체(취급) 여행자보험 가입 규약</span>
 					<button type="button" class="ins-terms_popup-close" data-close-popup="termsPopup0">✕</button>
 				</div>
 				<div class="ins-terms_popup-body">
-					<p>주식회사 올윈에는 보험계약자를 주식회사 올윈에어로, 피보험자 및 수익자를 "주식회사 올윈에어가이(가) 제공하는 알선, 주최서비스의 제공을 받는 자"로 하는 단체여행보험계약을 체결할 수 있습니다. 단, 보험금의 종류가 사망보험금인 경우에는 그 보험수익자를 피보험자의 법정상속인으로 합니다.</p>
+					<p>주식회사 올윈에는 보험계약자를 주식회사 올윈에어로, 피보험자 및 수익자를 "주식회사 올윈에어가이(가) 제공하는 알선, 주최서비스의 제공을 받는 자"로 하는 단체여행자보험계약을 체결할 수 있습니다. 단, 보험금의 종류가 사망보험금인 경우에는 그 보험수익자를 피보험자의 법정상속인으로 합니다.</p>
 					<p>주식회사 올윈에어(가) 제공하는 알선, 주최서비스의 제공을 받는 자는 제 1항의 보험계약에 따른 내용을 주식회사 올윈에어(가) 제공하는 범주 내에서 자유롭게 선택할 수 있으며 보험료를 직접 보험회사에 (또는 주식회사 올윈에어에) 납부해야 합니다.</p>
 					<p>제 2항에 따라 보험료를 납부한 회원은 계약자의 권리를 행사할 수 있습니다.</p>
 					<p>보험계약에 관한 세부내용은 보험사가 제공하는 보험약관에 따릅니다.</p>
@@ -791,11 +983,11 @@
 			</div>
 		</div>
 
-		<!-- 약관 팝업 2: 단체여행보험계약 대리 체결 확인 -->
+		<!-- 약관 팝업 2: 단체여행자보험계약 대리 체결 확인 -->
 		<div class="ins-terms_popup" id="termsPopup1">
 			<div class="ins-terms_popup-card">
 				<div class="ins-terms_popup-head">
-					<span class="ins-terms_popup-title">단체여행보험계약 대리 체결 확인</span>
+					<span class="ins-terms_popup-title">단체여행자보험계약 대리 체결 확인</span>
 					<button type="button" class="ins-terms_popup-close" data-close-popup="termsPopup1">✕</button>
 				</div>
 				<div class="ins-terms_popup-body">
@@ -825,14 +1017,14 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>단체 여행보험 가입</td>
+									<td>단체 여행자보험 가입</td>
 									<td>- 일반개인정보(이름, 생년월일, 전화번호, 이메일, 주소) - 기타정보(예약번호, 등)</td>
 									<td>제공받는 자의 이용목적을 달성할 때까지 (관련 법령 상 보존기간을 따름)</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-					<p class="ins-terms_popup-warn no-bullet">*귀하는 개인정보 제3자 제공 동의를 거부하실 수 있으나 거부하실 경우 단체 여행보험을 가입하실 수 없습니다.</p>
+					<p class="ins-terms_popup-warn no-bullet">*귀하는 개인정보 제3자 제공 동의를 거부하실 수 있으나 거부하실 경우 단체 여행자보험을 가입하실 수 없습니다.</p>
 				</div>
 				<button type="button" class="ins-terms_popup-confirm" data-close-popup="termsPopup2">확인</button>
 			</div>
@@ -862,7 +1054,7 @@
 									</svg>
 								</span>
 							</button>
-							<span class="ins-terms_item-txt">단체(취급) 여행보험 가입 규약</span>
+							<span class="ins-terms_item-txt">단체(취급) 여행자보험 가입 규약</span>
 							<button type="button" class="ins-terms_item-arrow" data-popup="termsPopup0" aria-label="내용 보기">
 								<svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
 							</button>
@@ -875,7 +1067,7 @@
 									</svg>
 								</span>
 							</button>
-							<span class="ins-terms_item-txt">단체여행보험계약 대리 체결 확인</span>
+							<span class="ins-terms_item-txt">단체여행자보험계약 대리 체결 확인</span>
 							<button type="button" class="ins-terms_item-arrow" data-popup="termsPopup1" aria-label="내용 보기">
 								<svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
 							</button>
@@ -905,8 +1097,8 @@
 		<!-- "선택안함" 클릭 시 뜨는 확인 팝업 -->
 		<div class="ins-terms_popup" id="skipConfirmPopup">
 			<div class="ins-terms_popup-card skip-confirm_card">
-				<div class="skip-confirm_title">여행보험 없이 진행할까요?</div>
-				<div class="skip-confirm_desc">출발전까지, 알림톡 마이페이지 클릭 후<br>여행보험 페이지에서 가입하실 수 있어요</div>
+				<div class="skip-confirm_title">여행자보험 없이 진행할까요?</div>
+				<div class="skip-confirm_desc">출발전까지, 알림톡 마이페이지 클릭 후<br>여행자보험 페이지에서 가입하실 수 있어요</div>
 				<div class="skip-confirm_btns">
 					<button type="button" class="skip-confirm_retry" data-close-popup="skipConfirmPopup">다시보기</button>
 					<button type="button" class="skip-confirm_yes" id="skipConfirmYes">네</button>
@@ -914,111 +1106,30 @@
 			</div>
 		</div>
 
-
-
 		<!-- 중요안내 슬라이드 -->
-		<!-- ============================================================
-		     sheetNotice: 중요안내
-		     ============================================================ -->
 		<div class="slide-sheet_ins" id="sheetNotice">
-			<div class="slide-sheet_ins-handle-mask" aria-hidden="true"></div>
+			<div class="slide-sheet_ins-handle-mask"></div>
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
-				<div class="myinfo-header"><span class="myinfo-title">보험계약 중요 안내 사항</span></div>
-
-				<div class="ins-notice_top">
-					<p>· 가입상품 : 라이나손해보험Chubb해외여행보험</p>
-					<p>· 보험료 납입기간 : 일시납</p>
-					<p>· 보험기간 : 2026년 0월 0일~0000년 0월 0일</p>
-				</div>
-
-				<div class="ins-notice_section">
-					<div class="ins-notice_section-title">알릴 의무</div>
-
-					<div class="ins-notice_subtitle">[계약 전 알릴 의무]</div>
-					<p class="ins-notice_body">계약 전 알릴 의무사항은 회사가 보험계약의 청약을 인수하는데 필요한 자료이므로 보험계약자 및 피보험자는 사실대로 알려야 합니다. 위 사항에 대하여 만약 사실대로 알리지 않거나 사실과 다르게 알린 경우에는 보험가입이 거절될 수 있으며, 특히 그 내용이 [중요한 사항]에 해당하는 경우에는 보험계약자 또는 피보험자의 이사와 관계없이 보험관상 [계약 전 알릴 의무 위반의 효과]조항에 의해 계약이 해지되거나 보장이 제한될 수 있습니다.</p>
-
-					<div class="ins-notice_subtitle">[계약 후 알릴 의무]</div>
-					<p class="ins-notice_body">보험계약자 또는 피보험자는 보험기간 중 아래와 같은 변경이 발생한 경우 지체 없이 회사에 알려야 합니다. 알리지 않은 경우 보험금 지급이 제한될 수 있습니다.</p>
-					<p class="ins-notice_num">1. 보험증권 등에 기재된 직업 또는 직무의 변경</p>
-					<p class="ins-notice_sub">가. 현재의 직업 또는 직무가 변경된 경우</p>
-					<p class="ins-notice_sub">나. 직업이 없는 자가 취직한 경우</p>
-					<p class="ins-notice_sub">다. 현재의 직업을 그만둔 경우</p>
-					<p class="ins-notice_num">2. 보험증권 등에 기재된 피보험자의 운전 목적이 변경된 경우 (자가용에서 영업용으로 변경, 영업용에서 자가용으로 변경 등)</p>
-					<p class="ins-notice_num">3. 보험증권 등에 기재된 피보험자의 운전여부가 변경된 경우 (비운전자에서 운전자로 변경, 운전자에서 비운전자로 변경)</p>
-					<p class="ins-notice_num">4. 이륜자동차 (자동차관리법상 이륜차로 분류되는 삼륜 또는 사륜의 자동차를 포함) 등, 원동기장치자전거(전동킥보드, 전동이륜평행차, 원동기장치자전거 등)의 동력만으로 움직일 수 있는 자전거 등 개인형 이동장치를 포함) 계속적으로 사용(직업, 직무 또는 동호회 활동과 출퇴근 등도 포함)하는 경우로 주로 사용하게 되는 경우에 한합니다(단, 전동휠체어, 의료용 스쿠터 등 보행용으로 의지하는 경우는 제외합니다.) 위험이 감소된 보험료를 감액하고 이후 기간 보상을 위한 재산인 책임준비금 등의 차이로 인하여 발생한 정산금액을 환급해 드립니다. 위험이 증가된 경우 보험료의 증액 또는 정산금액의 추가 납입을 요구할 수 있습니다. 회사는 계약 후 알릴 의무를 이행하지 않았을 때 손해의 발생여부에 관계없이 그 사실을 안 날부터 1개월 이내에 계약을 해지할 수 있습니다.</p>
-				</div>
-
-				<div class="ins-notice_section">
-					<div class="ins-notice_section-title">청약의 철회</div>
-					<p class="ins-notice_body">일반금융소비자인 계약자는 금융소비자 보호에 관한 법률 제46조, 동법 시행령 제37조, 동법 감독규정 제30조에서 정하는 바에 따라 보험증권을 받은 날부터 15일 이내(청약의 날부터 30일 이내에 한하며 만 65세 이상 계약자가 전화를 이용하여 체결한 계약은 45일)에 청약을 철회할 수 있으며, 이 경우 철회를 접수한 날부터 3영업일 이내에 보험료를 돌려드립니다. 다만, 회사가 건강상태 진단을 지원하는 계약, 보장기간이 90일 이내인 계약 또는 전문금융소비자가 체결한 계약은 청약을 철회할 수 없습니다.</p>
-				</div>
-
-				<div class="ins-notice_section">
-					<div class="ins-notice_section-title">보험금을 지급하지 아니하는 사유</div>
-					<p class="ins-notice_bullet">· 피보험자가 고의로 자신을 해친 경우. 다만, 피보험자가 심신상실 등으로 자유로운 의사결정을 할 수 없는 상태에서 자신을 해친 경우에는 보험금을 지급합니다.</p>
-					<p class="ins-notice_bullet">· 보험수익자가 고의로 피보험자를 해친 경우. 다만, 그 보험수익자가 보험금의 일부 보험수익자인 경우에는 다른 보험수익자에 대한 보험금은 지급합니다.</p>
-					<p class="ins-notice_bullet">· 계약자가 고의로 피보험자를 해친 경우</p>
-					<p class="ins-notice_bullet">· 피보험자의 임신, 출산(제왕절개를 포함합니다), 산후기. 그러나 회사가 보장하는 보험 지급사유로 인한 경우에는 보험금을 지급합니다.</p>
-					<p class="ins-notice_bullet">· 전쟁, 외국의 무력행사, 혁명, 내란, 사변, 폭동</p>
-					<p class="ins-notice_note">* 자세한 내용은 보험약관을 참고하시기 바랍니다.</p>
-				</div>
-
-				<div class="ins-notice_section">
-					<div class="ins-notice_section-title">계약의 해지 및 보험료의 환급</div>
-					<p class="ins-notice_body">이 상품은 순수보장형 상품으로 만기 시 만기환급금이 없습니다. 또한, 보험계약자는 계약이 소멸하기 전에 언제든지 계약을 해지할 수 있으며 계약해지 시 보험기간 중 남은 미경과 기간에 대해 단기요율을 적용하여 해지환급금을 돌려드리므로 납입하신 보험료보다 적거나 없을 수 있습니다.</p>
-				</div>
-
-				<div class="ins-notice_section">
-					<div class="ins-notice_section-title">계약의 무효</div>
-					<p class="ins-notice_body">다음 중 한 가지에 해당되는 경우에는 계약을 무효로 하며 이미 납입한 보험료를 돌려드립니다.</p>
-					<p class="ins-notice_bullet">· 만 15세 미만자, 심신상실자 또는 심신박약자의 사망을 보험금 지급사유로 한 경우</p>
-					<p class="ins-notice_bullet">· 타인의 사망을 보험금 지급사유로 하는 계약에서 계약 체결까지 피보험자의 서면에 의한 동의를 얻지 않은 경우</p>
-					<p class="ins-notice_bullet">· 계약을 체결할 때 계약에서 정한 피보험자의 나이에 미달되거나 초과되었을 경우</p>
-				</div>
-
-				<div class="ins-notice_section">
-					<div class="ins-notice_section-title">예금자보호 안내</div>
-					<p class="ins-notice_body">이 보험계약은 예금자보호법에 따라 해약환급금(또는 만기 시 보험금)에 기타지급금을 합한 금액이 1인당 "1억원까지"(본 보험회사의 여러 보호상품과 합산) 보호됩니다. 이와 별도로 본 보험회사 보호상품의 사고보험금을 합산한 금액이 1인당 "1억원까지" 보호됩니다. 다만, 보험계약자 및 보험료납부자가 법인인 보험계약의 경우에는 보호되지 않습니다.</p>
-				</div>
-
-				<div class="ins-notice_section">
-					<div class="ins-notice_section-title">분쟁조정절차에 관한 사항</div>
-					<p class="ins-notice_body">이 보험계약과 관련하여 의문사항 또는 불만이 있을 경우 해당 모집자나 라이나손해보험(홈페이지: www.chubb.com/kr 전화: 1566-5800) 또는 손해보험협회 상담센터(02-3702-8500)에 문의하실 수 있습니다. 또한 분쟁이 발생한 경우 금융감독원(국번없이 1332, www.fss.or.kr), 한국소비자원(국번없이 1372) 등에 도움을 요청할 수 있고, 다만 분쟁조정의 신청 이후 또는 조정신청 사건의 처리절차 진행 중에 일방 당사자가 소를 제기한 경우에는 그 조정의 처리를 중지하고 이를 당사자 쌍방에게 통보합니다.</p>
-				</div>
-
-				<div class="ins-notice_section">
-					<div class="ins-notice_section-title">여행보험 취소 방법</div>
-					<p class="ins-notice_body">해당 단체계약의 피보험자는 다음 방법을 통해 피보험자 등록을 취소하실 수 있습니다.</p>
-					<p class="ins-notice_bullet">· 여행출발 전: 가입하신 후 받으신 SMS 가입정보 URL을 통해 취소 가능합니다.</p>
-					<p class="ins-notice_bullet">· 여행출발 후: 라이나손해보험 여행보험 콜센터(1666-5075)에 문의하시기 바랍니다. (업무시간: 평일 09:00~18:00 / 주말, 공휴일 제외)</p>
-					<p class="ins-notice_note">※ 개별계약 체결을 원하는 고객은 라이나다이렉트 홈페이지 (www.acedirect.co.kr)를 확인하세요.</p>
-					<p class="ins-notice_note">※ 위 사항은 약관 내용을 요약 발췌한 것으로 세부 내용은 약관을 참조하시기 바랍니다.</p>
-					<p class="ins-notice_bullet">· 주식회사 올윈에어(는) 해당 상품에 대해 충분히 설명할 의무가 있으며, 가입자는 가입에 앞서 이에 관한 충분한 설명을 받으실 바랍니다.</p>
-					<p class="ins-notice_bullet">· 주식회사 올윈에어(는) 다수의 보험과 보험 체결 및 대리·중개하는 보험대리점이며 보험사로부터 금융상품판매대리중개업자 입니다. 대리점명: 주식회사 올윈에어(등록번호: 제7726020004호)</p>
-				</div>
+				<div class="myinfo-header"><span class="myinfo-title">중요안내입니다.</span></div>
 			</div>
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
 		</div>
-
-		<!-- 여행보험 Q&A 슬라이드 -->
-		<!-- ============================================================
-		     sheetFaq: 여행보험 Q&A
-		     ============================================================ -->
+		<!-- 여행자보험 Q&A 슬라이드 -->
 		<div class="slide-sheet_ins" id="sheetFaq">
-			<div class="slide-sheet_ins-handle-mask" aria-hidden="true"></div>
+			<div class="slide-sheet_ins-handle-mask"></div>
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<div class="myinfo-header">
-					<span class="myinfo-title">여행보험 유의사항</span>
+					<span class="myinfo-title">여행자보험 유의사항</span>
 				</div>
 				<div class="ins-faq_list">
 					<div class="ins-faq_item">
 						<div class="ins-faq_q"><span>Q1</span> 여행상품(항공권 등) 환불 및 일정변경 시 취소는?</div>
-						<div class="ins-faq_a">여행보험은 자동취소가 안되므로 별도로 취소해 주세요.</div>
+						<div class="ins-faq_a">여행자보험은 자동취소가 안되므로 별도로 취소해 주세요.</div>
 					</div>
 					<div class="ins-faq_item">
-						<div class="ins-faq_q"><span>Q2</span> 여행보험 취소 방법은?</div>
+						<div class="ins-faq_q"><span>Q2</span> 여행자보험 취소 방법은?</div>
 						<div class="ins-faq_a">가입안내 SMS에서 URL 클릭&gt;마이페이지 방문&gt;구매내역에서 취소해 주세요. 또는 콜센터(1666-5075)로 문의해 주세요.</div>
 					</div>
 					<div class="ins-faq_item">
@@ -1042,11 +1153,19 @@
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
 		</div>
 
-		<!-- ============================================================
-		     sheetHeartInfo: 여행안심지수 안내 (id는 heart지만 내용은 지수설명)
-		     ============================================================ -->
+		<!-- Chubb 해외여행보험 약관 슬라이드 (내용은 OTA_P.html, 시트를 열 때 지연 로딩) -->
+		<div class="slide-sheet_ins" id="sheetTerms">
+			<div class="slide-sheet_ins-handle-mask"></div>
+			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
+			<div class="slide-sheet_ins-body">
+				<div class="myinfo-header"><span class="myinfo-title">약관입니다.</span></div>
+			</div>
+			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
+		</div>
+
+		<!-- 여행안심지수 안내 슬라이드 -->
 		<div class="slide-sheet_ins" id="sheetHeartInfo">
-			<div class="slide-sheet_ins-handle-mask" aria-hidden="true"></div>
+			<div class="slide-sheet_ins-handle-mask"></div>
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<div class="myinfo-header">
@@ -1077,6 +1196,17 @@
 				</div>
 			</div>
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
+		</div>
+
+		<!-- NOL: 보장 항목 상세 안내 팝업 (36개 보장 항목 시트의 ? 아이콘) -->
+		<div class="info-modal_ins" id="nolCovInfoModal">
+			<div class="info-modal_ins-card">
+				<p class="info-modal_ins-title" id="nolCovInfoTitle">보장 항목 안내</p>
+				<p class="info-modal_ins-body" id="nolCovInfoBody">
+					해당 보장 항목에 대한 상세 설명입니다. 약관상 지급기준에 따라 가입금액 한도 내에서 보상해 드리며, 자세한 내용은 보험약관을 참고해 주세요.
+				</p>
+				<button type="button" class="info-modal_ins-confirm" id="nolCovInfoConfirm">확인</button>
+			</div>
 		</div>
 
 		<!-- 보험 인수제한 국가 안내 팝업 -->
@@ -1143,27 +1273,70 @@
 			</div>
 		</div>
 
+		<!-- 여행기간 테스트 위젯 A용: 범위선택 캘린더(출국일→귀국일 탭, 사이 구간 띠 표시) -->
+		<div class="rc-overlay" id="rcOverlay">
+			<div class="rc-panel">
+				<div class="rc-header">
+					<button class="rc-prev" id="rcPrev">&#8249;</button>
+					<span class="rc-title" id="rcTitle"></span>
+					<button class="rc-next" id="rcNext">&#8250;</button>
+				</div>
+				<div class="rc-weekdays">
+					<span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+				</div>
+				<div class="rc-grid" id="rcGrid"></div>
+				<p class="rc-hint" id="rcHint">출국일을 선택해 주세요</p>
+				<div class="rc-footer">
+					<button class="rc-cancel" id="rcCancel">취소</button>
+					<button class="rc-confirm" id="rcConfirm">확인</button>
+				</div>
+			</div>
+		</div>
 
+		<!-- 여행기간 테스트 위젯 B용: 출국일 고정, 귀국일만 선택하는 캘린더 -->
+		<div class="rc-overlay" id="fcOverlay">
+			<div class="rc-panel">
+				<div class="rc-header">
+					<button class="rc-prev" id="fcPrev">&#8249;</button>
+					<span class="rc-title" id="fcTitle"></span>
+					<button class="rc-next" id="fcNext">&#8250;</button>
+				</div>
+				<div class="rc-weekdays">
+					<span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+				</div>
+				<div class="rc-grid" id="fcGrid"></div>
+				<p class="rc-hint">출국일(오늘)은 고정, 귀국일만 선택해 주세요</p>
+				<div class="rc-footer">
+					<button class="rc-cancel" id="fcCancel">취소</button>
+					<button class="rc-confirm" id="fcConfirm">확인</button>
+				</div>
+			</div>
+		</div>
 
 		<div class="ags-summary insurerisk">			
 			<h4 class="sr-only">부가서비스 결제금액</h4>
 			<div class="bh-summary-bar">
-				<div class="bh-summary-left">
-					3인 여행안심지수
-					<button type="button" class="icon-info-btn icon-info-btn--sm btn_slide_open_ins" data-sheet="sheetPlanInfo" aria-label="여행안심지수 안내">?</button>
+				<!-- bh-summary-left 옆에 is-oneline 이거 넣으면 물음표 정렬 -->
+				<div class="bh-summary-left ">
+					<span class="ai-plancard_ins-badge2">AI</span>
+					아이&어르신					
+					<span class="bh-summary-left_txt2">여행안심지수</span>
+					<button type="button" class="icon-info-btn icon-info-btn--sm btn_slide_open_ins bh-summary-left-info" data-sheet="sheetPlanInfo" aria-label="여행안심지수 안내">?</button>
 				</div>
 				<div class="bh-summary-right">
-					<span class="bh-summary-label bh-summary-label--red">가입전</span>
-					<svg class="bh-summary-heart" width="15" height="13.5" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M13.5 20.5C13.5 20.5 1.5 13 1.5 7C1.5 4 4 1.5 7 1.5C9.2 1.5 11.3 2.8 13.5 4.6C15.7 2.8 17.8 1.5 20 1.5C23 1.5 25.5 4 25.5 7C25.5 13 13.5 20.5 13.5 20.5Z" fill="#FF523C" stroke="#FF523C" stroke-width="0.5"/>
-					</svg>
-					<span class="bh-summary-num bh-summary-num--red">35<span class="bh-summary-pct">%</span></span>
+					<div class="bh-summary-group">
+						<svg class="bh-summary-heart" width="22" height="18.5" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M13.5 20.5C13.5 20.5 1.5 13 1.5 7C1.5 4 4 1.5 7 1.5C9.2 1.5 11.3 2.8 13.5 4.6C15.7 2.8 17.8 1.5 20 1.5C23 1.5 25.5 4 25.5 7C25.5 13 13.5 20.5 13.5 20.5Z" fill="#FF523C" stroke="#FF523C" stroke-width="0.5"/>
+						</svg>
+						<span class="bh-summary-num bh-summary-num--red">35<span class="bh-summary-pct">%</span><span class="bh-summary-label bh-summary-label--red">가입전</span></span>
+					</div>
 					<img src="./resource/img/common/union.png" alt="" class="bh-summary-union">
-					<span class="bh-summary-label bh-summary-label--blue">가입시</span>
-					<svg class="bh-summary-heart" width="15" height="13.5" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M13.5 20.5C13.5 20.5 1.5 13 1.5 7C1.5 4 4 1.5 7 1.5C9.2 1.5 11.3 2.8 13.5 4.6C15.7 2.8 17.8 1.5 20 1.5C23 1.5 25.5 4 25.5 7C25.5 13 13.5 20.5 13.5 20.5Z" fill="#13E0FF" stroke="#13E0FF" stroke-width="0.5"/>
-					</svg>
-					<span class="bh-summary-num bh-summary-num--blue">92<span class="bh-summary-pct">%</span></span>
+					<div class="bh-summary-group">
+						<svg class="bh-summary-heart" width="22" height="18.5" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M13.5 20.5C13.5 20.5 1.5 13 1.5 7C1.5 4 4 1.5 7 1.5C9.2 1.5 11.3 2.8 13.5 4.6C15.7 2.8 17.8 1.5 20 1.5C23 1.5 25.5 4 25.5 7C25.5 13 13.5 20.5 13.5 20.5Z" fill="#13E0FF" stroke="#13E0FF" stroke-width="0.5"/>
+						</svg>
+						<span class="bh-summary-num bh-summary-num--blue">92<span class="bh-summary-pct">%</span><span class="bh-summary-label bh-summary-label--blue">가입시</span></span>
+					</div>
 				</div>
 			</div>
 
@@ -1183,15 +1356,15 @@
 					</div>
 				</div>
 			</div>
-						<div class="footer_contents" style="opacity: 0;">				
+			<div class="footer_contents" style="opacity: 0;">				
 				<a class="btn_footer_close">Close</a>
 				<div class="pay_content">
 					<div class="creditcard newui">
 						<div class="card_warp">
-							<div class="card_name">부가서비스 신청내역</div>
-							<div class="credit_box_btn" agrbtn="" style="display: none;"></div>
+							<div class="card_name">좌석∙수하물∙기내식 선택내역</div>
+							<div class="credit_box_btn" agrBtn style="display: none;"></div>
 						</div>
-						<div agrlt="" class="credit_agree_box_content dis on" style="display: block;">
+						<div agrLt class="credit_agree_box_content dis on" style="display: block;">
 							<!-- 목적지,항공편명,로고,시간-->
 							<div>
 								<div class="card_boxfst">
@@ -1271,10 +1444,10 @@
 									</div>	
 								</div>
 								<!--에어까페-->
-								<div class="card_box8">
-									<div class="card_box8_a">여행보험</div>
-									<div class="card_box8_b">
-										<div class="card_box8_bi">		
+								<div class="insure_box">
+									<div class="insure_box_a">여행자보험</div>
+									<div class="insure_box_b">
+										<div class="insure_box_bi">		
 											<div><span>고급형</span></div>				   
 											<div>
 												<span>23,000</span>
@@ -1337,16 +1510,13 @@
 										</div>
 									</div>	
 								</div>
-								<!--에어까페-->
-								<div class="card_box8">
-									<div class="card_box8_a">여행보험</div>
-									<div class="card_box8_b">
-										<div class="card_box8_bi">		 
-											<div><span>표준형</span></div>				   
-											<div>
-												<span>18,000</span>
-												<button class="new_xbtn">x</button>
-											</div>	
+								<div class="insure_box">
+									<div class="insure_box_a">여행자보험</div>
+									<div class="insure_box_b">
+										<div class="insure_box_bi">		
+											<div class="gray_txt">
+												<span>표준형</span>
+											</div>
 										</div>
 									</div>	
 								</div>								
@@ -1380,7 +1550,7 @@
 									</div>	
 								</div>
 								<div class="card_box8">
-									<div class="card_box8_a">여행보험</div>
+									<div class="card_box8_a">여행자보험</div>
 									<div class="card_box8_b">
 										<div class="card_box8_bi">		
 											<div><button class="card_box_buy">구매하기</button></div>				   
@@ -1432,7 +1602,6 @@
 									</div>	
 								</div>
 							</div>
-							<!-- 목적지,항공편명,로고,시간-->
 							<div>
 								<div class="card_boxfst">
 									<div>
@@ -1478,17 +1647,56 @@
 									</div>	
 								</div>
 							</div>
-							<!-- 선나누기 --><div class="liner_service"></div>
-					</div>
-					<div class="credit_total">
-						<div>부가서비스 총 결제 금액</div>
-						<span class="credit_total_box2">76,000원</span>   
-					</div>
-					<div class="payment_btn">바로 결제하기</div>
-				</div>
+							
+						<!-- 선나누기 -->
+						 <div class="liner_service"></div>
+							<div class="insurp">
+								<div class="card_warp">여행자보험 선택내역
+								</div>
+								<div class="bd_px">
+									<div class="insure_box">
+										<div class="insure_box_a">LEE SIHYUNG</div>
+										<div class="insure_box_b">
+											<div class="insure_box_bi">		
+												<div><span>고급형</span></div>				   
+												<div><span>200,000</span><button class="new_xbtn">x</button></div>	
+											</div>
+										</div>	
+									</div>
+									<div class="insure_box">
+										<div class="insure_box_a">Lee Jiyoung</div>
+										<div class="insure_box_b">
+											<div class="insure_box_bi">		
+												<div><span>표준형</span></div>				   
+												<div><span>105,000</span><button class="new_xbtn">x</button></div>	
+											</div>
+										</div>	
+									</div>
+									<div class="insure_box">
+										<div class="insure_box_a">Lee Jiyoung</div>
+										<div class="insure_box_b">
+											<div class="insure_box_bi">		
+												<div><button class="card_box_buy">구매하기</button></div>			   
+												<div><span>0</span></div>	
+											</div>
+										</div>	
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 선나누기 <div class="liner_service"></div> -->
+						 
 
-			</div>
-			</div>			
+						<div class="credit_total">
+							<div>부가서비스 총 결제 금액</div>
+							<span class="credit_total_box2">76,000원</span>   
+						</div>
+						<div class="payment_btn">바로 결제하기</div>
+					</div>
+
+				</div>
+				
+			</div>			 
 		</div>
 	</div>
 
@@ -1572,6 +1780,21 @@
 		if(restrictConfirm){
 			restrictConfirm.addEventListener('click', function(){ restrictModal.classList.remove('show'); });
 		}
+	}
+
+	/* ── 휴대폰번호 입력: 3자리-4자리-4자리 자동 하이픈 (010-1234-5678) ── */
+	var phoneInput = document.getElementById('insPhoneInput');
+	if(phoneInput){
+		phoneInput.addEventListener('input', function(){
+			var digits = phoneInput.value.replace(/[^0-9]/g, '').slice(0, 11);
+			var formatted = digits;
+			if(digits.length > 7){
+				formatted = digits.slice(0,3) + '-' + digits.slice(3,7) + '-' + digits.slice(7);
+			} else if(digits.length > 3){
+				formatted = digits.slice(0,3) + '-' + digits.slice(3);
+			}
+			phoneInput.value = formatted;
+		});
 	}
 
 	/* ── 입력 완료 버튼: 시트 닫기(기존 btn_slide_close_ins 핸들러 재사용) ── */
@@ -1769,16 +1992,194 @@
 })();
 
 /* ================================================================
+   여행기간 테스트 위젯 A/B — 범위선택 캘린더 (.rc-)
+   기존 tripStartBtn/tripEndBtn(단일 선택) 로직과는 독립적으로 동작.
+   ================================================================ */
+(function(){
+	var pad = function(n){ return n < 10 ? '0'+n : ''+n; };
+	var fmt = function(d){ return d.getFullYear()+'.'+pad(d.getMonth()+1)+'.'+pad(d.getDate()); };
+	var sameDay = function(a,b){ return a && b && a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); };
+	var today = new Date(); today.setHours(0,0,0,0);
+
+	/* 캘린더 한 달 분량을 그려주는 공용 함수.
+	   opts: { year, month, minDate, rangeStart, rangeEnd, onPick(date) } */
+	function renderMonth(gridEl, titleEl, opts){
+		titleEl.textContent = opts.year+'년 '+(opts.month+1)+'월';
+		var firstDow = new Date(opts.year, opts.month, 1).getDay();
+		var daysInMonth = new Date(opts.year, opts.month+1, 0).getDate();
+		gridEl.innerHTML = '';
+
+		for(var i=0; i<firstDow; i++){
+			var emp = document.createElement('div');
+			emp.className = 'rc-day empty';
+			gridEl.appendChild(emp);
+		}
+		for(var d=1; d<=daysInMonth; d++){
+			(function(dd){
+				var thisDate = new Date(opts.year, opts.month, dd);
+				var dow = thisDate.getDay();
+				var cell = document.createElement('button');
+				cell.type = 'button';
+				cell.className = 'rc-day';
+				if(dow===0) cell.classList.add('sun');
+				if(dow===6) cell.classList.add('sat');
+				if(sameDay(thisDate, today)) cell.classList.add('today');
+
+				var isDisabled = opts.minDate && thisDate.getTime() < opts.minDate.getTime();
+				if(isDisabled) cell.classList.add('disabled');
+
+				var inRange = opts.rangeStart && opts.rangeEnd &&
+					thisDate.getTime() >= opts.rangeStart.getTime() &&
+					thisDate.getTime() <= opts.rangeEnd.getTime();
+				if(inRange) cell.classList.add('in-range');
+				if(sameDay(thisDate, opts.rangeStart)) cell.classList.add('range-start');
+				if(sameDay(thisDate, opts.rangeEnd)) cell.classList.add('range-end');
+
+				var num = document.createElement('span');
+				num.className = 'rc-day-num';
+				num.textContent = dd;
+				cell.appendChild(num);
+
+				if(!isDisabled){
+					cell.addEventListener('click', function(){ opts.onPick(thisDate); });
+				}
+				gridEl.appendChild(cell);
+			})(d);
+		}
+	}
+
+	/* ── 위젯 A: 출국일 → 귀국일 순서로 탭, 사이 구간 띠 표시 ── */
+	var rcOverlay = document.getElementById('rcOverlay');
+	var rcGrid    = document.getElementById('rcGrid');
+	var rcTitle   = document.getElementById('rcTitle');
+	var rcHint    = document.getElementById('rcHint');
+	var rcPrev    = document.getElementById('rcPrev');
+	var rcNext    = document.getElementById('rcNext');
+	var rcCancel  = document.getElementById('rcCancel');
+	var rcConfirm = document.getElementById('rcConfirm');
+	var rcStartBtn = document.getElementById('rcStartBtn');
+	var rcEndBtn   = document.getElementById('rcEndBtn');
+
+	var rcYear, rcMonth, rcStart, rcEnd;
+
+	function rcRender(){
+		rcHint.textContent = !rcStart ? '출국일을 선택해 주세요'
+			: !rcEnd ? '귀국일을 선택해 주세요'
+			: '출국일과 귀국일이 선택되었습니다';
+		renderMonth(rcGrid, rcTitle, {
+			year: rcYear, month: rcMonth,
+			rangeStart: rcStart, rangeEnd: rcEnd,
+			onPick: function(date){
+				if(!rcStart || (rcStart && rcEnd)){
+					// 처음 선택하거나, 이미 둘 다 선택된 뒤 다시 누르면 새로 시작
+					if(date.getTime() < today.getTime()){
+						alert('오늘 이전 날짜는 출국일로 선택할 수 없습니다.');
+						return;
+					}
+					rcStart = date; rcEnd = null;
+				} else if(date.getTime() < rcStart.getTime()){
+					// 출국일보다 이른 날짜를 누르면 그 날짜를 새 출국일로
+					if(date.getTime() < today.getTime()){
+						alert('오늘 이전 날짜는 출국일로 선택할 수 없습니다.');
+						return;
+					}
+					rcStart = date; rcEnd = null;
+				} else {
+					rcEnd = date;
+				}
+				rcRender();
+			}
+		});
+	}
+
+	function rcOpen(){
+		var now = new Date();
+		rcYear = now.getFullYear(); rcMonth = now.getMonth();
+		rcRender();
+		rcOverlay.classList.add('show');
+	}
+
+	if(rcStartBtn) rcStartBtn.addEventListener('click', rcOpen);
+	if(rcEndBtn)   rcEndBtn.addEventListener('click', rcOpen);
+	if(rcPrev) rcPrev.addEventListener('click', function(){ if(--rcMonth<0){rcMonth=11;rcYear--;} rcRender(); });
+	if(rcNext) rcNext.addEventListener('click', function(){ if(++rcMonth>11){rcMonth=0;rcYear++;} rcRender(); });
+	if(rcCancel) rcCancel.addEventListener('click', function(){ rcOverlay.classList.remove('show'); });
+	if(rcOverlay) rcOverlay.addEventListener('click', function(e){ if(e.target===this) rcOverlay.classList.remove('show'); });
+	if(rcConfirm) rcConfirm.addEventListener('click', function(){
+		if(!rcStart || !rcEnd){ alert('출국일과 귀국일을 모두 선택해 주세요.'); return; }
+		var rcStartTxtEl = document.getElementById('rcStartTxt');
+		var rcEndTxtEl   = document.getElementById('rcEndTxt');
+		rcStartTxtEl.textContent = fmt(rcStart); rcStartTxtEl.classList.add('selected');
+		rcEndTxtEl.textContent   = fmt(rcEnd);   rcEndTxtEl.classList.add('selected');
+		rcOverlay.classList.remove('show');
+	});
+
+	/* ── 위젯 B: 출국일은 오늘로 고정, 귀국일만 선택 ── */
+	var fcOverlay = document.getElementById('fcOverlay');
+	var fcGrid    = document.getElementById('fcGrid');
+	var fcTitle   = document.getElementById('fcTitle');
+	var fcPrev    = document.getElementById('fcPrev');
+	var fcNext    = document.getElementById('fcNext');
+	var fcCancel  = document.getElementById('fcCancel');
+	var fcConfirm = document.getElementById('fcConfirm');
+	var fcEndBtn  = document.getElementById('fcEndBtn');
+	var fcStartTxt = document.getElementById('fcStartTxt');
+
+	if(fcStartTxt) fcStartTxt.textContent = fmt(today);
+
+	var fcYear, fcMonth, fcEnd;
+
+	function fcRender(){
+		renderMonth(fcGrid, fcTitle, {
+			year: fcYear, month: fcMonth,
+			minDate: today,
+			rangeStart: today, rangeEnd: fcEnd,
+			onPick: function(date){ fcEnd = date; fcRender(); }
+		});
+	}
+
+	function fcOpen(){
+		fcYear = today.getFullYear(); fcMonth = today.getMonth();
+		fcRender();
+		fcOverlay.classList.add('show');
+	}
+
+	if(fcEndBtn) fcEndBtn.addEventListener('click', fcOpen);
+	if(fcPrev) fcPrev.addEventListener('click', function(){ if(--fcMonth<0){fcMonth=11;fcYear--;} fcRender(); });
+	if(fcNext) fcNext.addEventListener('click', function(){ if(++fcMonth>11){fcMonth=0;fcYear++;} fcRender(); });
+	if(fcCancel) fcCancel.addEventListener('click', function(){ fcOverlay.classList.remove('show'); });
+	if(fcOverlay) fcOverlay.addEventListener('click', function(e){ if(e.target===this) fcOverlay.classList.remove('show'); });
+	if(fcConfirm) fcConfirm.addEventListener('click', function(){
+		if(!fcEnd){ alert('귀국일을 선택해 주세요.'); return; }
+		var fcEndTxtEl = document.getElementById('fcEndTxt');
+		fcEndTxtEl.textContent = fmt(fcEnd); fcEndTxtEl.classList.add('selected');
+		fcOverlay.classList.remove('show');
+	});
+
+	/* ── 위젯 A/B의 ⓘ 버튼도 기존 "여행기간 안내" 팝업(tripDateInfoModal)을 그대로 재사용 ── */
+	var tripInfoModal = document.getElementById('tripDateInfoModal');
+	[document.getElementById('rcInfoBtn'), document.getElementById('fcInfoBtn')].forEach(function(btn){
+		if(btn && tripInfoModal){
+			btn.addEventListener('click', function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				tripInfoModal.classList.add('show');
+			});
+		}
+	});
+})();
+
+/* ================================================================
    AI 여행 분석 카드 — 상단(문구+이미지), 하단(보상 사례) 롤링
    두 영역은 각각 별도 setInterval로 3초마다 동작 (일단 분리)
    ================================================================ */
 (function(){
 
 	/* 상단: 위로 사라지며 교체되는 크로스페이드 (transform + opacity) */
-	function makeCrossfadeLoop(viewportId, intervalMs){
+	function makeCrossfadeLoop(viewportId, intervalMs, slideSelector){
 		var viewport = document.getElementById(viewportId);
 		if(!viewport) return;
-		var slides = viewport.querySelectorAll('.ai-analysis_ins-slide');
+		var slides = viewport.querySelectorAll(slideSelector || '.ai-analysis_ins-slide');
 		if(!slides.length) return;
 		var idx = 0;
 
@@ -1832,8 +2233,8 @@
 		}, intervalMs);
 	}
 
-	// 상단: 문구+이미지 세트, 위로 사라지며 다음 세트로 교체
-	makeCrossfadeLoop('aiAnalysisRollTrack', 3000);
+	// 상단: 문구, 위로 사라지며 다음 문구로 교체
+	makeCrossfadeLoop('aiAnalysisRollTrack', 3000, '.ai-analysis_ins-slide');
 
 	// 하단: 보상 사례 티커, 세로(translateY) 18px씩, 4개 + 복제 1개
 	makeLoop('aiBottomTrack', 'translateY', 18, 4, 3000);
@@ -1849,7 +2250,7 @@
 
 	/* ── 플랜 정의 ── */
 	var PLANS = [
-		{ name: '실속형', coverage: '1억', aiScore: 84 },
+		{ name: '실속형', coverage: '5000만원', aiScore: 84 },
 		{ name: '표준형', coverage: '2억', aiScore: 85 },
 		{ name: '고급형', coverage: '3억', aiScore: 86 }
 	];
@@ -1914,7 +2315,10 @@
 
 		if (priceEl)    priceEl.innerHTML  = fmt(p.prices[p.curIdx]) + '원 <span class="ai-plancard_ins-price-days">/ ' + TRIP_DAYS + '일</span>';
 		if (pctEl)      pctEl.textContent    = 'AI 안심 ' + plan.aiScore + '%';
-		if (tierEl)     tierEl.textContent   = plan.name + ' ' + plan.coverage;
+		if (tierEl) {
+			tierEl.textContent = plan.name + ' ' + plan.coverage;
+			tierEl.classList.toggle('ai-plancard_ins-tier--sm', plan.name === '실속형');
+		}
 		if (planInfoEl) planInfoEl.classList.toggle('is-changed', isChanged);
 	}
 
@@ -1957,7 +2361,7 @@
 					'<button type="button" class="ai-plancard_ins-arrow" data-dir="-1">&#8249;</button>',
 					'<div class="ai-plancard_ins-plan-info', (isChanged ? ' is-changed' : ''), '">',
 						'<div class="ai-plancard_ins-pct">AI 안심 ', plan.aiScore, '%</div>',
-						'<div class="ai-plancard_ins-tier">', plan.name, ' ', plan.coverage, '</div>',
+						'<div class="ai-plancard_ins-tier', (plan.name === '실속형' ? ' ai-plancard_ins-tier--sm' : ''), '">', plan.name, ' ', plan.coverage, '</div>',
 					'</div>',
 					'<button type="button" class="ai-plancard_ins-arrow" data-dir="1">&#8250;</button>',
 				'</div>'
@@ -2130,7 +2534,7 @@
 		});
 	}
 
-	/* ── "선택안함" → 여행보험 없이 진행할지 확인 팝업 ── */
+	/* ── "선택안함" → 여행자보험 없이 진행할지 확인 팝업 ── */
 	var skipInsuranceBtn = document.getElementById('skipInsuranceBtn');
 	var skipConfirmPopup = document.getElementById('skipConfirmPopup');
 	if (skipInsuranceBtn && skipConfirmPopup) {
@@ -2162,6 +2566,18 @@
 	document.querySelectorAll('[data-sheet="sheetInsur2"]').forEach(function (btn) {
 		btn.addEventListener('click', function () {
 			flexgroup.classList.toggle('is-swapped', btn.hasAttribute('data-swap-order'));
+		});
+	});
+})();
+</script>
+<script>
+/* sheetTerms: 시트를 처음 열 때만 iframe(resource/terms/OTA_P.html)을 로드 (지연 로딩) */
+(function () {
+	var frame = document.getElementById('termsFrame');
+	if (!frame) return;
+	document.querySelectorAll('[data-sheet="sheetTerms"]').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			if (!frame.src) frame.src = frame.dataset.src;
 		});
 	});
 })();
@@ -2654,6 +3070,7 @@
 
 	function renderMain(d) {
 		var html = '';
+		html += '<div class="cov-plan-badge-wrap"><span class="cov-plan-badge">표준형</span></div>';
 		html += '<div class="cov-main-row cov-row" data-cov-row="main">';
 		html += '  <div class="cov-main-row-head">';
 		html += '    <span class="cov-tag cov-tag--main">주계약</span>';
@@ -2722,7 +3139,7 @@
 		tabs.forEach(function (t, i) { t.classList.toggle('is-active', i === idx); });
 		renderMain(COV_DATA[idx]);
 		scrollActiveTabIntoView();
-	}
+	} 
 
 	function scrollActiveTabIntoView() {
 		var activeTab = tabs[covIdx];
@@ -2745,7 +3162,7 @@
 	function scheduleResume() {
 		clearTimeout(resumeTimer);
 		// 자동 롤링 잠시 중단: 아래 줄 주석처리해서 재시작 안 되게 해놓음. 다시 켤 때 주석 해제.
-		// resumeTimer = setTimeout(startRoll, RESUME_MS);
+		resumeTimer = setTimeout(startRoll, RESUME_MS);
 	}
 
 	tabs.forEach(function (tab, i) {
@@ -2765,7 +3182,7 @@
 
 	renderCov(0);
 	// 자동 롤링 잠시 중단: 아래 줄 주석처리. 다시 켤 때 주석 해제.
-	// startRoll();
+	 startRoll();
 })();
 </script>
 
@@ -2797,6 +3214,7 @@
 
 		function onMove(e) {
 			if (!dragging) return;
+			e.preventDefault(); // 드래그 중엔 모바일 풀다운 새로고침/배경 스크롤 막기
 			var delta = e.touches[0].clientY - startY;
 			if (delta < 0) delta = 0; // 위로는 못 끌리게 (아래로만 드래그 허용)
 			currentY = delta;
@@ -2822,10 +3240,313 @@
 		}
 
 		sheet.addEventListener('touchstart', onStart, { passive: true });
-		sheet.addEventListener('touchmove', onMove, { passive: true });
+		sheet.addEventListener('touchmove', onMove, { passive: false });
 		sheet.addEventListener('touchend', onEnd);
 		sheet.addEventListener('touchcancel', onEnd);
 	});
+})();
+</script>
+
+<!-- ===== NOL: 플랜 선택 / 보장내역 / 보험료 상세 / 종료일 변경 로직 ===== -->
+<script>
+(function () {
+	function formatWon(n) { return n.toLocaleString('ko-KR') + '원'; }
+	function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+	function sameDay(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+
+	var PLAN_META = {
+		basic:    { label: '실속형', people: [13978, 13751, 11301] },
+		standard: { label: '표준형', people: [17900, 17600, 14500] },
+		premium:  { label: '고급형', people: [24300, 23900, 19700] }
+	};
+
+	var COVERAGE_ITEMS = [
+		{ name: '국내 상해 급여 의료비',       values: { basic: '1천만원',   standard: '1,500만원', premium: '2천만원' } },
+		{ name: '해외병원 상해 입원일당',       values: { basic: '2만원',     standard: '3만원',     premium: '5만원' } },
+		{ name: '국내 3대 비급여 의료비',       values: { basic: '가입',      standard: '가입',      premium: '가입' } },
+		{ name: '국내 질병 급여 의료비',       values: { basic: '1천만원',   standard: '1,500만원', premium: '2천만원' } },
+		{ name: '국내 상해 비급여 의료비',       values: { basic: '1천만원',   standard: '1,500만원', premium: '2천만원' } },
+		{ name: '해외 질병 사망·후유장해',      values: { basic: '3천만원',   standard: '5천만원',   premium: '1억원' } },
+		{ name: '해외 상해 사망·후유장해',      values: { basic: '5천만원',   standard: '7천만원',   premium: '1억원' } },
+		{ name: '휴대품 손해',                values: { basic: '100만원',   standard: '120만원',   premium: '150만원' } },
+		{ name: '항공기 지연',                values: { basic: '10만원',    standard: '15만원',    premium: '20만원' } },
+		{ name: '배상책임',                   values: { basic: '3천만원',   standard: '5천만원',   premium: '1억원' } }
+	];
+
+	var selectedPlan = null;
+	var currentDayCount = 5;
+
+	var planCards      = document.querySelectorAll('.nol-plan-card');
+	var bottombarTotal  = document.getElementById('nolBottombarTotal');
+	var bottombarCta    = document.getElementById('nolBottombarCta');
+	var bottombarAmt    = document.getElementById('nolBottombarAmt');
+	var bottombarPeople = document.getElementById('nolBottombarPeople');
+	var pricePopup      = document.getElementById('nolPricePopup');
+	var priceInfoBtn    = document.getElementById('nolPriceInfoBtn');
+
+	function updateBottombar() {
+		if (selectedPlan) {
+			var meta = PLAN_META[selectedPlan];
+			var total = meta.people.reduce(function (a, b) { return a + b; }, 0);
+			bottombarAmt.textContent = formatWon(total);
+			bottombarPeople.textContent = '성인 ' + meta.people.length + '인/' + currentDayCount + '일 ';
+			bottombarTotal.style.display = 'flex';
+			bottombarCta.textContent = '보험 가입하기';
+		} else {
+			bottombarTotal.style.display = 'none';
+			bottombarCta.textContent = '보험 없이 결제하기';
+			closePricePopup();
+		}
+	}
+
+	function togglePlan(planId) {
+		selectedPlan = (selectedPlan === planId) ? null : planId;
+		planCards.forEach(function (c) {
+			var cardPlan = c.getAttribute('data-plan');
+			var isSel = cardPlan === selectedPlan;
+			c.classList.toggle('is-selected', isSel);
+			var txt = c.querySelector('.nol-plan-cta-txt');
+			txt.textContent = PLAN_META[cardPlan].label + (isSel ? ' 취소하기' : ' 추가하기');
+		});
+		updateBottombar();
+	}
+
+	planCards.forEach(function (card) {
+		card.addEventListener('click', function () {
+			togglePlan(card.getAttribute('data-plan'));
+		});
+	});
+
+	/* ── 보험료 상세 팝업 ── */
+	function renderPricePopup() {
+		var meta = PLAN_META[selectedPlan];
+		var list = document.getElementById('nolPricePopupList');
+		list.innerHTML = meta.people.map(function (amt) {
+			return '<div class="nol-pricepop-row"><span class="nol-pricepop-row-tick">└</span>' +
+				'<span class="nol-pricepop-row-name">LEE JIYOUNG (성인/여)</span>' +
+				'<span class="nol-pricepop-row-amt">' + formatWon(amt) + '</span></div>';
+		}).join('');
+		var total = meta.people.reduce(function (a, b) { return a + b; }, 0);
+		document.getElementById('nolPricePopupTotal').textContent = formatWon(total);
+	}
+	function closePricePopup() { pricePopup.classList.remove('is-open'); }
+
+	if (priceInfoBtn) {
+		priceInfoBtn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			if (!selectedPlan) return;
+			if (pricePopup.classList.contains('is-open')) { closePricePopup(); return; }
+			renderPricePopup();
+			pricePopup.classList.add('is-open');
+		});
+	}
+	document.addEventListener('click', function (e) {
+		if (pricePopup.classList.contains('is-open') &&
+			!pricePopup.contains(e.target) &&
+			e.target !== priceInfoBtn && !priceInfoBtn.contains(e.target)) {
+			closePricePopup();
+		}
+	});
+
+	/* ── 36개 보장 항목 상세보기 시트 ── */
+	var covSelectWrap = document.getElementById('nolCovSelectWrap');
+	var covSelectBtn  = document.getElementById('nolCovSelectBtn');
+	var covSelectTxt  = document.getElementById('nolCovSelectTxt');
+	var covList       = document.getElementById('nolCovList');
+	var covTabs       = document.querySelectorAll('#nolCovTabs .nol-cov-tab');
+
+	function renderCovList(planKey) {
+		covList.innerHTML = COVERAGE_ITEMS.map(function (item) {
+			return '<div class="nol-cov-row"><span class="nol-cov-row-name">' + item.name +
+				'<button type="button" class="nol-cov-row-info" data-cov-name="' + item.name + '">?</button></span>' +
+				'<span class="nol-cov-row-amt">' + item.values[planKey] + '</span></div>';
+		}).join('');
+	}
+
+	/* ── 보장 항목 ? 안내 팝업 ── */
+	var covInfoModal   = document.getElementById('nolCovInfoModal');
+	var covInfoTitle   = document.getElementById('nolCovInfoTitle');
+	var covInfoConfirm = document.getElementById('nolCovInfoConfirm');
+	if (covList && covInfoModal) {
+		covList.addEventListener('click', function (e) {
+			var btn = e.target.closest('.nol-cov-row-info');
+			if (!btn) return;
+			covInfoTitle.textContent = btn.getAttribute('data-cov-name') + ' 안내';
+			covInfoModal.classList.add('show');
+		});
+		covInfoModal.addEventListener('click', function (e) {
+			if (e.target === this) covInfoModal.classList.remove('show');
+		});
+		if (covInfoConfirm) {
+			covInfoConfirm.addEventListener('click', function () { covInfoModal.classList.remove('show'); });
+		}
+	}
+
+	if (covSelectBtn) {
+		covSelectBtn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			covSelectWrap.classList.toggle('is-open');
+		});
+		covSelectWrap.querySelectorAll('.nol-cov-select-opt').forEach(function (opt) {
+			opt.addEventListener('click', function () {
+				covSelectWrap.querySelectorAll('.nol-cov-select-opt').forEach(function (o) {
+					o.classList.remove('is-checked');
+					o.querySelector('.nol-cov-select-opt-check').textContent = '';
+				});
+				opt.classList.add('is-checked');
+				opt.querySelector('.nol-cov-select-opt-check').textContent = '✓';
+				covSelectTxt.textContent = opt.getAttribute('data-label');
+				covSelectWrap.classList.remove('is-open');
+			});
+		});
+		document.addEventListener('click', function (e) {
+			if (!covSelectWrap.contains(e.target)) covSelectWrap.classList.remove('is-open');
+		});
+	}
+
+	covTabs.forEach(function (tab) {
+		tab.addEventListener('click', function () {
+			covTabs.forEach(function (t) { t.classList.remove('is-active'); });
+			tab.classList.add('is-active');
+			renderCovList(tab.getAttribute('data-cov-plan'));
+		});
+	});
+
+	var covOpenBtn = document.querySelector('.nol-coverage-link');
+	if (covOpenBtn) {
+		covOpenBtn.addEventListener('click', function () {
+			var planKey = selectedPlan || 'basic';
+			covTabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-cov-plan') === planKey); });
+			renderCovList(planKey);
+		});
+	}
+	renderCovList('basic');
+
+	/* ── 종료일 변경 캘린더 ── */
+	var calOverlay   = document.getElementById('nolCalOverlay');
+	var calScroll    = document.getElementById('nolCalScroll');
+	var calConfirm   = document.getElementById('nolCalConfirm');
+	var calClose     = document.getElementById('nolCalClose');
+	var dateChangeBtn = document.getElementById('nolDateChangeBtn');
+	var dateRangeTxt  = document.getElementById('nolDateRangeTxt');
+	var DOW = ['일', '월', '화', '수', '목', '금', '토'];
+	var tripStart, calSelected;
+
+	function parseDates() {
+		var m = dateRangeTxt.textContent.match(/^(\d{2})\.(\d{2})\.(\d{2})\s+([\d:]+)~(\d{2})\.(\d{2})\s+([\d:]+)\s*\((\d+)일\)/);
+		if (!m) return null;
+		var startYear = 2000 + parseInt(m[1], 10);
+		var s = new Date(startYear, parseInt(m[2], 10) - 1, parseInt(m[3], 10));
+		var e = new Date(startYear, parseInt(m[5], 10) - 1, parseInt(m[6], 10));
+		if (e < s) e.setFullYear(startYear + 1);
+		return {
+			start: s, end: e,
+			startStr: m[1] + '.' + m[2] + '.' + m[3],
+			startTimeTxt: m[4], endTimeTxt: m[7],
+			dayCount: parseInt(m[8], 10)
+		};
+	}
+
+	var initialParsed = parseDates();
+	if (initialParsed) currentDayCount = initialParsed.dayCount;
+
+	function buildMonthBlock(year, month) {
+		var wrap = document.createElement('div');
+		wrap.className = 'nol-cal-month';
+		var label = document.createElement('div');
+		label.className = 'nol-cal-month-label';
+		label.textContent = year + '.' + pad2(month + 1);
+		wrap.appendChild(label);
+
+		var grid = document.createElement('div');
+		grid.className = 'nol-cal-grid';
+		var firstDow = new Date(year, month, 1).getDay();
+		var daysInMonth = new Date(year, month + 1, 0).getDate();
+		var today = new Date(); today.setHours(0, 0, 0, 0);
+
+		for (var i = 0; i < firstDow; i++) {
+			var empty = document.createElement('div');
+			empty.className = 'nol-cal-day is-empty';
+			grid.appendChild(empty);
+		}
+		for (var day = 1; day <= daysInMonth; day++) {
+			(function (day) {
+				var thisDate = new Date(year, month, day);
+				var btn = document.createElement('button');
+				btn.type = 'button';
+				btn.className = 'nol-cal-day';
+				var dow = thisDate.getDay();
+				if (dow === 0) btn.classList.add('is-sun');
+				if (dow === 6) btn.classList.add('is-sat');
+				var disabled = thisDate < tripStart;
+				if (disabled) { btn.classList.add('is-disabled'); btn.disabled = true; }
+				if (sameDay(thisDate, today)) btn.classList.add('is-today');
+				if (calSelected && sameDay(thisDate, calSelected)) btn.classList.add('is-selected');
+
+				var span = document.createElement('span');
+				span.textContent = day;
+				btn.appendChild(span);
+				if (sameDay(thisDate, today)) {
+					var tl = document.createElement('span');
+					tl.className = 'nol-cal-day-today-label';
+					tl.textContent = 'Today';
+					btn.appendChild(tl);
+				}
+				if (!disabled) {
+					btn.addEventListener('click', function () {
+						calSelected = thisDate;
+						calScroll.querySelectorAll('.nol-cal-day.is-selected').forEach(function (x) { x.classList.remove('is-selected'); });
+						btn.classList.add('is-selected');
+						updateCalConfirmLabel();
+					});
+				}
+				grid.appendChild(btn);
+			})(day);
+		}
+		wrap.appendChild(grid);
+		return wrap;
+	}
+
+	function updateCalConfirmLabel() {
+		if (!calSelected) { calConfirm.disabled = true; calConfirm.textContent = '날짜를 선택해 주세요'; return; }
+		calConfirm.disabled = false;
+		calConfirm.textContent = (calSelected.getMonth() + 1) + '.' + calSelected.getDate() + '(' + DOW[calSelected.getDay()] + ') 선택';
+	}
+
+	function buildCalendar() {
+		var d = parseDates();
+		if (!d) return;
+		tripStart = d.start;
+		calSelected = new Date(d.end);
+		calScroll.innerHTML = '';
+		var cursor = new Date(tripStart.getFullYear(), tripStart.getMonth(), 1);
+		for (var i = 0; i < 4; i++) {
+			calScroll.appendChild(buildMonthBlock(cursor.getFullYear(), cursor.getMonth()));
+			cursor.setMonth(cursor.getMonth() + 1);
+		}
+		updateCalConfirmLabel();
+	}
+
+	function closeCal() { calOverlay.classList.remove('show'); }
+
+	if (dateChangeBtn) {
+		dateChangeBtn.addEventListener('click', function () {
+			buildCalendar();
+			calOverlay.classList.add('show');
+		});
+		calClose.addEventListener('click', closeCal);
+		calOverlay.addEventListener('click', function (e) { if (e.target === calOverlay) closeCal(); });
+		calConfirm.addEventListener('click', function () {
+			if (!calSelected) return;
+			var d = parseDates();
+			var newEndStr = pad2(calSelected.getMonth() + 1) + '.' + pad2(calSelected.getDate());
+			var dayCount = Math.round((calSelected - tripStart) / 86400000) + 1;
+			dateRangeTxt.textContent = d.startStr + ' ' + d.startTimeTxt + '~' + newEndStr + ' ' + d.endTimeTxt + ' (' + dayCount + '일)';
+			currentDayCount = dayCount;
+			updateBottombar();
+			closeCal();
+		});
+	}
 })();
 </script>
 </body>
