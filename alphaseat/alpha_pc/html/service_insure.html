@@ -10,7 +10,7 @@
             <link rel="stylesheet" href="../resource/css/contents.css">
             <link rel="stylesheet" href="../resource/css/common.css">  
             
-            <link rel="stylesheet" href="../resource/css/insure.css">   
+            <link rel="stylesheet" href="../resource/css/insure.css">
 
             <script type="text/javascript" src="../resource/js/modernizr-custom.js"></script>
             <script type="text/javascript" src="../resource/js/jquery-3.4.1.min.js"></script>
@@ -43,9 +43,8 @@
                     </div>
                 </div>
                 <div class="menubox_btom_right">
-                    <div class="menubox_btom_box1">선택안함</div>
-                    <div class="menubox_btom_box2">AI맞춤플랜 가입</div>
-                    <div class="menubox_btom_box2">결제하기</div>
+                    <div class="menubox_btom_box1" style="display: none;">건너뛰기</div>
+                    <div class="menubox_btom_box2 oranz" >결제하기</div>
                 </div>
             </div>
         </div>
@@ -260,65 +259,68 @@
                     </div>
                 </div>
                 <!-- 약관 동의 섹션 ─────────────────── -->
-                <div class="ins-terms_wrap">
-                <!-- 모두 동의 헤더 -->
-                <div class="ins-terms_head">
-                    <button type="button" class="ins-terms_circle-btn" id="insTermsAllBtn" aria-label="모두 동의">
-                    <span class="ins-terms_circle" id="insTermsAllCircle">
-                        <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                        <path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </span>
-                    </button>
-                    <span class="ins-terms_head-txt">가입 약관에 모두 동의합니다.</span>
-                    <button type="button" class="ins-terms_toggle is-collapsed" id="insTermsToggle" aria-expanded="false" aria-label="접기/펴기">
-                    <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                        <path d="M2 9L7 4L12 9" stroke="#888" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    </button>
-                </div>
-                <!-- 항목 리스트 -->
-                <div class="ins-terms_list is-hidden" id="insTermsList">
-                    <div class="ins-terms_item">
-                    <button type="button" cla ss="ins-terms_circle-btn" data-term-idx="0" aria-label="동의">
-                        <span class="ins-terms_circle" data-circle="0">
-                        <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                            <path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        </span>
-                    </button>
-                    <span class="ins-terms_item-txt">단체(취급) 여행자보험 가입 규약</span>
-                    <button type="button" class="ins-terms_item-arrow" data-popup="termsPopup0" aria-label="내용 보기">
-                        <svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
-                    </button>
+                <!-- 가입 약관 동의 (service_baggage.html / index.html과 동일한 .agreement-wrap 컴포넌트) -->
+                <div class="agreement-wrap active">
+                    <h5 class="agreement-title">가입 약관 동의</h5>
+                    <ul class="agreement-list">
+                        <li>
+                            <input type="checkbox" id="input-checkins1" name="check-group-ins"><label for="input-checkins1"><i class="ico"></i>단체(취급) 여행자보험 가입 규약</label>
+                            <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                            <div class="notification-wrap">
+                                <p class="notification-text">주식회사 올윈에어는 보험계약자를 주식회사 올윈에어로, 피보험자 및 수익자를 "주식회사 올윈에어가 제공하는 알선, 주최서비스의 제공을 받는 자"로 하는 단체여행자보험계약을 체결할 수 있습니다. 단, 보험금의 종류가 사망보험금인 경우에는 그 보험수익자를 피보험자의 법정상속인으로 합니다.</p>
+                                <p class="notification-text">주식회사 올윈에어가 제공하는 알선, 주최서비스의 제공을 받는 자는 제 1항의 보험계약에 따른 내용을 주식회사 올윈에어가 제공하는 범주 내에서 자유롭게 선택할 수 있으며 보험료를 직접 보험회사에 (또는 주식회사 올윈에어에) 납부해야 합니다.</p>
+                                <p class="notification-text">제 2항에 따라 보험료를 납부한 회원은 계약자의 권리를 행사할 수 있습니다.</p>
+                                <p class="notification-text">보험계약에 관한 세부내용은 보험사가 제공하는 보험약관에 따릅니다.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="input-checkins2" name="check-group-ins"><label for="input-checkins2"><i class="ico"></i>단체여행자보험계약 대리 체결 확인</label>
+                            <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                            <div class="notification-wrap">
+                                <ul class="notification-list">
+                                    <li>신청인(예약자)은 동승한 탑승객 전원을 대리하여 본 단체여행자보험 계약을 체결함에 동의합니다.</li>
+                                    <li>대리 체결된 계약의 보장내용, 보험료 및 청약철회 등에 관한 사항은 신청인의 확인·안내를 통해 각 피보험자에게 고지된 것으로 봅니다.</li>
+                                    <li>개별 계약 체결을 원하시는 고객은 라이나손해보험 다이렉트를 통해 별도로 가입하실 수 있습니다.</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="input-checkins3" name="check-group-ins"><label for="input-checkins3"><i class="ico"></i>개인정보 제3자 제공 동의</label>
+                            <a href="#none" target="_self" class="btn_more">자세히 보기<i class="ico"></i></a>
+                            <div class="notification-wrap">
+                                <div class="table-wrap">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width: 25%">
+                                            <col style="width: 25%">
+                                            <col style="width: 25%">
+                                            <col style="width: 25%">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="colgroup">제공받는자</th>
+                                                <th scope="colgroup">제공목적</th>
+                                                <th scope="colgroup">제공항목</th>
+                                                <th scope="colgroup">보유기간</th>
+                                            </tr>
+                                            <tr>
+                                                <td>라이나손해보험(Chubb)</td>
+                                                <td>여행자보험 가입 및 보험금 지급</td>
+                                                <td>성명, 생년월일, 성별, 연락처, 여행일정</td>
+                                                <td>보험기간 종료 후 5년</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <ul class="notification-list">
+                                    <li>귀하는 개인정보 제3자 제공에 대한 동의를 거부할 권리가 있으며, 동의하지 않으실 경우 여행자보험 가입이 제한될 수 있습니다.</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="agreement-all-list">
+                        <input type="checkbox" id="input-checkinsAll" name="check-group-ins" data-checked="all"><label for="input-checkinsAll"><i class="ico"></i>모두 동의하기</label>
                     </div>
-                    <div class="ins-terms_item">
-                    <button type="button" class="ins-terms_circle-btn" data-term-idx="1" aria-label="동의">
-                        <span class="ins-terms_circle" data-circle="1">
-                        <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                            <path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        </span>
-                    </button>
-                    <span class="ins-terms_item-txt">단체여행자보험계약 대리 체결 확인</span>
-                    <button type="button" class="ins-terms_item-arrow" data-popup="termsPopup1" aria-label="내용 보기">
-                        <svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
-                    </button>
-                    </div>
-                    <div class="ins-terms_item">
-                    <button type="button" class="ins-terms_circle-btn" data-term-idx="2" aria-label="동의">
-                        <span class="ins-terms_circle" data-circle="2">
-                        <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                            <path d="M2.5 7L5.5 10L11.5 4" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        </span>
-                    </button>
-                    <span class="ins-terms_item-txt">개인정보 제3자 제공 동의</span>
-                    <button type="button" class="ins-terms_item-arrow" data-popup="termsPopup2" aria-label="내용 보기">
-                        <svg width="6" height="12" viewBox="0 0 9 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
-                    </button>
-                    </div>
-                </div>
                 </div>
                 <!-- // 약관 동의 섹션 ─────────────────── -->
 
@@ -1363,9 +1365,45 @@
                                         </div>	
                                     </div>
                                 </div>
-                            </div>
-                            
-                        </div>                        
+                            </div>                            
+                        </div>
+                        <!-- 선나누기 -->
+						<div class="liner_service2"></div>
+                        <div class="insurp">
+								<div class="card_warp">여행자보험 선택내역
+								</div>
+								<div class="bd_px">
+									<div class="insure_box">
+										<div class="insure_box_a">LEE SIHYUNG</div>
+										<div class="insure_box_b">
+											<div class="insure_box_bi">		
+												<div><span>고급형</span></div>				   
+												<div><span>200,000</span>
+                                                    <i class="pay_xx_i"></i></div>	
+											</div>
+										</div>	
+									</div>
+									<div class="insure_box">
+										<div class="insure_box_a">Lee Jiyoung</div>
+										<div class="insure_box_b">
+											<div class="insure_box_bi">		
+												<div><span>표준형</span></div>				   
+												<div><span>105,000</span>
+                                                    <i class="pay_xx_i"></i></div>	
+											</div>
+										</div>	
+									</div>
+									<div class="insure_box">
+										<div class="insure_box_a">Lee Jiyoung</div>
+										<div class="insure_box_b">
+											<div class="insure_box_bi">		
+												<div><button class="card_box_buy">구매하기</button></div>			   
+												<div><span>0</span></div>	
+											</div>
+										</div>	
+									</div>
+								</div>
+							</div>                        
                         <div class="pay_choice">                            
                             <div><i class="safe_cho">안심</i> <span>정해진 자리는 기내에서 일행끼리 <br> 자유롭게 바꿀 수 있어요</span></div>
                             <a href="javascript:;" onclick="layerPop('popup1');" class="btn_bd_md submit">자리조정</a>
@@ -3734,6 +3772,41 @@
 		sheet.addEventListener('touchcancel', onEnd);
 	});
 })();
+</script>
+
+<!-- service_insure2.html 전용: 인수불가국가 안내, 여행기간 안내, 달력(여행기간/범위선택/
+     출국일고정) 같은 중첩 팝업들을 화면 전체가 아니라, 지금 열려있는 슬라이드시트(팝업)
+     크기에 맞춰서 그 가운데에 뜨도록 합니다. 딤 배경도 같이 그 크기로 맞춰집니다. -->
+<script>
+    $(function () {
+        var $nested = $('.info-modal_ins, .datepicker-overlay, .timepicker-overlay, .rc-overlay');
+        if (!$nested.length) return;
+
+        function syncNestedToParentSheet() {
+            var $sheet = $('.slide-sheet_ins.is-open').first();
+            if (!$sheet.length) return;
+            var rect = $sheet[0].getBoundingClientRect();
+            $nested.css({
+                top: rect.top + 'px',
+                left: rect.left + 'px',
+                width: rect.width + 'px',
+                height: rect.height + 'px',
+                right: 'auto',
+                bottom: 'auto',
+                alignItems: 'center'
+            });
+        }
+
+        var mo = new MutationObserver(function (mutations) {
+            mutations.forEach(function (m) {
+                if (m.attributeName === 'class' && m.target.classList.contains('show')) {
+                    syncNestedToParentSheet();
+                }
+            });
+        });
+        $nested.each(function () { mo.observe(this, { attributes: true }); });
+        $(window).on('resize', syncNestedToParentSheet);
+    });
 </script>
 
 </body>

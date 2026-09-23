@@ -22,23 +22,6 @@
     z-index: auto;
 }
 
-/* 하단 고정 바 : 선택안함 / AI맞춤플랜 가입 / 결제하기 (보험 페이지 전용 블루 톤,
-   기존 .menubox_btom_box1/box2의 크기·레이아웃은 그대로 두고 색상만 바꿉니다) */
-.menubox_btom_box1 {
-    color: #1A85FF;
-    border-color: #1A85FF;
-}
-.menubox_btom_box1:hover {
-    color: #fff;
-    background-color: #1A85FF;
-}
-.menubox_btom_box2 {
-    background-color: #1A85FF;
-}
-.menubox_btom_box2:not(:last-child) {
-    margin-right: 41px;
-}
-
 .insurebar-plane {
     display: inline-flex;
     align-items: center;
@@ -158,7 +141,7 @@
 
 /* 가입정보 입력 (내정보) — service_insurance.html의 myinfo-* 형식 그대로 재사용 */
 .myinfo-header {
-    padding: 50px 0 0px;
+    padding: 40px 0 20px;
     flex-shrink: 0;
     text-align: center;
 }
@@ -2129,7 +2112,7 @@
 
 /* ===== sheetInsur2 (분석 상세 슬라이드): 상단 헤더 (기존 클래스와 완전히 분리된 전용 클래스) ===== */
 .ai-detail_head {
-    padding: 50px 0 15px;
+    padding: 0px 0 15px;
     margin-bottom: 16px;
     border-bottom: 1px solid #eee;
     text-align: center;
@@ -2538,7 +2521,6 @@
 }
 .cov-head {
     flex-shrink: 0;
-    padding: 50px 0 4px;
     text-align: center;
 }
 .cov-head-title {
@@ -3899,10 +3881,146 @@
 	color: #222;
 }
 
+/* 가입 약관 동의(보험 전용 .agreement-wrap) 체크박스/화살표 색상을
+   사이트 기본 오렌지(#FF4F24)에서 보험 페이지 블루(#1A85FF)로 */
+.content-wrap.newui > .agreement-wrap input[type="checkbox"]:checked + label .ico {
+    border-color: #1A85FF;
+    background-color: #1A85FF;
+}
+.content-wrap.newui > .agreement-wrap .agreement-list .btn_more .ico {
+    border-color: #1A85FF;
+}
+
+/* 표 없이 <p class="notification-text">만 연달아 있는 항목(단체(취급) 여행자보험
+   가입 규약)은 문단 사이 간격 규칙이 없어 서로 붙어 보여서 간격을 줍니다 */
+.content-wrap.newui > .agreement-wrap .notification-wrap > .notification-text + .notification-text {
+    margin-top: 10px;
+}
+
 .gnb-header-bottom div .gnb-header-bottom-txt.active_insure {
     color: #1A85FF;
     border-bottom: 3px solid #1A85FF;
     pointer-events: none;
     cursor: default;
 
+}
+/*.insure_blue 이거 넣으면 버튼 색상 블루로 바뀜*/
+.insure_blue{
+    background-color: #1A85FF !important;
+    border: 1px solid #1A85FF !important;
+}
+
+/* =========================================================
+   ========================================================= */
+.slide-sheet_ins {
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 640px !important;
+    max-width: calc(100% - 40px) !important;
+    height: auto !important;
+    max-height: 82vh;
+    border-radius: 16px !important;
+    /* 자식(하단 버튼바 등)이 사각형 배경으로 꽉 차 있으면 부모의 둥근 모서리
+       (특히 아래쪽)를 가리므로, 항상 부모 모양대로 잘리도록 합니다 */
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
+    transform: translate(-50%, -50%) scale(0.96) !important;
+    transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease !important;
+    /* 원래 바텀시트는 닫히면 화면 밖(아래)으로 완전히 빠져나가서 문제가 없었지만,
+       가운데 팝업은 닫혀도(opacity:0) 같은 자리에 그대로 남아있어서, 다른 팝업을
+       열어도 먼저 있던(보이지 않는) 팝업이 클릭을 가로채는 문제가 있었습니다.
+       그래서 닫힌 상태는 visibility/pointer-events로 완전히 비활성화합니다. */
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.slide-sheet_ins.is-open {
+    transform: translate(-50%, -50%) scale(1) !important;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* 바텀시트 전용이던 상단 마스크(스크롤 시 드래그핸들과 겹침 방지용)는
+   중앙 팝업에서는 필요 없음 */
+.slide-sheet_ins-handle-mask {
+    display: none;
+}
+
+/* 스크롤할 때 본문 텍스트가 우측상단 X 버튼과 겹치지 않도록, 스크롤 영역 자체를
+   버튼 아래로 밀어냅니다 (바텀시트 때 쓰던 흰색 마스크 대신 이 방법 사용) */
+.slide-sheet_ins-body {
+    margin-top: 60px !important;
+    padding-top: 0 !important;
+}
+
+/* 위에서 60px를 이미 확보했으므로, 각 시트 안쪽 제목 영역이 원래 갖고 있던
+   상단 여백(바텀시트용 드래그핸들을 피하려던 값)은 없애서 이중 여백을 방지 */
+.myinfo-header {
+    padding-top: 0 !important;
+}
+#sheetPlanInfo .slide-sheet_ins-body {
+    padding-top: 0 !important;
+}
+.terms-sheet-body .myinfo-header {
+    padding-top: 10px !important;
+}
+
+/* 스크롤바를 다시 보이게 (바텀시트 버전은 숨겼었음) */
+.slide-sheet_ins-body {
+    scrollbar-width: thin !important;
+}
+.slide-sheet_ins-body::-webkit-scrollbar {
+    display: block !important;
+    width: 8px;
+}
+.slide-sheet_ins-body::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+.slide-sheet_ins-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 드래그핸들(작은 바)을 우측 상단 ico_delete.png × 닫기 버튼으로 교체
+   (sheetCoverage 안의 라이나손보 로고처럼 시트 내부 컨텐츠가 자체적으로
+   우측 상단에 z-index:3을 쓰는 경우가 있어, 닫기 버튼은 항상 그보다
+   위(z-index:5)에 오도록 고정합니다) */
+.slide-sheet_ins .btn_footer_close {
+    top: 14px !important;
+    left: auto !important;
+    right: 14px !important;
+    margin: 0 !important;
+    width: 28px !important;
+    height: 28px !important;
+    background: url("../img/common/ico_delete.png") no-repeat center / 28px 28px !important;
+    z-index: 5 !important;
+}
+
+.slide-sheet_ins .btn_footer_close::before,
+.slide-sheet_ins .btn_footer_close::after {
+    display: none;
+}
+
+/* sheetCoverage 내부의 라이나손보 로고가 원래 우측상단(right:20px)에 있어서
+   새 닫기 버튼과 겹침 → 로고를 왼쪽으로 밀어 자리를 만듭니다 */
+#sheetCoverage .ai-plancard_ins-logo {
+    right: 56px !important;
+}
+
+/* 중첩 팝업(인수불가국가/여행기간 안내, 달력) 딤 배경을 더 연하게 */
+.info-modal_ins,
+.datepicker-overlay,
+.timepicker-overlay,
+.rc-overlay {
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* sheetTerms(약관보기)는 안이 iframe(.terms-iframe) 하나뿐이고 그 iframe이
+   flex:1로 "부모 높이만큼" 늘어나는 방식인데, .slide-sheet_ins를 height:auto로
+   바꾸면서 부모가 늘어날 기준 높이가 없어져 iframe이 기본 높이(150px 정도)로
+   찌그러져 보였습니다. 다른 팝업과 비슷한 높이가 되도록 고정 높이를 줍니다. */
+#sheetTerms {
+    height: 640px !important;
 }
