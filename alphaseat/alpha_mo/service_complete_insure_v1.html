@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/insur_v1.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+</head>
+<body>
+	<div class="ins-v1-complete">
+		<div class="ins-v1-complete-top">
+			<a href="index.html" aria-label="닫기">&times;</a>
+		</div>
+
+		<div class="ins-v1-complete-check">
+			<svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+				<path d="M6 14.5L11.5 20L22 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</div>
+		<div class="ins-v1-complete-title">여행보험 가입이<br><b>완료</b>되었습니다</div>
+		<div class="ins-v1-complete-sub" id="completeSub">가입 확인 알림을 곧 보내드릴게요</div>
+
+		<div class="ins-v1-complete-card">
+			<div class="ins-v1-complete-card-row"><span>여행지</span><b>인천 → 프랑크푸르트</b></div>
+			<div class="ins-v1-complete-card-row"><span>여행기간</span><b>27.07.23 ~ 07.26 (4일)</b></div>
+			<div class="ins-v1-complete-card-row"><span>가입인원</span><b id="completeCount">3인</b></div>
+			<div class="ins-v1-complete-card-row"><span>결제금액</span><b id="completeTotal">56,000원</b></div>
+		</div>
+
+		<div class="ins-v1-complete-persons" id="completePersons"><!-- JS 생성 --></div>
+
+		<div class="ins-v1-complete-btns">
+			<button type="button" class="ins-v1-complete-btn-sub" onclick="location.href='index.html'">메인으로</button>
+			<button type="button" class="ins-v1-complete-btn-main" onclick="location.href='service_complete_subscr.html'">가입내역 확인</button>
+		</div>
+	</div>
+
+<script>
+(function () {
+	var DEFAULT_PERSONS = [
+		{ name: 'LEE SIHYUNG', plan: '표준형', price: 22000 },
+		{ name: 'LEE JIYOUNG', plan: '표준형', price: 18000 },
+		{ name: 'KIM JINHUG',  plan: '표준형', price: 16000 }
+	];
+
+	var result = null;
+	try { result = JSON.parse(localStorage.getItem('insV1Result') || 'null'); } catch (e) {}
+
+	var persons = (result && result.persons && result.persons.length) ? result.persons : DEFAULT_PERSONS;
+	var count   = (result && result.count) ? result.count : persons.length;
+	var total   = (result && result.total) ? result.total : persons.reduce(function (s, p) { return s + p.price; }, 0);
+
+	function fmt(n) { return n.toLocaleString('ko-KR'); }
+
+	var countEl = document.getElementById('completeCount');
+	if (countEl) countEl.textContent = count + '인';
+	var totalEl = document.getElementById('completeTotal');
+	if (totalEl) totalEl.textContent = fmt(total) + '원';
+
+	var listEl = document.getElementById('completePersons');
+	if (listEl) {
+		listEl.innerHTML = persons.map(function (p) {
+			return '<div class="ins-v1-complete-person">' +
+				'<span class="ins-v1-complete-person-name">' + p.name + '</span>' +
+				'<span class="ins-v1-complete-person-plan">' + p.plan + ' · ' + fmt(p.price) + '원</span>' +
+			'</div>';
+		}).join('');
+	}
+
+	try { localStorage.removeItem('insV1Result'); } catch (e) {}
+})();
+</script>
+</body>
+</html>

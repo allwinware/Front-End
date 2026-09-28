@@ -1,4 +1,3 @@
-
 /*HTML Include*/
 function includeHTML(callback) {
     var z, i, elmnt, file, xhr;
@@ -326,18 +325,165 @@ $(document).ready(function () {
 	});
 
 	/*푸터 슬라이드 팝업*/
-	$(document).on("click", ".btn_footer_open", function () {
-		$(".ags-summary").addClass("active");				
+	$(document).on("click", ".btn_footer_open", function (e) {
+		$(".ags-summary").addClass("active");
 		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
 		$("body").css("overflow", "hidden");
 		$("html").css("overflow", "hidden");
-		
 	});
 	$(document).on("click", ".btn_footer_close", function () {
 		$(".ags-summary").removeClass("active");
 		$(".dimmed_bg, .dimmed_bgs").css("display", "none");
 		$("body").css("overflow", "");
 		$("html").css("overflow", "");
+	});
+
+	$(document).on("click", ".btn_slide_open_ins", function (e) {
+		e.preventDefault();
+		var targetId = $(this).data("sheet");
+		$("#" + targetId).addClass("is-open");
+		$(".dimmed_bg, .dimmed_bgs").css("display", "block");
+		bodyLock();
+	});
+	$(document).on("click", ".btn_slide_close_ins", function () {
+		$(".slide-sheet_ins.is-open").removeClass("is-open");
+		$(".dimmed_bg, .dimmed_bgs").css("display", "none");
+		bodyUnlock();
+	});
+
+	/*============================================
+	  여행보험 팝업 통합 관리
+	============================================*/
+
+	/* ── 공통 유틸 ── */
+	function popOpen(el)  { if(el) el.classList.add('show_heart');    bodyLock();   }
+	function popClose(el) { if(el) el.classList.remove('show_heart'); bodyUnlock(); }
+	function impOpen(el)  { if(el) el.classList.add('show_imp');      bodyLock();   }
+	function impClose(el) { if(el) el.classList.remove('show_imp');   bodyUnlock(); }
+
+	var _lockScrollY = 0;
+	function bodyLock() {
+		_lockScrollY = window.scrollY;
+		$('body').css({ position:'fixed', top: -_lockScrollY+'px', width:'100%', overflow:'hidden' });
+	}
+	function bodyUnlock() {
+		$('body').css({ position:'', top:'', width:'', overflow:'' });
+		window.scrollTo(0, _lockScrollY);
+	}
+
+	/* ── 안심지수 ⓘ ── */
+	$(document).on('click', '#infoBtn_heart', function(e) {
+		e.stopPropagation();
+		popOpen(document.getElementById('infoOverlay_heart'));
+	});
+	$(document).on('click', '#infoCloseBtn', function() {
+		popClose(document.getElementById('infoOverlay_heart'));
+	});
+	$(document).on('click', '#infoOverlay_heart', function(e) {
+		if(e.target === this) popClose(this);
+	});
+
+	/* ── 여행기간 ⓘ ── */
+	$(document).on('click', '#tripDateInfoBtn, #onewayDateInfoBtn', function(e) {
+		e.stopPropagation();
+		popOpen(document.getElementById('tripDateInfoOverlay'));
+	});
+	$(document).on('click', '#tripDateInfoClose', function() {
+		popClose(document.getElementById('tripDateInfoOverlay'));
+	});
+
+	/* ── 약관 팝업 ── */
+	$(document).on('click', '.term-detail-btn', function(e) {
+		e.stopPropagation();
+		var ov = document.getElementById('termOverlay_' + this.dataset.popup);
+		impOpen(ov);
+	});
+	$(document).on('click', '.term-popup-close', function() {
+		impClose(document.getElementById(this.dataset.overlay));
+	});
+	$(document).on('click', '.term-popup-confirm', function() {
+		var chks = document.querySelectorAll('.aip-tc');
+		var idx  = parseInt(this.dataset.tc);
+		if(chks[idx]) chks[idx].classList.add('on');
+		var allOn = Array.from(chks).every(function(c){ return c.classList.contains('on'); });
+		var allChk = document.getElementById('aipChkAll');
+		if(allChk){ allOn ? allChk.classList.add('on') : allChk.classList.remove('on'); }
+		impClose(document.getElementById(this.dataset.overlay));
+	});
+	$(document).on('click', '[id^="termOverlay_"]', function(e) {
+		if(e.target === this) impClose(this);
+	});
+
+	/* ── 중요안내 팝업 ── */
+	$(document).on('click', '#importantBtn', function() {
+		impOpen(document.getElementById('importantOverlay'));
+	});
+	$(document).on('click', '#importantClose, #importantConfirm', function() {
+		impClose(document.getElementById('importantOverlay'));
+	});
+
+	/* ── 알림 팝업 ── */
+	$(document).on('click', '#onewayAlertConfirm', function() {
+		impClose(document.getElementById('onewayAlertOverlay'));
+	});
+
+	/* ── 남/여 토글 ── */
+	$(document).on('click', '.myinfo-gender', function() {
+		$(this).addClass('active').siblings('.myinfo-gender').removeClass('active');
+	});
+
+	/* ── 내정보 슬라이드 ── */
+	$(document).on('click', '#myInfoBtn', function() {
+		$('#myInfoOverlay').addClass('show');
+		$('body').css('overflow', 'hidden');
+		$('html').css('overflow', 'hidden');
+		requestAnimationFrame(function(){ requestAnimationFrame(function(){
+			$('#myInfoPanel').addClass('active');
+		}); });
+	});
+	function closeMyInfoPanel() {
+		$('#myInfoPanel').removeClass('active');
+		$('#myInfoOverlay').removeClass('show');
+		$('body').css('overflow', '');
+		$('html').css('overflow', '');
+	}
+	$(document).on('click', '#myInfoHandle, #myInfoClose', closeMyInfoPanel);
+	$(document).on('click', '.myinfo-confirm-btn:not(#onewayConfirmBtn)', function() {
+    closeMyInfoPanel();
+    setTimeout(function() {
+        if (typeof window.openAip === 'function') window.openAip();
+    }, 100);  // myInfoPanel 닫힘 애니메이션 0.1s 대기
+})
+
+	/* ── AI버튼 클릭 → onewayPanel(여행기간) 먼저 → 입력완료 → openAip ── */
+	$(document).on('click', '.btf_bbtn_oneway button', function(e) {
+		e.stopPropagation();
+		$('#onewayOverlay').addClass('show');
+		$('body').css('overflow', 'hidden');
+		$('html').css('overflow', 'hidden');
+		requestAnimationFrame(function(){ requestAnimationFrame(function(){
+			$('#onewayPanel').addClass('active');
+		}); });
+	});
+	function closeOnewayPanel() {
+		$('#onewayPanel').removeClass('active');
+		$('#onewayOverlay').removeClass('show');
+		$('body').css('overflow', '');
+		$('html').css('overflow', '');
+	}
+	$(document).on('click', '#onewayHandle', closeOnewayPanel);
+	$(document).on('click', '#onewayConfirmBtn', function() {
+		var startTxt = document.getElementById('onewayStartTxt');
+		var endTxt   = document.getElementById('onewayEndTxt');
+		var alertOv  = document.getElementById('onewayAlertOverlay');
+		var alertMsg = document.getElementById('onewayAlertMsg');
+		function showAlert(msg){ alertMsg.textContent=msg; alertOv.classList.add('show_imp'); }
+		if(!startTxt.classList.contains('selected')){ showAlert('출발일을 입력해 주세요.'); return; }
+		if(!endTxt.classList.contains('selected'))  { showAlert('귀국일을 입력해 주세요.'); return; }
+		closeOnewayPanel();
+		setTimeout(function(){
+			if(typeof window.openAip === 'function') window.openAip();
+		}, 400);
 	});
 	
 	/*푸터 전체 슬라이드 팝업*/
@@ -583,19 +729,29 @@ $(document).ready(function () {
 	/*약관동의*/
 	$(".credit_box_btn").click(function () {
 		var _self	= this;
-//alert(		$(_self).attr("agrBtn")	);
+		var $targetWarp = $(_self).closest('.card_warp');
+		var isOpening = false;
+		var hadOpenBefore = false;
+
 		$("div [agrLt]").each(function(idx, obj) {
 			if( _self == $("div [agrBtn]").get(idx) && $(obj).hasClass("on") == false) {
-				
+				isOpening = true;
 				$('.credit_box_btn').eq(idx).addClass('on');
 				$(obj).addClass("on").slideDown(300);
 			} else {
+				if ($(obj).hasClass("on")) hadOpenBefore = true;
 				$('.credit_box_btn').eq(idx).removeClass('on');
-				$(obj).removeClass("on").slideUp(300);				
-
+				$(obj).removeClass("on").slideUp(300);
 			}
-
 		});
+
+		if (isOpening && hadOpenBefore) {
+			setTimeout(function () {
+				$('html, body').animate({
+					scrollTop: $targetWarp.offset().top - 50
+				}, 300);
+			}, 320);
+		}
 	});
 
 	$(".block_group_btn").click(function () {
@@ -927,3 +1083,73 @@ $(document).ready(function() {
     }
 });
 
+	
+
+/* ======================================================================
+   [추가] btn_footer_open 슬라이드 팝업(.footer_contents) — 손잡이 잡고
+   아래로 끌어서 닫기. 기존 열기/닫기 클릭 로직(위쪽 .btn_footer_open /
+   .btn_footer_close 핸들러)은 그대로 두고, 터치 드래그 기능만 새로 추가.
+   ====================================================================== */
+$(document).ready(function () {
+	var DRAG_ZONE_PX      = 40;   // 상단 이 영역(px)에서 터치가 시작돼야 드래그로 인정 (본문 스크롤 방해 안 하려고)
+	var DRAG_CLOSE_MIN_PX = 80;   // 최소 이만큼(px)은 내려야 닫힘 후보
+	var DRAG_CLOSE_RATIO  = 0.28; // 시트 높이의 28% 이상 내리면 닫힘
+
+	document.querySelectorAll('.footer_contents').forEach(function (sheet) {
+		var startY      = 0;
+		var currentY    = 0;
+		var dragging    = false;
+		var sheetHeight = 0;
+		var startTopPx  = 0;
+
+		function isOpen() {
+			var summary = sheet.closest('.ags-summary');
+			return !!(summary && summary.classList.contains('active'));
+		}
+
+		function onStart(e) {
+			if (!isOpen()) return;
+			var touchY = e.touches[0].clientY;
+			var rect   = sheet.getBoundingClientRect();
+			if (touchY - rect.top > DRAG_ZONE_PX) return; // 손잡이 영역 아니면 무시 → 본문 스크롤 그대로 동작
+
+			dragging    = true;
+			currentY    = 0;
+			sheetHeight = sheet.offsetHeight;
+			startY      = touchY;
+			startTopPx  = rect.top; // top이 %라서, 지금 실제 화면상 px 위치를 기준으로 계산
+			sheet.style.transition = 'none'; // 손가락 따라 1:1로 움직이게, 애니메이션 끔
+		}
+
+		function onMove(e) {
+			if (!dragging) return;
+			var delta = e.touches[0].clientY - startY;
+			if (delta < 0) delta = 0; // 위로는 못 끌리게 (아래로만 드래그 허용)
+			currentY = delta;
+			sheet.style.top = (startTopPx + delta) + 'px';
+		}
+
+		function onEnd() {
+			if (!dragging) return;
+			dragging = false;
+
+			var shouldClose = currentY > DRAG_CLOSE_MIN_PX &&
+				currentY > sheetHeight * DRAG_CLOSE_RATIO;
+
+			sheet.style.transition = '';   // 원래 CSS 트랜지션(600ms) 복구
+			void sheet.offsetHeight;        // 강제 리플로우: 복구된 트랜지션을 확실히 적용시킴
+			sheet.style.top = '';            // 인라인 top 제거 → active 클래스 값(11%)으로
+
+			if (shouldClose) {
+				var closeBtn = sheet.querySelector('.btn_footer_close');
+				if (closeBtn) closeBtn.click(); // 기존 닫기 로직 그대로 재사용 (딤드/스크롤 잠금 해제 포함)
+			}
+			currentY = 0;
+		}
+
+		sheet.addEventListener('touchstart', onStart, { passive: true });
+		sheet.addEventListener('touchmove', onMove, { passive: true });
+		sheet.addEventListener('touchend', onEnd);
+		sheet.addEventListener('touchcancel', onEnd);
+	});
+});
