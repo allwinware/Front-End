@@ -526,20 +526,23 @@
 					</div>
 				</div>
 
-				<div class="nol-cov-tabs" id="nolCovTabs">
-					<button type="button" class="nol-cov-tab is-active" data-cov-plan="basic">실속형</button>
-					<button type="button" class="nol-cov-tab" data-cov-plan="standard">표준형</button>
-					<button type="button" class="nol-cov-tab" data-cov-plan="premium">고급형</button>
-				</div>
+				<div class="nol-cov-table">
+					<div class="nol-cov-tabs" id="nolCovTabs">
+						<button type="button" class="nol-cov-tab is-active" data-cov-plan="basic">실속형</button>
+						<button type="button" class="nol-cov-tab" data-cov-plan="standard">표준형</button>
+						<button type="button" class="nol-cov-tab" data-cov-plan="premium">고급형</button>
+					</div>
 
-				<div class="nol-cov-list" id="nolCovList"><!-- JS 생성 --></div>
+					<div class="nol-cov-list" id="nolCovList"><!-- JS 생성 --></div>
+				</div>
 			</div>
 			<button type="button" class="nol-cov-confirm btn_slide_close_ins">확인</button>
 		</div>
 
 		<!-- ===== NOL: 보험료 상세 팝업 (총 보험료 옆 물음표) ===== -->
+		<div class="nol-pricepop-overlay" id="nolPricePopupOverlay"></div>
 		<div class="nol-pricepop" id="nolPricePopup">
-			<div class="nol-pricepop-handle"></div>
+			<button type="button" class="nol-pricepop-handle" id="nolPricePopupClose" aria-label="닫기"></button>
 			<div class="nol-pricepop-title">보험료 상세</div>
 			<div class="nol-pricepop-sub">해외 여행자 보험</div>
 			<div class="nol-pricepop-list" id="nolPricePopupList"><!-- JS 생성 --></div>
@@ -1112,6 +1115,7 @@
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<div class="myinfo-header"><span class="myinfo-title">중요안내입니다.</span></div>
+				<p class="ins-notice_body">여기에 보험계약 관련 중요 안내 사항을 작성합니다. (예: 가입상품, 보험기간, 계약 전·후 알릴 의무, 청약의 철회, 보험금을 지급하지 않는 사유, 계약의 해지 및 환급 등)</p>
 			</div>
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
 		</div>
@@ -1159,6 +1163,7 @@
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<div class="myinfo-header"><span class="myinfo-title">약관입니다.</span></div>
+				<p class="ins-notice_body">여기에 Chubb 해외여행보험 약관 전문(또는 요약 내용)을 작성합니다.</p>
 			</div>
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
 		</div>
@@ -3282,6 +3287,7 @@
 	var bottombarAmt    = document.getElementById('nolBottombarAmt');
 	var bottombarPeople = document.getElementById('nolBottombarPeople');
 	var pricePopup      = document.getElementById('nolPricePopup');
+	var pricePopupOverlay = document.getElementById('nolPricePopupOverlay');
 	var priceInfoBtn    = document.getElementById('nolPriceInfoBtn');
 
 	function updateBottombar() {
@@ -3329,7 +3335,18 @@
 		var total = meta.people.reduce(function (a, b) { return a + b; }, 0);
 		document.getElementById('nolPricePopupTotal').textContent = formatWon(total);
 	}
-	function closePricePopup() { pricePopup.classList.remove('is-open'); }
+	function closePricePopup() {
+		pricePopup.classList.remove('is-open');
+		pricePopupOverlay.classList.remove('is-open');
+	}
+
+	var pricePopupCloseBtn = document.getElementById('nolPricePopupClose');
+	if (pricePopupCloseBtn) {
+		pricePopupCloseBtn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			closePricePopup();
+		});
+	}
 
 	if (priceInfoBtn) {
 		priceInfoBtn.addEventListener('click', function (e) {
@@ -3338,6 +3355,7 @@
 			if (pricePopup.classList.contains('is-open')) { closePricePopup(); return; }
 			renderPricePopup();
 			pricePopup.classList.add('is-open');
+			pricePopupOverlay.classList.add('is-open');
 		});
 	}
 	document.addEventListener('click', function (e) {
@@ -3357,8 +3375,8 @@
 
 	function renderCovList(planKey) {
 		covList.innerHTML = COVERAGE_ITEMS.map(function (item) {
-			return '<div class="nol-cov-row"><span class="nol-cov-row-name">' + item.name +
-				'<button type="button" class="nol-cov-row-info" data-cov-name="' + item.name + '">?</button></span>' +
+			return '<div class="nol-cov-row"><span class="nol-cov-row-name">' + item.name + '</span>' +
+				'<button type="button" class="nol-cov-row-info" data-cov-name="' + item.name + '">?</button>' +
 				'<span class="nol-cov-row-amt">' + item.values[planKey] + '</span></div>';
 		}).join('');
 	}
