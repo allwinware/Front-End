@@ -16,9 +16,15 @@
    안의 요소들이 .ags-wrap 레벨에서 딤과 "직접" 비교되도록 바꿉니다.
    그러면 평소엔 insure_body가 딤(102)보다 낮아서 정상적으로 덮이고,
    슬라이드/팝업이 열렸을 때만 그 자체의 z-index(910 이상)가 딤(102)을
-   직접 이겨서 위로 올라옵니다.) */
+   직접 이겨서 위로 올라옵니다.)
+
+   추가: .ags-wrap 자신도 contents.css에서 position:relative + z-index:0 을
+   갖고 있어 #ags-container 바깥에 또 하나의 stacking context를 만듭니다.
+   그러면 그 안의 z-index:910 이 .ags-wrap 박스(0) 안에서만 유효해져서,
+   형제인 .dimmed_bg(102)에게 박스 통째로 깔립니다. 딤이 .ags-wrap의
+   형제인 이상 .ags-wrap 까지 해제해야 시트가 딤을 직접 이깁니다. */
 #ags-container,
-.content-wrap.newui {
+.content-wrap.newui,.ags-wrap {
     z-index: auto;
 }
 
@@ -488,7 +494,7 @@
 .info-modal_ins-card .icon_img {
     width: 40px;
     height: 40px;
-    background: url(https://cdn.ags-aws.com/alphaseat/mo/img/common/war_alert.png) no-repeat center / contain;
+    background: url(https://cdn.ags-aws.com/alphaseat/pc/img/common/war_alert.png) no-repeat center / contain;
     margin: 0 auto 16px;
 }
 .info-modal_ins-body i {
@@ -657,23 +663,18 @@
     inset: 0;
     background: rgba(0,0,0,0.4);
     z-index: 9999;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
 }
 .rc-overlay.show {
     display: flex;
 }
 .rc-panel {
-    transform: translateY(100%);
-    transition: transform 350ms cubic-bezier(.4,0,.2,1);
     width: 100%;
     max-width: 600px;
     background: #fff;
-    border-radius: 20px 20px 0 0;
+    border-radius: 16px;
     padding: 20px 20px 32px;
-}
-.rc-overlay.show .rc-panel {
-    transform: translateY(0);
 }
 .rc-header {
     display: flex;
@@ -878,23 +879,18 @@
     inset: 0;
     background: rgba(0,0,0,0.4);
     z-index: 9999;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
 }
 .timepicker-overlay.show {
     display: flex;
 }
 .timepicker-panel {
-    transform: translateY(100%);
-    transition: transform 350ms cubic-bezier(.4,0,.2,1);
     width: 100%;
     max-width: 600px;
     background: #fff;
-    border-radius: 20px 20px 0 0;
+    border-radius: 16px;
     padding: 20px 20px 32px;
-}
-.timepicker-overlay.show .timepicker-panel {
-    transform: translateY(0);
 }
 .timepicker-title-bar {
     display: flex;
@@ -2222,7 +2218,7 @@
 }
 .user-count-risk i {
     display: block;
-    background: url("https://cdn.ags-aws.com/alphaseat/mo/img/common/saram_icon.png") no-repeat center / 8px 9px;
+    background: url("https://cdn.ags-aws.com/alphaseat/pc/img/common/saram_icon.png") no-repeat center / 8px 9px;
     width: 8px;
     height: 9px;
 }
@@ -2910,7 +2906,7 @@
     font-size: 12px;
     color: #666;
     font-family: 'PretendardB';
-    padding: 14px 0 180px;
+    padding: 14px 0 20px;
 }
 
 /* ===== 여행보험 Q&A ===== */
@@ -3253,7 +3249,7 @@
 .insurebarbtn span:nth-child(2) {
     display: block;
     cursor: pointer;
-    background: url("https://cdn.ags-aws.com/alphaseat/mo/img/common/down_arrow_v1.png") no-repeat center / 8px 5px;
+    background: url("https://cdn.ags-aws.com/alphaseat/pc/img/common/down_arrow_v1.png") no-repeat center / 8px 5px;
     width: 8px;
 }
 
@@ -3994,7 +3990,7 @@
     margin: 0 !important;
     width: 28px !important;
     height: 28px !important;
-    background: url("../img/common/ico_delete.png") no-repeat center / 28px 28px !important;
+    background: url("https://cdn.ags-aws.com/alphaseat/pc/img/common/ico_delete.png") no-repeat center / 28px 28px !important;
     z-index: 5 !important;
 }
 
@@ -4023,4 +4019,7 @@
    찌그러져 보였습니다. 다른 팝업과 비슷한 높이가 되도록 고정 높이를 줍니다. */
 #sheetTerms {
     height: 640px !important;
+}
+.agreement-wrap.insure .agreement-all-list{
+    border-bottom: unset;
 }
