@@ -25,9 +25,9 @@
 			<div class="ags-header">
 				<div class="gnb_menu insure">
 					<a href="index.html ">좌석지정</a>
+					<a href="service_insurance.html" class="active">여행자보험</a>
 					<a href="service_baggage.html" class="">수하물</a>
 					<a href="service_food.html" class="">기내식</a>
-					<a href="service_insurance.html" class="active">여행자보험</a>
 				</div>
 				<div class="gnb-wrap newmyp">	
 					<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
@@ -120,11 +120,11 @@
 							<li><span class="nol-feat-r">해외발생 질병 의료비</span> <span class="nol-feat-sb">5천만원 보장</span></li>
 						</ul>
 						<div class="nol-plan-price"><span class="nol-plan-price-label">성인 1인/3일</span> <span class="nol-plan-price-amt">11,027원</span></div>
-						<button type="button" class="nol-plan-cta" data-plan-cta="basic">
+						<div class="nol-plan-cta" data-plan-cta="basic">
 							<svg class="nol-plan-cta-icon nol-plan-cta-icon--add" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="#1B1C1F" stroke-width="2" stroke-linecap="round"/></svg>
 							<img class="nol-plan-cta-icon nol-plan-cta-icon--cancel" src="./resource/img/common/img_inure_nol1.png" alt="">
 							<span class="nol-plan-cta-txt">실속형 추가하기</span>
-						</button>
+						</div>
 					</div>
 					<div class="nol-plan-card" data-plan="standard">
 						<div class="nol-plan-badges">
@@ -137,11 +137,11 @@
 							<li><span class="nol-feat-r">해외발생 질병 의료비</span> <span class="nol-feat-sb">7천만원 보장</span></li>
 						</ul>
 						<div class="nol-plan-price"><span class="nol-plan-price-label">성인 1인/3일</span> <span class="nol-plan-price-amt">14,117원</span></div>
-						<button type="button" class="nol-plan-cta" data-plan-cta="standard">
+						<div class="nol-plan-cta" data-plan-cta="standard">
 							<svg class="nol-plan-cta-icon nol-plan-cta-icon--add" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="#1B1C1F" stroke-width="2" stroke-linecap="round"/></svg>
 							<img class="nol-plan-cta-icon nol-plan-cta-icon--cancel" src="./resource/img/common/img_inure_nol1.png" alt="">
 							<span class="nol-plan-cta-txt">표준형 추가하기</span>
-						</button>
+						</div>
 					</div>
 					<div class="nol-plan-card" data-plan="premium">
 						<div class="nol-plan-badges">
@@ -153,11 +153,11 @@
 							<li><span class="nol-feat-r">해외발생 질병 의료비</span> <span class="nol-feat-sb">1억원 보장</span></li>
 						</ul>
 						<div class="nol-plan-price"><span class="nol-plan-price-label">성인 1인/3일</span> <span class="nol-plan-price-amt">19,210원</span></div>
-						<button type="button" class="nol-plan-cta" data-plan-cta="premium">
+						<div class="nol-plan-cta" data-plan-cta="premium">
 							<svg class="nol-plan-cta-icon nol-plan-cta-icon--add" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="#1B1C1F" stroke-width="2" stroke-linecap="round"/></svg>
 							<img class="nol-plan-cta-icon nol-plan-cta-icon--cancel" src="./resource/img/common/img_inure_nol1.png" alt="">
 							<span class="nol-plan-cta-txt">고급형 추가하기</span>
-						</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -526,20 +526,23 @@
 					</div>
 				</div>
 
-				<div class="nol-cov-tabs" id="nolCovTabs">
-					<button type="button" class="nol-cov-tab is-active" data-cov-plan="basic">실속형</button>
-					<button type="button" class="nol-cov-tab" data-cov-plan="standard">표준형</button>
-					<button type="button" class="nol-cov-tab" data-cov-plan="premium">고급형</button>
-				</div>
+				<div class="nol-cov-table">
+					<div class="nol-cov-tabs" id="nolCovTabs">
+						<button type="button" class="nol-cov-tab is-active" data-cov-plan="basic">실속형</button>
+						<button type="button" class="nol-cov-tab" data-cov-plan="standard">표준형</button>
+						<button type="button" class="nol-cov-tab" data-cov-plan="premium">고급형</button>
+					</div>
 
-				<div class="nol-cov-list" id="nolCovList"><!-- JS 생성 --></div>
+					<div class="nol-cov-list" id="nolCovList"><!-- JS 생성 --></div>
+				</div>
 			</div>
 			<button type="button" class="nol-cov-confirm btn_slide_close_ins">확인</button>
 		</div>
 
 		<!-- ===== NOL: 보험료 상세 팝업 (총 보험료 옆 물음표) ===== -->
+		<div class="nol-pricepop-overlay" id="nolPricePopupOverlay"></div>
 		<div class="nol-pricepop" id="nolPricePopup">
-			<div class="nol-pricepop-handle"></div>
+			<button type="button" class="nol-pricepop-handle" id="nolPricePopupClose" aria-label="닫기"></button>
 			<div class="nol-pricepop-title">보험료 상세</div>
 			<div class="nol-pricepop-sub">해외 여행자 보험</div>
 			<div class="nol-pricepop-list" id="nolPricePopupList"><!-- JS 생성 --></div>
@@ -1112,6 +1115,7 @@
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<div class="myinfo-header"><span class="myinfo-title">중요안내입니다.</span></div>
+				<p class="ins-notice_body">여기에 보험계약 관련 중요 안내 사항을 작성합니다. (예: 가입상품, 보험기간, 계약 전·후 알릴 의무, 청약의 철회, 보험금을 지급하지 않는 사유, 계약의 해지 및 환급 등)</p>
 			</div>
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
 		</div>
@@ -1159,6 +1163,7 @@
 			<a href="#none" class="btn_slide_close_ins btn_footer_close" aria-label="닫기">Close</a>
 			<div class="slide-sheet_ins-body">
 				<div class="myinfo-header"><span class="myinfo-title">약관입니다.</span></div>
+				<p class="ins-notice_body">여기에 Chubb 해외여행보험 약관 전문(또는 요약 내용)을 작성합니다.</p>
 			</div>
 			<button type="button" class="planinfo-confirm btn_slide_close_ins">확인했어요</button>
 		</div>
@@ -3282,6 +3287,7 @@
 	var bottombarAmt    = document.getElementById('nolBottombarAmt');
 	var bottombarPeople = document.getElementById('nolBottombarPeople');
 	var pricePopup      = document.getElementById('nolPricePopup');
+	var pricePopupOverlay = document.getElementById('nolPricePopupOverlay');
 	var priceInfoBtn    = document.getElementById('nolPriceInfoBtn');
 
 	function updateBottombar() {
@@ -3311,9 +3317,19 @@
 		updateBottombar();
 	}
 
+	var nolPlansEl = document.getElementById('nolPlans');
+	function centerCard(card) {
+		if (!nolPlansEl) return;
+		var target = card.offsetLeft - (nolPlansEl.clientWidth - card.offsetWidth) / 2;
+		var max = nolPlansEl.scrollWidth - nolPlansEl.clientWidth;
+		target = Math.max(0, Math.min(target, max));
+		nolPlansEl.scrollTo({ left: target, behavior: 'smooth' });
+	}
+
 	planCards.forEach(function (card) {
 		card.addEventListener('click', function () {
 			togglePlan(card.getAttribute('data-plan'));
+			centerCard(card);
 		});
 	});
 
@@ -3329,7 +3345,18 @@
 		var total = meta.people.reduce(function (a, b) { return a + b; }, 0);
 		document.getElementById('nolPricePopupTotal').textContent = formatWon(total);
 	}
-	function closePricePopup() { pricePopup.classList.remove('is-open'); }
+	function closePricePopup() {
+		pricePopup.classList.remove('is-open');
+		pricePopupOverlay.classList.remove('is-open');
+	}
+
+	var pricePopupCloseBtn = document.getElementById('nolPricePopupClose');
+	if (pricePopupCloseBtn) {
+		pricePopupCloseBtn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			closePricePopup();
+		});
+	}
 
 	if (priceInfoBtn) {
 		priceInfoBtn.addEventListener('click', function (e) {
@@ -3338,6 +3365,7 @@
 			if (pricePopup.classList.contains('is-open')) { closePricePopup(); return; }
 			renderPricePopup();
 			pricePopup.classList.add('is-open');
+			pricePopupOverlay.classList.add('is-open');
 		});
 	}
 	document.addEventListener('click', function (e) {
@@ -3357,8 +3385,8 @@
 
 	function renderCovList(planKey) {
 		covList.innerHTML = COVERAGE_ITEMS.map(function (item) {
-			return '<div class="nol-cov-row"><span class="nol-cov-row-name">' + item.name +
-				'<button type="button" class="nol-cov-row-info" data-cov-name="' + item.name + '">?</button></span>' +
+			return '<div class="nol-cov-row"><span class="nol-cov-row-name">' + item.name + '</span>' +
+				'<button type="button" class="nol-cov-row-info" data-cov-name="' + item.name + '">?</button>' +
 				'<span class="nol-cov-row-amt">' + item.values[planKey] + '</span></div>';
 		}).join('');
 	}

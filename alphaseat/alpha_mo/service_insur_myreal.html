@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>AlphaSeat</title>
+	<link rel="stylesheet" href="./resource/css/newui.css">
+	<link rel="stylesheet" href="./resource/css/content.css">
+	<link rel="stylesheet" href="./resource/css/reset.css">
+	<link rel="stylesheet" href="./resource/css/common.css">
+	<link rel="stylesheet" href="./resource/css/insur_myreal.css">
+	<script src='./resource/js/jquery-3.4.1.min.js'></script>
+	<script src="./resource/js/alpha.mo.ui.js"></script>
+</head>
+
+<body>
+	<div class="ags-wrap newui insurmr">
+		<h1 class="site-name">올윈에어</h1>
+		<div class="dimmed_bgs" style="display: none;"></div>
+		<header>
+			<div class="ags-header">
+				<div class="gnb_menu insure">
+					<a href="index.html">좌석지정</a>
+					<a href="service_insur_myreal.html" class="active">여행자보험</a>
+					<a href="service_baggage.html">수하물</a>
+					<a href="service_food.html">기내식</a>
+				</div>
+				<div class="gnb-wrap newmyp">
+					<a href="#none" id="btn_gnb" class="btn_gnb">메뉴</a>
+					<div id="gnb-2dp" class="gnb-2dp-wrap">
+						<div class="newmyp-dp1">
+							<a href="#none" target="_self" id="btn_gnb-close" class="btn_close">메뉴 닫기</a>
+							<div class="newmyp-pd1">
+								<div class="welcome-msg">
+									<span>안녕하세요.</span>
+								</div>
+								<div class="customer-name">
+									<span>이지영</span>님
+								</div>
+								<div class="newmyp-txt">
+									<div class="newmyp-txt1">좌석지정 / 수하물 / 기내식 / 여행자보험 </div>
+									<div class="newmyp-txt2">공항에선 할인 안되고 구매하기 어려워요!</div>
+								</div>
+							</div>
+						</div>
+						<div class="newmyp-dp2">
+							<a class="newmyp-dp2_btn" href="index.html">
+								<div class="newmyp-dp2_btn_fst">
+									<i class="newmyp-dp2_btn_icon1"></i>
+									<span>사전예약하기</span>
+								</div>
+								<div>
+									<svg style="color: #888;" width="8" height="12" viewBox="0 0 9 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+								</div>
+							</a>
+							<a class="newmyp-dp2_btn" href="mypage.html">
+								<div class="newmyp-dp2_btn_fst">
+									<i class="newmyp-dp2_btn_icon2"></i>
+									<span>예약내역 / 취소환불</span>
+								</div>
+								<div>
+									<svg style="color: #888;" width="8" height="12" viewBox="0 0 9 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+								</div>
+							</a>
+							<a class="newmyp-dp2_btn" href="cscenter.html">
+								<div class="newmyp-dp2_btn_fst">
+									<i class="newmyp-dp2_btn_icon3"></i>
+									<span>고객센터</span>
+								</div>
+								<div>
+									<svg style="color: #888;" width="8" height="12" viewBox="0 0 9 11" fill="none"><path d="M1 1l5 4.5L1 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+								</div>
+							</a>
+						</div>
+						<div class="newmyp-dp3">
+							<div class="newmyp-privacy">개인정보취급방침</div>
+						</div>
+						<div class="newmyp-dp4">
+							<div class="newmyp-center">
+								<div class="newmyp-center_txt1">
+									<div><i class="newmyp-center_icon3"></i>고객센터</div>
+									<div><span>1522-4148</span> <span>(평일 10:00~17:00)</span></div>
+								</div>
+								<div class="newmyp-center_txt2">
+									<div><i class="newmyp-center_icon4"></i>여행자보험 문의</div>
+									<div><span>1566-5800</span> <span>(평일 09:00~18:00)</span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div class="mr-body">
+			<!-- 타이틀 + 플랜 비교 -->
+			<div class="mr-hero">
+				<h2 class="mr-hero-title">항공권은 준비 끝!<br>이제 <b>여행자 보험</b> 차례에요.</h2>
+				<button type="button" class="mr-compare-btn btn_slide_open_ins" data-sheet="sheetMrCompare">
+					<svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l5.5 2v4.1c0 3.1-2.3 5.6-5.5 6.9-3.2-1.3-5.5-3.8-5.5-6.9V3.5L8 1.5z" fill="#fff"/><path d="M5.6 8l1.7 1.7 3.1-3.3" stroke="#2B2E33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					플랜 비교
+				</button>
+			</div>
+
+			<!-- 여행 종료일 (플랜 카드를 누르면 노출) -->
+			<div class="mr-date" id="mrDate">
+				<div class="mr-date-label">여행 종료일 <i>*</i></div>
+				<p class="mr-date-desc">편도 항공권은 여행 종료일 기준으로 보험료가 계산돼요.</p>
+				<input type="text" class="mr-date-input" id="mrDateInput" value="2026-10-22" inputmode="numeric" maxlength="10" placeholder="YYYY-MM-DD" autocomplete="off">
+				<div class="mr-date-err" id="mrDateErr">올바른 여행 종료일을 입력해주세요.</div>
+				<button type="button" class="mr-date-btn" id="mrDateBtn" disabled>보험료 알아보기</button>
+				<p class="mr-date-note" id="mrDateNote">여행 종료일을 변경 중이라 이전 보험 플랜을 숨겼어요. 변경한 날짜로 보험료를 다시 조회해주세요.</p>
+			</div>
+
+			<!-- 플랜 카드 -->
+			<div class="mr-plans" id="mrPlans">
+				<button type="button" class="mr-plan is-selected" data-plan="basic">
+					<div class="mr-plan-top">
+						<span class="mr-plan-name"><img class="mr-plan-ico" src="./resource/img/common/insur_myreal_img1.png" alt="">실속 플랜</span>
+						<span class="mr-plan-price" data-price="basic">1인 기준<b>12,523원</b></span>
+					</div>
+					<ul class="mr-plan-feats">
+						<li><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="7" fill="#27AB86"/><path d="M4 7.2l2 2L10 5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>비행기 지연</li>
+						<li><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="7" fill="#27AB86"/><path d="M4 7.2l2 2L10 5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>휴대폰 파손</li>
+						<li><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="7" fill="#27AB86"/><path d="M4 7.2l2 2L10 5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>병원 방문</li>
+					</ul>
+				</button>
+
+				<button type="button" class="mr-plan" data-plan="premium">
+					<div class="mr-plan-top">
+						<span class="mr-plan-name"><img class="mr-plan-ico" src="./resource/img/common/insur_myreal_img2.png" alt="">고급 플랜</span>
+						<span class="mr-plan-price" data-price="premium">1인 기준<b>17,033원</b></span>
+					</div>
+					<ul class="mr-plan-feats">
+						<li><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="7" fill="#27AB86"/><path d="M4 7.2l2 2L10 5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>실속 플랜 포함</li>
+						<li class="is-up"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="7" fill="#27AB86"/><path d="M7 3.8v6.4M3.8 7h6.4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>보장금액 UP</li>
+					</ul>
+				</button>
+
+				<button type="button" class="mr-plan mr-plan--none" data-plan="none">
+					<div class="mr-plan-top">
+						<span class="mr-plan-name">구매 안 함</span>
+					</div>
+					<div class="mr-plan-warn">
+						<svg width="12" height="12" viewBox="0 0 14 14" style="flex-shrink:0;margin-top:2px"><circle cx="7" cy="7" r="7" fill="#000"/><path d="M7 3.5v4.2" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="7" cy="10.3" r="0.9" fill="#fff"/></svg>
+						<span>여행자 보험에 가입하지 않으면 여행 중 발생하는 모든 의료비를 직접 부담하셔야 합니다.</span>
+					</div>
+				</button>
+			</div>
+
+			<!-- 합계 -->
+			<div class="mr-total">
+				<span class="mr-total-label">총 추가 금액</span>
+				<span class="mr-total-amt" id="mrTotal">0원</span>
+			</div>
+			<div class="mr-banner">🙌 여행자보험은 출발 전까지 무료취소가 가능해요!</div>
+
+			<button type="button" class="mr-detail-toggle" id="mrDetailToggle" aria-expanded="false">
+				<span id="mrDetailToggleTxt">상세보기</span>
+				<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			</button>
+			<div class="mr-detail" id="mrDetail">
+				<div class="mr-detail-title">여행자 보험 3명</div>
+				<div class="mr-detail-row"><span>총 금액</span><span id="mrDetailAmt">0원</span></div>
+			</div>
+
+			<!-- 하단 정보 섹션 -->
+			<div class="ins-footer_wrap">
+				<div class="ins-footer_btns">
+					<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetNotice">중요안내</button>
+					<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetTerms">약관보기</button>
+					<button type="button" class="ins-footer_btn btn_slide_open_ins" data-sheet="sheetFaq">여행자보험 Q&amp;A</button>
+				</div>
+
+				<div class="ins-footer_callbox">
+					<div class="ins-footer_callbox-title">
+						<img src="https://cdn.ags-aws.com/alphaseat/mo/img/common/phone_icon.png" alt="전화" style="width:16px;height:16px;vertical-align:middle;">
+						라이나 손해보험 여행자보험 콜센터
+					</div>
+					<div class="ins-footer_callbox-num">1566-5800</div>
+					<div class="ins-footer_callbox-hours">평일 : 09:00~18:00 (주말, 공휴일 제외)</div>
+				</div>
+
+				<div class="ins-footer_brandname">Chubb. Insured™</div>
+				<div class="ins-footer_brand">
+					<img class="ins-footer_brand-badge" src="./resource/img/common/raina.png" alt="2023 대한민국 브랜드 명예의전당">
+					<div class="ins-footer_brand-txt">
+						2023 대한민국 브랜드 명예의전당<br>여행자보험 부문 수상
+					</div>
+				</div>
+
+				<div class="ins-footer_legal">
+					(주) 올윈에어 여행자보험 서비스는 라이나 손해보험과의 제휴로 제공됩니다.<br>
+					대리점(주식회사 올윈에어) 등록번호 제 7726020004호<br><br>
+					03156 서울시 종로구 삼봉로48 라이나타워 14, 15층<br>
+					대표자 모재경 | 사업자등록번호 116-84-00907<br>
+					고객센터 1566-5800
+				</div>
+
+				<div class="ins-footer_copy">© 2026 Chubb - All rights reserved.</div>
+			</div>
+		</div>
+
+		<!-- 하단 고정 다음 버튼 -->
+		<div class="mr-bottombar">
+			<button type="button" class="mr-next" id="mrNext">다음</button>
+		</div>
+
+		<!-- 플랜 비교 슬라이드 팝업 -->
+		<div class="slide-sheet_ins" id="sheetMrCompare">
+			<div class="mr-sheet-handle"></div>
+			<div class="mr-cmp-head">
+				<span class="mr-cmp-title">보험 보장 내역 상세</span>
+				<button type="button" class="mr-cmp-x btn_slide_close_ins" aria-label="닫기">
+					<img src="./resource/img/common/insur_myreal_img3.png" alt="" width="13.5" height="13.5">
+				</button>
+			</div>
+			<div class="mr-cmp-tabs" id="mrCmpTabs">
+				<button type="button" class="mr-cmp-tab is-active" data-cov="basic">실속 플랜</button>
+				<button type="button" class="mr-cmp-tab" data-cov="premium">고급 플랜</button>
+			</div>
+			<div class="slide-sheet_ins-body" id="mrCovList"><!-- JS 생성 --></div>
+			<div class="mr-sheet-foot">
+				<button type="button" class="mr-sheet-close btn_slide_close_ins">닫기</button>
+			</div>
+		</div>
+
+		<!-- 중요안내 슬라이드 -->
+		<div class="slide-sheet_ins" id="sheetNotice">
+			<div class="mr-sheet-handle"></div>
+			<div class="slide-sheet_ins-body">
+				<div class="myinfo-header"><span class="myinfo-title">중요안내입니다.</span></div>
+				<p class="ins-notice_body">여기에 보험계약 관련 중요 안내 사항을 작성합니다. (예: 가입상품, 보험기간, 계약 전·후 알릴 의무, 청약의 철회, 보험금을 지급하지 않는 사유, 계약의 해지 및 환급 등)</p>
+			</div>
+			<div class="mr-sheet-foot"><button type="button" class="mr-sheet-close btn_slide_close_ins">확인했어요</button></div>
+		</div>
+
+		<!-- 약관 슬라이드 -->
+		<div class="slide-sheet_ins" id="sheetTerms">
+			<div class="mr-sheet-handle"></div>
+			<div class="slide-sheet_ins-body">
+				<div class="myinfo-header"><span class="myinfo-title">약관입니다.</span></div>
+				<p class="ins-notice_body">여기에 Chubb 해외여행보험 약관 전문(또는 요약 내용)을 작성합니다.</p>
+			</div>
+			<div class="mr-sheet-foot"><button type="button" class="mr-sheet-close btn_slide_close_ins">확인했어요</button></div>
+		</div>
+
+		<!-- 여행자보험 Q&A 슬라이드 -->
+		<div class="slide-sheet_ins" id="sheetFaq">
+			<div class="mr-sheet-handle"></div>
+			<div class="slide-sheet_ins-body">
+				<div class="myinfo-header"><span class="myinfo-title">여행자보험 유의사항</span></div>
+				<div class="ins-faq_list">
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q1</span> 여행상품(항공권 등) 환불 및 일정변경 시 취소는?</div>
+						<div class="ins-faq_a">여행자보험은 자동취소가 안되므로 별도로 취소해 주세요.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q2</span> 여행자보험 취소 방법은?</div>
+						<div class="ins-faq_a">가입안내 SMS에서 URL 클릭&gt;마이페이지 방문&gt;구매내역에서 취소해 주세요. 또는 콜센터(1566-5800)로 문의해 주세요.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q3</span> 다른 보험판매채널에서 가입한 경우 취소는?</div>
+						<div class="ins-faq_a">가입한 채널에서만 취소가 가능합니다.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q4</span> 보상 안내는?</div>
+						<div class="ins-faq_a">가입확인서와 약관을 확인 해 주세요.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q5</span> 실손 보험이 다수의 보험에 가입된 경우 중복보상은?</div>
+						<div class="ins-faq_a">보상 대상 의료비 및 책임액에 대하여 각 계약의 비례 분담액만을 지급합니다.</div>
+					</div>
+					<div class="ins-faq_item">
+						<div class="ins-faq_q"><span>Q6</span> 보상 항목이 여러 개인 경우 항목별 보상이 가능한지?</div>
+						<div class="ins-faq_a">보상 대상 항목이 여러 개라도 모두 보상해 드립니다.</div>
+					</div>
+				</div>
+			</div>
+			<div class="mr-sheet-foot"><button type="button" class="mr-sheet-close btn_slide_close_ins">확인했어요</button></div>
+		</div>
+	</div>
+
+<script>
+(function () {
+	/* ---------- 데이터 ---------- */
+	var PEOPLE       = 3;
+	var DEFAULT_END  = '2026-10-22';           // 최초 조회된 여행 종료일 (샘플)
+	var PRICE        = { basic: 12523, premium: 17033 };   // 1인 기준
+	var COVERAGE = {
+		basic: [
+			['질병사망 및 질병 80%이상 고도후유장해', '2000만원', '해외여행 중에 질병으로 사망하거나 80% 이상 고도 후유장해가 발생한 경우 약정된 보험금을 지급합니다.'],
+			['해외발생중 질병 실비, 질병', '3000만원', '해외여행 중에 질병으로 인하여 해외의료기관에서 치료를 받은 때 의료비를 보상해드립니다.'],
+			['항공기납치', '140만원', '해외여행 중에 탑승한 항공기가 납치됨에 따라 예정목적지에 도착할 수 없게 된 동안 매일 정액의 비용을 보상해 드립니다.'],
+			['해외여행중 중대사고 구조송환비용 특별약관', '3000만원', '해외여행 중에 조난, 사고 등으로 발생한 수색구조, 교통비 등의 비용을 보상해드립니다.'],
+			['해외여행중 여권분실로 재발급비용 특별약관', '6만원', '해외여행 중에 여권을 분실하거나 도난당하여 발생한 비용(여행증명서 발급비용, 여권재발급비용)을 보상해드립니다.'],
+			['해외여행중 항공기 및 수하물 지연비용 특별약관', '10만원', '연결항공편이 결항되었거나 도착시간의 4시간 내에 피보험자에게 대체적인 항공운송수단이 제공되지 못할 경우, 항공편이 4시간 이상 지연·취소된 경우 등에 발생한 비용을 보상해드립니다.']
+		],
+		/* TODO: 고급 플랜은 임시값(기획서 확정 시 교체) */
+		premium: [
+			['질병사망 및 질병 80%이상 고도후유장해', '5000만원', '해외여행 중에 질병으로 사망하거나 80% 이상 고도 후유장해가 발생한 경우 약정된 보험금을 지급합니다.'],
+			['해외발생중 질병 실비, 질병', '5000만원', '해외여행 중에 질병으로 인하여 해외의료기관에서 치료를 받은 때 의료비를 보상해드립니다.'],
+			['항공기납치', '200만원', '해외여행 중에 탑승한 항공기가 납치됨에 따라 예정목적지에 도착할 수 없게 된 동안 매일 정액의 비용을 보상해 드립니다.'],
+			['해외여행중 중대사고 구조송환비용 특별약관', '5000만원', '해외여행 중에 조난, 사고 등으로 발생한 수색구조, 교통비 등의 비용을 보상해드립니다.'],
+			['해외여행중 여권분실로 재발급비용 특별약관', '10만원', '해외여행 중에 여권을 분실하거나 도난당하여 발생한 비용(여행증명서 발급비용, 여권재발급비용)을 보상해드립니다.'],
+			['해외여행중 항공기 및 수하물 지연비용 특별약관', '20만원', '연결항공편이 결항되었거나 도착시간의 4시간 내에 피보험자에게 대체적인 항공운송수단이 제공되지 못할 경우, 항공편이 4시간 이상 지연·취소된 경우 등에 발생한 비용을 보상해드립니다.']
+		]
+	};
+
+	/* ---------- 상태 ---------- */
+	var state = {
+		plan: 'basic',          // basic | premium | none | null(선택 해제)
+		appliedEnd: DEFAULT_END, // 마지막으로 보험료를 조회한 종료일
+		dateOpen: true,         // 종료일 영역 노출 여부
+		detailOpen: false       // 상세보기 펼침 여부
+	};
+
+	var $date     = $('#mrDate');
+	var $input    = $('#mrDateInput');
+	var $err      = $('#mrDateErr');
+	var $btn      = $('#mrDateBtn');
+	var $note     = $('#mrDateNote');
+	var $plans    = $('.mr-plan');
+	var $total    = $('#mrTotal');
+	var $next     = $('#mrNext');
+
+	function won(n) { return n.toLocaleString('ko-KR') + '원'; }
+
+	/* 'YYYY-MM-DD' 형식 + 실제 존재하는 날짜 + 오늘 이후인지 */
+	function isValidEnd(v) {
+		var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v);
+		if (!m) return false;
+		var y = +m[1], mo = +m[2], d = +m[3];
+		var dt = new Date(y, mo - 1, d);
+		if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return false;
+		var today = new Date(); today.setHours(0, 0, 0, 0);
+		return dt >= today;
+	}
+
+	/* 숫자만 입력 → 2026 / 2026-1 / 2026-10-2 처럼 자동으로 '-' 부착 */
+	function formatDigits(raw) {
+		var d = raw.replace(/\D/g, '').slice(0, 8);
+		if (d.length > 6) return d.slice(0, 4) + '-' + d.slice(4, 6) + '-' + d.slice(6);
+		if (d.length > 4) return d.slice(0, 4) + '-' + d.slice(4);
+		return d;
+	}
+
+	function render() {
+		var v      = $input.val();
+		var dirty  = v !== state.appliedEnd;       // 종료일을 고치는 중 → 이전 조회결과 숨김
+		var valid  = isValidEnd(v);
+
+		$date.toggleClass('is-show', state.dateOpen);
+		$btn.prop('disabled', !(dirty && valid));
+		$note.toggleClass('is-show', dirty);
+		$input.toggleClass('is-error', v.length === 10 && !valid);
+		$err.toggleClass('is-show', v.length === 10 && !valid);
+
+		$plans.each(function () {
+			var p = $(this).data('plan');
+			$(this).toggleClass('is-selected', !dirty && p === state.plan);
+		});
+		['basic', 'premium'].forEach(function (p) {
+			var $p = $('[data-price="' + p + '"]');
+			if (dirty) {
+				$p.addClass('is-wait').text('여행 종료일을 입력해주세요');
+			} else {
+				$p.removeClass('is-wait').html('1인 기준<b>' + won(PRICE[p]) + '</b>');
+			}
+		});
+
+		/* 3명 합계 (10원 단위 반올림: 12,523×3 → 37,570원 / 17,033×3 → 51,100원) */
+		var sum = (!dirty && state.plan && PRICE[state.plan]) ? Math.round(PRICE[state.plan] * PEOPLE / 10) * 10 : 0;
+		$total.text(won(sum));
+		$('#mrDetailAmt').text(won(sum));
+		$next.prop('disabled', dirty || !state.plan);
+
+		$('#mrDetail').toggleClass('is-open', state.detailOpen);
+		$('#mrDetailToggle').toggleClass('is-open', state.detailOpen).attr('aria-expanded', state.detailOpen);
+		$('#mrDetailToggleTxt').text(state.detailOpen ? '상세접기' : '상세보기');
+	}
+
+	/* ---------- 이벤트 ---------- */
+	$plans.on('click', function () {
+		// 수정 중(숨김 상태)에는 새 조회 전까지 플랜 선택 잠금
+		if ($input.val() !== state.appliedEnd) return;
+		var p = $(this).data('plan');
+		state.plan = (state.plan === p) ? null : p;   // 선택된 카드를 다시 누르면 해제
+		state.dateOpen = true;               // 어떤 플랜을 눌러도 종료일 영역 노출
+		render();
+	});
+
+	$input.on('input', function () {
+		this.value = formatDigits(this.value);
+		render();
+	});
+
+	$btn.on('click', function () {
+		if ($btn.prop('disabled')) return;
+		state.appliedEnd = $input.val();     // 새 종료일 기준으로 재조회 (실제 연동 시 API 호출 지점)
+		render();
+		$input.blur();
+	});
+
+	$('#mrDetailToggle').on('click', function () {
+		state.detailOpen = !state.detailOpen;
+		render();
+	});
+
+	/* ---------- 플랜 비교 시트 ---------- */
+	function renderCov(plan) {
+		var html = COVERAGE[plan].map(function (c) {
+			return '<div class="mr-cov-item">' +
+				'<div class="mr-cov-top"><span>' + c[0] + '</span><span class="mr-cov-amt">' + c[1] + '</span></div>' +
+				'<p class="mr-cov-desc">' + c[2] + '</p></div>';
+		}).join('');
+		var $body = $('#mrCovList').html(html);
+		$body.scrollTop(0);
+	}
+	$('#mrCmpTabs').on('click', '.mr-cmp-tab', function () {
+		$('.mr-cmp-tab').removeClass('is-active');
+		$(this).addClass('is-active');
+		renderCov($(this).data('cov'));
+	});
+	// 배경(딤)을 누르면 열려 있는 시트 닫기
+	$(document).on('click', '.dimmed_bgs', function () {
+		$('.slide-sheet_ins.is-open .btn_slide_close_ins').first().click();
+	});
+
+	/* ---------- 시트 손잡이: 탭하거나 아래로 끌면 닫기 ---------- */
+	document.querySelectorAll('.slide-sheet_ins').forEach(function (sheet) {
+		var handle = sheet.querySelector('.mr-sheet-handle');
+		if (!handle) return;
+		var startY = 0, delta = 0, dragging = false;
+
+		function finish(close) {
+			sheet.style.transition = '';
+			void sheet.offsetHeight;          // 복구된 트랜지션이 적용되도록 리플로우
+			sheet.style.transform = '';
+			if (close) $(sheet).find('.btn_slide_close_ins').first().click();
+		}
+		handle.addEventListener('pointerdown', function (e) {
+			dragging = true; delta = 0; startY = e.clientY;
+			handle.setPointerCapture(e.pointerId);
+			sheet.style.transition = 'none';  // 손가락 따라 1:1 이동
+		});
+		handle.addEventListener('pointermove', function (e) {
+			if (!dragging) return;
+			delta = Math.max(0, e.clientY - startY);   // 아래로만
+			sheet.style.transform = 'translateY(' + delta + 'px)';
+		});
+		function end() {
+			if (!dragging) return;
+			dragging = false;
+			var isTap = delta < 5;
+			finish(isTap || delta > Math.min(100, sheet.offsetHeight * 0.25));
+		}
+		handle.addEventListener('pointerup', end);
+		handle.addEventListener('pointercancel', end);
+	});
+
+	renderCov('basic');
+	render();
+})();
+</script>
+</body>
+
+</html>

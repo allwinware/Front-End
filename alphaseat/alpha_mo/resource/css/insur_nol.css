@@ -4138,6 +4138,22 @@
 #sheetNolCoverage.nol-cov-sheet {
 	padding-top: 0;
 }
+/* 보장 항목이 많아 스크롤이 필요하다는 걸 알 수 있도록 이 시트만 스크롤바를 보여줌 */
+#sheetNolCoverage .slide-sheet_ins-body {
+	scrollbar-width: thin;
+	scrollbar-color: #ccc transparent;
+}
+#sheetNolCoverage .slide-sheet_ins-body::-webkit-scrollbar {
+	display: block;
+	width: 4px;
+}
+#sheetNolCoverage .slide-sheet_ins-body::-webkit-scrollbar-track {
+	background: transparent;
+}
+#sheetNolCoverage .slide-sheet_ins-body::-webkit-scrollbar-thumb {
+	background: #ccc;
+	border-radius: 2px;
+}
 .nol-cov-head {
 	display: flex;
 	align-items: center;
@@ -4163,24 +4179,29 @@
 	color: #1B1C1F;
 }
 .nol-cov-subtitle {
-	margin: 4px 0 10px;
+	margin: 4px 0 20px;
 	font-family: 'PretendardB';
-	font-size: 14px;
+	font-size: 18px;
 	color: #1B1C1F;
 }
 .nol-cov-notes {
 	margin: 0 0 22px;
-	padding: 0;
+	padding: 14px;
 	list-style: none;
+	background: #F8F8F8;
+	border-radius: 8px;
 }
 .nol-cov-notes li {
 	position: relative;
 	padding-left: 10px;
 	margin-bottom: 4px;
 	font-family: 'PretendardR';
-	font-size: 12px;
-	line-height: 1.6;
-	color: #888;
+	font-size: 14px;
+	line-height: 21px;
+	color: #666;
+}
+.nol-cov-notes li:last-child {
+	margin-bottom: 0;
 }
 .nol-cov-notes li::before {
 	content: '\00B7';
@@ -4189,13 +4210,13 @@
 }
 .nol-cov-select-wrap {
 	position: relative;
-	margin-bottom: 16px;
+	margin-bottom: 25px;
 }
 .nol-cov-select-label {
 	display: block;
 	margin-bottom: 8px;
-	font-family: 'PretendardB';
-	font-size: 13px;
+	font-family: 'PretendardSB';
+	font-size: 14px;
 	color: #1B1C1F;
 }
 .nol-cov-select-btn {
@@ -4228,9 +4249,10 @@
 }
 .nol-cov-select-list {
 	position: absolute;
-	left: 0;
-	right: 0;
+	left: 50%;
 	top: calc(100% + 4px);
+	width: 84%;
+	transform: translateX(-50%);
 	background: #fff;
 	border: 1px solid #ddd;
 	border-radius: 8px;
@@ -4270,20 +4292,27 @@
 	color: #4154FF;
 	font-family: 'PretendardB';
 }
+.nol-cov-table {
+	margin-bottom: 6px;
+	border: 1px solid #eee;
+	overflow: hidden;
+}
 .nol-cov-tabs {
 	display: flex;
 	gap: 6px;
-	margin-bottom: 14px;
+	padding: 5px;
+	border-bottom: 1px solid #eee;
 }
 .nol-cov-tab {
-	flex: 1;
+	flex: 0 0 61px;
+	width: 61px;
 	height: 34px;
-	border-radius: 8px;
+	border-radius: 20px;
 	border: 1px solid #ddd;
 	background: #fff;
 	color: #666;
 	font-family: 'PretendardSB';
-	font-size: 13px;
+	font-size: 14px;
 	cursor: pointer;
 }
 .nol-cov-tab.is-active {
@@ -4291,26 +4320,28 @@
 	border-color: #1B1C1F;
 	color: #fff;
 }
-.nol-cov-list {
-	padding-bottom: 6px;
-}
 .nol-cov-row {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 10px;
-	padding: 12px 0;
-	border-bottom: 1px solid #f0f0f0;
+	display: grid;
+	grid-template-columns: 1fr 22px 84px;
+	column-gap: 6px;
+	padding: 0 16px;
+	border-bottom: 1px solid #eee;
+}
+.nol-cov-row:last-child {
+	border-bottom: none;
 }
 .nol-cov-row-name {
 	display: flex;
 	align-items: center;
-	gap: 4px;
+	padding: 14px 0;
 	font-family: 'PretendardR';
-	font-size: 13px;
+	font-size: 14px;
 	color: #1B1C1F;
 }
 .nol-cov-row-info {
+	grid-column: 2;
+	justify-self: center;
+	align-self: center;
 	width: 14px;
 	height: 14px;
 	padding: 0;
@@ -4327,8 +4358,14 @@
 	cursor: pointer;
 }
 .nol-cov-row-amt {
-	font-family: 'PretendardSB';
-	font-size: 13px;
+	grid-column: 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 14px 0;
+	border-left: 1px solid #eee;
+	font-family: 'PretendardR';
+	font-size: 14px;
 	color: #1B1C1F;
 	white-space: nowrap;
 }
@@ -4346,6 +4383,19 @@
 }
 
 /* ── 보험료 상세 팝업 (물음표) ───────────────────────── */
+.nol-pricepop-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 895;
+	background: rgba(20, 22, 30, 0.45);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 320ms ease;
+}
+.nol-pricepop-overlay.is-open {
+	opacity: 1;
+	pointer-events: auto;
+}
 .nol-pricepop {
 	position: fixed;
 	left: 0;
@@ -4366,11 +4416,26 @@
 	transform: translateY(0);
 }
 .nol-pricepop-handle {
+	display: block;
+	width: 100%;
+	height: 24px;
+	padding: 0;
+	margin: -6px 0 6px;
+	border: none;
+	background: none;
+	cursor: pointer;
+	position: relative;
+}
+.nol-pricepop-handle::before {
+	content: '';
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
 	width: 35px;
 	height: 4px;
 	border-radius: 2px;
 	background: #ccc;
-	margin: 0 auto 16px;
 }
 .nol-pricepop-title {
 	margin: 0 0 14px;
@@ -4489,7 +4554,7 @@
 	padding: 14px 20px 10px;
 }
 .nol-cal-month-label {
-	margin: 14px 0 8px;
+	margin: 32px 0 14px;
 	font-family: 'PretendardB';
 	font-size: 16px;
 	color: #1B1C1F;
@@ -4500,7 +4565,7 @@
 .nol-cal-grid {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-	row-gap: 6px;
+	row-gap: 25px;
 }
 .nol-cal-day {
 	position: relative;
@@ -4548,8 +4613,8 @@
 .nol-cal-day.is-selected::before {
 	content: '';
 	position: absolute;
-	width: 32px;
-	height: 32px;
+	width: 40px;
+	height: 40px;
 	border-radius: 50%;
 	background: #4154FF;
 }
