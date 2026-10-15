@@ -104,7 +104,7 @@
 				<p class="nol-hero-sub">일정 전까지 100% 무료 취소!</p>
 				<div class="nol-hero-date">
 					<span id="nolDateRangeTxt">27.07.23 00:00~07.26 23:59 (5일)</span>
-					<button type="button" class="nol-hero-date-btn" id="nolDateChangeBtn">변경</button>
+					<button type="button" class="nol-hero-date-btn btn_slide_open_ins" id="nolDateChangeBtn" data-sheet="sheetInsur1">내정보 변경</button>
 				</div>
 			</div>
 
@@ -3557,11 +3557,9 @@
 
 	function closeCal() { calOverlay.classList.remove('show'); }
 
+	/* '내정보 변경' 버튼(#nolDateChangeBtn)은 이제 sheetInsur1을 연다(btn_slide_open_ins).
+	   예전 '종료일 변경' 캘린더는 열지 않고, 코드만 남겨둠. */
 	if (dateChangeBtn) {
-		dateChangeBtn.addEventListener('click', function () {
-			buildCalendar();
-			calOverlay.classList.add('show');
-		});
 		calClose.addEventListener('click', closeCal);
 		calOverlay.addEventListener('click', function (e) { if (e.target === calOverlay) closeCal(); });
 		calConfirm.addEventListener('click', function () {

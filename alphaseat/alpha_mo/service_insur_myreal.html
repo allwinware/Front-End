@@ -97,6 +97,7 @@
 		<div class="mr-body">
 			<!-- 타이틀 + 플랜 비교 -->
 			<div class="mr-hero">
+				<button type="button" class="mr-myinfo-btn btn_slide_open_ins" data-sheet="sheetInsur1">내 정보 변경</button>
 				<h2 class="mr-hero-title">항공권은 준비 끝!<br>이제 <b>여행자 보험</b> 차례에요.</h2>
 				<button type="button" class="mr-compare-btn btn_slide_open_ins" data-sheet="sheetMrCompare">
 					<svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l5.5 2v4.1c0 3.1-2.3 5.6-5.5 6.9-3.2-1.3-5.5-3.8-5.5-6.9V3.5L8 1.5z" fill="#fff"/><path d="M5.6 8l1.7 1.7 3.1-3.3" stroke="#2B2E33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -224,6 +225,232 @@
 			<div class="slide-sheet_ins-body" id="mrCovList"><!-- JS 생성 --></div>
 			<div class="mr-sheet-foot">
 				<button type="button" class="mr-sheet-close btn_slide_close_ins">닫기</button>
+			</div>
+		</div>
+
+		<div class="slide-sheet_ins" id="sheetInsur1">
+			<div class="mr-sheet-handle"></div>
+			<div class="slide-sheet_ins-body">
+				<div class="myinfo-header">
+					<span class="myinfo-title">가입 정보 확인/입력</span>
+				</div>
+				<p class="myinfo-desc">보험료 산정과 AI추천을 위해 정확히 입력해 주세요</p>
+
+				<div class="myinfo-row ins-country-row">
+					<span class="myinfo-label">여행국가</span>
+					<div class="ins-country-split">
+						<span class="ins-country-value">태국</span>
+						<button type="button" class="ins-restrict-btn" id="countryRestrictBtn">인수불가국가 <i>ⓘ</i></button>
+					</div>
+				</div>
+
+				<div class="myinfo-row">
+					<div class="myinfo-label-wrap">
+						<span class="myinfo-label">여행기간</span>
+						<button type="button" class="myinfo-info-btn" id="tripDateInfoBtn">ⓘ</button>
+					</div>
+					<div class="myinfo-date-wrap ins-date-wrap">
+						<button type="button" class="ins-date-btn" id="tripStartBtn">
+							<span class="myinfo-date-btn-txt selected" id="tripStartTxt">2026.07.30</span>
+							<span class="ins-date-fixed">(00시부터)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#000" stroke-width="1.5"/><path d="M3 8h14" stroke="#000" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</button>
+						<span class="myinfo-date-dash">~</span>
+						<button type="button" class="ins-date-btn" id="tripEndBtn">
+							<span class="myinfo-date-btn-txt selected" id="tripEndTxt">2026.08.02</span>
+							<span class="ins-date-fixed">(24시까지)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#000" stroke-width="1.5"/><path d="M3 8h14" stroke="#000" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</button>
+					</div>
+				</div>
+
+				<!-- 여행기간 테스트 위젯 A: 출국일→귀국일 순서로 탭하면 사이 구간이 띠로 이어짐 -->
+				<div class="myinfo-row">
+					<div class="myinfo-label-wrap">
+						<span class="myinfo-label">여행기간 (범위선택 테스트)</span>
+						<button type="button" class="myinfo-info-btn" id="rcInfoBtn">ⓘ</button>
+					</div>
+					<div class="myinfo-date-wrap ins-date-wrap">
+						<button type="button" class="ins-date-btn" id="rcStartBtn">
+							<span class="myinfo-date-btn-txt" id="rcStartTxt">출국일 선택</span>
+							<span class="ins-date-fixed">(00시부터)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#000" stroke-width="1.5"/><path d="M3 8h14" stroke="#000" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</button>
+						<span class="myinfo-date-dash">~</span>
+						<button type="button" class="ins-date-btn" id="rcEndBtn">
+							<span class="myinfo-date-btn-txt" id="rcEndTxt">귀국일 선택</span>
+							<span class="ins-date-fixed">(24시까지)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#000" stroke-width="1.5"/><path d="M3 8h14" stroke="#000" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</button>
+					</div>
+				</div>
+
+				<!-- 여행기간 테스트 위젯 B: 출국일은 오늘로 고정, 귀국일만 탭해서 선택 -->
+				<div class="myinfo-row">
+					<div class="myinfo-label-wrap">
+						<span class="myinfo-label">여행기간 (출국일고정 테스트)</span>
+						<button type="button" class="myinfo-info-btn" id="fcInfoBtn">ⓘ</button>
+					</div>
+					<div class="myinfo-date-wrap ins-date-wrap">
+						<span class="ins-date-btn ins-date-btn--fixed">
+							<span class="myinfo-date-btn-txt selected" id="fcStartTxt"></span>
+							<span class="ins-date-fixed">(00시부터)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#ccc" stroke-width="1.5"/><path d="M3 8h14" stroke="#ccc" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</span>
+						<span class="myinfo-date-dash">~</span>
+						<button type="button" class="ins-date-btn" id="fcEndBtn">
+							<span class="myinfo-date-btn-txt" id="fcEndTxt">귀국일 선택</span>
+							<span class="ins-date-fixed">(24시까지)</span>
+							<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="14" rx="2" stroke="#000" stroke-width="1.5"/><path d="M3 8h14" stroke="#000" stroke-width="1.5"/><path d="M7 2v3M13 2v3" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+						</button>
+					</div>
+				</div>
+
+				<div class="myinfo-row ins-phone-row">
+					<span class="myinfo-label ins-phone-label">휴대폰번호</span>
+					<input type="tel" class="ins-phone-input" id="insPhoneInput" value="010-4827-4827" inputmode="numeric" maxlength="13">
+				</div>
+				<div class="myinfo-sun" style="background-color: #f6f6f7; height: 10px; margin: 0 -20px 30px;"></div>
+				<div class="myinfo-section-title">가입자 정보</div>
+				<div class="myinfo-person">
+					<div class="myinfo-person-name">LEE SIHYEONG</div>
+					<div class="myinfo-person-row">
+						<input type="text" class="myinfo-birth-input" value="20150501" readonly>
+						<div class="myinfo-gender-wrap">
+							<button type="button" class="myinfo-gender active">남</button>
+							<button type="button" class="myinfo-gender">여</button>
+						</div>
+					</div>
+				</div>
+				<div class="myinfo-person">
+					<div class="myinfo-person-name">LEE JIYOUNG</div>
+					<div class="myinfo-person-row">
+						<input type="text" class="myinfo-birth-input" value="19880302" readonly>
+						<!-- <input type="text" class="myinfo-birth-input" placeholder="생년월일(8자리)" inputmode="numeric" maxlength="8"> -->
+						<div class="myinfo-gender-wrap">
+							<button type="button" class="myinfo-gender active">남</button>
+							<button type="button" class="myinfo-gender">여</button>
+						</div>
+					</div>
+				</div>
+				<div class="myinfo-person">
+					<div class="myinfo-person-name">KIM JINHUI</div>
+					<div class="myinfo-person-row">
+						<input type="text" class="myinfo-birth-input" value="19850501" readonly>
+						<div class="myinfo-gender-wrap">
+							<button type="button" class="myinfo-gender active">남</button>
+							<button type="button" class="myinfo-gender">여</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="myinfo-bottom-btn">
+				<a href="#none" class="myinfo-x-btn btn_slide_close_ins">가입안함</a>
+				<button type="button" class="myinfo-confirm-btn" id="insMyinfoConfirmBtn">입력완료</button>
+			</div>
+		</div>
+
+		<!-- 보험 인수제한 국가 안내 팝업 -->
+		<div class="info-modal_ins" id="countryRestrictModal">
+			<div class="info-modal_ins-card">
+				<p class="info-modal_ins-title">보험 인수제한 국가 안내</p>
+				<div class="info-modal_ins-body ins-restrict-list">
+					<p><b>아시아</b>: 아랍에미리트공화국, 아프가니스탄, 바레인, 이스라엘, 이라크, 이란, 요르단, 북한, 한국, 쿠웨이트, 레바논, 미얀마, 파키스탄, 팔레스타인 자치구, 카타르, 사우디아라비아, 시리아, 예멘</p>
+					<p><b>아프리카</b>: 부르키나파소, 콩고(자이레), 중앙아프리카, 콩고, 코트디브와르, 기니, 리비아, 말리, 나이지리아, 수단, 소말리아, 차드, 자이레</p>
+					<p><b>유럽</b> : 벨라루스, 몰도바, 러시아, 우크라이나</p>
+					<p><b>북아메리카</b> : 쿠바</p>
+					<p><b>남아메리카</b> : 아이티, 베네수엘라</p>
+					<p><b>오세아니아</b> : </p>
+					<p><b>기타</b> : 남극</p>
+				</div>
+				<button type="button" class="info-modal_ins-confirm" id="countryRestrictConfirm">확인</button>
+			</div>
+		</div>
+
+		<!-- 여행기간 안내 팝업: 화면 중앙 + 파란 확인버튼 -->
+		<div class="info-modal_ins" id="tripDateInfoModal">
+			<div class="info-modal_ins-card">
+				<p class="info-modal_ins-title">여행기간 안내</p>
+				<p class="info-modal_ins-body">
+					<i>12개월 이내에 출발하는 일정만 가입이 가능합니다.</i><br>
+					여행기간은 주거지를 출발하여 여행을 마친 후 주거지에 도착할 때까지의 기간으로 설정해 주세요.
+				</p>
+				<button type="button" class="info-modal_ins-confirm" id="tripDateInfoConfirm">확인</button>
+			</div>
+		</div>
+
+		<!-- 날짜 피커 -->
+		<div class="datepicker-overlay" id="datepickerOverlay">
+			<div class="datepicker-panel">
+				<div class="datepicker-header">
+					<button class="datepicker-prev" id="datepickerPrev">&#8249;</button>
+					<span class="datepicker-title" id="datepickerTitle"></span>
+					<button class="datepicker-next" id="datepickerNext">&#8250;</button>
+				</div>
+				<div class="datepicker-weekdays">
+					<span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+				</div>
+				<div class="datepicker-grid" id="datepickerGrid"></div>
+				<div class="datepicker-footer">
+					<button class="datepicker-cancel" id="datepickerCancel">취소</button>
+					<button class="datepicker-confirm" id="datepickerConfirm">확인</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- 시간 피커 -->
+		<div class="timepicker-overlay" id="timepickerOverlay">
+			<div class="timepicker-panel">
+				<div class="timepicker-title-bar">
+					<span class="timepicker-title" id="timepickerTitle">출발 예정 시간</span>
+					<button class="timepicker-close" id="timepickerClose">✕</button>
+				</div>
+				<div class="timepicker-scroll-wrap">
+					<div class="timepicker-col" id="timepickerHour"></div>
+					<span class="timepicker-colon">:</span>
+					<div class="timepicker-col" id="timepickerMin"></div>
+				</div>
+				<button class="timepicker-confirm" id="timepickerConfirm">확인</button>
+			</div>
+		</div>
+
+		<!-- 여행기간 테스트 위젯 A용: 범위선택 캘린더(출국일→귀국일 탭, 사이 구간 띠 표시) -->
+		<div class="rc-overlay" id="rcOverlay">
+			<div class="rc-panel">
+				<div class="rc-header">
+					<button class="rc-prev" id="rcPrev">&#8249;</button>
+					<span class="rc-title" id="rcTitle"></span>
+					<button class="rc-next" id="rcNext">&#8250;</button>
+				</div>
+				<div class="rc-weekdays">
+					<span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+				</div>
+				<div class="rc-grid" id="rcGrid"></div>
+				<p class="rc-hint" id="rcHint">출국일을 선택해 주세요</p>
+				<div class="rc-footer">
+					<button class="rc-cancel" id="rcCancel">취소</button>
+					<button class="rc-confirm" id="rcConfirm">확인</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- 여행기간 테스트 위젯 B용: 출국일 고정, 귀국일만 선택하는 캘린더 -->
+		<div class="rc-overlay" id="fcOverlay">
+			<div class="rc-panel">
+				<div class="rc-header">
+					<button class="rc-prev" id="fcPrev">&#8249;</button>
+					<span class="rc-title" id="fcTitle"></span>
+					<button class="rc-next" id="fcNext">&#8250;</button>
+				</div>
+				<div class="rc-weekdays">
+					<span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+				</div>
+				<div class="rc-grid" id="fcGrid"></div>
+				<p class="rc-hint">출국일(오늘)은 고정, 귀국일만 선택해 주세요</p>
+				<div class="rc-footer">
+					<button class="rc-cancel" id="fcCancel">취소</button>
+					<button class="rc-confirm" id="fcConfirm">확인</button>
+				</div>
 			</div>
 		</div>
 
@@ -463,6 +690,520 @@
 
 	renderCov('basic');
 	render();
+})();
+</script>
+<script>
+/* ================================================================
+   sheetInsur1(가입정보 입력) 관련 JS
+   ================================================================ */
+(function(){
+
+	/* ── 성별 토글 ── */
+	document.querySelectorAll('.myinfo-gender-wrap').forEach(function(wrap){
+		wrap.querySelectorAll('.myinfo-gender').forEach(function(btn){
+			btn.addEventListener('click', function(){
+				wrap.querySelectorAll('.myinfo-gender').forEach(function(b){ b.classList.remove('active'); });
+				btn.classList.add('active');
+			});
+		});
+	});
+
+	/* ── 여행기간 안내 팝업(ⓘ) ── */
+	var infoBtn   = document.getElementById('tripDateInfoBtn');
+	var infoModal = document.getElementById('tripDateInfoModal');
+	var infoConfirm = document.getElementById('tripDateInfoConfirm');
+	if(infoBtn && infoModal){
+		infoBtn.addEventListener('click', function(e){
+			e.preventDefault();
+			/* alpha_mo_ui.js가 같은 id(#tripDateInfoBtn)로 popOpen()->bodyLock()을 걸어놓고
+			   있는데, 대상 #tripDateInfoOverlay가 이 페이지엔 없어서 절대 못 풀림.
+			   그 레거시 핸들러로 이벤트가 새지 않도록 여기서 막는다. */
+			e.stopPropagation();
+			infoModal.classList.add('show');
+		});
+		infoModal.addEventListener('click', function(e){
+			if(e.target === this) infoModal.classList.remove('show');
+		});
+		if(infoConfirm){
+			infoConfirm.addEventListener('click', function(){ infoModal.classList.remove('show'); });
+		}
+	}
+
+	/* ── 인수불가국가 안내 팝업 ── */
+	var restrictBtn = document.getElementById('countryRestrictBtn');
+	var restrictModal = document.getElementById('countryRestrictModal');
+	var restrictConfirm = document.getElementById('countryRestrictConfirm');
+	if(restrictBtn && restrictModal){
+		restrictBtn.addEventListener('click', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			restrictModal.classList.add('show');
+		});
+		restrictModal.addEventListener('click', function(e){
+			if(e.target === this) restrictModal.classList.remove('show');
+		});
+		if(restrictConfirm){
+			restrictConfirm.addEventListener('click', function(){ restrictModal.classList.remove('show'); });
+		}
+	}
+
+	/* ── 휴대폰번호 입력: 3자리-4자리-4자리 자동 하이픈 (010-1234-5678) ── */
+	var phoneInput = document.getElementById('insPhoneInput');
+	if(phoneInput){
+		phoneInput.addEventListener('input', function(){
+			var digits = phoneInput.value.replace(/[^0-9]/g, '').slice(0, 11);
+			var formatted = digits;
+			if(digits.length > 7){
+				formatted = digits.slice(0,3) + '-' + digits.slice(3,7) + '-' + digits.slice(7);
+			} else if(digits.length > 3){
+				formatted = digits.slice(0,3) + '-' + digits.slice(3);
+			}
+			phoneInput.value = formatted;
+		});
+	}
+
+	/* ── 입력 완료 버튼: 시트 닫기(기존 btn_slide_close_ins 핸들러 재사용) ── */
+	var confirmBtn = document.getElementById('insMyinfoConfirmBtn');
+	if(confirmBtn){
+		confirmBtn.addEventListener('click', function(){
+			var closeBtn = document.querySelector('#sheetInsur1 .btn_slide_close_ins');
+			if(closeBtn) closeBtn.click();
+		});
+	}
+
+	/* ── 날짜 피커 ── */
+	var overlay    = document.getElementById('datepickerOverlay');
+	var grid       = document.getElementById('datepickerGrid');
+	var titleEl    = document.getElementById('datepickerTitle');
+	var prevBtn    = document.getElementById('datepickerPrev');
+	var nextBtn    = document.getElementById('datepickerNext');
+	var cancelBtn  = document.getElementById('datepickerCancel');
+	var confirmDateBtn = document.getElementById('datepickerConfirm');
+	var startBtn   = document.getElementById('tripStartBtn');
+	var endBtn     = document.getElementById('tripEndBtn');
+
+	var curYear, curMonth, selectedDate, targetField;
+	var today = new Date(); today.setHours(0,0,0,0);
+
+	function pad(n){ return n < 10 ? '0'+n : ''+n; }
+	function formatDate(y,m,d){ return y+'.'+pad(m+1)+'.'+pad(d); }
+
+	function render(){
+		titleEl.textContent = curYear+'년 '+(curMonth+1)+'월';
+		var firstDow = new Date(curYear, curMonth, 1).getDay();
+		var daysInMonth = new Date(curYear, curMonth+1, 0).getDate();
+		grid.innerHTML = '';
+
+		for(var i=0; i<firstDow; i++){
+			var emp = document.createElement('button');
+			emp.className='dp-day empty'; emp.disabled=true;
+			grid.appendChild(emp);
+		}
+		for(var d=1; d<=daysInMonth; d++){
+			(function(dd){
+				var btn = document.createElement('button');
+				btn.className = 'dp-day';
+				btn.textContent = dd;
+				var thisDate = new Date(curYear, curMonth, dd);
+				var dow = thisDate.getDay();
+				if(dow===0) btn.classList.add('sun');
+				if(dow===6) btn.classList.add('sat');
+				if(thisDate.getTime() < today.getTime()) btn.classList.add('disabled');
+				if(thisDate.getTime()===today.getTime()) btn.classList.add('today');
+				if(selectedDate && thisDate.getTime()===selectedDate.getTime()) btn.classList.add('selected');
+				btn.addEventListener('click', function(){
+					selectedDate = new Date(curYear, curMonth, dd);
+					render();
+				});
+				grid.appendChild(btn);
+			})(d);
+		}
+	}
+
+	function openPicker(field){
+		targetField = field;
+		var now = new Date();
+		curYear = now.getFullYear(); curMonth = now.getMonth(); selectedDate = null;
+		render();
+		overlay.classList.add('show');
+	}
+
+	if(prevBtn) prevBtn.addEventListener('click', function(){ if(--curMonth<0){curMonth=11;curYear--;} render(); });
+	if(nextBtn) nextBtn.addEventListener('click', function(){ if(++curMonth>11){curMonth=0;curYear++;} render(); });
+	if(cancelBtn) cancelBtn.addEventListener('click', function(){ overlay.classList.remove('show'); });
+	if(overlay) overlay.addEventListener('click', function(e){ if(e.target===this) overlay.classList.remove('show'); });
+
+	if(confirmDateBtn) confirmDateBtn.addEventListener('click', function(){
+		overlay.classList.remove('show');
+		if(!selectedDate) return;
+		if(targetField === 'end'){
+			var startEl = document.getElementById('tripStartTxt');
+			if(!startEl || !startEl.classList.contains('selected')){
+				alert('출발일을 먼저 입력해 주세요.');
+				return;
+			}
+			var parts = startEl.textContent.split('.');
+			var startD = new Date(Number(parts[0]), Number(parts[1])-1, Number(parts[2]));
+			if(selectedDate < startD){
+				alert('귀국일은 출발일보다 나중의 날짜로 설정해야 합니다.');
+				return;
+			}
+		}
+		var str = formatDate(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+		var txtId = (targetField==='start') ? 'tripStartTxt' : 'tripEndTxt';
+		var txtEl = document.getElementById(txtId);
+		if(txtEl){ txtEl.textContent = str; txtEl.classList.add('selected'); }
+	});
+
+	if(startBtn) startBtn.addEventListener('click', function(){ openPicker('start'); });
+	if(endBtn)   endBtn.addEventListener('click',   function(){ openPicker('end'); });
+
+	/* ── 시간 피커 ── */
+	var tOverlay    = document.getElementById('timepickerOverlay');
+	var tTitleEl    = document.getElementById('timepickerTitle');
+	var hourCol     = document.getElementById('timepickerHour');
+	var minCol      = document.getElementById('timepickerMin');
+	var tCloseBtn   = document.getElementById('timepickerClose');
+	var tConfirmBtn = document.getElementById('timepickerConfirm');
+	var startTimeBtn = document.getElementById('tripStartTimeBtn');
+	var endTimeBtn   = document.getElementById('tripEndTimeBtn');
+	var targetTimeField;
+
+	function buildCol(el, max, step){
+		el.innerHTML = '<div class="timepicker-col-pad"></div>';
+		for(var i=0; i<max; i+=step){
+			var div = document.createElement('div');
+			div.className = 'timepicker-col-item';
+			div.textContent = pad(i);
+			el.appendChild(div);
+		}
+		el.innerHTML += '<div class="timepicker-col-pad"></div>';
+	}
+
+	function getSelected(col){
+		var items = col.querySelectorAll('.timepicker-col-item');
+		var colTop = col.getBoundingClientRect().top;
+		var center = colTop + col.clientHeight/2;
+		var best = 0, bestDist = 9999;
+		items.forEach(function(item, idx){
+			var rect = item.getBoundingClientRect();
+			var dist = Math.abs(rect.top + rect.height/2 - center);
+			if(dist < bestDist){ bestDist=dist; best=idx; }
+		});
+		return items[best] ? items[best].textContent : '00';
+	}
+
+	function updateActive(col){
+		var items = col.querySelectorAll('.timepicker-col-item');
+		var colTop = col.getBoundingClientRect().top;
+		var center = colTop + col.clientHeight/2;
+		items.forEach(function(item){
+			var rect = item.getBoundingClientRect();
+			var dist = Math.abs(rect.top + rect.height/2 - center);
+			item.classList.toggle('active', dist < 22);
+		});
+	}
+
+	function scrollToIndex(col, idx){
+		col.scrollTop = idx * 44;
+	}
+
+	function openTimePicker(field){
+		targetTimeField = field;
+		tTitleEl.textContent = field==='start' ? '출발 예정 시간' : '도착 예정 시간';
+		buildCol(hourCol, 24, 1);
+		buildCol(minCol,  60, 30);
+		tOverlay.classList.add('show');
+		setTimeout(function(){
+			scrollToIndex(hourCol, 0);
+			scrollToIndex(minCol,  0);
+			updateActive(hourCol);
+			updateActive(minCol);
+		}, 50);
+	}
+
+	if(hourCol && minCol){
+		[hourCol, minCol].forEach(function(col){
+			col.addEventListener('scroll', function(){
+				clearTimeout(col._st);
+				updateActive(col);
+				col._st = setTimeout(function(){
+					var items = col.querySelectorAll('.timepicker-col-item');
+					var idx = Math.round(col.scrollTop / 44);
+					idx = Math.max(0, Math.min(idx, items.length-1));
+					col.scrollTo({top: idx*44, behavior:'smooth'});
+					setTimeout(function(){ updateActive(col); }, 200);
+				}, 120);
+			});
+		});
+	}
+
+	if(tCloseBtn) tCloseBtn.addEventListener('click', function(){ tOverlay.classList.remove('show'); });
+	if(tOverlay) tOverlay.addEventListener('click', function(e){ if(e.target===this) tOverlay.classList.remove('show'); });
+
+	if(tConfirmBtn) tConfirmBtn.addEventListener('click', function(){
+		var h = getSelected(hourCol);
+		var m = getSelected(minCol);
+		var str = h + ':' + m;
+		var txtId = (targetTimeField==='start') ? 'tripStartTimeTxt' : 'tripEndTimeTxt';
+		var txtEl = document.getElementById(txtId);
+		if(txtEl){ txtEl.textContent = str; txtEl.classList.add('selected'); }
+		tOverlay.classList.remove('show');
+	});
+
+	if(startTimeBtn) startTimeBtn.addEventListener('click', function(){ openTimePicker('start'); });
+	if(endTimeBtn)   endTimeBtn.addEventListener('click',   function(){ openTimePicker('end'); });
+
+})();
+
+/* ================================================================
+   여행기간 테스트 위젯 A/B — 범위선택 캘린더 (.rc-)
+   기존 tripStartBtn/tripEndBtn(단일 선택) 로직과는 독립적으로 동작.
+   ================================================================ */
+(function(){
+	var pad = function(n){ return n < 10 ? '0'+n : ''+n; };
+	var fmt = function(d){ return d.getFullYear()+'.'+pad(d.getMonth()+1)+'.'+pad(d.getDate()); };
+	var sameDay = function(a,b){ return a && b && a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); };
+	var today = new Date(); today.setHours(0,0,0,0);
+
+	/* 캘린더 한 달 분량을 그려주는 공용 함수.
+	   opts: { year, month, minDate, rangeStart, rangeEnd, onPick(date) } */
+	function renderMonth(gridEl, titleEl, opts){
+		titleEl.textContent = opts.year+'년 '+(opts.month+1)+'월';
+		var firstDow = new Date(opts.year, opts.month, 1).getDay();
+		var daysInMonth = new Date(opts.year, opts.month+1, 0).getDate();
+		gridEl.innerHTML = '';
+
+		for(var i=0; i<firstDow; i++){
+			var emp = document.createElement('div');
+			emp.className = 'rc-day empty';
+			gridEl.appendChild(emp);
+		}
+		for(var d=1; d<=daysInMonth; d++){
+			(function(dd){
+				var thisDate = new Date(opts.year, opts.month, dd);
+				var dow = thisDate.getDay();
+				var cell = document.createElement('button');
+				cell.type = 'button';
+				cell.className = 'rc-day';
+				if(dow===0) cell.classList.add('sun');
+				if(dow===6) cell.classList.add('sat');
+				if(sameDay(thisDate, today)) cell.classList.add('today');
+
+				var isDisabled = opts.minDate && thisDate.getTime() < opts.minDate.getTime();
+				if(isDisabled) cell.classList.add('disabled');
+
+				var inRange = opts.rangeStart && opts.rangeEnd &&
+					thisDate.getTime() >= opts.rangeStart.getTime() &&
+					thisDate.getTime() <= opts.rangeEnd.getTime();
+				if(inRange) cell.classList.add('in-range');
+				if(sameDay(thisDate, opts.rangeStart)) cell.classList.add('range-start');
+				if(sameDay(thisDate, opts.rangeEnd)) cell.classList.add('range-end');
+
+				var num = document.createElement('span');
+				num.className = 'rc-day-num';
+				num.textContent = dd;
+				cell.appendChild(num);
+
+				if(!isDisabled){
+					cell.addEventListener('click', function(){ opts.onPick(thisDate); });
+				}
+				gridEl.appendChild(cell);
+			})(d);
+		}
+	}
+
+	/* ── 위젯 A: 출국일 → 귀국일 순서로 탭, 사이 구간 띠 표시 ── */
+	var rcOverlay = document.getElementById('rcOverlay');
+	var rcGrid    = document.getElementById('rcGrid');
+	var rcTitle   = document.getElementById('rcTitle');
+	var rcHint    = document.getElementById('rcHint');
+	var rcPrev    = document.getElementById('rcPrev');
+	var rcNext    = document.getElementById('rcNext');
+	var rcCancel  = document.getElementById('rcCancel');
+	var rcConfirm = document.getElementById('rcConfirm');
+	var rcStartBtn = document.getElementById('rcStartBtn');
+	var rcEndBtn   = document.getElementById('rcEndBtn');
+
+	var rcYear, rcMonth, rcStart, rcEnd;
+
+	function rcRender(){
+		rcHint.textContent = !rcStart ? '출국일을 선택해 주세요'
+			: !rcEnd ? '귀국일을 선택해 주세요'
+			: '출국일과 귀국일이 선택되었습니다';
+		renderMonth(rcGrid, rcTitle, {
+			year: rcYear, month: rcMonth,
+			rangeStart: rcStart, rangeEnd: rcEnd,
+			onPick: function(date){
+				if(!rcStart || (rcStart && rcEnd)){
+					// 처음 선택하거나, 이미 둘 다 선택된 뒤 다시 누르면 새로 시작
+					if(date.getTime() < today.getTime()){
+						alert('오늘 이전 날짜는 출국일로 선택할 수 없습니다.');
+						return;
+					}
+					rcStart = date; rcEnd = null;
+				} else if(date.getTime() < rcStart.getTime()){
+					// 출국일보다 이른 날짜를 누르면 그 날짜를 새 출국일로
+					if(date.getTime() < today.getTime()){
+						alert('오늘 이전 날짜는 출국일로 선택할 수 없습니다.');
+						return;
+					}
+					rcStart = date; rcEnd = null;
+				} else {
+					rcEnd = date;
+				}
+				rcRender();
+			}
+		});
+	}
+
+	function rcOpen(){
+		var now = new Date();
+		rcYear = now.getFullYear(); rcMonth = now.getMonth();
+		rcRender();
+		rcOverlay.classList.add('show');
+	}
+
+	if(rcStartBtn) rcStartBtn.addEventListener('click', rcOpen);
+	if(rcEndBtn)   rcEndBtn.addEventListener('click', rcOpen);
+	if(rcPrev) rcPrev.addEventListener('click', function(){ if(--rcMonth<0){rcMonth=11;rcYear--;} rcRender(); });
+	if(rcNext) rcNext.addEventListener('click', function(){ if(++rcMonth>11){rcMonth=0;rcYear++;} rcRender(); });
+	if(rcCancel) rcCancel.addEventListener('click', function(){ rcOverlay.classList.remove('show'); });
+	if(rcOverlay) rcOverlay.addEventListener('click', function(e){ if(e.target===this) rcOverlay.classList.remove('show'); });
+	if(rcConfirm) rcConfirm.addEventListener('click', function(){
+		if(!rcStart || !rcEnd){ alert('출국일과 귀국일을 모두 선택해 주세요.'); return; }
+		var rcStartTxtEl = document.getElementById('rcStartTxt');
+		var rcEndTxtEl   = document.getElementById('rcEndTxt');
+		rcStartTxtEl.textContent = fmt(rcStart); rcStartTxtEl.classList.add('selected');
+		rcEndTxtEl.textContent   = fmt(rcEnd);   rcEndTxtEl.classList.add('selected');
+		rcOverlay.classList.remove('show');
+	});
+
+	/* ── 위젯 B: 출국일은 오늘로 고정, 귀국일만 선택 ── */
+	var fcOverlay = document.getElementById('fcOverlay');
+	var fcGrid    = document.getElementById('fcGrid');
+	var fcTitle   = document.getElementById('fcTitle');
+	var fcPrev    = document.getElementById('fcPrev');
+	var fcNext    = document.getElementById('fcNext');
+	var fcCancel  = document.getElementById('fcCancel');
+	var fcConfirm = document.getElementById('fcConfirm');
+	var fcEndBtn  = document.getElementById('fcEndBtn');
+	var fcStartTxt = document.getElementById('fcStartTxt');
+
+	if(fcStartTxt) fcStartTxt.textContent = fmt(today);
+
+	var fcYear, fcMonth, fcEnd;
+
+	function fcRender(){
+		renderMonth(fcGrid, fcTitle, {
+			year: fcYear, month: fcMonth,
+			minDate: today,
+			rangeStart: today, rangeEnd: fcEnd,
+			onPick: function(date){ fcEnd = date; fcRender(); }
+		});
+	}
+
+	function fcOpen(){
+		fcYear = today.getFullYear(); fcMonth = today.getMonth();
+		fcRender();
+		fcOverlay.classList.add('show');
+	}
+
+	if(fcEndBtn) fcEndBtn.addEventListener('click', fcOpen);
+	if(fcPrev) fcPrev.addEventListener('click', function(){ if(--fcMonth<0){fcMonth=11;fcYear--;} fcRender(); });
+	if(fcNext) fcNext.addEventListener('click', function(){ if(++fcMonth>11){fcMonth=0;fcYear++;} fcRender(); });
+	if(fcCancel) fcCancel.addEventListener('click', function(){ fcOverlay.classList.remove('show'); });
+	if(fcOverlay) fcOverlay.addEventListener('click', function(e){ if(e.target===this) fcOverlay.classList.remove('show'); });
+	if(fcConfirm) fcConfirm.addEventListener('click', function(){
+		if(!fcEnd){ alert('귀국일을 선택해 주세요.'); return; }
+		var fcEndTxtEl = document.getElementById('fcEndTxt');
+		fcEndTxtEl.textContent = fmt(fcEnd); fcEndTxtEl.classList.add('selected');
+		fcOverlay.classList.remove('show');
+	});
+
+	/* ── 위젯 A/B의 ⓘ 버튼도 기존 "여행기간 안내" 팝업(tripDateInfoModal)을 그대로 재사용 ── */
+	var tripInfoModal = document.getElementById('tripDateInfoModal');
+	[document.getElementById('rcInfoBtn'), document.getElementById('fcInfoBtn')].forEach(function(btn){
+		if(btn && tripInfoModal){
+			btn.addEventListener('click', function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				tripInfoModal.classList.add('show');
+			});
+		}
+	});
+})();
+
+/* ================================================================
+   AI 여행 분석 카드 — 상단(문구+이미지), 하단(보상 사례) 롤링
+   두 영역은 각각 별도 setInterval로 3초마다 동작 (일단 분리)
+   ================================================================ */
+(function(){
+
+	/* 상단: 위로 사라지며 교체되는 크로스페이드 (transform + opacity) */
+	function makeCrossfadeLoop(viewportId, intervalMs, slideSelector){
+		var viewport = document.getElementById(viewportId);
+		if(!viewport) return;
+		var slides = viewport.querySelectorAll(slideSelector || '.ai-analysis_ins-slide');
+		if(!slides.length) return;
+		var idx = 0;
+
+		setInterval(function(){
+			var current = slides[idx];
+			var next = slides[(idx + 1) % slides.length];
+
+			current.classList.remove('is-active');
+			current.classList.add('is-leaving');
+
+			next.classList.add('is-active');
+
+			current.addEventListener('transitionend', function reset(){
+				current.removeEventListener('transitionend', reset);
+				current.classList.remove('is-leaving');
+			});
+
+			idx = (idx + 1) % slides.length;
+		}, intervalMs);
+	}
+
+	/* 하단: 세로(translateY)로 밀려 올라가는 티커, 4개 + 복제 1개로 무한 루프 */
+	function makeLoop(trackId, prop, step, count, intervalMs){
+		var track = document.getElementById(trackId);
+		if(!track) return;
+		var idx = 0;
+		var animating = false;
+
+		setInterval(function(){
+			if(animating) return;
+			animating = true;
+			idx++;
+			track.style.transition = '';
+			track.style.transform = prop + '(-' + (step * idx) + (prop==='translateX' ? '%' : 'px') + ')';
+
+			if(idx === count){
+				// 복제된 마지막 항목까지 이동한 뒤, 트랜지션 없이 처음 위치로 순간 이동
+				track.addEventListener('transitionend', function reset(){
+					track.removeEventListener('transitionend', reset);
+					track.style.transition = 'none';
+					idx = 0;
+					track.style.transform = prop + '(0)';
+					// 강제 리플로우 후 트랜지션 복구
+					void track.offsetHeight;
+					track.style.transition = '';
+					animating = false;
+				});
+			} else {
+				setTimeout(function(){ animating = false; }, 520);
+			}
+		}, intervalMs);
+	}
+
+	// 상단: 문구, 위로 사라지며 다음 문구로 교체
+	makeCrossfadeLoop('aiAnalysisRollTrack', 3000, '.ai-analysis_ins-slide');
+
+	// 하단: 보상 사례 티커, 세로(translateY) 18px씩, 4개 + 복제 1개
+	makeLoop('aiBottomTrack', 'translateY', 18, 4, 3000);
+
 })();
 </script>
 </body>

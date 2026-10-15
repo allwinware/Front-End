@@ -134,9 +134,7 @@
 						</div>
 						<div class="nol-plan-daterow">
 							<span class="nol-plan-date-txt" data-plan-date="standard">2026.10.19 00:00 ~ 2026.10.22 23:59</span>
-							<button type="button" class="nol-plan-cal-btn" aria-label="날짜 선택">
-								<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="10" rx="1.5" stroke="#5E2BB8" stroke-width="1.2"/><path d="M1.5 5.5h11" stroke="#5E2BB8" stroke-width="1.2"/><path d="M4 1.3v2M10 1.3v2" stroke="#5E2BB8" stroke-width="1.2" stroke-linecap="round"/></svg>
-							</button>
+							<button type="button" class="hana-plan-info-btn btn_slide_open_ins" data-sheet="sheetInsur1">내정보</button>
 						</div>
 						<ul class="nol-plan-feats">
 							<li>여행 중 병원 치료비 <span class="nol-feat-sb">5천만원</span> 보장 한도</li>
@@ -160,9 +158,7 @@
 						</div>
 						<div class="nol-plan-daterow">
 							<span class="nol-plan-date-txt" data-plan-date="premium">2026.10.19 00:00 ~ 2026.10.22 23:59</span>
-							<button type="button" class="nol-plan-cal-btn" aria-label="날짜 선택">
-								<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="10" rx="1.5" stroke="#5E2BB8" stroke-width="1.2"/><path d="M1.5 5.5h11" stroke="#5E2BB8" stroke-width="1.2"/><path d="M4 1.3v2M10 1.3v2" stroke="#5E2BB8" stroke-width="1.2" stroke-linecap="round"/></svg>
-							</button>
+							<button type="button" class="hana-plan-info-btn btn_slide_open_ins" data-sheet="sheetInsur1">내정보</button>
 						</div>
 						<ul class="nol-plan-feats">
 							<li>여행 중 병원 치료비 <span class="nol-feat-sb">7천만원</span> 보장 한도</li>
@@ -2158,9 +2154,6 @@
 
 	if(rcStartBtn) rcStartBtn.addEventListener('click', rcOpen);
 	if(rcEndBtn)   rcEndBtn.addEventListener('click', rcOpen);
-	document.querySelectorAll('.nol-plan-cal-btn').forEach(function(btn){
-		btn.addEventListener('click', function(e){ e.stopPropagation(); rcOpen(); });
-	});
 	if(rcPrev) rcPrev.addEventListener('click', function(){ if(--rcMonth<0){rcMonth=11;rcYear--;} rcRender(); });
 	if(rcNext) rcNext.addEventListener('click', function(){ if(++rcMonth>11){rcMonth=0;rcYear++;} rcRender(); });
 	if(rcTitlebarClose) rcTitlebarClose.addEventListener('click', function(){ rcOverlay.classList.remove('show'); });
@@ -3411,7 +3404,7 @@
 
 	planCards.forEach(function (card) {
 		card.addEventListener('click', function (e) {
-			if (e.target.closest('.nol-plan-cal-btn')) return;
+			if (e.target.closest('.hana-plan-info-btn')) return;
 			togglePlan(card.getAttribute('data-plan'));
 			centerCard(card);
 		});

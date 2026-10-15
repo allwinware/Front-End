@@ -21,7 +21,7 @@
 
 /* ===== 타이틀 ===== */
 .mr-hero {
-    padding: 28px 20px 18px;
+    padding: 38px 20px 18px;
     position: relative;
 }
 .mr-hero-title {
@@ -39,7 +39,7 @@
 .mr-compare-btn {
     position: absolute;
     right: 20px;
-    top: 30px;
+    top: 40px;
     display: inline-flex;
     align-items: center;
     gap: 3px;
@@ -616,4 +616,847 @@
     content: '•';
     position: absolute;
     left: 0;
+}
+
+/* ===== 내정보 변경 시트(#sheetInsur1) — nol의 가입정보 입력 UI 이식 + 마이리얼 컬러(#2B96ED) ===== */
+.myinfo-req {
+    font-size: 11px;
+    color: #888;
+    font-family: 'PretendardR';
+}
+.myinfo-desc {
+    font-size: 13px;
+    color: #2B96ED;
+    padding: 6px 0 30px;
+    flex-shrink: 0;
+    line-height: 18px;
+    font-family: 'PretendardR';
+    text-align: center;
+}
+.myinfo-row {
+    margin-bottom: 18px;
+}
+.myinfo-label-wrap {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 3px;
+}
+.myinfo-label {
+    font-size: 13px;
+    color: #333;
+    font-family: 'PretendardSB';
+    padding-bottom: 4px;
+}
+.myinfo-label.wid {
+    width: 65px;
+}
+.myinfo-info-btn {
+    background: none;
+    border: none;
+    padding-bottom: 8px;
+    font-size: 12px;
+    color: #888;
+    cursor: pointer;
+}
+.myinfo-input-full {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    height: 36px;
+    font-size: 13px;
+    color: #222;
+    outline: none;
+    padding: 0 4px;
+    box-sizing: border-box;
+    font-family: 'PretendardR';
+    background: transparent;
+}
+.myinfo-input-full::placeholder {
+    color: #ccc;
+    font-size: 13px;
+}
+.myinfo-input-full:focus {
+    border-bottom-color: #2B96ED;
+}
+.myinfo-date-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.myinfo-date-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    padding: 0 10px;
+    height: 40px;
+    cursor: pointer;
+    gap: 6px;
+}
+.myinfo-date-btn-txt {
+    font-size: 13px;
+    color: #2B96ED;
+    text-align: left;
+    font-family: 'PretendardSB';
+}
+.myinfo-date-btn-txt.selected {
+    color: #999;
+}
+.myinfo-date-dash {
+    font-size: 13px;
+    color: #999;
+    flex-shrink: 0;
+    padding-bottom: 8px;
+}
+.myinfo-section-title {
+    font-size: 13px;
+    color: #222;
+    margin-bottom: 20px;
+    font-family: 'PretendardSB';
+}
+.myinfo-person {
+    margin-bottom: 18px;
+}
+.myinfo-person-name {
+    font-size: 13px;
+    color: #2B96ED;
+    margin-bottom: 3px;
+    font-family: 'PretendardSB';
+}
+.myinfo-person-row {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.myinfo-birth-input {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    height: 30px;
+    padding: 0 12px 0 0;
+    font-size: 13px;
+    color: #222;
+    outline: none;
+    font-family: 'PretendardSB';
+}
+.myinfo-birth-input::placeholder {
+    color: #ccc;
+    font-size: 13px;
+}
+.myinfo-gender-wrap {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.myinfo-gender {
+    width: 72px;
+    height: 36px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 13px;
+    color: #aaa;
+    cursor: pointer;
+}
+.myinfo-gender.active {
+    border-color: #2B96ED;
+    background: #fff;
+    color: #2B96ED;
+    font-weight: 700;
+}
+.myinfo-bottom-btn{
+    display: flex;
+}
+.myinfo-x-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;    
+    flex-shrink: 0;
+    height: 50px;
+    border: none;
+    background: #fff;
+    color: #2B96ED;    
+    font-size: 15px;
+    font-family: 'PretendardSB';
+    cursor: pointer;
+    border: 1px solid #2B96ED;
+}
+.myinfo-confirm-btn {
+    display: block;
+    width: 70%;
+    flex-shrink: 0;
+    height: 50px;
+    border: none;
+    background: #2B96ED;
+    color: #fff;
+    font-size: 15px;
+    font-family: 'PretendardSB';
+    cursor: pointer;
+}
+
+/* 여행국가 행: 전체 밑줄 없이, 태국/인수불가국가 각각에 30:70 비율 밑줄 */
+.ins-country-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.ins-country-split {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 8px;
+    margin-left: 30px;
+}
+.ins-country-value {
+    flex: 3 1 0;
+    font-size: 14px;
+    color: #999;
+    font-family: 'PretendardSB';
+    display: flex;
+    align-items: center;
+}
+.ins-restrict-btn {
+    flex: 7 1 0;
+    margin-left: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 11px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'PretendardR';
+}
+.ins-restrict-btn i {
+    font-style: normal;
+    padding-bottom: 2px;
+}
+
+/* 휴대폰번호 행: 밑줄 없이 라벨:입력 50:50 */
+.ins-phone-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.ins-phone-label {
+    width: 50%;
+}
+.ins-phone-input {
+    width: 50%;
+    text-align: left;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    font-family: 'PretendardB';
+    color: #222;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* 여행기간 날짜 버튼: 달력만 바뀌고 (00시부터)/(24시까지)는 고정 텍스트 */
+.ins-date-wrap {
+    flex-wrap: wrap;
+}
+.ins-date-btn {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: space-between;
+    border: none;
+    background: none;
+    padding: 8px 2px;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e5e5;
+}
+.ins-date-fixed {
+    font-size: 10.5px;
+    color: #999;
+    font-family: 'PretendardR';
+    white-space: nowrap;
+}
+
+/* 보험 인수제한 국가 안내 목록 */
+.ins-restrict-list {
+    text-align: left;
+}
+.ins-restrict-list p {
+    padding-left: 1em;
+    position: relative;
+    margin: 0 0 10px;
+    font-family: 'PretendardR';
+    font-size: 13px;
+}
+.ins-restrict-list p::before {
+    content: '・';
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.ins-restrict-list p:last-child {
+    margin-bottom: 0;
+}
+.ins-restrict-list b {
+    font-family: 'PretendardSB';
+    color: #222;
+}
+
+/* 여행기간 안내 팝업 — 화면 중앙 정렬 + 안쪽 하단 파란 확인버튼 (123.png 스타일 참고, 새 클래스로 구성) */
+.info-modal_ins {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+.info-modal_ins.show {
+    display: flex;
+}
+.info-modal_ins-card {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 320px;
+    max-height: 78vh;
+    overflow-y: auto;
+    padding: 24px 20px 20px;
+    text-align: center;
+}
+.info-modal_ins-title {
+    font-size: 16px;
+    font-family: 'PretendardB';
+    color: #111;
+    margin-bottom: 16px;
+}
+.info-modal_ins-body {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.4;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.info-modal_ins-body.center {
+    text-align: center;
+}
+.info-modal_ins-card .icon_img {
+    width: 40px;
+    height: 40px;
+    background: url(https://cdn.ags-aws.com/alphaseat/mo/img/common/war_alert.png) no-repeat center / contain;
+    margin: 0 auto 16px;
+}
+.info-modal_ins-body i {
+    font-style: normal;
+    color: #2B96ED;
+    font-family: 'PretendardSB';
+}
+.info-modal_ins-confirm {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 4px;
+    background: #2B96ED;
+    color: #fff;
+    font-size: 15px;
+    font-family: 'PretendardSB';
+    cursor: pointer;
+}
+
+/* 날짜 피커 */
+.datepicker-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    align-items: flex-end;
+    justify-content: center;
+}
+.datepicker-overlay.show {
+    display: flex;
+}
+.datepicker-panel {
+    transform: translateY(100%);
+    transition: transform 350ms cubic-bezier(.4,0,.2,1);
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 32px;
+}
+.datepicker-overlay.show .datepicker-panel {
+    transform: translateY(0);
+}
+.datepicker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.datepicker-next,
+.datepicker-prev {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #555;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+}
+.datepicker-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+}
+.datepicker-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    text-align: center;
+    margin-bottom: 8px;
+}
+.datepicker-weekdays span {
+    font-size: 12px;
+    color: #999;
+    padding: 4px 0;
+}
+.datepicker-weekdays span:first-child {
+    color: #f55;
+}
+.datepicker-weekdays span:last-child {
+    color: #55f;
+}
+.datepicker-grid {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-template-rows: repeat(6,1fr);
+    margin-bottom: 20px;
+}
+.dp-day {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #222;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    height: calc((min(100vw, 600px) - 40px) / 7);
+}
+.dp-day.sun {
+    color: #f55;
+}
+.dp-day.sat {
+    color: #55f;
+}
+.dp-day.today {
+    font-weight: 700;
+    color: #222;
+    background: #F0F8FE;
+}
+.dp-day:not(.empty):not(.disabled):hover {
+    background: #F0F8FE;
+}
+.dp-day.selected {
+    background: #2B96ED !important;
+    color: #fff !important;
+}
+.dp-day.disabled {
+    color: #ddd;
+    cursor: default;
+    pointer-events: none;
+}
+.dp-day.empty {
+    pointer-events: none;
+}
+.datepicker-hint {
+    font-size: 12.5px;
+    color: #888;
+    text-align: center;
+    margin: 0 0 14px;
+}
+.datepicker-footer {
+    display: flex;
+    gap: 10px;
+}
+.datepicker-cancel,
+.datepicker-confirm {
+    flex: 1;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+}
+.datepicker-cancel {
+    background: #f1f4f5;
+    color: #666;
+}
+.datepicker-confirm {
+    background: #2B96ED;
+    color: #fff;
+}
+
+/* ===== 여행기간 테스트: 범위선택 캘린더 (.rc-) =====
+   기존 .datepicker-*(단일 날짜 선택)와는 별개 컴포넌트.
+   .dp-day는 gap:4px로 서로 떨어져 있어 셀 사이 "띠"를 이을 수 없어서,
+   .rc-day는 gap 없이 붙여놓고 각 셀 내부에서 배경(::before)으로 구간을 이어줌. */
+.rc-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    align-items: flex-end;
+    justify-content: center;
+}
+.rc-overlay.show {
+    display: flex;
+}
+.rc-panel {
+    transform: translateY(100%);
+    transition: transform 350ms cubic-bezier(.4,0,.2,1);
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 32px;
+}
+.rc-overlay.show .rc-panel {
+    transform: translateY(0);
+}
+.rc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.rc-prev,
+.rc-next {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #555;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+}
+.rc-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+}
+.rc-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    text-align: center;
+    margin-bottom: 8px;
+}
+.rc-weekdays span {
+    font-size: 12px;
+    color: #999;
+    padding: 4px 0;
+}
+.rc-weekdays span:first-child {
+    color: #f55;
+}
+.rc-weekdays span:last-child {
+    color: #55f;
+}
+.rc-grid {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-template-rows: repeat(6,1fr);
+    row-gap: 10px;
+    margin-bottom: 12px;
+}
+.rc-day {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    height: calc((min(100vw, 600px) - 40px) / 7);
+}
+.rc-day-num {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 14px;
+    color: #222;
+}
+.rc-day.sun .rc-day-num { color: #f55; }
+.rc-day.sat .rc-day-num { color: #55f; }
+.rc-day.today .rc-day-num {
+    font-weight: 700;
+}
+.rc-day:not(.empty):not(.disabled):hover .rc-day-num {
+    background: #F0F8FE;
+}
+.rc-day.disabled { pointer-events: none; }
+.rc-day.disabled .rc-day-num { color: #ddd; }
+.rc-day.empty { pointer-events: none; }
+.rc-day-tag {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: #2B96ED;
+    white-space: nowrap;
+}
+
+/* 연도 선택 그리드 (.rc-title 클릭 시 노출) */
+.rc-year-grid,
+.rc-month-grid {
+    display: none;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(3,1fr);
+    height: calc((min(100vw, 600px) - 40px) / 7 * 6 + 5 * 10px);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.rc-year,
+.rc-month {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    color: #222;
+    cursor: pointer;
+}
+.rc-year.active,
+.rc-month.active {
+    border-color: #2B96ED;
+    background: #2B96ED;
+    color: #fff;
+    font-weight: 700;
+}
+.rc-panel.picker-mode .rc-header {
+    justify-content: center;
+}
+.rc-panel.picker-mode .rc-weekdays,
+.rc-panel.picker-mode .rc-grid,
+.rc-panel.picker-mode .rc-prev,
+.rc-panel.picker-mode .rc-next,
+.rc-panel.picker-mode .rc-hint {
+    display: none;
+}
+.rc-panel.year-mode .rc-year-grid,
+.rc-panel.month-mode .rc-month-grid {
+    display: grid;
+    animation: rcYearGridIn 200ms ease;
+}
+@keyframes rcYearGridIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* 구간 띠: 시작~끝 사이(양끝 포함) 셀 배경을 이어 붙임 */
+.rc-day.in-range::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 34px;
+    transform: translateY(-50%);
+    background: #E9F5FD;
+    z-index: 0;
+}
+.rc-day.range-start::before {
+    left: 50%;
+}
+.rc-day.range-end::before {
+    right: 50%;
+}
+.rc-day.range-start.range-end::before {
+    display: none; /* 하루만 선택된 경우엔 띠 없이 원만 표시 */
+}
+.rc-day.range-start .rc-day-num,
+.rc-day.range-end .rc-day-num {
+    background: #2B96ED !important;
+    color: #fff !important;
+}
+.rc-hint {
+    font-size: 12.5px;
+    color: #888;
+    text-align: center;
+    margin: 0 0 14px;
+}
+.rc-footer {
+    display: flex;
+    gap: 10px;
+}
+.rc-cancel,
+.rc-confirm {
+    flex: 1;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+}
+.rc-cancel {
+    background: #f1f4f5;
+    color: #666;
+}
+.rc-confirm {
+    background: #2B96ED;
+    color: #fff;
+}
+.ins-date-btn--fixed {
+    color: #888;
+    background: #f6f7f9;
+    pointer-events: none;
+}
+
+/* 시간 피커 */
+.timepicker-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    align-items: flex-end;
+    justify-content: center;
+}
+.timepicker-overlay.show {
+    display: flex;
+}
+.timepicker-panel {
+    transform: translateY(100%);
+    transition: transform 350ms cubic-bezier(.4,0,.2,1);
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 32px;
+}
+.timepicker-overlay.show .timepicker-panel {
+    transform: translateY(0);
+}
+.timepicker-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+.timepicker-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+}
+.timepicker-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+}
+.timepicker-scroll-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+.timepicker-col {
+    flex: 1;
+    overflow-y: scroll;
+    height: 200px;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    text-align: center;
+}
+.timepicker-col::-webkit-scrollbar {
+    display: none;
+}
+.timepicker-col-item {
+    height: 44px;
+    line-height: 44px;
+    font-size: 20px;
+    color: #ccc;
+    scroll-snap-align: center;
+    transition: color 0.15s,font-weight 0.15s;
+}
+.timepicker-col-item.active {
+    color: #111;
+    font-weight: 700;
+    font-size: 22px;
+}
+.timepicker-col-pad {
+    height: 78px;
+}
+.timepicker-colon {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    flex-shrink: 0;
+    padding: 0 8px;
+    align-self: center;
+}
+.timepicker-confirm {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 12px;
+    background: #2B96ED;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* 히어로 우측 상단 '내정보 변경' (플랜 비교 버튼 위) */
+.mr-myinfo-btn {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    padding: 10px;
+    border: none;
+    background: none;
+    color: #2B96ED;
+    font-size: 15px;
+    line-height: 20px;
+    font-family: 'PretendardSB';
+    cursor: pointer;
+    white-space: nowrap;
+}
+#sheetInsur1 .slide-sheet_ins-body {
+    padding-bottom: 20px;
 }
