@@ -16,9 +16,27 @@
 			.demo_progress.run span { width: 100%; transition: width linear; }
 		</style>
 		<script type="text/javascript">
+
+			function moveUrl() {
+				var urlSearch	= new URLSearchParams(location.search);
+				var mode		= urlSearch.get("mode");
+				switch (mode) {					
+					case "stg"	:
+						window.location.href	= "https://stg-demo-mo.ags-aws.com/demo/bsp/myrealtrip/indep/login/aces/2";
+						break;
+					case "dev"	:
+						window.location.href	= "https://dev-demo-mo.ags-aws.com/demo/bsp/myrealtrip/indep/login/aces/2";
+						break;
+					case "prod"	:
+						window.location.href	= "https://prod-demo.m.ags-aws.com/demo/bsp/myrealtrip/indep/login/aces/2";
+						break;
+					default	:
+						window.location.href	= "https://stg-demo-mo.ags-aws.com/demo/bsp/myrealtrip/indep/login/aces/2";
+				}
+			}
+
 			// ★ 설정 ★
-			var NEXT_URL     = "";	// 화면 전환 시 이동할 URL (전달받은 URL을 입력)
-			var REDIRECT_SEC = 5;	// 페이지 진입 후 화면 전환까지 대기 시간(초) - 필요 시 조정
+			var REDIRECT_SEC = 3;	// 페이지 진입 후 화면 전환까지 대기 시간(초) - 필요 시 조정
 
 			window.addEventListener("load", function () {
 				// 프로그레스 바 애니메이션 시작 (대기 시간과 동일하게 적용)
@@ -30,11 +48,7 @@
 
 				// 지정한 시간 후 화면 전환
 				setTimeout(function () {
-					if (!NEXT_URL) {
-						console.warn("NEXT_URL 이 설정되지 않았습니다.");
-						return;
-					}
-					window.location.href = NEXT_URL;
+					moveUrl();
 				}, REDIRECT_SEC * 1000);
 			});
 		</script>
