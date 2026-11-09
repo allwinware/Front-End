@@ -14,14 +14,14 @@
 }
 
 .mr-body {
-    background: #F5F6F8;
+    background: #fff;
     padding-top: 50px;
     min-height: 100vh;
 }
 
 /* ===== 타이틀 ===== */
 .mr-hero {
-    padding: 38px 20px 18px;
+    padding: 38px 20px 15px;
     position: relative;
 }
 .mr-hero-title {
@@ -61,7 +61,7 @@
 /* ===== 여행 종료일 영역 ===== */
 .mr-date {
     display: none;
-    padding: 0 20px 14px;
+    padding: 0 20px 0;
 }
 .mr-date.is-show {
     display: block;
@@ -142,6 +142,26 @@
     display: block;
 }
 
+/* ===== 보장 기간 + 내 정보 변경 ===== */
+.mr-subline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 20px;
+}
+.mr-period {
+    display: none;
+    font-size: 12px;
+    color: #666D75;
+    font-family: 'PretendardM';
+}
+.mr-period.is-show {
+    display: block;
+}
+.mr-subline .mr-myinfo-btn {
+    margin-left: auto;
+}
+
 /* ===== 플랜 카드 ===== */
 .mr-plans {
     padding: 0 20px;
@@ -150,56 +170,85 @@
     display: block;
     width: 100%;
     box-sizing: border-box;
-    margin: 0 0 8px;
-    padding: 16px 14px;
-    border: 2px solid transparent;
-    border-radius: 16px;
+    margin: 0 0 16px;
+    padding: 16px;
+    border: 1.6px solid #DEE2E6;
+    border-radius: 24px;
     background: #fff;
     text-align: left;
     cursor: pointer;
     transition: border-color .15s ease;
 }
 .mr-plan.is-selected {
-    border-color: #212529;
+    border-color: #2B96ED;
+    background: #F5FBFF;
+    animation: mr-plan-bounce .18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+/* 선택 시 살짝 부풀었다 돌아오는 반응 */
+@keyframes mr-plan-bounce {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(1.01); }
+    100% { transform: scale(1); }
 }
 .mr-plan-top {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 8px;
+}
+.mr-plan-head {
+    min-width: 0;
+    flex: 1;
 }
 .mr-plan-name {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 16px;
+    font-size: 20px;
     color: #101418;
-    font-family: 'PretendardSB';
+    font-family: 'PretendardB';
 }
 .mr-plan-ico {
-    width: 32px;
-    height: 32px;
+    display: none;
+    width: 24px;
+    height: 24px;
     flex-shrink: 0;
     object-fit: contain;
 }
-.mr-plan-price {
+.mr-plan-sub {
+    margin: 4px 0 0;
     font-size: 12px;
-    color: #ADB5BD;
+    color: #666D75;
     font-family: 'PretendardM';
+}
+.mr-plan-price {
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 14px;
+    color: #101418;
+    font-family: 'PretendardB';
     white-space: nowrap;
 }
 .mr-plan-price b {
-    margin-left: 4px;
-    font-size: 18px;
-    color: #212529;
+    font-size: 22px;
+    color: #101418;
     font-family: 'PretendardB';
 }
+.mr-plan-daily {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666D75;
+    font-family: 'PretendardM';
+}
 .mr-plan-price.is-wait {
-    font-size: 14px;
+    font-size: 12px;
     color: #666D75;
     font-family: 'PretendardSB';
 }
-.mr-plan-feats {
+
+/* 가격 조회 전(첫 화면 / 종료일 수정 중): 아이콘 + 한 줄 요약 칩 */
+.mr-plan-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 6px 10px;
@@ -207,19 +256,183 @@
     padding: 0;
     list-style: none;
 }
-.mr-plan-feats li {
+.mr-plan-chips li {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-size: 14px;
+    font-size: 13px;
     color: #343A40;
     font-family: 'PretendardM';
 }
-.mr-plan-feats .is-up {
+.mr-plan-chips .is-up {
     color: #27AB86;
     font-family: 'PretendardB';
 }
+.mr-plans:not(.is-priced) .mr-plan {
+    margin-bottom: 12px;
+    padding: 16px 14px;
+    border-width: 1px;
+    border-radius: 14px;
+}
+.mr-plans:not(.is-priced) .mr-plan-top {
+    align-items: center;
+}
+.mr-plans:not(.is-priced) .mr-plan-name {
+    font-size: 15px;
+    font-family: 'PretendardSB';
+}
+.mr-plans:not(.is-priced) .mr-plan-ico {
+    display: block;
+}
+.mr-plans:not(.is-priced) .mr-plan:not(.mr-plan--none) .mr-plan-sub {
+    display: none;
+}
+.mr-plans:not(.is-priced) .mr-plan-post {
+    display: none;
+}
+.mr-plans.is-priced .mr-plan-chips {
+    display: none;
+}
 
+/* 가격 조회 후: 보장 항목 + 금액 + 담기 버튼 */
+.mr-plan-feats {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 12px 0 0;
+    padding: 12px 0 0;
+    border-top: 1px solid #F1F3F5;
+    list-style: none;
+}
+.mr-plan-feats li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #343A40;
+    font-family: 'PretendardM';
+}
+.mr-feat-name {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 8px;
+}
+.mr-feat-ico {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+.mr-feat-amt {
+    flex-shrink: 0;
+    color: #101418;
+    font-family: 'PretendardSB';
+}
+
+/* ===== 카드 내 담기 버튼 ===== */
+.mr-plan-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    height: 37px;
+    margin-top: 16px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: #2B96ED;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'PretendardSB';
+}
+.mr-plan.is-selected .mr-plan-cta {
+    background: #E6F8F3;
+    color: #1C9674;
+    box-shadow: inset 0 0 0 1px #71D2B8;
+}
+/* 담기 버튼 상태 전환 — 기본은 "〇〇플랜으로 담기", 선택 시 "✓ 담김 · 〇〇플랜" */
+.mr-cta-ico {
+    display: none;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+}
+.mr-cta-ico svg {
+    width: 12px;
+    height: 12px;
+}
+/* 원은 SVG가 아니라 CSS 테두리 — conic-gradient 마스크로 시계방향 드로잉 */
+.mr-cta-ico-ring {
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    -webkit-mask: conic-gradient(#000 var(--mr-cta-ring-angle, 360deg), #0000 0);
+            mask: conic-gradient(#000 var(--mr-cta-ring-angle, 360deg), #0000 0);
+}
+.mr-plan-cta-pre {
+    display: none;
+}
+.mr-plan.is-selected .mr-cta-ico {
+    display: inline-flex;
+}
+/* 애니메이션은 is-selected가 붙는 순간 시작된다 (숨겨진 상태에서 미리 끝나지 않도록) */
+.mr-plan.is-selected .mr-cta-ico svg {
+    animation: mr-cta-check-reveal .25s ease-out both;
+}
+.mr-plan.is-selected .mr-cta-ico-ring {
+    animation: mr-cta-ring-draw .3s ease-out .2s both;
+}
+@property --mr-cta-ring-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 360deg;
+}
+@keyframes mr-cta-ring-draw {
+    from { --mr-cta-ring-angle: 0deg; }
+    to   { --mr-cta-ring-angle: 360deg; }
+}
+@keyframes mr-cta-check-reveal {
+    from { clip-path: inset(100% 0 0); }
+    to   { clip-path: inset(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .mr-plan.is-selected,
+    .mr-plan.is-selected .mr-cta-ico svg,
+    .mr-plan.is-selected .mr-cta-ico-ring {
+        animation: none;
+    }
+}
+.mr-plan.is-selected .mr-plan-cta-pre {
+    display: inline;
+}
+.mr-plan.is-selected .mr-plan-cta-sfx {
+    display: none;
+}
+
+/* ===== 보험 없이 진행 ===== */
+.mr-plan--none {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.mr-plan-radio {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    border: 2px solid #CED4DA;
+    border-radius: 50%;
+}
+.mr-plan--none.is-selected .mr-plan-radio {
+    border: 7px solid #2B96ED;
+}
 .mr-plan--none .mr-plan-name {
     font-size: 16px;
     font-family: 'PretendardSB';
@@ -238,15 +451,122 @@
     display: flex;
 }
 
-/* ===== 합계 / 안내 / 상세보기 ===== */
+/* ===== 이전 디자인 카드 (비교용, 새 카드 아래에 유지) ===== */
+.mr-old {
+    margin: 4px -20px 16px;
+    padding: 14px 20px 8px;
+    background: #F5F6F8;
+}
+.mr-old-plan {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 8px;
+    padding: 16px 14px;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .15s ease;
+}
+.mr-old-plan.is-selected {
+    border-color: #212529;
+}
+.mr-old-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.mr-old-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    color: #101418;
+    font-family: 'PretendardSB';
+}
+.mr-old-ico {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+.mr-old-price {
+    font-size: 12px;
+    color: #666D75;
+    font-family: 'PretendardB';
+    white-space: nowrap;
+}
+.mr-old-feats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+}
+.mr-old-feats li {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #343A40;
+    font-family: 'PretendardM';
+}
+.mr-old-feats .is-up {
+    color: #27AB86;
+    font-family: 'PretendardB';
+}
+
+/* 준법감시인 심의필 */
+.mr-law {
+    padding: 4px 20px 0;
+    font-size: 10px;
+    color: #848C94;
+    font-family: 'PretendardR';
+}
+/* 첫 화면 / 수정 중에는 하단 정보 영역을 숨긴다 */
+.mr-body:not(.is-priced) .ins-footer_wrap {
+    display: none;
+}
+
+/* ===== 하단 고정 요약 + 다음 버튼 ===== */
+.mr-bottombar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    overflow: hidden;
+    padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+    border-radius: 12px 12px 0 0;
+    background: #fff;
+    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, .03),
+                0 -1px 2px 0 rgba(0, 0, 0, .03),
+                0 -0.5px 0 0 rgba(0, 0, 0, .02);
+}
+.mr-summary {
+    display: none;
+}
+.mr-summary.is-show {
+    display: block;
+}
+.mr-total-sum {
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #666D75;
+    font-family: 'PretendardM';
+}
 .mr-total {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 20px 12px;
+    padding: 4px 0 12px;
 }
 .mr-total-label {
-    font-size: 20px;
+    font-size: 18px;
     color: #212529;
     font-family: 'PretendardSB';
 }
@@ -254,69 +574,6 @@
     font-size: 22px;
     color: #2B96ED;
     font-family: 'PretendardB';
-}
-.mr-banner {
-    margin: 0 20px;
-    padding: 12px 10px;
-    border-radius: 8px;
-    background: #F5FBFF;
-    text-align: center;
-    font-size: 14px;
-    color: #2B96ED;
-    font-family: 'PretendardB';
-}
-.mr-detail-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    width: 100%;
-    padding: 14px 0 10px;
-    border: none;
-    background: none;
-    font-size: 14px;
-    color: #101418;
-    font-family: 'PretendardR';
-    cursor: pointer;
-}
-.mr-detail-toggle svg {
-    transition: transform .2s ease;
-}
-.mr-detail-toggle.is-open svg {
-    transform: rotate(180deg);
-}
-.mr-detail {
-    display: none;
-    padding: 14px 25px;
-}
-.mr-detail.is-open {
-    display: block;
-}
-.mr-detail-title {
-    font-size: 14px;
-    color: #666D75;
-    font-family: 'PretendardB';
-    margin-bottom: 8px;
-}
-.mr-detail-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 0 0 10px;
-    font-size: 14px;
-    color: #848C94;
-    font-family: 'PretendardM';
-}
-
-/* ===== 하단 고정 다음 버튼 ===== */
-.mr-bottombar {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 900;
-    padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
-    background: #fff;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, .05);
 }
 .mr-next {
     display: block;
@@ -340,7 +597,7 @@
 .ins-footer_wrap {
     margin-top: 10px;
     padding: 20px 20px 0;
-    background: #fff;
+    background: #F7F8FB;
 }
 .ins-footer_btns {
     display: flex;
@@ -416,7 +673,7 @@
     font-family: 'PretendardSB';
 }
 .ins-footer_copy {
-    padding: 14px 0 110px;
+    padding: 14px 0 150px;
     font-size: 12px;
     color: #666;
     font-family: 'PretendardB';
@@ -1442,18 +1699,17 @@
     cursor: pointer;
 }
 
-/* 히어로 우측 상단 '내정보 변경' (플랜 비교 버튼 위) */
+/* 보장 기간 줄 우측 '내정보 변경' */
 .mr-myinfo-btn {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    padding: 10px;
+    flex-shrink: 0;
+    padding: 0;
     border: none;
     background: none;
-    color: #2B96ED;
-    font-size: 15px;
-    line-height: 20px;
-    font-family: 'PretendardSB';
+    color: #666D75;
+    font-size: 12px;
+    font-family: 'PretendardR';
+    text-decoration: underline;
+    text-underline-offset: 2px;
     cursor: pointer;
     white-space: nowrap;
 }
