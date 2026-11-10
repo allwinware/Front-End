@@ -2124,6 +2124,8 @@
 
 .creditcard.newui .credit_agree_box_content.newbox2 table tr td {
 	background-color: #fafafa;
+	line-height: 18px;
+    font-size: 12px;
 }
 
 
@@ -3621,6 +3623,30 @@
 	font-size: 18px;
 }
 .mypagecs_finalpay div:nth-child(2):before{
+	content: "￦";
+}
+
+/* 총 결제금액 + 취급수수료 (세로 배치) */
+.mypagecs_finalpay.fee{
+	flex-direction: column;
+}
+.mypagecs_finalpay.fee .finalpay_fee{
+	margin-top: 6px;
+	font-family: 'PretendardR';
+	font-size: 12px;
+	color: #666;
+}
+.mypagecs_finalpay.fee .finalpay_fee:before{
+	content: none;
+}
+.mypagecs_finalpay.fee .finalpay_total{
+	align-self: flex-end;
+	margin-top: 4px;
+	font-family: 'PretendardSB';
+	font-size: 18px;
+	color: #ff6600;
+}
+.mypagecs_finalpay.fee .finalpay_total:before{
 	content: "￦";
 }
 
@@ -5376,6 +5402,134 @@
 
 .pay_pay.subscr{    
    background-color: #1A85FF;
+}
+
+
+/*보험 card쪽 총결제금액*/
+.insure_credit_total{
+	display: flex;
+	justify-content: space-between;
+	font-size: 13px;
+	font-family: 'PretendardB';
+	padding: 15px 16px 15px 16px;
+	color: #222;
+	background-color: #fff;
+}
+
+.insure_credit_total .insure_credit_total_box::before{
+	content: "￦";
+}
+
+.insure_credit_total .insure_credit_total_box{
+	color: #222;
+}
+
+/*부가서비스 취급 수수료*/
+.credit_charge{
+	display: flex;
+	justify-content: space-between;
+	font-size: 13px;
+	font-family: 'PretendardR';
+	padding: 10px 16px 10px 16px;
+	color: #222;
+	background-color: #fff;
+}
+
+.credit_charge .charge_box::before{
+	content: "￦";
+}
+
+.credit_charge .charge_box{
+	color: #222;
+}
+
+/* 취급수수료 안내 버튼 (원형 i 아이콘) */
+.credit_charge .charge_tit{
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+.credit_charge .charge_info_btn{
+	position: relative;
+	width: 13px;
+	height: 13px;
+	padding: 0;
+	border: 1px solid #999;
+	border-radius: 50%;
+	background: #fff;
+	font-size: 0;
+	color: transparent;
+	cursor: pointer;
+	transition: background-color .2s, border-color .2s;
+}
+.credit_charge .charge_info_btn::before{
+	content: "i";
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'PretendardB';
+	font-size: 8px;
+	line-height: 1;
+	color: #999;
+}
+.credit_charge .charge_info_btn.on{
+	border-color: #222;
+	background-color: #222;
+}
+.credit_charge .charge_info_btn.on::before{
+	color: #fff;
+}
+
+/* 취급수수료 안내 테이블 */
+.charge_info{
+	display: none;
+	padding: 0 16px 12px;
+	background-color: #fff;
+}
+.charge_info_tbl{
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+	border-top: 1px solid #ddd;
+	font-size: 11px;
+	line-height: 1.6;
+	color: #444;
+}
+.charge_info_tbl th,
+.charge_info_tbl td{
+	padding: 10px 8px;
+	border-bottom: 1px solid #ddd;
+	vertical-align: top;
+	text-align: left;
+	word-break: keep-all;
+}
+.charge_info_tbl th{
+	font-family: 'PretendardSB';
+	font-weight: normal;
+	color: #222;
+	background-color: #f7f7f8;
+}
+.charge_info_tbl td{
+	font-family: 'PretendardR';
+}
+.charge_info_tbl td b{
+	font-family: 'PretendardB';
+	font-weight: normal;
+	color: #222;
+}
+.charge_info_tbl td p + p{
+	margin-top: 6px;
+}
+.charge_info_tbl .charge_info_list li{
+	position: relative;
+	padding-left: 8px;
+}
+.charge_info_tbl .charge_info_list li::before{
+	content: "·";
+	position: absolute;
+	left: 0;
 }
 
 

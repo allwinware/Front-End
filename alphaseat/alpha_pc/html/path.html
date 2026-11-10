@@ -3759,6 +3759,77 @@
             <section class="pop-container">
                 <div class="pop-content" data-pop-id="pop_payment_credit-card">
                     <div class="scroll-wrap" data-scrollbar="true">
+                        <!-- 결제 내역 요약 -->
+                        <div class="pay-summary">
+                            <h3 class="sr-only">결제 내역</h3>
+                            <div class="pay-summary_head">부가서비스 신청내역</div>
+                            <div class="pay-summary_row">
+                                <span>인천 ICN → 싱가포르 SIN</span>
+                                <span class="pay-summary_price">₩304,000원</span>
+                            </div>
+                            <div class="pay-summary_row">
+                                <span>싱가포르 SIN → 인천 ICN</span>
+                                <span class="pay-summary_price">₩402,000원</span>
+                            </div>
+                            <div class="pay-summary_head">여행자보험 신청내역</div>
+                            <div class="pay-summary_row is-strong">
+                                <span>3인</span>
+                                <span class="pay-summary_price">₩76,000원</span>
+                            </div>
+                            <div class="pay-summary_row is-fee">
+                                <span class="pay-summary_fee">
+                                    부가서비스 취급수수료
+                                    <button type="button" class="charge_info_btn" aria-expanded="false" aria-controls="chargeInfoPc" title="취급수수료 안내">안내</button>
+                                </span>
+                                <span class="pay-summary_price">₩2,000원</span>
+                            </div>
+                            <div id="chargeInfoPc" class="charge_info">
+                                <table class="charge_info_tbl">
+                                    <colgroup>
+                                        <col style="width: 84px">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">부과 사유</th>
+                                            <td>편리한 항공 부가서비스 구매와 안정적인 예약 관리, 신속한 취소·환불 처리 및 고객지원을 위해 부과되는 수수료입니다.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">금액 기준</th>
+                                            <td>
+                                                <b>국제선</b> 1인당 1,000원<br>
+                                                <b>국내선</b> 1인당 500원<br>
+                                                <b>유아</b> 무료
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">적용 기준</th>
+                                            <td>
+                                                <ul class="charge_info_list">
+                                                    <li>구매 완료 건마다 1인당 부과</li>
+                                                    <li>왕복 구매 시에도 1회만 부과</li>
+                                                    <li>한 번에 여러 상품 구매 시에도 1회만 부과</li>
+                                                    <li>취소 후 재구매 시에는 새로 부과</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">환불 규정</th>
+                                            <td>
+                                                <p>구매 완료 시 예약·결제 처리 비용이 이미 발생하므로, 취급수수료는 환불되지 않습니다.</p>
+                                                <p>단, 결항 또는 구매한 부가서비스 미제공 등 항공사 귀책사유로 구매가 취소되는 경우에는 해당 취급수수료를 환불합니다.</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pay-summary_total">
+                                <span>부가서비스 총 결제 금액</span>
+                                <span class="pay-summary_price">₩76,000원</span>
+                            </div>
+                        </div>
+                        <!-- //결제 내역 요약 -->
+
                         <h3 class="sr-only">카드정보 입력</h3>
                         <div class="inner-wrap">
 
@@ -5274,6 +5345,14 @@
     </div>
 
     <script>
+            // 부가서비스 취급수수료 안내 토글 (pop_payment_credit-card-new25)
+            $(document).on('click', '.pay-summary .charge_info_btn', function () {
+                var $btn = $(this);
+                var isOpen = $btn.hasClass('on');
+                $btn.toggleClass('on', !isOpen).attr('aria-expanded', !isOpen);
+                $('#' + $btn.attr('aria-controls')).stop(true, true)[isOpen ? 'slideUp' : 'slideDown'](250);
+            });
+
             function toggleDropdown() {
                 document.getElementById('dropdown').classList.toggle('open');
             }

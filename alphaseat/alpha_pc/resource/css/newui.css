@@ -3089,3 +3089,149 @@ header{
 .info-icon:hover .info-tooltip {
   display: block;
 }
+/* ==========================================================================
+   신용카드 결제 정보 팝업(pop_payment_credit-card-new25) - 결제 내역 요약 + 취급수수료 안내
+   ========================================================================== */
+.pay-summary{
+  margin: -10px 0 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd; /* 카드 입력 영역과 구분선 */
+  font-size: 13px;
+  color: #222;
+}
+.pay-summary_head{
+  padding: 10px 0;
+  border-bottom: 1px solid #aaa;
+  font-family: 'PretendardSB';
+  font-size: 14px;
+}
+.pay-summary_row,
+.pay-summary_total{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  font-family: 'PretendardM';
+}
+.pay-summary_row{
+  border-bottom: 1px solid #eee;
+}
+.pay-summary_row.is-strong{
+  font-family: 'PretendardB';
+}
+.pay-summary_row.is-fee{
+  font-family: 'PretendardR';
+  border-bottom: 0;
+}
+.pay-summary_fee{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pay-summary_total{
+  margin-top: 4px;
+  padding: 13px 12px;
+  border-radius: 4px;
+  background-color: #fff2e6;
+  font-family: 'PretendardSB';
+  font-size: 15px;
+}
+.pay-summary_total .pay-summary_price{
+  color: #f5581a;
+}
+
+/* 취급수수료 안내 버튼 (원형 i 아이콘) */
+.pay-summary .charge_info_btn{
+  position: relative;
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  border: 1px solid #999;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 0;
+  color: transparent;
+  cursor: pointer;
+  transition: background-color .2s, border-color .2s;
+}
+.pay-summary .charge_info_btn::before{
+  content: "i";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'PretendardB';
+  font-size: 8px;
+  line-height: 1;
+  color: #999;
+}
+.pay-summary .charge_info_btn.on{
+  border-color: #222;
+  background-color: #222;
+}
+.pay-summary .charge_info_btn.on::before{
+  color: #fff;
+}
+
+/* 취급수수료 안내 테이블 */
+.pay-summary .charge_info{
+  display: none;
+  padding-bottom: 12px;
+}
+.pay-summary .charge_info_tbl{
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-top: 1px solid #ddd;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #444;
+}
+.pay-summary .charge_info_tbl th,
+.pay-summary .charge_info_tbl td{
+  padding: 10px 12px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+  text-align: left;
+  word-break: keep-all;
+}
+.pay-summary .charge_info_tbl th{
+  font-family: 'PretendardSB';
+  font-weight: normal;
+  color: #222;
+  background-color: #f7f7f8;
+}
+.pay-summary .charge_info_tbl td{
+  font-family: 'PretendardR';
+}
+.pay-summary .charge_info_tbl td b{
+  font-family: 'PretendardB';
+  font-weight: normal;
+  color: #222;
+}
+.pay-summary .charge_info_tbl td p + p{
+  margin-top: 6px;
+}
+.pay-summary .charge_info_list li{
+  position: relative;
+  padding-left: 8px;
+}
+.pay-summary .charge_info_list li::before{
+  content: "·";
+  position: absolute;
+  left: 0;
+}
+
+/* 카드 입력 폼 세로 간격 축소 (이 팝업만) */
+#pop_payment_credit-card-new25 .inner-wrap > .area_forms_50,
+#pop_payment_credit-card-new25 .inner-wrap > .area_forms_100{
+  padding-bottom: 14px;
+}
+#pop_payment_credit-card-new25 .inner-wrap .forms_li_title{
+  padding: 4px 0;
+  margin-bottom: 6px;
+}
+#pop_payment_credit-card-new25 .notification-wrap{
+  padding-top: 6px;
+}
