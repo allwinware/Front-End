@@ -5843,3 +5843,353 @@
 	color: #aaa;
 	cursor: default;
 }
+
+
+/* ========================================================================
+   결제하기 상단 요약 / 결제수단 v1 (card_v1.html, .ags-wrap .creditcard.pay_v1)
+   - 그룹 제목 + 오른쪽 화살표(누르면 기존 상세 내역 펼침)
+   - 총 결제 금액 크게, 아래 회색 띠로 결제수단과 구분
+   - 결제수단: 신용·체크카드, 작은 원형 체크
+   ======================================================================== */
+/* 그룹 제목 */
+.ags-wrap .creditcard.pay_v1 .card_warp{
+	height: auto;
+	padding: 20px 16px 8px;
+	border-bottom: 0;
+	background-color: #fff;
+	align-items: center;
+}
+.ags-wrap .creditcard.pay_v1 .card_name{
+	height: auto;
+	font-family: 'PretendardSB';
+	font-size: 15px;
+	line-height: 22px;
+	color: #222;
+}
+/* 오른쪽 화살표 (기존 이미지 대신 얇은 선) */
+.ags-wrap .creditcard.pay_v1 .card_warp .credit_box_btn{
+	position: relative;
+	width: 24px;
+	height: 24px;
+	margin-right: -4px;
+	padding: 0;
+	background: none;
+	font-size: 0;
+	cursor: pointer;
+}
+.ags-wrap .creditcard.pay_v1 .card_warp .credit_box_btn::before{
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 7px;
+	height: 7px;
+	border-right: 1.5px solid #999;
+	border-bottom: 1.5px solid #999;
+	transform: translate(-50%, -65%) rotate(45deg);
+	transition: transform .2s;
+}
+.ags-wrap .creditcard.pay_v1 .card_warp .credit_box_btn.on::before{
+	transform: translate(-50%, -25%) rotate(-135deg);
+}
+/* 금액 행 */
+.ags-wrap .creditcard.pay_v1 .credit_away1,
+.ags-wrap .creditcard.pay_v1 .credit_away2,
+.ags-wrap .creditcard.pay_v1 .insure_credit_total{
+	height: auto;
+	padding: 7px 16px 7px 26px; /* 그룹 제목보다 10px 들여쓰기 */
+	border-bottom: 0;
+	background-color: #fff;
+	font-family: 'PretendardR';
+	font-size: 14px;
+	line-height: 20px;
+	color: #222;
+}
+.ags-wrap .creditcard.pay_v1 .credit_away1 div,
+.ags-wrap .creditcard.pay_v1 .credit_away2 div,
+.ags-wrap .creditcard.pay_v1 .insure_credit_total div{
+	height: auto;
+	font-family: 'PretendardR';
+	font-size: 14px;
+	line-height: 20px;
+}
+.ags-wrap .creditcard.pay_v1 .credit_away1 div span:first-child,
+.ags-wrap .creditcard.pay_v1 .credit_away2 div span:first-child{
+	margin-right: 5px;
+}
+.ags-wrap .creditcard.pay_v1 .credit_away1 div span:last-child,
+.ags-wrap .creditcard.pay_v1 .credit_away2 div span:last-child{
+	margin-left: 5px;
+}
+.ags-wrap .creditcard.pay_v1 .credit_away1 .nmb_box,
+.ags-wrap .creditcard.pay_v1 .credit_away2 .nmb_box,
+.ags-wrap .creditcard.pay_v1 .insure_credit_total_box,
+.ags-wrap .creditcard.pay_v1 .credit_charge .charge_box{
+	height: auto;
+	font-family: 'PretendardSB';
+	font-size: 14px;
+	line-height: 20px;
+	color: #222;
+}
+.ags-wrap .creditcard.pay_v1 .nmb_box::before,
+.ags-wrap .creditcard.pay_v1 .insure_credit_total_box::before,
+.ags-wrap .creditcard.pay_v1 .charge_box::before,
+.ags-wrap .creditcard.pay_v1 .credit_total .credit_total_box2::before{
+	content: none;
+}
+.ags-wrap .creditcard.pay_v1 .credit_away2 + .card_warp{
+	padding-top: 22px;
+}
+/* 부가서비스 취급수수료 */
+.ags-wrap .creditcard.pay_v1 .credit_charge{
+	height: auto;
+	padding: 18px 16px 20px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #666;
+}
+.ags-wrap .creditcard.pay_v1 .credit_charge .charge_tit{
+	height: auto;
+	font-size: 14px;
+	line-height: 20px;
+	color: #666;
+}
+.ags-wrap .creditcard.pay_v1 .charge_info{
+	padding-top: 0;
+	padding-bottom: 16px;
+}
+/* 총 결제 금액 */
+.ags-wrap .creditcard.pay_v1 .credit_total{
+	position: relative;
+	height: auto;
+	margin: 0;
+	padding: 20px 16px 22px;
+	background-color: #fff;
+	align-items: center;
+}
+.ags-wrap .creditcard.pay_v1 .credit_total::before{
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 16px;
+	left: 16px;
+	height: 1px;
+	background-color: #eee;
+}
+.ags-wrap .creditcard.pay_v1 .credit_total div{
+	height: auto;
+	font-family: 'PretendardM';
+	font-size: 15px;
+	color: #222;
+}
+.ags-wrap .creditcard.pay_v1 .credit_total .credit_total_box2{
+	height: auto;
+	font-family: 'PretendardB';
+	font-size: 22px;
+	line-height: 28px;
+	color: #f5581a;
+}
+/* 회색 띠 */
+.ags-wrap .creditcard.pay_v1 .pay_v1_band{
+	height: 8px;
+	background-color: #f2f3f5;
+}
+/* 결제수단 */
+.ags-wrap .creditcard.pay_v1 .credit_method_fst{
+	background-color: #fff;
+	height: auto;
+	padding: 24px 16px 6px;
+	border-bottom: 0;
+	font-family: 'PretendardB';
+	font-size: 17px;
+	line-height: 24px;
+	color: #222;
+}
+.ags-wrap .creditcard.pay_v1 .credit_method_card{
+	background-color: #fff;
+	height: auto;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 8px 16px 16px;
+}
+.ags-wrap .creditcard.pay_v1 .method_card_box1{
+	height: auto;
+	margin: 0;
+}
+.ags-wrap .creditcard.pay_v1 .method_card_box1 label{
+	height: auto;
+	align-items: center;
+	gap: 6px;
+}
+.ags-wrap .creditcard.pay_v1 .method_card_box1 label div{
+	height: auto;
+	font-family: 'PretendardM';
+	font-size: 14px;
+	line-height: 20px;
+	color: #222;
+}
+.ags-wrap .creditcard.pay_v1 .method_card_box1 input[type="checkbox"] + label i{
+	position: relative;
+	flex: none;
+	width: 14px;
+	height: 14px;
+	margin: 0;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	background: #fff;
+	box-sizing: border-box;
+}
+.ags-wrap .creditcard.pay_v1 .method_card_box1 input[type="checkbox"] + label i::before{
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 5px;
+	height: 2.5px;
+	border: 0;
+	border-left: 1.2px solid #ccc;
+	border-bottom: 1.2px solid #ccc;
+	background: none;
+	transform: rotate(-45deg);
+}
+.ags-wrap .creditcard.pay_v1 .method_card_box1 input[type="checkbox"]:checked + label i{
+	border-color: #f5581a;
+	background: #fff;
+}
+.ags-wrap .creditcard.pay_v1 .method_card_box1 input[type="checkbox"]:checked + label i::before{
+	border-color: #f5581a;
+}
+.ags-wrap .creditcard.pay_v1 .method_card_box2{
+	height: auto;
+	margin-top: 6px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #999;
+}
+/* 카드 입력 항목 라벨 (카드 구분, 할부 기간, 카드 번호 ...) */
+.ags-wrap .creditcard.pay_v1 .credit_method .forms_li_title{
+	font-family: 'PretendardR';
+	font-size: 14px;
+	line-height: 18px;
+	color: #222;
+}
+/* 카드 입력 값 (선택 상자, 입력란) */
+.ags-wrap .creditcard.pay_v1 .credit_method select,
+.ags-wrap .creditcard.pay_v1 .credit_method input.input_case_card{
+	font-family: 'PretendardR';
+	font-size: 14px;
+	font-weight: 400;
+	color: #222;
+}
+.ags-wrap .creditcard.pay_v1 .credit_method input.input_case_card::placeholder{
+	font-family: 'PretendardR';
+	font-weight: 400;
+	color: #999;
+}
+/* 경로/편명 박스: 배경을 감싸는 div 한 곳에만 칠해서 두 박스 사이 실선 방지 */
+.creditcard.newui .credit_agree_box_content .card_route{
+	background-color: #dedede;
+}
+.creditcard.newui .credit_agree_box_content .card_route .card_boxfst,
+.creditcard.newui .credit_agree_box_content .card_route .card_boxtwi{
+	background-color: transparent;
+}
+
+/* 상세 내역(승객별) - card_v1 */
+/* 금액 표기: ￦16,000 -> 16,000원 (상단 요약과 통일) */
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box2 .card_box2_b .card_box2_bi div:nth-child(2) span::before,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box3 .card_box3_b .card_box3_bi div:nth-child(2) span::before,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box4 .card_box4_b .card_box4_bi div:nth-child(2) span::before,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box5 .card_box5_b .card_box5_bi div:nth-child(2) span::before,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box6 .card_box6_b .card_box6_bi div:nth-child(2) span::before,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box7 .card_box7_b .card_box7_bi div:nth-child(2) span::before,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box8 .card_box8_b .card_box8_bi div:nth-child(2) span::before,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .insure_box .insure_box_b .insure_box_bi div:nth-child(2) span::before{
+	content: none;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box2 .card_box2_b .card_box2_bi div:nth-child(2) span::after,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box3 .card_box3_b .card_box3_bi div:nth-child(2) span::after,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box4 .card_box4_b .card_box4_bi div:nth-child(2) span::after,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box5 .card_box5_b .card_box5_bi div:nth-child(2) span::after,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box6 .card_box6_b .card_box6_bi div:nth-child(2) span::after,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box7 .card_box7_b .card_box7_bi div:nth-child(2) span::after,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_box8 .card_box8_b .card_box8_bi div:nth-child(2) span::after,
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .insure_box .insure_box_b .insure_box_bi div:nth-child(2) span::after{
+	content: "원";
+}
+/* 구간 헤더: 배경 톤 낮추고 화살표 양옆 띄우기 */
+.ags-wrap .creditcard.newui.pay_v1 .credit_agree_box_content .card_route{
+	background-color: #e9ebee;
+}
+.ags-wrap .creditcard.newui.pay_v1 .card_route .card_boxfst > div:first-child span:first-child{
+	margin-right: 5px;
+}
+.ags-wrap .creditcard.newui.pay_v1 .card_route .card_boxfst > div:first-child span:last-child{
+	margin-left: 5px;
+}
+
+/* 카드 입력 폼 정렬 - card_v1: 라벨 폭 고정(84px), 박스/안내문구 시작점 100px로 통일 */
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .pdt10{
+	padding: 0;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-select-wrap,
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-write,
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-cvv,
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-select-moon,
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-select-pass,
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-name,
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-birth,
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-email{
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 14px 16px 0;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .forms_li_title{
+	flex: none;
+	width: 84px;
+	padding: 0;
+	margin: 0;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_method select{
+	margin: 0;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-select-wrap > span{
+	margin-left: 8px;
+	white-space: nowrap;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-pass-wrap{
+	position: static;
+	flex: 1;
+	justify-content: flex-start;
+	min-width: 0;
+	width: auto;
+	padding: 0;
+	gap: 6px;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-pass-wrap > span{
+	margin: 0;
+}
+/* 카드 번호 4칸: 남은 폭을 나눠 쓰기 */
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-write .card-pass-wrap > span{
+	flex: 1;
+	min-width: 0;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-write .card-pass-wrap input{
+	width: 100%;
+}
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-cvv .card-pass-wrap .cvv_bg{
+	margin-left: 4px;
+}
+/* 비밀번호 ● ● */
+.ags-wrap .creditcard.newui.pay_v1 .credit_method .card-select-pass .card-pass-wrap > span + span{
+	position: static;
+	width: auto;
+	margin-left: 4px;
+}
+/* 안내 문구: 박스 바로 아래 */
+.ags-wrap .creditcard.newui.pay_v1 .credit_method p[class^="card-txt-"]{
+	margin: 0;
+	padding: 4px 16px 0 100px;
+	line-height: 14px;
+}

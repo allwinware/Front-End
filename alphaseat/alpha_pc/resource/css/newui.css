@@ -3092,52 +3092,66 @@ header{
 /* ==========================================================================
    신용카드 결제 정보 팝업(pop_payment_credit-card-new25) - 결제 내역 요약 + 취급수수료 안내
    ========================================================================== */
+/* 모바일 card_v1 상단 요약과 같은 톤 (그룹 제목 + 10px 들여쓴 금액 행, 화살표 없음) */
 .pay-summary{
-  margin: -10px 0 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #ddd; /* 카드 입력 영역과 구분선 */
-  font-size: 13px;
+  margin: -10px 0 0;
+  font-size: 14px;
+  line-height: 20px;
   color: #222;
 }
+/* 그룹 제목 (항공 부가서비스 / 여행자보험) */
 .pay-summary_head{
-  padding: 10px 0;
-  border-bottom: 1px solid #aaa;
+  padding: 14px 0 6px;
   font-family: 'PretendardSB';
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 22px;
+}
+.pay-summary_row + .pay-summary_head{
+  padding-top: 20px;
 }
 .pay-summary_row,
 .pay-summary_total{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 9px 0;
-  font-family: 'PretendardM';
 }
+/* 금액 행: 그룹 제목보다 10px 들여쓰기 */
 .pay-summary_row{
-  border-bottom: 1px solid #eee;
-}
-.pay-summary_row.is-strong{
-  font-family: 'PretendardB';
-}
-.pay-summary_row.is-fee{
+  padding: 7px 0 7px 10px;
   font-family: 'PretendardR';
-  border-bottom: 0;
+}
+.pay-summary_price{
+  font-family: 'PretendardSB';
+  color: #222;
+}
+/* 부가서비스 취급수수료 */
+.pay-summary_row.is-fee{
+  padding: 18px 0 18px;
+  color: #666;
 }
 .pay-summary_fee{
   display: flex;
   align-items: center;
   gap: 4px;
 }
+/* 총 결제 금액 */
 .pay-summary_total{
-  margin-top: 4px;
-  padding: 13px 12px;
-  border-radius: 4px;
-  background-color: #fff2e6;
-  font-family: 'PretendardSB';
+  padding: 20px 0 22px;
+  border-top: 1px solid #eee;
+  font-family: 'PretendardM';
   font-size: 15px;
 }
 .pay-summary_total .pay-summary_price{
+  font-family: 'PretendardB';
+  font-size: 22px;
+  line-height: 28px;
   color: #f5581a;
+}
+/* 총 결제 금액 / 카드 입력 구분 띠 (팝업 좌우 끝까지) */
+.pay-summary_band{
+  height: 8px;
+  margin: 0 -30px 24px; /* 넘치는 부분은 팝업에서 잘림 */
+  background-color: #f2f3f5;
 }
 
 /* 취급수수료 안내 버튼 (원형 i 아이콘) */
