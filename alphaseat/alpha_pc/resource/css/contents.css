@@ -14520,7 +14520,14 @@ padding-bottom: 5px;
   padding-right: 0;
 }
 
-/* 부가서비스 취급수수료 행이 추가된 경우(.has-fee): TOTAL을 고정 위치 대신 흐름대로 배치해 겹침 방지 */
+/* 부가서비스 취급수수료 행이 추가된 경우(.has-fee)
+   - TOTAL은 흐름대로 두되 오른쪽 끝으로 밀어서, 편도/왕복 상관없이 위 표의 결제금액 열과 같은 자리에 고정
+   - 금액 오른쪽 끝 = 기존 absolute 위치(right: 14rem), 라벨 오른쪽 끝 = 기존 위치(right: 21.84615rem)
+   - 항목이 길어 자리가 모자라면 겹치지 않고 다음 줄로 내려감 */
+[data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap .total-wrap.has-fee dl {
+  flex-wrap: wrap;
+  row-gap: 0.76923rem;
+}
 [data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap .total-wrap.has-fee .total-price,
 [data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap .total-wrap.has-fee .total-price + dd {
   position: relative;
@@ -14532,7 +14539,12 @@ padding-bottom: 5px;
 }
 [data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap .total-wrap.has-fee .total-price {
   width: auto;
-  margin-right: 1.23077rem;
+  margin-left: auto;
+}
+[data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap .total-wrap.has-fee .total-price + dd {
+  width: 7.84615rem; /* 라벨 끝 ~ 금액 끝 (21.84615rem - 14rem) */
+  margin-right: 9.38462rem; /* 14rem - dl 좌우 패딩(4.61538rem) */
+  text-align: right;
 }
 
 [data-page-id="my_pay-history-detail_anc"] .my-history-detail-wrap .receipt-wrap,
