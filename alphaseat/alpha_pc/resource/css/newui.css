@@ -3249,3 +3249,236 @@ header{
 #pop_payment_credit-card-new25 .notification-wrap{
   padding-top: 6px;
 }
+
+/* ==========================================================================
+   요금규정 및 약관동의 v1 (index_v1.html) - mo card_v1 약관 동의 디자인 적용
+   - 필수 약관 전체 동의 + 그룹(항공 부가서비스 / 여행자보험 / 부가서비스 취급수수료)
+   - 오른쪽 화살표 누르면 약관 내용이 아래로 펼쳐짐 (한 번에 하나만)
+   - 펼친 내용은 표 대신 텍스트(소제목 + 목록)
+   ========================================================================== */
+.agree_v1{
+  padding: 30px 15px 0; /* 위 30px, 좌우 15px */
+  color: #222;
+}
+.agree_v1_tit{
+  margin-bottom: 14px;
+  font-family: 'PretendardSB';
+  font-size: 18px;
+  line-height: 26px;
+  color: #222;
+}
+/* 체크박스 (기본 체크박스 숨기고 네모 박스로 표시) */
+.agree_v1 .agree_v1_chk{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+.agree_v1 .agree_v1_chk + label{
+  position: relative;
+  display: block;
+  padding-left: 32px;
+  cursor: pointer;
+}
+.agree_v1 .agree_v1_chk + label i{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: background-color .15s, border-color .15s;
+}
+.agree_v1 .agree_v1_chk + label i::after{
+  content: "";
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 10px;
+  box-sizing: content-box; /* PC 공통 border-box 리셋 때문에 체크가 작고 왼쪽 위로 쏠리던 것 보정 */
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -60%) rotate(45deg); /* 박스 정중앙 */
+}
+.agree_v1 .agree_v1_chk:checked + label i{
+  border-color: #f5581a;
+  background-color: #f5581a;
+}
+.agree_v1 .agree_v1_chk:checked + label i::after{
+  display: block;
+}
+.agree_v1 .agree_v1_chk:focus-visible + label i{
+  outline: 2px solid #f5581a;
+  outline-offset: 2px;
+}
+/* 필수 약관 전체 동의 (박스 전체가 라벨, 안쪽 들여쓰기) */
+.agree_v1_all{
+  position: relative;
+}
+.agree_v1 .agree_v1_all .agree_v1_chk + label{
+  padding: 16px 18px 16px 50px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background-color: #fff;
+  font-family: 'PretendardSB';
+  font-size: 16px;
+  line-height: 22px;
+  transition: background-color .15s, border-color .15s;
+}
+.agree_v1 .agree_v1_all .agree_v1_chk + label i{
+  left: 18px;
+}
+.agree_v1 .agree_v1_all .agree_v1_chk:checked + label{
+  border-color: #f5581a;
+  background-color: #fff6f1;
+}
+.agree_v1_all_desc{
+  display: block;
+  margin-top: 2px;
+  font-family: 'PretendardR';
+  font-size: 13px;
+  line-height: 18px;
+  color: #888;
+}
+/* 그룹 */
+.agree_v1_group_tit{
+  padding: 22px 0 4px;
+  font-family: 'PretendardSB';
+  font-size: 13px;
+  line-height: 18px;
+  color: #999;
+}
+.agree_v1_item + .agree_v1_item{
+  border-top: 1px solid #f2f2f2;
+}
+.agree_v1_row{
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.agree_v1 .agree_v1_row .agree_v1_chk + label{
+  flex: 1;
+  min-width: 0;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  font-family: 'PretendardR';
+  font-size: 15px;
+  line-height: 20px;
+}
+/* 항목 체크박스: 글자(한글) 눈높이 가운데에 맞춰 1px 올림 */
+.agree_v1 .agree_v1_row .agree_v1_chk + label i{
+  margin-top: -11px;
+}
+.agree_v1_row label em{
+  margin-right: 2px;
+  font-style: normal;
+  font-family: 'PretendardM';
+  font-size: 13px;
+  color: #f5581a;
+}
+/* 오른쪽 화살표 (닫힘 >, 열림 v) */
+.agree_v1_more{
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 46px;
+  margin-right: -10px;
+  border: 0;
+  background: none;
+  font-size: 0;
+  color: transparent;
+  cursor: pointer;
+}
+.agree_v1_more::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid #aaa;
+  border-right: 1.5px solid #aaa;
+  transform: translate(-70%, -50%) rotate(45deg);
+  transition: transform .2s;
+}
+.agree_v1_more.on::before{
+  border-color: #222;
+  transform: translate(-50%, -75%) rotate(135deg);
+}
+/* 펼쳐지는 약관 내용 (텍스트) */
+.agree_v1_con{
+  display: none;
+  padding: 0 0 16px;
+}
+.agree_v1_box{
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 18px 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background-color: #fafafa;
+  font-family: 'PretendardR';
+  font-size: 13px;
+  line-height: 20px;
+  color: #555;
+  word-break: keep-all;
+}
+.agree_v1_sec + .agree_v1_sec{
+  margin-top: 14px;
+}
+.agree_v1_sec_tit{
+  display: block;
+  margin-bottom: 4px;
+  font-family: 'PretendardSB';
+  font-weight: normal;
+  font-size: 13px;
+  color: #222;
+}
+.agree_v1_sec p + p,
+.agree_v1_sec p + ul,
+.agree_v1_sec ul + p,
+.agree_v1_sec ul + ul{
+  margin-top: 6px;
+}
+.agree_v1_box b{
+  font-family: 'PretendardSB';
+  font-weight: normal;
+  color: #222;
+}
+/* · 목록 */
+.agree_v1_dot > li{
+  position: relative;
+  padding-left: 10px;
+}
+.agree_v1_dot > li::before{
+  content: "·";
+  position: absolute;
+  left: 0;
+}
+/* - 하위 목록 */
+.agree_v1_dash{
+  margin-top: 2px;
+}
+.agree_v1_dash > li{
+  position: relative;
+  padding-left: 10px;
+  color: #777;
+}
+.agree_v1_dash > li::before{
+  content: "-";
+  position: absolute;
+  left: 0;
+}
+.agree_v1_note{
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  color: #888;
+}
