@@ -22,7 +22,7 @@ html, body{
 
 .ags-wrap header {
 	position:fixed ;
-	width: 100%;
+	width: 100%; 
 	z-index: 901;
 	top: 0;
 	height: auto;
@@ -13476,4 +13476,69 @@ margin-right: 5px !important;
     transition: 0.2s all;
     -webkit-transition: 0.2s all;
     -moz-transition: 0.2s all;
+}
+
+/*좌석 선택완료 슬라이드 팝업 (index_v1)---------------------------------*/
+.ags-summary .scroll_btn{
+	transition: top .35s ease;
+}
+.ags-summary .seat_done_slide{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 100%;
+	height: 120px;
+	overflow: hidden;
+	pointer-events: none;
+}
+.ags-summary .seat_done_slide .sds_box{
+	position: absolute;
+	left: 12px;
+	right: 12px;
+	bottom: 12px;
+	display: flex;
+	align-items: center;
+	padding: 20px 18px;
+	background-color: #fff;
+	border-radius: 14px;
+	box-shadow: 0 2px 10px rgba(0,0,0,.12);
+	transform: translateY(calc(100% + 14px));
+	transition: transform .35s ease;
+}
+.ags-summary .seat_done_slide .sds_ico{
+	position: relative;
+	flex: 0 0 44px;
+	width: 44px;
+	height: 44px;
+	margin-right: 16px;
+	border-radius: 50%;
+	background-color: #f5581a;
+}
+.ags-summary .seat_done_slide .sds_ico:after{
+	content: '';
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.6 12.4l3.6 3.6 7.2-7.4' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / 42px 42px;
+}
+.ags-summary .seat_done_slide .sds_txt strong{
+	display: block;
+	font-size: 17px;
+	font-family: 'PretendardB';
+	color: #222;
+	line-height: 1.3;
+}
+.ags-summary .seat_done_slide .sds_txt p{
+	margin-top: 8px;
+	font-size: 14px;
+	color: #666;
+	line-height: 1.3;
+}
+.ags-summary.seat_done_on .seat_done_slide{
+	pointer-events: auto;
+}
+.ags-summary.seat_done_on .seat_done_slide .sds_box{
+	transform: translateY(0);
+}
+.ags-summary.seat_done_on .scroll_btn{
+	top: -165px;
 }
