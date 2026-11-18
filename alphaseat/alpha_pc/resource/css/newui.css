@@ -3486,17 +3486,18 @@ header{
 /* ========================================================================
    요금규정 및 약관동의 v1 - 어드민 include 표 디자인 (index_v1.html)
    - 원래 표 마크업(table-wrap / notification-list / notification-title) 그대로 사용
+   - table-wrap 없이 바로 들어오는 표(<p> + <table>)도 같은 디자인 적용 (취급수수료 표 제외)
    - 모바일 card_v1과 같은 톤 : 연회색 헤더, 보통 굵기, 포인트 주황
    - .agree_v1 안에서만 덮어씀 (기존 agreement-wrap 페이지 영향 없음)
    ======================================================================== */
-.agree_v1 .agree_v1_con .table-wrap table{
+.agree_v1 .agree_v1_con table:not(.agree_v1_fee_tbl){
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
   background-color: #fff;
 }
-.agree_v1 .agree_v1_con .table-wrap table th,
-.agree_v1 .agree_v1_con .table-wrap table td{
+.agree_v1 .agree_v1_con table:not(.agree_v1_fee_tbl) th,
+.agree_v1 .agree_v1_con table:not(.agree_v1_fee_tbl) td{
   padding: 10px 8px;
   border: 1px solid #e5e5e5;
   background-color: #fff;
@@ -3510,24 +3511,32 @@ header{
   word-break: keep-all;
 }
 /* 구분 헤더(변경/환불/유의사항 등) */
-.agree_v1 .agree_v1_con .table-wrap table th[scope="colgroup"]{
+.agree_v1 .agree_v1_con table:not(.agree_v1_fee_tbl) th[scope="colgroup"]{
   background-color: #f5f5f6;
   font-family: 'PretendardSB';
   color: #222;
 }
 /* 목록/문단이 들어가는 칸은 왼쪽 정렬 */
-.agree_v1 .agree_v1_con .table-wrap table td[colspan]{
+.agree_v1 .agree_v1_con table:not(.agree_v1_fee_tbl) td[colspan]{
   padding: 10px 14px;
   text-align: left;
 }
+/* 표 다음 안내 목록/소제목 간격 (table-wrap 유무 상관없이) */
 .agree_v1 .agree_v1_con .table-wrap + .notification-title,
-.agree_v1 .agree_v1_con .table-wrap + .notification-list{
+.agree_v1 .agree_v1_con .table-wrap + .notification-list,
+.agree_v1 .agree_v1_con table + .notification-title,
+.agree_v1 .agree_v1_con table + .notification-list,
+.agree_v1 .agree_v1_con .notification-list + table{
   margin-top: 12px;
 }
 /* 빨간 강조(인라인 rgb(255,0,0)) / text-emphasis → 포인트 주황 */
 .agree_v1 .agree_v1_con [style*="color: rgb(255, 0, 0)"],
 .agree_v1 .agree_v1_con .text-emphasis{
   color: #f5581a !important;
+}
+/* <span 빨간색><b>불가</b></span> 순서일 때도 b 가 #222 로 덮이지 않고 주황 유지 */
+.agree_v1 .agree_v1_con [style*="color: rgb(255, 0, 0)"] b{
+  color: inherit;
 }
 /* 안내 목록 */
 .agree_v1 .agree_v1_con .notification-list{
@@ -3606,4 +3615,28 @@ header{
 }
 #agreeCon9 .agree_v1_sec p + p{
   margin-top: 8px;
+}
+
+/* ==========================================================================
+   요금규정 및 약관동의 v1 - 어드민 표 열 너비 px 보정 (index_v1.html)
+   어드민 에디터에서 <col style="width: 521.75px;"> / 341px 처럼 고정 px로 저장된 경우
+   px 너비만 col 개수에 맞춘 % 로 변경 (2열=50%, 3열=33.333%, 4열=25%)
+   colspan="4" 처럼 실제 열 수보다 큰 colspan 이 섞여도 실제 열이 100% 를 차지하도록 % 를 직접 지정
+   % 로 지정된 col 은 그대로 유지
+   ========================================================================== */
+/* 기본 : 5열 이상 등은 균등 분할 */
+.agree_v1 .agree_v1_con col[style*="px"]{
+  width: auto !important;
+}
+.agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(2),
+.agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(2) ~ col{
+  width: 50% !important;
+}
+.agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(3),
+.agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(3) ~ col{
+  width: 33.333% !important;
+}
+.agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(4),
+.agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(4) ~ col{
+  width: 25% !important;
 }

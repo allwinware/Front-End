@@ -5769,7 +5769,7 @@
 	padding-top: 12px;
 	padding-bottom: 12px;
 	font-family: 'PretendardR';
-	font-size: 13px;
+	font-size: 12px; /* 13px → 12px : 긴 항목명 한 줄 유지 */
 	line-height: 18px;
 }
 .agree_v1_row label em{
@@ -6357,6 +6357,10 @@
 .creditcard.newui .agree_v1 .agree_v1_con .text-red{
 	color: #f5581a !important;
 }
+/* <span 빨간색><b>불가</b></span> 순서일 때도 b 가 #222 로 덮이지 않고 주황 유지 */
+.creditcard.newui .agree_v1 .agree_v1_con [style*="color: rgb(255, 0, 0)"] b{
+	color: inherit;
+}
 /* 안내 목록 */
 .creditcard.newui .agree_v1 .agree_v1_con .notification-list{
 	padding-bottom: 0;
@@ -6408,4 +6412,28 @@
 }
 .creditcard.newui .agree_v1 .agree_v1_con .notification-title + .notification-list li:first-child:before{
 	top: 11px;
+}
+
+/* ==========================================================================
+   요금규정 및 약관동의 v1 - 어드민 표 열 너비 px 보정 (card_v1.html)
+   어드민 에디터에서 <col style="width: 521.75px;"> / 341px 처럼 고정 px로 저장된 경우
+   px 너비만 col 개수에 맞춘 % 로 변경 (2열=50%, 3열=33.333%, 4열=25%)
+   colspan="4" 처럼 실제 열 수보다 큰 colspan 이 섞여도 실제 열이 100% 를 차지하도록 % 를 직접 지정
+   % 로 지정된 col 은 그대로 유지
+   ========================================================================== */
+/* 기본 : 5열 이상 등은 균등 분할 */
+.creditcard.newui .agree_v1 .agree_v1_con col[style*="px"]{
+	width: auto !important;
+}
+.creditcard.newui .agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(2),
+.creditcard.newui .agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(2) ~ col{
+	width: 50% !important;
+}
+.creditcard.newui .agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(3),
+.creditcard.newui .agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(3) ~ col{
+	width: 33.333% !important;
+}
+.creditcard.newui .agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(4),
+.creditcard.newui .agree_v1 .agree_v1_con col[style*="px"]:first-child:nth-last-child(4) ~ col{
+	width: 25% !important;
 }
