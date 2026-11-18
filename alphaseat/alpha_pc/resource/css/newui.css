@@ -3482,3 +3482,128 @@ header{
   border-top: 1px solid #eee;
   color: #888;
 }
+
+/* ========================================================================
+   요금규정 및 약관동의 v1 - 어드민 include 표 디자인 (index_v1.html)
+   - 원래 표 마크업(table-wrap / notification-list / notification-title) 그대로 사용
+   - 모바일 card_v1과 같은 톤 : 연회색 헤더, 보통 굵기, 포인트 주황
+   - .agree_v1 안에서만 덮어씀 (기존 agreement-wrap 페이지 영향 없음)
+   ======================================================================== */
+.agree_v1 .agree_v1_con .table-wrap table{
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background-color: #fff;
+}
+.agree_v1 .agree_v1_con .table-wrap table th,
+.agree_v1 .agree_v1_con .table-wrap table td{
+  padding: 10px 8px;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  font-family: 'PretendardR';
+  font-weight: normal !important; /* 어드민 인라인 font-weight 700 무시 */
+  font-size: 13px;
+  line-height: 19px;
+  color: #444;
+  text-align: center;
+  vertical-align: middle;
+  word-break: keep-all;
+}
+/* 구분 헤더(변경/환불/유의사항 등) */
+.agree_v1 .agree_v1_con .table-wrap table th[scope="colgroup"]{
+  background-color: #f5f5f6;
+  font-family: 'PretendardSB';
+  color: #222;
+}
+/* 목록/문단이 들어가는 칸은 왼쪽 정렬 */
+.agree_v1 .agree_v1_con .table-wrap table td[colspan]{
+  padding: 10px 14px;
+  text-align: left;
+}
+.agree_v1 .agree_v1_con .table-wrap + .notification-title,
+.agree_v1 .agree_v1_con .table-wrap + .notification-list{
+  margin-top: 12px;
+}
+/* 빨간 강조(인라인 rgb(255,0,0)) / text-emphasis → 포인트 주황 */
+.agree_v1 .agree_v1_con [style*="color: rgb(255, 0, 0)"],
+.agree_v1 .agree_v1_con .text-emphasis{
+  color: #f5581a !important;
+}
+/* 안내 목록 */
+.agree_v1 .agree_v1_con .notification-list{
+  padding-bottom: 0;
+  font-family: 'PretendardR';
+  font-size: 13px;
+  color: #666;
+}
+.agree_v1 .agree_v1_con .notification-list li{
+  margin-top: 4px;
+  line-height: 20px;
+}
+.agree_v1 .agree_v1_con .notification-list > li{
+  padding-left: 10px;
+}
+.agree_v1 .agree_v1_con .notification-list > li:before{
+  top: 9px;
+  width: 2px;
+  height: 2px;
+  background-color: #888;
+}
+.agree_v1 .agree_v1_con td .notification-list > li:first-child{
+  margin-top: 0;
+}
+/* 안내 문단 */
+.agree_v1 .agree_v1_con .notification-text{
+  font-size: 13px;
+  line-height: 20px;
+  color: #666;
+}
+.agree_v1 .agree_v1_con .notification-text + .notification-list,
+.agree_v1 .agree_v1_con .notification-list + .notification-text{
+  margin-top: 6px;
+}
+/* 소제목(h4.notification-title) : 아이콘 없이 다른 소제목과 같은 모양 */
+.agree_v1 .agree_v1_con .notification-title{
+  margin-top: 16px;
+  padding: 0;
+  font-family: 'PretendardSB';
+  font-size: 13px;
+  line-height: 20px;
+  color: #222;
+}
+.agree_v1 .agree_v1_con .notification-title:first-child{
+  margin-top: 0;
+}
+.agree_v1 .agree_v1_con .notification-title .ico{
+  display: none;
+}
+
+/* 부가서비스 취급수수료 : 안내 문구 + 금액 표 */
+.agree_v1 .agree_v1_fee_txt{
+  margin: 0;
+}
+.agree_v1 .agree_v1_fee_tbl{
+  width: 100%;
+  margin: 12px 0 16px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background-color: #fff;
+}
+.agree_v1 .agree_v1_fee_tbl th,
+.agree_v1 .agree_v1_fee_tbl td{
+  padding: 10px 14px;
+  border: 1px solid #e5e5e5;
+  text-align: left;
+  vertical-align: middle;
+  font-family: 'PretendardR';
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 19px;
+  color: #444;
+}
+.agree_v1 .agree_v1_fee_tbl th{
+  background-color: #f5f5f6;
+}
+#agreeCon9 .agree_v1_sec p + p{
+  margin-top: 8px;
+}
