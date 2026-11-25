@@ -525,6 +525,12 @@ $(document).ready(function () {
 		console.log("trigger_1_1");
 		$('.scale').removeClass('scale');
 		$('.scale_type_1').css('top', '-529px');
+		$('.A320-174 .scale_type_1').css('top', ''); /*A320-174: CSS 기본 top(-468px)으로 복귀*/
+		/*A320-174: 확대 시 넣은 높이/여백/스크롤 inline style 제거 → 스크롤 길이 원복*/
+		/*  같은 .contents 안의 다른 슬라이드(ac1) 좌석표도 확대 시 height:100%가 들어가므로 함께 제거 */
+		var $a320Contents = $('.seat_sheet_bg.ac1.A320-174').closest('.contents');
+		$a320Contents.find('.seat_sheet_bg.ac1').css({'height': '', 'margin-bottom': ''});
+		$a320Contents.css('overflow-y', '');
 
 		$('.ags-summary-group').css('display', 'block');
 		$('.ags-summary').css('display', 'none');
@@ -568,6 +574,9 @@ $(document).ready(function () {
 
 		$('.slider1 .airplane_bg_front_jinair').fadeIn();
 		$('.slider1 .airplane_bg_end_jinair').fadeIn();
+		
+		$('.slider1 .airplane_bg_front_parata').fadeIn();
+		$('.slider1 .airplane_bg_end_parata').fadeIn();
 
 		$('.slider1 .airplane_bg_end').fadeIn();
 		$('.slider1 .airplane_bg').fadeIn();
@@ -642,6 +651,9 @@ $(document).ready(function () {
 
 		$('.slider1 .airplane_bg_front_jinair').hide();
 		$('.slider1 .airplane_bg_end_jinair').hide();
+		
+		$('.slider1 .airplane_bg_front_parata').hide();
+		$('.slider1 .airplane_bg_end_parata').hide();
 
 		$('.slider1 .airplane_bg_end').hide();
 		$('.slider1 .airplane_bg').hide();

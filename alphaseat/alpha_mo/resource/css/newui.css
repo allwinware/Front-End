@@ -2511,9 +2511,9 @@
 .seat_sheet li a.animalseat.seat_active {
     background-color: #f5581a;
     border-bottom: 3px solid #CE3802;
-    transition: 0.2s all;
-    -webkit-transition: 0.2s all;
-    -moz-transition: 0.2s all;	
+    transition: background-color 0.2s, border-color 0.2s;
+    -webkit-transition: background-color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, border-color 0.2s;	
 	text-indent: unset;
 }
 
@@ -2760,21 +2760,31 @@
 	padding-bottom: 10px;
 }
 .qna-box-more{
-	width: 100px;
-	height: 3.23077rem;
-	border-radius: 3px;
-	background-color: #000;
-	color: #fff;
+	display: flex;
+	justify-content: space-around;
+	padding: 20px;
+}
+.qna-box-more > a{
+	
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 0 auto;
-	margin-top: 15px;
-	margin-bottom: 15px;
-	font-size: 0.92308rem;
-	font-weight: 600;
+}
+
+.qna-box-more-btn1{
+	width: 150px;
+	height: 40px;
+	border-radius: 3px;
+	background-color: #000;
+	color: #fff;
 	text-decoration: none;
-	cursor: pointer;
+}
+.qna-box-more-btn2 {
+	width: 150px;
+	height: 40px;
+    background-color: #2A2167;
+    color: #fff;
+	border-radius: 3px;
 }
 
 .my_anw_cs {
@@ -3754,7 +3764,7 @@
 
 /* 1:1 문의하기 */
 .qna_contents{
-	margin-top: 30px;
+	margin-top: 10px;
 }
 .input-wrap.name{
 	display: flex;
@@ -3864,17 +3874,7 @@
 	display: flex;
     flex-direction: column;
 }
-.fast_btn {
-    position: absolute;
-    top: 11px;
-    right: 0px;
-    padding: 8px 8px;
-    background-color: #2A2167;
-    color: #fff;
-    text-decoration: unset;
-    font-size: 12px;
-	border-radius: 3px;
-}
+
 .pop_qna_txt {
 	font-size: 11px;
 	color: #D22C27;
@@ -3919,11 +3919,19 @@
 	padding: 5px 10px;
 	height: 42px;
 }
+/* 1:1 문의 - 혹시 이게 궁금하세요? 유형 선택: 라벨 없이 select만 있을 때 화살표 위치 */
+.qna-text .select-wrap{
+	margin-bottom: 10px;
+}
+.qna-text .select-wrap > select:first-child ~ .ico{
+	top: 11px;
+}
 .qna-text .qna-label{  
 	text-align: center;
 	font-weight: 700;
 	font-size: 15px;
-	padding: 30px 0 20px;
+	padding: 10px 0 20px;
+	color: #222;
 }
 .qna_contents .qna-slider i{
 	width: 2%;
@@ -3935,23 +3943,6 @@
     width: 94%;
     line-height: 16px;
     letter-spacing: -0.4px;
-}
-.qna-box-more{
-	width: 100px;
-    height: 42px;
-    border-radius: 3px;
-    background-color: #292163;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-	font-family: 'PretendardL';
-    margin: 0 auto;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 14px ;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 /*검색찾기*/
@@ -6352,12 +6343,8 @@
 	font-family: 'PretendardSB';
 	font-weight: normal;
 }
-/* 빨간 강조(인라인 rgb(255,0,0)) → 디자인 포인트 컬러 */
-.creditcard.newui .agree_v1 .agree_v1_con [style*="color: rgb(255, 0, 0)"],
-.creditcard.newui .agree_v1 .agree_v1_con .text-red{
-	color: #f5581a !important;
-}
-/* <span 빨간색><b>불가</b></span> 순서일 때도 b 가 #222 로 덮이지 않고 주황 유지 */
+/* 빨간 강조(인라인 rgb(255,0,0)) : 어드민 색상 그대로 빨간색 유지 (주황 변경 안 함) */
+/* <span 빨간색><b>불가</b></span> 순서일 때도 b 가 #222 로 덮이지 않고 빨간색 유지 */
 .creditcard.newui .agree_v1 .agree_v1_con [style*="color: rgb(255, 0, 0)"] b{
 	color: inherit;
 }
@@ -6412,6 +6399,39 @@
 }
 .creditcard.newui .agree_v1 .agree_v1_con .notification-title + .notification-list li:first-child:before{
 	top: 11px;
+}
+
+/* 약관 동의 v1 - 어드민 안내 문단(p.notification-text) : 목록과 같은 톤 + 간격 */
+.creditcard.newui .agree_v1 .agree_v1_con .notification-text{
+	font-family: 'PretendardR';
+	font-size: 12px;
+	line-height: 18px;
+	color: #666;
+}
+.creditcard.newui .agree_v1 .agree_v1_con .notification-title + .notification-text{
+	margin-top: 3px;
+}
+.creditcard.newui .agree_v1 .agree_v1_con .notification-list + .notification-text{
+	margin-top: 10px;
+}
+.creditcard.newui .agree_v1 .agree_v1_con .notification-text + .table-wrap{
+	margin-top: 8px;
+}
+
+/* 약관 동의 v1 - 어드민 제목 <p><b><span style="font-size: 11pt;"><u>[ 제목 ]</u></span></b></p><br>
+   인라인 11pt(약 14.7px) → 13px, 제목 뒤 <br> 대신 일정 간격 */
+.creditcard.newui .agree_v1 .agree_v1_con [style*="font-size: 11pt"]{
+	font-size: 13px !important;
+	line-height: 19px;
+}
+.creditcard.newui .agree_v1 .agree_v1_con p + br{
+	display: none;
+}
+.creditcard.newui .agree_v1 .agree_v1_con p + br + *{
+	margin-top: 8px;
+}
+.creditcard.newui .agree_v1 .agree_v1_con p + br + .notification-list{
+	margin-top: 2px; /* 목록 첫 줄 padding-top 6px 포함 8px */
 }
 
 /* ==========================================================================
