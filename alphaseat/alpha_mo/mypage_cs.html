@@ -909,7 +909,7 @@
 								</div>
 							</div>
 							<div class="qna-box-more">
-								<a class="qna-box-more-btn1">
+								<a class="qna-box-more-btn1 gray">
 									더보기
 								</a>
 								<a href="javascript:;" target="_self" onclick="layerPop('pop-qnafast');"
@@ -923,6 +923,36 @@
 							<input type="text" placeholder="이름을 입력하세요">
 							<p class="pop_qna_txt">이름을 적어주세요.</p>
 						</div>			
+
+						<div class="input-wrap phone">
+							<label>휴대폰 번호</label>
+							<input type="tel" inputmode="numeric" placeholder="숫자만 입력하세요 (-제외)" maxlength="11" pattern="[0-9]*">
+							<p class="pop_qna_txt">휴대폰 번호를 적어주세요.</p>
+						</div>
+
+						<div class="input-wrap email">
+							<label >이메일</label>
+							<div class="email-row">
+								<input type="text" placeholder="이메일을 입력하세요">
+								<div class="email-domain">
+									<select>
+										<option>@naver.com</option>
+										<option>@gmail.com</option>
+										<option>@daum.net</option>
+										<option>@hanmail.net</option>
+										<option>@kakao.com</option>
+										<option>@nate.com</option>
+										<option>@hotmail.com</option>
+										<option>@outlook.com</option>
+										<option>@icloud.com</option>
+									<option value="direct">직접입력</option>
+									</select>
+									<span class="ico"></span>
+									<input type="text" class="email-direct" placeholder="@ 직접입력">
+								</div>
+							</div>
+							<p class="pop_qna_txt">이메일을 적어주세요.</p>
+						</div>
 
 						<div class="input-wrap qna-title">
 							<label>제목</label>
@@ -957,11 +987,6 @@
 								</ul>
 							</div>
 						</div>                    
-						<div class="input-wrap email">
-							<label >이메일</label>
-							<input type="text" placeholder="이메일을 입력하세요">
-							<p class="pop_qna_txt">이메일을 적어주세요.</p>
-						</div>   
                 	</div>
 					<div class="pay_pay">
 						<button type="button" class="pay_ment_btn1">취소 </button>
@@ -1396,6 +1421,25 @@
 		$("#lj_B777-200").load("include/lj_B777-200.html");
 		$("#lj_B737-900").load("include/lj_B737-900.html");
 		$("#lj_B737-800").load("include/lj_B737-800.html");
+	$(function(){
+		/* 1:1 문의 휴대폰 번호: 숫자 외 문자는 입력 즉시 제거 */
+		$('.input-wrap.phone input').on('input', function(){
+			var v = this.value.replace(/[^0-9]/g, '');
+			if (this.value !== v) this.value = v;
+		});
+		/* 1:1 문의 이메일: 도메인 직접입력 선택 시 입력창으로 전환, 비우고 나가면 선택으로 복귀 */
+		$('.input-wrap.email .email-domain select').on('change', function(){
+			if ($(this).val() === 'direct') {
+				$(this).closest('.email-domain').addClass('is-direct').find('.email-direct').val('').focus();
+			}
+		});
+		$('.input-wrap.email .email-direct').on('blur', function(){
+			if ($.trim($(this).val()) === '') {
+				var $box = $(this).closest('.email-domain').removeClass('is-direct');
+				$box.find('select').prop('selectedIndex', 0);
+			}
+		});
+	});
 	</script>
 </body>
 </html>
